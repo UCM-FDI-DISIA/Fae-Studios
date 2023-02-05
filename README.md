@@ -1,4 +1,24 @@
 # **Ott: an Elemental Journey - Game Design Document**
+- [**Ott: an Elemental Journey - Game Design Document**](#ott-an-elemental-journey---game-design-document)
+  - [**1 - Ficha técnica**](#1---ficha-técnica)
+  - [**2 - Descripción**](#2---descripción)
+  - [**3 - Jugabilidad**](#3---jugabilidad)
+    - [**Mecánicas de Ott**](#mecánicas-de-ott)
+    - [**Elementos**](#elementos)
+    - [**Ataque**](#ataque)
+    - [**Defensa**](#defensa)
+    - [**Sistema de vida**](#sistema-de-vida)
+    - [**Mapa**](#mapa)
+    - [**Mecánicas de escenario**](#mecánicas-de-escenario)
+  - [**4 - Diseño de nivel**](#4---diseño-de-nivel)
+  - [**5 - HUD**](#5---hud)
+  - [**6 - Visual**](#6---visual)
+  - [**7 - Menús y flujo de juego**](#7---menús-y-flujo-de-juego)
+  - [**8 - Contenido**](#8---contenido)
+    - [**Personajes y enemigos**](#personajes-y-enemigos)
+  - [**9 - Referencias**](#9---referencias)
+
+
 ## **1 - Ficha técnica**
 - **Título**: *Ott: an Elemental Journey*
 - **Género**: Metroidvania
