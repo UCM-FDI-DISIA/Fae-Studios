@@ -139,15 +139,15 @@ Por el momento, el diseño está fuertemente inspirado en grandes obras del gén
 <img src="./gdd-assets/hollow-knight1.png">
 
 ## **5 - HUD**
-<img src="./gdd-assets/hud-ejemplo.png">
+<img src="./gdd-assets/hud-ejemplo.PNG">
 
 La interfaz ocupará el menor espacio posible en pantalla, ya que la información acerca del estado del jugador se presentará de forma diegética (integrada en el mundo). El color de la capa de Ott y los diferentes decorados que esta tenga dependerán del elemento que el pequeño esté usando en ese momento. Por otro lado, la vida tendrá una representación ‘doble’: Mediante una ‘barra de vida’ que toma valores discretos (**Figura 1**) y oscureciendo la pantalla ligeramente: cuanta menor sea la vida, mayor será el oscurecimiento (**Figura 2**).
 
-<img src="./gdd-assets/hollow-knight-hud.png" style="float:right">
+<img src="./gdd-assets/hollow-knight-hud.PNG" style="float:right">
 
 **Figura 1**: Referencia tomada de *Hollow Knight*. Se aprecia una ‘Barra de vida’ formada por 4 máscaras, que representan cada uno de los puntos de vida del jugador. Cuando una de estas máscaras falta, implica que el jugador ha perdido ese punto de vida.  
 
-<img src="./gdd-assets/oscurecimiento-ejemplo.png">
+<img src="./gdd-assets/oscurecimiento-ejemplo.PNG">
 
 **Figura 2**: Boceto de cómo se vería el oscurecimiento de pantalla si Ott tuviera un valor muy bajo de vida
 
@@ -159,7 +159,8 @@ El **boss final** es un ser de oscuridad, antagonista a Ott, por lo que se confo
 Los personajes de cada elemento portarán los colores de su reino, integrándose en él, excepto aquellos infectados por la oscuridad, nuestros **enemigos**, que incorporarán partes del cuerpo **afectadas con los colores del antagonista**.
 
 **Las paletas de cada zona serán las siguientes:**
-<img src="./gdd-assets/paletas.png">
+
+<img src="./gdd-assets/paletas.PNG">
 
 ## **7 - Menús y flujo de juego**
 El juego contará con un menú principal donde poder crear una **partida nueva**, **cargar partida**, **acceder a ajustes** o **salir** de la aplicación. 
@@ -167,9 +168,9 @@ Al acceder al submenú de ajustes se podrán encontrar mayoritariamente ajustes 
 
 Una vez se haya accedido a una partida, el juego podrá **pausarse** pulsando la tecla ESC || Botón Options || Botón Start. Esto hará que toda la ejecución del juego, excepto la música, se detenga. En este menú podremos entrar a **ajustes**, **salir al menú** o **salir al escritorio**. Si se escoge cualquier opción de salida, se preguntará al usuario si quiere **guardar o no partida**, pidiendo también una **confirmación** para **no guardar**. Después de esto, se saldrá al menú/escritorio. Independientemente de dónde guarde el jugador, Ott reaparecerá en el último Santuario visitado
 
-<img src="./gdd-assets/menu-principal.png">
-<img src="./gdd-assets/menu-pausa.png">
-<img src="./gdd-assets/menu-ajustes.png">
+<img src="./gdd-assets/menu-principal.PNG">
+<img src="./gdd-assets/menu-pausa.PNG">
+<img src="./gdd-assets/menu-ajustes.PNG">
 
 ## **8 - Contenido**
 ### **Personajes y enemigos**
