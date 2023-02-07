@@ -15,8 +15,9 @@ SDLApplication::SDLApplication() {
     if(window == nullptr || renderer == nullptr) throw SDLError("Error loading SDL window or renderer"); //Lanzamos una excepción si no se ha cargado la ventana o el renderer
     else {
         //Creamos texturas;
-        textureManager = new TextureManager(this);
-        fontManager = new FontManager(this);
+        SDL_GameControllerAddMappingsFromFile("gamecontrollerdb.txt");
+        textureManager = new TextureLoader(this);
+        fontManager = new FontLoader(this);
         TextureParser::parse(textureRoute, textureRoutes);
         FontParser::parse(fontRoute, fontRoutes);
         //createTextures();

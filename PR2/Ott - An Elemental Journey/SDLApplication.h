@@ -13,8 +13,8 @@
 #include "dependencies/Exceptions.h"
 #include "ui/Text.h"
 #include "gameflow/GameStateMachine.h"
-#include "managers/TextureManager.h"
-#include "managers/FontManager.h"
+#include "loaders/TextureLoader.h"
+#include "loaders/FontLoader.h"
 
 //Definimos las constantes de nuestro juego
 const uint WINDOW_WIDTH = 800; ///< Anchura de la ventana
@@ -39,8 +39,8 @@ const std::string fontRoute = "../Campos de Castilla/fonts/";
 #endif
 
 #ifdef __WINDOWS__ //Windows (Visual Studio)
-const std::string textureRoute = "../images/";
-const std::string fontRoute = "../fonts/";
+const std::string textureRoute = "../../images/";
+const std::string fontRoute = "../../fonts/";
 #endif
 
 /// Array con las rutas de las texturas, sus filas y columnas, y su descriptivo
@@ -90,8 +90,8 @@ private:
     unordered_map<std::string, TextureDescription> textureRoutes;
     unordered_map<std::string, FontDescription> fontRoutes;
     
-    TextureManager* textureManager = nullptr;
-    FontManager* fontManager = nullptr;
+    TextureLoader* textureManager = nullptr;
+    FontLoader* fontManager = nullptr;
 
 
     GameStateMachine* stateMachine = nullptr; ///< Puntero a la máquina de estados del juego
@@ -154,7 +154,7 @@ public:
 
     SDL_Renderer* getRenderer() { return renderer; }
 
-    TextureManager* getTextureManager() { return textureManager; }
+    TextureLoader* getTextureManager() { return textureManager; }
 
     void changeVolume(int type, int value);
 

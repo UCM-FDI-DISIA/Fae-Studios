@@ -1,7 +1,7 @@
 #include "../checkML.h"
 #include "GameState.h"
 #include "../SDLApplication.h"
-#include "../managers/TextureManager.h"
+#include "../loaders/TextureLoader.h"
 
 GameState::~GameState() {
     for (auto e : gameObjects) delete(e); //Borramos todos los objetos de la lista

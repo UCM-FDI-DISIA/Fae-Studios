@@ -24,9 +24,6 @@
     <ClInclude Include="Resource.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="Ott - An Elemental Journey.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="gameflow\GameState.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
@@ -89,9 +86,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Ott - An Elemental Journey.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
     <ClCompile Include="gameflow\GameState.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
