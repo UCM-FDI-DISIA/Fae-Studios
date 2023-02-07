@@ -3,14 +3,16 @@
   - [**1 - Ficha técnica**](#1---ficha-técnica)
   - [**2 - Descripción**](#2---descripción)
   - [**3 - Jugabilidad**](#3---jugabilidad)
-    - [**Mecánicas de Ott**](#mecánicas-de-ott)
-    - [**Elementos**](#elementos)
-    - [**Ataque**](#ataque)
-    - [**Defensa**](#defensa)
-    - [**Sistema de vida**](#sistema-de-vida)
-    - [**Mapa**](#mapa)
-    - [**Mecánicas de escenario**](#mecánicas-de-escenario)
+    - [**3.1 - Elementos**](#31---elementos)
+    - [**3.2 - Mecánicas de Ott**](#32---mecánicas-de-ott)
+    - [**3.3 - Ataque**](#33---ataque)
+    - [**3.4 - Defensa**](#34---defensa)
+    - [**3.5 - Sistema de vida**](#35---sistema-de-vida)
+    - [**3.6 - Mapa**](#36---mapa)
+    - [**3.7 - Mecánicas de escenario**](#37---mecánicas-de-escenario)
+    - [**3.8 - Cámara**](#38---cámara)
   - [**4 - Diseño de nivel**](#4---diseño-de-nivel)
+    - [Bosque](#bosque)
   - [**5 - HUD**](#5---hud)
   - [**6 - Visual**](#6---visual)
   - [**7 - Menús y flujo de juego**](#7---menús-y-flujo-de-juego)
@@ -32,100 +34,125 @@
 Ott, el protagonista, tiene por destino salvar al mundo de la oscuridad que lo asola. Viajará por tres regiones diferenciadas por las fuerzas de la naturaleza que ejercen sus dominios sobre ellas: El Reino del Fuego, del Agua y de la Tierra. En estos lugares, Ott se encontrará con habitantes corruptos por la oscuridad que tratarán de evitar que cumpla su sino. Durante sus viajes conseguirá dominar los diferentes elementos para derrocar al mal de su tierra natal. Estos elementos le proporcionarán nuevas habilidades con las que explorar zonas antes cerradas para elle, permitiéndole volver atrás en sus pasos y descubrir pequeños secretos que estas tierras ocultan.
 
 ## **3 - Jugabilidad**
-### **Mecánicas de Ott**
+### **3.1 - Elementos**
+<img src="./gdd-assets/elementos.png">
+
+El elemento básico que incluye el personaje es luz, a lo largo del juego podrás conseguir el resto de elementos, cada uno en su reino correspondiente, exceptuando la oscuridad, que es la representación del enemigo y superior en fuerza al resto de elementos (no ante luz) tal y como se muestra en el diagrama.
+
+### **3.2 - Mecánicas de Ott**
 <img src="./gdd-assets/controles.png">
 <table>
     <tr>
-        <th>Input teclado || Mando PS || Mando XBOX</th>
-        <th>Descripción</th>
+        <th>Input</th>
+        <th>Acción</th>
     </tr>
     <tr>
-        <td>A / D || Mover joystick izquierdo|| Mover joystick izquierdo</td>
+        <td>A / D (teclado) <br> Mover joystick izquierdo (PS y XBOX)</td>
         <td><b>Desplazamiento izquierda o derecha</b>. Velocidad constante.
         También se permite movimiento durante el salto a una velocidad reducida.
         </td>
     </tr>
     <tr>
-        <td>W || X || A</td>
-        <td><b>Salto</b>: impulso vertical a velocidad constante. No podrá volver a saltar hasta apoyarse en una superficie sólida. También se consigue llegar más alto al estar sumergido
+        <td>W (teclado) <br> X (PS) <br> A (XBOX)</td>
+        <td><b>Salto</b>: impulso vertical a velocidad constante. No podrá volver a saltar hasta apoyarse en una superficie sólida. Al estar sumergido en agua se salta más alto.
         </td>
     </tr>
      <tr>
-        <td>Flechas teclado || R1, R2, L1, L2 || RB, RT, LB, LT</td>
-        <td><b>Cambio de elemento</b>. Ott será de luz de forma predeterminada, pero adquirirá hasta otros tres elementos: Agua, Fuego y Tierra. No se podrá cambiar de elemento instantáneamente después de haber cambiado al actual: habrá un pequeño <i>cooldown</i>. 
+        <td>Flechas teclado <br> R1, R2, L1, L2 (PS) <br> RB, RT, LB, LT (XBOX)</td>
+        <td><b>Cambio de elemento</b>. No se podrá cambiar de elemento instantáneamente después de haber cambiado al actual (habrá un pequeño <i>cooldown</i>). 
         </td>
     </tr>
     <tr>
-        <td>Espacio || Cuadrado || X</td>
-        <td><b>Ataque</b>: Ott realiza un ataque a melee que daña a los enemigos que alcance y los empuja ligeramente en la dirección contraria con la que se acercaron a Ott. También será capaz de romper obstáculos en su camino. Es rápido, no requiere un tiempo de carga (aunque no puedes realizar un ataque si ya se está ejecutando otro) y puede realizarse tantas veces como se quiera. <br>Puedes moverte y atacar a la vez. <br> La efectividad del ataque contra los enemigos depende del elemento de Ott. 
+        <td>Espacio (teclado) <br> Cuadrado (PS) <br> X (XBOX)</td>
+        <td><b>Ataque</b>:
+            <ul>
+                <li>Todos los ataques empujan ligeramente a los enemigos hacia atrás. No requiere tiempo de carga.</li>
+                <li>No hay límite de ataques.</li>
+                <li>Puedes realizar un ataque y moverte a la vez.</li>
+                <li> La efectividad del ataque contra los enemigos depende del elemento de Ott.</li>
+            </ul>
         </td>
     </tr>
     <tr>
-        <td>Shift || Círculo || B</td>
-        <td><b>Defensa</b>: Ott tiene un escudo con el que puede defenderse para tratar de anular el daño recibido por los ataques enemigos. El escudo depende del elemento que se esté usando en ese momento (ver <b>Defensa</b> más abajo). 
+        <td><b>MANTENER</b> <br>Espacio (teclado) <br> Cuadrado (PS) <br> X (XBOX)</td>
+        <td><b>Ataque cargado</b>: Ott podrá realizarlo si el indicador de “<i>Ataque Cargado</i>” está completamente lleno (matando enemigos). Se quedará quieto el tiempo de duración del ataque.</td>
+    </tr>
+    <tr>
+        <td>Shift (teclado) <br> Círculo (PS) <br> B (XBOX)</td>
+        <td><b>Defensa</b>: Ott dispone de un escudo para defenderse (ver <a href="#34---defensa"><b><i>Defensa</i></b></a>).</td>
+    </tr>
+    <tr>
+        <td>E (teclado)<br> Triángulo (PS) <br> Y (XBOX)</td>
+        <td><b>Interactuar con objetos</b>: ver <a href="#37---mecánicas-de-escenario"><b><i>Mecánicas de escenario</i></b></a>
         </td>
     </tr>
     <tr>
-        <td>E || Triángulo || Y <br>cerca de una <b>Lámpara de Teletransporte</b> con el elemento <b>Luz</b></td>
-        <td><b>Teletransporte entre lámparas</b>: Véase <a href="#mecánicas-de-escenario"><b>Elementos Interactuables</b></a>
-        </td>
-    </tr>
-    <tr>
-        <td>E || Triángulo || Y</td>
-        <td><b>Interactuar con objetos</b>
-        </td>
-    </tr>
-    <tr>
-        <td>Tabulador || Botón Share || Botón Vista</td>
-        <td><b>Mapa</b>: Ott accederá al mapa y podrá consultar su ubicación actual y qué ha descubierto hasta ahora 
-        (ver <a href="#mapa"><b>Mapa</b></a> más adelante).
+        <td>Tabulador (teclado) <br> Botón Share (PS) <br> Botón Vista (XBOX)</td>
+        <td><b>Mapa</b>: se podrá consultar la ubicación actual y salas descubiertas (ver <a href="#36---mapa"><b><i>Mapa</i></b></a> más adelante).
         </td>
     </tr>
 </table>
 
-### **Elementos**
-<img src="./gdd-assets/elementos.png">
-
-### **Ataque**
+### **3.3 - Ataque**
 <table>
     <tr>
         <th>Elemento</th>
         <th>Ataque normal</th>
+        <th>Ataque cargado</th>
         <th>Habilidad</th>
     </tr>
     <tr>
         <td>Luz</td>
-        <td>Ataque básico</td>
+        <td>Ataque básico <br> <img src="./gdd-assets/ott-ataque.gif" width=25% height=25%></td>
+        <td>Igual que el básico pero con doble de daño, un mayor rango y los enemigos se ven empujados más distancia</td>
         <td><b>Teletransporte</b> entre determinados focos de luz del mundo</td>
     </tr>
     <tr>
         <td>Agua</td>
-        <td><b>Chorro de agua</b> (de más rango que el básico, pero con menor daño)</td>
+        <td><b>Chorro de agua</b> (de más rango que el básico, pero con menor daño) <br> <img src="./gdd-assets/chorro.png"> <br> El rectángulo representa el ataque. Dura X tiempo y tiene una serie de ‘ticks’. Cada vez que se da un tick y un enemigo está en el rango del ataque, este sufrirá daño. El ataque se mueve junto al jugador. No atraviesa al primer enemigo.</td>
+        <td>Igual que el básico pero con más duración y rango. También puede atravesar enemigos. (por lo tanto, más ‘ticks’).</td>
         <td><b>Buceo</b>: sustituye al movimiento básico de Ott al estar bajo el agua.</td>
     </tr>
     <tr>
         <td>Fuego</td>
-        <td><b>Bolas de fuego</b></td>
-        <td><b>Quemar</b> raíces/hielo del fuego</td>
+        <td><b>Bola de fuego</b>: hace daño en área. Tiene un corto rango (más que melee, menos que chorro de agua)</td>
+        <td><b>Bolas de fuego</b>: igual que la bola de fuego normal, pero se lanzan tres seguidas.</td>
+        <td><b>Quemar</b> objetos</td>
     </tr>
     <tr>
         <td>Tierra</td>
-        <td><b>Enredadera</b> (se lanza una enredadera como posible ataque (<b>látigo</b>), si esta encuentra un enemigo, causa daño, si encuentra una zona de hierba, planta una enredadera vertical)</td>
-        <td><b>Enredadera</b> (plantada en el suelo, puede <b>escalarse</b> cuando es puesta en zonas de hierba)</td>
+        <td><b>Látigo</b> de medio alcance hacia una dirección.</td>
+        <td>Látigo que se tira en ambos lados, creando daño en el área delimitada por su alcance.</td>
+        <td><b>Enredadera</b>: puede escalarse y crece verticalmente cuando interactúa con las zonas de hierba.</td>
     </tr>
 </table>
 
-### **Defensa**
-Como se menciona anteriormente, Ott es capaz de usar un escudo que le permitirá mitigar completamente el daño que vaya a recibir. Este método de defensa tiene 3 formas de actuar según el elemento que haya atacado a Ott respecto al elemento escogido actualmente:
-- **Elemento débil**: Si Ott ha bloqueado un ataque a *melee*, el atacante será *stunneado* X tiempo. En caso de haber parado un proyectil, este será devuelto en su dirección contraria.
+### **3.4 - Defensa**
+Ott es capaz de usar un escudo que le permitirá mitigar completamente el daño que vaya a recibir. Cuando tiene el escudo en alto su velocidad de movimiento se ve bastante reducida. Este método de defensa tiene 3 formas de actuar según el elemento que haya atacado a Ott respecto al elemento escogido actualmente:
+- **Elemento débil**: Si Ott ha bloqueado un ataque a *melee*, el atacante será *stunneado* X tiempo.
 - **Elemento neutro**: Ningún efecto añadido.
 - **Elemento fuerte**: Ott queda *stunneado* durante X tiempo.
-### **Sistema de vida**
-Ott empieza con 5 puntos de vida que puede perder cuando recibe un ataque de un enemigo, si entra en contacto con algún enemigo o con algún elemento del dañino entorno (pinchos, zarzas, cristales…). Si en algún momento el valor de vida llega a 0, Ott morirá y volverá a aparecer en el **Punto de Teletransporte** más cercano, haciendo que los enemigos que haya vencido durante su última vida reaparezcan. También recuperará sus puntos de vida.
-### **Mapa**
-A medida que Ott atraviesa las diferentes salas que conforman el mundo, el pequeño las irá dibujando de una forma esquemática en un mapa. Este mapa será accesible en cualquier momento por el jugador, aunque no parará el flujo del juego: lo demás sigue en movimiento. El mapa también es capaz de registrar constantemente la posición de Ott durante su recorrido. Los Santuarios aparecen marcados en el mapa.  
-Véase [**HUD**](#5---hud) para la representación del mapa.
-### **Mecánicas de escenario**
+
+Todos los proyectiles que golpeen el escudo se destruyen.
+
+### **3.5 - Sistema de vida**
+Se empezará con 5 puntos de vida que puede perder cuando recibe un ataque de un enemigo, si entra en contacto con algún enemigo o con algún elemento del dañino entorno (pinchos, zarzas, cristales…).   
+
+Si en algún momento el valor de vida llega a 0, Ott morirá y volverá a aparecer en el último **Punto de Teletransporte** que atravesará, haciendo que los enemigos que haya vencido durante su última vida reaparezcan.  
+El máximo de puntos de vida puede ser ampliado mediante fragmentos de vida, que podrán obtenerse mediante:
+  - Exploración, encontrando ocultos por el mundo.
+  - Al terminar un nivel/sección.
+  - Al adquirir una reliquia oculta en una zona y llevándola a su pedestal correspondiente. (las reliquias se muestran en el HUD)
+
+Al obtener 3 de estos, la vida máxima de Ott aumenta en 1 permanentemente.
+(Véase [***HUD***](#5---hud) para la representación de este sistema).
+
+### **3.6 - Mapa**
+A medida que Ott atraviesa las diferentes salas que conforman el mundo, el pequeño las irá dibujando de una forma esquemática en un mapa, los Santuarios que hayan sido descubiertos aparecen marcados en el mapa. Este mapa será accesible en cualquier momento por el jugador, aunque no parará el flujo del juego: lo demás sigue en movimiento.
+
+El mapa también es capaz de registrar constantemente la posición de Ott durante su recorrido. Véase [***HUD***](#5---hud) para la representación del mapa.
+
+### **3.7 - Mecánicas de escenario**
 <table>
     <tr>
         <td><b>Zona de hierba</b></td>
@@ -145,7 +172,7 @@ Véase [**HUD**](#5---hud) para la representación del mapa.
     </tr>
     <tr>
         <td><b>Lámparas de teletransporte</b></td>
-        <td>Siempre son 2 lámparas que están relacionadas: Funcionan de forma similar a las <b>Tuberías</b> de <i>Mario Bros</i>, donde puedes interactuar con cualquiera de los dos extremos y este moverá a tu personaje al otro extremo. Solo se puede interactuar con ellas estando en el elemento de Luz.</td>
+        <td>Siempre son 2 lámparas que están relacionadas: Funcionan de forma similar a las <b>Tuberías</b> de <i>Mario Bros</i>, donde puedes interactuar con cualquiera de los dos extremos y este moverá a tu personaje al otro extremo.</td>
     </tr>
     <tr>
         <td><b>Santuarios</b></td>
@@ -154,29 +181,53 @@ Véase [**HUD**](#5---hud) para la representación del mapa.
     </tr>
 </table>
 
+### **3.8 - Cámara**
+La cámara sigue al jugador, manteniéndolo en el centro en todo momento excepto al llegar al borde de una sala, momento en que los bordes de la sala coincidirían con el borde de la cámara, causando que el jugador deje de estar en el centro. Cuando se pase de una sala a otra la cámara hace un scroll rápido hacia la sala destino.
+
+
 ## **4 - Diseño de nivel**
-Por el momento, el diseño está fuertemente inspirado en grandes obras del género como *Hollow Knight*. En estos juegos el diseño gira entorno al plataformeo y al movimiento del personaje por las ‘salas’, formadas por múltiples plataformas de diferentes tipos, aparte de caminos en un primer lugar bloqueados o inaccesibles debido a la falta de habilidades del personaje que controlamos, y, generalmente, también destaca la presencia de enemigos, que a medida que se avanza en el juego, se vuelven más fuertes.
-<img src="./gdd-assets/hollow-knight1.png">
+El diseño gira entorno al plataformeo y al movimiento del personaje por las ‘salas’, que contienen múltiples plataformas de diferentes tipos, aparte de caminos en un primer lugar bloqueados o inaccesibles debido a la falta de habilidades del personaje que controlamos; y también destaca la presencia múltiples en enemigos.  
+Todos los reinos cuentan con los siguientes puntos en común:
+  - **Tres tipos de enemigos** que no se comparten entre los reinos.
+  - Un **elemento** guardado por enemigos de oscuridad.
+  - Un **Boss final** que nos dará un fragmento de vida.
+  - Un **fragmento de vida oculto** en alguna sala
+  - Una **reliquia** única.
+  - Una **sala a oscuras**, donde solo se puede ver si se lleva el **elemento de luz**. En esta sala habrá un **pedestal** (?) donde colocar la reliquia para poder obtener otro fragmento de vida.
+  - Salas sin peligros donde se cuenta el lore a través de escritos en las paredes (?).
+  
+De esta forma es posible aumentar la vida máxima en 1 en cada uno de los reinos (para un total de **8 vidas**) siempre y cuando se exploren casi en su totalidad. Si un jugador decide no explorar nada y solo matar a los minibosses también habría conseguido al menos 1 vida extra.
+
+### Bosque
+Se trata de la **primera zona del juego**. Trata de introducir las mecánicas de movimiento y tiene **enemigos** muy **sencillos**, que intentan introducir las mecánicas de ataque y defensa de forma liviana.
+El juego comienza con el jugador observando la gigantesca puerta del **Boss Final**, a quien se tendrá que enfrentar para rematar su aventura. Esta puerta muestra **4 luces**, todas **apagadas**, excepto 1, que se encenderá en cuanto el jugador pueda tomar control de Ott. Estas luces representan los diferentes elementos, y la que se enciende al comenzar la aventura representa la luz.
+
+<img src="./gdd-assets/boceto-mapa.png">
+
+**Figura 1**: *Primer boceto del mapa con la región de tierra entera y el comienzo de la región de agua.*
 
 ## **5 - HUD**
-<img src="./gdd-assets/hud-ejemplo.PNG">
+La interfaz ocupará el menor espacio posible en pantalla, ya que la información acerca del estado del jugador se presentará de forma diegética (integrada en el mundo).  
+**Vida**: tendrá una representación ‘doble’:
+  - Mediante una *barra de vida* que toma valores discretos.
+  - Oscureciendo la pantalla ligeramente cuando quede poca vida.
 
-La interfaz ocupará el menor espacio posible en pantalla, ya que la información acerca del estado del jugador se presentará de forma diegética (integrada en el mundo). El color de la capa de Ott y los diferentes decorados que esta tenga dependerán del elemento que el pequeño esté usando en ese momento. Por otro lado, la vida tendrá una representación ‘doble’: Mediante una ‘barra de vida’ que toma valores discretos (**Figura 1**) y oscureciendo la pantalla ligeramente: cuanta menor sea la vida, mayor será el oscurecimiento (**Figura 2**).
+Justo al lado de la barra de vida aparecerá un medidor circular dividido en ocho fragmentos que indicará el número de cargas obtenidas para el **ataque cargado**.
 
-<img src="./gdd-assets/hollow-knight-hud.PNG" style="float:right">
+ <img src="./gdd-assets/hud-vida-cargada.png">
 
-**Figura 1**: Referencia tomada de *Hollow Knight*. Se aprecia una ‘Barra de vida’ formada por 4 máscaras, que representan cada uno de los puntos de vida del jugador. Cuando una de estas máscaras falta, implica que el jugador ha perdido ese punto de vida.  
+ **Figura 1**: *boceto de HUD con la mayoria de vida.*
 
-<img src="./gdd-assets/oscurecimiento-ejemplo.PNG">
+<img src="./gdd-assets/hud-poca-vida.png">
 
-**Figura 2**: Boceto de cómo se vería el oscurecimiento de pantalla si Ott tuviera un valor muy bajo de vida
+**Figura 2**: *Boceto de cómo se vería el oscurecimiento de pantalla si Ott tuviera un valor muy bajo de vida.*
 
 ## **6 - Visual**
-La estética del juego será Pixel Art 2D. El juego está ambientado en un mundo fantástico basado en tres elementos. Aun teniendo motivos bélicos, la parte visual no destacará por la alusión al terror o pesadilla. Será una estética suave, atrayente y colorida, que sugerirá el mundo fantástico que creamos. 
-En el reino del agua predominarán los elementos marinos, representados mediante una paleta de azules y verdes azulados. En el reino del fuego, colores intensos rojos que dibujarán las llamas y otros elementos como la lava. En el reino de tierra, invadirá la naturaleza con árboles, flores y enredaderas. Observaremos una gran cantidad de verde, con detalles de más variedad de colores (rosas, amarillos…)  
-El personaje principal, **Ott**, en su estado inicial/base será un ser de luz con detalles de vestimenta para resaltar su forma. Irá incorporando nuevos elementos y con estos cambiará su skin.  
-El **boss final** es un ser de oscuridad, antagonista a Ott, por lo que se conformará por una paleta oscura de negros y violetas.   
-Los personajes de cada elemento portarán los colores de su reino, integrándose en él, excepto aquellos infectados por la oscuridad, nuestros **enemigos**, que incorporarán partes del cuerpo **afectadas con los colores del antagonista**.
+La estética del juego será Pixel Art 2D. El juego está ambientado en un mundo fantástico basado en tres elementos. La parte visual tendrá una estética suave, atrayente y colorida, que contraste la temática más bélica/dramática.  
+En el reino del agua predominarán los elementos marinos, representados mediante una paleta de azules y verdes azulados. En el reino del fuego, colores intensos rojos que dibujarán las llamas y otros elementos como la lava. En el reino de tierra, veremos colores y elementos propios de la naturaleza (verdes, amarillos, etc..).  
+El personaje principal, **Ott**, en su estado inicial/base será un ser de luz con vestimenta amarilla. Irá incorporando nuevos elementos y con estos cambiará su *skin*.  
+El **boss final** es un ser de oscuridad, antagonista a Ott, por lo que se conformará por una paleta oscura de negros y violetas.    
+Los personajes de cada elemento portarán los colores de su reino, excepto aquellos infectados por la oscuridad, nuestros **enemigos**, que incorporarán partes del cuerpo **afectadas con los colores del antagonista**.
 
 **Las paletas de cada zona serán las siguientes:**
 
@@ -186,11 +237,12 @@ Los personajes de cada elemento portarán los colores de su reino, integrándose
 El juego contará con un menú principal donde poder crear una **partida nueva**, **cargar partida**, **acceder a ajustes** o **salir** de la aplicación. 
 Al acceder al submenú de ajustes se podrán encontrar mayoritariamente ajustes de sonido.
 
-Una vez se haya accedido a una partida, el juego podrá **pausarse** pulsando la tecla ESC || Botón Options || Botón Start. Esto hará que toda la ejecución del juego, excepto la música, se detenga. En este menú podremos entrar a **ajustes**, **salir al menú** o **salir al escritorio**. Si se escoge cualquier opción de salida, se preguntará al usuario si quiere **guardar o no partida**, pidiendo también una **confirmación** para **no guardar**. Después de esto, se saldrá al menú/escritorio. Independientemente de dónde guarde el jugador, Ott reaparecerá en el último Santuario visitado
+<img src="./gdd-assets/menus.png">
 
-<img src="./gdd-assets/menu-principal.PNG">
-<img src="./gdd-assets/menu-pausa.PNG">
-<img src="./gdd-assets/menu-ajustes.PNG">
+Una vez se haya accedido a una partida, el juego podrá **pausarse** pulsando la tecla ESC (teclado) || Botón Options (PS) || Botón Start (XBOX). Esto hará que toda la ejecución del juego, excepto la música, se detenga. En este menú podremos entrar a **ajustes**, **salir al menú** o **salir al escritorio**.
+
+<img src="./gdd-assets/flujos-menu.png">
+
 
 ## **8 - Contenido**
 ### **Personajes y enemigos**
@@ -201,28 +253,140 @@ Cada zona del juego (Bosque, Lago - Fondo del lago, Volcán y Oscuridad) tendrá
         <td>Avatar del jugador. Ser de luz que va incorporando distintos elementos</td>
     </tr>
     <tr>
-        <td><b>Mariposas</b></td>
-        <td>Seres que contienen el poder de los elementos y siguen a Ott en su camino, cediendole el poder de cada elemento cuando lo solicite</td>
+        <td><b>Hadas</b></td>
+        <td>Seres que contienen el poder de los elementos y siguen a Ott en su camino, cediendole el poder de cada elemento cuando lo solicite.</td>
     </tr>
     <tr>
         <td><b>Boss</b></td>
-        <td>Antagonista, ser de oscuridad que también puede poseer los distintos elementos y hacer uso de ellos</td>
+        <td>Antagonista, ser de oscuridad que también puede poseer los distintos elementos y hacer uso de ellos.</td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td colspan="2"><b><i>Bosque</i></b></td>
     </tr>
     <tr>
-        <td><b>Enemigo débil</b></td>
-        <td>Tienen poca vida; resisten poco daño. Su tamaño es reducido.</td>
+        <td><b>Rolling boi</b></td>
+        <td>
+            <ul>
+                <li>Patrón de movimiento "<b>centinela</b>": al ver al jugador le perseguirá hasta poder ejecutar su ataque.</li>
+                <li>Ataca <b>rodando a gran velocidad</b>, hace daño por contacto.</li>
+                <li><b>Rebota</b> contra el <b>escudo</b> del jugador.</li>
+            </ul>
+        </td>
     </tr>
     <tr>
-        <td><b>Enemigo medio</b></td>
-        <td>Su vida es superior al enemigo débil; aguantan más los golpes. Tamaño similar a Ott.</td>
+        <td><b>Seta lanzaesporas</b></td>
+        <td>
+            <ul>
+                <li><b>Estático</b>, con pinchos a su alrededor para <b>evitar ataques con luz</b>, pero puede ser atacado con <b>planta</b>.</li>
+                <li><b>Lanza esporas</b> hacia el jugador cada X segundos.</li>
+                <li>Se <b>pueden devolver</b> las esporas con un ataque.</li>
+            </ul>
+        </td>
     </tr>
     <tr>
-        <td><b>Enemigo fuerte</b></td>
-        <td>Enemigos de gran tamaño y resistencia al daño; aguantan aún más los golpes. Superan con creces el tamaño de Ott. </td>
+        <td><b>Slime de Roca</b></td>
+        <td>
+            <ul>
+                <li><b>Gran tamaño</b> y <b>punto débil</b> en su cabeza. No puede ser dañado en ningún otro sitio.</li>
+                <li>Ataca <b>acercándose</b> al <b>jugador</b> y <b>cayendo</b> hacia él. En ese momento el jugador <b>debe golpear su punto débil</b>. Después de X golpes, se <b>divide en 2</b>. Este patrón se repite hasta hacer un máximo de X divisiones. Las divisiones más pequeñas pueden ser dañadas en todo el cuerpo.</li>
+            </ul>
+        </td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td colspan="2"><b><i>Lago</i></b></td>
+    </tr>
+    <tr>
+        <td><b>Medusa</b></td>
+        <td>
+            <ul>
+                <li><b>Debilita</b> X de <b>tus vidas</b> durante un <b>tiempo limitado</b>.</li>
+                <li><b>Se mantiene quieta</b> en el sitio, <b>al ver al jugador lo perseguirá</b> y ejecutará su <b>ataque</b> mediante <b>contacto</b>.</li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td><b>Erizo de mar</b></td>
+        <td>
+            <ul>
+                <li><b>Estático</b>. Lanza <b>proyectiles en abanico</b> con huecos para que el jugador se posicione.</li>
+                <li>Puede <b>posicionarse en cualquier</b> pared/techo/suelo.</li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td><b>Anguila</b></td>
+        <td>
+            <ul>
+                <li><b>Ataca en un área</b> alrededor de sí cuando el jugador está cerca</li>
+                <li><b>Ataca con un proyectil</b> cuando el jugador está lejos.</li>
+                <li>Ambos ataques <b><i>stunnean</i></b> durante X tiempo.</li>
+                <li><b>No se acerca</b> al jugador a grandes <b>distancias</b>.</li>
+                <li>Al estar cerca, <b>empieza a seguir al jugador</b></li>
+            </ul>
+        </td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td colspan="2"><b><i>Volcán</i></b></td>
+    </tr>
+    <tr>
+        <td><b>Undefined</b></td>
+        <td>
+            <ul>
+                <li><b>Patrón de movimiento constante en el aire</b> (por definir)</li>
+                <li><b>Lanza proyectiles</b> y al hacerlo se <b>queda quieto</b> durante X.</li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td><b>Gusano</b></td>
+        <td>
+            <ul>
+                <li>Lanza X <b>bolas de fuego pequeñas</b>, y su siguiente ataque es una llamarada más grande. El patrón se repite.</li>
+                <li>Dañados por <b>ataques de rango</b>.</li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td><b>Tortuga</b></td>
+        <td>
+            <ul>
+                <li><b>Solo puede ser dañado a melee</b> (tiene un escudo frente ataques a rango).</li>
+                <li>Su ataque es de cerca y tiene uno normal y otro cargado (este necesita esperar un rato para lanzarlo y el jugador tendrá que aprovecharlo para atacar).</li>
+            </ul>
+        </td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td colspan="2"><b><i>Oscuridad</i></b></td>
+    </tr>
+    <tr>
+        <td><b>Básico melee</b></td>
+        <td>
+            <ul>
+                <li>Ejecuta un ataque básico de melee.</li>
+                <li>Aguanta X golpes.</li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td><b>Básico rango</b></td>
+        <td>
+            <ul>
+                <li>Ejecuta un ataque básico de rango.</li>
+                <li>Aguanta X golpes.</li>
+            </ul>
+        </td>
     </tr>
 </table>
 
-Los tres tipos de enemigos serán habitantes de cada reino infectados por la oscuridad. Cada uno de ellos es de un elemento concreto , lo que hará que los ataques y defensas de Ott sean más efectivos según qué elemento porte (véase [**Elementos**](#elementos)).
+Los tres tipos de enemigos serán habitantes de cada reino infectados por la oscuridad. Cada uno de ellos es de un elemento concreto , lo que hará que los ataques y defensas de Ott sean más efectivos según qué elemento porte (véase [***Elementos***](#31---elementos)).
 ## **9 - Referencias**
  - **Historia**: *The Legend of Zelda: Breath of the Wild*, *Hollow Knight*
  - **Género**: *CastleVania*, *Hollow Knight*
