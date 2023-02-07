@@ -34,8 +34,8 @@ const std::string WINDOW_NAME = "Testeo de UI"; ///< Nombre de la ventana del ju
 //Debido a que las texturas están en diferentes rutas si trabajamos en Windows o en Mac, lo detectamos aquí asignando
 //las rutas correspondientes a cada sistema operativo.
 #ifdef __APPLE__ //MacOS (CLion)
-const std::string textureRoute = "../Campos de Castilla/images/";
-const std::string fontRoute = "../Campos de Castilla/fonts/";
+const std::string textureRoute = "../images/";
+const std::string fontRoute = "../fonts/";
 #endif
 
 #ifdef __WINDOWS__ //Windows (Visual Studio)

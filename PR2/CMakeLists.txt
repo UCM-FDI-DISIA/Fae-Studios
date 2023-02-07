@@ -12,9 +12,26 @@ find_package(SDL2_mixer REQUIRED)
 
 
 add_executable(Ott
+        "Ott - An Elemental Journey/main.cpp"
+        "Ott - An Elemental Journey/SDLApplication.cpp"
+        "Ott - An Elemental Journey/ui/Button.cpp"
+        "Ott - An Elemental Journey/ui/Slider.cpp"
+        "Ott - An Elemental Journey/ui/Text.cpp"
+        "Ott - An Elemental Journey/ui/UIElement.cpp"
+        "Ott - An Elemental Journey/loaders/FontLoader.cpp"
+        "Ott - An Elemental Journey/loaders/TextureLoader.cpp"
+        "Ott - An Elemental Journey/gameobjects/GameObject.cpp"
+        "Ott - An Elemental Journey/gameflow/GameState.cpp"
+        "Ott - An Elemental Journey/gameflow/GameStateMachine.cpp"
+        "Ott - An Elemental Journey/gameflow/menus/MainMenuState.cpp"
+        "Ott - An Elemental Journey/gameflow/menus/MenuState.cpp"
+        "Ott - An Elemental Journey/gameflow/menus/options/MusicOptionsMenuState.cpp"
+        "Ott - An Elemental Journey/gameflow/menus/options/OptionsMenuState.cpp"
+        "Ott - An Elemental Journey/dependencies/Font.cpp"
+        "Ott - An Elemental Journey/dependencies/Parser.cpp"
+        "Ott - An Elemental Journey/dependencies/Texture.cpp"
+        "Ott - An Elemental Journey/dependencies/Vector2D.cpp"
         "Ott - An Elemental Journey/framework.h"
-        "Ott - An Elemental Journey/Ott - An Elemental Journey.cpp"
-        "Ott - An Elemental Journey/Ott - An Elemental Journey.h"
         "Ott - An Elemental Journey/Resource.h"
         "Ott - An Elemental Journey/targetver.h")
 
