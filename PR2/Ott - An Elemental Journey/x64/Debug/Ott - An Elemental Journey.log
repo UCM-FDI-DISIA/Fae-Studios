@@ -1,2 +1,37 @@
-﻿  Ott - An Elemental Journey.cpp
-  Ott - An Elemental Journey.vcxproj -> C:\Universidad\2º\PR 2\Fae-Studios\PR2\x64\Debug\Ott - An Elemental Journey.exe
+﻿  Font.cpp
+C:\Users\Alex\Desktop\github\Fae-Studios\PR2\Ott - An Elemental Journey\dependencies\Font.h(5,10): fatal  error C1083: No se puede abrir el archivo incluir: 'SDL_ttf.h': No such file or directory
+  Parser.cpp
+C:\Users\Alex\Desktop\github\Fae-Studios\PR2\Ott - An Elemental Journey\dependencies\Texture.h(6,10): fatal  error C1083: No se puede abrir el archivo incluir: 'SDL_image.h': No such file or directory
+  Texture.cpp
+C:\Users\Alex\Desktop\github\Fae-Studios\PR2\Ott - An Elemental Journey\dependencies\Texture.h(6,10): fatal  error C1083: No se puede abrir el archivo incluir: 'SDL_image.h': No such file or directory
+  GameState.cpp
+C:\Users\Alex\Desktop\github\Fae-Studios\PR2\Ott - An Elemental Journey\dependencies\Texture.h(6,10): fatal  error C1083: No se puede abrir el archivo incluir: 'SDL_image.h': No such file or directory
+  GameStateMachine.cpp
+C:\Users\Alex\Desktop\github\Fae-Studios\PR2\Ott - An Elemental Journey\dependencies\Texture.h(6,10): fatal  error C1083: No se puede abrir el archivo incluir: 'SDL_image.h': No such file or directory
+  MainMenuState.cpp
+C:\Users\Alex\Desktop\github\Fae-Studios\PR2\Ott - An Elemental Journey\dependencies\Texture.h(6,10): fatal  error C1083: No se puede abrir el archivo incluir: 'SDL_image.h': No such file or directory
+  MenuState.cpp
+C:\Users\Alex\Desktop\github\Fae-Studios\PR2\Ott - An Elemental Journey\dependencies\Texture.h(6,10): fatal  error C1083: No se puede abrir el archivo incluir: 'SDL_image.h': No such file or directory
+  MusicOptionsMenuState.cpp
+C:\Users\Alex\Desktop\github\Fae-Studios\PR2\Ott - An Elemental Journey\dependencies\Texture.h(6,10): fatal  error C1083: No se puede abrir el archivo incluir: 'SDL_image.h': No such file or directory
+  OptionsMenuState.cpp
+C:\Users\Alex\Desktop\github\Fae-Studios\PR2\Ott - An Elemental Journey\dependencies\Texture.h(6,10): fatal  error C1083: No se puede abrir el archivo incluir: 'SDL_image.h': No such file or directory
+  GameObject.cpp
+C:\Users\Alex\Desktop\github\Fae-Studios\PR2\Ott - An Elemental Journey\dependencies\Texture.h(6,10): fatal  error C1083: No se puede abrir el archivo incluir: 'SDL_image.h': No such file or directory
+  FontLoader.cpp
+C:\Users\Alex\Desktop\github\Fae-Studios\PR2\Ott - An Elemental Journey\dependencies\Font.h(5,10): fatal  error C1083: No se puede abrir el archivo incluir: 'SDL_ttf.h': No such file or directory
+  TextureLoader.cpp
+C:\Users\Alex\Desktop\github\Fae-Studios\PR2\Ott - An Elemental Journey\dependencies\Texture.h(6,10): fatal  error C1083: No se puede abrir el archivo incluir: 'SDL_image.h': No such file or directory
+  main.cpp
+C:\Users\Alex\Desktop\github\Fae-Studios\PR2\Ott - An Elemental Journey\dependencies\Texture.h(6,10): fatal  error C1083: No se puede abrir el archivo incluir: 'SDL_image.h': No such file or directory
+  SDLApplication.cpp
+C:\Users\Alex\Desktop\github\Fae-Studios\PR2\Ott - An Elemental Journey\dependencies\Texture.h(6,10): fatal  error C1083: No se puede abrir el archivo incluir: 'SDL_image.h': No such file or directory
+  Button.cpp
+C:\Users\Alex\Desktop\github\Fae-Studios\PR2\Ott - An Elemental Journey\dependencies\Texture.h(6,10): fatal  error C1083: No se puede abrir el archivo incluir: 'SDL_image.h': No such file or directory
+  Slider.cpp
+C:\Users\Alex\Desktop\github\Fae-Studios\PR2\Ott - An Elemental Journey\dependencies\Texture.h(6,10): fatal  error C1083: No se puede abrir el archivo incluir: 'SDL_image.h': No such file or directory
+  Text.cpp
+C:\Users\Alex\Desktop\github\Fae-Studios\PR2\Ott - An Elemental Journey\dependencies\Font.h(5,10): fatal  error C1083: No se puede abrir el archivo incluir: 'SDL_ttf.h': No such file or directory
+  UIElement.cpp
+C:\Users\Alex\Desktop\github\Fae-Studios\PR2\Ott - An Elemental Journey\dependencies\Texture.h(6,10): fatal  error C1083: No se puede abrir el archivo incluir: 'SDL_image.h': No such file or directory
+  Generando código...
