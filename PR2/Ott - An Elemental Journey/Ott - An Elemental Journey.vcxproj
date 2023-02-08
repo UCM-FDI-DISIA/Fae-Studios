@@ -156,6 +156,7 @@
     <ClInclude Include="ui\Slider.h" />
     <ClInclude Include="ui\Text.h" />
     <ClInclude Include="ui\UIElement.h" />
+    <ClInclude Include="utils\Trigger.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dependencies\Font.cpp" />
@@ -177,6 +178,7 @@
     <ClCompile Include="ui\Slider.cpp" />
     <ClCompile Include="ui\Text.cpp" />
     <ClCompile Include="ui\UIElement.cpp" />
+    <ClCompile Include="utils\Trigger.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Ott - An Elemental Journey.rc" />
