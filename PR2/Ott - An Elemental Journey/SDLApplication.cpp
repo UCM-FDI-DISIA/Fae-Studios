@@ -15,6 +15,7 @@ SDLApplication::SDLApplication() {
     if(window == nullptr || renderer == nullptr) throw SDLError("Error loading SDL window or renderer"); //Lanzamos una excepción si no se ha cargado la ventana o el renderer
     else {
 #pragma region JOYSTICK INPUT
+        /*
         //Set texture filtering to linear
         if (!SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1"))
         {
@@ -37,6 +38,8 @@ SDLApplication::SDLApplication() {
         }
         SDL_GameControllerAddMappingsFromFile("gamecontrollerdb.txt");
         cout << SDL_GameControllerMapping(gGameController) << endl;
+        */
+
 
 #pragma endregion
 

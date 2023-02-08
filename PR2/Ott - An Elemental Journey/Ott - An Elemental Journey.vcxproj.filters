@@ -87,6 +87,12 @@
     <ClInclude Include="gameflow\play\JoystickInput.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="gameobjects\MovingObject.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="gameobjects\CollisionObject.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="gameflow\GameState.cpp">
@@ -147,6 +153,12 @@
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="gameflow\play\JoystickInput.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="gameobjects\MovingObject.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="gameobjects\CollisionObject.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>

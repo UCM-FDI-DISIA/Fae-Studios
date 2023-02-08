@@ -1,17 +1,18 @@
 #include "../play/JoystickInput.h"
 #include "../../SDLApplication.h"
 #include <iostream>
-InputObject::InputObject(const Vector2D& position, Texture* texture, const Scale& scale) : GameObject(position, texture, scale) {
-	
+
+#pragma region JUMP OBJECT
+
+JumpObject::JumpObject(const Vector2D& position, Texture* texture,PlayState* game, const Scale& scale) : GameObject(position, texture, scale), game(game) {
+	onGround = getRect();
+	onGround.y += 2*onGround.h / 3;
+	onGround.h *= 2/3;
 }
 
-PlayState::PlayState(SDLApplication* app) : GameState(2, app) {
-	InputObject* input = new InputObject(Vector2D(400 - 296/2, 300 - 214/2), app->getTexture("arrow", 2));
-	gameObjects.push_back(input);
-}
-
-void InputObject::handleEvents(const SDL_Event& event) {
-
+void JumpObject::handleEvents(const SDL_Event& event) {
+#pragma region CONTROLLER INPUT
+	/*
 	if (event.type == SDL_CONTROLLERAXISMOTION) {
 		if (event.jaxis.which == 0) { // SABER QUÉ JOYSTICK SE HA MOVIDO
 			// X axis motion
@@ -55,14 +56,102 @@ void InputObject::handleEvents(const SDL_Event& event) {
 		}
 		else cout << (int)button << endl;
 	}
+	*/
+#pragma endregion
+
+	if (event.type == SDL_KEYDOWN) {
+		if (event.key.keysym.sym == SDLK_SPACE) {
+			jump();
+		}
+	}
+	
 }
 
-void InputObject::update() {
+void JumpObject::update() {
+#pragma region CONTROLLER INPUT
+	/*
 	// Cálculo de ángulo para mostar dirección en la que apunta el Joystick
 	arrowAngle = atan2((double)yDir, (double)xDir) * (180 / M_PI);
 	if (xDir == 0 && yDir == 0) arrowAngle = 0;
+	*/
+#pragma endregion
+	timer++;
+	if (timer >= ANIMATION_FRAME_RATE) {
+		timer = 0;
+		switch (animState) {
+		case IDLE:
+		{
+			row = 1;
+			col = (col + 1) % 2;
+		}
+		case JUMPING:
+		{
+			row = 5;
+			col = (col + 1) % 8;
+		}
+		}
+		// avanzar framde de animation
+	}
+
+#pragma region Detección de suelo??? y colisiones
+
+	pair<bool,int> groundCol;
+	bool col = false;
+	game->ottCollide(getRect(), onGround, groundCol, col);
+
+	if (groundCol.first) {
+		ySpeed = 0;
+		position = Vector2D(position.getX(), groundCol.second);
+		cout << "collision" << endl;
+	}
+#pragma endregion
+
 }
 
-void InputObject::render() const {
+void JumpObject::render() const {
+#pragma region CONTROLLER INPUT
+	/*
 	texture->renderFrame(getRect(), 0, 0, arrowAngle);
+	*/
+#pragma endregion
+	texture->renderFrame(getRect(), row, col);
 }
+
+#pragma endregion
+
+#pragma region PLAY STATE
+
+PlayState::PlayState(SDLApplication* app) : GameState(2, app) {
+#pragma region CONTROLLER INPUT
+	/*
+	JumpObject* input = new JumpObject(Vector2D(400 - 296 / 2, 300 - 214 / 2), app->getTexture("arrow", 2));
+	*/
+#pragma endregion
+	JumpObject* ott = new JumpObject(Vector2D(0, 400 - 86), app->getTexture("ott", 2), this, Scale(0.3f,0.3f));
+	
+	gr = new Ground(Vector2D(0, 400), app->getTexture("whiteBox", 2), Scale(0.8f, 0.25f));
+	gameObjects.push_back(gr);
+	gameObjects.push_back(ott);
+}
+
+void PlayState::ottCollide(const SDL_Rect& Ott, const SDL_Rect& onGround, pair<bool, int>& groundCol, bool& col) {
+	
+	groundCol = gr->collide(onGround);
+	
+}
+
+#pragma endregion
+
+#pragma region GROUND
+Ground::Ground(const Vector2D& position, Texture* texture, const Scale& scale) : GameObject(position, texture, scale) {
+
+}
+
+pair<bool, int> Ground::collide(const SDL_Rect& onGround) {
+	const SDL_Rect rect = getRect();
+	int y = rect.y;
+	bool col = SDL_HasIntersection(&onGround, &rect);
+	return make_pair(col, y);
+}
+
+#pragma endregion

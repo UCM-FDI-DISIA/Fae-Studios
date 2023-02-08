@@ -134,11 +134,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="checkML.h" />
+    <ClInclude Include="gameobjects\CollisionObject.h" />
     <ClInclude Include="dependencies\Exceptions.h" />
     <ClInclude Include="dependencies\Font.h" />
     <ClInclude Include="dependencies\Parser.h" />
     <ClInclude Include="dependencies\Texture.h" />
     <ClInclude Include="dependencies\Vector2D.h" />
+    <ClInclude Include="gameobjects\MovingObject.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="gameflow\GameState.h" />
     <ClInclude Include="gameflow\GameStateMachine.h" />
@@ -159,10 +161,12 @@
     <ClInclude Include="ui\UIElement.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="gameobjects\CollisionObject.cpp" />
     <ClCompile Include="dependencies\Font.cpp" />
     <ClCompile Include="dependencies\Parser.cpp" />
     <ClCompile Include="dependencies\Texture.cpp" />
     <ClCompile Include="dependencies\Vector2D.cpp" />
+    <ClCompile Include="gameobjects\MovingObject.cpp" />
     <ClCompile Include="gameflow\GameState.cpp" />
     <ClCompile Include="gameflow\GameStateMachine.cpp" />
     <ClCompile Include="gameflow\menus\MainMenuState.cpp" />
