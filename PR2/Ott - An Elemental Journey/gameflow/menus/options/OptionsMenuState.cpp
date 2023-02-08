@@ -9,17 +9,17 @@
 OptionsMenuState::OptionsMenuState(SDLApplication* app) : MenuState(2, app->getTexture("mainmenubackground", 2), app) {
 	//Graphics
 	gameObjects.push_back(new Button(ButtonParams(
-		Vector2D(WINDOW_WIDTH / 4 - (app->getTexture("button", this->getStateID())->getW() / 3) / 2, 2 * WINDOW_HEIGHT / 7 - (app->getTexture("button", this->getStateID())->getH() / 2)), 
-		"Gráficos", 
+		Vector2D(WINDOW_WIDTH / 2 - (app->getTexture("button", this->getStateID())->getW() / 3) / 2, 3 * WINDOW_HEIGHT / 7 - (app->getTexture("button", this->getStateID())->getH() / 2)),
+		"Ajustes grÃ¡ficos",
 		app->getTexture("button", this->getStateID()), 
 		app, 
 		graphicOptions, 
-		Scale(0.33f, 1.0f),
-		Scale(1.7f, 1.7f))));
+		Scale(0.66f, 2.0f),
+		Scale(2.0f, 2.0f))));
 	//Music
 	gameObjects.push_back(new Button(ButtonParams(
 		Vector2D(3 *WINDOW_WIDTH / 4 - (app->getTexture("button", this->getStateID())->getW() / 3) / 2, 2 * WINDOW_HEIGHT / 7 - (app->getTexture("button", this->getStateID())->getH() / 2)),
-		"Música", 
+		"MÃºsica y sonido",
 		app->getTexture("button", this->getStateID()), 
 		app, 
 		musicOptions, 
@@ -33,8 +33,10 @@ OptionsMenuState::OptionsMenuState(SDLApplication* app) : MenuState(2, app->getT
 		back, 
 		Scale(0.33f, 1.0f))));
 
-	title = new Text("Opciones", *(app->getFont("vcr_osd")), Vector2D(WINDOW_WIDTH / 2, 20), app->getRenderer(), { 255,255,255 }, Scale(3.0f, 3.0f));
-	title->movePosition(Vector2D(WINDOW_WIDTH / 2 - 3 * title->getTexture()->getW() / 2, 20));
+	titleBack = new Text("Opciones", *(app->getFont("press_start")), Vector2D(WINDOW_WIDTH / 2, 20), app->getRenderer(), { 194,147,42 }, Scale(4.0f, 4.0f));
+	titleBack->movePosition(Vector2D(WINDOW_WIDTH / 2 - 4 * titleBack->getTexture()->getW() / 2 - 5, 100));
+    titleFront = new Text("Opciones", *(app->getFont("press_start")), Vector2D(WINDOW_WIDTH / 2, 20), app->getRenderer(), { 255,217,102 }, Scale(4.0f, 4.0f));
+    titleFront->movePosition(Vector2D(WINDOW_WIDTH / 2 - 4 * titleFront->getTexture()->getW() / 2, 100));
 }
 
 void OptionsMenuState::graphicOptions(SDLApplication* app) {
@@ -51,9 +53,11 @@ void OptionsMenuState::back(SDLApplication* app) {
 
 void OptionsMenuState::render() const {
 	MenuState::render();
-	title->render();
+	titleBack->render();
+    titleFront->render();
 }
 
 OptionsMenuState::~OptionsMenuState() {
-	delete title;
+	delete titleBack;
+    delete titleFront;
 }

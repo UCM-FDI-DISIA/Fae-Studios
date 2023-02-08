@@ -8,7 +8,8 @@ private:
 	static void musicOptions(SDLApplication* app);
 	static void graphicOptions(SDLApplication* app);
 	static void back(SDLApplication* app);
-	Text* title = nullptr;
+	Text* titleBack = nullptr;
+    Text* titleFront= nullptr;
 
 public:
 	OptionsMenuState(SDLApplication* app);
