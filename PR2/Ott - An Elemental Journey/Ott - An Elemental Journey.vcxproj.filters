@@ -84,6 +84,9 @@
     <ClInclude Include="SDLApplication.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="gameflow\play\JoystickInput.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="gameflow\GameState.cpp">
@@ -141,6 +144,9 @@
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="SDLApplication.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="gameflow\play\JoystickInput.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>

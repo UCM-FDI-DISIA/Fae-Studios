@@ -5,6 +5,7 @@
 #include "../../ui/Text.h"
 #include "options/OptionsMenuState.h"
 #include <iostream>
+#include "../play/JoystickInput.h"
 
 MainMenuState::MainMenuState(SDLApplication* app) : MenuState(1, app->getTexture("mainmenubackground", 1), app) {
 	//Play button
@@ -36,7 +37,7 @@ MainMenuState::MainMenuState(SDLApplication* app) : MenuState(1, app->getTexture
 }
 
 void MainMenuState::play(SDLApplication* app) {
-	std::cout << "play" << std::endl;
+	app->getStateMachine()->changeState(new PlayState(app));
 }
 
 void MainMenuState::options(SDLApplication* app) {
