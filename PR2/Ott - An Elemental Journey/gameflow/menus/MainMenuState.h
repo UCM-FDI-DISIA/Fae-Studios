@@ -1,8 +1,12 @@
 #pragma once
 #include "MenuState.h"
+#include "../../ui/Text.h"
 
 class MainMenuState : public MenuState {
 private:
+    Text* titleBack = nullptr;
+    Text* titleFront = nullptr;
+
 	static void play(SDLApplication* app);
 	static void loadSave(SDLApplication* app);
 	static void options(SDLApplication* app);
@@ -10,5 +14,7 @@ private:
 
 public:
 	MainMenuState(SDLApplication* app);
+    void render() const final;
+    ~MainMenuState() override;
 };
 
