@@ -36,7 +36,7 @@ MainMenuState::MainMenuState(SDLApplication* app) : MenuState(1, app->getTexture
 }
 
 void MainMenuState::play(SDLApplication* app) {
-	std::cout << "play" << std::endl;
+	app->getStateMachine()->pushState(new PlayState(6, app));
 }
 
 void MainMenuState::options(SDLApplication* app) {

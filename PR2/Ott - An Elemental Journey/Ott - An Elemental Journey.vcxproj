@@ -139,8 +139,6 @@
     <ClInclude Include="dependencies\Parser.h" />
     <ClInclude Include="dependencies\Texture.h" />
     <ClInclude Include="dependencies\Vector2D.h" />
-    <ClInclude Include="Elements.h" />
-    <ClInclude Include="Enemy.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="gameflow\GameState.h" />
     <ClInclude Include="gameflow\GameStateMachine.h" />
@@ -148,10 +146,13 @@
     <ClInclude Include="gameflow\menus\MenuState.h" />
     <ClInclude Include="gameflow\menus\options\MusicOptionsMenuState.h" />
     <ClInclude Include="gameflow\menus\options\OptionsMenuState.h" />
+    <ClInclude Include="gameflow\PlayState.h" />
+    <ClInclude Include="gameobjects\CollisionObject.h" />
+    <ClInclude Include="gameobjects\Enemy.h" />
     <ClInclude Include="gameobjects\GameObject.h" />
+    <ClInclude Include="gameobjects\MovingObject.h" />
     <ClInclude Include="loaders\FontLoader.h" />
     <ClInclude Include="loaders\TextureLoader.h" />
-    <ClInclude Include="PlayState.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="SDLApplication.h" />
     <ClInclude Include="targetver.h" />
@@ -159,6 +160,7 @@
     <ClInclude Include="ui\Slider.h" />
     <ClInclude Include="ui\Text.h" />
     <ClInclude Include="ui\UIElement.h" />
+    <ClInclude Include="utils\Elements.h" />
     <ClInclude Include="utils\Trigger.h" />
   </ItemGroup>
   <ItemGroup>
@@ -166,23 +168,25 @@
     <ClCompile Include="dependencies\Parser.cpp" />
     <ClCompile Include="dependencies\Texture.cpp" />
     <ClCompile Include="dependencies\Vector2D.cpp" />
-    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="gameflow\GameState.cpp" />
     <ClCompile Include="gameflow\GameStateMachine.cpp" />
     <ClCompile Include="gameflow\menus\MainMenuState.cpp" />
     <ClCompile Include="gameflow\menus\MenuState.cpp" />
     <ClCompile Include="gameflow\menus\options\MusicOptionsMenuState.cpp" />
     <ClCompile Include="gameflow\menus\options\OptionsMenuState.cpp" />
+    <ClCompile Include="gameflow\PlayState.cpp" />
+    <ClCompile Include="gameobjects\CollisionObject.cpp" />
+    <ClCompile Include="gameobjects\Enemy.cpp" />
     <ClCompile Include="gameobjects\GameObject.cpp" />
     <ClCompile Include="loaders\FontLoader.cpp" />
     <ClCompile Include="loaders\TextureLoader.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="PlayState.cpp" />
     <ClCompile Include="SDLApplication.cpp" />
     <ClCompile Include="ui\Button.cpp" />
     <ClCompile Include="ui\Slider.cpp" />
     <ClCompile Include="ui\Text.cpp" />
     <ClCompile Include="ui\UIElement.cpp" />
+    <ClCompile Include="utils\Elements.cpp" />
     <ClCompile Include="utils\Trigger.cpp" />
   </ItemGroup>
   <ItemGroup>

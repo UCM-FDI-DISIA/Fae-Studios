@@ -1,5 +1,6 @@
 #pragma once
 #include "MenuState.h"
+#include "../PlayState.h"
 
 class MainMenuState : public MenuState {
 private:
