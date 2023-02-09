@@ -7,24 +7,33 @@
 
 
 OptionsMenuState::OptionsMenuState(SDLApplication* app) : MenuState(2, app->getTexture("mainmenubackground", 2), app) {
-	//Graphics
+	//Opciones gráficas
 	gameObjects.push_back(new Button(ButtonParams(
-		Vector2D(WINDOW_WIDTH / 4 - (app->getTexture("button", this->getStateID())->getW() / 3) / 2, 2 * WINDOW_HEIGHT / 7 - (app->getTexture("button", this->getStateID())->getH() / 2)),
+		Vector2D(WINDOW_WIDTH / 2 - (app->getTexture("button", this->getStateID())->getW() / 3) / 2, 3 * WINDOW_HEIGHT / 7 - (app->getTexture("button", this->getStateID())->getH() / 2)),
 		"Gráficos",
 		app->getTexture("button", this->getStateID()),
 		app,
 		graphicOptions,
 		Scale(0.33f, 1.0f),
 		Scale(1.7f, 1.7f))));
-	//Music
+	//Música y sonido
 	gameObjects.push_back(new Button(ButtonParams(
-		Vector2D(3 * WINDOW_WIDTH / 4 - (app->getTexture("button", this->getStateID())->getW() / 3) / 2, 2 * WINDOW_HEIGHT / 7 - (app->getTexture("button", this->getStateID())->getH() / 2)),
+		Vector2D(WINDOW_WIDTH / 2 - (app->getTexture("button", this->getStateID())->getW() / 3) / 2, 4 * WINDOW_HEIGHT / 7 - (app->getTexture("button", this->getStateID())->getH() / 2)),
 		"Música",
 		app->getTexture("button", this->getStateID()),
 		app,
 		musicOptions,
 		Scale(0.33f, 1.0f))));
-	//Return
+	//Controles
+	gameObjects.push_back(new Button(ButtonParams(
+		Vector2D(WINDOW_WIDTH / 2 - (app->getTexture("button", this->getStateID())->getW() / 3) / 2, 5 * WINDOW_HEIGHT / 7 - (app->getTexture("button", this->getStateID())->getH() / 2)),
+		"Controles",
+		app->getTexture("button", this->getStateID()),
+		app,
+		controls,
+		Scale(0.33f, 1.0f),
+		Scale(1.5f,1.5f))));
+	//Volver
 	gameObjects.push_back(new Button(ButtonParams(
 		Vector2D( WINDOW_WIDTH / 2 - (app->getTexture("button", this->getStateID())->getW() / 3) / 2, 6 * WINDOW_HEIGHT / 7 - (app->getTexture("button", this->getStateID())->getH() / 2)), 
 		"Volver", 
@@ -49,6 +58,11 @@ void OptionsMenuState::musicOptions(SDLApplication* app) {
 
 void OptionsMenuState::back(SDLApplication* app) {
     app->getStateMachine()->popState();
+}
+
+void OptionsMenuState::controls(SDLApplication* app) {
+	//app->getStateMachine()->pushState();
+	std::cout << "controles" << std::endl;
 }
 
 void OptionsMenuState::render() const {

@@ -7,6 +7,7 @@ class OptionsMenuState : public MenuState {
 private:
 	static void musicOptions(SDLApplication* app);
 	static void graphicOptions(SDLApplication* app);
+	static void controls(SDLApplication* app);
 	static void back(SDLApplication* app);
 	Text* titleBack = nullptr;
     Text* titleFront= nullptr;
