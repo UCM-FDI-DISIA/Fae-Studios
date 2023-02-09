@@ -4,10 +4,8 @@
 
 #pragma region JUMP OBJECT
 
-JumpObject::JumpObject(const Vector2D& position, Texture* texture,PlayState* game, const Scale& scale) : GameObject(position, texture, scale), game(game) {
-	onGround = getRect();
-	onGround.y += 2*onGround.h / 3;
-	onGround.h *= 2/3;
+JumpObject::JumpObject(const Vector2D& position, Texture* texture, PlayState* game, const Scale& scale) : Entity(position, texture, Vector2D(0, 0), 5, game, scale) {
+
 }
 
 void JumpObject::handleEvents(const SDL_Event& event) {
@@ -64,7 +62,17 @@ void JumpObject::handleEvents(const SDL_Event& event) {
 			jump();
 		}
 	}
-	
+}
+
+bool JumpObject::canJump() {
+	return ground;
+}
+
+void JumpObject::jump() {
+	if (canJump()) {
+		animState = JUMPING;
+		speed = Vector2D(speed.getX(), jumpForce);
+	}
 }
 
 void JumpObject::update() {
@@ -78,34 +86,67 @@ void JumpObject::update() {
 	timer++;
 	if (timer >= ANIMATION_FRAME_RATE) {
 		timer = 0;
-		switch (animState) {
-		case IDLE:
+		if (animState == IDLE)
 		{
-			row = 1;
+			row = 0;
 			col = (col + 1) % 2;
 		}
-		case JUMPING:
+		if (animState == JUMPING)
 		{
 			row = 5;
-			col = (col + 1) % 8;
+			col = 2;
 		}
+		if (animState == PEAK) {
+			row = 5;
+			col = 3;
+		}
+		if (animState == FALLING) {
+			row = 5;
+			col = 4;
+		}
+		if (animState == LAND) {
+			row = 5;
+			col = 5;
 		}
 		// avanzar framde de animation
 	}
 
-#pragma region Detección de suelo??? y colisiones
+	onGround = getRect();
+	onGround.y += onGround.h;
+	onGround.h = -jumpForce - 1;
 
-	pair<bool,int> groundCol;
-	bool col = false;
-	game->ottCollide(getRect(), onGround, groundCol, col);
-
-	if (groundCol.first) {
-		ySpeed = 0;
-		position = Vector2D(position.getX(), groundCol.second);
-		cout << "collision" << endl;
+	if (speed.getY() > 1.5) {
+		animState = FALLING;
+		timer = ANIMATION_FRAME_RATE;
 	}
+	if (speed.getY() < 0.5 && speed.getY() > -0.5 && !ground) {
+		animState = PEAK;
+		timer = ANIMATION_FRAME_RATE;
+	}
+
+	position = position + speed;
+#pragma region Detección de suelo??? y colisiones
+	SDL_Rect groundCol;
+	bool col = false;
+	static_cast<PlayState*>(game)->ottCollide(getRect(), onGround, groundCol, col, ground);
+
+	if (ground) {
+		animState = IDLE;
+		if (!notGroundedBefore) {
+			animState = LAND;
+			timer = ANIMATION_FRAME_RATE;
+			position = Vector2D(groundCol.x, groundCol.y - height);
+			speed = Vector2D(speed.getX(), 0);
+		}
+		notGroundedBefore = true;
+	}
+	if (speed.getY() < -1) notGroundedBefore = false;
 #pragma endregion
 
+}
+
+void JumpObject::useGravity() {
+	speed = Vector2D(speed.getX(), speed.getY() + static_cast<PlayState*>(game)->Gravity());
 }
 
 void JumpObject::render() const {
@@ -127,31 +168,45 @@ PlayState::PlayState(SDLApplication* app) : GameState(2, app) {
 	JumpObject* input = new JumpObject(Vector2D(400 - 296 / 2, 300 - 214 / 2), app->getTexture("arrow", 2));
 	*/
 #pragma endregion
-	JumpObject* ott = new JumpObject(Vector2D(0, 400 - 86), app->getTexture("ott", 2), this, Scale(0.3f,0.3f));
-	
+	JumpObject* ott = new JumpObject(Vector2D(0, 0), app->getTexture("ott", 2), this, Scale(0.3f, 0.3f));
+
 	gr = new Ground(Vector2D(0, 400), app->getTexture("whiteBox", 2), Scale(0.8f, 0.25f));
 	gameObjects.push_back(gr);
 	gameObjects.push_back(ott);
+
+	groundObjects.push_back(gr);
+	physicObjects.push_back(ott);
 }
 
-void PlayState::ottCollide(const SDL_Rect& Ott, const SDL_Rect& onGround, pair<bool, int>& groundCol, bool& col) {
-	
-	groundCol = gr->collide(onGround);
-	
+void PlayState::ottCollide(const SDL_Rect& Ott, const SDL_Rect& onGround, SDL_Rect& colRect, bool& col, bool& ground) {
+
+	/*
+		COMPROBACIÓN DE COLISIONES CON OBJETOS DE TIPO SUELO
+	*/
+	for (auto it : groundObjects) {
+		col = it->collide(Ott, colRect);
+		ground = it->collide(onGround, colRect);
+	}
+	/*
+	cout << "GROUND: X: " + to_string(gr->getRect().x) << " Y: " + to_string(gr->getRect().y) << " H: " + to_string(gr->getRect().h) << " W: " + to_string(gr->getRect().w) << endl;
+	cout << "OTT: X: " + to_string(Ott.x) << " Y: " + to_string(Ott.y) << " H: " + to_string(Ott.h) << " W: " + to_string(Ott.w) << endl;
+	cout << col << endl;
+	*/
 }
 
+void PlayState::update() {
+	GameState::update();
+
+	for (auto it : physicObjects) {
+		if (!static_cast<JumpObject*>(it)->isGrounded()) {
+			static_cast<JumpObject*>(it)->useGravity();
+		}
+	}
+}
 #pragma endregion
 
 #pragma region GROUND
-Ground::Ground(const Vector2D& position, Texture* texture, const Scale& scale) : GameObject(position, texture, scale) {
+Ground::Ground(const Vector2D& position, Texture* texture, const Scale& scale) : CollisionObject(position, texture, scale) {
 
 }
-
-pair<bool, int> Ground::collide(const SDL_Rect& onGround) {
-	const SDL_Rect rect = getRect();
-	int y = rect.y;
-	bool col = SDL_HasIntersection(&onGround, &rect);
-	return make_pair(col, y);
-}
-
 #pragma endregion

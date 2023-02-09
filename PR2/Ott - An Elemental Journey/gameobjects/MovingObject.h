@@ -12,7 +12,7 @@ protected:
 public:
     MovingObject(Vector2D pos, Texture* texture, Vector2D dir, Scale scale = Scale(1.0f, 1.0f)) :
         CollisionObject(pos, texture, scale), dir(dir) {};
-    virtual ~MovingObject();
+    virtual ~MovingObject() {};
     virtual void update() {};
     virtual void render() {};
 };

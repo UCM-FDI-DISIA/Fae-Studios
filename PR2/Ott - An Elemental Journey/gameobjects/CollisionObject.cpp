@@ -1,10 +1,6 @@
 #include "CollisionObject.h"
 
-CollisionObject::CollisionObject(Vector2D pos, Texture* texture, Scale scale = Scale(1.0f,1.0f)) : GameObject(pos, texture, scale) {
-
-}
-
-CollisionObject::~CollisionObject() {
+CollisionObject::CollisionObject(Vector2D pos, Texture* texture, Scale scale) : GameObject(pos, texture, scale) {
 
 }
 
