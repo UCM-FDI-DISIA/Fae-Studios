@@ -4,7 +4,7 @@
 
 #pragma region JUMP OBJECT
 
-JumpObject::JumpObject(const Vector2D& position, Texture* texture,PlayState* game, const Scale& scale) : Entity(position, texture, Vector2D(0,0), 5, game, scale) {
+JumpObject::JumpObject(const Vector2D& position, Texture* texture, PlayState* game, const Scale& scale) : Entity(position, texture, Vector2D(0, 0), 5, game, scale) {
 
 }
 
@@ -12,9 +12,9 @@ void JumpObject::handleEvents(const SDL_Event& event) {
 #pragma region CONTROLLER INPUT
 	/*
 	if (event.type == SDL_CONTROLLERAXISMOTION) {
-		if (event.jaxis.which == 0) { // SABER QUÉ JOYSTICK SE HA MOVIDO
+		if (event.jaxis.which == 0) { // SABER QUï¿½ JOYSTICK SE HA MOVIDO
 			// X axis motion
-			if (event.jaxis.axis == 0) { // SABER QUÉ EJE SE HA MOVIDO
+			if (event.jaxis.axis == 0) { // SABER QUï¿½ EJE SE HA MOVIDO
 				if (event.jaxis.value < -JOYSTICK_DEAD_ZONE) xDir = -1; // Left to dead zone
 				else if (event.jaxis.value > JOYSTICK_DEAD_ZONE) xDir = 1; // Right to dead zone
 				else xDir = 0;
@@ -78,7 +78,7 @@ void JumpObject::jump() {
 void JumpObject::update() {
 #pragma region CONTROLLER INPUT
 	/*
-	// Cálculo de ángulo para mostar dirección en la que apunta el Joystick
+	// Cï¿½lculo de ï¿½ngulo para mostar direcciï¿½n en la que apunta el Joystick
 	arrowAngle = atan2((double)yDir, (double)xDir) * (180 / M_PI);
 	if (xDir == 0 && yDir == 0) arrowAngle = 0;
 	*/
@@ -86,12 +86,12 @@ void JumpObject::update() {
 	timer++;
 	if (timer >= ANIMATION_FRAME_RATE) {
 		timer = 0;
-		if(animState == IDLE)
+		if (animState == IDLE)
 		{
 			row = 0;
 			col = (col + 1) % 2;
 		}
-		if(animState == JUMPING)
+		if (animState == JUMPING)
 		{
 			row = 5;
 			col = 2;
@@ -113,10 +113,11 @@ void JumpObject::update() {
 
 	onGround = getRect();
 	onGround.y += onGround.h;
-	onGround.h = -jumpForce -1;
+	onGround.h = -jumpForce - 1;
 
-	if (speed.getY() > 1.5) { animState = FALLING; 
-	timer = ANIMATION_FRAME_RATE;
+	if (speed.getY() > 1.5) {
+		animState = FALLING;
+		timer = ANIMATION_FRAME_RATE;
 	}
 	if (speed.getY() < 0.5 && speed.getY() > -0.5 && !ground) {
 		animState = PEAK;
@@ -124,11 +125,10 @@ void JumpObject::update() {
 	}
 
 	position = position + speed;
-#pragma region Detección de suelo??? y colisiones
+#pragma region Detecciï¿½n de suelo??? y colisiones
 	SDL_Rect groundCol;
 	bool col = false;
 	static_cast<PlayState*>(game)->ottCollide(getRect(), onGround, groundCol, col, ground);
-	
 	if (ground) {
 		animState = IDLE;
 		if (!notGroundedBefore) {
@@ -167,8 +167,8 @@ PlayState::PlayState(SDLApplication* app) : GameState(2, app) {
 	JumpObject* input = new JumpObject(Vector2D(400 - 296 / 2, 300 - 214 / 2), app->getTexture("arrow", 2));
 	*/
 #pragma endregion
-	JumpObject* ott = new JumpObject(Vector2D(0, 0), app->getTexture("ott", 2), this, Scale(0.3f,0.3f));
-	
+	JumpObject* ott = new JumpObject(Vector2D(0, 0), app->getTexture("ott", 2), this, Scale(0.3f, 0.3f));
+
 	gr = new Ground(Vector2D(0, 400), app->getTexture("whiteBox", 2), Scale(0.8f, 0.25f));
 	gameObjects.push_back(gr);
 	gameObjects.push_back(ott);
@@ -178,9 +178,8 @@ PlayState::PlayState(SDLApplication* app) : GameState(2, app) {
 }
 
 void PlayState::ottCollide(const SDL_Rect& Ott, const SDL_Rect& onGround, SDL_Rect& colRect, bool& col, bool& ground) {
-	
 	/*
-		COMPROBACIÓN DE COLISIONES CON OBJETOS DE TIPO SUELO
+		COMPROBACIï¿½N DE COLISIONES CON OBJETOS DE TIPO SUELO
 	*/
 	for (auto it : groundObjects) {
 		col = it->collide(Ott, colRect);

@@ -13,8 +13,9 @@ public:
 		MovingObject(pos, texture, dir, scale), maxLife(maxLife), life(maxLife), game(game) {};
 	virtual ~Entity() {};
 
+	virtual void render() const {};
 	virtual void update() {};
-	bool collides() {};
-	void stop() {};
-	void start() {};
+	bool collides();
+	void stop();
+	void start();
 };

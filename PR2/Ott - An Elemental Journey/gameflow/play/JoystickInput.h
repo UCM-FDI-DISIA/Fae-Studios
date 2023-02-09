@@ -37,7 +37,7 @@ protected:
     bool jumpFlag = true;
     bool jumping = false;
     const double jumpForce = -5;
-    
+
     ANIM_STATE animState = IDLE;
     const int ANIMATION_FRAME_RATE = 40;
     int timer = 0;
@@ -48,7 +48,7 @@ protected:
     bool ground = false;
     bool notGroundedBefore = false;
     Vector2D speed = { 0,0 };
-    
+
     //Game Controller 1 handler
 public:
     JumpObject(const Vector2D& position, Texture* texture, PlayState* game, const Scale& scale = Scale(1.0f, 1.0f));

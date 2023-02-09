@@ -7,7 +7,7 @@ protected:
 
 public:
 	CollisionObject(Vector2D pos, Texture* texture, Scale scale = Scale(1.0f, 1.0f));
-	virtual ~CollisionObject();
+	virtual ~CollisionObject() {};
 
 	bool collide(const SDL_Rect& obj, SDL_Rect& result);
 };

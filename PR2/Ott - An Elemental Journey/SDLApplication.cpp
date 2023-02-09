@@ -14,8 +14,36 @@ SDLApplication::SDLApplication() {
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
     if(window == nullptr || renderer == nullptr) throw SDLError("Error loading SDL window or renderer"); //Lanzamos una excepción si no se ha cargado la ventana o el renderer
     else {
-        //Creamos texturas;
+#pragma region JOYSTICK INPUT
+        /*
+        //Set texture filtering to linear
+        if (!SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1"))
+        {
+            printf("Warning: Linear texture filtering not enabled!");
+        }
+
+        //Check for joysticks
+        if (SDL_NumJoysticks() < 1)
+        {
+            printf("Warning: No joysticks connected!\n");
+        }
+        else
+        {
+            //Load joystick
+            gGameController = SDL_GameControllerOpen(0);
+            if (gGameController == NULL)
+            {
+                printf("Warning: Unable to open game controller! SDL Error: %s\n", SDL_GetError());
+            }
+        }
         SDL_GameControllerAddMappingsFromFile("gamecontrollerdb.txt");
+        cout << SDL_GameControllerMapping(gGameController) << endl;
+        */
+
+
+#pragma endregion
+
+        //Creamos texturas;
         textureManager = new TextureLoader(this);
         fontManager = new FontLoader(this);
         TextureParser::parse(textureRoute, textureRoutes);
@@ -31,6 +59,12 @@ SDLApplication::~SDLApplication() {
     delete stateMachine;
     delete fontManager;
     delete textureManager;
+
+#pragma region JOYSTCIK INPUT
+    //Close game controller
+    SDL_GameControllerClose(gGameController);
+    gGameController = NULL;
+#pragma endregion
 
     //Borramos las cosas referentes a SDL
     SDL_DestroyRenderer(renderer);
