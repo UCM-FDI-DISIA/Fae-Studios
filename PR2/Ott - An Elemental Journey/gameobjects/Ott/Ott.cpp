@@ -121,7 +121,7 @@ void Ott::update() {
 	}
 
 	position = position + speed;
-#pragma region Detecci�n de suelo??? y colisiones
+#pragma region Deteccion de suelo??? y colisiones
 	SDL_Rect groundCol;
 	bool col = false;
 	static_cast<PlayState*>(game)->ottCollide(getRect(), onGround, groundCol, col, ground);
