@@ -5,7 +5,7 @@
 #include "../../ui/Text.h"
 #include "options/OptionsMenuState.h"
 #include <iostream>
-#include "../play/JoystickInput.h"
+#include "../play/PlayState.h"
 
 MainMenuState::MainMenuState(SDLApplication* app) : MenuState(1, app->getTexture("mainmenubackground", 1), app) {
 	//Play button

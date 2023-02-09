@@ -1,14 +1,10 @@
-#include "../play/JoystickInput.h"
-#include "../../SDLApplication.h"
-#include <iostream>
+﻿#include "Ott.h"
 
-#pragma region JUMP OBJECT
-
-JumpObject::JumpObject(const Vector2D& position, Texture* texture, PlayState* game, const Scale& scale) : Entity(position, texture, Vector2D(0, 0), 5, game, scale) {
+Ott::Ott(const Vector2D& position, Texture* texture, PlayState* game, const Scale& scale) : Entity(position, texture, Vector2D(0, 0), 5, game, scale) {
 
 }
 
-void JumpObject::handleEvents(const SDL_Event& event) {
+void Ott::handleEvents(const SDL_Event& event) {
 #pragma region CONTROLLER INPUT
 	/*
 	if (event.type == SDL_CONTROLLERAXISMOTION) {
@@ -64,18 +60,18 @@ void JumpObject::handleEvents(const SDL_Event& event) {
 	}
 }
 
-bool JumpObject::canJump() {
+bool Ott::canJump() {
 	return ground;
 }
 
-void JumpObject::jump() {
+void Ott::jump() {
 	if (canJump()) {
 		animState = JUMPING;
 		speed = Vector2D(speed.getX(), jumpForce);
 	}
 }
 
-void JumpObject::update() {
+void Ott::update() {
 #pragma region CONTROLLER INPUT
 	/*
 	// C�lculo de �ngulo para mostar direcci�n en la que apunta el Joystick
@@ -144,11 +140,11 @@ void JumpObject::update() {
 
 }
 
-void JumpObject::useGravity() {
+void Ott::useGravity() {
 	speed = Vector2D(speed.getX(), speed.getY() + static_cast<PlayState*>(game)->Gravity());
 }
 
-void JumpObject::render() const {
+void Ott::render() const {
 #pragma region CONTROLLER INPUT
 	/*
 	texture->renderFrame(getRect(), 0, 0, arrowAngle);
@@ -157,54 +153,4 @@ void JumpObject::render() const {
 	texture->renderFrame(getRect(), row, col);
 }
 
-#pragma endregion
-
-#pragma region PLAY STATE
-
-PlayState::PlayState(SDLApplication* app) : GameState(2, app) {
-#pragma region CONTROLLER INPUT
-	/*
-	JumpObject* input = new JumpObject(Vector2D(400 - 296 / 2, 300 - 214 / 2), app->getTexture("arrow", 2));
-	*/
-#pragma endregion
-	JumpObject* ott = new JumpObject(Vector2D(0, 0), app->getTexture("ott", 2), this, Scale(0.3f, 0.3f));
-
-	gr = new Ground(Vector2D(0, 400), app->getTexture("whiteBox", 2), Scale(0.8f, 0.25f));
-	gameObjects.push_back(gr);
-	gameObjects.push_back(ott);
-
-	groundObjects.push_back(gr);
-	physicObjects.push_back(ott);
-}
-
-void PlayState::ottCollide(const SDL_Rect& Ott, const SDL_Rect& onGround, SDL_Rect& colRect, bool& col, bool& ground) {
-	/*
-		COMPROBACI�N DE COLISIONES CON OBJETOS DE TIPO SUELO
-	*/
-	for (auto it : groundObjects) {
-		col = it->collide(Ott, colRect);
-		ground = it->collide(onGround, colRect);
-	}
-	/*
-	cout << "GROUND: X: " + to_string(gr->getRect().x) << " Y: " + to_string(gr->getRect().y) << " H: " + to_string(gr->getRect().h) << " W: " + to_string(gr->getRect().w) << endl;
-	cout << "OTT: X: " + to_string(Ott.x) << " Y: " + to_string(Ott.y) << " H: " + to_string(Ott.h) << " W: " + to_string(Ott.w) << endl;
-	cout << col << endl;
-	*/
-}
-
-void PlayState::update() {
-	GameState::update();
-
-	for (auto it : physicObjects) {
-		if (!static_cast<JumpObject*>(it)->isGrounded()) {
-			static_cast<JumpObject*>(it)->useGravity();
-		}
-	}
-}
-#pragma endregion
-
-#pragma region GROUND
-Ground::Ground(const Vector2D& position, Texture* texture, const Scale& scale) : CollisionObject(position, texture, scale) {
-
-}
 #pragma endregion

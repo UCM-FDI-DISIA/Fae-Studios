@@ -1,35 +1,9 @@
-#pragma once
-#include "../GameState.h"
-#include <list>
-#include "../../gameobjects/Entity.h"
+#include "../Entity.h"
+#include "../../gameflow/play/PlayState.h"
 
-enum ANIM_STATE { IDLE, JUMPING, PEAK, FALLING, LAND };
+enum ANIM_STATE { IDLE, WALKING, LAND, JUMPING, PEAK, FALLING };
 
-
-class Ground : public CollisionObject {
-private:
-
-public:
-    Ground(const Vector2D& position, Texture* texture, const Scale& scale = Scale(1.0f, 1.0f));
-};
-
-class PlayState : public GameState
-{
-private:
-    double gravity = 0.08f;
-    Ground* gr;
-    list<Entity*> physicObjects;
-    list<Ground*> groundObjects;
-
-public:
-    PlayState(SDLApplication* app);
-    void ottCollide(const SDL_Rect& Ott, const SDL_Rect& onGround, SDL_Rect& colRect, bool& col, bool& ground);
-    virtual void update();
-    inline double Gravity() { return gravity; };
-};
-
-
-class JumpObject : public Entity {
+class Ott : public Entity {
 protected:
     //Analog joystick dead zone
     const int JOYSTICK_DEAD_ZONE = 8000; // EL MÁXIMO VALOR ES 32000, POR ESO PONEMOS UNA DEAD ZONE TAN APARENTEMENTE GRANDE
@@ -51,9 +25,9 @@ protected:
 
     //Game Controller 1 handler
 public:
-    JumpObject(const Vector2D& position, Texture* texture, PlayState* game, const Scale& scale = Scale(1.0f, 1.0f));
+    Ott(const Vector2D& position, Texture* texture, PlayState* game, const Scale& scale = Scale(1.0f, 1.0f));
     /// Destructora de la clase GameObject
-    virtual ~JumpObject() = default;
+    virtual ~Ott() = default;
 
     bool canJump();
     void jump();

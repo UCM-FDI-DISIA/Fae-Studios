@@ -149,9 +149,11 @@
     <ClInclude Include="gameflow\menus\options\MusicOptionsMenuState.h" />
     <ClInclude Include="gameflow\menus\options\OptionsMenuState.h" />
     <ClInclude Include="gameobjects\GameObject.h" />
+    <ClInclude Include="gameobjects\Physics\Ground.h" />
     <ClInclude Include="loaders\FontLoader.h" />
     <ClInclude Include="loaders\TextureLoader.h" />
-    <ClInclude Include="gameflow\play\JoystickInput.h" />
+    <ClInclude Include="gameobjects\Ott\Ott.h" />
+    <ClInclude Include="gameflow\play\PlayState.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="SDLApplication.h" />
     <ClInclude Include="targetver.h" />
@@ -161,6 +163,7 @@
     <ClInclude Include="ui\UIElement.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="gameflow\play\PlayState.cpp" />
     <ClCompile Include="gameobjects\CollisionObject.cpp" />
     <ClCompile Include="dependencies\Font.cpp" />
     <ClCompile Include="dependencies\Parser.cpp" />
@@ -174,10 +177,11 @@
     <ClCompile Include="gameflow\menus\options\MusicOptionsMenuState.cpp" />
     <ClCompile Include="gameflow\menus\options\OptionsMenuState.cpp" />
     <ClCompile Include="gameobjects\GameObject.cpp" />
+    <ClCompile Include="gameobjects\Ott\Ott.cpp" />
+    <ClCompile Include="gameobjects\Physics\Ground.cpp" />
     <ClCompile Include="loaders\FontLoader.cpp" />
     <ClCompile Include="loaders\TextureLoader.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="gameflow\play\JoystickInput.cpp" />
     <ClCompile Include="SDLApplication.cpp" />
     <ClCompile Include="ui\Button.cpp" />
     <ClCompile Include="ui\Slider.cpp" />
