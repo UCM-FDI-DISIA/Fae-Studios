@@ -14,6 +14,5 @@ void Font::libera() {
 }
 
 SDL_Surface* Font::generateSurface(std::string text, SDL_Color color) const {
-    return TTF_RenderText_Solid(font, text.c_str(), color); //Devuelve un Surface que contiene un texto sin sombreado
-
+    return TTF_RenderUTF8_Solid(font, text.c_str(), color); //Devuelve un Surface que contiene un texto sin sombreado
 }

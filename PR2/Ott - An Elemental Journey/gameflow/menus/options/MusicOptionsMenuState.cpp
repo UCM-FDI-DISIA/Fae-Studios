@@ -16,7 +16,7 @@ MusicOptionsMenuState::MusicOptionsMenuState(SDLApplication* app) : MenuState(4,
 	//General volume
 	gameObjects.push_back(new Slider(Vector2D(WINDOW_WIDTH / 2 - app->getTexture("slider", this->getStateID())->getW() / 2, 2 * WINDOW_HEIGHT / 9 - (app->getTexture("slider", this->getStateID())->getH() / 3 / 2)), app->getTexture("slider", this->getStateID()), app->getTexture("needle", this->getStateID()), "Volumen general", app, generalVolume, app->getVolume(0), true, Scale(1.0f,0.33f), Scale(0.125f, 0.33f)));
 	//Music volume
-	gameObjects.push_back(new Slider(Vector2D(WINDOW_WIDTH / 2 - app->getTexture("slider", this->getStateID())->getW() / 2, 4 * WINDOW_HEIGHT / 9 - (app->getTexture("slider", this->getStateID())->getH() / 3 / 2)), app->getTexture("slider", this->getStateID()), app->getTexture("needle", this->getStateID()), "M�sica", app, musicVolume, app->getVolume(1), true, Scale(1.0f, 0.33f), Scale(0.125f, 0.33f)));
+	gameObjects.push_back(new Slider(Vector2D(WINDOW_WIDTH / 2 - app->getTexture("slider", this->getStateID())->getW() / 2, 4 * WINDOW_HEIGHT / 9 - (app->getTexture("slider", this->getStateID())->getH() / 3 / 2)), app->getTexture("slider", this->getStateID()), app->getTexture("needle", this->getStateID()), "Música", app, musicVolume, app->getVolume(1), true, Scale(1.0f, 0.33f), Scale(0.125f, 0.33f)));
 	//Sound volume
 	gameObjects.push_back(new Slider(Vector2D(WINDOW_WIDTH / 2 - app->getTexture("slider", this->getStateID())->getW() / 2, 6 * WINDOW_HEIGHT / 9 - (app->getTexture("slider", this->getStateID())->getH() / 3 / 2)), app->getTexture("slider", this->getStateID()), app->getTexture("needle", this->getStateID()), "Sonido", app, soundsVolume, app->getVolume(2), true, Scale(1.0f, 0.33f), Scale(0.125f, 0.33f)));
 }

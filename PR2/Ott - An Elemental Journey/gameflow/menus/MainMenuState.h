@@ -6,6 +6,10 @@ class MainMenuState : public MenuState {
 private:
     Text* titleBack = nullptr;
     Text* titleFront = nullptr;
+	Text* faeStudiosBack = nullptr;
+	Text* faeStudiosFront = nullptr;
+	Text* versionBack = nullptr;
+	Text* versionFront = nullptr;
 
 	static void play(SDLApplication* app);
 	static void loadSave(SDLApplication* app);
