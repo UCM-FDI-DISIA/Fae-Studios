@@ -23,7 +23,7 @@ void PlayState::ottCollide(const SDL_Rect& Ott, const SDL_Rect& onGround, SDL_Re
 		ground = it->collide(onGround, colRect);
 	}
 
-	for(auto it : )
+	//for(auto it : )
 }
 void PlayState::update() {
 	GameState::update();

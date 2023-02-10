@@ -23,6 +23,9 @@ protected:
     bool notGroundedBefore = false;
     Vector2D speed = { 0,0 };
 
+    //Parámetros que controlan la vida debil
+    bool weakened = false;
+    int timeWeak = 3, weakTimer;
     //Game Controller 1 handler
 public:
     Ott(const Vector2D& position, Texture* texture, PlayState* game, const Scale& scale = Scale(1.0f, 1.0f));
@@ -42,4 +45,7 @@ public:
 
     /// \param event SDL_Event con el evento a manejar
     virtual void handleEvents(const SDL_Event& event);
+
+    //Evento de daño
+    virtual void recieveDamage(int elem);
 };

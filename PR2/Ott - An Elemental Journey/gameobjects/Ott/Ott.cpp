@@ -60,6 +60,8 @@ void Ott::handleEvents(const SDL_Event& event) {
 	}
 }
 
+
+
 bool Ott::canJump() {
 	return ground;
 }
@@ -138,6 +140,8 @@ void Ott::update() {
 	if (speed.getY() < -1) notGroundedBefore = false;
 #pragma endregion
 
+	//timer que comprueba si sigue teniendo una vida debil
+	if (weakened && (SDL_GetTicks() - weakTimer) >= timeWeak * 1000) weakened = false;
 }
 
 void Ott::useGravity() {
@@ -152,5 +156,19 @@ void Ott::render() const {
 #pragma endregion
 	texture->renderFrame(getRect(), row, col);
 }
-
+void Ott::recieveDamage(int elem)
+{
+	if (elementsInfo[elem][currentElement] == 0) {
+		if (!weakened) {
+			weakened = true;
+			weakTimer = SDL_GetTicks();
+		}
+		else {
+			weakened = false;
+			life--;
+			Entity::recieveDamage(elem);
+		}
+	}
+	else Entity::recieveDamage(elem);
+}
 #pragma endregion

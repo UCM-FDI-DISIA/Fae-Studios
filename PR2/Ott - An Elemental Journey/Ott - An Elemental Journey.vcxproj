@@ -140,6 +140,7 @@
     <ClInclude Include="dependencies\Parser.h" />
     <ClInclude Include="dependencies\Texture.h" />
     <ClInclude Include="dependencies\Vector2D.h" />
+    <ClInclude Include="gameobjects\Entity.h" />
     <ClInclude Include="gameobjects\MovingObject.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="gameflow\GameState.h" />
@@ -169,6 +170,7 @@
     <ClCompile Include="dependencies\Parser.cpp" />
     <ClCompile Include="dependencies\Texture.cpp" />
     <ClCompile Include="dependencies\Vector2D.cpp" />
+    <ClCompile Include="gameobjects\Entity.cpp" />
     <ClCompile Include="gameobjects\MovingObject.cpp" />
     <ClCompile Include="gameflow\GameState.cpp" />
     <ClCompile Include="gameflow\GameStateMachine.cpp" />
