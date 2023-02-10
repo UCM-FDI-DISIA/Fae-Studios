@@ -3,6 +3,7 @@
 #include "../../../SDLApplication.h"
 #include "../../../ui/Button.h"
 #include "MusicOptionsMenuState.h"
+#include "ControlMenuState.h"
 #include <iostream>
 
 
@@ -61,7 +62,7 @@ void OptionsMenuState::back(SDLApplication* app) {
 }
 
 void OptionsMenuState::controls(SDLApplication* app) {
-	//app->getStateMachine()->pushState();
+	//app->getStateMachine()->pushState(new ControlMenuState(app));
 	std::cout << "controles" << std::endl;
 }
 

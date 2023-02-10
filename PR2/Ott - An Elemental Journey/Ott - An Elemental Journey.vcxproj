@@ -134,6 +134,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="checkML.h" />
+    <ClInclude Include="gameflow\menus\options\ControlMenuState.h" />
     <ClInclude Include="dependencies\Exceptions.h" />
     <ClInclude Include="dependencies\Font.h" />
     <ClInclude Include="dependencies\Parser.h" />
@@ -158,6 +159,7 @@
     <ClInclude Include="ui\UIElement.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="gameflow\menus\options\ControlMenuState.cpp" />
     <ClCompile Include="dependencies\Font.cpp" />
     <ClCompile Include="dependencies\Parser.cpp" />
     <ClCompile Include="dependencies\Texture.cpp" />
