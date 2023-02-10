@@ -38,6 +38,7 @@ const std::string fontRoute = "../../fonts/";
 /// Clase que se encarga del juego en su total
 class SDLApplication {
 private:
+    SDL_GameController* gGameController = NULL;
     bool exit = false; ///< Indica si el juego se va a cerrar o no
 
     SDL_Window* window = nullptr; ///< Puntero a la ventana de SDL
