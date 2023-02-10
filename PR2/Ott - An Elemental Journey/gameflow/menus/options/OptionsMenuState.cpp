@@ -62,8 +62,7 @@ void OptionsMenuState::back(SDLApplication* app) {
 }
 
 void OptionsMenuState::controls(SDLApplication* app) {
-	//app->getStateMachine()->pushState(new ControlMenuState(app));
-	std::cout << "controles" << std::endl;
+	app->getStateMachine()->pushState(new ControlMenuState(app));
 }
 
 void OptionsMenuState::render() const {

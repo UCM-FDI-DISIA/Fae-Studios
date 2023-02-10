@@ -14,9 +14,18 @@ ControlMenuState::ControlMenuState(SDLApplication* app) : MenuState(5, app->getT
 		Scale(0.33f, 1.0f))));
 
 	controles = app->getTexture("playbackground", 5);
+	controlsRect.w = 3 * WINDOW_WIDTH / 5;
+	controlsRect.h = 4 * WINDOW_HEIGHT / 7;
+	controlsRect.x = WINDOW_WIDTH / 2 - controlsRect.w / 2;
+	controlsRect.y = 3 * WINDOW_HEIGHT / 7 - controlsRect.h / 2;
 }
 
 void ControlMenuState::back(SDLApplication* app) {
 	app->getStateMachine()->popState();
+}
+
+void ControlMenuState::render() const {
+	MenuState::render();
+	controles->render(controlsRect);
 }
 
