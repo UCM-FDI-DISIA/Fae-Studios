@@ -9,6 +9,6 @@ private:
 public:
 	Trigger(float x, float y, float w, float h, GameObject* g, Enter* en) : GameObject(Vector2D(x, y), nullptr, {w, h}) {};
 	~Trigger() = default;
-	void OnEnter();
+	void OnEnter() {};
 };
 

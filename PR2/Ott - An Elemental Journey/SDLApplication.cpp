@@ -4,6 +4,7 @@
 //#include "PlayState.h"
 #include "gameflow/menus/MainMenuState.h"
 #include "dependencies/Parser.h"
+#include <tmxlite/Map.hpp>
 
 SDLApplication::SDLApplication() {
     //Hacemos toda la inicialización previa de SDL
