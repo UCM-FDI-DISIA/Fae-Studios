@@ -16,16 +16,27 @@ private:
 
 	const uint PREPARING_TIME = 500;
 	const uint ATTACKING_TIME = 500;
-	int startTime = 0;
-	SDL_Rect Trigger;
-	triggerState state;
+	const uint NEW_DIR = 5000;
+	int startAttackingTime = 0;
+	int startMovingTime = 0;
+	SDL_Rect attackTrigger;
+	triggerState attackState;
+	SDL_Rect detectingTrigger;
+	bool detectPlayer;
+
+	GameObject* player;
 public:
-	Enemy(const Vector2D& position, Texture* texture, int lives, elementsInfo::elements elem, Vector2D dir = Vector2D(0,0), const Scale& scale = Scale(1.0f, 1.0f), float w = 1.0f, float h = 1.0f): MovingObject(position, texture, dir, scale), actualLives(lives), element(elem) {
+	Enemy(const Vector2D& position, Texture* texture, int lives, elementsInfo::elements elem, GameObject* p, Vector2D dir = Vector2D(0,0), const Scale& scale = Scale(1.0f, 1.0f), float w = 1.0f, float h = 1.0f): MovingObject(position, texture, dir, scale), actualLives(lives), element(elem), player(p) {
 		maxLives = lives * 2;  // Representación interna doblada
 		actualLives = lives * 2;
-		Trigger.x = position.getX() - w; Trigger.y = position.getY();
-		Trigger.w = w; Trigger.h = h;
-		state = normal;
+
+		attackTrigger.x = position.getX() - w; attackTrigger.y = position.getY();
+		attackTrigger.w = w; attackTrigger.h = h;
+		attackState = normal;
+
+		detectingTrigger.x = position.getX() - 2 * w; detectingTrigger.y = position.getY();
+		detectingTrigger.w = 2 * w; detectingTrigger.h = h;
+		detectPlayer = false;
 	}
 	~Enemy() {
 
@@ -42,28 +53,47 @@ public:
 		// borrar o marcar booleano para borrar después
 	}
 
-	void OnEnter() {
-		if (state == normal) {
-			state = preparing;
+	void OnEnterAttack() {
+		if (attackState == normal) {
+			attackState = preparing;
 		}
-		else if (state == attacking) {
+		else if (attackState == attacking) {
 			//Player.Damage(element) supongo
 		}
 	}
 
+	void OnEnterDetection() {
+		dir = (player->getRect().x - dir.getX(), dir.getY());
+		dir.normalize();
+		detectPlayer = true;
+	}
+
 	virtual void update() { //Falta el movimiento del enemigo
-		int frameTime = startTime - SDL_GetTicks();
-		if (state == preparing && frameTime >= PREPARING_TIME) {
-			state = attacking;
-			startTime = SDL_GetTicks();
+		int frameTime = startAttackingTime - SDL_GetTicks();
+		int frameMovingTime = startMovingTime - SDL_GetTicks();
+		if (attackState == preparing && frameTime >= PREPARING_TIME) {
+			attackState = attacking;
+			startAttackingTime = SDL_GetTicks();
 		}
-		else if (state == attacking && frameTime >= ATTACKING_TIME) {
-			state = normal;
-			startTime = SDL_GetTicks();
+		else if (attackState == attacking && frameTime >= ATTACKING_TIME) {
+			attackState = normal;
+			startAttackingTime = SDL_GetTicks();
 		}
 
-		Trigger.x = (position.getX() - Trigger.w); //Habría que multiplicarlo por el vector de dirección del enemigo para saber si hay que ponerlo delante o detrás de él
-		Trigger.y = position.getY();
+		attackTrigger.x = (position.getX() - attackTrigger.w) * dir.getX(); //Habría que multiplicarlo por el vector de dirección del enemigo para saber si hay que ponerlo delante o detrás de él
+		attackTrigger.y = position.getY();
+
+		if (!detectPlayer && frameMovingTime >= NEW_DIR) {
+			dir = (rand() % 2 - 1, dir.getY());
+			dir.normalize();
+			startMovingTime = SDL_GetTicks();
+		}
+
+		Move();
+	}
+
+	void Move(){
+		position = (position + dir) * speed;
 	}
 
 	int GetLives() { return actualLives; }
