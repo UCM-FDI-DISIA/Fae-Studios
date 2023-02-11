@@ -53,21 +53,34 @@ void Ott::handleEvents(const SDL_Event& event) {
 	*/
 #pragma endregion
 
+	//hacer bool/cambiar si solo se podia mover una vez en el salto creo recordar
 	if (event.type == SDL_KEYDOWN) {
+		if (event.key.keysym.sym == SDLK_a) {
+			dir = Vector2D(-1, 0);
+		}
+		else if (event.key.keysym.sym == SDLK_d)
+		{
+			dir = Vector2D(1, 0);
+		}
 		if (event.key.keysym.sym == SDLK_SPACE) {
 			jump();
 		}
+		ismoving = true;
 	}
+	else
+	{
+		ismoving = false;
+	}
+	
+	
 }
-
-
 
 bool Ott::canJump() {
 	return ground;
 }
 
 void Ott::jump() {
-	if (canJump()) {
+	if (isGrounded()) { //metodo canjump es lo mismo pero no inline? 
 		animState = JUMPING;
 		speed = Vector2D(speed.getX(), jumpForce);
 	}
@@ -86,6 +99,7 @@ void Ott::update() {
 		timer = 0;
 		if (animState == IDLE)
 		{
+			dir = Vector2D(0, 0);
 			row = 0;
 			col = (col + 1) % 2;
 		}
@@ -106,6 +120,10 @@ void Ott::update() {
 			row = 5;
 			col = 5;
 		}
+		if (animState == WALKING) {
+			row = 2;
+			col = (col + 1) % 4;
+		}
 		// avanzar framde de animation
 	}
 
@@ -121,14 +139,21 @@ void Ott::update() {
 		animState = PEAK;
 		timer = ANIMATION_FRAME_RATE;
 	}
-
-	position = position + speed;
+	
+ position = position +speed+ dir; 
 #pragma region Deteccion de suelo??? y colisiones
 	SDL_Rect groundCol;
 	bool col = false;
 	static_cast<PlayState*>(game)->ottCollide(getRect(), onGround, groundCol, col, ground);
 	if (ground) {
-		animState = IDLE;
+		if (ismoving) 
+		{ 
+			animState = WALKING; 
+		}
+		else
+		{
+			animState = IDLE;
+		}
 		if (!notGroundedBefore) {
 			animState = LAND;
 			timer = ANIMATION_FRAME_RATE;
@@ -142,6 +167,8 @@ void Ott::update() {
 
 	//timer que comprueba si sigue teniendo una vida debil
 	if (weakened && (SDL_GetTicks() - weakTimer) >= timeWeak * 1000) weakened = false;
+	//bool si ha habido input
+	
 }
 
 void Ott::useGravity() {
