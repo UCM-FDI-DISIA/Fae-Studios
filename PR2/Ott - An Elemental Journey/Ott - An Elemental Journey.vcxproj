@@ -139,6 +139,7 @@
     <ClInclude Include="dependencies\Parser.h" />
     <ClInclude Include="dependencies\Texture.h" />
     <ClInclude Include="dependencies\Vector2D.h" />
+    <ClInclude Include="EarthKMap.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="gameflow\GameState.h" />
     <ClInclude Include="gameflow\GameStateMachine.h" />
@@ -149,6 +150,7 @@
     <ClInclude Include="gameobjects\GameObject.h" />
     <ClInclude Include="loaders\FontLoader.h" />
     <ClInclude Include="loaders\TextureLoader.h" />
+    <ClInclude Include="MapState.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="SDLApplication.h" />
     <ClInclude Include="targetver.h" />
@@ -163,6 +165,7 @@
     <ClCompile Include="dependencies\Parser.cpp" />
     <ClCompile Include="dependencies\Texture.cpp" />
     <ClCompile Include="dependencies\Vector2D.cpp" />
+    <ClCompile Include="EarthKMap.cpp" />
     <ClCompile Include="gameflow\GameState.cpp" />
     <ClCompile Include="gameflow\GameStateMachine.cpp" />
     <ClCompile Include="gameflow\menus\MainMenuState.cpp" />
@@ -173,6 +176,7 @@
     <ClCompile Include="loaders\FontLoader.cpp" />
     <ClCompile Include="loaders\TextureLoader.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MapState.cpp" />
     <ClCompile Include="SDLApplication.cpp" />
     <ClCompile Include="ui\Button.cpp" />
     <ClCompile Include="ui\Slider.cpp" />
