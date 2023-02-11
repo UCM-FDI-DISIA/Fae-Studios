@@ -87,10 +87,10 @@
     <ClInclude Include="utils\Trigger.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="MapState.h">
+    <ClInclude Include="gameflow\MapState.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="EarthKMap.h">
+    <ClInclude Include="MapGenerator.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
@@ -155,10 +155,10 @@
     <ClCompile Include="utils\Trigger.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="MapState.cpp">
+    <ClCompile Include="gameflow\MapState.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="EarthKMap.cpp">
+    <ClCompile Include="MapGenerator.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>

@@ -1,6 +1,6 @@
-#include "EarthKMap.h"
+#include "MapGenerator.h"
 
-void EarthKMap::loadMap(string path) {
+void MapGenerator::loadMap(string path) {
     if (map.load(path))
     {
         const auto& layers2 = map.getLayers();

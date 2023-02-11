@@ -12,7 +12,7 @@
 
 using namespace std;
 using namespace tmx;
-class EarthKMap
+class MapGenerator
 {
 public:
 	Map map;
