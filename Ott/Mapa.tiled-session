@@ -1,0 +1,28 @@
+{
+    "activeFile": "",
+    "expandedProjectPaths": [
+        "."
+    ],
+    "fileStates": {
+        "ColoresBosque.tsx": {
+            "scaleInDock": 0.33,
+            "scaleInEditor": 1
+        },
+        "MundoBosque.tmx": {
+            "scale": 0.25,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 8974,
+                "y": -190
+            }
+        }
+    },
+    "openFiles": [
+        "MundoBosque.tmx",
+        "ColoresBosque.tsx"
+    ],
+    "recentFiles": [
+        "MundoBosque.tmx",
+        "ColoresBosque.tsx"
+    ]
+}
