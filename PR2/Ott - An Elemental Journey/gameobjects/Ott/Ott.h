@@ -20,6 +20,7 @@ protected:
 
     SDL_Rect onGround;
     bool ground = false;
+    bool ismoving = false;
     bool notGroundedBefore = false;
     Vector2D speed = { 0,0 };
 
