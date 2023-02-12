@@ -169,7 +169,7 @@ void SDLApplication::saveGame() {
     stateMachine->pushState(pause); //Metemos de nuevo el estado de pausa
 }*/
 
-Texture* SDLApplication::getTexture(const string& name, int stateID) {
+Texture* SDLApplication::getTexture(const string& name, STATEID stateID) {
     Texture* TMP = textureManager->getTexture(name, stateID);
     if (TMP == nullptr) {
         try {

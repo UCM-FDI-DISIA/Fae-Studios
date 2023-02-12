@@ -7,7 +7,7 @@
 #include <iostream>
 
 
-OptionsMenuState::OptionsMenuState(SDLApplication* app) : MenuState(2, app->getTexture("mainmenubackground", 2), app) {
+OptionsMenuState::OptionsMenuState(SDLApplication* app) : MenuState(OPTIONS, app->getTexture("mainmenubackground", OPTIONS), app) {
 	//Opciones gráficas
 	gameObjects.push_back(new Button(ButtonParams(
 		Vector2D(WINDOW_WIDTH / 2 - (app->getTexture("button", this->getStateID())->getW() / 3) / 2, 3 * WINDOW_HEIGHT / 7 - (app->getTexture("button", this->getStateID())->getH() / 2)),

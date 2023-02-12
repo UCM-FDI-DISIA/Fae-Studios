@@ -4,7 +4,7 @@
 #include "../../../ui/Button.h"
 #include "../../../ui/Slider.h"
 
-MusicOptionsMenuState::MusicOptionsMenuState(SDLApplication* app) : MenuState(4, app->getTexture("mainmenubackground", 4), app) {
+MusicOptionsMenuState::MusicOptionsMenuState(SDLApplication* app) : MenuState(MUSIC_OPTIONS, app->getTexture("mainmenubackground", MUSIC_OPTIONS), app) {
 	//Return
 	gameObjects.push_back(new Button(ButtonParams(
 		Vector2D(WINDOW_WIDTH / 2 - (app->getTexture("button", this->getStateID())->getW() / 3) / 2, 8 * WINDOW_HEIGHT / 9 - (app->getTexture("button", this->getStateID())->getH() / 2)), 

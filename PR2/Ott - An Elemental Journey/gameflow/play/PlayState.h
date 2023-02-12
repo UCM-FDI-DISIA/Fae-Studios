@@ -18,4 +18,5 @@ public:
     void ottCollide(const SDL_Rect& Ott, const SDL_Rect& onGround, SDL_Rect& colRect, bool& col, bool& ground);
     virtual void update();
     inline double Gravity() { return gravity; };
+    void handleEvents(SDL_Event& e) override;
 };

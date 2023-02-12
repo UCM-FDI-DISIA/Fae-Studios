@@ -1,13 +1,15 @@
 #pragma once
+#include "../../checkML.h"
 #include "PlayState.h"
 #include "../../gameobjects/Ott/Ott.h"
 #include "../../SDLApplication.h"
 #include "../../gameobjects/Physics/Ground.h"
+#include "../menus/PauseMenuState.h"
 
-PlayState::PlayState(SDLApplication* app) : GameState(2, app) {
-	Ott* ott = new Ott(Vector2D(0, 0), app->getTexture("ott", 2), this, Scale(0.3f, 0.3f));
+PlayState::PlayState(SDLApplication* app) : GameState(PLAY_STATE, app) {
+	Ott* ott = new Ott(Vector2D(0, 0), app->getTexture("ott", PLAY_STATE), this, Scale(0.3f, 0.3f));
 
-	gr = new Ground(Vector2D(0, 400), app->getTexture("whiteBox", 2), Scale(0.8f, 0.25f));
+	gr = new Ground(Vector2D(0, 400), app->getTexture("whiteBox", PLAY_STATE), Scale(0.8f, 0.25f));
 	gameObjects.push_back(gr);
 	gameObjects.push_back(ott);
 
@@ -32,5 +34,12 @@ void PlayState::update() {
 		if (!static_cast<Ott*>(it)->isGrounded()) {
 			static_cast<Ott*>(it)->useGravity();
 		}
+	}
+}
+
+void PlayState::handleEvents(SDL_Event& e) {
+	GameState::handleEvents(e);
+	if (e.type == SDL_KEYUP) {
+		if (e.key.keysym.sym == SDLK_ESCAPE) app->getStateMachine()->pushState(new PauseMenuState(app));
 	}
 }

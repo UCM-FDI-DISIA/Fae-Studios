@@ -6,7 +6,7 @@
 
 
 
-void TextureLoader::createTexture(const TextureDescription& texture, int stateID) {
+void TextureLoader::createTexture(const TextureDescription& texture, STATEID stateID) {
 	try {
 		textures.insert({ texture.name, new Texture(app->getRenderer(), texture.filename, texture.numRows, texture.numCols)}); //Las insertamos en nuestro diccionario de texturas
 	}
@@ -15,7 +15,7 @@ void TextureLoader::createTexture(const TextureDescription& texture, int stateID
 	}
 }
 
-void TextureLoader::addTexture(const std::string& id, Texture* texture, int stateID) {
+void TextureLoader::addTexture(const std::string& id, Texture* texture, STATEID stateID) {
 	std::unordered_map<std::string, Texture*>::iterator it = textures.find(id);
 	if (it != textures.end()) delete texture;
 	else {
@@ -24,7 +24,7 @@ void TextureLoader::addTexture(const std::string& id, Texture* texture, int stat
 	}
 }
 
-Texture* TextureLoader::getTexture(const std::string& id, int stateID) {
+Texture* TextureLoader::getTexture(const std::string& id, STATEID stateID) {
 	std::unordered_map<std::string, Texture*>::iterator it = textures.find(id);
 	if (it != textures.end()) {
 		registerTexture(id, stateID);
@@ -40,14 +40,14 @@ void TextureLoader::deleteTextures() {
 	}
 }
 
-void TextureLoader::registerTexture(const std::string& id, int stateID) {
+void TextureLoader::registerTexture(const std::string& id, STATEID stateID) {
 	for (auto it = whereIsTextureBeingUsed[id].begin(); it != whereIsTextureBeingUsed[id].end(); ++it) {
 		if ((*it) == stateID) return;
 	}
 	whereIsTextureBeingUsed[id].push_front(stateID);
 }
 
-void TextureLoader::unregisterTexture(int stateID) {
+void TextureLoader::unregisterTexture(STATEID stateID) {
 	for (auto it = whereIsTextureBeingUsed.begin(); it != whereIsTextureBeingUsed.end();) {
 		for (auto it2 = it->second.begin(); it2 != it->second.end();) {
 			if ((*it2) == stateID) it2 = it->second.erase(it2);

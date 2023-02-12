@@ -36,6 +36,7 @@ void GameState::handleEvents(SDL_Event& e) {
         if (!deleted) ++it;
         else return;
     }
+    if (e.type == SDL_QUIT) app->quitGame();
 }
 
 void GameState::setDelete() {

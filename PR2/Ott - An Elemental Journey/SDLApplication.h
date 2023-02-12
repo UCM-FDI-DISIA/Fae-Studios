@@ -98,7 +98,7 @@ public:
     /// Devuelve una textura dado su nombre en el diccionario de texturas
     /// \param name String con el nombre de la textura en el diccionario
     /// \return Puntero a la textura
-    Texture* getTexture(const string& name, int stateID);
+    Texture* getTexture(const string& name, STATEID stateID);
 
     /// Devuelve una fuente dado su nombre en el diccionario de fuentes
     /// \param name String con el nombre de la textura en el diccionario
