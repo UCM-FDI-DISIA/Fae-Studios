@@ -1,0 +1,84 @@
+﻿#include "HealthBar.h"
+
+void HealthBar::render() const {
+    for (auto it = containers.healthContainerList.begin(); it != containers.healthContainerList.end(); ++it) {
+        if ((*it).state == NORMAL) texture->renderFrame((*it).destRect, 0, 1);
+        else if((*it).state == EMPTY) texture->renderFrame((*it).destRect, 0, 4);
+        else if((*it).state == WEAK) texture->renderFrame((*it).destRect, 0, 12);
+    }
+}
+
+void HealthBar::initializeContainers() {
+    changeSize();
+    for (int i = 0; i < INITIAL_CONTAINERS; ++i) {
+        SDL_Rect tmp = getRect();
+        tmp.x = tmp.x + ((CONTAINER_OFFSET + tmp.w) * i);
+        healthContainer h{ tmp, NORMAL };
+        containers.healthContainerList.push_front(h); //Se añaden los corazones a la lista de corazones
+    }
+    containers.lastNormalContainer = containers.healthContainerList.end();
+    --containers.lastNormalContainer; //El último corazón es el último de la lista
+    containers.firstEmptyContainer = containers.healthContainerList.end();
+    containers.firstWeakContainer = containers.healthContainerList.end();
+    weakenedContainers = 0;
+}
+
+void HealthBar::changeHealth(HEALTHCHANGE change) {
+    switch (change) {
+        case FULL_EMPTY_CONTAINER: 
+            if(containers.firstEmptyContainer != containers.healthContainerList.end()) {
+                containers.firstEmptyContainer->state == NORMAL;
+                ++containers.firstEmptyContainer;
+                ++containers.lastNormalContainer;
+            }
+            break;
+        case UNFULL_FULL_CONTAINER: 
+            --containers.firstEmptyContainer;
+            --containers.lastNormalContainer;
+            containers.firstEmptyContainer->state = EMPTY;
+            break;
+        case WEAKEN_CONTAINER: 
+            containers.firstWeakContainer = containers.lastNormalContainer;
+            --containers.lastNormalContainer;
+            containers.firstWeakContainer->state = WEAK;
+            weakenedContainers++;
+            break;
+        case UNWEAKEN_CONTAINER: 
+            containers.firstWeakContainer->state = NORMAL;
+            ++containers.lastNormalContainer;
+            ++containers.firstWeakContainer;
+            weakenedContainers--;
+            if (weakenedContainers == 0) containers.firstWeakContainer = containers.healthContainerList.end();
+            break;
+        case UNFULL_WEAKEN_CONTAINER:
+            --containers.firstEmptyContainer;
+            containers.firstEmptyContainer->state = EMPTY;
+            weakenedContainers--;
+            if (weakenedContainers == 0) containers.firstWeakContainer = containers.healthContainerList.end();
+            break;
+        case FULL_ALL_CONTAINERS:
+            for (healthContainer e : containers.healthContainerList) e.state = NORMAL;
+            containers.lastNormalContainer = containers.healthContainerList.end();
+            --containers.lastNormalContainer;
+            containers.firstEmptyContainer = containers.healthContainerList.end();
+            containers.firstWeakContainer = containers.healthContainerList.end();
+            weakenedContainers = 0;
+            break;
+    }
+}
+
+void HealthBar::addContainer() {
+    SDL_Rect tmp = getRect();
+    tmp.x = tmp.x + ((tmp.w + CONTAINER_OFFSET) * containers.healthContainerList.size() - 1);
+    healthContainer h{ tmp, NORMAL };
+    containers.healthContainerList.push_front(h); //Se añaden los corazones a la lista de corazones
+    containers.lastNormalContainer = containers.healthContainerList.end();
+    --containers.lastNormalContainer;
+    containers.firstEmptyContainer = containers.healthContainerList.end();
+    containers.firstWeakContainer = containers.healthContainerList.end();
+}
+
+void HealthBar::changeSize() {
+    width = width / texture->getNumCols();
+    height = height / texture->getNumRows();
+}

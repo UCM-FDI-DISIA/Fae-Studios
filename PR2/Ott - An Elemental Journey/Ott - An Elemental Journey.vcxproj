@@ -152,6 +152,7 @@
     <ClInclude Include="gameflow\menus\options\OptionsMenuState.h" />
     <ClInclude Include="gameobjects\GameObject.h" />
     <ClInclude Include="gameobjects\Physics\Ground.h" />
+    <ClInclude Include="ui\HealthBar.h" />
     <ClInclude Include="loaders\FontLoader.h" />
     <ClInclude Include="loaders\TextureLoader.h" />
     <ClInclude Include="gameobjects\Ott\Ott.h" />
@@ -184,6 +185,7 @@
     <ClCompile Include="gameobjects\GameObject.cpp" />
     <ClCompile Include="gameobjects\Ott\Ott.cpp" />
     <ClCompile Include="gameobjects\Physics\Ground.cpp" />
+    <ClCompile Include="ui\HealthBar.cpp" />
     <ClCompile Include="loaders\FontLoader.cpp" />
     <ClCompile Include="loaders\TextureLoader.cpp" />
     <ClCompile Include="main.cpp" />

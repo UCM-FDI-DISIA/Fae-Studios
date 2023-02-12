@@ -1,2 +1,6 @@
-﻿  PauseMenuState.cpp
+﻿  PlayState.cpp
+  HealthBar.cpp
+C:\Users\Alex\Desktop\github\Fae-Studios\PR2\Ott - An Elemental Journey\ui\HealthBar.cpp(30,55): warning C4553: '==': result of expression not used; did you intend '='?
+C:\Users\Alex\Desktop\github\Fae-Studios\PR2\Ott - An Elemental Journey\ui\HealthBar.cpp(72,93): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+  Generating Code...
   Ott - An Elemental Journey.vcxproj -> C:\Users\Alex\Desktop\github\Fae-Studios\PR2\x64\Debug\Ott - An Elemental Journey.exe

@@ -28,6 +28,7 @@
     <ClCompile Include="ui\Text.cpp" />
     <ClCompile Include="ui\UIElement.cpp" />
     <ClCompile Include="gameflow\menus\PauseMenuState.cpp" />
+    <ClCompile Include="ui\HealthBar.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="checkML.h" />
@@ -61,6 +62,7 @@
     <ClInclude Include="ui\Text.h" />
     <ClInclude Include="ui\UIElement.h" />
     <ClInclude Include="gameflow\menus\PauseMenuState.h" />
+    <ClInclude Include="ui\HealthBar.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Ott - An Elemental Journey.rc" />

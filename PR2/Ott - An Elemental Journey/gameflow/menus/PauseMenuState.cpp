@@ -59,3 +59,10 @@ void PauseMenuState::settings(SDLApplication* app) {
 void PauseMenuState::exit(SDLApplication* app) {
 	app->quitGame();
 }
+
+void PauseMenuState::handleEvents(SDL_Event& e) {
+	MenuState::handleEvents(e);
+	if (e.type == SDL_KEYUP) {
+		if (e.key.keysym.sym == SDLK_ESCAPE) app->getStateMachine()->popState();
+	}
+}

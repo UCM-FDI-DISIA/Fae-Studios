@@ -10,5 +10,6 @@ private:
 
 public:
 	PauseMenuState(SDLApplication* app);
+	void handleEvents(SDL_Event& e) override;
 };
 
