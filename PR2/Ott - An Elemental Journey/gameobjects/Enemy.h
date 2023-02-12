@@ -16,7 +16,7 @@ private:
 
 	const uint PREPARING_TIME = 500;
 	const uint ATTACKING_TIME = 500;
-	const uint NEW_DIR = 5000;
+	const uint NEW_DIR = 1000;
 	int startAttackingTime = 0;
 	int startMovingTime = 0;
 	SDL_Rect attackTrigger;
@@ -70,7 +70,8 @@ public:
 	}
 
 	virtual void update() { //Falta el movimiento del enemigo
-		int frameTime =  SDL_GetTicks() - startAttackingTime;
+		int frameTime =  SDL_GetTicks() - startAttackingTime;  // Es importante que el orden sea 
+		// SDL_GetTicks() - startAttackingTime y no al revés porque sería negativo y nunca se cumpliría
 		int frameMovingTime = SDL_GetTicks() - startMovingTime;
 		if (attackState == preparing && frameTime >= PREPARING_TIME) {
 			attackState = attacking;
@@ -81,7 +82,7 @@ public:
 			startAttackingTime = SDL_GetTicks();
 		}
 
-		if (dir.getX() > 0)
+		if (dir.getX() > 0) // Ajuste del trigger en función del movimiento del enemigo
 			attackTrigger.x = position.getX() + width;
 		else
 			attackTrigger.x = position.getX() - attackTrigger.w;
@@ -89,7 +90,9 @@ public:
 		attackTrigger.y = position.getY();
 
 		if (!detectPlayer && frameMovingTime >= NEW_DIR) {
-			dir = { rand() % 3 - 1, dir.getY()};
+			dir = { (double)(rand() % 3 - 1), dir.getY()};  // No se puede declarar con parentesis, 
+			// tiene que ser con llaves o con Vector2D(rand() % 3 - 1, dir.getY()).
+			// El módulo tiene que ser entre 3 para poder tener 3 valores, (0, 1, 2). Al restar -1 se queda en (-1, 0, 1)
 			dir.normalize();
 			startMovingTime = SDL_GetTicks();
 		}
@@ -98,7 +101,8 @@ public:
 	}
 
 	void Move(){
-		position = position + (dir * speed);
+		position = position + dir * speed; // No es (position + dir) * speed porque la posición se multiplicaría por la velocidad
+		// en vez de que se multiplique solo la dirección, asi que se teletransportaría
 	}
 
 	int GetLives() { return actualLives; }
