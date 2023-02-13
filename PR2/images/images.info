@@ -1,6 +1,8 @@
-backgrounds 2
-mainbg.png 1 1 mainmenubackground
-playbg.png 1 1 playbackground
+backgrounds 4
+defaultmenubg.png 1 1 playbackground
+mainmenubg.png 1 1 mainmenubackground
+mainbg.png 1 1 blackbackground
+playbg.png 1 1 whitebackground
 
 ui 7
 button.png 1 3 button

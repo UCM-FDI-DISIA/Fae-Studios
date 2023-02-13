@@ -1,6 +1,6 @@
-﻿  PlayState.cpp
-  HealthBar.cpp
-C:\Users\Alex\Desktop\github\Fae-Studios\PR2\Ott - An Elemental Journey\ui\HealthBar.cpp(30,55): warning C4553: '==': result of expression not used; did you intend '='?
-C:\Users\Alex\Desktop\github\Fae-Studios\PR2\Ott - An Elemental Journey\ui\HealthBar.cpp(72,93): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-  Generating Code...
+﻿  MainMenuState.cpp
+C:\Users\Alex\Desktop\github\Fae-Studios\PR2\Ott - An Elemental Journey\gameflow\menus\MainMenuState.cpp(60,37): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\Alex\Desktop\github\Fae-Studios\PR2\Ott - An Elemental Journey\gameflow\menus\MainMenuState.cpp(60,76): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\Alex\Desktop\github\Fae-Studios\PR2\Ott - An Elemental Journey\gameflow\menus\MainMenuState.cpp(61,38): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\Alex\Desktop\github\Fae-Studios\PR2\Ott - An Elemental Journey\gameflow\menus\MainMenuState.cpp(61,82): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
   Ott - An Elemental Journey.vcxproj -> C:\Users\Alex\Desktop\github\Fae-Studios\PR2\x64\Debug\Ott - An Elemental Journey.exe

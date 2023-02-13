@@ -54,7 +54,11 @@ MainMenuState::MainMenuState(SDLApplication* app) : MenuState(MAIN_MENU, app->ge
 	versionBack->movePosition(Vector2D(WINDOW_WIDTH / 2 + 5 * versionBack->getTexture()->getW() / 2 - 1, WINDOW_HEIGHT - 30));
 	versionFront = new Text("InDev 0.0.1", *(app->getFont("press_start")), Vector2D(WINDOW_WIDTH / 2, 20), app->getRenderer(), { 255,217,102 }, Scale(1.0f, 1.0f));
 	versionFront->movePosition(Vector2D(WINDOW_WIDTH / 2 + 5 * versionFront->getTexture()->getW() / 2, WINDOW_HEIGHT - 30));
-
+	
+	littleOtt = app->getTexture("ott", MAIN_MENU);
+	littleOttPos = Vector2D(400, 528);
+	littleOttRect.x = littleOttPos.getX(); littleOttRect.y = littleOttPos.getY();
+	littleOttRect.h = littleOtt->getH() * 0.5f; littleOttRect.w = littleOtt->getW() * 0.5f;
 }
 
 void MainMenuState::play(SDLApplication* app) {
@@ -77,6 +81,7 @@ void MainMenuState::render() const {
 	faeStudiosFront->render();
 	versionBack->render();
 	versionFront->render();
+	littleOtt->renderFrame(littleOttRect, 0, animFrame);
 }
 
 MainMenuState::~MainMenuState() {
@@ -86,4 +91,11 @@ MainMenuState::~MainMenuState() {
 	delete faeStudiosFront;
 	delete versionBack;
 	delete versionFront;
+}
+
+void MainMenuState::update() {
+	if (SDL_GetTicks() >= animTime) { //Se cambia la animación de caída
+		animFrame = (animFrame + 1) % 2;
+		animTime = SDL_GetTicks() + MAIN_MENU_OTT_ANIM_TIME;
+	}
 }

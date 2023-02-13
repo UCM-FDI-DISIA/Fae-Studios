@@ -5,7 +5,7 @@
 #include "MainMenuState.h"
 #include "options/OptionsMenuState.h"
 
-PauseMenuState::PauseMenuState(SDLApplication* app) : MenuState(PAUSE_MENU, app->getTexture("mainmenubackground", PAUSE_MENU), app) {
+PauseMenuState::PauseMenuState(SDLApplication* app) : MenuState(PAUSE_MENU, app->getTexture("playbackground", PAUSE_MENU), app) {
 	//Resume
 	gameObjects.push_back(new Button(ButtonParams(
 		Vector2D(WINDOW_WIDTH / 2 - (app->getTexture("button", this->getStateID())->getW() / 3) / 2, 3 * WINDOW_HEIGHT / 7 - (app->getTexture("button", this->getStateID())->getH() / 2)),

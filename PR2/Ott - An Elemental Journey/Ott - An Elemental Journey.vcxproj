@@ -133,6 +133,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="ui\ChargedAttackBar.h" />
     <ClInclude Include="checkML.h" />
     <ClInclude Include="gameflow\menus\options\ControlMenuState.h" />
     <ClInclude Include="gameobjects\CollisionObject.h" />
@@ -167,6 +168,7 @@
     <ClInclude Include="ui\UIElement.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ui\ChargedAttackBar.cpp" />
     <ClCompile Include="gameflow\menus\options\ControlMenuState.cpp" />
     <ClCompile Include="gameflow\play\PlayState.cpp" />
     <ClCompile Include="gameobjects\CollisionObject.cpp" />
