@@ -55,7 +55,7 @@ public:
     ~Button() override;
 
     /// Renderiza el botón en pantalla en sus 3 estados
-    void render() const override;
+    virtual void render() const;
 
     /// Manejo de eventos, principalmente el pulsar el botón
     /// \param e SDL_Event con el evento detectado en Game

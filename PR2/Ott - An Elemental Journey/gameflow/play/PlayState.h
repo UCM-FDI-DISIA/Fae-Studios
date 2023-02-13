@@ -1,9 +1,16 @@
 #include "../GameState.h"
 #include <list>
-#include "../../gameobjects/Entity.h"
 #include "../../gameobjects/Physics/Ground.h"
 #include <iostream>
+#include "../../gameobjects/Entity.h"
 #pragma once
+
+class Ott;
+
+using Camera = SDL_Rect;
+
+const uint LEVEL_WIDTH = 600;
+const uint LEVEL_HEIGHT = 300;
 
 class PlayState : public GameState {
 private:
@@ -12,6 +19,8 @@ private:
     list<Entity*> physicObjects;
     list<Ground*> groundObjects;
     list<Wall*> wallObjects;
+    Camera camera;
+    Ott* ott;
 
 public:
     PlayState(SDLApplication* app);

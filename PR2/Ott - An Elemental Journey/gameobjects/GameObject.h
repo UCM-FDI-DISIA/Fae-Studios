@@ -31,7 +31,7 @@ public:
     virtual ~GameObject() = default;
 
     /// Renderiza nuestro objeto en pantalla
-    virtual void render() const;
+    virtual void render(const SDL_Rect& Camera) const;
 
     /// Obtención del rectángulo destino del objeto
     /// \return SDL_Rect con el destino del contador en pantalla
