@@ -12,21 +12,41 @@ find_package(SDL2_mixer REQUIRED)
 
 
 add_executable(Ott
+        #MAIN Y SDLAPPLICATION
         "Ott - An Elemental Journey/main.cpp"
         "Ott - An Elemental Journey/SDLApplication.cpp"
+
+        #UI
         "Ott - An Elemental Journey/ui/Button.cpp"
         "Ott - An Elemental Journey/ui/Slider.cpp"
         "Ott - An Elemental Journey/ui/Text.cpp"
         "Ott - An Elemental Journey/ui/UIElement.cpp"
+        "Ott - An Elemental Journey/ui/HealthBar.cpp"
+
+        #LOADERS
         "Ott - An Elemental Journey/loaders/FontLoader.cpp"
         "Ott - An Elemental Journey/loaders/TextureLoader.cpp"
+
+        #GAMEOBJECTS
         "Ott - An Elemental Journey/gameobjects/GameObject.cpp"
+        "Ott - An Elemental Journey/gameobjects/CollisionObject.cpp"
+        "Ott - An Elemental Journey/gameobjects/Entity.cpp"
+        "Ott - An Elemental Journey/gameobjects/MovingObject.cpp"
+        "Ott - An Elemental Journey/gameobjects/Ott/Ott.cpp"
+        "Ott - An Elemental Journey/gameobjects/Physics/Ground.cpp"
+
+        #GAMEFLOW
         "Ott - An Elemental Journey/gameflow/GameState.cpp"
         "Ott - An Elemental Journey/gameflow/GameStateMachine.cpp"
         "Ott - An Elemental Journey/gameflow/menus/MainMenuState.cpp"
+        "Ott - An Elemental Journey/gameflow/menus/PauseMenuState.cpp"
         "Ott - An Elemental Journey/gameflow/menus/MenuState.cpp"
         "Ott - An Elemental Journey/gameflow/menus/options/MusicOptionsMenuState.cpp"
         "Ott - An Elemental Journey/gameflow/menus/options/OptionsMenuState.cpp"
+        "Ott - An Elemental Journey/gameflow/menus/options/ControlMenuState.cpp"
+        "Ott - An Elemental Journey/gameflow/play/PlayState.cpp"
+
+        #DEPENDENCIES
         "Ott - An Elemental Journey/dependencies/Font.cpp"
         "Ott - An Elemental Journey/dependencies/Parser.cpp"
         "Ott - An Elemental Journey/dependencies/Texture.cpp"
