@@ -4,6 +4,8 @@
 
 #include <list>
 #include "../gameobjects/GameObject.h"
+#include "../gameobjects/CollisionObject.h"
+
 
 class SDLApplication; // Declaramos una clase SDLApplication para romper las dependencias circulares
 
@@ -40,6 +42,8 @@ public:
     /// Devuelve el ID de la escena
     /// \return int con el ID de la escena
     virtual int getStateID() const { return stateID; };
+
+    virtual void collision(CollisionObject* c);
 };
 
 #endif //PROYECTOS2_GAMESTATE_H

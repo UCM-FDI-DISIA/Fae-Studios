@@ -1,5 +1,6 @@
 #include "../Entity.h"
 #include "../../gameflow/play/PlayState.h"
+#include "../Sanctuary.h"
 
 enum ANIM_STATE { IDLE, WALKING, LAND, JUMPING, PEAK, FALLING };
 
@@ -28,6 +29,8 @@ protected:
     bool weakened = false;
     int timeWeak = 3, weakTimer;
     //Game Controller 1 handler
+
+    GameObject* lastSanctuary = nullptr;
 public:
     Ott(const Vector2D& position, Texture* texture, PlayState* game, const Scale& scale = Scale(1.0f, 1.0f));
     /// Destructora de la clase GameObject
@@ -49,4 +52,15 @@ public:
 
     //Evento de daño
     virtual void recieveDamage(int elem);
+
+    inline void saveSactuary(GameObject* s) { lastSanctuary = s; }
+
+    inline GameObject* getCurrentSactuary() { return lastSanctuary; }
+
+    virtual bool collide(const SDL_Rect& obj, SDL_Rect& result);
+
+    virtual bool collide(GameObject* c);
+
+private:
+    virtual void die();
 };

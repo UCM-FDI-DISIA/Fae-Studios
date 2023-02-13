@@ -198,4 +198,34 @@ void Ott::recieveDamage(int elem)
 	}
 	else Entity::recieveDamage(elem);
 }
+bool Ott::collide(const SDL_Rect& obj, SDL_Rect& result)
+{
+	return false;
+}
+bool Ott::collide(GameObject* c)
+{
+	if (Sanctuary* o = dynamic_cast<Sanctuary*> (c)) {
+		SDL_Rect col = getRect();
+		SDL_Rect sactRect = o->getRect();
+		if (SDL_HasIntersection(&sactRect, &col) && lastSanctuary != o) {
+			cout << "Toca sanctuario" << endl;
+			saveSactuary(o);
+			return true;
+		}
+	}
+	return false;
+}
+void Ott::die()
+{
+	cout << "He muerto " << endl;
+	if (lastSanctuary == nullptr) {
+		cout << "No hay sanctuarios recientes... Muerte inminente" << endl;
+	}
+	else {
+		SDL_Rect r = lastSanctuary->getRect();
+		Vector2D newPos = { (double)r.x, (double)r.y };
+		position = newPos;
+		life = maxLife;
+	}
+}
 #pragma endregion

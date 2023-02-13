@@ -102,6 +102,9 @@
     <ClInclude Include="gameobjects\Entity.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="gameobjects\Sanctuary.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="gameflow\GameState.cpp">
@@ -177,6 +180,9 @@
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="gameobjects\Entity.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="gameobjects\Sanctuary.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>
