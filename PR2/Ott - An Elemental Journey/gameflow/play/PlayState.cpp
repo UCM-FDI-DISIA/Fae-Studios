@@ -6,6 +6,7 @@
 #include "../../gameobjects/Physics/Ground.h"
 #include "../menus/PauseMenuState.h"
 #include "../../ui/HealthBar.h"
+#include "../../ui/ChargedAttackBar.h"
 
 PlayState::PlayState(SDLApplication* app) : GameState(PLAY_STATE, app) {
 	Ott* ott = new Ott(Vector2D(0, 0), app->getTexture("ott", getStateID()), this, Scale(0.3f, 0.3f));
@@ -17,12 +18,14 @@ PlayState::PlayState(SDLApplication* app) : GameState(PLAY_STATE, app) {
 	groundObjects.push_back(gr);
 	physicObjects.push_back(ott);
 
-	gameObjects.push_back(new HealthBar(Vector2D(30, 100), app->getTexture("hearts", getStateID()), Scale(10.0f, 10.0f)));
+    HealthBar* healthBar = new HealthBar(Vector2D(30, 100), app->getTexture("hearts", getStateID()), Scale(10.0f, 10.0f));
+	gameObjects.push_back(healthBar);
+    gameObjects.push_back(new ChargedAttackBar(healthBar->lastHeartPosition() + Vector2D(100, -10), app->getTexture("chargebar", getStateID()), Scale(1.5f, 1.5f)));
 }
 
 void PlayState::ottCollide(const SDL_Rect& Ott, const SDL_Rect& onGround, SDL_Rect& colRect, bool& col, bool& ground) {
 	/*
-		COMPROBACIÓN DE COLISIONES CON OBJETOS DE TIPO SUELO
+		COMPROBACIï¿½N DE COLISIONES CON OBJETOS DE TIPO SUELO
 	*/
 	for (auto it : groundObjects) {
 		ground = it->collide(onGround, colRect);

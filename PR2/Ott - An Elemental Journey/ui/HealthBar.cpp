@@ -14,7 +14,7 @@ void HealthBar::initializeContainers() {
         SDL_Rect tmp = getRect();
         tmp.x = tmp.x + ((CONTAINER_OFFSET + tmp.w) * i);
         healthContainer h{ tmp, NORMAL };
-        containers.healthContainerList.push_front(h); //Se añaden los corazones a la lista de corazones
+        containers.healthContainerList.push_back(h); //Se añaden los corazones a la lista de corazones
     }
     containers.lastNormalContainer = containers.healthContainerList.end();
     --containers.lastNormalContainer; //El último corazón es el último de la lista
@@ -81,4 +81,10 @@ void HealthBar::addContainer() {
 void HealthBar::changeSize() {
     width = width / texture->getNumCols();
     height = height / texture->getNumRows();
+}
+
+Vector2D HealthBar::lastHeartPosition() const {
+    auto it = containers.healthContainerList.end();
+    --it;
+    return Vector2D(it->destRect.x, it->destRect.y);
 }

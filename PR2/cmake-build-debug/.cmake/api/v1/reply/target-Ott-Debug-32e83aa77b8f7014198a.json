@@ -249,13 +249,13 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "Ott - An Elemental Journey/ui/UIElement.cpp",
+			"path" : "Ott - An Elemental Journey/ui/HealthBar.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "Ott - An Elemental Journey/ui/HealthBar.cpp",
+			"path" : "Ott - An Elemental Journey/ui/ChargedAttackBar.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{

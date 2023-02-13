@@ -4,11 +4,11 @@
 
 enum HEALTHCHANGE {
 	FULL_EMPTY_CONTAINER, ///< Rellena un contenedor de vida. Solo hay que usarlo cuando el contenedor ha sido previamente vaciado, NO DEBILITADO.
-	UNFULL_FULL_CONTAINER, ///< Vacía un contenedor de vida que previamente estaba lleno, NO DEBILITADO.
+	UNFULL_FULL_CONTAINER, ///< Vacï¿½a un contenedor de vida que previamente estaba lleno, NO DEBILITADO.
 	WEAKEN_CONTAINER, ///< Debilita un contenedor de vida PREVIAMENTE LLENO.
-	UNWEAKEN_CONTAINER, ///< Quita la debilidad al contenedor PREVIAMENTE DÉBIL.
-	UNFULL_WEAKEN_CONTAINER, ///< Vacía un contenedor de vida PREVIAMENTE DÉBIL.
-	FULL_ALL_CONTAINERS ///< Rellena todos los contenedores simultáneamente, estuviesen o no débiles (útil si se va a otorgar un contenedor más).
+	UNWEAKEN_CONTAINER, ///< Quita la debilidad al contenedor PREVIAMENTE Dï¿½BIL.
+	UNFULL_WEAKEN_CONTAINER, ///< Vacï¿½a un contenedor de vida PREVIAMENTE Dï¿½BIL.
+	FULL_ALL_CONTAINERS ///< Rellena todos los contenedores simultï¿½neamente, estuviesen o no dï¿½biles (ï¿½til si se va a otorgar un contenedor mï¿½s).
 };
 
 const int INITIAL_CONTAINERS = 5;
@@ -46,5 +46,7 @@ public:
 	void addContainer();
 
 	void changeSize();
+
+    Vector2D lastHeartPosition() const;
 };
 

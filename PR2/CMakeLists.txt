@@ -20,8 +20,8 @@ add_executable(Ott
         "Ott - An Elemental Journey/ui/Button.cpp"
         "Ott - An Elemental Journey/ui/Slider.cpp"
         "Ott - An Elemental Journey/ui/Text.cpp"
-        "Ott - An Elemental Journey/ui/UIElement.cpp"
         "Ott - An Elemental Journey/ui/HealthBar.cpp"
+        "Ott - An Elemental Journey/ui/ChargedAttackBar.cpp"
 
         #LOADERS
         "Ott - An Elemental Journey/loaders/FontLoader.cpp"
