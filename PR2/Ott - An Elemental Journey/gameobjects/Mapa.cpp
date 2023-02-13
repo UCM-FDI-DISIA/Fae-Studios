@@ -6,8 +6,8 @@ Mapa::Mapa(SDLApplication* app, ListaNiveles l, unordered_map<ListaNiveles, stri
         auto ot = it->second.begin();
         for (ot; ot != it->second.end(); ++ot) {
             switch (ot->typeT) {
-                case BACKGROUND: background = app->getTexture(ot->name, 0); break;
-                case TILESET: tileset = app->getTexture(ot->name, 0); break;
+                case BACKGROUND: background = app->getTexture(ot->name, MAIN_MENU); break;
+                case TILESET: tileset = app->getTexture(ot->name, MAIN_MENU); break;
             }
         }
         auto ut = levelPath.find(l);
@@ -63,7 +63,7 @@ void Mapa::loadMap(string path) {
                 //Guardamos objetos en un vector
                 vectorObjects = objects;
 
-                /* Ejemplo de propiedades de un objeto (posicion, tamaño, ID y nombre)
+                /* Ejemplo de propiedades de un objeto (posicion, tamaï¿½o, ID y nombre)
                      cout << "Found " << objects.size() << " objects in layer" << endl;
                      for (const auto& object : objects)
                     {

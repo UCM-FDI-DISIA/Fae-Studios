@@ -6,7 +6,7 @@
 #include "../dependencies/Texture.h"
 #include "../gameflow/GameState.h"
 
-/// Struct que contiene la información de las texturas
+/// Struct que contiene la informaciï¿½n de las texturas
 struct TextureDescription {
 	std::string filename;
 	uint numRows, numCols;

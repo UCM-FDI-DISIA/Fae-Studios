@@ -17,7 +17,7 @@ using namespace std;
 using namespace tmx;
 
 enum ListaNiveles {
-	LEVEL_1, LEVEL_2, LEVEL3
+	LEVEL1, LEVEL2, LEVEL3
 };
 enum TypeTexture {
 	BACKGROUND, TILESET
@@ -28,7 +28,8 @@ struct infoTexture {
 	
 };
 struct infoMap {
-
+    string route;
+    int size;
 };
 
 
@@ -37,7 +38,7 @@ class Mapa: public GameObject
 private:
 	SDLApplication* app;
 	unordered_map<ListaNiveles, list<infoTexture>> infoLevel;
-	unordered_map<ListaNiveles, string> levelPath;
+	unordered_map<ListaNiveles, infoMap> levelPath;
 	Map map;
 	vector<TileLayer::Tile> vectorTiles;
 	vector<Object> vectorObjects;
