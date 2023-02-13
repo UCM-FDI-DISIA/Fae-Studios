@@ -20,6 +20,9 @@ protected:
     uint height = 0;  ///< Altura del objeto
     Texture* texture = nullptr; ///< Puntero a la textura del objeto;
 
+
+    GameObject() = default;
+
     /// Constructora de la clase GameObject
     /// \param position Vector con la posición del objeto
     /// \param texture Puntero a la textura del objeto

@@ -1,0 +1,79 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "ForestKingdom.tmx",
+    "expandedProjectPaths": [
+        "."
+    ],
+    "fileStates": {
+        "": {
+            "scaleInDock": 1,
+            "scaleInEditor": 0.25
+        },
+        "C:/Users/witiz/Desktop/MapaClau/ForestColorPalette.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "ForestColorPalette.tsx": {
+            "scaleInDock": 0.25,
+            "scaleInEditor": 0.33
+        },
+        "ForestKingdom..tmx": {
+            "scale": 0.11145833333333334,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 10313.271028037383,
+                "y": 1682.2429906542052
+            }
+        },
+        "ForestKingdom..tmx#Plataformas": {
+            "scaleInDock": 1
+        },
+        "ForestKingdom.tmx": {
+            "scale": 0.0625,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 4456,
+                "y": -1328
+            }
+        },
+        "ForestKingdom.tmx#Plataformas": {
+            "scaleInDock": 1,
+            "scaleInEditor": 0.25
+        },
+        "PlataformasBosque.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 0.25
+        }
+    },
+    "last.exportedFilePath": "C:/Users/witiz/Desktop/Ott",
+    "last.imagePath": "C:/Users/witiz/Desktop/Ott",
+    "map.fixedSize": false,
+    "map.height": 5000,
+    "map.lastUsedExportFilter": "Todos los archivos (*)",
+    "map.lastUsedFormat": "tmx",
+    "map.tileHeight": 30,
+    "map.tileWidth": 30,
+    "map.width": 5000,
+    "openFiles": [
+        "ForestKingdom.tmx",
+        "ForestColorPalette.tsx",
+        "PlataformasBosque.tsx"
+    ],
+    "project": "ForestKingdom.tiled-project",
+    "recentFiles": [
+        "ForestColorPalette.tsx",
+        "PlataformasBosque.tsx",
+        "ForestKingdom.tmx",
+        "C:/Users/witiz/Desktop/MapaClau/ForestColorPalette.tsx",
+        "ForestKingdom..tmx"
+    ],
+    "tileset.embedInMap": false,
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 30,
+        "width": 30
+    }
+}
