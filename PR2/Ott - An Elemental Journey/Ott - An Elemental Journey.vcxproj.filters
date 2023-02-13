@@ -102,6 +102,9 @@
     <ClInclude Include="utils\Elements.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="gameobjects\staticEnemy.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="gameflow\GameState.cpp">
@@ -174,6 +177,9 @@
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="utils\Elements.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="gameobjects\staticEnemy.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>

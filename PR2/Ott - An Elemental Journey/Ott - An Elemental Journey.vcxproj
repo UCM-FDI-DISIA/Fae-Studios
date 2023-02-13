@@ -151,6 +151,7 @@
     <ClInclude Include="gameobjects\Enemy.h" />
     <ClInclude Include="gameobjects\GameObject.h" />
     <ClInclude Include="gameobjects\MovingObject.h" />
+    <ClInclude Include="gameobjects\staticEnemy.h" />
     <ClInclude Include="loaders\FontLoader.h" />
     <ClInclude Include="loaders\TextureLoader.h" />
     <ClInclude Include="Resource.h" />
@@ -178,6 +179,7 @@
     <ClCompile Include="gameobjects\CollisionObject.cpp" />
     <ClCompile Include="gameobjects\Enemy.cpp" />
     <ClCompile Include="gameobjects\GameObject.cpp" />
+    <ClCompile Include="gameobjects\staticEnemy.cpp" />
     <ClCompile Include="loaders\FontLoader.cpp" />
     <ClCompile Include="loaders\TextureLoader.cpp" />
     <ClCompile Include="main.cpp" />
