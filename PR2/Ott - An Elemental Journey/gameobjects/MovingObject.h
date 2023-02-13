@@ -12,7 +12,7 @@ protected:
 public:
     MovingObject(Vector2D pos, Texture* texture, Vector2D dir, Scale scale = Scale(1.0f, 1.0f)) :
         CollisionObject(pos, texture, scale), dir(dir) {};
-    virtual ~MovingObject();
+    virtual ~MovingObject() {};
     virtual void update() {};
     virtual void render() {};
 };
@@ -32,16 +32,16 @@ struct Scale {
     Scale(float scaleW, float scaleH) : widthScale(scaleW), heightScale(scaleH) {};
 };
 
-/// Clase abstracta que declara la funcionalidad común a todos los objetos del juego
+/// Clase abstracta que declara la funcionalidad comï¿½n a todos los objetos del juego
 class GameObject {
 protected:
-    Vector2D position; ///< Posición del objeto en pantalla
+    Vector2D position; ///< Posiciï¿½n del objeto en pantalla
     uint width = 0; ///< Anchura del objeto
     uint height = 0;  ///< Altura del objeto
     Texture* texture = nullptr; ///< Puntero a la textura del objeto;
 
     /// Constructora de la clase GameObject
-    /// \param position Vector con la posición del objeto
+    /// \param position Vector con la posiciï¿½n del objeto
     /// \param texture Puntero a la textura del objeto
     /// \param scale float con la escala en pantalla del objeto
     GameObject(const Vector2D& position, Texture* texture, const Scale& scale = Scale(1.0f, 1.0f));
@@ -53,14 +53,14 @@ public:
     /// Renderiza nuestro objeto en pantalla
     virtual void render() const;
 
-    /// Obtención del rectángulo destino del objeto
+    /// Obtenciï¿½n del rectï¿½ngulo destino del objeto
     /// \return SDL_Rect con el destino del contador en pantalla
     SDL_Rect getRect() const;
 
-    /// Actualiza posición o valores del objeto
+    /// Actualiza posiciï¿½n o valores del objeto
     virtual void update() {};
 
-    /// Manejo de eventos tales como la pulsación de una tecla
+    /// Manejo de eventos tales como la pulsaciï¿½n de una tecla
     /// \param event SDL_Event con el evento a manejar
     virtual void handleEvents(const SDL_Event& event) {};
 

@@ -5,7 +5,7 @@ GameObject::GameObject(const Vector2D& position, Texture* texture, const Scale& 
     this->position = position;
     this->texture = texture;
     this->width = texture->getW() * scale.widthScale;
-    this->height = texture->getH() * scale.heightScale;
+    this->height = texture->getH()  * scale.heightScale;
 }
 
 SDL_Rect GameObject::getRect() const {
