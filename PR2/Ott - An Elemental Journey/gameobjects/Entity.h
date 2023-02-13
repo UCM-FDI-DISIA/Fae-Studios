@@ -29,4 +29,6 @@ public:
 	void start();
 	virtual void recieveDamage(int elem);
 	inline void resetLives() { life = maxLife; }
+	inline void addLive() { ++maxLife; }
+	inline void subLive() { if (life == maxLife) --life; maxLife--; }
 };
