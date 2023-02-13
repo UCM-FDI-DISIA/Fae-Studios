@@ -65,6 +65,11 @@ void Ott::handleEvents(const SDL_Event& event) {
 		if (event.key.keysym.sym == SDLK_SPACE) {
 			jump();
 		}
+		if (event.key.keysym.sym == SDLK_e && lastSanctuary != nullptr) {
+			SDL_Rect sRect = lastSanctuary->getRect();
+			SDL_Rect col = getRect();
+			if (SDL_HasIntersection(&col, &sRect)) resetLives();
+		}
 		ismoving = true;
 	}
 	else
@@ -168,7 +173,6 @@ void Ott::update() {
 	//timer que comprueba si sigue teniendo una vida debil
 	if (weakened && (SDL_GetTicks() - weakTimer) >= timeWeak * 1000) weakened = false;
 	//bool si ha habido input
-	
 }
 
 void Ott::useGravity() {
@@ -204,12 +208,15 @@ bool Ott::collide(const SDL_Rect& obj, SDL_Rect& result)
 }
 bool Ott::collide(GameObject* c)
 {
+	
 	if (Sanctuary* o = dynamic_cast<Sanctuary*> (c)) {
 		SDL_Rect col = getRect();
 		SDL_Rect sactRect = o->getRect();
-		if (SDL_HasIntersection(&sactRect, &col) && lastSanctuary != o) {
-			cout << "Toca sanctuario" << endl;
-			saveSactuary(o);
+		if (SDL_HasIntersection(&sactRect, &col)) {
+			if (lastSanctuary != o) {
+				cout << "Toca sanctuario" << endl;
+				saveSactuary(o);
+			}
 			return true;
 		}
 	}

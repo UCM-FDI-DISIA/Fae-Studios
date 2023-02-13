@@ -29,7 +29,6 @@ protected:
     bool weakened = false;
     int timeWeak = 3, weakTimer;
     //Game Controller 1 handler
-
     GameObject* lastSanctuary = nullptr;
 public:
     Ott(const Vector2D& position, Texture* texture, PlayState* game, const Scale& scale = Scale(1.0f, 1.0f));
