@@ -2,10 +2,13 @@
 #include "../../gameflow/play/PlayState.h"
 #include "../Sanctuary.h"
 
-enum ANIM_STATE { IDLE, WALKING, LAND, JUMPING, PEAK, FALLING };
+enum ANIM_STATE { IDLE, WALKING, LAND, JUMPING, PEAK, FALLING, ATTACK };
 
 class Ott : public Entity {
 protected:
+
+    bool left = false, right = false, up = false, attack = false;
+
     //Analog joystick dead zone
     const int JOYSTICK_DEAD_ZONE = 8000; // EL MÁXIMO VALOR ES 32000, POR ESO PONEMOS UNA DEAD ZONE TAN APARENTEMENTE GRANDE
 

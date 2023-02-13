@@ -55,29 +55,76 @@ void Ott::handleEvents(const SDL_Event& event) {
 
 	//hacer bool/cambiar si solo se podia mover una vez en el salto creo recordar
 	if (event.type == SDL_KEYDOWN) {
-		if (event.key.keysym.sym == SDLK_a) {
-			dir = Vector2D(-1, 0);
+		if (event.key.keysym.sym == SDLK_LEFT) {
+			left = true;
+			//dir = Vector2D(-1, 0);
+			ismoving = true;
+
+
 		}
-		else if (event.key.keysym.sym == SDLK_d)
+		else if (event.key.keysym.sym == SDLK_RIGHT)
 		{
-			dir = Vector2D(1, 0);
+			ismoving = true;
+			right = true;
+			//dir = Vector2D(1, 0);
 		}
+		
 		if (event.key.keysym.sym == SDLK_SPACE) {
 			jump();
+
+			ismoving = true;
+			up = true;
 		}
-		if (event.key.keysym.sym == SDLK_e && lastSanctuary != nullptr) {
+		if (event.key.keysym.sym == SDLK_q && lastSanctuary != nullptr) {
 			SDL_Rect sRect = lastSanctuary->getRect();
 			SDL_Rect col = getRect();
 			if (SDL_HasIntersection(&col, &sRect)) resetLives();
 		}
 		ismoving = true;
+		if (event.key.keysym.sym == SDLK_e) {
+			animState = ATTACK;
+			attack = true;
+			cout << "ataque" << endl;
+			
+		}
+		cout << animState << endl;
+		cout << dir.getX() << endl;
 	}
-	else
+	if (event.type == SDL_KEYUP) {
+		if (event.key.keysym.sym == SDLK_LEFT) {
+			left = false;
+			//dir = Vector2D(-1, 0);
+			ismoving = true;
+
+
+		}
+		else if (event.key.keysym.sym == SDLK_RIGHT)
+		{
+			ismoving = true;
+			right = false;
+			//dir = Vector2D(1, 0);
+		}
+
+		if (event.key.keysym.sym == SDLK_SPACE) {
+			jump();
+
+			ismoving = true;
+			up = false;
+		}
+		if (event.key.keysym.sym == SDLK_e) {
+			
+		/*	attack = false;*/
+			cout << "ataque" << endl;
+
+		}
+		cout << animState << endl;
+		cout << dir.getX() << endl;
+	}
+	if(!right && !left && !attack)
 	{
 		ismoving = false;
+		//dir = Vector2D(0, 0); 
 	}
-	
-	
 }
 
 bool Ott::canJump() {
@@ -99,12 +146,18 @@ void Ott::update() {
 	if (xDir == 0 && yDir == 0) arrowAngle = 0;
 	*/
 #pragma endregion
+
+	if (right) dir = Vector2D(1, 0);
+	if (left) dir = Vector2D(-1, 0);
+
+
 	timer++;
 	if (timer >= ANIMATION_FRAME_RATE) {
 		timer = 0;
 		if (animState == IDLE)
 		{
-			dir = Vector2D(0, 0);
+			if(ground)dir = Vector2D(0, 0);
+			cout << "IDLE" << endl;
 			row = 0;
 			col = (col + 1) % 2;
 		}
@@ -129,6 +182,16 @@ void Ott::update() {
 			row = 2;
 			col = (col + 1) % 4;
 		}
+		if (animState == ATTACK)
+		{
+			cout << "anim attack" << endl;
+			row = 9;
+			if (col < 7) col++;
+			else {
+				col = 0;
+				attack = false;
+			}
+		}
 		// avanzar framde de animation
 	}
 
@@ -145,13 +208,13 @@ void Ott::update() {
 		timer = ANIMATION_FRAME_RATE;
 	}
 	
- position = position +speed+ dir; 
+
 #pragma region Deteccion de suelo??? y colisiones
 	SDL_Rect groundCol;
 	bool col = false;
 	static_cast<PlayState*>(game)->ottCollide(getRect(), onGround, groundCol, col, ground);
 	if (ground) {
-		if (ismoving) 
+		if (ismoving)
 		{ 
 			animState = WALKING; 
 		}
@@ -169,10 +232,10 @@ void Ott::update() {
 	}
 	if (speed.getY() < -1) notGroundedBefore = false;
 #pragma endregion
-
 	//timer que comprueba si sigue teniendo una vida debil
 	if (weakened && (SDL_GetTicks() - weakTimer) >= timeWeak * 1000) weakened = false;
 	//bool si ha habido input
+	position = position +speed+ dir; 
 }
 
 void Ott::useGravity() {
