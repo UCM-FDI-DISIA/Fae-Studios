@@ -31,7 +31,7 @@ void Button::handleEvents(const SDL_Event &e) {
     }
 }
 
-void Button::render() const {
+void Button::render(const SDL_Rect& camera) const {
     texture->renderFrame(getRect(), 0, currentButtonFrame);
     text->render();
 }
@@ -48,7 +48,7 @@ ImageButton::ImageButton(const ButtonParams& params, Texture* image, ImageClass 
     imagePos.h /= 3;
 }
 
-void ImageButton::render() const {
+void ImageButton::render(const SDL_Rect& camera) const {
     Button::render();
     switch (imgClass) {
         case FULL_IMAGE: image->render(imagePos); break;

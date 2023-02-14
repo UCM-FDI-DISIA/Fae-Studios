@@ -9,3 +9,8 @@ bool CollisionObject::collide(const SDL_Rect& obj, SDL_Rect& result) {
 
 	return SDL_IntersectRect(&obj, &rect, &result);
 }
+
+bool CollisionObject::collide(GameObject* c)
+{
+	return false;
+}

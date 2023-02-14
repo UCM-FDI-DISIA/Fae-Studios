@@ -20,7 +20,7 @@ private:
     public:
         int currentSliderNeedleFrame = MOUSE_OUT;
         SliderNeedle(const Vector2D& position, const Vector2D& initialPos, Texture* texture, const Scale& scale = Scale(1.0f, 1.0f)) : UIElement(position, texture, scale), initialPos(initialPos) {}
-        void render() const final;
+        virtual void render() const;
         int move();
     };
 
@@ -54,6 +54,6 @@ public:
 
     void update() final;
 
-    void render() const final;
+    virtual void render() const;
 };
 

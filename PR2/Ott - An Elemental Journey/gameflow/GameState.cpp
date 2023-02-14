@@ -13,8 +13,19 @@ void GameState::update() {
     // y en caso de que se haya borrado un elemento en la lista, dejamos de recorrerla
     for (auto it = gameObjects.begin(); it != gameObjects.end() && !deleted;) {
         (*it)->update();
+        if (CollisionObject* o = dynamic_cast<CollisionObject*>(*it)) {
+            collision(o);
+        }
         if (!deleted) ++it;
         else return;
+        
+    }
+}
+void GameState::collision(CollisionObject* c) {
+    for (GameObject* a : gameObjects) {
+        if (a != c) {
+            c->collide(a);
+        }
     }
 }
 

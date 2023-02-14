@@ -1,10 +1,16 @@
 #include "../Entity.h"
 #include "../../gameflow/play/PlayState.h"
+#include "../Sanctuary.h"
 
-enum ANIM_STATE { IDLE, WALKING, LAND, JUMPING, PEAK, FALLING };
+enum ANIM_STATE { IDLE, WALKING, LAND, JUMPING, PEAK, FALLING, ATTACK };
 
 class Ott : public Entity {
 protected:
+
+    bool left = false, right = false, up = false, attack = false;
+
+    bool lookingFront = true;
+
     //Analog joystick dead zone
     const int JOYSTICK_DEAD_ZONE = 8000; // EL MÁXIMO VALOR ES 32000, POR ESO PONEMOS UNA DEAD ZONE TAN APARENTEMENTE GRANDE
 
@@ -27,7 +33,9 @@ protected:
     //Parámetros que controlan la vida debil
     bool weakened = false;
     int timeWeak = 3, weakTimer;
+    int invincibilityTime = 2, invencibilityTimer = 0;
     //Game Controller 1 handler
+    GameObject* lastSanctuary = nullptr;
 public:
     Ott(const Vector2D& position, Texture* texture, PlayState* game, const Scale& scale = Scale(1.0f, 1.0f));
     /// Destructora de la clase GameObject
@@ -36,7 +44,7 @@ public:
     bool canJump();
     void jump();
     // Renderizado 
-    virtual void render() const;
+    virtual void render(const SDL_Rect& Camera) const;
     /// Obtención del rectángulo destino del objeto
     virtual void update();
 
@@ -49,4 +57,15 @@ public:
 
     //Evento de daño
     virtual void recieveDamage(int elem);
+
+    inline void saveSactuary(GameObject* s) { lastSanctuary = s; }
+
+    inline GameObject* getCurrentSactuary() { return lastSanctuary; }
+
+    virtual bool collide(const SDL_Rect& obj, SDL_Rect& result);
+
+    virtual bool collide(GameObject* c);
+
+private:
+    virtual void die();
 };

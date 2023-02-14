@@ -4,7 +4,15 @@
 #include "../../gameobjects/Mapa.h"
 #include "../../gameobjects/Physics/Ground.h"
 #include <iostream>
+#include "../../gameobjects/Entity.h"
 #pragma once
+
+class Ott;
+
+using Camera = SDL_Rect;
+
+const uint LEVEL_WIDTH = 1800;
+const uint LEVEL_HEIGHT = 800;
 
 class PlayState : public GameState {
 private:
@@ -14,6 +22,8 @@ private:
     list<Ground*> groundObjects;
     list<Wall*> wallObjects;
     Mapa* currentMap;
+    Camera camera;
+    Ott* ott;
 
 public:
     PlayState(SDLApplication* app);
@@ -21,4 +31,6 @@ public:
     virtual void update();
     inline double Gravity() { return gravity; };
     void handleEvents(SDL_Event& e) override;
+    virtual void render() const;
+    void backToMenu();
 };

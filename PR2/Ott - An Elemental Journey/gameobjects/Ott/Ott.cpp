@@ -55,24 +55,83 @@ void Ott::handleEvents(const SDL_Event& event) {
 
 	//hacer bool/cambiar si solo se podia mover una vez en el salto creo recordar
 	if (event.type == SDL_KEYDOWN) {
-		if (event.key.keysym.sym == SDLK_a) {
-			dir = Vector2D(-1, 0);
+		if (event.key.keysym.sym == SDLK_LEFT) {
+			left = true;
+			//dir = Vector2D(-1, 0);
+			ismoving = true;
+			//attack = false;
+			lookingFront = false;
 		}
-		else if (event.key.keysym.sym == SDLK_d)
+		else if (event.key.keysym.sym == SDLK_RIGHT)
 		{
-			dir = Vector2D(1, 0);
+			ismoving = true;
+			right = true;
+			//attack = false;
+			//dir = Vector2D(1, 0);
+			lookingFront = true;
 		}
 		if (event.key.keysym.sym == SDLK_SPACE) {
 			jump();
+
+			ismoving = true;
+			up = true;
+			//attack = false;
 		}
-		ismoving = true;
+		if (event.key.keysym.sym == SDLK_q && lastSanctuary != nullptr) {
+			SDL_Rect sRect = lastSanctuary->getRect();
+			SDL_Rect col = getRect();
+			if (SDL_HasIntersection(&col, &sRect)) resetLives();
+			ismoving = true;
+		}
+		if (!attack&& event.key.keysym.sym == SDLK_e) {
+			animState = ATTACK;
+			attack = true;
+			cout << "ataque" << endl;
+			ismoving = true;
+			col = 2;
+			timer += ANIMATION_FRAME_RATE / 2;
+		}
+		if (event.key.keysym.sym == SDLK_x) {
+			recieveDamage(currentElement);
+		}
+		cout << animState << endl;
+		cout << dir.getX() << endl;
 	}
-	else
+	if (event.type == SDL_KEYUP) {
+		if (event.key.keysym.sym == SDLK_LEFT) {
+			left = false;
+			dir = Vector2D(-1, 0);
+			cout << "L_Out" << endl;
+		}
+		else if (event.key.keysym.sym == SDLK_RIGHT)
+		{
+			right = false;
+			//dir = Vector2D(1, 0);
+			cout << "R_Out" << endl;
+		}
+		if (event.key.keysym.sym == SDLK_SPACE) {
+			jump();
+			up = false;
+		}
+		if (event.key.keysym.sym == SDLK_e) {
+		/*	attack = false;*/
+			cout << "ataqueOut" << endl;
+		}
+		if (event.key.keysym.sym == SDLK_r) {
+			recieveDamage(0);
+		}
+		cout << animState << endl;
+		cout << dir.getX() << endl;
+	}
+	if(!right && !left)
 	{
-		ismoving = false;
+		if (!attack) {
+			//cout << "SALII" << endl;
+			ismoving = false;
+		}
+		 dir = dir * Vector2D(0, 1);
 	}
-	
-	
+	//cout << left << " " << right << " " << attack << endl;
 }
 
 bool Ott::canJump() {
@@ -81,7 +140,7 @@ bool Ott::canJump() {
 
 void Ott::jump() {
 	if (isGrounded()) { //metodo canjump es lo mismo pero no inline? 
-		animState = JUMPING;
+		if(!attack)animState = JUMPING;
 		speed = Vector2D(speed.getX(), jumpForce);
 	}
 }
@@ -94,12 +153,17 @@ void Ott::update() {
 	if (xDir == 0 && yDir == 0) arrowAngle = 0;
 	*/
 #pragma endregion
+
+	if (right) dir = Vector2D(1, 0);
+	if (left) dir = Vector2D(-1, 0);
+#pragma region ANIMATIONS
 	timer++;
 	if (timer >= ANIMATION_FRAME_RATE) {
 		timer = 0;
 		if (animState == IDLE)
 		{
-			dir = Vector2D(0, 0);
+			if(ground)dir = Vector2D(0, 0);
+			//cout << "IDLE" << endl;
 			row = 0;
 			col = (col + 1) % 2;
 		}
@@ -124,39 +188,60 @@ void Ott::update() {
 			row = 2;
 			col = (col + 1) % 4;
 		}
+		if (animState == ATTACK)
+		{
+			cout << "anim attack" << endl;
+			row = 8;
+			if (col < 7) {
+				col++;
+				timer += ANIMATION_FRAME_RATE / 2;
+			}
+			else {
+				col = 0;
+				cout << "GEEEE" << endl;
+				attack = false;
+			}
+		}
 		// avanzar framde de animation
 	}
-
 	onGround = getRect();
 	onGround.y += onGround.h;
 	onGround.h = -jumpForce - 1;
 
 	if (speed.getY() > 1.5) {
-		animState = FALLING;
-		timer = ANIMATION_FRAME_RATE;
+		if (!attack) {
+			animState = FALLING;
+			timer = ANIMATION_FRAME_RATE;
+		}
 	}
 	if (speed.getY() < 0.5 && speed.getY() > -0.5 && !ground) {
-		animState = PEAK;
-		timer = ANIMATION_FRAME_RATE;
+		if (!attack) {
+			animState = PEAK;
+			timer = ANIMATION_FRAME_RATE;
+		}
 	}
-	
- position = position +speed+ dir; 
+#pragma endregion
+
+	if (speed.getY() > 8) { speed = Vector2D(speed.getX(), 8); }
+
 #pragma region Deteccion de suelo??? y colisiones
 	SDL_Rect groundCol;
 	bool col = false;
 	static_cast<PlayState*>(game)->ottCollide(getRect(), onGround, groundCol, col, ground);
 	if (ground) {
-		if (ismoving) 
+		if (ismoving)
 		{ 
-			animState = WALKING; 
+			if(!attack)animState = WALKING;
 		}
 		else
 		{
 			animState = IDLE;
 		}
 		if (!notGroundedBefore) {
-			animState = LAND;
-			timer = ANIMATION_FRAME_RATE;
+			if (!attack) {
+				animState = LAND;
+				timer = ANIMATION_FRAME_RATE;
+			}
 			position = Vector2D(groundCol.x, groundCol.y - height);
 			speed = Vector2D(speed.getX(), 0);
 		}
@@ -164,27 +249,35 @@ void Ott::update() {
 	}
 	if (speed.getY() < -1) notGroundedBefore = false;
 #pragma endregion
-
 	//timer que comprueba si sigue teniendo una vida debil
 	if (weakened && (SDL_GetTicks() - weakTimer) >= timeWeak * 1000) weakened = false;
 	//bool si ha habido input
-	
+	position = position +speed+ dir; 
 }
 
 void Ott::useGravity() {
 	speed = Vector2D(speed.getX(), speed.getY() + static_cast<PlayState*>(game)->Gravity());
 }
 
-void Ott::render() const {
+void Ott::render(const SDL_Rect& Camera) const {
 #pragma region CONTROLLER INPUT
 	/*
 	texture->renderFrame(getRect(), 0, 0, arrowAngle);
 	*/
 #pragma endregion
-	texture->renderFrame(getRect(), row, col);
+	SDL_Rect ottRect = getRect();
+	ottRect.x -= Camera.x;
+	ottRect.y -= Camera.y;
+	if (!lookingFront) {
+		texture->renderFrame(ottRect, row, col,0,SDL_FLIP_HORIZONTAL);
+	}
+	else texture->renderFrame(ottRect, row, col);
 }
 void Ott::recieveDamage(int elem)
 {
+	if (SDL_GetTicks() - invencibilityTimer <= invincibilityTime * 1000) return;
+	cout << "Daño" << endl;
+	invencibilityTimer = SDL_GetTicks();
 	if (elementsInfo[elem][currentElement] == 0) {
 		if (!weakened) {
 			weakened = true;
@@ -197,5 +290,40 @@ void Ott::recieveDamage(int elem)
 		}
 	}
 	else Entity::recieveDamage(elem);
+}
+bool Ott::collide(const SDL_Rect& obj, SDL_Rect& result)
+{
+	return false;
+}
+bool Ott::collide(GameObject* c)
+{
+	if (Sanctuary* o = dynamic_cast<Sanctuary*> (c)) {
+		SDL_Rect col = getRect();
+		SDL_Rect sactRect = o->getRect();
+		if (SDL_HasIntersection(&sactRect, &col)) {
+			if (lastSanctuary != o) {
+				cout << "Toca sanctuario" << endl;
+				saveSactuary(o);
+			}
+			return true;
+		}
+	}
+	return false;
+}
+void Ott::die()
+{
+	cout << "He muerto " << endl;
+	if (lastSanctuary == nullptr) {
+		cout << "No hay sanctuarios recientes... Muerte inminente" << endl;
+		PlayState* p = static_cast<PlayState*>(game);
+		p->backToMenu();
+	}
+	else {
+		SDL_Rect r = lastSanctuary->getRect();
+		Vector2D newPos = { (double)r.x, (double)r.y - 50 };
+		position = newPos;
+		life = maxLife;
+		notGroundedBefore = false;
+	}
 }
 #pragma endregion

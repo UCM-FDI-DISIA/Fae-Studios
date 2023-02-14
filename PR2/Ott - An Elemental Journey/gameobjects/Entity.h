@@ -15,7 +15,7 @@ protected:
 		{ 1, 2, 2, 2, 1 }
 	};
 	int currentElement = 0;
-	void die();
+	virtual void die();
 
 public:
 	Entity(Vector2D pos, Texture* texture, Vector2D dir, uint maxLife, GameState* game, Scale scale = Scale(1.0f, 1.0f)) :
@@ -28,4 +28,7 @@ public:
 	void stop();
 	void start();
 	virtual void recieveDamage(int elem);
+	inline void resetLives() { life = maxLife; }
+	inline void addLive() { ++maxLife; }
+	inline void subLive() { if (life == maxLife) --life; maxLife--; }
 };
