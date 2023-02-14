@@ -11,7 +11,7 @@
 #include <tmxlite/Types.hpp>
 #include <string>
 #include <list>
-#include <array>
+#include <vector>
 #include<unordered_map>
 #include "../SDLApplication.h"
 using namespace std;
@@ -52,7 +52,8 @@ private:
 	vector<TileLayer::Tile> vectorTiles;
 	vector<Object> vectorObjects;
 	ListaNiveles currentLevel;
-    std::array<Texture*, NUMBER_OF_TYPES> textures;
+	Texture* tilemap = nullptr;
+    //std::vector<Texture*> textures;
 
 	void loadMap(string path);
 	void initializeSources();
