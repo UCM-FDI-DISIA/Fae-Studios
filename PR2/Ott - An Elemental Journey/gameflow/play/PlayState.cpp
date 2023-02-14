@@ -3,22 +3,38 @@
 #include "../../SDLApplication.h"
 #include "../../gameobjects/Physics/Ground.h"
 #include "../../gameobjects/Ott/Ott.h"
+#include "../../gameobjects/InteractuableObject.h"
+
+bool PlayState::Interacting = false;
+
+void PlayState::handleEvents(SDL_Event& e) {
+	GameState::handleEvents(e);
+	if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_e) Interacting = true;
+	else Interacting = false;
+}
 
 PlayState::PlayState(SDLApplication* app) : GameState(2, app) {
+	TP_Lamp* l1 = new TP_Lamp(Vector2D(600, 280), app->getTexture("lamp", 2), this, Scale(2, 2));
+	TP_Lamp* l2 = new TP_Lamp(Vector2D(800, 280), app->getTexture("lamp", 2), this, Scale(2, 2));
+	l1->SetLamp(l2);
+	l2->SetLamp(l1);
 	ott = new Ott(Vector2D(0, 0), app->getTexture("ott", 2), this, Scale(0.3f, 0.3f));
 
-	gr = new Ground(Vector2D(0, 400), app->getTexture("whiteBox", 2), Scale(0.8f, 0.25f));
+	gr = new Ground(Vector2D(0, 400), app->getTexture("whiteBox", 2), Scale(3.0f, 0.25f));
 	Sanctuary* sct = new Sanctuary(Vector2D(200, 280), app->getTexture("whiteBox", 2), Scale(0.05f, 0.1f));
 	gameObjects.push_back(sct);
 	Sanctuary* sct2 = new Sanctuary(Vector2D(400, 280), app->getTexture("whiteBox", 2), Scale(0.05f, 0.1f));
 	gameObjects.push_back(sct2);
 	
 	gameObjects.push_back(gr);
+
+	gameObjects.push_back(l1);
+	gameObjects.push_back(l2);
+
 	gameObjects.push_back(ott);
-
-
 	groundObjects.push_back(gr);
 	physicObjects.push_back(ott);
+
 	camera = { 0,0,WINDOW_WIDTH, WINDOW_HEIGHT };
 }
 
@@ -74,4 +90,12 @@ void PlayState::render() const {
 		if (!deleted) ++it;
 		else return;
 	}
+}
+
+SDL_Rect PlayState::ottPos() const {
+	return ott->getRect();
+}
+
+void PlayState::setOttPos(const Vector2D& newPos) {
+	ott->setPos(newPos);
 }

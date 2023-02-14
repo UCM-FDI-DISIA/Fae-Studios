@@ -318,4 +318,9 @@ void Ott::die()
 		notGroundedBefore = false;
 	}
 }
+
+void Ott::setPos(const Vector2D& newPos) {
+	position = Vector2D(newPos.getX(), newPos.getY());
+
+}
 #pragma endregion

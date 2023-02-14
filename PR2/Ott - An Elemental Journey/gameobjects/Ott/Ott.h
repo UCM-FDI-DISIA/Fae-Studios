@@ -65,6 +65,8 @@ public:
 
     virtual bool collide(GameObject* c);
 
+    void setPos(const Vector2D& newPos);
+
 private:
     virtual void die();
 };

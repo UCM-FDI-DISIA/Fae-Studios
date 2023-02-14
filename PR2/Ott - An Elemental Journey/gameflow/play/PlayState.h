@@ -21,11 +21,15 @@ private:
     list<Wall*> wallObjects;
     Camera camera;
     Ott* ott;
-
+    static bool Interacting;
 public:
+    static bool IsInteracting() { return Interacting; };
     PlayState(SDLApplication* app);
+    virtual void handleEvents(SDL_Event& e);
     void ottCollide(const SDL_Rect& Ott, const SDL_Rect& onGround, SDL_Rect& colRect, bool& col, bool& ground);
     virtual void update();
     inline double Gravity() { return gravity; };
     virtual void render() const;
+    SDL_Rect ottPos() const;
+    void setOttPos(const Vector2D& newPos);
 };
