@@ -59,6 +59,8 @@ void Ott::handleEvents(const SDL_Event& event) {
 			left = true;
 			//dir = Vector2D(-1, 0);
 			ismoving = true;
+			//attack = false;
+			lookingFront = false;
 
 
 		}
@@ -66,7 +68,9 @@ void Ott::handleEvents(const SDL_Event& event) {
 		{
 			ismoving = true;
 			right = true;
+			//attack = false;
 			//dir = Vector2D(1, 0);
+			lookingFront = true;
 		}
 		
 		if (event.key.keysym.sym == SDLK_SPACE) {
@@ -74,17 +78,22 @@ void Ott::handleEvents(const SDL_Event& event) {
 
 			ismoving = true;
 			up = true;
+			//attack = false;
 		}
 		if (event.key.keysym.sym == SDLK_q && lastSanctuary != nullptr) {
 			SDL_Rect sRect = lastSanctuary->getRect();
 			SDL_Rect col = getRect();
 			if (SDL_HasIntersection(&col, &sRect)) resetLives();
+			ismoving = true;
 		}
-		ismoving = true;
-		if (event.key.keysym.sym == SDLK_e) {
+		if (!attack&& event.key.keysym.sym == SDLK_e) {
 			animState = ATTACK;
 			attack = true;
 			cout << "ataque" << endl;
+			ismoving = true;
+			col = 2;
+			timer += ANIMATION_FRAME_RATE / 2;
+			
 			
 		}
 		cout << animState << endl;
@@ -94,37 +103,49 @@ void Ott::handleEvents(const SDL_Event& event) {
 		if (event.key.keysym.sym == SDLK_LEFT) {
 			left = false;
 			//dir = Vector2D(-1, 0);
-			ismoving = true;
-
+			
+			cout << "L_Out" << endl;
 
 		}
 		else if (event.key.keysym.sym == SDLK_RIGHT)
 		{
-			ismoving = true;
+			
 			right = false;
 			//dir = Vector2D(1, 0);
+			cout << "R_Out" << endl;
 		}
 
 		if (event.key.keysym.sym == SDLK_SPACE) {
 			jump();
 
-			ismoving = true;
+			
 			up = false;
 		}
 		if (event.key.keysym.sym == SDLK_e) {
 			
 		/*	attack = false;*/
-			cout << "ataque" << endl;
-
+			cout << "ataqueOut" << endl;
+			
+			
 		}
 		cout << animState << endl;
 		cout << dir.getX() << endl;
+
+		
 	}
-	if(!right && !left && !attack)
+	if(!right && !left)
 	{
-		ismoving = false;
-		//dir = Vector2D(0, 0); 
+		if (!attack) {
+			cout << "SALII" << endl;
+			ismoving = false;
+		}
+		 dir = dir * Vector2D(0, 1);
+		
 	}
+	
+	
+
+	cout << left << " " << right << " " << attack << endl;
 }
 
 bool Ott::canJump() {
@@ -133,7 +154,7 @@ bool Ott::canJump() {
 
 void Ott::jump() {
 	if (isGrounded()) { //metodo canjump es lo mismo pero no inline? 
-		animState = JUMPING;
+		if(!attack)animState = JUMPING;
 		speed = Vector2D(speed.getX(), jumpForce);
 	}
 }
@@ -149,6 +170,7 @@ void Ott::update() {
 
 	if (right) dir = Vector2D(1, 0);
 	if (left) dir = Vector2D(-1, 0);
+
 
 
 	timer++;
@@ -185,10 +207,14 @@ void Ott::update() {
 		if (animState == ATTACK)
 		{
 			cout << "anim attack" << endl;
-			row = 9;
-			if (col < 7) col++;
+			row = 8;
+			if (col < 7) {
+				col++;
+				timer += ANIMATION_FRAME_RATE / 2;
+			}
 			else {
 				col = 0;
+				cout << "GEEEE" << endl;
 				attack = false;
 			}
 		}
@@ -200,12 +226,16 @@ void Ott::update() {
 	onGround.h = -jumpForce - 1;
 
 	if (speed.getY() > 1.5) {
-		animState = FALLING;
-		timer = ANIMATION_FRAME_RATE;
+		if (!attack) {
+			animState = FALLING;
+			timer = ANIMATION_FRAME_RATE;
+		}
 	}
 	if (speed.getY() < 0.5 && speed.getY() > -0.5 && !ground) {
-		animState = PEAK;
-		timer = ANIMATION_FRAME_RATE;
+		if (!attack) {
+			animState = PEAK;
+			timer = ANIMATION_FRAME_RATE;
+		}
 	}
 	
 
@@ -216,15 +246,17 @@ void Ott::update() {
 	if (ground) {
 		if (ismoving)
 		{ 
-			animState = WALKING; 
+			if(!attack)animState = WALKING;
 		}
 		else
 		{
 			animState = IDLE;
 		}
 		if (!notGroundedBefore) {
-			animState = LAND;
-			timer = ANIMATION_FRAME_RATE;
+			if (!attack) {
+				animState = LAND;
+				timer = ANIMATION_FRAME_RATE;
+			}
 			position = Vector2D(groundCol.x, groundCol.y - height);
 			speed = Vector2D(speed.getX(), 0);
 		}
@@ -248,7 +280,10 @@ void Ott::render() const {
 	texture->renderFrame(getRect(), 0, 0, arrowAngle);
 	*/
 #pragma endregion
-	texture->renderFrame(getRect(), row, col);
+	if (!lookingFront) {
+		texture->renderFrame(getRect(), row, col,0,SDL_FLIP_HORIZONTAL);
+	}
+	else texture->renderFrame(getRect(), row, col);
 }
 void Ott::recieveDamage(int elem)
 {

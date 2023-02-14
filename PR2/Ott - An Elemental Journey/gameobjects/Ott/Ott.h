@@ -9,6 +9,8 @@ protected:
 
     bool left = false, right = false, up = false, attack = false;
 
+    bool lookingFront = true;
+
     //Analog joystick dead zone
     const int JOYSTICK_DEAD_ZONE = 8000; // EL MÁXIMO VALOR ES 32000, POR ESO PONEMOS UNA DEAD ZONE TAN APARENTEMENTE GRANDE
 
