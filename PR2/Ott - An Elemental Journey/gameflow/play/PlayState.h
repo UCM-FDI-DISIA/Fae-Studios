@@ -12,7 +12,7 @@ class Ott;
 using Camera = SDL_Rect;
 
 const uint LEVEL_WIDTH = 1800;
-const uint LEVEL_HEIGHT = 800;
+const uint LEVEL_HEIGHT = 80000;
 
 class PlayState : public GameState {
 private:

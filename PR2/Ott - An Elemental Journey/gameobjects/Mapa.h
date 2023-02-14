@@ -60,7 +60,7 @@ private:
 
 public:
 	Mapa(SDLApplication* app, ListaNiveles l);
-	void render() const override;
+	virtual void render(const SDL_Rect& Camera = {0,0,0,0}) const;
 	void changeMap();
 };
 

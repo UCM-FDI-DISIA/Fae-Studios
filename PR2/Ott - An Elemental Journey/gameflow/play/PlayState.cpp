@@ -10,13 +10,13 @@
 #include "../../ui/ChargedAttackBar.h"
 
 PlayState::PlayState(SDLApplication* app) : GameState(PLAY_STATE, app) {
-	ott = new Ott(Vector2D(0, 0), app->getTexture("ott", 2), this, Scale(0.3f, 0.3f));
+	ott = new Ott(Vector2D(0, 0), app->getTexture("ott", PLAY_STATE), this, Scale(0.3f, 0.3f));
 	currentMap = new Mapa(app, LEVEL1);
 	gameObjects.push_back(currentMap);
-	gr = new Ground(Vector2D(0, 400), app->getTexture("whiteBox", 2), Scale(0.8f, 0.25f));
-	Sanctuary* sct = new Sanctuary(Vector2D(200, 280), app->getTexture("whiteBox", 2), Scale(0.05f, 0.1f));
+	gr = new Ground(Vector2D(0, 400), app->getTexture("whiteBox", PLAY_STATE), Scale(0.8f, 0.25f));
+	Sanctuary* sct = new Sanctuary(Vector2D(200, 280), app->getTexture("whiteBox", PLAY_STATE), Scale(0.05f, 0.1f));
 	gameObjects.push_back(sct);
-	Sanctuary* sct2 = new Sanctuary(Vector2D(400, 280), app->getTexture("whiteBox", 2), Scale(0.05f, 0.1f));
+	Sanctuary* sct2 = new Sanctuary(Vector2D(400, 280), app->getTexture("whiteBox", PLAY_STATE), Scale(0.05f, 0.1f));
 	gameObjects.push_back(sct2);
 	
 	gameObjects.push_back(gr);
@@ -26,9 +26,9 @@ PlayState::PlayState(SDLApplication* app) : GameState(PLAY_STATE, app) {
 	groundObjects.push_back(gr);
 	physicObjects.push_back(ott);
 
-    HealthBar* healthBar = new HealthBar(Vector2D(30, 100), app->getTexture("hearts", getStateID()), Scale(10.0f, 10.0f));
+    HealthBar* healthBar = new HealthBar(Vector2D(30, 100), app->getTexture("hearts", PLAY_STATE), Scale(10.0f, 10.0f));
 	gameObjects.push_back(healthBar);
-    gameObjects.push_back(new ChargedAttackBar(healthBar->lastHeartPosition() + Vector2D(100, -10), app->getTexture("chargebar", getStateID()), Scale(1.5f, 1.5f)));
+    gameObjects.push_back(new ChargedAttackBar(healthBar->lastHeartPosition() + Vector2D(100, -10), app->getTexture("chargebar", PLAY_STATE), Scale(1.5f, 1.5f)));
 	camera = { 0,0,WINDOW_WIDTH, WINDOW_HEIGHT };
 }
 
@@ -94,3 +94,4 @@ void PlayState::handleEvents(SDL_Event& e) {
 	if (e.type == SDL_KEYUP) {
 		if (e.key.keysym.sym == SDLK_ESCAPE) app->getStateMachine()->pushState(new PauseMenuState(app));
 	}
+}

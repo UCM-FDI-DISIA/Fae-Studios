@@ -127,12 +127,13 @@ void Mapa::loadMap(string path) {
 
 }
 
-void Mapa::render() const{
-    int offsetX = 0;
-    int offsetY = 0; 
+void Mapa::render(const SDL_Rect& Camera) const{
+    int offsetX = Camera.x;
+    int offsetY = Camera.y; 
     for (int i = 0; i < vectorTiles.size(); i++) {
         auto it = vectorTiles[i].ID;
-        tilemap->renderFrame({ (int)(i % mapSize) * 14 - offsetX, (int)((i / mapSize) * 14) - offsetY, 14, 14 }, (it - (it % tilemap->getW() / 30)) / (tilemap->getW() / 30), it % (tilemap->getW() / 30 - 1));
+        if (it == 0) continue;
+        tilemap->renderFrame({ (int)(i % 737) * 14 - offsetX, (int)((i / 737) * 14) - offsetY, 14, 14 }, (it - (it % 80)) / 80, it % 80 - 1);
     }
 }
 

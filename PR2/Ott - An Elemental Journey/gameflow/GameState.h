@@ -55,7 +55,7 @@ public:
 
     /// Devuelve el ID de la escena
     /// \return int con el ID de la escena
-    virtual int getStateID() const { return stateID; };
+    virtual STATEID getStateID() const { return stateID; };
 
     virtual void collision(CollisionObject* c);
 };

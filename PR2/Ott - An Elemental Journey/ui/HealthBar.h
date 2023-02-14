@@ -37,7 +37,7 @@ public:
 		initializeContainers();
 	}
 
-	void render() const override;
+	virtual void render() const;
 
 	void initializeContainers();
 
