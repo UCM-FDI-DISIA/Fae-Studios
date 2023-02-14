@@ -25,10 +25,10 @@ Slider::Slider(const Vector2D& position, Texture* sliderTexture, Texture* needle
     needle = new SliderNeedle(position + Vector2D(4 * value + 5,-20), position + Vector2D(5,0), needleTexture, needleScale);
     if (showValue) {
         Scale valueScale = Scale(2.0f, 2.0f);
-        textValue = new Text(std::to_string(value) + "%", *(app->getFont("vcr_osd")), position + Vector2D(texture->getW() / 2, 0), app->getRenderer(), {255,255,255}, valueScale);
+        textValue = new UIText(std::to_string(value) + "%", *(app->getFont("vcr_osd")), position + Vector2D(texture->getW() / 2, 0), app->getRenderer(), {255,255,255}, valueScale);
         textValue->movePosition(Vector2D(position.getX() + (texture->getW() / 2) - (valueScale.widthScale / 2) * textValue->getTexture()->getW(), position.getY() + 0.5 * (textValue->getTexture()->getH() + 2 * (10 * 1 / valueScale.heightScale))));
     }
-    title = new Text(sliderTitle, *(app->getFont("vcr_osd")), position + Vector2D(texture->getW() / 2, 0), app->getRenderer(), textColor, titleScale);
+    title = new UIText(sliderTitle, *(app->getFont("vcr_osd")), position + Vector2D(texture->getW() / 2, 0), app->getRenderer(), textColor, titleScale);
     title->movePosition(Vector2D(position.getX() + (texture->getW() / 2) - (titleScale.widthScale / 2) * title->getTexture()->getW(), position.getY() + 3.5 * (title->getTexture()->getH() + 2 * (10 * 1 / titleScale.heightScale - (10 * titleScale.heightScale)))));
 }
 
@@ -70,9 +70,9 @@ void Slider::handleEvents(const SDL_Event& event) {
 
 void Slider::update() {
     if (value != previousValue && showValue) {
-        Text* tmp = textValue;
+        UIText* tmp = textValue;
         Scale valueScale = Scale(2.0f, 2.0f);
-        textValue = new Text(std::to_string(value) + "%", *(app->getFont("vcr_osd")), position + Vector2D(texture->getW() / 2, 0), app->getRenderer(), textColor, valueScale);
+        textValue = new UIText(std::to_string(value) + "%", *(app->getFont("vcr_osd")), position + Vector2D(texture->getW() / 2, 0), app->getRenderer(), textColor, valueScale);
         textValue->movePosition(Vector2D(position.getX() + (texture->getW() / 2) - (valueScale.widthScale / 2) * textValue->getTexture()->getW(), position.getY() + 0.5* (textValue->getTexture()->getH() + 2 * (10 * 1 / valueScale.heightScale))));
         delete tmp;
     }

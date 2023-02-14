@@ -1,17 +1,17 @@
 #pragma once
 #include "MenuState.h"
-#include "../../ui/Text.h"
+#include "../../ui/UIText.h"
 
 const float MAIN_MENU_OTT_ANIM_TIME = 400;
 
 class MainMenuState : public MenuState {
 private:
-    Text* titleBack = nullptr;
-    Text* titleFront = nullptr;
-	Text* faeStudiosBack = nullptr;
-	Text* faeStudiosFront = nullptr;
-	Text* versionBack = nullptr;
-	Text* versionFront = nullptr;
+    UIText* titleBack = nullptr;
+    UIText* titleFront = nullptr;
+	UIText* faeStudiosBack = nullptr;
+	UIText* faeStudiosFront = nullptr;
+	UIText* versionBack = nullptr;
+	UIText* versionFront = nullptr;
 	
 	Texture* littleOtt = nullptr;
 	SDL_Rect littleOttRect;

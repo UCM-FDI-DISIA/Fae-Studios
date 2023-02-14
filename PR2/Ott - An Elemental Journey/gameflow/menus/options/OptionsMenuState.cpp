@@ -43,9 +43,9 @@ OptionsMenuState::OptionsMenuState(SDLApplication* app) : MenuState(OPTIONS, app
 		back, 
 		Scale(0.33f, 1.0f))));
 
-	titleBack = new Text("Opciones", *(app->getFont("press_start")), Vector2D(WINDOW_WIDTH / 2, 20), app->getRenderer(), { 194,147,42 }, Scale(4.0f, 4.0f));
+	titleBack = new UIText("Opciones", *(app->getFont("press_start")), Vector2D(WINDOW_WIDTH / 2, 20), app->getRenderer(), { 194,147,42 }, Scale(4.0f, 4.0f));
 	titleBack->movePosition(Vector2D(WINDOW_WIDTH / 2 - 4 * titleBack->getTexture()->getW() / 2 - 5, 100));
-    titleFront = new Text("Opciones", *(app->getFont("press_start")), Vector2D(WINDOW_WIDTH / 2, 20), app->getRenderer(), { 255,217,102 }, Scale(4.0f, 4.0f));
+    titleFront = new UIText("Opciones", *(app->getFont("press_start")), Vector2D(WINDOW_WIDTH / 2, 20), app->getRenderer(), { 255,217,102 }, Scale(4.0f, 4.0f));
     titleFront->movePosition(Vector2D(WINDOW_WIDTH / 2 - 4 * titleFront->getTexture()->getW() / 2, 100));
 }
 

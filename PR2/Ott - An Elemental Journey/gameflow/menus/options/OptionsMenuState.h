@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../MenuState.h"
-#include "../../../ui/Text.h"
+#include "../../../ui/UIText.h"
 
 class OptionsMenuState : public MenuState {
 private:
@@ -9,8 +9,8 @@ private:
 	static void graphicOptions(SDLApplication* app);
 	static void controls(SDLApplication* app);
 	static void back(SDLApplication* app);
-	Text* titleBack = nullptr;
-    Text* titleFront= nullptr;
+	UIText* titleBack = nullptr;
+    UIText* titleFront= nullptr;
 
 public:
 	OptionsMenuState(SDLApplication* app);

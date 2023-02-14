@@ -25,11 +25,12 @@
     <ClCompile Include="SDLApplication.cpp" />
     <ClCompile Include="ui\Button.cpp" />
     <ClCompile Include="ui\Slider.cpp" />
-    <ClCompile Include="ui\Text.cpp" />
+    <ClCompile Include="ui\UIText.cpp" />
     <ClCompile Include="ui\UIElement.cpp" />
     <ClCompile Include="gameflow\menus\PauseMenuState.cpp" />
     <ClCompile Include="ui\HealthBar.cpp" />
     <ClCompile Include="ui\ChargedAttackBar.cpp" />
+    <ClCompile Include="gameobjects\Mapa.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="checkML.h" />
@@ -60,11 +61,12 @@
     <ClInclude Include="targetver.h" />
     <ClInclude Include="ui\Button.h" />
     <ClInclude Include="ui\Slider.h" />
-    <ClInclude Include="ui\Text.h" />
+    <ClInclude Include="ui\UIText.h" />
     <ClInclude Include="ui\UIElement.h" />
     <ClInclude Include="gameflow\menus\PauseMenuState.h" />
     <ClInclude Include="ui\HealthBar.h" />
     <ClInclude Include="ui\ChargedAttackBar.h" />
+    <ClInclude Include="gameobjects\Mapa.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Ott - An Elemental Journey.rc" />

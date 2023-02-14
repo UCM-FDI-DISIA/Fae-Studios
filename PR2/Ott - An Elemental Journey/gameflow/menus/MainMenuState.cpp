@@ -42,17 +42,17 @@ MainMenuState::MainMenuState(SDLApplication* app) : MenuState(MAIN_MENU, app->ge
 		quit, 
 		Scale(0.33f, 1.0f))));
 
-    titleBack = new Text("Ott: an Elemental Journey", *(app->getFont("press_start")), Vector2D(WINDOW_WIDTH / 2, 20), app->getRenderer(), { 194,147,42 }, Scale(3.0f, 3.0f));
+    titleBack = new UIText("Ott: an Elemental Journey", *(app->getFont("press_start")), Vector2D(WINDOW_WIDTH / 2, 20), app->getRenderer(), { 194,147,42 }, Scale(3.0f, 3.0f));
     titleBack->movePosition(Vector2D(WINDOW_WIDTH / 2 - 3 * titleBack->getTexture()->getW() / 2 - 5, 100));
-    titleFront = new Text("Ott: an Elemental Journey", *(app->getFont("press_start")), Vector2D(WINDOW_WIDTH / 2, 20), app->getRenderer(), { 255,217,102 }, Scale(3.0f, 3.0f));
+    titleFront = new UIText("Ott: an Elemental Journey", *(app->getFont("press_start")), Vector2D(WINDOW_WIDTH / 2, 20), app->getRenderer(), { 255,217,102 }, Scale(3.0f, 3.0f));
     titleFront->movePosition(Vector2D(WINDOW_WIDTH / 2 - 3 * titleFront->getTexture()->getW() / 2, 100));
-	faeStudiosBack = new Text("Fae Studios - 2023", *(app->getFont("press_start")), Vector2D(WINDOW_WIDTH / 2, 20), app->getRenderer(), { 194,147,42 }, Scale(1.0f, 1.0f));
+	faeStudiosBack = new UIText("Fae Studios - 2023", *(app->getFont("press_start")), Vector2D(WINDOW_WIDTH / 2, 20), app->getRenderer(), { 194,147,42 }, Scale(1.0f, 1.0f));
 	faeStudiosBack->movePosition(Vector2D(WINDOW_WIDTH / 2 - 5 * faeStudiosBack->getTexture()->getW() / 2 - 1, WINDOW_HEIGHT - 30));
-	faeStudiosFront = new Text("Fae Studios - 2023", *(app->getFont("press_start")), Vector2D(WINDOW_WIDTH / 2, 20), app->getRenderer(), { 255,217,102 }, Scale(1.0f, 1.0f));
+	faeStudiosFront = new UIText("Fae Studios - 2023", *(app->getFont("press_start")), Vector2D(WINDOW_WIDTH / 2, 20), app->getRenderer(), { 255,217,102 }, Scale(1.0f, 1.0f));
 	faeStudiosFront->movePosition(Vector2D(WINDOW_WIDTH / 2 - 5 * faeStudiosFront->getTexture()->getW() / 2, WINDOW_HEIGHT - 30));
-	versionBack = new Text("InDev 0.0.1", *(app->getFont("press_start")), Vector2D(WINDOW_WIDTH / 2, 20), app->getRenderer(), { 194,147,42 }, Scale(1.0f, 1.0f));
+	versionBack = new UIText("InDev 0.0.1", *(app->getFont("press_start")), Vector2D(WINDOW_WIDTH / 2, 20), app->getRenderer(), { 194,147,42 }, Scale(1.0f, 1.0f));
 	versionBack->movePosition(Vector2D(WINDOW_WIDTH / 2 + 5 * versionBack->getTexture()->getW() / 2 - 1, WINDOW_HEIGHT - 30));
-	versionFront = new Text("InDev 0.0.1", *(app->getFont("press_start")), Vector2D(WINDOW_WIDTH / 2, 20), app->getRenderer(), { 255,217,102 }, Scale(1.0f, 1.0f));
+	versionFront = new UIText("InDev 0.0.1", *(app->getFont("press_start")), Vector2D(WINDOW_WIDTH / 2, 20), app->getRenderer(), { 255,217,102 }, Scale(1.0f, 1.0f));
 	versionFront->movePosition(Vector2D(WINDOW_WIDTH / 2 + 5 * versionFront->getTexture()->getW() / 2, WINDOW_HEIGHT - 30));
 	
 	littleOtt = app->getTexture("ott", MAIN_MENU);

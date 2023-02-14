@@ -25,12 +25,12 @@ class MapTexturesParser {
 private:
     MapTexturesParser() = default;
 public:
-    static void parse(std::string route, std::unordered_map<ListaNiveles, list<infoTexture>> texturesUsedInLevel);
+    static void parse(std::string route, std::unordered_map<ListaNiveles, list<infoTexture>>& texturesUsedInLevel);
 };
 
 class MapParser {
 private:
     MapParser() = default;
 public:
-    static void parse(std::string route, std::unordered_map<ListaNiveles, infoMap> levelRouteMap);
+    static void parse(std::string route, std::unordered_map<ListaNiveles, infoMap>& levelRouteMap);
 };

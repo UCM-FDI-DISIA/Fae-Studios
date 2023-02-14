@@ -3,7 +3,7 @@
 #include "../SDLApplication.h"
 
 Button::Button(const ButtonParams& params) : UIElement(params.position, params.texture, params.scale), app(params.app), callback(params.callback), buttonText(params.buttonText), textScale(params.textScale) {
-    text = new Text(buttonText, *(app->getFont("vcr_osd")), Vector2D(position.getX() + (texture->getW() / 3 / 2), position.getY()), app->getRenderer(), params.textCol, textScale);
+    text = new UIText(buttonText, *(app->getFont("vcr_osd")), Vector2D(position.getX() + (texture->getW() / 3 / 2), position.getY()), app->getRenderer(), params.textCol, textScale);
     text->movePosition(Vector2D(position.getX() + ((texture->getW() / 3) / 2) - (textScale.widthScale / 2) * text->getTexture()->getW(), position.getY() + text->getTexture()->getH() + 2 * (10 * 1 / textScale.heightScale)));
 }
 

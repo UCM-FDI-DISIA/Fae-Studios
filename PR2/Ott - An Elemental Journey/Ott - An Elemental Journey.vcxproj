@@ -104,13 +104,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\SDL2_Image\include;$(ProjectDir)..\SDL2_mixer\include;$(ProjectDir)..\SDL2_ttf\include;$(ProjectDir)..\SDL2\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\SDL2_Image\include;$(ProjectDir)..\SDL2_mixer\include;$(ProjectDir)..\SDL2_ttf\include;$(ProjectDir)..\SDL2\include;$(ProjectDir)..\tmxlite\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)..\SDL2_mixer\lib\x64;$(ProjectDir)..\SDL2_Image\lib\x64;$(ProjectDir)..\SDL2_ttf\lib\x64;$(ProjectDir)..\SDL2\lib\x64</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;SDL2_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\SDL2_mixer\lib\x64;$(ProjectDir)..\SDL2_Image\lib\x64;$(ProjectDir)..\SDL2_ttf\lib\x64;$(ProjectDir)..\SDL2\lib\x64;$(ProjectDir)..\tmxlite\x64\bin\DebugStatic</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;SDL2_mixer.lib;libtmxlite-s-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -133,6 +133,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="gameobjects\Mapa.h" />
     <ClInclude Include="ui\ChargedAttackBar.h" />
     <ClInclude Include="checkML.h" />
     <ClInclude Include="gameflow\menus\options\ControlMenuState.h" />
@@ -164,10 +165,11 @@
     <ClInclude Include="targetver.h" />
     <ClInclude Include="ui\Button.h" />
     <ClInclude Include="ui\Slider.h" />
-    <ClInclude Include="ui\Text.h" />
+    <ClInclude Include="ui\UIText.h" />
     <ClInclude Include="ui\UIElement.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="gameobjects\Mapa.cpp" />
     <ClCompile Include="ui\ChargedAttackBar.cpp" />
     <ClCompile Include="gameflow\menus\options\ControlMenuState.cpp" />
     <ClCompile Include="gameflow\play\PlayState.cpp" />
@@ -195,8 +197,7 @@
     <ClCompile Include="SDLApplication.cpp" />
     <ClCompile Include="ui\Button.cpp" />
     <ClCompile Include="ui\Slider.cpp" />
-    <ClCompile Include="ui\Text.cpp" />
-    <ClCompile Include="ui\UIElement.cpp" />
+    <ClCompile Include="ui\UIText.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Ott - An Elemental Journey.rc" />

@@ -41,7 +41,7 @@ void FontParser::parse(std::string route, std::unordered_map<std::string, FontDe
 	input.close();
 }
 
-void MapTexturesParser::parse(std::string route, std::unordered_map<ListaNiveles, list<infoTexture>> texturesUsedInLevel) {
+void MapTexturesParser::parse(std::string route, std::unordered_map<ListaNiveles, list<infoTexture>>& texturesUsedInLevel) {
     ifstream input;
     std::string file = route + "leveltexture.info";
     input.open(file);
@@ -53,16 +53,15 @@ void MapTexturesParser::parse(std::string route, std::unordered_map<ListaNiveles
         input >> listaNivel >> numTexturas;
         string name;
         int textureType;
-        auto it = texturesUsedInLevel[ListaNiveles(listaNivel)];
         for(int j = 0; j < numTexturas; ++j) {
             input >> name >> textureType;
-            it.push_back(infoTexture(name, TypeTexture(textureType)));
+            texturesUsedInLevel[ListaNiveles(listaNivel)].push_back(infoTexture(name, TypeTexture(textureType)));
         }
     }
     input.close();
 }
 
-void MapParser::parse(std::string route, std::unordered_map<ListaNiveles, infoMap> levelRouteMap) {
+void MapParser::parse(std::string route, std::unordered_map<ListaNiveles, infoMap>& levelRouteMap) {
     ifstream input;
     std::string file = route + "levels.info";
     input.open(file);

@@ -9,6 +9,8 @@
 #include "../../ui/ChargedAttackBar.h"
 
 PlayState::PlayState(SDLApplication* app) : GameState(PLAY_STATE, app) {
+	currentMap = new Mapa(app, LEVEL1);
+	gameObjects.push_back(currentMap);
 	Ott* ott = new Ott(Vector2D(0, 0), app->getTexture("ott", getStateID()), this, Scale(0.3f, 0.3f));
 
 	gr = new Ground(Vector2D(0, 400), app->getTexture("whiteBox", getStateID()), Scale(0.8f, 0.25f));

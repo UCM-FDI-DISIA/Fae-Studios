@@ -1,6 +1,8 @@
 #include "Mapa.h"
+#include "../dependencies/Parser.h"
 
-Mapa::Mapa(SDLApplication* app, ListaNiveles l, unordered_map<ListaNiveles, string> lP, unordered_map<ListaNiveles, list<infoTexture>> iL) : GameObject(), currentLevel(l), app(app), infoLevel(iL), levelPath(lP) {
+Mapa::Mapa(SDLApplication* app, ListaNiveles l) : GameObject(), currentLevel(l), app(app) {
+    initializeSources();
     auto it = infoLevel.find(l);
     if (it != infoLevel.end()) {
         auto ot = it->second.begin();
@@ -133,4 +135,9 @@ void Mapa::render() const{
     }
    
     
+}
+
+void Mapa::initializeSources() {
+    MapTexturesParser::parse(levelTextureRoute, infoLevel);
+    MapParser::parse(levelRoute,levelPath);
 }

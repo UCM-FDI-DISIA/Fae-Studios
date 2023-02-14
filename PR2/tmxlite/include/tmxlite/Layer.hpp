@@ -1,5 +1,5 @@
 /*********************************************************************
-Matt Marchant 2016 - 2022
+Matt Marchant 2016 - 2021
 http://trederia.blogspot.com
 
 tmxlite - Zlib license.
@@ -90,10 +90,13 @@ namespace tmx
         */
         template <typename T>
         T& getLayerAs();
-
+        /*{
+            throw("Not a valid layer type");
+            return *dynamic_cast<T*>(this);
+        }*/
 
         template <typename T>
-        const T& getLayerAs() const;
+        const T& getLayerAs() const { return getLayerAs<T>(); }
 
         /*!
         \brief Attempts to parse the specific node layer type

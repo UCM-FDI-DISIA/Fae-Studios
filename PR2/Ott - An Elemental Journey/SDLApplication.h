@@ -11,14 +11,14 @@
 #include <fstream>
 #include "dependencies/Texture.h"
 #include "dependencies/Exceptions.h"
-#include "ui/Text.h"
+#include "ui/UIText.h"
 #include "gameflow/GameStateMachine.h"
 #include "loaders/TextureLoader.h"
 #include "loaders/FontLoader.h"
 
 //Definimos las constantes de nuestro juego
-const uint WINDOW_WIDTH = 1920; ///< Anchura de la ventana
-const uint WINDOW_HEIGHT = 1080; ///< Altura de la ventana
+const uint WINDOW_WIDTH = 800; ///< Anchura de la ventana
+const uint WINDOW_HEIGHT = 600; ///< Altura de la ventana
 const uint FRAME_RATE = 5; ///< Framerate del juego
 const std::string WINDOW_NAME = "Testeo de UI"; ///< Nombre de la ventana del juego
 
@@ -28,11 +28,15 @@ const std::string WINDOW_NAME = "Testeo de UI"; ///< Nombre de la ventana del ju
 #ifdef __APPLE__ //MacOS (CLion)
 const std::string textureRoute = "../images/";
 const std::string fontRoute = "../fonts/";
+const std::string levelRoute = "../levels/";
+const std::string levelTextureRoute = "../images/levels/";
 #endif
 
 #ifdef __WINDOWS__ //Windows (Visual Studio)
 const std::string textureRoute = "../../images/";
 const std::string fontRoute = "../../fonts/";
+const std::string levelRoute = "../../levels/";
+const std::string levelTextureRoute = "../../images/levels/";
 #endif
 
 /// Clase que se encarga del juego en su total

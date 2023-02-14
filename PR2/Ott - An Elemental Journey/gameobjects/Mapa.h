@@ -42,8 +42,7 @@ struct infoMap {
 };
 
 
-class Mapa: public GameObject
-{
+class Mapa: public GameObject {
 private:
 	SDLApplication* app;
 	unordered_map<ListaNiveles, list<infoTexture>> infoLevel;
@@ -56,9 +55,11 @@ private:
     std::array<Texture*, NUMBER_OF_TYPES> textures;
 
 	void loadMap(string path);
+	void initializeSources();
 
 public:
-	Mapa(SDLApplication* app, ListaNiveles l, unordered_map<ListaNiveles, string> lP, unordered_map<ListaNiveles, list<infoTexture>> iL);
-	void render()const override;
+	Mapa(SDLApplication* app, ListaNiveles l);
+	void render() const override;
+	void changeMap();
 };
 
