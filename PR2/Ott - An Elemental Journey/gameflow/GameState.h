@@ -3,6 +3,7 @@
 #define PROYECTOS2_GAMESTATE_H
 
 #include <list>
+#include <stack>
 #include "../gameobjects/GameObject.h"
 
 class SDLApplication; // Declaramos una clase SDLApplication para romper las dependencias circulares
@@ -11,6 +12,7 @@ class SDLApplication; // Declaramos una clase SDLApplication para romper las dep
 class GameState {
 protected:
     std::list<GameObject*> gameObjects; ///< Lista de gameObjects de nuestro juego
+    std::stack<GameObject*> deletedObjects;
     SDLApplication* app = nullptr; ///< Puntero a la clase Game
     int stateID; ///< Identificador de nuestro estado
     bool deleted = false; ///< Booleano que indica si hay que borrar o no la escena (evitar problemas con iteradores)
@@ -40,6 +42,12 @@ public:
     /// Devuelve el ID de la escena
     /// \return int con el ID de la escena
     virtual int getStateID() const { return stateID; };
+
+    GameObject* addObject(GameObject* obj);
+
+    void deleteObject(GameObject* obj);
+
+    void deleteObjects();
 };
 
 #endif //PROYECTOS2_GAMESTATE_H

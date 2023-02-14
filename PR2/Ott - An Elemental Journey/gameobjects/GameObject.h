@@ -5,6 +5,8 @@
 #include "SDL.h"
 #include "../dependencies/Vector2D.h"
 #include "../dependencies/Texture.h"
+#include <list>
+class GameState;
 
 struct Scale {
     float widthScale = 1.0f;
@@ -19,16 +21,21 @@ protected:
     uint width = 0; ///< Anchura del objeto
     uint height = 0;  ///< Altura del objeto
     Texture* texture = nullptr; ///< Puntero a la textura del objeto;
+    GameState* actualState = nullptr;
 
     /// Constructora de la clase GameObject
     /// \param position Vector con la posición del objeto
     /// \param texture Puntero a la textura del objeto
     /// \param scale float con la escala en pantalla del objeto
-    GameObject(const Vector2D& position, Texture* texture, const Scale& scale = Scale(1.0f, 1.0f));
+    GameObject(const Vector2D& position, Texture* texture, const Scale& scale = Scale(1.0f, 1.0f), GameState* state = nullptr);
 
 public:
     /// Destructora de la clase GameObject
     virtual ~GameObject() = default;
+
+    list<GameObject*>::iterator it;
+
+    GameState* getState();
 
     /// Renderiza nuestro objeto en pantalla
     virtual void render() const;
@@ -44,6 +51,7 @@ public:
     /// \param event SDL_Event con el evento a manejar
     virtual void handleEvents(const SDL_Event& event) {};
 
+    void deleteMyself();
 };
 
 #endif //PROYECTOSSDL_GAMEOBJECT_H

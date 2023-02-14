@@ -1,11 +1,13 @@
 #include "../checkML.h"
 #include "GameObject.h"
+#include "../gameflow/GameState.h"
 
-GameObject::GameObject(const Vector2D& position, Texture* texture, const Scale& scale) {
+GameObject::GameObject(const Vector2D& position, Texture* texture, const Scale& scale, GameState* state) {
     this->position = position;
     this->texture = texture;
     this->width = texture->getW() * scale.widthScale;
     this->height = texture->getH() * scale.heightScale;
+    actualState = state;
 }
 
 SDL_Rect GameObject::getRect() const {
@@ -18,3 +20,10 @@ SDL_Rect GameObject::getRect() const {
 void GameObject::render() const {
     texture->render(getRect());
 }
+
+GameState* GameObject::getState() { return actualState; }
+
+void GameObject::deleteMyself() {
+    actualState->deleteObject(this);
+}
+
