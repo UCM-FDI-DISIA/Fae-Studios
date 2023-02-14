@@ -132,7 +132,7 @@ void Mapa::render() const{
     int offsetY = 0; 
     for (int i = 0; i < vectorTiles.size(); i++) {
         auto it = vectorTiles[i].ID;
-        tilemap->renderFrame({ (int)(i % mapSize) * 14 - offsetX, (int)((i / mapSize) * 14) - offsetY, 14, 14 }, (it - (it % tilemap->getW() / 30)) / (tilemap->getW() / 30), it % (tilemap->getW() / 30 - 1));
+        tilemap->renderFrame({ (int)(i % 737) - offsetX, (int)((i / 737) ) - offsetY, 1, 1 }, (it - (it % 80)) / 80, it % 80 - 1);
     }
 }
 
