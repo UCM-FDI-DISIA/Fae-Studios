@@ -30,6 +30,11 @@ protected:
     bool notGroundedBefore = false;
     Vector2D speed = { 0,0 };
 
+    // Constantes Knockback
+    const double X_KNOCKBACK_FORCE = 1;
+    const double Y_KNOCKBACK_FORCE = 1;
+
+
     //Parámetros que controlan la vida debil
     bool weakened = false;
     int timeWeak = 3, weakTimer;
@@ -37,6 +42,7 @@ protected:
     bool invincible = false;
     //Game Controller 1 handler
     GameObject* lastSanctuary = nullptr;
+
 public:
     Ott(const Vector2D& position, Texture* texture, PlayState* game, const Scale& scale = Scale(1.0f, 1.0f));
     /// Destructora de la clase GameObject
@@ -69,4 +75,5 @@ public:
 
 private:
     virtual void die();
+    void knockback();
 };

@@ -83,7 +83,7 @@ void Ott::handleEvents(const SDL_Event& event) {
 			if (SDL_HasIntersection(&col, &sRect)) resetLives();
 			ismoving = true;
 		}
-		if (!attack&& event.key.keysym.sym == SDLK_e) {
+		if (!attack && event.key.keysym.sym == SDLK_e) {
 			animState = ATTACK;
 			attack = true;
 			cout << "ataque" << endl;
@@ -114,22 +114,23 @@ void Ott::handleEvents(const SDL_Event& event) {
 			up = false;
 		}
 		if (event.key.keysym.sym == SDLK_e) {
-		/*	attack = false;*/
+			/*	attack = false;*/
 			cout << "ataqueOut" << endl;
 		}
 		if (event.key.keysym.sym == SDLK_r) {
 			recieveDamage(0);
+			knockback();
 		}
 		cout << animState << endl;
 		cout << dir.getX() << endl;
 	}
-	if(!right && !left)
+	if (!right && !left)
 	{
 		if (!attack) {
 			//cout << "SALII" << endl;
 			ismoving = false;
 		}
-		 dir = dir * Vector2D(0, 1);
+		dir = dir * Vector2D(0, 1);
 	}
 	//cout << left << " " << right << " " << attack << endl;
 }
@@ -140,7 +141,7 @@ bool Ott::canJump() {
 
 void Ott::jump() {
 	if (isGrounded()) { //metodo canjump es lo mismo pero no inline? 
-		if(!attack)animState = JUMPING;
+		if (!attack)animState = JUMPING;
 		speed = Vector2D(speed.getX(), jumpForce);
 	}
 }
@@ -162,7 +163,7 @@ void Ott::update() {
 		timer = 0;
 		if (animState == IDLE)
 		{
-			if(ground)dir = Vector2D(0, 0);
+			if (ground)dir = Vector2D(0, 0);
 			//cout << "IDLE" << endl;
 			row = 0;
 			col = (col + 1) % 2;
@@ -230,8 +231,8 @@ void Ott::update() {
 	static_cast<PlayState*>(game)->ottCollide(getRect(), onGround, groundCol, col, ground);
 	if (ground) {
 		if (ismoving)
-		{ 
-			if(!attack)animState = WALKING;
+		{
+			if (!attack)animState = WALKING;
 		}
 		else
 		{
@@ -253,7 +254,7 @@ void Ott::update() {
 	if (weakened && (SDL_GetTicks() - weakTimer) >= timeWeak * 1000) weakened = false;
 	if (invincible && (SDL_GetTicks() - invencibilityTimer) > invincibilityTime * 1000) invincible = false;
 	//bool si ha habido input
-	position = position +speed+ dir; 
+	position = position + speed + dir;
 }
 
 void Ott::useGravity() {
@@ -293,6 +294,7 @@ void Ott::recieveDamage(int elem)
 		}
 	}
 	else Entity::recieveDamage(elem);
+
 }
 bool Ott::collide(const SDL_Rect& obj, SDL_Rect& result)
 {
@@ -328,5 +330,14 @@ void Ott::die()
 		life = maxLife;
 		notGroundedBefore = false;
 	}
+}
+void Ott::knockback() {
+
+	Vector2D knockback = Vector2D{ 0, X_KNOCKBACK_FORCE };
+
+	if (lookingFront)
+		knockback = -1*knockback;
+
+	dir = dir + knockback;
 }
 #pragma endregion
