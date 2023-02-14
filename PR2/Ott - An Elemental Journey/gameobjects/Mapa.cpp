@@ -5,14 +5,12 @@ Mapa::Mapa(SDLApplication* app, ListaNiveles l, unordered_map<ListaNiveles, stri
     if (it != infoLevel.end()) {
         auto ot = it->second.begin();
         for (ot; ot != it->second.end(); ++ot) {
-            switch (ot->typeT) {
-                case BACKGROUND: background = app->getTexture(ot->name, MAIN_MENU); break;
-                case TILESET: tileset = app->getTexture(ot->name, MAIN_MENU); break;
-            }
+            textures[ot->typeT] = app->getTexture(ot->name, MAIN_MENU);
         }
         auto ut = levelPath.find(l);
         if (ut != levelPath.end()) {
-            loadMap(ut->second);
+            mapSize = ut->second.size;
+            loadMap(ut->second.route);
         }
     }
     else
@@ -131,7 +129,7 @@ void Mapa::render() const{
     int offsetY = 0; 
     for (int i = 0; i < vectorTiles.size(); i++) {
         auto it = vectorTiles[i].ID;
-        tileset->renderFrame({ (int)(i % 737) * 14 - offsetX, (int)((i / 737) * 14) - offsetY, 14, 14 }, (it - (it % tileset->getW() / 30)) / (tileset->getW() / 30), it % (tileset->getW() / 30 - 1));
+        textures[TILESET]->renderFrame({ (int)(i % mapSize) * 14 - offsetX, (int)((i / mapSize) * 14) - offsetY, 14, 14 }, (it - (it % textures[TILESET]->getW() / 30)) / (textures[TILESET]->getW() / 30), it % (textures[TILESET]->getW() / 30 - 1));
     }
    
     

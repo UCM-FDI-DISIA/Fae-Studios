@@ -11,25 +11,34 @@
 #include <tmxlite/Types.hpp>
 #include <string>
 #include <list>
+#include <array>
 #include<unordered_map>
 #include "../SDLApplication.h"
 using namespace std;
 using namespace tmx;
 
 enum ListaNiveles {
-	LEVEL1, LEVEL2, LEVEL3
+	LEVEL1 = 0,
+    LEVEL2 = 1,
+    LEVEL3 = 2
 };
 enum TypeTexture {
-	BACKGROUND, TILESET
+	BACKGROUND = 0,
+    TILESET = 1,
+
+
+    NUMBER_OF_TYPES
 };
 struct infoTexture {
 	string name;
 	TypeTexture typeT;
+    infoTexture(string name, TypeTexture t) : name(name), typeT(t) {}
 	
 };
 struct infoMap {
     string route;
     int size;
+    infoMap(string route, int size) : route(route), size(size) {}
 };
 
 
@@ -40,11 +49,11 @@ private:
 	unordered_map<ListaNiveles, list<infoTexture>> infoLevel;
 	unordered_map<ListaNiveles, infoMap> levelPath;
 	Map map;
+    int mapSize;
 	vector<TileLayer::Tile> vectorTiles;
 	vector<Object> vectorObjects;
 	ListaNiveles currentLevel;
-	Texture* background = nullptr;
-	Texture* tileset = nullptr;
+    std::array<Texture*, NUMBER_OF_TYPES> textures;
 
 	void loadMap(string path);
 

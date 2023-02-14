@@ -17,3 +17,7 @@ tests 3
 arrow.png 1 1 arrow
 whiteBox.png 1 1 whiteBox
 Ott.png 9 8 ott
+
+levels 2
+FondoTemporal.png 1 1 level1bg
+tilesetlevel1.png 1 1 level1tileset
