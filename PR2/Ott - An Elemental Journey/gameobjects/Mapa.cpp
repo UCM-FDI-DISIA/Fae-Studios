@@ -131,6 +131,10 @@ void Mapa::render() const{
     int offsetY = 0; 
     for (int i = 0; i < vectorTiles.size(); i++) {
         auto it = vectorTiles[i].ID;
+        cout << textures[TILESET] << " h: " << textures[TILESET]->getH() <<
+            " w: " << textures[TILESET]->getW() <<
+            " row: " << textures[TILESET]->getNumCols() << 
+            " col: " << textures[TILESET]->getNumRows() << endl;
         textures[TILESET]->renderFrame({ (int)(i % mapSize) * 14 - offsetX, (int)((i / mapSize) * 14) - offsetY, 14, 14 }, (it - (it % textures[TILESET]->getW() / 30)) / (textures[TILESET]->getW() / 30), it % (textures[TILESET]->getW() / 30 - 1));
     }
    
