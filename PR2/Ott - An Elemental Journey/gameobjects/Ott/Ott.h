@@ -34,6 +34,7 @@ protected:
     bool weakened = false;
     int timeWeak = 3, weakTimer;
     int invincibilityTime = 2, invencibilityTimer = 0;
+    bool invincible = false;
     //Game Controller 1 handler
     GameObject* lastSanctuary = nullptr;
 public:

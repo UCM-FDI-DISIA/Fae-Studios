@@ -251,6 +251,7 @@ void Ott::update() {
 #pragma endregion
 	//timer que comprueba si sigue teniendo una vida debil
 	if (weakened && (SDL_GetTicks() - weakTimer) >= timeWeak * 1000) weakened = false;
+	if (invincible && (SDL_GetTicks() - invencibilityTimer) > invincibilityTime * 1000) invincible = false;
 	//bool si ha habido input
 	position = position +speed+ dir; 
 }
@@ -265,11 +266,12 @@ void Ott::render(const SDL_Rect& Camera) const {
 	texture->renderFrame(getRect(), 0, 0, arrowAngle);
 	*/
 #pragma endregion
+	if (invincible && SDL_GetTicks() % 2 == 0) return;
 	SDL_Rect ottRect = getRect();
 	ottRect.x -= Camera.x;
 	ottRect.y -= Camera.y;
 	if (!lookingFront) {
-		texture->renderFrame(ottRect, row, col,0,SDL_FLIP_HORIZONTAL);
+		texture->renderFrame(ottRect, row, col, 0, SDL_FLIP_HORIZONTAL);
 	}
 	else texture->renderFrame(ottRect, row, col);
 }
@@ -278,6 +280,7 @@ void Ott::recieveDamage(int elem)
 	if (SDL_GetTicks() - invencibilityTimer <= invincibilityTime * 1000) return;
 	cout << "Daño" << endl;
 	invencibilityTimer = SDL_GetTicks();
+	invincible = true;
 	if (elementsInfo[elem][currentElement] == 0) {
 		if (!weakened) {
 			weakened = true;
