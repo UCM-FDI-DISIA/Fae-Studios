@@ -35,13 +35,18 @@ void Enemy::Die() {
 }
 
 void Enemy::DetectPlayer() {
-	SDL_Rect playerRect = player->getRect();
-	int frameTime = SDL_GetTicks() - startAttackingTime;
 	if (!detectPlayer) {
+		SDL_Rect playerRect = player->getRect();
+		int frameTime = SDL_GetTicks() - startAttackingTime;
 		if (SDL_HasIntersection(&detectingTrigger, &playerRect)) detectPlayer = true;
 		if (detectPlayer) cout << "Detected" << endl;
 	}
-	else {
+}
+
+void Enemy::DetectAttackTrigger() {
+	if (detectPlayer) {
+		SDL_Rect playerRect = player->getRect();
+		int frameTime = SDL_GetTicks() - startAttackingTime;
 		if (attackState == normal && SDL_HasIntersection(&attackTrigger, &playerRect)) {
 			attackState = preparing;
 			startAttackingTime = SDL_GetTicks();
@@ -53,12 +58,18 @@ void Enemy::DetectPlayer() {
 		}
 		else if (attackState == attacking && frameTime >= ATTACKING_TIME) {
 			cout << attackState << endl;
-			if (SDL_HasIntersection(&attackTrigger, &playerRect))
-				static_cast<Enemy*>(player)->Damage(element);
+			Attack();
 			attackState = normal;
 		}
 	}
 }
+
+void Enemy::Attack() {
+	SDL_Rect playerRect = player->getRect();
+	if (SDL_HasIntersection(&attackTrigger, &playerRect))
+		static_cast<Enemy*>(player)->Damage(element);
+}
+
 
 void Enemy::FollowPlayer() {
 	// Distancia de seguridad para comprobar que no se pega al jugador
@@ -79,7 +90,7 @@ void Enemy::update() { //Falta el movimiento del enemigo
 	}
 
 	DetectPlayer();
-	int frameMovingTime = SDL_GetTicks() - startMovingTime;
+	DetectAttackTrigger();
 
 	if (lookingRight) // Ajuste del trigger en función del movimiento del enemigo
 		attackTrigger.x = position.getX() + width;
@@ -91,22 +102,6 @@ void Enemy::update() { //Falta el movimiento del enemigo
 
 	detectingTrigger.x = attackTrigger.x;
 	detectingTrigger.y = attackTrigger.y;
-
-	if (!detectPlayer) {
-		if (frameMovingTime >= NEW_DIR) {
-			dir = { (double)(rand() % 3 - 1), dir.getY() };  // No se puede declarar con parentesis, 
-			// tiene que ser con llaves o con Vector2D(rand() % 3 - 1, dir.getY()).
-			// El módulo tiene que ser entre 3 para poder tener 3 valores, (0, 1, 2). Al restar -1 se queda en (-1, 0, 1)
-			dir.normalize();
-
-			if (dir.getX() < 0) lookingRight = false; // Si es 0 se queda mirando según su último movimiento
-			else if (dir.getX() > 0) lookingRight = true;
-			startMovingTime = SDL_GetTicks();
-		}
-	}
-	else {
-		FollowPlayer();
-	}
 
 	Move();
 }

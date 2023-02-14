@@ -8,15 +8,15 @@
 
 class Enemy : public MovingObject{
 	enum triggerState {normal, preparing, attacking};
-private:
+protected:
 	int maxLives;
 	int actualLives;
 	elementsInfo::elements element;
 	bool dead = false;
 
-	const uint PREPARING_TIME = 500;
-	const uint ATTACKING_TIME = 500;
-	const uint NEW_DIR = 500;
+	uint PREPARING_TIME = 500;
+	uint ATTACKING_TIME = 500;
+	uint NEW_DIR = 500;
 	int startAttackingTime = 0;
 	int startMovingTime = 0;
 	SDL_Rect attackTrigger;
@@ -38,14 +38,19 @@ public:
 
 	void DetectPlayer();
 
-	void FollowPlayer();
+	virtual void FollowPlayer();
 
 	virtual void update();
 
-	void Move();
+	virtual void Move();
 
 	int GetLives();
 
 	bool isDead();
+
+	virtual void Attack();
+
+	void DetectAttackTrigger();
 };
+
 
