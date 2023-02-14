@@ -20,9 +20,7 @@ public:
 		shootTime = time;
 		maxLives = actualLives = health;
 		element = elem;
-		//trigger.x = pos.getX() - texture->getW(); 
-		trigger.x = 0;
-		trigger.y = pos.getY();
+		trigger.x = pos.getX() - 2 * texture->getW(); trigger.y = pos.getY();
 		trigger.w = w; trigger.h = h;
 		player = p;
 		dead = false;
