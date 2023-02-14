@@ -175,13 +175,16 @@ void Ott::useGravity() {
 	speed = Vector2D(speed.getX(), speed.getY() + static_cast<PlayState*>(game)->Gravity());
 }
 
-void Ott::render() const {
+void Ott::render(const SDL_Rect& Camera) const {
 #pragma region CONTROLLER INPUT
 	/*
 	texture->renderFrame(getRect(), 0, 0, arrowAngle);
 	*/
 #pragma endregion
-	texture->renderFrame(getRect(), row, col);
+	SDL_Rect ottRect = getRect();
+	ottRect.x -= Camera.x;
+	ottRect.y -= Camera.y;
+	texture->renderFrame(ottRect, row, col);
 }
 void Ott::recieveDamage(int elem)
 {

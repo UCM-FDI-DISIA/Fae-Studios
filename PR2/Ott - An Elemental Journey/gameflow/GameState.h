@@ -31,7 +31,7 @@ public:
     virtual void update();
 
     /// Renderiza todos los gameobjects de la lista
-    virtual void render(const SDL_Rect& Camera) const;
+    virtual void render() const;
 
     /// Maneja los eventos de los gameobjects de la lista
     /// \param e SDL_Event con el evento

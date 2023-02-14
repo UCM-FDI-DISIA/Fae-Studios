@@ -18,11 +18,11 @@ void GameState::update() {
     }
 }
 
-void GameState::render(const SDL_Rect& Camera) const {
+void GameState::render() const {
     //Recorremos la lista para renderizar los objetos,
     // y en caso de que se haya borrado un elemento en la lista, dejamos de recorrerla
     for (auto it = gameObjects.begin(); it != gameObjects.end() && !deleted;) {
-        (*it)->render(Camera);
+        (*it)->render();
         if (!deleted) ++it;
         else return;
     }

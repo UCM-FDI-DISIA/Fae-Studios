@@ -13,7 +13,7 @@ PlayState::PlayState(SDLApplication* app) : GameState(2, app) {
 
 	groundObjects.push_back(gr);
 	physicObjects.push_back(ott);
-	camera = { 0,0,LEVEL_WIDTH, LEVEL_HEIGHT };
+	camera = { 0,0,WINDOW_WIDTH, WINDOW_HEIGHT };
 }
 
 void PlayState::ottCollide(const SDL_Rect& Ott, const SDL_Rect& onGround, SDL_Rect& colRect, bool& col, bool& ground) {
@@ -57,5 +57,15 @@ void PlayState::update() {
 	if (camera.y > LEVEL_HEIGHT - camera.h)
 	{
 		camera.y = LEVEL_HEIGHT - camera.h;
+	}
+}
+
+void PlayState::render() const {
+	//Recorremos la lista para renderizar los objetos,
+	// y en caso de que se haya borrado un elemento en la lista, dejamos de recorrerla
+	for (auto it = gameObjects.begin(); it != gameObjects.end() && !deleted;) {
+		(*it)->render(camera);
+		if (!deleted) ++it;
+		else return;
 	}
 }
