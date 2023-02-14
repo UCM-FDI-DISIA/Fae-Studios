@@ -12,7 +12,7 @@ private:
 
 public:
 	OptionsMenuState(SDLApplication* app);
-	void render() const final;
+	virtual void render() const;
 	~OptionsMenuState() override;
 };
 

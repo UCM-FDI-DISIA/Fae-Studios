@@ -18,7 +18,7 @@ protected:
 
 public:
     /// Renderiza los objetos del menú y el fondo
-    void render() const override;
+    virtual void render() const;
 };
 
 #endif //PROYECTOS2_MENUSTATE_H

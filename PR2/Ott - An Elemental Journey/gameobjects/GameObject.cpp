@@ -15,6 +15,9 @@ SDL_Rect GameObject::getRect() const {
     return destRect; //Devolvemos un rectángulo con la posición del objeto en pantalla, su anchura y su altura
 }
 
-void GameObject::render() const {
-    texture->render(getRect());
+void GameObject::render(const SDL_Rect& Camera) const {
+    SDL_Rect rect = getRect();
+    rect.x -= Camera.x;
+    rect.y -= Camera.y;
+    texture->render(rect);
 }
