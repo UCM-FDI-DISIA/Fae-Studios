@@ -117,6 +117,9 @@ void Ott::handleEvents(const SDL_Event& event) {
 		/*	attack = false;*/
 			cout << "ataqueOut" << endl;
 		}
+		if (event.key.keysym.sym == SDLK_r) {
+			recieveDamage(0);
+		}
 		cout << animState << endl;
 		cout << dir.getX() << endl;
 	}
@@ -309,6 +312,8 @@ void Ott::die()
 	cout << "He muerto " << endl;
 	if (lastSanctuary == nullptr) {
 		cout << "No hay sanctuarios recientes... Muerte inminente" << endl;
+		PlayState* p = static_cast<PlayState*>(game);
+		p->backToMenu();
 	}
 	else {
 		SDL_Rect r = lastSanctuary->getRect();

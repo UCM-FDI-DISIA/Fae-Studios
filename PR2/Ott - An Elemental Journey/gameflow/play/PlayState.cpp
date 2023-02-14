@@ -3,6 +3,7 @@
 #include "../../SDLApplication.h"
 #include "../../gameobjects/Physics/Ground.h"
 #include "../../gameobjects/Ott/Ott.h"
+#include "../menus/MainMenuState.h"
 
 PlayState::PlayState(SDLApplication* app) : GameState(2, app) {
 	ott = new Ott(Vector2D(0, 0), app->getTexture("ott", 2), this, Scale(0.3f, 0.3f));
@@ -74,4 +75,7 @@ void PlayState::render() const {
 		if (!deleted) ++it;
 		else return;
 	}
+}
+void PlayState::backToMenu() {
+	app->getStateMachine()->changeState(new MainMenuState(app));
 }

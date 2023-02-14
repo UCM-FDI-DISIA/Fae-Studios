@@ -28,4 +28,5 @@ public:
     virtual void update();
     inline double Gravity() { return gravity; };
     virtual void render() const;
+    void backToMenu();
 };
