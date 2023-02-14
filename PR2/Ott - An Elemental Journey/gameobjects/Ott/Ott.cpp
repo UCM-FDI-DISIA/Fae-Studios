@@ -126,12 +126,12 @@ void Ott::handleEvents(const SDL_Event& event) {
 	if(!right && !left)
 	{
 		if (!attack) {
-			cout << "SALII" << endl;
+			//cout << "SALII" << endl;
 			ismoving = false;
 		}
 		 dir = dir * Vector2D(0, 1);
 	}
-	cout << left << " " << right << " " << attack << endl;
+	//cout << left << " " << right << " " << attack << endl;
 }
 
 bool Ott::canJump() {
@@ -163,7 +163,7 @@ void Ott::update() {
 		if (animState == IDLE)
 		{
 			if(ground)dir = Vector2D(0, 0);
-			cout << "IDLE" << endl;
+			//cout << "IDLE" << endl;
 			row = 0;
 			col = (col + 1) % 2;
 		}
@@ -275,6 +275,9 @@ void Ott::render(const SDL_Rect& Camera) const {
 }
 void Ott::recieveDamage(int elem)
 {
+	if (SDL_GetTicks() - invencibilityTimer <= invincibilityTime * 1000) return;
+	cout << "Daño" << endl;
+	invencibilityTimer = SDL_GetTicks();
 	if (elementsInfo[elem][currentElement] == 0) {
 		if (!weakened) {
 			weakened = true;
