@@ -30,7 +30,7 @@ protected:
 	GameObject* player;
 public:
 	Enemy(const Vector2D& position, Texture* texture, int lives, elementsInfo::elements elem, GameObject* p, bool moving, Vector2D dir = Vector2D(0,0), const Scale& scale = Scale(1.0f, 1.0f), float w = 110.0f, GameState* state = nullptr);
-	~Enemy();
+	virtual ~Enemy() = default;
 
 	void Damage(elementsInfo::elements e);
 

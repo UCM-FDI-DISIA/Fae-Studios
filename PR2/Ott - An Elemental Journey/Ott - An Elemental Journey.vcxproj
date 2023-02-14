@@ -147,6 +147,7 @@
     <ClInclude Include="gameflow\menus\options\MusicOptionsMenuState.h" />
     <ClInclude Include="gameflow\menus\options\OptionsMenuState.h" />
     <ClInclude Include="gameflow\PlayState.h" />
+    <ClInclude Include="gameobjects\Bullet.h" />
     <ClInclude Include="gameobjects\CollisionObject.h" />
     <ClInclude Include="gameobjects\Enemy.h" />
     <ClInclude Include="gameobjects\GameObject.h" />
@@ -177,6 +178,7 @@
     <ClCompile Include="gameflow\menus\options\MusicOptionsMenuState.cpp" />
     <ClCompile Include="gameflow\menus\options\OptionsMenuState.cpp" />
     <ClCompile Include="gameflow\PlayState.cpp" />
+    <ClCompile Include="gameobjects\Bullet.cpp" />
     <ClCompile Include="gameobjects\CollisionObject.cpp" />
     <ClCompile Include="gameobjects\Enemy.cpp" />
     <ClCompile Include="gameobjects\GameObject.cpp" />

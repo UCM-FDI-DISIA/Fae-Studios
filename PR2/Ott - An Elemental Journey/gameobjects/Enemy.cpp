@@ -18,9 +18,6 @@ Enemy::Enemy(const Vector2D& position, Texture* texture, int lives, elementsInfo
 	movee = moving;
 	player = p;
 }
-Enemy::~Enemy() {
-
-}
 
 void Enemy::Damage(elementsInfo::elements e) {
 	cout << "Hit" << endl;

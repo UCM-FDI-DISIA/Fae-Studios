@@ -108,6 +108,9 @@
     <ClInclude Include="gameobjects\MeleeEnemy.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="gameobjects\Bullet.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="gameflow\GameState.cpp">
@@ -186,6 +189,9 @@
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="gameobjects\MeleeEnemy.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="gameobjects\Bullet.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>
