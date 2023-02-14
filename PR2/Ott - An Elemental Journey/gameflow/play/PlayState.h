@@ -34,4 +34,6 @@ public:
     virtual void render() const;
     SDL_Rect ottPos() const;
     void setOttPos(const Vector2D& newPos);
+    void addEnredadera(const Vector2D& pos, const Scale& scale);
+    void climb();
 };

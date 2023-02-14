@@ -21,3 +21,28 @@ public:
 	virtual void interact();
 };
 
+class Enredaderas : public InteractuableObject {
+private:
+	
+public:
+	Enredaderas(Vector2D position, Texture* texture, PlayState* game, Scale scale = Scale(1.0f, 1.0f)): InteractuableObject(position, texture, game, scale) {};
+	virtual void interact() {
+		game->climb();
+	}
+	//bool isActive() { return active; }
+};
+
+class Grass : public InteractuableObject {
+private :
+	bool withEnredadera = false;
+	float heightEnredadera;
+	float widthEnredadera = 0.05f;
+public:
+	Grass(Vector2D position, Texture* texture, PlayState* game, Scale scale, float eH) : InteractuableObject(position, texture, game, scale), heightEnredadera(eH){};
+	virtual void interact() {
+		if (!withEnredadera) {
+			game->addEnredadera(Vector2D(position.getX(), position.getY()-200),Scale(widthEnredadera,heightEnredadera));
+			withEnredadera = true;
+		}
+	}
+};

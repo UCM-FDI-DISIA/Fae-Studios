@@ -94,6 +94,12 @@ void Ott::handleEvents(const SDL_Event& event) {
 		if (event.key.keysym.sym == SDLK_x) {
 			recieveDamage(currentElement);
 		}
+		if (climb && event.key.keysym.sym == SDLK_UP) {
+			upC = true;
+		}
+		if (climb && event.key.keysym.sym == SDLK_DOWN) {
+			down = true;
+		}
 		//cout << animState << endl;
 		//cout << dir.getX() << endl;
 	}
@@ -116,6 +122,12 @@ void Ott::handleEvents(const SDL_Event& event) {
 		if (event.key.keysym.sym == SDLK_e) {
 		/*	attack = false;*/
 			//cout << "ataqueOut" << endl;
+		}
+		if (event.key.keysym.sym == SDLK_UP) {
+			upC = false;
+		}
+		if (event.key.keysym.sym == SDLK_DOWN) {
+			down = false;
 		}
 		//cout << animState << endl;
 		//cout << dir.getX() << endl;
@@ -153,6 +165,8 @@ void Ott::update() {
 
 	if (right) dir = Vector2D(1, 0);
 	if (left) dir = Vector2D(-1, 0);
+	if (upC) dir = Vector2D(0, -1);
+	if (down) dir = Vector2D(0, 1);
 #pragma region ANIMATIONS
 	timer++;
 	if (timer >= ANIMATION_FRAME_RATE) {

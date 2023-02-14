@@ -7,7 +7,7 @@ enum ANIM_STATE { IDLE, WALKING, LAND, JUMPING, PEAK, FALLING, ATTACK };
 class Ott : public Entity {
 protected:
 
-    bool left = false, right = false, up = false, attack = false;
+    bool left = false, right = false, up = false, attack = false, upC = false, down = false;
 
     bool lookingFront = true;
 
@@ -17,6 +17,8 @@ protected:
     bool jumpFlag = true;
     bool jumping = false;
     const double jumpForce = -5;
+
+    bool climb = false;
 
     ANIM_STATE animState = IDLE;
     const int ANIMATION_FRAME_RATE = 40;
@@ -40,6 +42,7 @@ public:
     /// Destructora de la clase GameObject
     virtual ~Ott() = default;
 
+    void canClimb(){ climb = true; };
     bool canJump();
     void jump();
     // Renderizado 

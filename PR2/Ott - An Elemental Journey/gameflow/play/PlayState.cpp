@@ -20,6 +20,12 @@ PlayState::PlayState(SDLApplication* app) : GameState(2, app) {
 	l1->SetLamp(l2);
 	l2->SetLamp(l1);
 	l3->SetLamp(l2);
+
+	Grass* g1 = new Grass(Vector2D(800, 399), app->getTexture("whiteBox", 2), this, Scale(0.1f, 0.01f), 0.50f);
+	gameObjects.push_back(g1);
+	intObjects.push_back(g1);
+	
+
 	ott = new Ott(Vector2D(0, 0), app->getTexture("ott", 2), this, Scale(0.3f, 0.3f));
 
 	gr = new Ground(Vector2D(0, 400), app->getTexture("whiteBox", 2), Scale(3.0f, 0.25f));
@@ -112,4 +118,17 @@ SDL_Rect PlayState::ottPos() const {
 
 void PlayState::setOttPos(const Vector2D& newPos) {
 	ott->setPos(newPos);
+}
+
+void PlayState::addEnredadera(const Vector2D& pos, const Scale& scale) {
+
+	cout << "hola" << endl;
+	Enredaderas* e1 = new Enredaderas(pos, app->getTexture("whiteBox", 2), this, scale);
+	gameObjects.push_back(e1);
+	intObjects.push_back(e1);
+
+}
+
+void PlayState::climb() {
+	ott->canClimb();
 }
