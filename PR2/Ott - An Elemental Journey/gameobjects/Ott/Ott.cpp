@@ -86,7 +86,7 @@ void Ott::handleEvents(const SDL_Event& event) {
 		if (!attack&& event.key.keysym.sym == SDLK_e) {
 			animState = ATTACK;
 			attack = true;
-			cout << "ataque" << endl;
+			//cout << "ataque" << endl;
 			ismoving = true;
 			col = 2;
 			timer += ANIMATION_FRAME_RATE / 2;
@@ -94,20 +94,20 @@ void Ott::handleEvents(const SDL_Event& event) {
 		if (event.key.keysym.sym == SDLK_x) {
 			recieveDamage(currentElement);
 		}
-		cout << animState << endl;
-		cout << dir.getX() << endl;
+		//cout << animState << endl;
+		//cout << dir.getX() << endl;
 	}
 	if (event.type == SDL_KEYUP) {
 		if (event.key.keysym.sym == SDLK_LEFT) {
 			left = false;
 			dir = Vector2D(-1, 0);
-			cout << "L_Out" << endl;
+			//cout << "L_Out" << endl;
 		}
 		else if (event.key.keysym.sym == SDLK_RIGHT)
 		{
 			right = false;
 			//dir = Vector2D(1, 0);
-			cout << "R_Out" << endl;
+			//cout << "R_Out" << endl;
 		}
 		if (event.key.keysym.sym == SDLK_SPACE) {
 			jump();
@@ -115,20 +115,20 @@ void Ott::handleEvents(const SDL_Event& event) {
 		}
 		if (event.key.keysym.sym == SDLK_e) {
 		/*	attack = false;*/
-			cout << "ataqueOut" << endl;
+			//cout << "ataqueOut" << endl;
 		}
-		cout << animState << endl;
-		cout << dir.getX() << endl;
+		//cout << animState << endl;
+		//cout << dir.getX() << endl;
 	}
 	if(!right && !left)
 	{
 		if (!attack) {
-			cout << "SALII" << endl;
+			//cout << "SALII" << endl;
 			ismoving = false;
 		}
 		 dir = dir * Vector2D(0, 1);
 	}
-	cout << left << " " << right << " " << attack << endl;
+	//cout << left << " " << right << " " << attack << endl;
 }
 
 bool Ott::canJump() {
@@ -160,7 +160,7 @@ void Ott::update() {
 		if (animState == IDLE)
 		{
 			if(ground)dir = Vector2D(0, 0);
-			cout << "IDLE" << endl;
+			//cout << "IDLE" << endl;
 			row = 0;
 			col = (col + 1) % 2;
 		}
@@ -187,7 +187,7 @@ void Ott::update() {
 		}
 		if (animState == ATTACK)
 		{
-			cout << "anim attack" << endl;
+			//cout << "anim attack" << endl;
 			row = 8;
 			if (col < 7) {
 				col++;
@@ -195,7 +195,7 @@ void Ott::update() {
 			}
 			else {
 				col = 0;
-				cout << "GEEEE" << endl;
+				//cout << "GEEEE" << endl;
 				attack = false;
 			}
 		}
@@ -304,6 +304,7 @@ bool Ott::collide(GameObject* c)
 	}
 	return false;
 }
+
 void Ott::die()
 {
 	cout << "He muerto " << endl;
@@ -321,6 +322,6 @@ void Ott::die()
 
 void Ott::setPos(const Vector2D& newPos) {
 	position = Vector2D(newPos.getX(), newPos.getY());
-
+	notGroundedBefore = false;
 }
 #pragma endregion

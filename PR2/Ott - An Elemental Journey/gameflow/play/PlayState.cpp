@@ -9,15 +9,17 @@ bool PlayState::Interacting = false;
 
 void PlayState::handleEvents(SDL_Event& e) {
 	GameState::handleEvents(e);
-	if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_e) Interacting = true;
-	else Interacting = false;
+	if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_e && !PlayState::Interacting) { PlayState::Interacting = true; }
+	else if (e.type == SDL_KEYUP && e.key.keysym.sym == SDLK_e) PlayState::Interacting = false;
 }
 
 PlayState::PlayState(SDLApplication* app) : GameState(2, app) {
-	TP_Lamp* l1 = new TP_Lamp(Vector2D(600, 280), app->getTexture("lamp", 2), this, Scale(2, 2));
-	TP_Lamp* l2 = new TP_Lamp(Vector2D(800, 280), app->getTexture("lamp", 2), this, Scale(2, 2));
+	TP_Lamp* l1 = new TP_Lamp(Vector2D(200, 280), app->getTexture("lamp", 2), this, Scale(2, 2));
+	TP_Lamp* l2 = new TP_Lamp(Vector2D(400, 280), app->getTexture("lamp", 2), this, Scale(2, 2));
+	TP_Lamp* l3 = new TP_Lamp(Vector2D(600, 280), app->getTexture("lamp", 2), this, Scale(2, 2));
 	l1->SetLamp(l2);
 	l2->SetLamp(l1);
+	l3->SetLamp(l2);
 	ott = new Ott(Vector2D(0, 0), app->getTexture("ott", 2), this, Scale(0.3f, 0.3f));
 
 	gr = new Ground(Vector2D(0, 400), app->getTexture("whiteBox", 2), Scale(3.0f, 0.25f));
@@ -30,6 +32,11 @@ PlayState::PlayState(SDLApplication* app) : GameState(2, app) {
 
 	gameObjects.push_back(l1);
 	gameObjects.push_back(l2);
+	gameObjects.push_back(l3);
+
+	intObjects.push_back(l1);
+	intObjects.push_back(l2);
+	intObjects.push_back(l3);
 
 	gameObjects.push_back(ott);
 	groundObjects.push_back(gr);
@@ -57,11 +64,18 @@ void PlayState::update() {
 		}
 	}
 
+	for (auto it : intObjects) {
+		SDL_Rect result;
+		if (it->collide(ott->getRect(), result)) 
+		{ 
+			it->interact(); 
+		}
+	}
+
 	// Centro la camara para qu
 	SDL_Rect ottRect = ott->getRect();
 	camera.x = (ottRect.x + ottRect.w / 2) - WINDOW_WIDTH / 2;
 	camera.y = (ottRect.y + ottRect.h / 2) - WINDOW_HEIGHT / 2;
-
 
 	// Limites de la camara dependiendo del tamaño de la sala (mapa)
 	if (camera.x < 0)

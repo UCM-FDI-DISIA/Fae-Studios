@@ -6,6 +6,7 @@
 #pragma once
 
 class Ott;
+class InteractuableObject;
 
 using Camera = SDL_Rect;
 
@@ -19,10 +20,11 @@ private:
     list<Entity*> physicObjects;
     list<Ground*> groundObjects;
     list<Wall*> wallObjects;
+    list<InteractuableObject*> intObjects;
     Camera camera;
     Ott* ott;
-    static bool Interacting;
 public:
+    static bool Interacting;
     static bool IsInteracting() { return Interacting; };
     PlayState(SDLApplication* app);
     virtual void handleEvents(SDL_Event& e);
