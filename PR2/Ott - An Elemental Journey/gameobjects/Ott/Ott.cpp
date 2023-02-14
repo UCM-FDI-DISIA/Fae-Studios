@@ -61,8 +61,6 @@ void Ott::handleEvents(const SDL_Event& event) {
 			ismoving = true;
 			//attack = false;
 			lookingFront = false;
-
-
 		}
 		else if (event.key.keysym.sym == SDLK_RIGHT)
 		{
@@ -72,7 +70,6 @@ void Ott::handleEvents(const SDL_Event& event) {
 			//dir = Vector2D(1, 0);
 			lookingFront = true;
 		}
-		
 		if (event.key.keysym.sym == SDLK_SPACE) {
 			jump();
 
@@ -93,8 +90,9 @@ void Ott::handleEvents(const SDL_Event& event) {
 			ismoving = true;
 			col = 2;
 			timer += ANIMATION_FRAME_RATE / 2;
-			
-			
+		}
+		if (event.key.keysym.sym == SDLK_x) {
+			recieveDamage(currentElement);
 		}
 		cout << animState << endl;
 		cout << dir.getX() << endl;
@@ -102,36 +100,25 @@ void Ott::handleEvents(const SDL_Event& event) {
 	if (event.type == SDL_KEYUP) {
 		if (event.key.keysym.sym == SDLK_LEFT) {
 			left = false;
-			//dir = Vector2D(-1, 0);
-			
+			dir = Vector2D(-1, 0);
 			cout << "L_Out" << endl;
-
 		}
 		else if (event.key.keysym.sym == SDLK_RIGHT)
 		{
-			
 			right = false;
 			//dir = Vector2D(1, 0);
 			cout << "R_Out" << endl;
 		}
-
 		if (event.key.keysym.sym == SDLK_SPACE) {
 			jump();
-
-			
 			up = false;
 		}
 		if (event.key.keysym.sym == SDLK_e) {
-			
 		/*	attack = false;*/
 			cout << "ataqueOut" << endl;
-			
-			
 		}
 		cout << animState << endl;
 		cout << dir.getX() << endl;
-
-		
 	}
 	if(!right && !left)
 	{
@@ -140,11 +127,7 @@ void Ott::handleEvents(const SDL_Event& event) {
 			ismoving = false;
 		}
 		 dir = dir * Vector2D(0, 1);
-		
 	}
-	
-	
-
 	cout << left << " " << right << " " << attack << endl;
 }
 
@@ -170,9 +153,7 @@ void Ott::update() {
 
 	if (right) dir = Vector2D(1, 0);
 	if (left) dir = Vector2D(-1, 0);
-
-
-
+#pragma region ANIMATIONS
 	timer++;
 	if (timer >= ANIMATION_FRAME_RATE) {
 		timer = 0;
@@ -220,7 +201,6 @@ void Ott::update() {
 		}
 		// avanzar framde de animation
 	}
-
 	onGround = getRect();
 	onGround.y += onGround.h;
 	onGround.h = -jumpForce - 1;
@@ -237,7 +217,9 @@ void Ott::update() {
 			timer = ANIMATION_FRAME_RATE;
 		}
 	}
-	
+#pragma endregion
+
+	if (speed.getY() > 8) { speed = Vector2D(speed.getX(), 8); }
 
 #pragma region Deteccion de suelo??? y colisiones
 	SDL_Rect groundCol;
@@ -309,7 +291,6 @@ bool Ott::collide(const SDL_Rect& obj, SDL_Rect& result)
 }
 bool Ott::collide(GameObject* c)
 {
-	
 	if (Sanctuary* o = dynamic_cast<Sanctuary*> (c)) {
 		SDL_Rect col = getRect();
 		SDL_Rect sactRect = o->getRect();
@@ -331,9 +312,10 @@ void Ott::die()
 	}
 	else {
 		SDL_Rect r = lastSanctuary->getRect();
-		Vector2D newPos = { (double)r.x, (double)r.y };
+		Vector2D newPos = { (double)r.x, (double)r.y - 50 };
 		position = newPos;
 		life = maxLife;
+		notGroundedBefore = false;
 	}
 }
 #pragma endregion
