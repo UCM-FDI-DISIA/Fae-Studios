@@ -1,11 +1,12 @@
 #include "Enemy.h"
 #include "../gameflow/GameState.h"
+#include "../gameflow/PlayState.h"
 
 
 Enemy::Enemy(const Vector2D& position, Texture* texture, int lives, elementsInfo::elements elem, GameObject* p, bool moving, Vector2D dir, const Scale& scale, float w, GameState* state) : MovingObject(position, texture, dir, scale, state), actualLives(lives), element(elem), player(p) {
 	maxLives = lives * 2;  // Representación interna doblada
 	actualLives = lives * 2;
-	speed = 0.1;
+	speed = 0.3;
 
 	attackTrigger.x = position.getX() + width; attackTrigger.y = position.getY();
 	attackTrigger.w = w; attackTrigger.h = height;
@@ -19,10 +20,14 @@ Enemy::Enemy(const Vector2D& position, Texture* texture, int lives, elementsInfo
 	player = p;
 }
 
-void Enemy::Damage(elementsInfo::elements e) {
+bool Enemy::Damage(elementsInfo::elements e) {
 	cout << "Hit" << endl;
 	actualLives -= elementsInfo::matrix[e][element];
-	if (actualLives <= 0) Die();
+	if (actualLives <= 0) {
+		Die();
+		return true;
+	}
+	else return false;
 }
 
 void Enemy::Die() {
@@ -32,7 +37,7 @@ void Enemy::Die() {
 }
 
 void Enemy::DetectPlayer() {
-	if (!detectPlayer) {
+	if (!detectPlayer && player != nullptr) {
 		SDL_Rect playerRect = player->getRect();
 		int frameTime = SDL_GetTicks() - startAttackingTime;
 		if (SDL_HasIntersection(&detectingTrigger, &playerRect)) detectPlayer = true;
@@ -41,7 +46,7 @@ void Enemy::DetectPlayer() {
 }
 
 void Enemy::DetectAttackTrigger() {
-	if (detectPlayer) {
+	if (detectPlayer && player != nullptr) {
 		SDL_Rect playerRect = player->getRect();
 		int frameTime = SDL_GetTicks() - startAttackingTime;
 		if (attackState == normal && SDL_HasIntersection(&attackTrigger, &playerRect)) {
@@ -63,8 +68,12 @@ void Enemy::DetectAttackTrigger() {
 
 void Enemy::Attack() {
 	SDL_Rect playerRect = player->getRect();
-	if (SDL_HasIntersection(&attackTrigger, &playerRect))
-		static_cast<Enemy*>(player)->Damage(element);
+	if (SDL_HasIntersection(&attackTrigger, &playerRect)) {
+		if (static_cast<Enemy*>(player)->Damage(element)) {
+			player = nullptr;
+			detectPlayer = false;
+		}
+	}
 }
 
 
@@ -81,9 +90,24 @@ void Enemy::FollowPlayer() {
 	}
 }
 
-void Enemy::update() { //Falta el movimiento del enemigo
+void Enemy::update() {
 	if (!movee) {
 		return;
+	}
+
+	if (!grounded) {
+		useGravity();
+	}
+
+	SDL_Rect result = {0,0,0,0};
+	static_cast<PlayState*> (actualState)->enemyCollidesGround(getRect(), result, grounded);
+	
+	if (grounded) {
+		if (!detectPlayer && result.w < width * turningOffset) {
+			if(result.x < position.getX() + width / 2) dir = {-1, dir.getY()};
+			else dir = { 1, dir.getY() };
+		}
+		position = { position.getX(), position.getY() - result.h };
 	}
 
 	DetectPlayer();
@@ -104,10 +128,22 @@ void Enemy::update() { //Falta el movimiento del enemigo
 }
 
 void Enemy::Move() {
-	position = position + dir * speed; // No es (position + dir) * speed porque la posición se multiplicaría por la velocidad
-	// en vez de que se multiplique solo la dirección, asi que se teletransportaría
+	position = position + dir * speed; 
+	SDL_Rect result = { 0,0,0,0 };
+	bool collided = false;
+	static_cast<PlayState*> (actualState)->enemyCollidesWall(getRect(), result, collided);
+	if (collided) {
+		if (dir.getX() > 0) position = { position.getX() - result.w, position.getY()};
+		else position = { position.getX() + result.w, position.getY()};
+		if(!detectPlayer)
+			dir = { dir.getX() * -1, dir.getY() };
+	}
 }
 
 int Enemy::GetLives() { return actualLives; }
 
 bool Enemy::isDead() { return dead; }
+
+void Enemy::useGravity() {
+	position = position + Vector2D(0, 1 + static_cast<PlayState*> (actualState)->Gravity());
+}
