@@ -119,7 +119,7 @@ void Ott::handleEvents(const SDL_Event& event) {
 		}
 		if (event.key.keysym.sym == SDLK_r) {
 			recieveDamage(0);
-			knockback();
+			
 		}
 		cout << animState << endl;
 		cout << dir.getX() << endl;
@@ -281,6 +281,7 @@ void Ott::recieveDamage(int elem)
 	if (SDL_GetTicks() - invencibilityTimer <= invincibilityTime * 1000) return;
 	cout << "Daño" << endl;
 	invencibilityTimer = SDL_GetTicks();
+	knockback();
 	invincible = true;
 	if (elementsInfo[elem][currentElement] == 0) {
 		if (!weakened) {
