@@ -1,6 +1,9 @@
 #pragma once
 #include "CollisionObject.h"
 #include "../utils/Elements.h"
+
+class PlayState;
+
 class staticEnemy : public CollisionObject
 {
 	float shootTime;
@@ -13,15 +16,20 @@ class staticEnemy : public CollisionObject
 
 	SDL_Rect trigger;
 public:
-	staticEnemy(Vector2D pos, Texture* texture,GameObject* p, float time, int health, elementsInfo::elements elem, float w = 1.0f, float h = 1.0f, Scale scale = { 1.0f, 1.0f }) : CollisionObject(pos, texture, scale) {
+	staticEnemy(Vector2D pos, Texture* texture,GameObject* p, float time, int health, elementsInfo::elements elem, float w = 1.0f, float h = 1.0f, Scale scale = { 1.0f, 1.0f }, GameState* state = nullptr) : CollisionObject(pos, texture, scale, state) {
 		shootTime = time;
 		maxLives = actualLives = health;
 		element = elem;
-		trigger.x = pos.getX() - texture->getW(); trigger.y = pos.getY();
+		trigger.x = pos.getX() - 2 * texture->getW(); trigger.y = pos.getY();
 		trigger.w = w; trigger.h = h;
 		player = p;
 		dead = false;
+		startTime = SDL_GetTicks();
 	}
+
+	virtual ~staticEnemy() = default;
+
+	void update() override;
 
 	void Damage(elementsInfo::elements e) {
 		actualLives -= elementsInfo::matrix[e][element];
@@ -33,15 +41,6 @@ public:
 		// borrar o marcar booleano para borrar después
 	}
 
-	void DetectPlayer() {
-		SDL_Rect playerRect = player->getRect();
-		if (SDL_HasIntersection(&trigger, &playerRect)) {
-			startTime = SDL_GetTicks();
-			if (SDL_GetTicks() - startTime >= shootTime) {
-				//new Disparo :)
-				startTime = SDL_GetTicks();
-			}
-		}
-	}
+	void DetectPlayer();
 };
 
