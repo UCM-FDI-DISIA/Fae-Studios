@@ -5,6 +5,7 @@
 #include "../../gameobjects/Ott/Ott.h"
 #include "../menus/MainMenuState.h"
 
+
 PlayState::PlayState(SDLApplication* app) : GameState(2, app) {
 	ott = new Ott(Vector2D(0, 0), app->getTexture("ott_luz", 2), app->getTexture("ott_tree", 3),
 		app->getTexture("ott_water", 4),app->getTexture("ott_fire",5), this, Scale(0.3f, 0.3f));
@@ -22,7 +23,13 @@ PlayState::PlayState(SDLApplication* app) : GameState(2, app) {
 	groundObjects.push_back(gr);
 	physicObjects.push_back(ott);
 	camera = { 0,0,WINDOW_WIDTH, WINDOW_HEIGHT };
+
+	Mix_Init(MIX_INIT_FLAC | MIX_INIT_MOD | MIX_INIT_MP3 | MIX_INIT_OGG | MIX_INIT_MID);
+	Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 2048);
+	music = Mix_LoadMUS("../../sounds/musics/march.wav");
+	Mix_PlayMusic(music, -1);
 }
+
 
 void PlayState::ottCollide(const SDL_Rect& Ott, const SDL_Rect& onGround, SDL_Rect& colRect, bool& col, bool& ground) {
 	/*
@@ -79,4 +86,11 @@ void PlayState::render() const {
 }
 void PlayState::backToMenu() {
 	app->getStateMachine()->changeState(new MainMenuState(app));
+}
+
+PlayState::~PlayState()
+{
+	Mix_HaltMusic();
+	Mix_FreeMusic(music);
+	Mix_Quit();
 }
