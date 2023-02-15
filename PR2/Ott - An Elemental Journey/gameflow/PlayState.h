@@ -4,6 +4,7 @@
 #include "../gameobjects/Bullet.h"
 #include "../SDLApplication.h"
 #include "../gameobjects/staticEnemy.h"
+#include "../gameobjects/SlimeEnemy.h"
 #include "../gameobjects/Physics/Ground.h"
 #include <iostream>
 

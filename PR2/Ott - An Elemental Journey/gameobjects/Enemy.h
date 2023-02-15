@@ -1,6 +1,7 @@
 #pragma once
 #include "MovingObject.h"
 #include "../utils/Elements.h"
+#include "../SDLApplication.h" //cosa para texturas desde enemy(?)
 #include <iostream>
 
 // MOVER ARCHIVOS Y COLOCAR BIEN
