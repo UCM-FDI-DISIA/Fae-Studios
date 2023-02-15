@@ -16,7 +16,7 @@ Enemy::Enemy(const Vector2D& position, Texture* texture, int lives, elementsInfo
 	detectingTrigger.w = 2 * w; detectingTrigger.h = height;
 	detectPlayer = false;
 
-	movee = moving;
+	movee = moving; // TEMPORAL, BORRAR
 	player = p;
 }
 
@@ -81,7 +81,7 @@ void Enemy::FollowPlayer() {
 	// Distancia de seguridad para comprobar que no se pega al jugador
 	if (lookingRight && abs(player->getRect().x - (position.getX() + width)) > nearDistance ||
 		!lookingRight && abs(player->getRect().x - position.getX()) > nearDistance) {
-		dir = { player->getRect().x - dir.getX(), dir.getY() };
+		dir = { player->getRect().x - position.getX(), dir.getY()};
 		dir.normalize();
 	}
 	else {
@@ -91,41 +91,63 @@ void Enemy::FollowPlayer() {
 }
 
 void Enemy::update() {
-	if (!movee) {
+	if (!movee) { // TEMPORAL, BORRAR
 		return;
 	}
 
 	if (!grounded) {
 		useGravity();
 	}
-
 	SDL_Rect result = {0,0,0,0};
 	static_cast<PlayState*> (actualState)->enemyCollidesGround(getRect(), result, grounded);
 	
 	if (grounded) {
-		if (!detectPlayer && result.w < width * turningOffset) {
-			if(result.x < position.getX() + width / 2) dir = {-1, dir.getY()};
-			else dir = { 1, dir.getY() };
-		}
+		ChangeDir(result);
 		position = { position.getX(), position.getY() - result.h };
 	}
 
 	DetectPlayer();
 	DetectAttackTrigger();
 
+	MoveTriggers();
+	
+	Move();
+}
+
+void Enemy::ChangeDir(const SDL_Rect& result){
+	if (!detectPlayer && result.w < width * turningOffset) {
+		if (abs(result.x - position.getX()) < turningError) dir = { -1, dir.getY() };
+		else dir = { 1, dir.getY() };
+
+		dir.normalize();
+	}
+}
+
+void Enemy::playerCollide() {
+	if (player != nullptr) {
+		SDL_Rect myRect = getRect();
+		SDL_Rect playerRect = player->getRect();
+		if (SDL_HasIntersection(&myRect, &playerRect)) {
+			if (static_cast<Enemy*>(player)->Damage(element)) { // Falta implementar lo de la invulnerabilidad
+				player = nullptr;
+				detectPlayer = false;
+			}
+		}
+	}
+}
+
+void Enemy::MoveTriggers() {
 	if (lookingRight) // Ajuste del trigger en función del movimiento del enemigo
 		attackTrigger.x = position.getX() + width;
 	else
 		attackTrigger.x = position.getX() - attackTrigger.w;
 
-
 	attackTrigger.y = position.getY();
 
 	detectingTrigger.x = attackTrigger.x;
 	detectingTrigger.y = attackTrigger.y;
-
-	Move();
 }
+
 
 void Enemy::Move() {
 	position = position + dir * speed; 
@@ -138,7 +160,10 @@ void Enemy::Move() {
 		if(!detectPlayer)
 			dir = { dir.getX() * -1, dir.getY() };
 	}
+	playerCollide();
 }
+
+
 
 int Enemy::GetLives() { return actualLives; }
 
