@@ -16,7 +16,7 @@ Enemy::Enemy(const Vector2D& position, Texture* texture, int lives, elementsInfo
 	detectingTrigger.w = 2 * w; detectingTrigger.h = height;
 	detectPlayer = false;
 
-	movee = moving;
+	movee = moving; // TEMPORAL, BORRAR
 	player = p;
 }
 
@@ -91,40 +91,36 @@ void Enemy::FollowPlayer() {
 }
 
 void Enemy::update() {
-	if (!movee) {
+	if (!movee) { // TEMPORAL, BORRAR
 		return;
 	}
 
 	if (!grounded) {
 		useGravity();
 	}
-
 	SDL_Rect result = {0,0,0,0};
 	static_cast<PlayState*> (actualState)->enemyCollidesGround(getRect(), result, grounded);
 	
 	if (grounded) {
-		if (!detectPlayer && result.w < width * turningOffset) {
-			if(abs(result.x - position.getX()) < turningError) dir = {-1, dir.getY()};
-			else dir = { 1, dir.getY() };
-		}
+		ChangeDir(result);
 		position = { position.getX(), position.getY() - result.h };
 	}
 
 	DetectPlayer();
 	DetectAttackTrigger();
 
-	if (lookingRight) // Ajuste del trigger en función del movimiento del enemigo
-		attackTrigger.x = position.getX() + width;
-	else
-		attackTrigger.x = position.getX() - attackTrigger.w;
-
-
-	attackTrigger.y = position.getY();
-
-	detectingTrigger.x = attackTrigger.x;
-	detectingTrigger.y = attackTrigger.y;
-
+	MoveTriggers();
+	
 	Move();
+}
+
+void Enemy::ChangeDir(const SDL_Rect& result){
+	if (!detectPlayer && result.w < width * turningOffset) {
+		if (abs(result.x - position.getX()) < turningError) dir = { -1, dir.getY() };
+		else dir = { 1, dir.getY() };
+
+		dir.normalize();
+	}
 }
 
 void Enemy::playerCollide() {
@@ -138,6 +134,18 @@ void Enemy::playerCollide() {
 			}
 		}
 	}
+}
+
+void Enemy::MoveTriggers() {
+	if (lookingRight) // Ajuste del trigger en función del movimiento del enemigo
+		attackTrigger.x = position.getX() + width;
+	else
+		attackTrigger.x = position.getX() - attackTrigger.w;
+
+	attackTrigger.y = position.getY();
+
+	detectingTrigger.x = attackTrigger.x;
+	detectingTrigger.y = attackTrigger.y;
 }
 
 

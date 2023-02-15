@@ -60,6 +60,10 @@ public:
 	void playerCollide();
 
 	void useGravity();
+
+	virtual void MoveTriggers();
+
+	virtual void ChangeDir(const SDL_Rect& result); // Bordes de plataformas, no paredes
 };
 
 
