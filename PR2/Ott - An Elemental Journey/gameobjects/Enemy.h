@@ -21,6 +21,7 @@ protected:
 	uint NEW_DIR = 1000;
 	int startAttackingTime = 0;
 	int startMovingTime = 0;
+	int turningError = 1;
 	double turningOffset = 0.75; // entre 0 y 1
 	SDL_Rect attackTrigger;
 	triggerState attackState;

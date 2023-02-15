@@ -104,7 +104,7 @@ void Enemy::update() {
 	
 	if (grounded) {
 		if (!detectPlayer && result.w < width * turningOffset) {
-			if(result.x < position.getX() + width / 2) dir = {-1, dir.getY()};
+			if(abs(result.x - position.getX()) < turningError) dir = {-1, dir.getY()};
 			else dir = { 1, dir.getY() };
 		}
 		position = { position.getX(), position.getY() - result.h };
