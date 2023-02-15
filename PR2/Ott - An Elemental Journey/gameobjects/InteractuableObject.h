@@ -21,27 +21,29 @@ public:
 	virtual void interact();
 };
 
-class Enredaderas : public InteractuableObject {
+class Enredaderas: public CollisionObject{
 private:
 	
 public:
-	Enredaderas(Vector2D position, Texture* texture, PlayState* game, Scale scale = Scale(1.0f, 1.0f)): InteractuableObject(position, texture, game, scale) {};
-	virtual void interact() {
-		game->climb();
+	Enredaderas(Vector2D position, Texture* texture, PlayState* game, Scale scale = Scale(1.0f, 1.0f)) : CollisionObject(position, texture, scale){}
+	bool collide(const SDL_Rect& obj, SDL_Rect& result) {
+		const SDL_Rect rect = getRect();
+		SDL_Rect aux = obj;
+		aux.y += aux.h;
+		return SDL_IntersectRect(&obj, &rect, &result);
+
 	}
-	//bool isActive() { return active; }
 };
 
 class Grass : public InteractuableObject {
 private :
 	bool withEnredadera = false;
-	float heightEnredadera;
-	float widthEnredadera = 0.05f;
+
 public:
-	Grass(Vector2D position, Texture* texture, PlayState* game, Scale scale, float eH) : InteractuableObject(position, texture, game, scale), heightEnredadera(eH){};
+	Grass(Vector2D position, Texture* texture, PlayState* game, Scale scale, float eH) : InteractuableObject(position, texture, game, scale){};
 	virtual void interact() {
 		if (!withEnredadera) {
-			game->addEnredadera(Vector2D(position.getX(), position.getY()-200),Scale(widthEnredadera,heightEnredadera));
+			game->addEnredadera(position);
 			withEnredadera = true;
 		}
 	}

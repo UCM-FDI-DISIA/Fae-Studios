@@ -19,6 +19,7 @@ protected:
     const double jumpForce = -5;
 
     bool climb = false;
+    const double climbForce = -1;
 
     ANIM_STATE animState = IDLE;
     const int ANIMATION_FRAME_RATE = 40;
@@ -43,6 +44,9 @@ public:
     virtual ~Ott() = default;
 
     void canClimb(){ climb = true; };
+    void cannotClimb() {
+        climb = false;
+    }
     bool canJump();
     void jump();
     // Renderizado 

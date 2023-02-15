@@ -96,9 +96,11 @@ void Ott::handleEvents(const SDL_Event& event) {
 		}
 		if (climb && event.key.keysym.sym == SDLK_UP) {
 			upC = true;
+			down = false;
 		}
 		if (climb && event.key.keysym.sym == SDLK_DOWN) {
 			down = true;
+			upC = false;
 		}
 		//cout << animState << endl;
 		//cout << dir.getX() << endl;
@@ -124,22 +126,17 @@ void Ott::handleEvents(const SDL_Event& event) {
 			//cout << "ataqueOut" << endl;
 		}
 		if (event.key.keysym.sym == SDLK_UP) {
+			
 			upC = false;
 		}
 		if (event.key.keysym.sym == SDLK_DOWN) {
 			down = false;
+			
 		}
 		//cout << animState << endl;
 		//cout << dir.getX() << endl;
 	}
-	if(!right && !left)
-	{
-		if (!attack) {
-			//cout << "SALII" << endl;
-			ismoving = false;
-		}
-		 dir = dir * Vector2D(0, 1);
-	}
+	
 	//cout << left << " " << right << " " << attack << endl;
 }
 
@@ -162,18 +159,27 @@ void Ott::update() {
 	if (xDir == 0 && yDir == 0) arrowAngle = 0;
 	*/
 #pragma endregion
+	if (!right && !left)
+	{
+		if (!attack) {
+			//cout << "SALII" << endl;
+			ismoving = false;
+		}
+		speed =  Vector2D(0, speed.getY());
+	}
+	if (right)speed = Vector2D(1, speed.getY());
+	if (left) speed = Vector2D(-1, speed.getY());
 
-	if (right) dir = Vector2D(1, 0);
-	if (left) dir = Vector2D(-1, 0);
-	if (upC) dir = Vector2D(0, -1);
-	if (down) dir = Vector2D(0, 1);
+	if (upC && climb) {  speed = Vector2D(speed.getX(), climbForce); notGroundedBefore = false; }
+	if (!ground&&down && climb) { speed = Vector2D(speed.getX(), -climbForce); notGroundedBefore = false;}
+if(climb&&!upC&&!down) { speed = Vector2D(speed.getX(), 0); notGroundedBefore = false; }
 #pragma region ANIMATIONS
 	timer++;
 	if (timer >= ANIMATION_FRAME_RATE) {
 		timer = 0;
 		if (animState == IDLE)
 		{
-			if(ground)dir = Vector2D(0, 0);
+			if(ground)speed = Vector2D(0, 0);
 			//cout << "IDLE" << endl;
 			row = 0;
 			col = (col + 1) % 2;
@@ -220,13 +226,13 @@ void Ott::update() {
 	onGround.h = -jumpForce - 1;
 
 	if (speed.getY() > 1.5) {
-		if (!attack) {
+		if (!attack&&!climb) {
 			animState = FALLING;
 			timer = ANIMATION_FRAME_RATE;
 		}
 	}
 	if (speed.getY() < 0.5 && speed.getY() > -0.5 && !ground) {
-		if (!attack) {
+		if (!attack&&!climb) {
 			animState = PEAK;
 			timer = ANIMATION_FRAME_RATE;
 		}
@@ -248,26 +254,28 @@ void Ott::update() {
 		{
 			animState = IDLE;
 		}
-		if (!notGroundedBefore) {
-			if (!attack) {
+		if (!notGroundedBefore && !upC) {
+			if (!attack&&!climb) {
 				animState = LAND;
 				timer = ANIMATION_FRAME_RATE;
 			}
 			position = Vector2D(groundCol.x, groundCol.y - height);
+			cout << "hola" << endl;
 			speed = Vector2D(speed.getX(), 0);
 		}
 		notGroundedBefore = true;
 	}
-	if (speed.getY() < -1) notGroundedBefore = false;
+	if (speed.getY() <0 && !upC) notGroundedBefore = false;
 #pragma endregion
 	//timer que comprueba si sigue teniendo una vida debil
 	if (weakened && (SDL_GetTicks() - weakTimer) >= timeWeak * 1000) weakened = false;
 	//bool si ha habido input
-	position = position +speed+ dir; 
+	position = position +speed; 
 }
 
 void Ott::useGravity() {
-	speed = Vector2D(speed.getX(), speed.getY() + static_cast<PlayState*>(game)->Gravity());
+	if(!climb)
+		speed = Vector2D(speed.getX(), speed.getY() + static_cast<PlayState*>(game)->Gravity());
 }
 
 void Ott::render(const SDL_Rect& Camera) const {

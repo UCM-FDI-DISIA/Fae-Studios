@@ -72,9 +72,22 @@ void PlayState::update() {
 
 	for (auto it : intObjects) {
 		SDL_Rect result;
-		if (it->collide(ott->getRect(), result)) 
+		if (it->collide(ott->getRect(), result))
 		{ 
 			it->interact(); 
+		}
+	}
+	
+	for (auto it : eObjects) {
+		SDL_Rect result;
+		if (it->collide(ott->getRect(), result))
+		{ 
+			cout << "Climbing" << endl;
+			ott->canClimb();
+		}
+		else {
+			cout << "Not climbing" << endl;
+			ott->cannotClimb();
 		}
 	}
 
@@ -120,15 +133,11 @@ void PlayState::setOttPos(const Vector2D& newPos) {
 	ott->setPos(newPos);
 }
 
-void PlayState::addEnredadera(const Vector2D& pos, const Scale& scale) {
+void PlayState::addEnredadera(const Vector2D& pos) {
 
 	cout << "hola" << endl;
-	Enredaderas* e1 = new Enredaderas(pos, app->getTexture("whiteBox", 2), this, scale);
+	Enredaderas* e1 = new Enredaderas(Vector2D(pos.getX(), pos.getY() - app->getTexture("enredadera", 2)->getH()), app->getTexture("enredadera", 2), this);
 	gameObjects.push_back(e1);
-	intObjects.push_back(e1);
+	eObjects.push_back(e1);
 
-}
-
-void PlayState::climb() {
-	ott->canClimb();
 }
