@@ -1,7 +1,13 @@
 ﻿#include "Ott.h"
 
-Ott::Ott(const Vector2D& position, Texture* texture, PlayState* game, const Scale& scale) : Entity(position, texture, Vector2D(0, 0), 5, game, scale) {
+Ott::Ott(const Vector2D& position, Texture* texture, Texture* treeTexture,
+	Texture* waterTexture, Texture* fireTexture, PlayState* game, const Scale& scale) :
+	Entity(position, texture, Vector2D(0, 0), 5, game, scale) {
 
+	textures.push_back(texture);
+	textures.push_back(treeTexture);
+	textures.push_back(waterTexture);
+	textures.push_back(fireTexture);
 }
 
 void Ott::handleEvents(const SDL_Event& event) {
@@ -57,17 +63,13 @@ void Ott::handleEvents(const SDL_Event& event) {
 	if (event.type == SDL_KEYDOWN) {
 		if (event.key.keysym.sym == SDLK_LEFT) {
 			left = true;
-			//dir = Vector2D(-1, 0);
 			ismoving = true;
-			//attack = false;
 			lookingFront = false;
 		}
 		else if (event.key.keysym.sym == SDLK_RIGHT)
 		{
 			ismoving = true;
 			right = true;
-			//attack = false;
-			//dir = Vector2D(1, 0);
 			lookingFront = true;
 		}
 		if (event.key.keysym.sym == SDLK_SPACE) {
@@ -75,7 +77,6 @@ void Ott::handleEvents(const SDL_Event& event) {
 
 			ismoving = true;
 			up = true;
-			//attack = false;
 		}
 		if (event.key.keysym.sym == SDLK_q && lastSanctuary != nullptr) {
 			SDL_Rect sRect = lastSanctuary->getRect();
@@ -83,7 +84,7 @@ void Ott::handleEvents(const SDL_Event& event) {
 			if (SDL_HasIntersection(&col, &sRect)) resetLives();
 			ismoving = true;
 		}
-		if (!attack && event.key.keysym.sym == SDLK_e) {
+		if (!change && !attack && event.key.keysym.sym == SDLK_e) {
 			animState = ATTACK;
 			attack = true;
 			cout << "ataque" << endl;
@@ -94,6 +95,44 @@ void Ott::handleEvents(const SDL_Event& event) {
 		if (event.key.keysym.sym == SDLK_x) {
 			recieveDamage(currentElement);
 		}
+		if (!attack && !change&&SDL_GetTicks()>ElementcoldDown&& currentElement!=1&&event.key.keysym.sym == SDLK_d) {
+			nextElement = 1;
+			animState = CHANGE;
+			change = true;
+			ismoving = true;
+			col = 0;
+			timer += ANIMATION_FRAME_RATE / 2;
+			ElementcoldDown += ELEMENT_CHANGE_TIME;
+		}
+		if (!attack && !change && SDL_GetTicks() > ElementcoldDown && currentElement != 0 && event.key.keysym.sym == SDLK_s) {
+			nextElement = 0;
+			animState = CHANGE;
+			change = true;
+			ismoving = true;
+			col = 0;
+			timer += ANIMATION_FRAME_RATE / 2;
+			ElementcoldDown += ELEMENT_CHANGE_TIME;
+		}
+		if (!attack && !change && SDL_GetTicks() > ElementcoldDown && currentElement != 2 && event.key.keysym.sym == SDLK_a) {
+			nextElement = 2;
+			animState = CHANGE;
+			change = true;
+			ismoving = true;
+			col = 0;
+			timer += ANIMATION_FRAME_RATE / 2;
+			ElementcoldDown += ELEMENT_CHANGE_TIME;
+
+		}
+		if (!attack && !change && SDL_GetTicks() > ElementcoldDown && currentElement != 3 && event.key.keysym.sym == SDLK_w) {
+			nextElement = 3;
+			animState = CHANGE;
+			change = true;
+			ismoving = true;
+			col = 0;
+			timer += ANIMATION_FRAME_RATE / 2;
+			ElementcoldDown += ELEMENT_CHANGE_TIME;
+		}
+
 		cout << animState << endl;
 		cout << dir.getX() << endl;
 	}
@@ -106,16 +145,11 @@ void Ott::handleEvents(const SDL_Event& event) {
 		else if (event.key.keysym.sym == SDLK_RIGHT)
 		{
 			right = false;
-			//dir = Vector2D(1, 0);
 			cout << "R_Out" << endl;
 		}
 		if (event.key.keysym.sym == SDLK_SPACE) {
 			jump();
 			up = false;
-		}
-		if (event.key.keysym.sym == SDLK_e) {
-			/*	attack = false;*/
-			cout << "ataqueOut" << endl;
 		}
 		if (event.key.keysym.sym == SDLK_r) {
 			recieveDamage(0);
@@ -124,15 +158,7 @@ void Ott::handleEvents(const SDL_Event& event) {
 		cout << animState << endl;
 		cout << dir.getX() << endl;
 	}
-	if (!right && !left)
-	{
-		if (!attack) {
-			//cout << "SALII" << endl;
-			ismoving = false;
-		}
-		dir = dir * Vector2D(0, 1);
-	}
-	//cout << left << " " << right << " " << attack << endl;
+	
 }
 
 bool Ott::canJump() {
@@ -141,7 +167,7 @@ bool Ott::canJump() {
 
 void Ott::jump() {
 	if (isGrounded()) { //metodo canjump es lo mismo pero no inline? 
-		if (!attack)animState = JUMPING;
+		if (!attack && !change)animState = JUMPING;
 		speed = Vector2D(speed.getX(), jumpForce);
 	}
 }
@@ -154,9 +180,17 @@ void Ott::update() {
 	if (xDir == 0 && yDir == 0) arrowAngle = 0;
 	*/
 #pragma endregion
+	if (!right && !left)
+	{
+		if (!attack && !change) {
 
+			ismoving = false;
+		}
+		dir = dir * Vector2D(0, 1);
+	}
 	if (right) dir = Vector2D(1, 0);
 	if (left) dir = Vector2D(-1, 0);
+
 #pragma region ANIMATIONS
 	timer++;
 	if (timer >= ANIMATION_FRAME_RATE) {
@@ -164,7 +198,6 @@ void Ott::update() {
 		if (animState == IDLE)
 		{
 			if (ground)dir = Vector2D(0, 0);
-			//cout << "IDLE" << endl;
 			row = 0;
 			col = (col + 1) % 2;
 		}
@@ -203,6 +236,23 @@ void Ott::update() {
 				attack = false;
 			}
 		}
+		if (animState == CHANGE)
+		{
+			row = 6;
+			if (col < 2 && currentElement != nextElement) {
+				col++;
+				timer += ANIMATION_FRAME_RATE*3 / 5;
+			}
+			else if (col>0) {
+				cout << "ENYTE" << endl;
+				currentElement = nextElement;
+				col--;
+			}
+			else {
+				col = 0;
+				change = false;
+			}
+		}
 		// avanzar framde de animation
 	}
 	onGround = getRect();
@@ -210,13 +260,13 @@ void Ott::update() {
 	onGround.h = -jumpForce - 1;
 
 	if (speed.getY() > 1.5) {
-		if (!attack) {
+		if (!attack &&!change) {
 			animState = FALLING;
 			timer = ANIMATION_FRAME_RATE;
 		}
 	}
 	if (speed.getY() < 0.5 && speed.getY() > -0.5 && !ground) {
-		if (!attack) {
+		if (!attack && !change) {
 			animState = PEAK;
 			timer = ANIMATION_FRAME_RATE;
 		}
@@ -232,14 +282,14 @@ void Ott::update() {
 	if (ground) {
 		if (ismoving)
 		{
-			if (!attack)animState = WALKING;
+			if (!attack && !change)animState = WALKING;
 		}
 		else
 		{
 			animState = IDLE;
 		}
 		if (!notGroundedBefore) {
-			if (!attack) {
+			if (!attack && !change) {
 				animState = LAND;
 				timer = ANIMATION_FRAME_RATE;
 			}
@@ -272,9 +322,9 @@ void Ott::render(const SDL_Rect& Camera) const {
 	ottRect.x -= Camera.x;
 	ottRect.y -= Camera.y;
 	if (!lookingFront) {
-		texture->renderFrame(ottRect, row, col, 0, SDL_FLIP_HORIZONTAL);
+		textures[currentElement]->renderFrame(ottRect, row, col, 0, SDL_FLIP_HORIZONTAL);
 	}
-	else texture->renderFrame(ottRect, row, col);
+	else textures[currentElement]->renderFrame(ottRect, row, col);
 }
 void Ott::recieveDamage(int elem)
 {

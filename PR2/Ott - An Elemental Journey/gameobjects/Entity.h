@@ -7,6 +7,7 @@ class Entity : public MovingObject
 protected:
 	uint life, maxLife;
 	GameState* game;
+	enum Elements{Luz,Agua,Tierra,Fuego,Oscuridad};
 	int elementsInfo [5][5] = {
 		{ 1, 1, 1, 1, 1 },
 		{ 1, 1, 2, 0, -1 },
@@ -14,7 +15,7 @@ protected:
 		{ 1, 2, 0, 1, -1 },
 		{ 1, 2, 2, 2, 1 }
 	};
-	int currentElement = 0;
+	int currentElement = Luz;
 	virtual void die();
 
 public:

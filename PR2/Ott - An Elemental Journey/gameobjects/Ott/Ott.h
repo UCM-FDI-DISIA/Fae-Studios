@@ -1,13 +1,15 @@
 #include "../Entity.h"
 #include "../../gameflow/play/PlayState.h"
 #include "../Sanctuary.h"
+#include <vector>
 
-enum ANIM_STATE { IDLE, WALKING, LAND, JUMPING, PEAK, FALLING, ATTACK };
+enum ANIM_STATE { IDLE, WALKING, LAND, JUMPING, 
+    PEAK, FALLING, ATTACK, CHANGE };
 
 class Ott : public Entity {
 protected:
 
-    bool left = false, right = false, up = false, attack = false;
+    bool left = false, right = false, up = false, attack = false,change=false;
 
     bool lookingFront = true;
 
@@ -20,6 +22,7 @@ protected:
 
     ANIM_STATE animState = IDLE;
     const int ANIMATION_FRAME_RATE = 40;
+    const int ELEMENT_CHANGE_TIME = 500;
     int timer = 0;
     int row = 0;
     int col = 0;
@@ -43,8 +46,14 @@ protected:
     //Game Controller 1 handler
     GameObject* lastSanctuary = nullptr;
 
+    vector<Texture*> textures;
+    
+    int nextElement = 0;
+    int ElementcoldDown = ELEMENT_CHANGE_TIME;
+
 public:
-    Ott(const Vector2D& position, Texture* texture, PlayState* game, const Scale& scale = Scale(1.0f, 1.0f));
+    Ott(const Vector2D& position, Texture* texture, Texture* treeTexture, Texture* waterTexture, Texture* fireTexture,
+        PlayState* game, const Scale& scale = Scale(1.0f, 1.0f));
     /// Destructora de la clase GameObject
     virtual ~Ott() = default;
 
