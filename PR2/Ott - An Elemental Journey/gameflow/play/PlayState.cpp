@@ -12,18 +12,25 @@
 PlayState::PlayState(SDLApplication* app) : GameState(PLAY_STATE, app) {
 	ott = new Ott(Vector2D(0, 0), app->getTexture("ott", PLAY_STATE), this, Scale(0.3f, 0.3f));
 	currentMap = new Mapa(app, LEVEL1);
+	cout << ott->getRect().w << " " << ott->getRect().h << endl;
 	gameObjects.push_back(currentMap);
-	gr = new Ground(Vector2D(0, 400), app->getTexture("whiteBox", PLAY_STATE), Scale(0.8f, 0.25f));
+	gr = new Ground(Vector2D(0, 750), app->getTexture("whiteBox", PLAY_STATE), Scale(2.0f, 0.01f));
+	gr1 = new Ground(Vector2D(250, 650), app->getTexture("whiteBox", PLAY_STATE), Scale(0.5f, 0.01f));
+	//gr2 = new Ground(Vector2D(400, 600), app->getTexture("whiteBox", PLAY_STATE), Scale(0.5f, 0.01f));
 	Sanctuary* sct = new Sanctuary(Vector2D(200, 280), app->getTexture("whiteBox", PLAY_STATE), Scale(0.05f, 0.1f));
 	gameObjects.push_back(sct);
 	Sanctuary* sct2 = new Sanctuary(Vector2D(400, 280), app->getTexture("whiteBox", PLAY_STATE), Scale(0.05f, 0.1f));
 	gameObjects.push_back(sct2);
 	
 	gameObjects.push_back(gr);
+	gameObjects.push_back(gr1);
+	//gameObjects.push_back(gr2);
 	gameObjects.push_back(ott);
 
 
 	groundObjects.push_back(gr);
+	groundObjects.push_back(gr1);
+	//groundObjects.push_back(gr2);
 	physicObjects.push_back(ott);
 
     HealthBar* healthBar = new HealthBar(Vector2D(30, 100), app->getTexture("hearts", PLAY_STATE), Scale(10.0f, 10.0f));
@@ -38,6 +45,7 @@ void PlayState::ottCollide(const SDL_Rect& Ott, const SDL_Rect& onGround, SDL_Re
 	*/
 	for (auto it : groundObjects) {
 		ground = it->collide(onGround, colRect);
+		if (ground) break;
 	}
 
 	//for(auto it : )
@@ -54,7 +62,7 @@ void PlayState::update() {
 	// Centro la camara para qu
 	SDL_Rect ottRect = ott->getRect();
 	camera.x = (ottRect.x + ottRect.w / 2) - WINDOW_WIDTH / 2;
-	camera.y = (ottRect.y + ottRect.h / 2) - WINDOW_HEIGHT / 2;
+	camera.y = (ottRect.y + ottRect.h / 2) - WINDOW_HEIGHT*0.82;
 
 
 	// Limites de la camara dependiendo del tama�o de la sala (mapa)

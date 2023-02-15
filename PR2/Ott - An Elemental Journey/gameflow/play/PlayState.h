@@ -18,6 +18,8 @@ class PlayState : public GameState {
 private:
     double gravity = 0.08f;
     Ground* gr;
+    Ground* gr1;
+    Ground* gr2;
     list<Entity*> physicObjects;
     list<Ground*> groundObjects;
     list<Wall*> wallObjects;
