@@ -17,8 +17,8 @@
 #include "loaders/FontLoader.h"
 
 //Definimos las constantes de nuestro juego
-const uint WINDOW_WIDTH = 800; ///< Anchura de la ventana
-const uint WINDOW_HEIGHT = 600; ///< Altura de la ventana
+const uint WINDOW_WIDTH = 1920; ///< Anchura de la ventana
+const uint WINDOW_HEIGHT = 1080; ///< Altura de la ventana
 const uint FRAME_RATE = 5; ///< Framerate del juego
 const std::string WINDOW_NAME = "Testeo de UI"; ///< Nombre de la ventana del juego
 

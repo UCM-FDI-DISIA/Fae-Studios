@@ -7,10 +7,11 @@
 #include "../menus/PauseMenuState.h"
 #include "../../ui/HealthBar.h"
 #include "../../ui/ChargedAttackBar.h"
+#include "../../ui/ScreenDarkener.h"
 
 PlayState::PlayState(SDLApplication* app) : GameState(PLAY_STATE, app) {
-	currentMap = new Mapa(app, LEVEL1);
-	gameObjects.push_back(currentMap);
+	//currentMap = new Mapa(app, LEVEL1);
+	//gameObjects.push_back(currentMap);
 	Ott* ott = new Ott(Vector2D(0, 0), app->getTexture("ott", getStateID()), this, Scale(0.3f, 0.3f));
 
 	gr = new Ground(Vector2D(0, 400), app->getTexture("whiteBox", getStateID()), Scale(0.8f, 0.25f));
@@ -23,6 +24,7 @@ PlayState::PlayState(SDLApplication* app) : GameState(PLAY_STATE, app) {
     HealthBar* healthBar = new HealthBar(Vector2D(30, 100), app->getTexture("hearts", getStateID()), Scale(10.0f, 10.0f));
 	gameObjects.push_back(healthBar);
     gameObjects.push_back(new ChargedAttackBar(healthBar->lastHeartPosition() + Vector2D(100, -10), app->getTexture("chargebar", getStateID()), Scale(1.5f, 1.5f)));
+    gameObjects.push_back(new ScreenDarkener(app));
 }
 
 void PlayState::ottCollide(const SDL_Rect& Ott, const SDL_Rect& onGround, SDL_Rect& colRect, bool& col, bool& ground) {

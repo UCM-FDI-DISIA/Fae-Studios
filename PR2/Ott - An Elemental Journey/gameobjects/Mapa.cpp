@@ -7,7 +7,7 @@ Mapa::Mapa(SDLApplication* app, ListaNiveles l) : GameObject(), currentLevel(l),
     if (it != infoLevel.end()) {
         auto ot = it->second.begin();
         for (ot; ot != it->second.end(); ++ot) {
-            textures[ot->typeT] = app->getTexture(ot->name, MAIN_MENU);
+            textures[ot->typeT] = app->getTexture(ot->name, PLAY_STATE);
         }
         auto ut = levelPath.find(l);
         if (ut != levelPath.end()) {

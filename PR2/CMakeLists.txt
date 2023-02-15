@@ -19,9 +19,10 @@ add_executable(Ott
         #UI
         "Ott - An Elemental Journey/ui/Button.cpp"
         "Ott - An Elemental Journey/ui/Slider.cpp"
-        "Ott - An Elemental Journey/ui/Text.cpp"
+        "Ott - An Elemental Journey/ui/UIText.cpp"
         "Ott - An Elemental Journey/ui/HealthBar.cpp"
         "Ott - An Elemental Journey/ui/ChargedAttackBar.cpp"
+        "Ott - An Elemental Journey/ui/ScreenDarkener.cpp"
 
         #LOADERS
         "Ott - An Elemental Journey/loaders/FontLoader.cpp"
@@ -34,6 +35,7 @@ add_executable(Ott
         "Ott - An Elemental Journey/gameobjects/MovingObject.cpp"
         "Ott - An Elemental Journey/gameobjects/Ott/Ott.cpp"
         "Ott - An Elemental Journey/gameobjects/Physics/Ground.cpp"
+        "Ott - An Elemental Journey/gameobjects/Mapa.cpp"
 
         #GAMEFLOW
         "Ott - An Elemental Journey/gameflow/GameState.cpp"
@@ -55,5 +57,5 @@ add_executable(Ott
         "Ott - An Elemental Journey/Resource.h"
         "Ott - An Elemental Journey/targetver.h")
 
-include_directories(${SDL2_INCLUDE_DIR} ${SDL2_IMAGE_INCLUDE_DIR} ${SDL2_TTF_INCLUDE_DIR} ${SDL2_MIXER_INCLUDE_DIR})
-target_link_libraries(Ott ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARIES} ${SDL2_TTF_LIBRARIES} ${SDL2_MIXER_LIBRARIES})
+include_directories(${SDL2_INCLUDE_DIR} ${SDL2_IMAGE_INCLUDE_DIR} ${SDL2_TTF_INCLUDE_DIR} ${SDL2_MIXER_INCLUDE_DIR} "/usr/local/include")
+target_link_libraries(Ott ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARIES} ${SDL2_TTF_LIBRARIES} ${SDL2_MIXER_LIBRARIES} "/usr/local/lib/libtmxlite.dylib")
