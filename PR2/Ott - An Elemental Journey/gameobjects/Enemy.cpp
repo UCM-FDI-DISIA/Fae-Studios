@@ -81,7 +81,7 @@ void Enemy::FollowPlayer() {
 	// Distancia de seguridad para comprobar que no se pega al jugador
 	if (lookingRight && abs(player->getRect().x - (position.getX() + width)) > nearDistance ||
 		!lookingRight && abs(player->getRect().x - position.getX()) > nearDistance) {
-		dir = { player->getRect().x - dir.getX(), dir.getY() };
+		dir = { player->getRect().x - position.getX(), dir.getY()};
 		dir.normalize();
 	}
 	else {
@@ -127,6 +127,20 @@ void Enemy::update() {
 	Move();
 }
 
+void Enemy::playerCollide() {
+	if (player != nullptr) {
+		SDL_Rect myRect = getRect();
+		SDL_Rect playerRect = player->getRect();
+		if (SDL_HasIntersection(&myRect, &playerRect)) {
+			if (static_cast<Enemy*>(player)->Damage(element)) { // Falta implementar lo de la invulnerabilidad
+				player = nullptr;
+				detectPlayer = false;
+			}
+		}
+	}
+}
+
+
 void Enemy::Move() {
 	position = position + dir * speed; 
 	SDL_Rect result = { 0,0,0,0 };
@@ -138,7 +152,10 @@ void Enemy::Move() {
 		if(!detectPlayer)
 			dir = { dir.getX() * -1, dir.getY() };
 	}
+	playerCollide();
 }
+
+
 
 int Enemy::GetLives() { return actualLives; }
 

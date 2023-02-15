@@ -57,7 +57,7 @@ public:
 
 	void DetectAttackTrigger();
 
-	//void playerCollide();
+	void playerCollide();
 
 	void useGravity();
 };
