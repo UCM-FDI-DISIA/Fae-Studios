@@ -64,7 +64,7 @@ void Mapa::loadMap(string path) {
                 //Guardamos objetos en un vector
                 vectorObjects = objects;
 
-                /* Ejemplo de propiedades de un objeto (posicion, tama�o, ID y nombre)
+                 //Ejemplo de propiedades de un objeto (posicion, tama�o, ID y nombre)
                      cout << "Found " << objects.size() << " objects in layer" << endl;
                      for (const auto& object : objects)
                     {
@@ -73,7 +73,7 @@ void Mapa::loadMap(string path) {
                         cout << object.getAABB().width << " " << object.getAABB().height << endl;
                         cout << "Object " << object.getUID() << ", " << object.getName() << endl;
                     }
-                */
+                
             }
 #pragma endregion
 
