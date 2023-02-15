@@ -48,6 +48,11 @@ Vector2D Vector2D::operator*(double other) const {
     nuevo._y = _y * other;
     return nuevo;
 }
+bool Vector2D::operator==(const Vector2D& other) const
+{
+    return _x == other.getX() && _y == other.getY();
+}
+
 
 Vector2D Vector2D::operator-(const Vector2D& other) const
 {

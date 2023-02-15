@@ -105,6 +105,12 @@
     <ClInclude Include="gameobjects\Sanctuary.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="gameobjects\Ott\Shield.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="gameobjects\Ott\Whip.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="gameflow\GameState.cpp">
@@ -183,6 +189,12 @@
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="gameobjects\Sanctuary.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="gameobjects\Ott\Shield.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="gameobjects\Ott\Whip.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>

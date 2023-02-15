@@ -8,15 +8,17 @@
 
 PlayState::PlayState(SDLApplication* app) : GameState(2, app) {
 	ott = new Ott(Vector2D(0, 0), app->getTexture("ott_luz", 2), app->getTexture("ott_tree", 3),
-		app->getTexture("ott_water", 4),app->getTexture("ott_fire",5), this, Scale(0.3f, 0.3f));
+		app->getTexture("ott_water", 4),app->getTexture("ott_fire",5), app->getTexture("shield", 2), app->getTexture("whiteBox", 2), this, Scale(0.3f, 0.3f));
 
 	gr = new Ground(Vector2D(0, 400), app->getTexture("whiteBox", 2), Scale(0.8f, 0.25f));
+	gr2 = new Ground(Vector2D(300, 280), app->getTexture("whiteBox", 2), Scale(0.05f, 0.1f));
 	Sanctuary* sct = new Sanctuary(Vector2D(200, 280), app->getTexture("whiteBox", 2), Scale(0.05f, 0.1f));
 	gameObjects.push_back(sct);
 	Sanctuary* sct2 = new Sanctuary(Vector2D(400, 280), app->getTexture("whiteBox", 2), Scale(0.05f, 0.1f));
 	gameObjects.push_back(sct2);
 	
 	gameObjects.push_back(gr);
+	gameObjects.push_back(gr2);
 	gameObjects.push_back(ott);
 
 

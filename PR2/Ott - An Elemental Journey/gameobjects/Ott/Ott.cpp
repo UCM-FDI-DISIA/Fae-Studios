@@ -1,13 +1,20 @@
 ﻿#include "Ott.h"
 
 Ott::Ott(const Vector2D& position, Texture* texture, Texture* treeTexture,
-	Texture* waterTexture, Texture* fireTexture, PlayState* game, const Scale& scale) :
+	Texture* waterTexture, Texture* fireTexture,Texture* textureShield, Texture* textureWhip, PlayState* game, const Scale& scale) :
 	Entity(position, texture, Vector2D(0, 0), 5, game, scale) {
 
 	textures.push_back(texture);
 	textures.push_back(treeTexture);
 	textures.push_back(waterTexture);
 	textures.push_back(fireTexture);
+	shield = new Shield(position, textureShield, scale);
+	whip = new Whip(position, textureWhip, scale);
+}
+
+Ott::~Ott() {
+	delete shield;
+	delete whip;
 }
 
 void Ott::handleEvents(const SDL_Event& event) {
@@ -58,7 +65,7 @@ void Ott::handleEvents(const SDL_Event& event) {
 	}
 	*/
 #pragma endregion
-
+	//aún puede moverse hacia atrás
 	//hacer bool/cambiar si solo se podia mover una vez en el salto creo recordar
 	if (event.type == SDL_KEYDOWN) {
 		if (event.key.keysym.sym == SDLK_LEFT) {
@@ -66,7 +73,7 @@ void Ott::handleEvents(const SDL_Event& event) {
 			ismoving = true;
 			lookingFront = false;
 		}
-		else if (event.key.keysym.sym == SDLK_RIGHT)
+		if (event.key.keysym.sym == SDLK_RIGHT)
 		{
 			ismoving = true;
 			right = true;
@@ -87,15 +94,21 @@ void Ott::handleEvents(const SDL_Event& event) {
 		if (!change && !attack && event.key.keysym.sym == SDLK_e) {
 			animState = ATTACK;
 			attack = true;
-			cout << "ataque" << endl;
+			//cout << "ataque" << endl;
 			ismoving = true;
-			col = 2;
+			col = 2;//RAUL????????
 			timer += ANIMATION_FRAME_RATE / 2;
+		}
+		if (event.key.keysym.sym == SDLK_z)
+		{
+			animState = DEFEND;
+			defend = true;
 		}
 		if (event.key.keysym.sym == SDLK_x) {
 			recieveDamage(currentElement);
 		}
 		if (!attack && !change&&SDL_GetTicks()>ElementcoldDown&& currentElement!=1&&event.key.keysym.sym == SDLK_d) {
+			cout << "Tierra" << endl;
 			nextElement = 1;
 			animState = CHANGE;
 			change = true;
@@ -106,6 +119,8 @@ void Ott::handleEvents(const SDL_Event& event) {
 		}
 		if (!attack && !change && SDL_GetTicks() > ElementcoldDown && currentElement != 0 && event.key.keysym.sym == SDLK_s) {
 			nextElement = 0;
+			cout << "Luz" << endl;
+
 			animState = CHANGE;
 			change = true;
 			ismoving = true;
@@ -115,6 +130,8 @@ void Ott::handleEvents(const SDL_Event& event) {
 		}
 		if (!attack && !change && SDL_GetTicks() > ElementcoldDown && currentElement != 2 && event.key.keysym.sym == SDLK_a) {
 			nextElement = 2;
+			cout << "Agua" << endl;
+
 			animState = CHANGE;
 			change = true;
 			ismoving = true;
@@ -125,6 +142,8 @@ void Ott::handleEvents(const SDL_Event& event) {
 		}
 		if (!attack && !change && SDL_GetTicks() > ElementcoldDown && currentElement != 3 && event.key.keysym.sym == SDLK_w) {
 			nextElement = 3;
+			cout << "Fuego" << endl;
+
 			animState = CHANGE;
 			change = true;
 			ismoving = true;
@@ -133,19 +152,21 @@ void Ott::handleEvents(const SDL_Event& event) {
 			ElementcoldDown += ELEMENT_CHANGE_TIME;
 		}
 
-		cout << animState << endl;
-		cout << dir.getX() << endl;
+		//cout << animState << endl;
+		//cout << dir.getX() << endl;
 	}
 	if (event.type == SDL_KEYUP) {
 		if (event.key.keysym.sym == SDLK_LEFT) {
 			left = false;
+			if (right) lookingFront = true;
 			dir = Vector2D(-1, 0);
-			cout << "L_Out" << endl;
+			//cout << "L_Out" << endl;
 		}
-		else if (event.key.keysym.sym == SDLK_RIGHT)
+		if (event.key.keysym.sym == SDLK_RIGHT)
 		{
+			if (left) lookingFront = false;
 			right = false;
-			cout << "R_Out" << endl;
+			//cout << "R_Out" << endl;
 		}
 		if (event.key.keysym.sym == SDLK_SPACE) {
 			jump();
@@ -153,12 +174,20 @@ void Ott::handleEvents(const SDL_Event& event) {
 		}
 		if (event.key.keysym.sym == SDLK_r) {
 			recieveDamage(0);
-			
 		}
-		cout << animState << endl;
-		cout << dir.getX() << endl;
+		if (event.key.keysym.sym == SDLK_z)
+		{
+			//animState = DEFEND;
+			defend = false;
+		}
+		if (event.key.keysym.sym == SDLK_e) {
+		/*	attack = false;*/
+			//cout << "ataqueOut" << endl;
+		}
+		//cout << animState << endl;
+		//cout << dir.getX() << endl;
 	}
-	
+	//cout << left << " " << right << " " << attack << endl;
 }
 
 bool Ott::canJump() {
@@ -168,7 +197,9 @@ bool Ott::canJump() {
 void Ott::jump() {
 	if (isGrounded()) { //metodo canjump es lo mismo pero no inline? 
 		if (!attack && !change)animState = JUMPING;
-		speed = Vector2D(speed.getX(), jumpForce);
+		//Si tiene escudo, salta menos
+		if(defend) speed = Vector2D(speed.getX(), jumpForce + 1);
+		else speed = Vector2D(speed.getX(), jumpForce);
 	}
 }
 
@@ -190,7 +221,6 @@ void Ott::update() {
 	}
 	if (right) dir = Vector2D(1, 0);
 	if (left) dir = Vector2D(-1, 0);
-
 #pragma region ANIMATIONS
 	timer++;
 	if (timer >= ANIMATION_FRAME_RATE) {
@@ -224,7 +254,7 @@ void Ott::update() {
 		}
 		if (animState == ATTACK)
 		{
-			cout << "anim attack" << endl;
+			//cout << "anim attack" << endl;
 			row = 8;
 			if (col < 7) {
 				col++;
@@ -232,10 +262,11 @@ void Ott::update() {
 			}
 			else {
 				col = 0;
-				cout << "GEEEE" << endl;
+				//cout << "GEEEE" << endl;
 				attack = false;
 			}
 		}
+		cout << animState << endl;
 		if (animState == CHANGE)
 		{
 			row = 6;
@@ -244,7 +275,7 @@ void Ott::update() {
 				timer += ANIMATION_FRAME_RATE*3 / 5;
 			}
 			else if (col>0) {
-				cout << "ENYTE" << endl;
+				//cout << "ENYTE" << endl;
 				currentElement = nextElement;
 				col--;
 			}
@@ -252,6 +283,7 @@ void Ott::update() {
 				col = 0;
 				change = false;
 			}
+			cout << "cambio de elemento" << endl;
 		}
 		// avanzar framde de animation
 	}
@@ -281,8 +313,13 @@ void Ott::update() {
 	static_cast<PlayState*>(game)->ottCollide(getRect(), onGround, groundCol, col, ground);
 	if (ground) {
 		if (ismoving)
-		{
-			if (!attack && !change)animState = WALKING;
+		{ 
+			if(!attack&& !change)animState = WALKING;
+			if (defend)
+			{
+				if(left) dir = Vector2D(-0.5, 0);
+				if(right) dir = Vector2D(0.5, 0);
+			}
 		}
 		else
 		{
@@ -304,7 +341,15 @@ void Ott::update() {
 	if (weakened && (SDL_GetTicks() - weakTimer) >= timeWeak * 1000) weakened = false;
 	if (invincible && (SDL_GetTicks() - invencibilityTimer) > invincibilityTime * 1000) invincible = false;
 	//bool si ha habido input
-	position = position + speed + dir;
+
+	position = position +speed+ dir; 
+	if (defend)
+	{
+		//Reducidmos dir aquí mejor?
+		shield->move(position.getX(), position.getY(), width, lookingFront);
+	}
+	if (attack) attacking();
+
 }
 
 void Ott::useGravity() {
@@ -325,11 +370,17 @@ void Ott::render(const SDL_Rect& Camera) const {
 		textures[currentElement]->renderFrame(ottRect, row, col, 0, SDL_FLIP_HORIZONTAL);
 	}
 	else textures[currentElement]->renderFrame(ottRect, row, col);
+
+	if (defend)
+	{
+		shield->render(Camera);
+	}
+	if (attack) whip->render(Camera);
 }
 void Ott::recieveDamage(int elem)
 {
 	if (SDL_GetTicks() - invencibilityTimer <= invincibilityTime * 1000) return;
-	cout << "Daño" << endl;
+	//cout << "Daño" << endl;
 	invencibilityTimer = SDL_GetTicks();
 	knockback();
 	invincible = true;
@@ -358,7 +409,7 @@ bool Ott::collide(GameObject* c)
 		SDL_Rect sactRect = o->getRect();
 		if (SDL_HasIntersection(&sactRect, &col)) {
 			if (lastSanctuary != o) {
-				cout << "Toca sanctuario" << endl;
+				//cout << "Toca sanctuario" << endl;
 				saveSactuary(o);
 			}
 			return true;
@@ -366,11 +417,20 @@ bool Ott::collide(GameObject* c)
 	}
 	return false;
 }
+void Ott::attacking()
+{
+	/*for (auto it = static_cast<PlayState*>(game)->getEntityList().begin(); it != static_cast<PlayState*>(game)->getEntityList().end(); ++it) {
+		SDL_Rect enemyRect = (*it)->getRect();
+		SDL_Rect whipRect = whip->getRect();
+		if(SDL_HasIntersection(&whipRect, &enemyRect))
+			whip->damage((*it));
+	}*/
+}
 void Ott::die()
 {
-	cout << "He muerto " << endl;
+	//cout << "He muerto " << endl;
 	if (lastSanctuary == nullptr) {
-		cout << "No hay sanctuarios recientes... Muerte inminente" << endl;
+		//cout << "No hay sanctuarios recientes... Muerte inminente" << endl;
 		PlayState* p = static_cast<PlayState*>(game);
 		p->backToMenu();
 	}

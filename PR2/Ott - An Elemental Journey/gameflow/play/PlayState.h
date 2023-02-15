@@ -17,6 +17,7 @@ class PlayState : public GameState {
 private:
     double gravity = 0.08f;
     Ground* gr;
+    Ground* gr2;
     list<Entity*> physicObjects;
     list<Ground*> groundObjects;
     list<Wall*> wallObjects;
@@ -32,4 +33,5 @@ public:
     inline double Gravity() { return gravity; };
     virtual void render() const;
     void backToMenu();
+    inline list<Entity*> getEntityList() const { return physicObjects; }
 };

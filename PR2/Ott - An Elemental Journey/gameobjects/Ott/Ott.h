@@ -2,22 +2,27 @@
 #include "../../gameflow/play/PlayState.h"
 #include "../Sanctuary.h"
 #include <vector>
+#include "Shield.h"
+#include "Whip.h"
 
 enum ANIM_STATE { IDLE, WALKING, LAND, JUMPING, 
-    PEAK, FALLING, ATTACK, CHANGE };
+    PEAK, FALLING, ATTACK, CHANGE, DEFEND };
 
 class Ott : public Entity {
 protected:
-
-    bool left = false, right = false, up = false, attack = false,change=false;
-
-    bool lookingFront = true;
+    Shield* shield;
+    Whip* whip;
+    bool left = false, right = false, 
+         up = false, 
+         attack = false, defend = false, 
+         change=false,
+         lookingFront = true,
+         jumpFlag = true,
+         jumping = false;
 
     //Analog joystick dead zone
     const int JOYSTICK_DEAD_ZONE = 8000; // EL MÁXIMO VALOR ES 32000, POR ESO PONEMOS UNA DEAD ZONE TAN APARENTEMENTE GRANDE
 
-    bool jumpFlag = true;
-    bool jumping = false;
     const double jumpForce = -5;
 
     ANIM_STATE animState = IDLE;
@@ -28,13 +33,14 @@ protected:
     int col = 0;
 
     SDL_Rect onGround;
+    //SDL_Rect shieldRect;
     bool ground = false;
     bool ismoving = false;
     bool notGroundedBefore = false;
     Vector2D speed = { 0,0 };
 
     // Constantes Knockback
-    const double X_KNOCKBACK_FORCE = 1;
+    const double X_KNOCKBACK_FORCE = 5;
     const double Y_KNOCKBACK_FORCE = 1;
 
 
@@ -52,10 +58,11 @@ protected:
     int ElementcoldDown = ELEMENT_CHANGE_TIME;
 
 public:
-    Ott(const Vector2D& position, Texture* texture, Texture* treeTexture, Texture* waterTexture, Texture* fireTexture,
+    Ott(const Vector2D& position, Texture* texture, Texture* treeTexture, Texture* waterTexture, 
+        Texture* fireTexture, Texture * TextureShield, Texture * textureWhip,
         PlayState* game, const Scale& scale = Scale(1.0f, 1.0f));
     /// Destructora de la clase GameObject
-    virtual ~Ott() = default;
+    virtual ~Ott(); //hihi no borrar escudo
 
     bool canJump();
     void jump();
@@ -82,7 +89,9 @@ public:
 
     virtual bool collide(GameObject* c);
 
+
 private:
+    void attacking();
     virtual void die();
     void knockback();
 };
