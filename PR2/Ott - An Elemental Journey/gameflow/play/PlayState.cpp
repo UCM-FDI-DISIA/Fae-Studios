@@ -26,7 +26,7 @@ PlayState::PlayState(SDLApplication* app) : GameState(2, app) {
 
 	Mix_Init(MIX_INIT_FLAC | MIX_INIT_MOD | MIX_INIT_MP3 | MIX_INIT_OGG | MIX_INIT_MID);
 	Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 2048);
-	music = Mix_LoadMUS("../../sounds/musics/march.wav");
+	music = Mix_LoadMUS("../../sounds/musics/Ambient 4.wav");
 	Mix_PlayMusic(music, -1);
 }
 
