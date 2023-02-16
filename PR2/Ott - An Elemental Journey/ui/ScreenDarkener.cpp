@@ -13,7 +13,7 @@ ScreenDarkener::ScreenDarkener(SDLApplication* app) : UIElement() {
     BsRect = {0, bsRectPosY, bottomSide->getW(), bottomSide->getH()};
 }
 
-void ScreenDarkener::render() const {
+void ScreenDarkener::render(const SDL_Rect& camera) const {
     if(mustShow) {
         rightSide->render(RsRect);
         leftSide->render(LsRect);

@@ -36,6 +36,7 @@ add_executable(Ott
         "Ott - An Elemental Journey/gameobjects/Ott/Ott.cpp"
         "Ott - An Elemental Journey/gameobjects/Physics/Ground.cpp"
         "Ott - An Elemental Journey/gameobjects/Mapa.cpp"
+        "Ott - An Elemental Journey/gameobjects/InteractuableObject.cpp"
 
         #GAMEFLOW
         "Ott - An Elemental Journey/gameflow/GameState.cpp"
