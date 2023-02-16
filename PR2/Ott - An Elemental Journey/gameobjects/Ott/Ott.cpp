@@ -363,7 +363,11 @@ void Ott::die()
 void Ott::setTpPoint(const Vector2D& newPos) {
 	tpPosition = newPos;
 	notGroundedBefore = false;
-	speed = Vector2D(speed.getX(), speed.getY());
+
+	// Aquí me gustaría poner la velocidad en la Y a 0, pero la gravedad sigue afectando cuando estás en el aire, y 
+	// en las pruebas que se han hecho de momento con las lámparas Ott aparece en el aire. David amigo no te entiende ni cristo
+	// con este comentario, pero bueno. preguntadme si no entendéis que es esto.
+	// speed = Vector2D(speed.getX(), speed.getY());
 }
 
 void Ott::setPos(const Vector2D& newPos ) {
