@@ -21,7 +21,7 @@ PlayState::PlayState(SDLApplication* app) : GameState(2, app) {
 	l2->SetLamp(l1);
 	l3->SetLamp(l2);
 
-	Grass* g1 = new Grass(Vector2D(800, 399), app->getTexture("whiteBox", 2), this, Scale(0.1f, 0.01f), 0.50f);
+	Grass* g1 = new Grass(Vector2D(800,400- app->getTexture("grass", 2)->getH()), app->getTexture("grass", 2), this);
 	gameObjects.push_back(g1);
 	intObjects.push_back(g1);
 	
@@ -136,7 +136,7 @@ void PlayState::setOttPos(const Vector2D& newPos) {
 void PlayState::addEnredadera(const Vector2D& pos) {
 
 	cout << "hola" << endl;
-	Enredaderas* e1 = new Enredaderas(Vector2D(pos.getX(), pos.getY() - app->getTexture("enredadera", 2)->getH()), app->getTexture("enredadera", 2), this);
+	Enredaderas* e1 = new Enredaderas(Vector2D(pos.getX()+5, pos.getY() - app->getTexture("enredadera", 2)->getH()*1.25), app->getTexture("enredadera", 2), this);
 	gameObjects.push_back(e1);
 	eObjects.push_back(e1);
 
