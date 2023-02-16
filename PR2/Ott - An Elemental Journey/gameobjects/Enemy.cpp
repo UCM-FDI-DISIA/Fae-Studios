@@ -102,6 +102,7 @@ void Enemy::update() {
 	if (!movee) { // TEMPORAL, BORRAR
 		return;
 	}
+	cout << lookingRight << endl
 
 	if (!grounded) {
 		useGravity();
@@ -124,8 +125,14 @@ void Enemy::update() {
 
 void Enemy::ChangeDir(const SDL_Rect& result){
 	if (!detectPlayer && result.w < width * turningOffset) {
-		if (abs(result.x - position.getX()) < turningError) dir = { -1, dir.getY() };
-		else dir = { 1, dir.getY() };
+		if (abs(result.x - position.getX()) < turningError) {
+			dir = { -1, dir.getY() }; 
+			lookingRight = false;
+		}
+		else {
+			dir = { 1, dir.getY() };
+			lookingRight = true;
+		}
 
 		dir.normalize();
 	}
@@ -165,8 +172,11 @@ void Enemy::Move() {
 	if (collided) {
 		if (dir.getX() > 0) position = { position.getX() - result.w, position.getY()};
 		else position = { position.getX() + result.w, position.getY()};
-		if(!detectPlayer)
+		if (!detectPlayer) {
 			dir = { dir.getX() * -1, dir.getY() };
+			if (dir.getX() > 0) lookingRight = true;
+			else lookingRight = false;
+		}
 	}
 	playerCollide();
 }
