@@ -7,7 +7,6 @@
 #include "../menus/PauseMenuState.h"
 #include "../../ui/HealthBar.h"
 #include "../../ui/ChargedAttackBar.h"
-#include "../../ui/ScreenDarkener.h"
 
 PlayState::PlayState(SDLApplication* app) : GameState(PLAY_STATE, app) {
 	//currentMap = new Mapa(app, LEVEL1);
@@ -24,7 +23,8 @@ PlayState::PlayState(SDLApplication* app) : GameState(PLAY_STATE, app) {
     HealthBar* healthBar = new HealthBar(Vector2D(30, 100), app->getTexture("hearts", getStateID()), Scale(10.0f, 10.0f));
 	gameObjects.push_back(healthBar);
     gameObjects.push_back(new ChargedAttackBar(healthBar->lastHeartPosition() + Vector2D(100, -10), app->getTexture("chargebar", getStateID()), Scale(1.5f, 1.5f)));
-    gameObjects.push_back(new ScreenDarkener(app));
+    screenDarkener = new ScreenDarkener(app);
+    gameObjects.push_back(screenDarkener);
 }
 
 void PlayState::ottCollide(const SDL_Rect& Ott, const SDL_Rect& onGround, SDL_Rect& colRect, bool& col, bool& ground) {
@@ -44,6 +44,8 @@ void PlayState::update() {
 		if (!static_cast<Ott*>(it)->isGrounded()) {
 			static_cast<Ott*>(it)->useGravity();
 		}
+        if(dynamic_cast<Ott*>(it)->getLife() == 1) screenDarkener->show();
+        else screenDarkener->hide();
 	}
 }
 

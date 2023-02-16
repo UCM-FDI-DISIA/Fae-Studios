@@ -6,7 +6,7 @@ enum ANIM_STATE { IDLE, WALKING, LAND, JUMPING, PEAK, FALLING };
 class Ott : public Entity {
 protected:
     //Analog joystick dead zone
-    const int JOYSTICK_DEAD_ZONE = 8000; // EL MÁXIMO VALOR ES 32000, POR ESO PONEMOS UNA DEAD ZONE TAN APARENTEMENTE GRANDE
+    const int JOYSTICK_DEAD_ZONE = 8000; // EL Mï¿½XIMO VALOR ES 32000, POR ESO PONEMOS UNA DEAD ZONE TAN APARENTEMENTE GRANDE
 
     bool jumpFlag = true;
     bool jumping = false;
@@ -24,7 +24,7 @@ protected:
     bool notGroundedBefore = false;
     Vector2D speed = { 0,0 };
 
-    //Parámetros que controlan la vida debil
+    //Parï¿½metros que controlan la vida debil
     bool weakened = false;
     int timeWeak = 3, weakTimer;
     //Game Controller 1 handler
@@ -37,7 +37,7 @@ public:
     void jump();
     // Renderizado 
     virtual void render() const;
-    /// Obtención del rectángulo destino del objeto
+    /// Obtenciï¿½n del rectï¿½ngulo destino del objeto
     virtual void update();
 
     inline bool isGrounded() { return ground; };
@@ -47,6 +47,8 @@ public:
     /// \param event SDL_Event con el evento a manejar
     virtual void handleEvents(const SDL_Event& event);
 
-    //Evento de daño
+    //Evento de daï¿½o
     virtual void recieveDamage(int elem);
+
+    uint getLife() const {return life;}
 };

@@ -3,6 +3,7 @@
 #include "../../gameobjects/Entity.h"
 #include "../../gameobjects/Mapa.h"
 #include "../../gameobjects/Physics/Ground.h"
+#include "../../ui/ScreenDarkener.h"
 #include <iostream>
 #pragma once
 
@@ -13,6 +14,7 @@ private:
     list<Entity*> physicObjects;
     list<Ground*> groundObjects;
     list<Wall*> wallObjects;
+    ScreenDarkener* screenDarkener;
     Mapa* currentMap;
 
 public:
