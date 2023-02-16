@@ -30,7 +30,7 @@ class Enredaderas: public CollisionObject{
 private:
 	
 public:
-	Enredaderas(Vector2D position, Texture* texture, PlayState* game, Scale scale = Scale(1.0f, 1.0f)) : CollisionObject(position, texture, scale){}
+	Enredaderas(Vector2D position, Texture* texture, PlayState* game, Scale scale = Scale(1.0f, 1.5f)) : CollisionObject(position, texture, scale){}
 	bool collide(const SDL_Rect& obj, SDL_Rect& result) {
 		const SDL_Rect rect = getRect();
 		SDL_Rect aux = obj;
@@ -43,9 +43,10 @@ public:
 class Grass : public InteractuableObject {
 private :
 	bool withEnredadera = false;
+	Vector2D position;
 
 public:
-	Grass(Vector2D position, Texture* texture, PlayState* game, Scale scale, float eH) : InteractuableObject(position, texture, game, scale){};
+	Grass(Vector2D position, Texture* texture, PlayState* game, Scale scale = Scale(1.0f, 1.0f)) : InteractuableObject(position, texture, game, scale), position(position) {};
 	virtual void interact() {
 		if (!withEnredadera) {
 			game->addEnredadera(position);
