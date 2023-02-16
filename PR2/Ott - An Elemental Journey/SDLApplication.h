@@ -11,7 +11,7 @@
 #include <fstream>
 #include "dependencies/Texture.h"
 #include "dependencies/Exceptions.h"
-#include "ui/Text.h"
+#include "ui/UIText.h"
 #include "gameflow/GameStateMachine.h"
 #include "loaders/TextureLoader.h"
 #include "loaders/FontLoader.h"
@@ -20,14 +20,6 @@
 const uint WINDOW_WIDTH = 800; ///< Anchura de la ventana
 const uint WINDOW_HEIGHT = 600; ///< Altura de la ventana
 const uint FRAME_RATE = 5; ///< Framerate del juego
-const uint NUM_TEXTURES = 5; ///< Número de texturas totales que el juego tiene que leer
-const uint NUM_LEVELS = 3; ///< Número de niveles totales que el juego tiene que leer
-const uint WALL_THICKNESS = 15; ///< Anchura de las paredes
-const float CLOCK_SIZE = 0.15f; ///< Tamaño del reloj en la esquina inferior izquierda
-const float HEARTS_SIZE = 5.0f; ///< Tamaño de los corazones de la barra de vida
-const float REWARDS_SIZE = 0.1f; ///< Tamaño de las recompensas
-const uint REWARD_PROBABILITY = 99; ///< Probabilidad de que aparezca una recompensa
-const uint NUM_REWARDS = 6; ///< Número de rewards totales incorporados al juego
 const std::string WINDOW_NAME = "Testeo de UI"; ///< Nombre de la ventana del juego
 
 
@@ -36,48 +28,16 @@ const std::string WINDOW_NAME = "Testeo de UI"; ///< Nombre de la ventana del ju
 #ifdef __APPLE__ //MacOS (CLion)
 const std::string textureRoute = "../images/";
 const std::string fontRoute = "../fonts/";
+const std::string levelRoute = "../levels/";
+const std::string levelTextureRoute = "../images/levels/";
 #endif
 
 #ifdef __WINDOWS__ //Windows (Visual Studio)
 const std::string textureRoute = "../../images/";
 const std::string fontRoute = "../../fonts/";
+const std::string levelRoute = "../../levels/";
+const std::string levelTextureRoute = "../../images/levels/";
 #endif
-
-/// Array con las rutas de las texturas, sus filas y columnas, y su descriptivo
-/*const TextureDescription TEXT_DESCR[NUM_TEXTURES] = {
-        {textureRoute + "side2.png", 1, 1, "sideWall"},
-        {textureRoute + "topside.png", 1, 1, "topWall"},
-        {textureRoute + "paddle2.png", 1, 1, "paddle"},
-        {textureRoute + "bricks2.png", 2, 3, "bricks"},
-        {textureRoute + "ball2.png", 1, 1, "ball"},
-        {textureRoute + "gameover1.png", 1, 1, "gameover"},
-        {textureRoute + "youwin.png", 1, 1, "win"},
-        {textureRoute + "digits2.jpeg", 3, 4, "digits"},
-        {textureRoute + "hearts.png", 1, 13, "hearts"},
-        {textureRoute + "rewards.png", 10, 8, "rewards"},
-        {textureRoute + "menubackground.png", 1, 1, "background"},
-        {textureRoute + "startbutton.png", 1, 3, "start"},
-        {textureRoute + "loadbutton.png", 1, 3, "load"},
-        {textureRoute + "pausemenubackground.png", 1, 1, "pausebackground"},
-        {textureRoute + "quitbutton.png", 1, 3, "quit"},
-        {textureRoute + "resumebutton.png", 1, 3, "resume"},
-        {textureRoute + "savebutton.png", 1, 3, "save"},
-        {textureRoute + "continuebutton.png", 1, 3, "continue"},
-        {textureRoute + "mainmenu.png", 1,3, "mainmenu"}
-};*/
-
-/*const TextureDescription TEXT_DESCR[NUM_TEXTURES] = {
-    {textureRoute + "mainbg.png", 1, 1, "mainmenubackground"},
-    {textureRoute + "button.png", 1, 3, "button"},
-    {textureRoute + "quitbutton.png", 1, 3, "quitbutton"},
-    {textureRoute + "slider.png", 3, 1, "slider"},
-    {textureRoute + "needle.png", 1, 3, "needle"}
-};
-
-/// Array con las rutas de las fuentes y su descriptivo
-const FontDescription FONTS[1] {
-        {fontRoute + "armin.ttf", "armin"}
-};*/
 
 /// Clase que se encarga del juego en su total
 class SDLApplication {
@@ -142,7 +102,7 @@ public:
     /// Devuelve una textura dado su nombre en el diccionario de texturas
     /// \param name String con el nombre de la textura en el diccionario
     /// \return Puntero a la textura
-    Texture* getTexture(const string& name, int stateID);
+    Texture* getTexture(const string& name, STATEID stateID);
 
     /// Devuelve una fuente dado su nombre en el diccionario de fuentes
     /// \param name String con el nombre de la textura en el diccionario

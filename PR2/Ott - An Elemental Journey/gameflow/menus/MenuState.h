@@ -14,7 +14,7 @@ protected:
     /// \param stateID ID del estado
     /// \param bg Textura con el fondo
     /// \param app Puntero a SDLApplication
-    MenuState(int stateID, Texture* bg, SDLApplication* app) : GameState(stateID, app), menuBg(bg) {};
+    MenuState(STATEID stateID, Texture* bg, SDLApplication* app) : GameState(stateID, app), menuBg(bg) {};
 
 public:
     /// Renderiza los objetos del menú y el fondo

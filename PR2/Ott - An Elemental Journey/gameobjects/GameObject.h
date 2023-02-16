@@ -23,6 +23,9 @@ protected:
     Texture* texture = nullptr; ///< Puntero a la textura del objeto;
     GO_TYPE type = DEFAULT;
 
+
+    GameObject() = default;
+
     /// Constructora de la clase GameObject
     /// \param position Vector con la posición del objeto
     /// \param texture Puntero a la textura del objeto

@@ -3,7 +3,7 @@
 #define PROYECTOS2_BUTTON_H
 
 #include "UIElement.h"
-#include "Text.h"
+#include "UIText.h"
 
 class SDLApplication; //Declaramos aquí una clase game auxiliar para romper las dependencias circulares que puedan surgir
 
@@ -33,7 +33,7 @@ protected:
     enum button_State {MOUSE_OUT = 0, MOUSE_OVER = 1, CLICKED = 2};
 
     std::string buttonText; ///< Texto contenido en el botón
-    Text* text = nullptr; ///< Texto del botón renderizado en pantalla
+    UIText* text = nullptr; ///< Texto del botón renderizado en pantalla
     SDLApplication* app = nullptr; ///< Puntero a la clase Game
     int currentButtonFrame = MOUSE_OUT; ///< Estado actual en que se encuentra el botón
     CallBack* callback = nullptr; ///< Puntero a una función void con un parámetro Game*

@@ -5,6 +5,7 @@
 #include "gameflow/menus/MainMenuState.h"
 #include "dependencies/Parser.h"
 #include "utils/InputHandler.h"
+#include <tmxlite/Map.hpp>
 
 SDLApplication::SDLApplication() {
     //Hacemos toda la inicialización previa de SDL
@@ -12,6 +13,7 @@ SDLApplication::SDLApplication() {
     TTF_Init();
     window = SDL_CreateWindow(WINDOW_NAME.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
                               WINDOW_WIDTH,WINDOW_HEIGHT, SDL_WINDOW_SHOWN);
+    //SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN);
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
     if(window == nullptr || renderer == nullptr) throw SDLError("Error loading SDL window or renderer"); //Lanzamos una excepción si no se ha cargado la ventana o el renderer
     else {
@@ -170,7 +172,7 @@ void SDLApplication::saveGame() {
     stateMachine->pushState(pause); //Metemos de nuevo el estado de pausa
 }*/
 
-Texture* SDLApplication::getTexture(const string& name, int stateID) {
+Texture* SDLApplication::getTexture(const string& name, STATEID stateID) {
     Texture* TMP = textureManager->getTexture(name, stateID);
     if (TMP == nullptr) {
         try {

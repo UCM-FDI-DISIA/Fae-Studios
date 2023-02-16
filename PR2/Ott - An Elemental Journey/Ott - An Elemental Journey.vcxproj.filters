@@ -48,9 +48,6 @@
     <ClInclude Include="ui\Slider.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="ui\Text.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="ui\UIElement.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
@@ -112,6 +109,22 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="utils\InputHandler.h">
+    <ClInclude Include="ui\UIText.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="gameobjects\Mapa.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="gameflow\menus\PauseMenuState.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\ChargedAttackBar.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\HealthBar.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="gameflow\menus\options\ControlMenuState.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
@@ -138,12 +151,6 @@
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="ui\Slider.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="ui\Text.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="ui\UIElement.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="loaders\FontLoader.cpp">
@@ -195,6 +202,22 @@
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="gameobjects\InteractuableObject.cpp">
+    <ClCompile Include="ui\UIText.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="gameobjects\Mapa.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="gameflow\menus\PauseMenuState.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\ChargedAttackBar.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\HealthBar.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="gameflow\menus\options\ControlMenuState.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>

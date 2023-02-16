@@ -304,7 +304,9 @@ void Ott::render(const SDL_Rect& Camera) const {
 // Método para recibir daño
 void Ott::recieveDamage(int elem)
 {
-	if (elementsInfo[elem][currentElement] == 0) { // comprobación para ver cuánto daño se recibe en función del elemento que tengas
+	if (SDL_GetTicks() - invencibilityTimer <= invincibilityTime * 1000) return;
+	invencibilityTimer = SDL_GetTicks();
+	if (elementsInfo[elem][currentElement] == 0) {
 		if (!weakened) {
 			weakened = true;
 			weakTimer = SDL_GetTicks();
@@ -344,6 +346,8 @@ void Ott::die()
 	cout << "He muerto " << endl;
 	if (lastSanctuary == nullptr) {
 		cout << "No hay sanctuarios recientes... Muerte inminente" << endl;
+		PlayState* p = static_cast<PlayState*>(game);
+		p->backToMenu();
 	}
 	else {
 		SDL_Rect r = lastSanctuary->getRect();

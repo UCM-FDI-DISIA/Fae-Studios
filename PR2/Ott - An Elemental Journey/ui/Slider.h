@@ -1,7 +1,7 @@
 #pragma once
 
 #include "UIElement.h"
-#include "Text.h"
+#include "UIText.h"
 
 class SDLApplication; //Declaramos aquí una clase game auxiliar para romper las dependencias circulares que puedan surgir
 using SliderCallBack = void(int value, SDLApplication* app); //Declaramos el callback de los sliders
@@ -29,14 +29,14 @@ private:
     SDLApplication* app = nullptr; ///< Puntero a la clase SDLApplication
     SliderNeedle* needle = nullptr; ///< Aguja del slider
     std::string sliderText; ///< Texto contenido en el slider
-    Text* textValue = nullptr; ///< Valor del slider renderizado en pantalla
+    UIText* textValue = nullptr; ///< Valor del slider renderizado en pantalla
     int currentSliderFrame = MOUSE_OUT; ///< Estado actual en que se encuentra el slider
     SliderCallBack* callback = nullptr; ///< Puntero a una función void con un parámetro SDLApplication* y un int con el valor
     int value; ///< Valor del slider
     int previousValue = MAX_VALUE; ///< Valor anterior del slider
     bool clicked = false; ///< Indica si hemos o no clicado en el slider (para detectar si arrastramos mientras pulsamos)
     
-    Text* title = nullptr; ///< Título del slider
+    UIText* title = nullptr; ///< Título del slider
     Scale titleScale; ///< Escala del título
     SDL_Color textColor; ///< Color del título
 

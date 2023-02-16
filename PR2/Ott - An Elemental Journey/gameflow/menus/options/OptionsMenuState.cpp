@@ -3,28 +3,38 @@
 #include "../../../SDLApplication.h"
 #include "../../../ui/Button.h"
 #include "MusicOptionsMenuState.h"
+#include "ControlMenuState.h"
 #include <iostream>
 
 
-OptionsMenuState::OptionsMenuState(SDLApplication* app) : MenuState(2, app->getTexture("mainmenubackground", 2), app) {
-	//Graphics
+OptionsMenuState::OptionsMenuState(SDLApplication* app) : MenuState(OPTIONS, app->getTexture("playbackground", OPTIONS), app) {
+	//Opciones gráficas
 	gameObjects.push_back(new Button(ButtonParams(
-		Vector2D(WINDOW_WIDTH / 4 - (app->getTexture("button", this->getStateID())->getW() / 3) / 2, 2 * WINDOW_HEIGHT / 7 - (app->getTexture("button", this->getStateID())->getH() / 2)), 
-		"Gr�ficos", 
-		app->getTexture("button", this->getStateID()), 
-		app, 
-		graphicOptions, 
+		Vector2D(WINDOW_WIDTH / 2 - (app->getTexture("button", this->getStateID())->getW() / 3) / 2, 3 * WINDOW_HEIGHT / 7 - (app->getTexture("button", this->getStateID())->getH() / 2)),
+		"Gráficos",
+		app->getTexture("button", this->getStateID()),
+		app,
+		graphicOptions,
 		Scale(0.33f, 1.0f),
 		Scale(1.7f, 1.7f))));
-	//Music
+	//Música y sonido
 	gameObjects.push_back(new Button(ButtonParams(
-		Vector2D(3 *WINDOW_WIDTH / 4 - (app->getTexture("button", this->getStateID())->getW() / 3) / 2, 2 * WINDOW_HEIGHT / 7 - (app->getTexture("button", this->getStateID())->getH() / 2)),
-		"M�sica", 
-		app->getTexture("button", this->getStateID()), 
-		app, 
-		musicOptions, 
+		Vector2D(WINDOW_WIDTH / 2 - (app->getTexture("button", this->getStateID())->getW() / 3) / 2, 4 * WINDOW_HEIGHT / 7 - (app->getTexture("button", this->getStateID())->getH() / 2)),
+		"Música",
+		app->getTexture("button", this->getStateID()),
+		app,
+		musicOptions,
 		Scale(0.33f, 1.0f))));
-	//Return
+	//Controles
+	gameObjects.push_back(new Button(ButtonParams(
+		Vector2D(WINDOW_WIDTH / 2 - (app->getTexture("button", this->getStateID())->getW() / 3) / 2, 5 * WINDOW_HEIGHT / 7 - (app->getTexture("button", this->getStateID())->getH() / 2)),
+		"Controles",
+		app->getTexture("button", this->getStateID()),
+		app,
+		controls,
+		Scale(0.33f, 1.0f),
+		Scale(1.5f,1.5f))));
+	//Volver
 	gameObjects.push_back(new Button(ButtonParams(
 		Vector2D( WINDOW_WIDTH / 2 - (app->getTexture("button", this->getStateID())->getW() / 3) / 2, 6 * WINDOW_HEIGHT / 7 - (app->getTexture("button", this->getStateID())->getH() / 2)), 
 		"Volver", 
@@ -33,8 +43,10 @@ OptionsMenuState::OptionsMenuState(SDLApplication* app) : MenuState(2, app->getT
 		back, 
 		Scale(0.33f, 1.0f))));
 
-	title = new Text("Opciones", *(app->getFont("vcr_osd")), Vector2D(WINDOW_WIDTH / 2, 20), app->getRenderer(), { 255,255,255 }, Scale(3.0f, 3.0f));
-	title->movePosition(Vector2D(WINDOW_WIDTH / 2 - 3 * title->getTexture()->getW() / 2, 20));
+	titleBack = new UIText("Opciones", *(app->getFont("press_start")), Vector2D(WINDOW_WIDTH / 2, 20), app->getRenderer(), { 194,147,42 }, Scale(4.0f, 4.0f));
+	titleBack->movePosition(Vector2D(WINDOW_WIDTH / 2 - 4 * titleBack->getTexture()->getW() / 2 - 5, 100));
+    titleFront = new UIText("Opciones", *(app->getFont("press_start")), Vector2D(WINDOW_WIDTH / 2, 20), app->getRenderer(), { 255,217,102 }, Scale(4.0f, 4.0f));
+    titleFront->movePosition(Vector2D(WINDOW_WIDTH / 2 - 4 * titleFront->getTexture()->getW() / 2, 100));
 }
 
 void OptionsMenuState::graphicOptions(SDLApplication* app) {
@@ -49,11 +61,17 @@ void OptionsMenuState::back(SDLApplication* app) {
     app->getStateMachine()->popState();
 }
 
+void OptionsMenuState::controls(SDLApplication* app) {
+	app->getStateMachine()->pushState(new ControlMenuState(app));
+}
+
 void OptionsMenuState::render() const {
 	MenuState::render();
-	title->render();
+	titleBack->render();
+    titleFront->render();
 }
 
 OptionsMenuState::~OptionsMenuState() {
-	delete title;
+	delete titleBack;
+    delete titleFront;
 }
