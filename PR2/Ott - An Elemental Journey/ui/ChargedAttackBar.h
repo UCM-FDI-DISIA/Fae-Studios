@@ -9,7 +9,7 @@ public:
         charges = 0;
     }
 
-    void render() const final;
+    virtual void render() const;
 
     void addCharge() {++charges;}
 

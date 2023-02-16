@@ -55,11 +55,11 @@ public:
     ~Button() override;
 
     /// Renderiza el botón en pantalla en sus 3 estados
-    void render() const override;
+    virtual void render(const SDL_Rect& camera = { 0,0,0,0 }) const;
 
     /// Manejo de eventos, principalmente el pulsar el botón
     /// \param e SDL_Event con el evento detectado en Game
-    void handleEvents(const SDL_Event& e) override;
+    void handleEvents() override;
 };
 
 enum ImageClass { FULL_IMAGE, SPRITESHEET };
@@ -75,9 +75,9 @@ private:
 public:
     ImageButton(const ButtonParams& params, Texture* image, ImageClass imgClass, uint row = 0, uint col = 0);
 
-    void render() const final;
+    void render(const SDL_Rect& camera = { 0,0,0,0 }) const final;
 
-    void handleEvents(const SDL_Event& e) final;
+    void handleEvents() final;
 };
 
 #endif //PROYECTOS2_BUTTON_H

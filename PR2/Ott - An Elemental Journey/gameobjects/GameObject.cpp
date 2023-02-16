@@ -1,12 +1,15 @@
 #include "../checkML.h"
 #include "GameObject.h"
 
-GameObject::GameObject(const Vector2D& position, Texture* texture, const Scale& scale) {
+GameObject::GameObject(const Vector2D& position, Texture* texture, const Scale& scale, GO_TYPE type) {
     this->position = position;
     this->texture = texture;
     this->width = texture->getW() * scale.widthScale;
     this->height = texture->getH()  * scale.heightScale;
+    this->type = type;
 }
+
+GO_TYPE GameObject::getType() { return type; }
 
 SDL_Rect GameObject::getRect() const {
     SDL_Rect destRect;
@@ -15,6 +18,9 @@ SDL_Rect GameObject::getRect() const {
     return destRect; //Devolvemos un rectángulo con la posición del objeto en pantalla, su anchura y su altura
 }
 
-void GameObject::render() const {
-    texture->render(getRect());
+void GameObject::render(const SDL_Rect& Camera) const {
+    SDL_Rect rect = getRect();
+    rect.x -= Camera.x;
+    rect.y -= Camera.y;
+    texture->render(rect);
 }

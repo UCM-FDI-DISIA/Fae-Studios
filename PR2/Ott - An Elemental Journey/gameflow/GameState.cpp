@@ -2,6 +2,7 @@
 #include "GameState.h"
 #include "../SDLApplication.h"
 #include "../loaders/TextureLoader.h"
+#include "../utils/InputHandler.h"
 
 GameState::~GameState() {
     for (auto e : gameObjects) delete(e); //Borramos todos los objetos de la lista
@@ -13,8 +14,19 @@ void GameState::update() {
     // y en caso de que se haya borrado un elemento en la lista, dejamos de recorrerla
     for (auto it = gameObjects.begin(); it != gameObjects.end() && !deleted;) {
         (*it)->update();
+        if (CollisionObject* o = dynamic_cast<CollisionObject*>(*it)) {
+            collision(o);
+        }
         if (!deleted) ++it;
         else return;
+        
+    }
+}
+void GameState::collision(CollisionObject* c) {
+    for (GameObject* a : gameObjects) {
+        if (a != c) {
+            c->collide(a);
+        }
     }
 }
 
@@ -28,15 +40,15 @@ void GameState::render() const {
     }
 }
 
-void GameState::handleEvents(SDL_Event& e) {
+void GameState::handleEvents() {
     //Recorremos la lista para manejar los eventos de los objetos,
     // y en caso de que se haya borrado un elemento en la lista, dejamos de recorrerla
     for (auto it = gameObjects.begin(); it != gameObjects.end() && !deleted;) {
-        (*it)->handleEvents(e);
+        (*it)->handleEvents();
         if (!deleted) ++it;
         else return;
     }
-    if (e.type == SDL_QUIT) app->quitGame();
+    if (InputHandler::instance()->quit()) app->quitGame();
 }
 
 void GameState::setDelete() {

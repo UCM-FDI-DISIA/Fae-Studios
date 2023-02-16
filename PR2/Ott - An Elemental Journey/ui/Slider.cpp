@@ -2,7 +2,7 @@
 #include "Slider.h"
 #include "../SDLApplication.h"
 #include <math.h>
-
+#include "../utils/InputHandler.h"
 int Slider::SliderNeedle::move() {
     SDL_Point mousePosition;
     SDL_GetMouseState(&mousePosition.x, &mousePosition.y);
@@ -38,7 +38,7 @@ Slider::~Slider() {
     delete title;
 }
 
-void Slider::handleEvents(const SDL_Event& event) {
+void Slider::handleEvents() {
     SDL_Point mousePosition;
     SDL_Rect sliderRect = getRect();
     SDL_GetMouseState(&mousePosition.x, &mousePosition.y); //Nos guardamos la posici�n del rat�n
@@ -51,17 +51,17 @@ void Slider::handleEvents(const SDL_Event& event) {
         currentSliderFrame = MOUSE_OVER; //Indica que el rat�n est� sobre el bot�n
         this->needle->currentSliderNeedleFrame = MOUSE_OVER;
     }
-    if (SDL_PointInRect(&mousePosition, &sliderRect) && event.type == SDL_MOUSEBUTTONDOWN) { //Indica que se ha pulsado el bot�n
+    if (SDL_PointInRect(&mousePosition, &sliderRect) && InputHandler::instance()->getMouseButtonState(InputHandler::LEFT)) { //Indica que se ha pulsado el bot�n
         currentSliderFrame = CLICKED;
         clicked = true;
         this->needle->currentSliderNeedleFrame = CLICKED;
     }
-    if (event.type == SDL_MOUSEBUTTONUP) {
+    if (InputHandler::instance()->getMouseButtonState(InputHandler::LEFT)) {
         clicked = false;
         currentSliderFrame = MOUSE_OVER;
         this->needle->currentSliderNeedleFrame = MOUSE_OVER;
     }
-    if (clicked && event.type == SDL_MOUSEMOTION) {
+    if (clicked && InputHandler::instance()->mouseMotionEvent()) {
         this->needle->currentSliderNeedleFrame = CLICKED;
         value = this->needle->move();
         onChange();

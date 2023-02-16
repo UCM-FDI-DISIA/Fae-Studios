@@ -3,11 +3,12 @@
 
 Mapa::Mapa(SDLApplication* app, ListaNiveles l) : GameObject(), currentLevel(l), app(app) {
     initializeSources();
+    //textures = std::vector<Texture*>(NUMBER_OF_TYPES);
     auto it = infoLevel.find(l);
     if (it != infoLevel.end()) {
         auto ot = it->second.begin();
         for (ot; ot != it->second.end(); ++ot) {
-            textures[ot->typeT] = app->getTexture(ot->name, PLAY_STATE);
+           tilemap = app->getTexture(ot->name, PLAY_STATE);
         }
         auto ut = levelPath.find(l);
         if (ut != levelPath.end()) {
@@ -63,7 +64,7 @@ void Mapa::loadMap(string path) {
                 //Guardamos objetos en un vector
                 vectorObjects = objects;
 
-                /* Ejemplo de propiedades de un objeto (posicion, tama�o, ID y nombre)
+                 //Ejemplo de propiedades de un objeto (posicion, tama�o, ID y nombre)
                      cout << "Found " << objects.size() << " objects in layer" << endl;
                      for (const auto& object : objects)
                     {
@@ -72,7 +73,7 @@ void Mapa::loadMap(string path) {
                         cout << object.getAABB().width << " " << object.getAABB().height << endl;
                         cout << "Object " << object.getUID() << ", " << object.getName() << endl;
                     }
-                */
+                
             }
 #pragma endregion
 
@@ -126,20 +127,16 @@ void Mapa::loadMap(string path) {
 
 }
 
-void Mapa::render() const{
-    int offsetX = 0;
-    int offsetY = 0; 
+void Mapa::render(const SDL_Rect& Camera) const{
+    int offsetX = Camera.x;
+    int offsetY = Camera.y; 
     for (int i = 0; i < vectorTiles.size(); i++) {
         auto it = vectorTiles[i].ID;
-        cout << textures[TILESET] << " h: " << textures[TILESET]->getH() <<
-            " w: " << textures[TILESET]->getW() <<
-            " row: " << textures[TILESET]->getNumCols() << 
-            " col: " << textures[TILESET]->getNumRows() << endl;
-        textures[TILESET]->renderFrame({ (int)(i % mapSize) * 14 - offsetX, (int)((i / mapSize) * 14) - offsetY, 14, 14 }, (it - (it % textures[TILESET]->getW() / 30)) / (textures[TILESET]->getW() / 30), it % (textures[TILESET]->getW() / 30 - 1));
+        if (it == 0) continue;
+        tilemap->renderFrame({ (int)(i % 192) * usedTileSize - offsetX, (int)((i / 192) * usedTileSize) - offsetY, usedTileSize, usedTileSize }, (it - (it % 20)) / 20, it % 20 - 1);
     }
-   
-    
 }
+
 
 void Mapa::initializeSources() {
     MapTexturesParser::parse(levelTextureRoute, infoLevel);

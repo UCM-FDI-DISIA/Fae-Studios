@@ -4,6 +4,7 @@
 //#include "PlayState.h"
 #include "gameflow/menus/MainMenuState.h"
 #include "dependencies/Parser.h"
+#include "utils/InputHandler.h"
 #include <tmxlite/Map.hpp>
 
 SDLApplication::SDLApplication() {
@@ -105,6 +106,10 @@ void SDLApplication::run() { //CAMBIAR
 
     while(!exit) {
         frameTime = SDL_GetTicks() - startTime;
+
+        // Singleton que comprueba el estado de los eventos de SDL respecto al input (KEYDOWN, KEYUP, MOUSEBUTTON...)
+        InputHandler::instance()->refresh();
+
         handleEvents(); //Manejamos los eventos
         if (frameTime >= FRAME_RATE) {
             update(); //Actualizamos cada FRAME_RATE ticks
@@ -140,10 +145,7 @@ void SDLApplication::update() {
 }
 
 void SDLApplication::handleEvents() {
-    SDL_Event event;
-    while(SDL_PollEvent(&event) && !exit) {
-        stateMachine->currentState()->handleEvents(event); //Llama al handleEvents del estado actual
-    }
+    stateMachine->currentState()->handleEvents(); //Llama al handleEvents del estado actual
 }
 
 SDL_Rect SDLApplication::getWindowRect() const {

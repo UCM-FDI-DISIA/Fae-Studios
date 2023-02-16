@@ -1,54 +1,88 @@
 #include "../Entity.h"
 #include "../../gameflow/play/PlayState.h"
+#include "../Sanctuary.h"
 
-enum ANIM_STATE { IDLE, WALKING, LAND, JUMPING, PEAK, FALLING };
+enum ANIM_STATE { IDLE, WALKING, LAND, JUMPING, PEAK, FALLING, ATTACK, TP_IN, TP_OUT };
 
 class Ott : public Entity {
 protected:
+
+    bool left = false, right = false, up = false, attack = false, upC = false, down = false;
+
+    bool lookingFront = true; // indica hacia d�nde debe mirar el sprite
+
     //Analog joystick dead zone
     const int JOYSTICK_DEAD_ZONE = 8000; // EL M�XIMO VALOR ES 32000, POR ESO PONEMOS UNA DEAD ZONE TAN APARENTEMENTE GRANDE
 
-    bool jumpFlag = true;
-    bool jumping = false;
-    const double jumpForce = -5;
+    const int MAX_VERTICAL_SPEED = 8;
 
-    ANIM_STATE animState = IDLE;
-    const int ANIMATION_FRAME_RATE = 40;
-    int timer = 0;
-    int row = 0;
-    int col = 0;
+    const double jumpForce = -5;  // velocidad puesta en la coordenada Y al saltar
+
+    bool climb = false;
+    const double climbForce = -1;
+
+    bool tp = false; // indica si Ott est� en medio de un teletransporte a trav�s de l�mparas o no
+
+    // animation parameters
+    ANIM_STATE animState = IDLE; // estado actual de animaci�n
+    const int ANIMATION_FRAME_RATE = 40; // cada cuantos frames se comprueba el estado de la animaci�n y se cambia/avanza
+    int timer = 0; // timer para avanzar 1 en cada frame hasta llegar a ANIMATION_FRAME_RATE
+    int row = 0; // fila de spritesheet
+    int col = 0; // columna de spritesheet
 
     SDL_Rect onGround;
-    bool ground = false;
     bool ismoving = false;
     bool notGroundedBefore = false;
-    Vector2D speed = { 0,0 };
+    Vector2D tpPosition;
+    bool isJumping = false;
+    int horizontalSpeed = 10;
 
     //Par�metros que controlan la vida debil
     bool weakened = false;
     int timeWeak = 3, weakTimer;
+    int invincibilityTime = 2, invencibilityTimer = 0;
     //Game Controller 1 handler
+    GameObject* lastSanctuary = nullptr;
 public:
     Ott(const Vector2D& position, Texture* texture, PlayState* game, const Scale& scale = Scale(1.0f, 1.0f));
     /// Destructora de la clase GameObject
     virtual ~Ott() = default;
 
+    void canClimb(){ climb = true; };
+    void cannotClimb() {
+        climb = false;
+    }
     bool canJump();
     void jump();
-    // Renderizado 
-    virtual void render() const;
+    // Renderizado
+    virtual void render(const SDL_Rect& Camera) const;
+
+    void setAnimState(ANIM_STATE newState);
+
     /// Obtenci�n del rect�ngulo destino del objeto
     virtual void update();
 
-    inline bool isGrounded() { return ground; };
-
-    void useGravity();
-
     /// \param event SDL_Event con el evento a manejar
-    virtual void handleEvents(const SDL_Event& event);
+    virtual void handleEvents();
 
     //Evento de da�o
     virtual void recieveDamage(int elem);
 
-    uint getLife() const {return life;}
+    inline uint getLife() const {return life;}
+
+    inline void saveSactuary(GameObject* s) { lastSanctuary = s; }
+
+    inline GameObject* getCurrentSactuary() { return lastSanctuary; }
+
+    virtual bool collide(const SDL_Rect& obj, SDL_Rect& result);
+
+    virtual bool collide(GameObject* c);
+
+    void setTpPoint(const Vector2D& newPos);
+
+    void setSpeed();
+
+    void updateAnimState();
+private:
+    virtual void die();
 };

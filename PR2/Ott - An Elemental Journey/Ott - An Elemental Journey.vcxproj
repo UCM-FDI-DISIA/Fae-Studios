@@ -133,10 +133,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="gameobjects\Mapa.h" />
-    <ClInclude Include="ui\ChargedAttackBar.h" />
     <ClInclude Include="checkML.h" />
     <ClInclude Include="gameflow\menus\options\ControlMenuState.h" />
+    <ClInclude Include="gameflow\menus\PauseMenuState.h" />
     <ClInclude Include="gameobjects\CollisionObject.h" />
     <ClInclude Include="dependencies\Exceptions.h" />
     <ClInclude Include="dependencies\Font.h" />
@@ -144,6 +143,7 @@
     <ClInclude Include="dependencies\Texture.h" />
     <ClInclude Include="dependencies\Vector2D.h" />
     <ClInclude Include="gameobjects\Entity.h" />
+    <ClInclude Include="gameobjects\Mapa.h" />
     <ClInclude Include="gameobjects\MovingObject.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="gameflow\GameState.h" />
@@ -154,24 +154,27 @@
     <ClInclude Include="gameflow\menus\options\OptionsMenuState.h" />
     <ClInclude Include="gameobjects\GameObject.h" />
     <ClInclude Include="gameobjects\Physics\Ground.h" />
-    <ClInclude Include="ui\HealthBar.h" />
+    <ClInclude Include="gameobjects\Sanctuary.h" />
+    <ClInclude Include="gameobjects\InteractuableObject.h" />
     <ClInclude Include="loaders\FontLoader.h" />
     <ClInclude Include="loaders\TextureLoader.h" />
     <ClInclude Include="gameobjects\Ott\Ott.h" />
     <ClInclude Include="gameflow\play\PlayState.h" />
-    <ClInclude Include="gameflow\menus\PauseMenuState.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="SDLApplication.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="ui\Button.h" />
+    <ClInclude Include="ui\ChargedAttackBar.h" />
+    <ClInclude Include="ui\HealthBar.h" />
     <ClInclude Include="ui\Slider.h" />
-    <ClInclude Include="ui\UIText.h" />
     <ClInclude Include="ui\UIElement.h" />
+    <ClInclude Include="utils\InputHandler.h" />
+    <ClInclude Include="utils\Singleton.h" />
+    <ClInclude Include="ui\UIText.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="gameobjects\Mapa.cpp" />
-    <ClCompile Include="ui\ChargedAttackBar.cpp" />
     <ClCompile Include="gameflow\menus\options\ControlMenuState.cpp" />
+    <ClCompile Include="gameflow\menus\PauseMenuState.cpp" />
     <ClCompile Include="gameflow\play\PlayState.cpp" />
     <ClCompile Include="gameobjects\CollisionObject.cpp" />
     <ClCompile Include="dependencies\Font.cpp" />
@@ -179,6 +182,7 @@
     <ClCompile Include="dependencies\Texture.cpp" />
     <ClCompile Include="dependencies\Vector2D.cpp" />
     <ClCompile Include="gameobjects\Entity.cpp" />
+    <ClCompile Include="gameobjects\Mapa.cpp" />
     <ClCompile Include="gameobjects\MovingObject.cpp" />
     <ClCompile Include="gameflow\GameState.cpp" />
     <ClCompile Include="gameflow\GameStateMachine.cpp" />
@@ -189,13 +193,15 @@
     <ClCompile Include="gameobjects\GameObject.cpp" />
     <ClCompile Include="gameobjects\Ott\Ott.cpp" />
     <ClCompile Include="gameobjects\Physics\Ground.cpp" />
-    <ClCompile Include="ui\HealthBar.cpp" />
+    <ClCompile Include="gameobjects\Sanctuary.cpp" />
+    <ClCompile Include="gameobjects\InteractuableObject.cpp" />
     <ClCompile Include="loaders\FontLoader.cpp" />
     <ClCompile Include="loaders\TextureLoader.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="gameflow\menus\PauseMenuState.cpp" />
     <ClCompile Include="SDLApplication.cpp" />
     <ClCompile Include="ui\Button.cpp" />
+    <ClCompile Include="ui\ChargedAttackBar.cpp" />
+    <ClCompile Include="ui\HealthBar.cpp" />
     <ClCompile Include="ui\Slider.cpp" />
     <ClCompile Include="ui\UIText.cpp" />
   </ItemGroup>
