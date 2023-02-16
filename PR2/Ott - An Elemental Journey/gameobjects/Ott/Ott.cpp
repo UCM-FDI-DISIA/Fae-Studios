@@ -231,14 +231,7 @@ void Ott::update() {
 	if (xDir == 0 && yDir == 0) arrowAngle = 0;
 	*/
 #pragma endregion
-	if (!right && !left)
-	{
-		if (!attack) {
-			//cout << "SALII" << endl;
-			ismoving = false;
-		}
-		speed =  Vector2D(0, speed.getY());
-	}
+
 
 	setSpeed(); // ver qué velocidad debería tener Ott ahora en función del input
 
@@ -264,8 +257,9 @@ void Ott::update() {
 						  // con paredes, solo con suelo
 		game->ottCollide(getRect(), onGround, groundCol, col, ground); // se llama a la función collide del playState
 		if (ground) { // si se ha chocado con el suelo...
-			if (!notGroundedBefore) { // y no se le ha fixeado la posición y la velocidad. En caso de que ya se le haya fixeado ya, no se entra aquí
-				position = Vector2D(groundCol.x, groundCol.y - height);
+			if (!(speed.getY() < 0) && !notGroundedBefore) { // y no se le ha fixeado la posición y la velocidad. En caso de que ya se le haya fixeado ya, no se entra aquí
+				
+				position = Vector2D(position.getX(), groundCol.y - height);
 				speed = Vector2D(speed.getX(), 0);
 				if (!attack) setAnimState(LAND);
 			}
@@ -283,6 +277,7 @@ void Ott::update() {
 	else if (animState == TP_OUT) position = tpPosition; // en caso de estarse teletransportando entre lámparas, se fixea su posición
 														 // a la de la lámpara objetivo
 }
+
 // renderizado de Ott
 void Ott::render(const SDL_Rect& Camera) const {
 #pragma region CONTROLLER INPUT
@@ -319,6 +314,7 @@ void Ott::recieveDamage(int elem)
 	}
 	else Entity::recieveDamage(elem);
 }
+
 bool Ott::collide(const SDL_Rect& obj, SDL_Rect& result) // qué es esto gente
 {
 	return false;

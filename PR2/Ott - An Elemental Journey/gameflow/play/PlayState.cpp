@@ -178,8 +178,8 @@ void PlayState::addEnredadera(const Vector2D& pos) {
 	Enredaderas* e1 = new Enredaderas(Vector2D(pos.getX()+5, pos.getY() - app->getTexture("enredadera", PLAY_STATE)->getH()*1.25), app->getTexture("enredadera", PLAY_STATE), this);
 	gameObjects.push_back(e1);
 	eObjects.push_back(e1);
-
 }
+
 void PlayState::backToMenu() {
 	app->getStateMachine()->changeState(new MainMenuState(app));
 }
@@ -202,6 +202,7 @@ Vector2D PlayState::checkCollisions()
 	cout << resultVector.getX() << " " << resultVector.getY() << endl;
 	return resultVector;
 }
+
 Vector2D PlayState::collides(SDL_Rect playerRect, SDL_Rect objRect) { //Se comprueba si el bloque colisiona con la bola
 	Vector2D cVector (0, 0);
 	SDL_Rect areaColision; // area de colision 	
