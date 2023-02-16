@@ -36,7 +36,7 @@ protected:
 
     bool isJumping = false;
 
-    int horizontalSpeed = 1;
+    int horizontalSpeed = 10;
 
     //Par�metros que controlan la vida debil
     bool weakened = false;

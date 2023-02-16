@@ -38,7 +38,7 @@ PlayState::PlayState(SDLApplication* app) : GameState(PLAY_STATE, app) {
 	gameObjects.push_back(g1);
 	intObjects.push_back(g1);
 	
-	ott = new Ott(Vector2D(0, 0), app->getTexture("ott", PLAY_STATE), this, Scale(0.3f, 0.3f));
+	ott = new Ott(Vector2D(400, 2000), app->getTexture("ott", PLAY_STATE), this, Scale(0.3f, 0.3f));
 
 	// santuarios
 	/*Sanctuary* sct = new Sanctuary(Vector2D(200, 280), app->getTexture("whiteBox", 2), Scale(0.05f, 0.1f));
@@ -54,7 +54,9 @@ PlayState::PlayState(SDLApplication* app) : GameState(PLAY_STATE, app) {
 		float w_= it.getAABB().width;
 		float h_ = it.getAABB().height;
 
-		grT = new Ground(Vector2D(x_, y_), app->getTexture("whiteBox", PLAY_STATE), Scale(w_, h_));
+		auto scale = currentMap->tileScale();
+
+		grT = new Ground(Vector2D(x_ * scale, y_ * scale), app->getTexture("pixel", PLAY_STATE), Scale(w_ * scale, h_ * scale));
 		gameObjects.push_back(grT);
 		groundObjects.push_back(grT);
 	}

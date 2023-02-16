@@ -55,6 +55,9 @@ private:
 	Texture* tilemap = nullptr;
     //std::vector<Texture*> textures;
 
+	int realTileSize = 32;
+	int usedTileSize = 50;
+
 	void loadMap(string path);
 	void initializeSources();
 
@@ -63,5 +66,6 @@ public:
 	virtual void render(const SDL_Rect& Camera = {0,0,0,0}) const;
 	void changeMap();
 	vector<Object> getObjects() { return vectorObjects; }
+	inline float tileScale() { return (float)usedTileSize / (float)realTileSize; }
 };
 
