@@ -81,6 +81,8 @@ public:
 
     void setSpeed();
 
+    void setPos(const Vector2D& newPos);
+
     void updateAnimState();
 private:
     virtual void die();

@@ -53,7 +53,6 @@ void Ott::setAnimState(ANIM_STATE newState) {
 	{
 		row = 8;
 		if (col < 6) {
-			cout << "atacando" << endl;
 			col++;
 			timer = ANIMATION_FRAME_RATE / 2;
 		}
@@ -198,7 +197,6 @@ void Ott::setSpeed() {
 	if (upC && climb) { speed = Vector2D(speed.getX(), climbForce); notGroundedBefore = true; }
 	if (!ground && down && climb) { speed = Vector2D(speed.getX(), -climbForce); notGroundedBefore = false; }
 	if (climb && !upC && !down) { speed = Vector2D(speed.getX(), 0); notGroundedBefore = false; }
-
 }
 
 // Método usado para comprobar en qué animación estamos
@@ -206,7 +204,6 @@ void Ott::setSpeed() {
 // Si se usa setAnimState, es para que cambie sin esperar a ningún frame, que lo haga directamente
 void Ott::updateAnimState() {
 	ANIM_STATE previous = animState;
-	cout << "hello" << endl;
 	if (attack) { // animación de ataque
 		if (previous != ATTACK) { // si se estaba atacando antes, no hace falta volver a poner la animación de ataque
 			col = 2;
@@ -232,7 +229,6 @@ void Ott::update() {
 	*/
 #pragma endregion
 
-
 	setSpeed(); // ver qué velocidad debería tener Ott ahora en función del input
 
 	// AVANZAR / CAMBIAR DE ANIMACIÓN SEGÚN ANIMATION_FRAME_RATE
@@ -245,33 +241,42 @@ void Ott::update() {
 	// Ajustamos el rectángulo que comprueba la colisión con el suelo
 	onGround = getRect();
 	onGround.y += onGround.h;
-	onGround.h = -jumpForce - 1;
+	onGround.h = MAX_VERTICAL_SPEED - 1;
+	onGround.w /= 2;
+	onGround.x += onGround.w / 2;
+
+	cout << getRect().x << " " << onGround.x << " " << getRect().x + getRect().w << " " << onGround.x + onGround.w << endl;
 
 	if (!tp) { // Si ott no se está teletransportando, puede moverse y hacer las comprobaciones pertinentes
 		updateAnimState();
 		if (speed.getY() > MAX_VERTICAL_SPEED) { speed = Vector2D(speed.getX(), MAX_VERTICAL_SPEED); } // si la velocidad vertical supera un máximo, se fixea a ese máximo
 
 #pragma region COLISIONES (HIPER MEGA PROVISIONAL. MUY PROVISIONAL)
-		SDL_Rect groundCol; // recoge el rectángulo de colisión entre ott y el objeto físico contra el que colisione
-		bool col = false; // booleano que recoge si ha chocado o no. No se usa para nada de momento porque no hay implementadas colisiones
-						  // con paredes, solo con suelo
-		game->ottCollide(getRect(), onGround, groundCol, col, ground); // se llama a la función collide del playState
+		position = position + speed;
+
+		SDL_Rect groundCol, colRect; // recoge el rectángulo de colisión entre ott y el objeto físico contra el que colisione
+		SDL_Rect thisRect = getRect();
+
+		game->ottCollide(thisRect, onGround, groundCol, colRect, ground, speed); // se llama a la función collide del playState
+
 		if (ground) { // si se ha chocado con el suelo...
 			if (!(speed.getY() < 0) && !notGroundedBefore) { // y no se le ha fixeado la posición y la velocidad. En caso de que ya se le haya fixeado ya, no se entra aquí
-				
 				position = Vector2D(position.getX(), groundCol.y - height);
 				speed = Vector2D(speed.getX(), 0);
 				if (!attack) setAnimState(LAND);
 			}
+
 			notGroundedBefore = true;
 		}
-		else notGroundedBefore = false; // en caso de no estar en el suelo, habrá que fixear la posición cuando choque contra algún suelo
+		else { 
+			notGroundedBefore = false; 
+			
+		}// en caso de no estar en el suelo, habrá que fixear la posición cuando choque contra algún suelo
 
 		//timer que comprueba si sigue teniendo una vida debil
 		if (weakened && (SDL_GetTicks() - weakTimer) >= timeWeak * 1000) weakened = false;
 		
 		// mover al personaje
-		position = position + speed;
 #pragma endregion
 	}
 	else if (animState == TP_OUT) position = tpPosition; // en caso de estarse teletransportando entre lámparas, se fixea su posición
@@ -359,5 +364,9 @@ void Ott::setTpPoint(const Vector2D& newPos) {
 	tpPosition = newPos;
 	notGroundedBefore = false;
 	speed = Vector2D(speed.getX(), speed.getY());
+}
+
+void Ott::setPos(const Vector2D& newPos ) {
+	position = newPos;
 }
 #pragma endregion

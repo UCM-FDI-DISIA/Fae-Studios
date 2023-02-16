@@ -146,14 +146,29 @@ void PlayState::update() {
 }
 
 
-void PlayState::ottCollide(const SDL_Rect& Ott, const SDL_Rect& onGround, SDL_Rect& colRect, bool& col, bool& ground) {
+void PlayState::ottCollide(const SDL_Rect& ottRect, const SDL_Rect& onGround, SDL_Rect& groundRect, SDL_Rect& colRect, bool& ground, const Vector2D& speed) {
 	// COMPROBACI�N DE COLISIONES CON OBJETOS DE TIPO SUELO (PROVISIONAL)
 	for (auto it : groundObjects) {
-		ground = it->collide(onGround, colRect);
+		ground = it->collide(onGround, groundRect);
 		if (ground) break;
 	}
-}
 
+	for (auto it : groundObjects) {
+		it->collide(ottRect, colRect);
+		if (colRect.h > 0 && colRect.w > 16) {
+			if (speed.getX() > 0 && colRect.x >= ottRect.x) {
+				cout << "X: " << colRect.x <<
+					" Y: " << colRect.y <<
+					" W: " << colRect.w <<
+					" H: " << colRect.h << endl;
+				ott->setPos(Vector2D(ottRect.x - speed.getX(), ottRect.y));
+			}
+			else if (speed.getX() < 0 && colRect.x <= ottRect.x) {
+				ott->setPos(Vector2D(ottRect.x - speed.getX(), ottRect.y));
+			}
+		}
+	}
+}
 void PlayState::render() const {
 	//Recorremos la lista para renderizar los objetos,
 	// y en caso de que se haya borrado un elemento en la lista, dejamos de recorrerla
