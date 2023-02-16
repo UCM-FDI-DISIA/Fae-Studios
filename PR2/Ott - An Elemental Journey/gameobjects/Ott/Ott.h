@@ -66,6 +66,7 @@ public:
 
     bool canJump();
     void jump();
+    void changeElem();
     // Renderizado 
     virtual void render(const SDL_Rect& Camera) const;
     /// Obtención del rectángulo destino del objeto

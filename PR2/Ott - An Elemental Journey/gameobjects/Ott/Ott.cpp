@@ -96,7 +96,7 @@ void Ott::handleEvents(const SDL_Event& event) {
 			attack = true;
 			//cout << "ataque" << endl;
 			ismoving = true;
-			col = 2;//RAUL????????
+			col = 2;
 			timer += ANIMATION_FRAME_RATE / 2;
 		}
 		if (event.key.keysym.sym == SDLK_z)
@@ -110,47 +110,28 @@ void Ott::handleEvents(const SDL_Event& event) {
 		if (!attack && !change&&SDL_GetTicks()>ElementcoldDown&& currentElement!=1&&event.key.keysym.sym == SDLK_d) {
 			cout << "Tierra" << endl;
 			nextElement = 1;
-			animState = CHANGE;
-			change = true;
-			ismoving = true;
-			col = 0;
-			timer += ANIMATION_FRAME_RATE / 2;
-			ElementcoldDown += ELEMENT_CHANGE_TIME;
+			changeElem();
 		}
 		if (!attack && !change && SDL_GetTicks() > ElementcoldDown && currentElement != 0 && event.key.keysym.sym == SDLK_s) {
 			nextElement = 0;
 			cout << "Luz" << endl;
 
-			animState = CHANGE;
-			change = true;
-			ismoving = true;
-			col = 0;
-			timer += ANIMATION_FRAME_RATE / 2;
-			ElementcoldDown += ELEMENT_CHANGE_TIME;
+			changeElem();
 		}
 		if (!attack && !change && SDL_GetTicks() > ElementcoldDown && currentElement != 2 && event.key.keysym.sym == SDLK_a) {
 			nextElement = 2;
 			cout << "Agua" << endl;
 
-			animState = CHANGE;
-			change = true;
-			ismoving = true;
-			col = 0;
-			timer += ANIMATION_FRAME_RATE / 2;
-			ElementcoldDown += ELEMENT_CHANGE_TIME;
+			changeElem();
 
 		}
 		if (!attack && !change && SDL_GetTicks() > ElementcoldDown && currentElement != 3 && event.key.keysym.sym == SDLK_w) {
 			nextElement = 3;
 			cout << "Fuego" << endl;
+			changeElem();
 
-			animState = CHANGE;
-			change = true;
-			ismoving = true;
-			col = 0;
-			timer += ANIMATION_FRAME_RATE / 2;
-			ElementcoldDown += ELEMENT_CHANGE_TIME;
 		}
+
 
 		//cout << animState << endl;
 		//cout << dir.getX() << endl;
@@ -201,6 +182,14 @@ void Ott::jump() {
 		if(defend) speed = Vector2D(speed.getX(), jumpForce + 1);
 		else speed = Vector2D(speed.getX(), jumpForce);
 	}
+}
+void Ott::changeElem() {
+	animState = CHANGE;
+	change = true;
+	ismoving = true;
+	col = 0;
+	timer += ANIMATION_FRAME_RATE / 2;
+	ElementcoldDown += ELEMENT_CHANGE_TIME;
 }
 
 void Ott::update() {
