@@ -56,6 +56,8 @@ public:
 		case SDL_WINDOWEVENT:
 			handleWindowEvent(event);
 			break;
+		case SDL_QUIT:
+			isQuit = true;
 		default:
 			break;
 		}
@@ -120,6 +122,10 @@ public:
 	inline bool mouseMotionEvent() {
 		return isMouseMotionEvent_;
 	}
+	
+	inline bool quit() {
+		return isQuit;
+	}
 
 	inline bool mouseButtonEvent() {
 		return isMouseButtonEvent_;
@@ -137,6 +143,9 @@ public:
 	// the book 'SDL Game Development'
 
 private:
+
+	bool isQuit = false;
+
 	InputHandler() {
 		kbState_ = SDL_GetKeyboardState(0);
 		clearState();

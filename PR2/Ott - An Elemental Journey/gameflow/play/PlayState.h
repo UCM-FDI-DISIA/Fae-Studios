@@ -36,11 +36,10 @@ private:
     Vector2D collides(SDL_Rect Rect, SDL_Rect objRect);
 public:
     PlayState(SDLApplication* app);
-    virtual void handleEvents(SDL_Event& e);
+    virtual void handleEvents();
     void ottCollide(const SDL_Rect& Ott, const SDL_Rect& onGround, SDL_Rect& colRect, bool& col, bool& ground);
     virtual void update();
     inline double Gravity() { return gravity; };
-    void handleEvents(SDL_Event& e) override;
     virtual void render() const;
     SDL_Rect ottPos() const;
     void setOttPos(const Vector2D& newPos);

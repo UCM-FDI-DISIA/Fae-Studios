@@ -5,6 +5,11 @@
 #include "../../gameobjects/Physics/Ground.h"
 #include "../../gameobjects/Ott/Ott.h"
 #include "../../gameobjects/InteractuableObject.h"
+#include "../../gameflow/menus/PauseMenuState.h"
+#include "../../gameflow/menus/MainMenuState.h"
+#include "../../ui/HealthBar.h"
+#include "../../ui/ChargedAttackBar.h"
+#include "../../utils/InputHandler.h"
 
 // funci�n para hacer interpolaci�n lineal. Usada en el movimiento de la c�mara
 float lerp(float a, float b, float t)
@@ -12,34 +17,36 @@ float lerp(float a, float b, float t)
 	return a + t * (b - a);
 }
 
-void PlayState::handleEvents(SDL_Event& e) {
-	GameState::handleEvents(e);
-	if (e.type == SDL_KEYUP) {
-		if (e.key.keysym.sym == SDLK_ESCAPE) app->getStateMachine()->pushState(new PauseMenuState(app));
+void PlayState::handleEvents() {
+	GameState::handleEvents();
+	if (InputHandler::instance()->isKeyDown(SDLK_ESCAPE)) {
+		app->getStateMachine()->pushState(new PauseMenuState(app));
 	}
 }
 
-PlayState::PlayState(SDLApplication* app) : GameState(2, app) {
-	TP_Lamp* l1 = new TP_Lamp(Vector2D(500, 280), app->getTexture("lamp", 2), this, Scale(2, 2), LAMP);
-	TP_Lamp* l2 = new TP_Lamp(Vector2D(1500, 280), app->getTexture("lamp", 2), this, Scale(2, 2), LAMP);
-	TP_Lamp* l3 = new TP_Lamp(Vector2D(2000, 280), app->getTexture("lamp", 2), this, Scale(2, 2), LAMP);
+PlayState::PlayState(SDLApplication* app) : GameState(PLAY_STATE, app) {
+	TP_Lamp* l1 = new TP_Lamp(Vector2D(500, 280), app->getTexture("lamp", PLAY_STATE), this, Scale(2, 2), LAMP);
+	TP_Lamp* l2 = new TP_Lamp(Vector2D(1500, 280), app->getTexture("lamp", PLAY_STATE), this, Scale(2, 2), LAMP);
+	TP_Lamp* l3 = new TP_Lamp(Vector2D(2000, 280), app->getTexture("lamp", PLAY_STATE), this, Scale(2, 2), LAMP);
 	l1->SetLamp(l2);
 	l2->SetLamp(l1);
 	l3->SetLamp(l2);
 
-	Grass* g1 = new Grass(Vector2D(800,400- app->getTexture("grass", 2)->getH()), app->getTexture("grass", 2), this);
+	cout << " hello" << endl;
+	Grass* g1 = new Grass(Vector2D(800,400- app->getTexture("grass", PLAY_STATE)->getH()), app->getTexture("grass", PLAY_STATE), this);
 	gameObjects.push_back(g1);
 	intObjects.push_back(g1);
 	
-	ott = new Ott(Vector2D(0, 0), app->getTexture("ott", 2), this, Scale(0.3f, 0.3f));
+	ott = new Ott(Vector2D(0, 0), app->getTexture("ott", PLAY_STATE), this, Scale(0.3f, 0.3f));
 
-	gr = new Ground(Vector2D(0, 400), app->getTexture("whiteBox", 2), Scale(3.0f, 0.25f));
+	gr = new Ground(Vector2D(0, 400), app->getTexture("whiteBox", PLAY_STATE), Scale(3.0f, 0.25f));
 	// santuarios
 	/*Sanctuary* sct = new Sanctuary(Vector2D(200, 280), app->getTexture("whiteBox", 2), Scale(0.05f, 0.1f));
 	gameObjects.push_back(sct);
 	Sanctuary* sct2 = new Sanctuary(Vector2D(400, 280), app->getTexture("whiteBox", PLAY_STATE), Scale(0.05f, 0.1f));
 	gameObjects.push_back(sct2);
 	*/
+	currentMap = new Mapa(app, LEVEL1);
 	auto a = currentMap->getObjects();
 	for (auto it : a) {
 
@@ -53,18 +60,17 @@ PlayState::PlayState(SDLApplication* app) : GameState(2, app) {
 		groundObjects.push_back(grT);
 	}
 	gameObjects.push_back(gr);
-	gameObjects.push_back(gr1);
-	gameObjects.push_back(gr2);
 	gameObjects.push_back(ott);
+	gameObjects.push_back(currentMap);
+
 	groundObjects.push_back(gr);
-	groundObjects.push_back(gr1);
-	groundObjects.push_back(gr2);
 	physicObjects.push_back(ott);
     HealthBar* healthBar = new HealthBar(Vector2D(30, 100), app->getTexture("hearts", PLAY_STATE), Scale(10.0f, 10.0f));
 	gameObjects.push_back(healthBar);
     gameObjects.push_back(new ChargedAttackBar(healthBar->lastHeartPosition() + Vector2D(100, -10), app->getTexture("chargebar", PLAY_STATE), Scale(1.5f, 1.5f)));
 	camera = { 0,0,WINDOW_WIDTH, WINDOW_HEIGHT };
 }
+
 void PlayState::moveCamera() {
 	SDL_Rect ottRect = ott->getRect(); // conseguir la posici�n de Ott
 
@@ -170,7 +176,7 @@ void PlayState::setOttPos(const Vector2D& newPos) {
 void PlayState::addEnredadera(const Vector2D& pos) {
 
 	cout << "hola" << endl;
-	Enredaderas* e1 = new Enredaderas(Vector2D(pos.getX()+5, pos.getY() - app->getTexture("enredadera", 2)->getH()*1.25), app->getTexture("enredadera", 2), this);
+	Enredaderas* e1 = new Enredaderas(Vector2D(pos.getX()+5, pos.getY() - app->getTexture("enredadera", PLAY_STATE)->getH()*1.25), app->getTexture("enredadera", PLAY_STATE), this);
 	gameObjects.push_back(e1);
 	eObjects.push_back(e1);
 

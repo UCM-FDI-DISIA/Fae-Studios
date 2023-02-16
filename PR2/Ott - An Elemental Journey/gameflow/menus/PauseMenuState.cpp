@@ -4,6 +4,7 @@
 #include "../../ui/Button.h"
 #include "MainMenuState.h"
 #include "options/OptionsMenuState.h"
+#include "../../utils/InputHandler.h"
 
 PauseMenuState::PauseMenuState(SDLApplication* app) : MenuState(PAUSE_MENU, app->getTexture("playbackground", PAUSE_MENU), app) {
 	//Resume
@@ -60,9 +61,9 @@ void PauseMenuState::exit(SDLApplication* app) {
 	app->quitGame();
 }
 
-void PauseMenuState::handleEvents(SDL_Event& e) {
-	MenuState::handleEvents(e);
-	if (e.type == SDL_KEYUP) {
-		if (e.key.keysym.sym == SDLK_ESCAPE) app->getStateMachine()->popState();
+void PauseMenuState::handleEvents() {
+	MenuState::handleEvents();
+	if (InputHandler::instance()->isKeyDown(SDLK_ESCAPE)) {
+		app->getStateMachine()->popState();
 	}
 }

@@ -2,6 +2,7 @@
 #include "GameState.h"
 #include "../SDLApplication.h"
 #include "../loaders/TextureLoader.h"
+#include "../utils/InputHandler.h"
 
 GameState::~GameState() {
     for (auto e : gameObjects) delete(e); //Borramos todos los objetos de la lista
@@ -47,7 +48,7 @@ void GameState::handleEvents() {
         if (!deleted) ++it;
         else return;
     }
-    if (e.type == SDL_QUIT) app->quitGame();
+    if (InputHandler::instance()->quit()) app->quitGame();
 }
 
 void GameState::setDelete() {
