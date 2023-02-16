@@ -31,15 +31,15 @@ void Ott::setAnimState(ANIM_STATE newState) {
 		row = 5;
 		col = 2;
 	}
-	else if (newState == PEAK) {
+	else if (newState == PEAK && !climb) {
 		row = 5;
 		col = 3;
 	}
-	else if (newState == FALLING) {
+	else if (newState == FALLING && !climb) {
 		row = 5;
 		col = 4;
 	}
-	else if (newState == LAND) {
+	else if (newState == LAND && !climb) {
 		row = 5;
 		col = 5;
 		timer = 0.5 * ANIMATION_FRAME_RATE;
@@ -150,9 +150,11 @@ void Ott::handleEvents() {
 		}
 		if (climb && input->isKeyDown(SDLK_UP)) {
 			upC = true;
+			down = false;
 		}
 		if (input->isKeyDown(SDLK_DOWN)) {
 			down = true;
+			upC = false;
 		}
 	}
 	if (input->keyUpEvent()) {
@@ -176,90 +178,6 @@ void Ott::handleEvents() {
 			down = false;
 		}
 	}
-
-	//hacer bool/cambiar si solo se podia mover una vez en el salto creo recordar
-	/*if (event.type == SDL_KEYDOWN) {
-		if (event.key.keysym.sym == SDLK_LEFT) {
-			left = true;
-			//dir = Vector2D(-1, 0);
-			ismoving = true;
-			//attack = false;
-			lookingFront = false;
-		}
-		else if (event.key.keysym.sym == SDLK_RIGHT)
-		{
-			ismoving = true;
-			right = true;
-			//attack = false;
-			//dir = Vector2D(1, 0);
-			lookingFront = true;
-		}
-		if (event.key.keysym.sym == SDLK_SPACE) {
-			jump();
-
-			ismoving = true;
-			up = true;
-			//attack = false;
-		}
-		if (event.key.keysym.sym == SDLK_q && lastSanctuary != nullptr) {
-			SDL_Rect sRect = lastSanctuary->getRect();
-			SDL_Rect col = getRect();
-			if (SDL_HasIntersection(&col, &sRect)) resetLives();
-			ismoving = true;
-		}
-		if (!attack&& event.key.keysym.sym == SDLK_e) {
-			animState = ATTACK;
-			attack = true;
-			//cout << "ataque" << endl;
-			ismoving = true;
-			col = 2;
-			timer += ANIMATION_FRAME_RATE / 2;
-		}
-		if (event.key.keysym.sym == SDLK_x) {
-			recieveDamage(currentElement);
-		}
-		if (climb && event.key.keysym.sym == SDLK_UP) {
-			upC = true;
-			down = false;
-		}
-		if (climb && event.key.keysym.sym == SDLK_DOWN) {
-			down = true;
-			upC = false;
-		}
-		//cout << animState << endl;
-		//cout << dir.getX() << endl;
-	}
-	*/
-	/*if (event.type == SDL_KEYUP) {
-		if (event.key.keysym.sym == SDLK_LEFT) {
-			left = false;
-			dir = Vector2D(-1, 0);
-			//cout << "L_Out" << endl;
-		}
-		else if (event.key.keysym.sym == SDLK_RIGHT)
-		{
-			right = false;
-			//dir = Vector2D(1, 0);
-			//cout << "R_Out" << endl;
-		}
-		if (event.key.keysym.sym == SDLK_SPACE) {
-			jump();
-			up = false;
-		}
-		if (event.key.keysym.sym == SDLK_e) {
-		/*	attack = false;*/
-			//cout << "ataqueOut" << endl;
-		//}
-		/*if (event.key.keysym.sym == SDLK_UP) {
-			upC = false;
-		}
-		if (event.key.keysym.sym == SDLK_DOWN) {
-			down = false;
-			
-		}
-		//cout << animState << endl;
-		//cout << dir.getX() << endl;
-	}*/
 }
 
 bool Ott::canJump() {
@@ -277,8 +195,10 @@ void Ott::setSpeed() {
 	if (right) speed = Vector2D(horizontalSpeed, speed.getY());
 	else if (left) speed = Vector2D(-horizontalSpeed, speed.getY());
 	else speed = Vector2D(0, speed.getY());
-	if (upC) speed = Vector2D(speed.getX(), -climbForce);
-	if (down) speed = Vector2D(speed.getX(), climbForce);
+	if (upC && climb) { speed = Vector2D(speed.getX(), climbForce); notGroundedBefore = true; }
+	if (!ground && down && climb) { speed = Vector2D(speed.getX(), -climbForce); notGroundedBefore = false; }
+	if (climb && !upC && !down) { speed = Vector2D(speed.getX(), 0); notGroundedBefore = false; }
+
 }
 
 // Método usado para comprobar en qué animación estamos
@@ -286,6 +206,7 @@ void Ott::setSpeed() {
 // Si se usa setAnimState, es para que cambie sin esperar a ningún frame, que lo haga directamente
 void Ott::updateAnimState() {
 	ANIM_STATE previous = animState;
+	cout << "hello" << endl;
 	if (attack) { // animación de ataque
 		if (previous != ATTACK) { // si se estaba atacando antes, no hace falta volver a poner la animación de ataque
 			col = 2;
@@ -318,11 +239,7 @@ void Ott::update() {
 		}
 		speed =  Vector2D(0, speed.getY());
 	}
-	if (right)speed = Vector2D(1, speed.getY());
-	if (left) speed = Vector2D(-1, speed.getY());
-	if (upC && climb) {  speed = Vector2D(speed.getX(), climbForce); notGroundedBefore = false; }
-	if (!ground&&down && climb) { speed = Vector2D(speed.getX(), -climbForce); notGroundedBefore = false;}
- 	if ( climb && !upC && !down) { speed = Vector2D(speed.getX(), 0); notGroundedBefore = false; }
+
 	setSpeed(); // ver qué velocidad debería tener Ott ahora en función del input
 
 	// AVANZAR / CAMBIAR DE ANIMACIÓN SEGÚN ANIMATION_FRAME_RATE
@@ -352,7 +269,6 @@ void Ott::update() {
 				speed = Vector2D(speed.getX(), 0);
 				if (!attack) setAnimState(LAND);
 			}
-			isJumping = false;
 			notGroundedBefore = true;
 		}
 		else notGroundedBefore = false; // en caso de no estar en el suelo, habrá que fixear la posición cuando choque contra algún suelo

@@ -71,7 +71,7 @@ void PlayState::moveCamera() {
 	if (ottRect.y < camera.y + camera.h - CAM_DEAD_ZONE || ottRect.y > camera.y + CAM_OFFSET_HEIGHT * camera.h) {
 		camera.y = lerp(camera.y, (ottRect.y + ottRect.h / 2) - CAM_OFFSET_HEIGHT * WINDOW_HEIGHT, 0.1);
 	}
-		// Limites de la camara dependiendo del tama�o de la sala (mapa)
+	// Limites de la camara dependiendo del tama�o de la sala (mapa)
 	if (camera.x < 0)
 	{
 		camera.x = 0;
@@ -88,6 +88,7 @@ void PlayState::moveCamera() {
 	{
 		camera.y = LEVEL_HEIGHT - camera.h;
 	}
+}
 
 void PlayState::update() {
 	GameState::update(); // llamada a todos los updates de la lista de gameObjects
@@ -130,40 +131,11 @@ void PlayState::update() {
 }
 
 
-}
-
 void PlayState::ottCollide(const SDL_Rect& Ott, const SDL_Rect& onGround, SDL_Rect& colRect, bool& col, bool& ground) {
 	// COMPROBACI�N DE COLISIONES CON OBJETOS DE TIPO SUELO (PROVISIONAL)
 	for (auto it : groundObjects) {
 		ground = it->collide(onGround, colRect);
 	}
-}
-
-void PlayState::update() {
-	GameState::update(); // llamada a todos los updates de la lista de gameObjects
-
-	// ACTIVAR GRAVEDAD PARA TODOS LOS OBJETOS F�SICOS
-	for (auto it : physicObjects) {
-		if (!it->isGrounded()) {
-			it->useGravity();
-		}
-	}
-
-	// COMPROBACI�N PARA ACTIVAR OBJETOS INTERACTUABLES
-	for (auto it : intObjects) {
-		SDL_Rect result;
-		if (it->collide(ott->getRect(), result)) // SI SE HA DETECTADO INTERACCI�N CON EL OBJETO, SE ACTIVA
-		{ 
-			it->interact(); // ACTIVACI�N DEL OBJETO
-
-			if (it->getType() == LAMP) { // Si el objeto es de tipo L�MPARA debe cambiar una animaci�n de Ott
-				ott->setAnimState(TP_IN);
-			}
-		}
-	}
-
-	// MOVIMIENTO DE LA C�MARA EN FUNCI�N DE POSICI�N DE OTT
-	moveCamera();
 }
 
 void PlayState::render() const {
