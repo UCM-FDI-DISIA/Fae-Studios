@@ -220,9 +220,11 @@ void Ott::handleEvents() {
 		}
 		if (climb && event.key.keysym.sym == SDLK_UP) {
 			upC = true;
+			down = false;
 		}
 		if (climb && event.key.keysym.sym == SDLK_DOWN) {
 			down = true;
+			upC = false;
 		}
 		//cout << animState << endl;
 		//cout << dir.getX() << endl;
@@ -253,19 +255,11 @@ void Ott::handleEvents() {
 		}
 		if (event.key.keysym.sym == SDLK_DOWN) {
 			down = false;
+			
 		}
 		//cout << animState << endl;
 		//cout << dir.getX() << endl;
 	}*/
-	if(!right && !left)
-	{
-		if (!attack) {
-			//cout << "SALII" << endl;
-			ismoving = false;
-		}
-		 dir = dir * Vector2D(0, 1);
-	}
-	//cout << left << " " << right << " " << attack << endl;
 }
 
 bool Ott::canJump() {
@@ -316,7 +310,19 @@ void Ott::update() {
 	if (xDir == 0 && yDir == 0) arrowAngle = 0;
 	*/
 #pragma endregion
-
+	if (!right && !left)
+	{
+		if (!attack) {
+			//cout << "SALII" << endl;
+			ismoving = false;
+		}
+		speed =  Vector2D(0, speed.getY());
+	}
+	if (right)speed = Vector2D(1, speed.getY());
+	if (left) speed = Vector2D(-1, speed.getY());
+	if (upC && climb) {  speed = Vector2D(speed.getX(), climbForce); notGroundedBefore = false; }
+	if (!ground&&down && climb) { speed = Vector2D(speed.getX(), -climbForce); notGroundedBefore = false;}
+ 	if ( climb && !upC && !down) { speed = Vector2D(speed.getX(), 0); notGroundedBefore = false; }
 	setSpeed(); // ver qué velocidad debería tener Ott ahora en función del input
 
 	// AVANZAR / CAMBIAR DE ANIMACIÓN SEGÚN ANIMATION_FRAME_RATE
@@ -361,7 +367,6 @@ void Ott::update() {
 	else if (animState == TP_OUT) position = tpPosition; // en caso de estarse teletransportando entre lámparas, se fixea su posición
 														 // a la de la lámpara objetivo
 }
-
 // renderizado de Ott
 void Ott::render(const SDL_Rect& Camera) const {
 #pragma region CONTROLLER INPUT

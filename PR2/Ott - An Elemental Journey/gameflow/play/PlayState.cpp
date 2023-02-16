@@ -5,7 +5,7 @@
 #include "../../gameobjects/Ott/Ott.h"
 #include "../../gameobjects/InteractuableObject.h"
 
-// función para hacer interpolación lineal. Usada en el movimiento de la cámara
+// funciï¿½n para hacer interpolaciï¿½n lineal. Usada en el movimiento de la cï¿½mara
 float lerp(float a, float b, float t)
 {
 	return a + t * (b - a);
@@ -50,29 +50,28 @@ PlayState::PlayState(SDLApplication* app) : GameState(2, app) {
 	groundObjects.push_back(gr);
 	physicObjects.push_back(ott);
 
-	// Rect de la cámara
+	// Rect de la cï¿½mara
 	camera = { 0,0,WINDOW_WIDTH, WINDOW_HEIGHT };
 }
 
 void PlayState::moveCamera() {
-	SDL_Rect ottRect = ott->getRect(); // conseguir la posición de Ott
+	SDL_Rect ottRect = ott->getRect(); // conseguir la posiciï¿½n de Ott
 
 	// mover camera.x
-	// Comprobamos si la cámara está suficientemente cerca del jugador. En caso de que lo esté, la posición se settea a la 
-	// posición del jugador. En caso contrario, se hace una interpolación lineal para acercarse "lentalmente". Esto solo se aprecia cuando
-	// la cámara viaja grandes distancias (entre lámparas, por ejemplo). 
+	// Comprobamos si la cï¿½mara estï¿½ suficientemente cerca del jugador. En caso de que lo estï¿½, la posiciï¿½n se settea a la 
+	// posiciï¿½n del jugador. En caso contrario, se hace una interpolaciï¿½n lineal para acercarse "lentalmente". Esto solo se aprecia cuando
+	// la cï¿½mara viaja grandes distancias (entre lï¿½mparas, por ejemplo). 
 	if (ottRect.x + ottRect.w / 2 - camera.x <= 10 && ottRect.x + ottRect.w / 2 - camera.x >= -10) camera.x = (int)((ottRect.x + ottRect.w / 2) - WINDOW_WIDTH / 2);
 	else camera.x = lerp(camera.x, (int)((ottRect.x + ottRect.w / 2) - WINDOW_WIDTH / 2), 0.02);
 
 	// mover camera.y
-	// Setteamos un deadzone donde la cámara no tiene porqué moverse (CAM_DEAD_ZONE). En caso de que el personaje salga de esta
-	// zona, la cámara se mueve. También se moverá si está por debajo del mínimo admitido (CAM_OFFSET_HEIGHT * camera.h)
-	// Siempre se calcula la posición con interpolación lineal
+	// Setteamos un deadzone donde la cï¿½mara no tiene porquï¿½ moverse (CAM_DEAD_ZONE). En caso de que el personaje salga de esta
+	// zona, la cï¿½mara se mueve. Tambiï¿½n se moverï¿½ si estï¿½ por debajo del mï¿½nimo admitido (CAM_OFFSET_HEIGHT * camera.h)
+	// Siempre se calcula la posiciï¿½n con interpolaciï¿½n lineal
 	if (ottRect.y < camera.y + camera.h - CAM_DEAD_ZONE || ottRect.y > camera.y + CAM_OFFSET_HEIGHT * camera.h) {
 		camera.y = lerp(camera.y, (ottRect.y + ottRect.h / 2) - CAM_OFFSET_HEIGHT * WINDOW_HEIGHT, 0.1);
 	}
-
-	// Limites de la camara dependiendo del tamaño de la sala (mapa)
+		// Limites de la camara dependiendo del tamaï¿½o de la sala (mapa)
 	if (camera.x < 0)
 	{
 		camera.x = 0;
@@ -89,10 +88,52 @@ void PlayState::moveCamera() {
 	{
 		camera.y = LEVEL_HEIGHT - camera.h;
 	}
+
+void PlayState::update() {
+	GameState::update(); // llamada a todos los updates de la lista de gameObjects
+
+	// ACTIVAR GRAVEDAD PARA TODOS LOS OBJETOS FÃSICOS
+	for (auto it : physicObjects) {
+		if (!it->isGrounded()) {
+			it->useGravity();
+		}
+	}
+
+	// COMPROBACIÃ“N PARA ACTIVAR OBJETOS INTERACTUABLES
+	for (auto it : intObjects) {
+		SDL_Rect result;
+		if (it->collide(ott->getRect(), result)) // SI SE HA DETECTADO INTERACCIÃ“N CON EL OBJETO, SE ACTIVA
+		{ 
+			it->interact(); // ACTIVACIÃ“N DEL OBJETO
+
+			if (it->getType() == LAMP) { // Si el objeto es de tipo LÃMPARA debe cambiar una animaciÃ³n de Ott
+				ott->setAnimState(TP_IN);
+			}
+		}
+	}
+
+	for (auto it : eObjects) {
+		SDL_Rect result;
+		if (it->collide(ott->getRect(), result))
+		{ 
+			cout << "Climbing" << endl;
+			ott->canClimb();
+		}
+		else {
+			cout << "Not climbing" << endl;
+			ott->cannotClimb();
+		}
+	}
+
+	// MOVIMIENTO DE LA CÃMARA EN FUNCIÃ“N DE POSICIÃ“N DE OTT
+	moveCamera();
+}
+
+
 }
 
 void PlayState::ottCollide(const SDL_Rect& Ott, const SDL_Rect& onGround, SDL_Rect& colRect, bool& col, bool& ground) {
-	// COMPROBACIÓN DE COLISIONES CON OBJETOS DE TIPO SUELO (PROVISIONAL)
+	// COMPROBACIï¿½N DE COLISIONES CON OBJETOS DE TIPO SUELO (PROVISIONAL)
 	for (auto it : groundObjects) {
 		ground = it->collide(onGround, colRect);
 	}
@@ -101,27 +142,27 @@ void PlayState::ottCollide(const SDL_Rect& Ott, const SDL_Rect& onGround, SDL_Re
 void PlayState::update() {
 	GameState::update(); // llamada a todos los updates de la lista de gameObjects
 
-	// ACTIVAR GRAVEDAD PARA TODOS LOS OBJETOS FÍSICOS
+	// ACTIVAR GRAVEDAD PARA TODOS LOS OBJETOS Fï¿½SICOS
 	for (auto it : physicObjects) {
 		if (!it->isGrounded()) {
 			it->useGravity();
 		}
 	}
 
-	// COMPROBACIÓN PARA ACTIVAR OBJETOS INTERACTUABLES
+	// COMPROBACIï¿½N PARA ACTIVAR OBJETOS INTERACTUABLES
 	for (auto it : intObjects) {
 		SDL_Rect result;
-		if (it->collide(ott->getRect(), result)) // SI SE HA DETECTADO INTERACCIÓN CON EL OBJETO, SE ACTIVA
+		if (it->collide(ott->getRect(), result)) // SI SE HA DETECTADO INTERACCIï¿½N CON EL OBJETO, SE ACTIVA
 		{ 
-			it->interact(); // ACTIVACIÓN DEL OBJETO
+			it->interact(); // ACTIVACIï¿½N DEL OBJETO
 
-			if (it->getType() == LAMP) { // Si el objeto es de tipo LÁMPARA debe cambiar una animación de Ott
+			if (it->getType() == LAMP) { // Si el objeto es de tipo Lï¿½MPARA debe cambiar una animaciï¿½n de Ott
 				ott->setAnimState(TP_IN);
 			}
 		}
 	}
 
-	// MOVIMIENTO DE LA CÁMARA EN FUNCIÓN DE POSICIÓN DE OTT
+	// MOVIMIENTO DE LA Cï¿½MARA EN FUNCIï¿½N DE POSICIï¿½N DE OTT
 	moveCamera();
 }
 
@@ -143,15 +184,11 @@ void PlayState::setOttPos(const Vector2D& newPos) {
 	ott->setTpPoint(newPos);
 }
 
-void PlayState::addEnredadera(const Vector2D& pos, const Scale& scale) {
+void PlayState::addEnredadera(const Vector2D& pos) {
 
-	// añadir una enredadera al mapa y las listas de objetos
-	Enredaderas* e1 = new Enredaderas(pos, app->getTexture("whiteBox", 2), this, scale);
+	cout << "hola" << endl;
+	Enredaderas* e1 = new Enredaderas(Vector2D(pos.getX(), pos.getY() - app->getTexture("enredadera", 2)->getH()), app->getTexture("enredadera", 2), this);
 	gameObjects.push_back(e1);
-	intObjects.push_back(e1);
+	eObjects.push_back(e1);
 
-}
-
-void PlayState::climb() {
-	ott->canClimb();
 }

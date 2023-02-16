@@ -7,6 +7,7 @@
 
 class Ott;
 class InteractuableObject;
+class Enredaderas;
 
 using Camera = SDL_Rect;
 
@@ -23,6 +24,7 @@ private:
     list<Ground*> groundObjects;
     list<Wall*> wallObjects;
     list<InteractuableObject*> intObjects;
+    list< Enredaderas*> eObjects;
     Camera camera;
     Ott* ott;
 public:
@@ -34,8 +36,7 @@ public:
     virtual void render() const;
     SDL_Rect ottPos() const;
     void setOttPos(const Vector2D& newPos);
-    void addEnredadera(const Vector2D& pos, const Scale& scale);
     void climb();
     void moveCamera();
-
+    void addEnredadera(const Vector2D& pos);
 };
