@@ -2,35 +2,41 @@
 #include "../../gameflow/play/PlayState.h"
 #include "../Sanctuary.h"
 
-enum ANIM_STATE { IDLE, WALKING, LAND, JUMPING, PEAK, FALLING, ATTACK };
+enum ANIM_STATE { IDLE, WALKING, LAND, JUMPING, PEAK, FALLING, ATTACK, TP_IN, TP_OUT };
 
 class Ott : public Entity {
 protected:
 
     bool left = false, right = false, up = false, attack = false, upC = false, down = false;
 
-    bool lookingFront = true;
+    bool lookingFront = true; // indica hacia dónde debe mirar el sprite
 
     //Analog joystick dead zone
     const int JOYSTICK_DEAD_ZONE = 8000; // EL MÁXIMO VALOR ES 32000, POR ESO PONEMOS UNA DEAD ZONE TAN APARENTEMENTE GRANDE
+    const int MAX_VERTICAL_SPEED = 8;
 
-    bool jumpFlag = true;
-    bool jumping = false;
-    const double jumpForce = -5;
+    const double jumpForce = -5;  // velocidad puesta en la coordenada Y al saltar
 
-    bool climb = false;
+    bool climb = false; // indica si Ott está escalando una enredadera
 
-    ANIM_STATE animState = IDLE;
-    const int ANIMATION_FRAME_RATE = 40;
-    int timer = 0;
-    int row = 0;
-    int col = 0;
+    bool tp = false; // indica si Ott está en medio de un teletransporte a través de lámparas o no
+
+    // animation parameters
+    ANIM_STATE animState = IDLE; // estado actual de animación
+    const int ANIMATION_FRAME_RATE = 40; // cada cuantos frames se comprueba el estado de la animación y se cambia/avanza
+    int timer = 0; // timer para avanzar 1 en cada frame hasta llegar a ANIMATION_FRAME_RATE
+    int row = 0; // fila de spritesheet
+    int col = 0; // columna de spritesheet
 
     SDL_Rect onGround;
-    bool ground = false;
     bool ismoving = false;
     bool notGroundedBefore = false;
-    Vector2D speed = { 0,0 };
+    Vector2D tpPosition;
+
+    bool isJumping = false;
+
+    int horizontalSpeed = 1;
+    int climbForce = 1;
 
     //Parámetros que controlan la vida debil
     bool weakened = false;
@@ -47,15 +53,14 @@ public:
     void jump();
     // Renderizado 
     virtual void render(const SDL_Rect& Camera) const;
+
+    void setAnimState(ANIM_STATE newState);
+
     /// Obtención del rectángulo destino del objeto
     virtual void update();
 
-    inline bool isGrounded() { return ground; };
-
-    void useGravity();
-
     /// \param event SDL_Event con el evento a manejar
-    virtual void handleEvents(const SDL_Event& event);
+    virtual void handleEvents();
 
     //Evento de daño
     virtual void recieveDamage(int elem);
@@ -68,8 +73,11 @@ public:
 
     virtual bool collide(GameObject* c);
 
-    void setPos(const Vector2D& newPos);
+    void setTpPoint(const Vector2D& newPos);
 
+    void setSpeed();
+
+    void updateAnimState();
 private:
     virtual void die();
 };

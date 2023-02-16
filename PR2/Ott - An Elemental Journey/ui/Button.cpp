@@ -1,6 +1,7 @@
 #include "../checkML.h"
 #include "Button.h"
 #include "../SDLApplication.h"
+#include "../utils/InputHandler.h"
 
 Button::Button(const ButtonParams& params) : UIElement(params.position, params.texture, params.scale), app(params.app), callback(params.callback), buttonText(params.buttonText), textScale(params.textScale) {
     text = new Text(buttonText, *(app->getFont("vcr_osd")), Vector2D(position.getX() + (texture->getW() / 3 / 2), position.getY()), app->getRenderer(), params.textCol, textScale);
@@ -11,7 +12,7 @@ Button::~Button() {
     delete text;
 }
 
-void Button::handleEvents(const SDL_Event &e) {
+void Button::handleEvents() {
     SDL_Point mousePosition;
     SDL_Rect buttonRect = getRect();
     SDL_GetMouseState(&mousePosition.x, &mousePosition.y); //Nos guardamos la posición del ratón
@@ -24,7 +25,7 @@ void Button::handleEvents(const SDL_Event &e) {
         text->movePosition(Vector2D(position.getX() + ((texture->getW() / 3) / 2) - (textScale.widthScale / 2) * text->getTexture()->getW(), position.getY() + text->getTexture()->getH() + 2 * (10 * 1 / textScale.heightScale)));
         currentButtonFrame = MOUSE_OVER; //Indica que el ratón está sobre el botón
     }
-    if(SDL_PointInRect(&mousePosition, &buttonRect) && e.type == SDL_MOUSEBUTTONDOWN) { //Indica que se ha pulsado el botón
+    if(SDL_PointInRect(&mousePosition, &buttonRect) && InputHandler::instance()->getMouseButtonState(InputHandler::LEFT)) { //Indica que se ha pulsado el botón
         currentButtonFrame = CLICKED;
         text->movePosition(Vector2D(position.getX() + ((texture->getW() / 3) / 2) - (textScale.widthScale / 2) * text->getTexture()->getW(), position.getY() + text->getTexture()->getH() + (100 * (1/textScale.heightScale))/2));
         onClick(); //Si clicamos, llamamos a la función asociada al botón
@@ -56,8 +57,8 @@ void ImageButton::render(const SDL_Rect& camera) const {
     }
 }
 
-void ImageButton::handleEvents(const SDL_Event& e) {
-    Button::handleEvents(e);
+void ImageButton::handleEvents() {
+    Button::handleEvents();
     switch (currentButtonFrame) {
         case MOUSE_OUT:
             imagePos.y = getRect().y + (texture->getH() / 2 - 0.5 * (image->getH() / 2));

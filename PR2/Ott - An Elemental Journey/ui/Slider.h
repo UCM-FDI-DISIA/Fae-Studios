@@ -50,7 +50,7 @@ public:
 
     ~Slider() override;
 
-    void handleEvents(const SDL_Event& event) final;
+    void handleEvents() final;
 
     void update() final;
 

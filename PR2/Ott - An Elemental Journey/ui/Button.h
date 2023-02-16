@@ -59,7 +59,7 @@ public:
 
     /// Manejo de eventos, principalmente el pulsar el botón
     /// \param e SDL_Event con el evento detectado en Game
-    void handleEvents(const SDL_Event& e) override;
+    void handleEvents() override;
 };
 
 enum ImageClass { FULL_IMAGE, SPRITESHEET };
@@ -77,7 +77,7 @@ public:
 
     void render(const SDL_Rect& camera = { 0,0,0,0 }) const final;
 
-    void handleEvents(const SDL_Event& e) final;
+    void handleEvents() final;
 };
 
 #endif //PROYECTOS2_BUTTON_H

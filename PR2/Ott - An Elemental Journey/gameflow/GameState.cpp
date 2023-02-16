@@ -39,11 +39,11 @@ void GameState::render() const {
     }
 }
 
-void GameState::handleEvents(SDL_Event& e) {
+void GameState::handleEvents() {
     //Recorremos la lista para manejar los eventos de los objetos,
     // y en caso de que se haya borrado un elemento en la lista, dejamos de recorrerla
     for (auto it = gameObjects.begin(); it != gameObjects.end() && !deleted;) {
-        (*it)->handleEvents(e);
+        (*it)->handleEvents();
         if (!deleted) ++it;
         else return;
     }

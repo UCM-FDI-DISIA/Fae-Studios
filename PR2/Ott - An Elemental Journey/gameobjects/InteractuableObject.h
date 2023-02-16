@@ -7,7 +7,7 @@ class InteractuableObject : public CollisionObject
 protected:
 	PlayState* game;
 public:
-	InteractuableObject(Vector2D position, Texture* texture, PlayState* game, Scale scale = Scale(1.0f, 1.0f)) : CollisionObject(position, texture, scale), game(game) {};
+	InteractuableObject(Vector2D position, Texture* texture, PlayState* game, Scale scale = Scale(1.0f, 1.0f), GO_TYPE type = DEFAULT) : CollisionObject(position, texture, scale, type), game(game) {};
 	virtual void interact() = 0;
 	virtual bool collide(const SDL_Rect& obj, SDL_Rect& result);
 };
@@ -15,10 +15,15 @@ public:
 class TP_Lamp : public InteractuableObject {
 private:
 	TP_Lamp* pairedLamp;
+	bool canTP = false;
+	const uint MAX_TIME = 300;
+	uint timer = MAX_TIME;
 public:
-	TP_Lamp(Vector2D position, Texture* texture, PlayState* game, Scale scale = Scale(1.0f, 1.0f)) : InteractuableObject(position, texture, game, scale) {};
+	TP_Lamp(Vector2D position, Texture* texture, PlayState* game, Scale scale = Scale(1.0f, 1.0f), GO_TYPE type = DEFAULT) : InteractuableObject(position, texture, game, scale, type) {};
+	virtual bool collide(const SDL_Rect& obj, SDL_Rect& result);
 	void SetLamp(TP_Lamp* pair) { pairedLamp = pair; };
 	virtual void interact();
+	virtual void update();
 };
 
 class Enredaderas : public InteractuableObject {

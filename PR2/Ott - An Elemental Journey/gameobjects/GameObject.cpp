@@ -1,12 +1,15 @@
 #include "../checkML.h"
 #include "GameObject.h"
 
-GameObject::GameObject(const Vector2D& position, Texture* texture, const Scale& scale) {
+GameObject::GameObject(const Vector2D& position, Texture* texture, const Scale& scale, GO_TYPE type) {
     this->position = position;
     this->texture = texture;
     this->width = texture->getW() * scale.widthScale;
     this->height = texture->getH()  * scale.heightScale;
+    this->type = type;
 }
+
+GO_TYPE GameObject::getType() { return type; }
 
 SDL_Rect GameObject::getRect() const {
     SDL_Rect destRect;

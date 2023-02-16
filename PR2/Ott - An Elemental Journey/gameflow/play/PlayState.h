@@ -10,8 +10,10 @@ class InteractuableObject;
 
 using Camera = SDL_Rect;
 
-const uint LEVEL_WIDTH = 1800;
-const uint LEVEL_HEIGHT = 800;
+const uint LEVEL_WIDTH = 8000;
+const uint LEVEL_HEIGHT = 8000;
+const auto CAM_OFFSET_HEIGHT = 0.78;
+const int CAM_DEAD_ZONE = 300;
 
 class PlayState : public GameState {
 private:
@@ -24,8 +26,6 @@ private:
     Camera camera;
     Ott* ott;
 public:
-    static bool Interacting;
-    static bool IsInteracting() { return Interacting; };
     PlayState(SDLApplication* app);
     virtual void handleEvents(SDL_Event& e);
     void ottCollide(const SDL_Rect& Ott, const SDL_Rect& onGround, SDL_Rect& colRect, bool& col, bool& ground);
@@ -36,4 +36,6 @@ public:
     void setOttPos(const Vector2D& newPos);
     void addEnredadera(const Vector2D& pos, const Scale& scale);
     void climb();
+    void moveCamera();
+
 };

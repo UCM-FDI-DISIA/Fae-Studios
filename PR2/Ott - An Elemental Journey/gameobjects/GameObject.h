@@ -6,6 +6,8 @@
 #include "../dependencies/Vector2D.h"
 #include "../dependencies/Texture.h"
 
+enum GO_TYPE { LAMP, SANCTUARY, OTT, DEFAULT };
+
 struct Scale {
     float widthScale = 1.0f;
     float heightScale = 1.0f;
@@ -19,12 +21,13 @@ protected:
     uint width = 0; ///< Anchura del objeto
     uint height = 0;  ///< Altura del objeto
     Texture* texture = nullptr; ///< Puntero a la textura del objeto;
+    GO_TYPE type = DEFAULT;
 
     /// Constructora de la clase GameObject
     /// \param position Vector con la posición del objeto
     /// \param texture Puntero a la textura del objeto
     /// \param scale float con la escala en pantalla del objeto
-    GameObject(const Vector2D& position, Texture* texture, const Scale& scale = Scale(1.0f, 1.0f));
+    GameObject(const Vector2D& position, Texture* texture, const Scale& scale = Scale(1.0f, 1.0f), GO_TYPE type = DEFAULT);
 
 public:
     /// Destructora de la clase GameObject
@@ -42,8 +45,9 @@ public:
 
     /// Manejo de eventos tales como la pulsación de una tecla
     /// \param event SDL_Event con el evento a manejar
-    virtual void handleEvents(const SDL_Event& event) {};
+    virtual void handleEvents() {};
 
+    GO_TYPE getType();
 };
 
 #endif //PROYECTOSSDL_GAMEOBJECT_H

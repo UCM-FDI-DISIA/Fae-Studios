@@ -37,7 +37,7 @@ public:
 
     /// Maneja los eventos de los gameobjects de la lista
     /// \param e SDL_Event con el evento
-    virtual void handleEvents(SDL_Event& e);
+    virtual void handleEvents();
 
     /// Devuelve el ID de la escena
     /// \return int con el ID de la escena

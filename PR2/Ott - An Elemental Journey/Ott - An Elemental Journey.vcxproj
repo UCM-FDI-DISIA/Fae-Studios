@@ -164,6 +164,8 @@
     <ClInclude Include="ui\Slider.h" />
     <ClInclude Include="ui\Text.h" />
     <ClInclude Include="ui\UIElement.h" />
+    <ClInclude Include="utils\InputHandler.h" />
+    <ClInclude Include="utils\Singleton.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="gameflow\play\PlayState.cpp" />
