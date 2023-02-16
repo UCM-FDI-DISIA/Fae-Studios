@@ -133,7 +133,7 @@ void Mapa::render(const SDL_Rect& Camera) const{
     for (int i = 0; i < vectorTiles.size(); i++) {
         auto it = vectorTiles[i].ID;
         if (it == 0) continue;
-        tilemap->renderFrame({ (int)(i % 34) * 50 - offsetX, (int)((i / 34) * 50) - offsetY, 50, 50 }, (it - (it % 20)) / 20, it % 20 - 1);
+        tilemap->renderFrame({ (int)(i % 192) * 50 - offsetX, (int)((i / 192) * 50) - offsetY, 50, 50 }, (it - (it % 20)) / 20, it % 20 - 1);
     }
 }
 

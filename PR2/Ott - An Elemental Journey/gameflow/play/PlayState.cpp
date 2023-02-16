@@ -31,22 +31,21 @@ PlayState::PlayState(SDLApplication* app) : GameState(PLAY_STATE, app) {
 	l1->SetLamp(l2);
 	l2->SetLamp(l1);
 	l3->SetLamp(l2);
+	currentMap = new Mapa(app, LEVEL1);
+	gameObjects.push_back(currentMap);
 
-	cout << " hello" << endl;
 	Grass* g1 = new Grass(Vector2D(800,400- app->getTexture("grass", PLAY_STATE)->getH()), app->getTexture("grass", PLAY_STATE), this);
 	gameObjects.push_back(g1);
 	intObjects.push_back(g1);
 	
 	ott = new Ott(Vector2D(0, 0), app->getTexture("ott", PLAY_STATE), this, Scale(0.3f, 0.3f));
 
-	gr = new Ground(Vector2D(0, 400), app->getTexture("whiteBox", PLAY_STATE), Scale(3.0f, 0.25f));
 	// santuarios
 	/*Sanctuary* sct = new Sanctuary(Vector2D(200, 280), app->getTexture("whiteBox", 2), Scale(0.05f, 0.1f));
 	gameObjects.push_back(sct);
 	Sanctuary* sct2 = new Sanctuary(Vector2D(400, 280), app->getTexture("whiteBox", PLAY_STATE), Scale(0.05f, 0.1f));
 	gameObjects.push_back(sct2);
 	*/
-	currentMap = new Mapa(app, LEVEL1);
 	auto a = currentMap->getObjects();
 	for (auto it : a) {
 
@@ -59,11 +58,8 @@ PlayState::PlayState(SDLApplication* app) : GameState(PLAY_STATE, app) {
 		gameObjects.push_back(grT);
 		groundObjects.push_back(grT);
 	}
-	gameObjects.push_back(gr);
 	gameObjects.push_back(ott);
-	gameObjects.push_back(currentMap);
 
-	groundObjects.push_back(gr);
 	physicObjects.push_back(ott);
     HealthBar* healthBar = new HealthBar(Vector2D(30, 100), app->getTexture("hearts", PLAY_STATE), Scale(10.0f, 10.0f));
 	gameObjects.push_back(healthBar);
