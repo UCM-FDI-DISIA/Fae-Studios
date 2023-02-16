@@ -3,17 +3,17 @@
 #include "../gameflow/PlayState.h"
 
 
-Enemy::Enemy(const Vector2D& position, Texture* texture, int lives, elementsInfo::elements elem, GameObject* p, bool moving, Vector2D dir, const Scale& scale, float w, GameState* state) : MovingObject(position, texture, dir, scale, state), actualLives(lives), element(elem), player(p) {
+Enemy::Enemy(const Vector2D& position, Texture* texture, int lives, elementsInfo::elements elem, GameObject* p, bool moving, Vector2D dir, const Scale& scale, float wTrigger, float hTrigger, GameState* state) : MovingObject(position, texture, dir, scale, state), actualLives(lives), element(elem), player(p) {
 	maxLives = lives * 2;  // Representación interna doblada
 	actualLives = lives * 2;
 	speed = 0.3;
 
 	attackTrigger.x = position.getX() + width; attackTrigger.y = position.getY();
-	attackTrigger.w = w; attackTrigger.h = height;
+	attackTrigger.w = wTrigger; attackTrigger.h = height;
 	attackState = normal;
 
-	detectingTrigger.x = position.getX() + width; detectingTrigger.y = position.getY();
-	detectingTrigger.w = 2 * w; detectingTrigger.h = height;
+	detectingTrigger.x = position.getX() + width; detectingTrigger.y = position.getY() + height / 2 - hTrigger / 2;
+	detectingTrigger.w = 2 * wTrigger; detectingTrigger.h = hTrigger;
 	detectPlayer = false;
 
 	movee = moving; // TEMPORAL, BORRAR
@@ -94,7 +94,6 @@ void Enemy::update() {
 	if (!movee) { // TEMPORAL, BORRAR
 		return;
 	}
-	cout << lookingRight << endl
 
 	if (!grounded) {
 		useGravity();
@@ -152,7 +151,7 @@ void Enemy::MoveTriggers() {
 	attackTrigger.y = position.getY();
 
 	detectingTrigger.x = attackTrigger.x;
-	detectingTrigger.y = attackTrigger.y;
+	detectingTrigger.y = attackTrigger.y + height/2 - detectingTrigger.h/2;
 }
 
 
