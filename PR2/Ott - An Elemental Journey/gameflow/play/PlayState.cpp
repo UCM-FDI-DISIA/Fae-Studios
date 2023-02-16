@@ -78,16 +78,16 @@ void PlayState::moveCamera() {
 	// Comprobamos si la c�mara est� suficientemente cerca del jugador. En caso de que lo est�, la posici�n se settea a la 
 	// posici�n del jugador. En caso contrario, se hace una interpolaci�n lineal para acercarse "lentalmente". Esto solo se aprecia cuando
 	// la c�mara viaja grandes distancias (entre l�mparas, por ejemplo). 
-	if (ottRect.x + ottRect.w / 2 - camera.x <= 10 && ottRect.x + ottRect.w / 2 - camera.x >= -10) camera.x = (int)((ottRect.x + ottRect.w / 2) - WINDOW_WIDTH / 2);
-	else camera.x = lerp(camera.x, (int)((ottRect.x + ottRect.w / 2) - WINDOW_WIDTH / 2), 0.02);
+	camera.x = lerp(camera.x, (int)((ottRect.x + ottRect.w / 2) - WINDOW_WIDTH / 2), 0.02);
 
 	// mover camera.y
 	// Setteamos un deadzone donde la c�mara no tiene porqu� moverse (CAM_DEAD_ZONE). En caso de que el personaje salga de esta
 	// zona, la c�mara se mueve. Tambi�n se mover� si est� por debajo del m�nimo admitido (CAM_OFFSET_HEIGHT * camera.h)
 	// Siempre se calcula la posici�n con interpolaci�n lineal
 	if (ottRect.y < camera.y + camera.h - CAM_DEAD_ZONE || ottRect.y > camera.y + CAM_OFFSET_HEIGHT * camera.h) {
-		camera.y = lerp(camera.y, (ottRect.y + ottRect.h / 2) - CAM_OFFSET_HEIGHT * WINDOW_HEIGHT, 0.1);
+		camera.y = lerp(camera.y, (ottRect.y + ottRect.h / 2) - CAM_OFFSET_HEIGHT * WINDOW_HEIGHT, 0.03);
 	}
+
 	// Limites de la camara dependiendo del tama�o de la sala (mapa)
 	if (camera.x < 0)
 	{
@@ -149,12 +149,24 @@ void PlayState::update() {
 	moveCamera();
 }
 
-
-void PlayState::ottCollide(const SDL_Rect& Ott, const SDL_Rect& onGround, SDL_Rect& colRect, bool& col, bool& ground) {
+void PlayState::ottCollide(const SDL_Rect& ottRect, const SDL_Rect& onGround, SDL_Rect& groundRect, SDL_Rect& colRect, bool& ground, const Vector2D& speed) {
 	// COMPROBACI�N DE COLISIONES CON OBJETOS DE TIPO SUELO (PROVISIONAL)
 	for (auto it : groundObjects) {
-		ground = it->collide(onGround, colRect);
+		ground = it->collide(onGround, groundRect);
 		if (ground) break;
+	}
+
+	for (auto it : groundObjects) {
+		it->collide(ottRect, colRect);
+		if (colRect.h > 0 && colRect.w > 16) {
+			if (speed.getX() > 0 && colRect.x >= ottRect.x) {
+				cout << "CHOCOCRISPIS" << endl;
+				ott->setPos(Vector2D(ottRect.x - speed.getX(), ottRect.y));
+			}
+			else if (speed.getX() < 0 && colRect.x <= ottRect.x) {
+				ott->setPos(Vector2D(ottRect.x - speed.getX(), ottRect.y));
+			}
+		}
 	}
 }
 
@@ -182,8 +194,8 @@ void PlayState::addEnredadera(const Vector2D& pos) {
 	Enredaderas* e1 = new Enredaderas(Vector2D(pos.getX()+5, pos.getY() - app->getTexture("enredadera", PLAY_STATE)->getH()*1.25), app->getTexture("enredadera", PLAY_STATE), this);
 	gameObjects.push_back(e1);
 	eObjects.push_back(e1);
-
 }
+
 void PlayState::backToMenu() {
 	app->getStateMachine()->changeState(new MainMenuState(app));
 }
@@ -206,6 +218,7 @@ Vector2D PlayState::checkCollisions()
 	cout << resultVector.getX() << " " << resultVector.getY() << endl;
 	return resultVector;
 }
+
 Vector2D PlayState::collides(SDL_Rect playerRect, SDL_Rect objRect) { //Se comprueba si el bloque colisiona con la bola
 	Vector2D cVector (0, 0);
 	SDL_Rect areaColision; // area de colision 	

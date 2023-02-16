@@ -35,7 +35,7 @@ protected:
     bool notGroundedBefore = false;
     Vector2D tpPosition;
     bool isJumping = false;
-    int horizontalSpeed = 10;
+    int horizontalSpeed = 1;
 
     //Par�metros que controlan la vida debil
     bool weakened = false;
@@ -81,6 +81,8 @@ public:
     void setTpPoint(const Vector2D& newPos);
 
     void setSpeed();
+
+    void setPos(const Vector2D& newPos);
 
     void updateAnimState();
 private:

@@ -16,8 +16,8 @@ using Camera = SDL_Rect;
 
 const uint LEVEL_WIDTH = 8000;
 const uint LEVEL_HEIGHT = 8000;
-const auto CAM_OFFSET_HEIGHT = 0.78;
-const int CAM_DEAD_ZONE = 300;
+const auto CAM_OFFSET_HEIGHT = 0.73;
+const int CAM_DEAD_ZONE = 350;
 
 class PlayState : public GameState {
 private:
@@ -40,7 +40,8 @@ private:
 public:
     PlayState(SDLApplication* app);
     virtual void handleEvents();
-    void ottCollide(const SDL_Rect& Ott, const SDL_Rect& onGround, SDL_Rect& colRect, bool& col, bool& ground);
+    void ottCollide(const SDL_Rect& Ott, const SDL_Rect& onGround, SDL_Rect& grounRect, SDL_Rect& colRect, bool& ground
+    , const Vector2D& speed);
     virtual void update();
     inline double Gravity() { return gravity; };
     virtual void render() const;
