@@ -148,6 +148,7 @@ void PlayState::ottCollide(const SDL_Rect& Ott, const SDL_Rect& onGround, SDL_Re
 	// COMPROBACI�N DE COLISIONES CON OBJETOS DE TIPO SUELO (PROVISIONAL)
 	for (auto it : groundObjects) {
 		ground = it->collide(onGround, colRect);
+		if (ground) break;
 	}
 }
 
