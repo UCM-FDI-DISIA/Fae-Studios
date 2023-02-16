@@ -37,10 +37,18 @@ void Enemy::Die() {
 }
 
 void Enemy::DetectPlayer() {
+	/*
 	if (!detectPlayer && player != nullptr) {
-		SDL_Rect playerRect = player->getRect();
 		int frameTime = SDL_GetTicks() - startAttackingTime;
 		if (SDL_HasIntersection(&detectingTrigger, &playerRect)) detectPlayer = true;
+		
+	}
+	else if (detectPlayer) {
+		
+	}*/
+	if (player != nullptr) {
+		SDL_Rect playerRect = player->getRect();
+		detectPlayer = SDL_HasIntersection(&detectingTrigger, &playerRect);
 		if (detectPlayer) cout << "Detected" << endl;
 	}
 }
