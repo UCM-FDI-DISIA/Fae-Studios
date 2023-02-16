@@ -20,13 +20,14 @@ private:
     Ground* gr;
     Ground* gr1;
     Ground* gr2;
+    Ground* grT;
     list<Entity*> physicObjects;
     list<Ground*> groundObjects;
     list<Wall*> wallObjects;
     Mapa* currentMap;
     Camera camera;
     Ott* ott;
-
+    Vector2D collides(SDL_Rect Rect, SDL_Rect objRect);
 public:
     PlayState(SDLApplication* app);
     void ottCollide(const SDL_Rect& Ott, const SDL_Rect& onGround, SDL_Rect& colRect, bool& col, bool& ground);
@@ -35,4 +36,5 @@ public:
     void handleEvents(SDL_Event& e) override;
     virtual void render() const;
     void backToMenu();
+    Vector2D checkCollisions();
 };

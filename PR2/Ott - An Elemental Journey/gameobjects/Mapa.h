@@ -62,5 +62,6 @@ public:
 	Mapa(SDLApplication* app, ListaNiveles l);
 	virtual void render(const SDL_Rect& Camera = {0,0,0,0}) const;
 	void changeMap();
+	vector<Object> getObjects() { return vectorObjects; }
 };
 

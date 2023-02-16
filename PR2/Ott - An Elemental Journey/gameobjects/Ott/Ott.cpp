@@ -86,7 +86,7 @@ void Ott::handleEvents(const SDL_Event& event) {
 		if (!attack&& event.key.keysym.sym == SDLK_e) {
 			animState = ATTACK;
 			attack = true;
-			cout << "ataque" << endl;
+			//cout << "ataque" << endl;
 			ismoving = true;
 			col = 2;
 			timer += ANIMATION_FRAME_RATE / 2;
@@ -94,20 +94,20 @@ void Ott::handleEvents(const SDL_Event& event) {
 		if (event.key.keysym.sym == SDLK_x) {
 			recieveDamage(currentElement);
 		}
-		cout << animState << endl;
-		cout << dir.getX() << endl;
+		//cout << animState << endl;
+		//cout << dir.getX() << endl;
 	}
 	if (event.type == SDL_KEYUP) {
 		if (event.key.keysym.sym == SDLK_LEFT) {
 			left = false;
 			dir = Vector2D(-1, 0);
-			cout << "L_Out" << endl;
+			//cout << "L_Out" << endl;
 		}
 		else if (event.key.keysym.sym == SDLK_RIGHT)
 		{
 			right = false;
 			//dir = Vector2D(1, 0);
-			cout << "R_Out" << endl;
+			//cout << "R_Out" << endl;
 		}
 		if (event.key.keysym.sym == SDLK_SPACE) {
 			jump();
@@ -115,13 +115,13 @@ void Ott::handleEvents(const SDL_Event& event) {
 		}
 		if (event.key.keysym.sym == SDLK_e) {
 		/*	attack = false;*/
-			cout << "ataqueOut" << endl;
+			//cout << "ataqueOut" << endl;
 		}
 		if (event.key.keysym.sym == SDLK_r) {
 			recieveDamage(0);
 		}
-		cout << animState << endl;
-		cout << dir.getX() << endl;
+		//cout << animState << endl;
+		//cout << dir.getX() << endl;
 	}
 	if(!right && !left)
 	{
@@ -190,7 +190,7 @@ void Ott::update() {
 		}
 		if (animState == ATTACK)
 		{
-			cout << "anim attack" << endl;
+			//cout << "anim attack" << endl;
 			row = 8;
 			if (col < 7) {
 				col++;
@@ -198,7 +198,7 @@ void Ott::update() {
 			}
 			else {
 				col = 0;
-				cout << "GEEEE" << endl;
+				//cout << "GEEEE" << endl;
 				attack = false;
 			}
 		}
@@ -230,8 +230,8 @@ void Ott::update() {
 	static_cast<PlayState*>(game)->ottCollide(getRect(), onGround, groundCol, col, ground);
 	if (ground) {
 		if (ismoving)
-		{ 
-			if(!attack)animState = WALKING;
+		{
+			if (!attack)animState = WALKING;
 		}
 		else
 		{
@@ -247,12 +247,17 @@ void Ott::update() {
 		}
 		notGroundedBefore = true;
 	}
-	if (speed.getY() < -1) notGroundedBefore = false;
+	else notGroundedBefore = false;
+	if (speed.getY() < -1) {
+		notGroundedBefore = false;
+	}
 #pragma endregion
 	//timer que comprueba si sigue teniendo una vida debil
 	if (weakened && (SDL_GetTicks() - weakTimer) >= timeWeak * 1000) weakened = false;
 	//bool si ha habido input
 	position = position +speed+ dir; 
+	//dynamic_cast<PlayState*>(game)->checkCollisions();
+	
 }
 
 void Ott::useGravity() {
