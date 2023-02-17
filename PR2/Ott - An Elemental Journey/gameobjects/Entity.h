@@ -32,4 +32,5 @@ public:
 	inline void resetLives() { life = maxLife; }
 	inline void addLive() { ++maxLife; }
 	inline void subLive() { if (life == maxLife) --life; maxLife--; }
+	inline int getCurrentElement() { return currentElement; }
 };

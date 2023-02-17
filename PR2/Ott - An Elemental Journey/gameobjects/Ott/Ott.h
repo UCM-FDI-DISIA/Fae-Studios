@@ -59,7 +59,9 @@ protected:
 
 public:
     Ott(const Vector2D& position, Texture* texture, Texture* treeTexture, Texture* waterTexture, 
-        Texture* fireTexture, Texture * TextureShield, Texture * textureWhip,
+        Texture* fireTexture, Texture * TextureShieldLuz,
+        Texture* TextureShieldFire, Texture* TextureShieldWater, Texture* TextureShieldEarth,
+        Texture * textureWhip,
         PlayState* game, const Scale& scale = Scale(1.0f, 1.0f));
     /// Destructora de la clase GameObject
     virtual ~Ott(); //hihi no borrar escudo

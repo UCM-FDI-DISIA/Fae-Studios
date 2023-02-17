@@ -1,14 +1,21 @@
 ﻿#include "Ott.h"
 
 Ott::Ott(const Vector2D& position, Texture* texture, Texture* treeTexture,
-	Texture* waterTexture, Texture* fireTexture,Texture* textureShield, Texture* textureWhip, PlayState* game, const Scale& scale) :
+	Texture* waterTexture, Texture* fireTexture,
+	Texture* textureShieldLuz, 
+	Texture* TextureShieldFire, Texture* TextureShieldWater, Texture* TextureShieldEarth, 
+	Texture* textureWhip, PlayState* game, const Scale& scale) :
 	Entity(position, texture, Vector2D(0, 0), 5, game, scale) {
 
 	textures.push_back(texture);
 	textures.push_back(treeTexture);
 	textures.push_back(waterTexture);
 	textures.push_back(fireTexture);
-	shield = new Shield(position, textureShield, scale);
+	textures.push_back(textureShieldLuz);
+	textures.push_back(TextureShieldFire);
+	textures.push_back(TextureShieldWater);
+	textures.push_back(TextureShieldEarth);
+	shield = new Shield(position, textureShieldLuz, scale);
 	whip = new Whip(position, textureWhip, scale);
 }
 
@@ -108,26 +115,26 @@ void Ott::handleEvents(const SDL_Event& event) {
 			recieveDamage(currentElement);
 		}
 		if (!attack && !change&&SDL_GetTicks()>ElementcoldDown&& currentElement!=1&&event.key.keysym.sym == SDLK_d) {
-			cout << "Tierra" << endl;
+			//cout << "Tierra" << endl;
 			nextElement = 1;
 			changeElem();
 		}
 		if (!attack && !change && SDL_GetTicks() > ElementcoldDown && currentElement != 0 && event.key.keysym.sym == SDLK_s) {
 			nextElement = 0;
-			cout << "Luz" << endl;
+			//cout << "Luz" << endl;
 
 			changeElem();
 		}
 		if (!attack && !change && SDL_GetTicks() > ElementcoldDown && currentElement != 2 && event.key.keysym.sym == SDLK_a) {
 			nextElement = 2;
-			cout << "Agua" << endl;
+			//cout << "Agua" << endl;
 
 			changeElem();
 
 		}
 		if (!attack && !change && SDL_GetTicks() > ElementcoldDown && currentElement != 3 && event.key.keysym.sym == SDLK_w) {
 			nextElement = 3;
-			cout << "Fuego" << endl;
+			//cout << "Fuego" << endl;
 			changeElem();
 
 		}
@@ -255,7 +262,7 @@ void Ott::update() {
 				attack = false;
 			}
 		}
-		cout << animState << endl;
+		//cout << animState << endl;
 		if (animState == CHANGE)
 		{
 			row = 6;
@@ -338,6 +345,10 @@ void Ott::update() {
 		shield->move(position.getX(), position.getY(), width, lookingFront);
 	}
 	if (attack) attacking();
+	if (attack && currentElement == 1) whip->move(position.getX(), position.getY(), width, lookingFront);
+	//COLISION ESCUDO
+	// Recorrido de lista de entidades
+	//shield->collide(<<ENTIDAD CORRESPONDIENTE>>);
 
 }
 
@@ -359,12 +370,26 @@ void Ott::render(const SDL_Rect& Camera) const {
 		textures[currentElement]->renderFrame(ottRect, row, col, 0, SDL_FLIP_HORIZONTAL);
 	}
 	else textures[currentElement]->renderFrame(ottRect, row, col);
-
+	//cout << currentElement << endl;
 	if (defend)
 	{
+		if (currentElement == 0) shield->changeTexture(textures[4]);
+		if (currentElement == 1) shield->changeTexture(textures[7]);
+		if (currentElement == 2) shield->changeTexture(textures[6]);
+		if (currentElement == 3) shield->changeTexture(textures[5]);
 		shield->render(Camera);
 	}
-	if (attack) whip->render(Camera);
+	if (attack && currentElement == 1)
+	{
+		SDL_Rect whipR = whip->getRect();
+		whipR.x -= Camera.x;
+		whipR.y -= Camera.y;
+		if (lookingFront) whip->getTexture()->renderFrame(whipR , 0, 0);
+		else
+		{
+			whip->getTexture()->renderFrame(whipR, 0, 0, 0, SDL_FLIP_HORIZONTAL);
+		}
+	}
 }
 void Ott::recieveDamage(int elem)
 {
@@ -406,9 +431,10 @@ bool Ott::collide(GameObject* c)
 	}
 	return false;
 }
-void Ott::attacking()
+void Ott::attacking() //EL RECORRIDO DE ENTIDADES LO TIENE EVA HIHI
 {
-	/*for (auto it = static_cast<PlayState*>(game)->getEntityList().begin(); it != static_cast<PlayState*>(game)->getEntityList().end(); ++it) {
+	/*auto it = static_cast<PlayState*>(game)->getEntityList().begin();
+	for (it; it != static_cast<PlayState*>(game)->getEntityList().end(); ++it) {
 		SDL_Rect enemyRect = (*it)->getRect();
 		SDL_Rect whipRect = whip->getRect();
 		if(SDL_HasIntersection(&whipRect, &enemyRect))

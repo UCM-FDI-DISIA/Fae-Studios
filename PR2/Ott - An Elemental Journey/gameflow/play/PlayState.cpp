@@ -8,7 +8,9 @@
 
 PlayState::PlayState(SDLApplication* app) : GameState(2, app) {
 	ott = new Ott(Vector2D(0, 0), app->getTexture("ott_luz", 2), app->getTexture("ott_tree", 3),
-		app->getTexture("ott_water", 4),app->getTexture("ott_fire",5), app->getTexture("shield", 2), app->getTexture("whiteBox", 2), this, Scale(0.3f, 0.3f));
+		app->getTexture("ott_water", 4),app->getTexture("ott_fire",5), app->getTexture("shield", 2), 
+		app->getTexture("fireShield", 2), app->getTexture("waterShield", 2), app->getTexture("earthShield", 2),
+		app->getTexture("whip", 2), this, Scale(0.3f, 0.3f));
 
 	gr = new Ground(Vector2D(0, 400), app->getTexture("whiteBox", 2), Scale(0.8f, 0.25f));
 	gr2 = new Ground(Vector2D(300, 280), app->getTexture("whiteBox", 2), Scale(0.05f, 0.1f));
