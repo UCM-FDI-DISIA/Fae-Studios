@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="192" height="105" tilewidth="32" tileheight="32" infinite="0" nextlayerid="3" nextobjectid="26">
- <tileset firstgid="1" name="EarthMapTileset" tilewidth="32" tileheight="32" tilecount="680" columns="20">
+ <tileset firstgid="1" name="EarthMapTileset" tilewidth="32" tileheight="32" tilecount="0" columns="20">
   <image source="tilesetlevel1.png" width="640" height="1088"/>
  </tileset>
  <layer id="1" name="Paredes" width="192" height="105">
@@ -113,7 +113,7 @@
 </data>
  </layer>
  <objectgroup id="2" name="Colisiones">
-  <object id="1" x="0" y="992.5" width="2060" height="242.5"/>
+  <object id="1" x="2" y="898.5" width="2060" height="408.5"/>
   <object id="2" x="1792.67" y="543.333" width="266" height="447.333"/>
   <object id="3" x="2058.67" y="544" width="519.333" height="244"/>
   <object id="4" x="2578" y="542.667" width="124" height="691.333"/>
