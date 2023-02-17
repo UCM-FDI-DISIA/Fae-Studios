@@ -8,8 +8,8 @@
 // CLASE TEMPORAL PARA PROBAR COSAS
 
 class Enemy : public MovingObject{
-	enum triggerState {normal, preparing, attacking};
 protected:
+	enum triggerState {normal, preparing, attacking, laying};
 	int maxLives;
 	int actualLives;
 	elementsInfo::elements element;
@@ -17,6 +17,7 @@ protected:
 
 	uint PREPARING_TIME = 500;
 	uint ATTACKING_TIME = 500;
+	uint LAYING_TIME = 2000;
 
 
 	uint NEW_DIR = 1000;
@@ -40,7 +41,7 @@ public:
 
 	bool Damage(elementsInfo::elements e);
 
-	void Die();
+	virtual void Die();
 
 	void DetectPlayer();
 
@@ -56,7 +57,7 @@ public:
 
 	virtual void Attack();
 
-	void DetectAttackTrigger();
+	virtual void DetectAttackTrigger();
 
 	void playerCollide();
 

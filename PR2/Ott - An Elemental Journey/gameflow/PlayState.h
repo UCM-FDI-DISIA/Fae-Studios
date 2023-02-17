@@ -25,10 +25,12 @@ public:
 	PlayState(int stateID, SDLApplication* app) : GameState(stateID,app) {
 		/*enemy2 = static_cast<staticEnemy*> (addObject(new staticEnemy(Vector2D(300, 400), app->getTexture("enemy", stateID), enemy, 2000, 5, elementsInfo::Earth, 10 * app->getTexture("enemy", stateID)->getH(), app->getTexture("enemy", stateID)->getH(), Scale(0.5f, 0.5f), this)));*/
 		Ground* ground;
-		enemy = static_cast<MeleeEnemy*> (addObject(new MeleeEnemy(Vector2D(300, 450), app->getTexture("enemy", stateID), 5, elementsInfo::Earth, nullptr, false, Vector2D(1, 0), Scale(0.5, 0.5), 110, this)));
+		enemy = static_cast<SlimeEnemy*> (addObject(new SlimeEnemy(3, Vector2D(370, 400), app->getTexture("enemy", stateID), 5, elementsInfo::Earth, nullptr, false, Vector2D(1, 0), Scale(0.5, 0.5), 110, this)));
 		physicObjects.push_back(enemy);
-		enemy = static_cast<MeleeEnemy*> (addObject(new MeleeEnemy(Vector2D(300, 100), app->getTexture("enemy", stateID), 5, elementsInfo::Earth, enemy, true, Vector2D(1, 0), Scale(0.5, 0.5), 110, this)));
+		enemy = static_cast<MeleeEnemy*> (addObject(new MeleeEnemy(Vector2D(300, 400), app->getTexture("enemy", stateID), 5, elementsInfo::Earth, enemy, true, Vector2D(1, 0), Scale(0.5, 0.5), 110, this)));
 		physicObjects.push_back(enemy);
+		//enemy = static_cast<MeleeEnemy*> (addObject(new MeleeEnemy(Vector2D(300, 100), app->getTexture("enemy", stateID), 5, elementsInfo::Earth, enemy, true, Vector2D(1, 0), Scale(0.5, 0.5), 110, this)));
+		//physicObjects.push_back(enemy);
 		ground = static_cast<Ground*> (addObject(new Ground(Vector2D(0, 500), app->getTexture("whiteBox", stateID), Scale(0.4, 1))));
 		groundObjects.push_back(ground);
 		wallObjects.push_back(static_cast<CollisionObject*> (ground));
@@ -64,7 +66,10 @@ public:
 
 	inline double Gravity() { return gravity; };
 
-
+	void addEnemy(GameObject* g) {
+		enemy = static_cast<Enemy*> (addObject(g));
+		physicObjects.push_back(enemy);
+	}
 
 };
 

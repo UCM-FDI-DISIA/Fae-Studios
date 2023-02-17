@@ -1,4 +1,5 @@
 #include "SlimeEnemy.h"
+#include "../gameflow/PlayState.h"
 
 void SlimeEnemy::Move() {
 	if (!detectPlayer) {
@@ -19,21 +20,82 @@ void SlimeEnemy::Move() {
 	Enemy::Move();
 }
 
-bool SlimeEnemy::Damage(const SDL_Rect& playerAttack, elementsInfo::elements e) { // preguntar a eva como funciona el ataque
-	if(SDL_HasIntersection(&playerAttack, &damageZone)) Enemy::Damage(e);
+bool SlimeEnemy::Damage(/*const SDL_Rect& playerAttack,*/ elementsInfo::elements e) { // preguntar a eva como funciona el ataque
+	/*if (SDL_HasIntersection(&playerAttack, &damageZone)) {
+		cout << "Hit" << endl;
+		actualLives -= elementsInfo::matrix[e][element];
+		if (actualLives <= 0) {
+			Die();
+			return true;
+		}
+		else return false;
+	}*/
+	return Enemy::Damage(e);
 }
 
-void SlimeEnemy::Attack() {
+void SlimeEnemy::layDownAdjust() { // tener en cuenta dir
+	int aux = damageZone.h;
+	damageZone.h = damageZone.w; damageZone.w = aux;
+	damageZone.y += height - damageZone.h;
+	if (lookingRight) damageZone.x += width - damageZone.w;
+}
 
+void SlimeEnemy::getUpAdjust() {
+	int aux = damageZone.h;
+	damageZone.h = damageZone.w; damageZone.w = aux;
+	damageZone.y = position.getY(); damageZone.x = position.getX();
+}
+
+void SlimeEnemy::DetectAttackTrigger() {
+	if (detectPlayer && player != nullptr || attackState != normal) {
+		SDL_Rect playerRect = { 0,0,0,0 };
+		 if(player != nullptr) playerRect = player->getRect();
+		int frameTime = SDL_GetTicks() - startAttackingTime;
+		if (attackState == normal && SDL_HasIntersection(&attackTrigger, &playerRect)) {
+			attackState = preparing;
+			startAttackingTime = SDL_GetTicks();
+		}
+		else if (attackState == preparing && frameTime >= PREPARING_TIME) {
+			cout << "preparando" << endl;
+			attackState = attacking;
+			layDownAdjust();
+			getUp = false;
+			layDown = true;
+			startAttackingTime = SDL_GetTicks();
+		}
+		else if (attackState == attacking && frameTime >= ATTACKING_TIME) {
+			cout << "atacando" << endl;
+			attackState = laying;
+			Attack();
+		}
+		else if (attackState == laying && frameTime >= LAYING_TIME) {
+			cout << "tumbando" << endl;
+			getUpAdjust();
+			layDown = false;
+			getUp = true;
+			attackState = normal;
+		}
+	}
 }
 
 void SlimeEnemy::Divide() { // generamos dos nuevos slimes 
 	// tener en cuenta en constructora y tal que los nuevos slime tndrian menor tamaño y menos vidas
 	// tener en cuenta que hay que añadir estos slimes a la lista de gameObjects del estado y eso
-	new SlimeEnemy(actualSize--, Vector2D(position.getX(), position.getY()), app->getTexture("enemy", this->getState()->getStateID()), 5, elementsInfo::Earth, player, true, Vector2D(1, 0), Scale(0.5, 0.5), 110, this->getState());
+	static_cast<PlayState*> (this->getState())->addEnemy(new SlimeEnemy(actualSize--, Vector2D(position.getX() - 10, position.getY()), texture, maxLives - 1, element, player, true, dir, Scale(slimeScale / 1.5, slimeScale / 1.5), 70.0f, this->getState()));
+	static_cast<PlayState*> (this->getState())->addEnemy(new SlimeEnemy(actualSize--, Vector2D(position.getX() + 10, position.getY()), texture, maxLives - 1, element, player, true, dir, Scale(slimeScale / 1.5, slimeScale / 1.5), 70.0f, this->getState()));
+
 }
 
 void SlimeEnemy::Die() {
 	if(actualSize > 1) Divide();
 	Enemy::Die();
+}
+
+void SlimeEnemy::render() const{
+	if (getUp) texture->render(getRect());
+	else if (layDown){
+		if (lookingRight)
+			texture->renderFrame(getRect(), 0, 0, -90);
+		else texture->renderFrame(getRect(), 0, 0, -90, SDL_FLIP_HORIZONTAL);
+	}
 }

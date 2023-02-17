@@ -2,7 +2,6 @@
 #include "../gameflow/GameState.h"
 #include "../gameflow/PlayState.h"
 
-
 Enemy::Enemy(const Vector2D& position, Texture* texture, int lives, elementsInfo::elements elem, GameObject* p, bool moving, Vector2D dir, const Scale& scale, float w, GameState* state) : MovingObject(position, texture, dir, scale, state), actualLives(lives), element(elem), player(p) {
 	maxLives = lives * 2;  // Representación interna doblada
 	actualLives = lives * 2;
@@ -17,7 +16,7 @@ Enemy::Enemy(const Vector2D& position, Texture* texture, int lives, elementsInfo
 	detectPlayer = false;
 
 	movee = moving; // TEMPORAL, BORRAR
-	player = p;
+	if(p!=nullptr) Enemy::player = p;
 }
 
 bool Enemy::Damage(elementsInfo::elements e) {
