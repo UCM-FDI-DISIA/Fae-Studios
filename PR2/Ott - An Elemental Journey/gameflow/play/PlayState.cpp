@@ -145,7 +145,7 @@ void PlayState::update() {
 	moveCamera();
 }
 
-void PlayState::ottCollide(const SDL_Rect& ottRect, const SDL_Rect& onGround, SDL_Rect& groundRect, SDL_Rect& colRect, bool& ground, const Vector2D& speed) {
+void PlayState::ottCollide(const SDL_Rect& ottRect, const SDL_Rect& onGround, SDL_Rect& groundRect, SDL_Rect& colRect, bool& ground, Vector2D& speed) {
 	// COMPROBACI�N DE COLISIONES CON OBJETOS DE TIPO SUELO (PROVISIONAL)
 	for (auto it : groundObjects) {
 		ground = it->collide(onGround, groundRect);
@@ -161,6 +161,11 @@ void PlayState::ottCollide(const SDL_Rect& ottRect, const SDL_Rect& onGround, SD
 			}
 			else if (speed.getX() < 0 && colRect.x <= ottRect.x) {
 				ott->setPos(Vector2D(ottRect.x - speed.getX(), ottRect.y));
+			}
+
+			if (speed.getY() < 0 && colRect.y <= ottRect.y) {
+				ott->setPos(Vector2D(ottRect.x, ottRect.y - speed.getY()));
+				speed = Vector2D(speed.getX(), 0);
 			}
 		}
 	}
