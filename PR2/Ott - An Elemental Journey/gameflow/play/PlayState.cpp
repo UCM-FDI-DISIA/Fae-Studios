@@ -32,14 +32,14 @@ PlayState::PlayState(SDLApplication* app) : GameState(PLAY_STATE, app) {
 	l2->SetLamp(l1);
 	l3->SetLamp(l2);
 	currentMap = new Mapa(app, LEVEL1);
+	ott = new Ott(Vector2D(400, 2000), app->getTexture("ott", PLAY_STATE), this, Scale(0.3f, 0.3f));
+	gameObjects.push_back(ott);
 	gameObjects.push_back(currentMap);
 
 	Grass* g1 = new Grass(Vector2D(800,400- app->getTexture("grass", PLAY_STATE)->getH()), app->getTexture("grass", PLAY_STATE), this);
 	gameObjects.push_back(g1);
 	intObjects.push_back(g1);
 	
-	ott = new Ott(Vector2D(400, 2000), app->getTexture("ott", PLAY_STATE), this, Scale(0.3f, 0.3f));
-
 	// santuarios
 	/*Sanctuary* sct = new Sanctuary(Vector2D(200, 280), app->getTexture("whiteBox", 2), Scale(0.05f, 0.1f));
 	gameObjects.push_back(sct);
@@ -60,7 +60,6 @@ PlayState::PlayState(SDLApplication* app) : GameState(PLAY_STATE, app) {
 		gameObjects.push_back(grT);
 		groundObjects.push_back(grT);
 	}
-	gameObjects.push_back(ott);
 
 	physicObjects.push_back(ott);
     HealthBar* healthBar = new HealthBar(Vector2D(30, 100), app->getTexture("hearts", PLAY_STATE), Scale(10.0f, 10.0f));
@@ -154,17 +153,17 @@ void PlayState::ottCollide(const SDL_Rect& ottRect, const SDL_Rect& onGround, SD
 
 	for (auto it : groundObjects) {
 		it->collide(ottRect, colRect);
-		if (colRect.h > 0 && colRect.w > 16) {
-			if (speed.getX() > 0 && colRect.x >= ottRect.x) {
+		if (colRect.h > 0 && colRect.w > 16) { // si el rectángulo merece la pena
+			if (speed.getX() > 0 && colRect.x >= ottRect.x) { // chocar pared por la izquierda
 				ott->setPos(Vector2D(ottRect.x - speed.getX(), ottRect.y));
 			}
-			else if (speed.getX() < 0 && colRect.x <= ottRect.x) {
+			else if (speed.getX() < 0 && colRect.x <= ottRect.x) { // chocar pared por la derecha
 				ott->setPos(Vector2D(ottRect.x - speed.getX(), ottRect.y));
 			}
 
+			// chocar techo
 			if (speed.getY() < 0 && colRect.y <= ottRect.y && colRect.w >= colRect.h && colRect.x == ottRect.x &&
 				colRect.w >= ottRect.w / 2) {
-				cout << " PINGA SA JDBUAHSD " << endl;
 				ott->setPos(Vector2D(ott->getRect().x, ott->getRect().y - speed.getY()));
 				if (speed.getX() != 0) speed = Vector2D(speed.getX(), 1);
 				else speed = Vector2D(0, 0);

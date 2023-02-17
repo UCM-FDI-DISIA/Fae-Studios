@@ -113,7 +113,7 @@
 </data>
  </layer>
  <objectgroup id="2" name="Colisiones">
-  <object id="1" x="2" y="898.5" width="2060" height="408.5"/>
+  <object id="1" x="6" y="826.5" width="2060" height="408.5"/>
   <object id="2" x="1792.67" y="543.333" width="266" height="447.333"/>
   <object id="3" x="2058.67" y="544" width="519.333" height="244"/>
   <object id="4" x="2578" y="542.667" width="124" height="691.333"/>
