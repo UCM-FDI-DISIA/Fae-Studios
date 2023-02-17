@@ -24,22 +24,12 @@ void PlayState::handleEvents() {
 }
 
 PlayState::PlayState(SDLApplication* app) : GameState(PLAY_STATE, app) {
-	//Estas 3 lámparas dejan memoryleaks, o las metemos en la lista o las borramos, para que no se nos olvide
-	TP_Lamp* l1 = new TP_Lamp(Vector2D(500, 280), app->getTexture("lamp", PLAY_STATE), this, Scale(2, 2), LAMP);
-	TP_Lamp* l2 = new TP_Lamp(Vector2D(1500, 280), app->getTexture("lamp", PLAY_STATE), this, Scale(2, 2), LAMP);
-	TP_Lamp* l3 = new TP_Lamp(Vector2D(2000, 280), app->getTexture("lamp", PLAY_STATE), this, Scale(2, 2), LAMP);
-	l1->SetLamp(l2);
-	l2->SetLamp(l1);
-	l3->SetLamp(l2);
 	currentMap = new Mapa(app, LEVEL1);
-	ott = new Ott(Vector2D(400, 2000), app->getTexture("ott", PLAY_STATE), this, Scale(0.3f, 0.3f));
+	ott = new Ott(Vector2D(400, 2000), app->getTexture("ott_luz", PLAY_STATE), app->getTexture("ott_tree", PLAY_STATE), app->getTexture("ott_water", PLAY_STATE), app->getTexture("ott_fire", PLAY_STATE), this, Scale(0.3f, 0.3f));
 	gameObjects.push_back(ott);
+	gameObjects.push_back(new CollisionObject(Vector2D(0, 1520), app->getTexture("level1bg", PLAY_STATE)));
 	gameObjects.push_back(currentMap);
 
-	Grass* g1 = new Grass(Vector2D(800,400- app->getTexture("grass", PLAY_STATE)->getH()), app->getTexture("grass", PLAY_STATE), this);
-	gameObjects.push_back(g1);
-	intObjects.push_back(g1);
-	
 	// santuarios
 	/*Sanctuary* sct = new Sanctuary(Vector2D(200, 280), app->getTexture("whiteBox", 2), Scale(0.05f, 0.1f));
 	gameObjects.push_back(sct);
@@ -48,17 +38,29 @@ PlayState::PlayState(SDLApplication* app) : GameState(PLAY_STATE, app) {
 	*/
 	auto a = currentMap->getObjects();
 	for (auto it : a) {
+		for (auto ot : it) {
+			float x_ = ot.getAABB().left;
+			float y_ = ot.getAABB().top;
+			float w_= ot.getAABB().width;
+			float h_ = ot.getAABB().height;
 
-		float x_ = it.getAABB().left;
-		float y_ = it.getAABB().top;
-		float w_= it.getAABB().width;
-		float h_ = it.getAABB().height;
-
-		auto scale = currentMap->tileScale();
-
-		grT = new Ground(Vector2D(x_ * scale, y_ * scale), app->getTexture("pixel", PLAY_STATE), Scale(w_ * scale, h_ * scale));
-		gameObjects.push_back(grT);
-		groundObjects.push_back(grT);
+			auto scale = currentMap->tileScale();
+			if (ot.getClass() == "Ground") {
+				Ground* grT = new Ground(Vector2D(x_ * scale, y_ * scale), app->getTexture("pixel", PLAY_STATE), Scale(w_ * scale, h_ * scale));
+				groundObjects.push_back(grT);
+				gameObjects.push_back(grT);
+			}
+			else if (ot.getClass() == "Grass") {
+				Grass* g1 = new Grass(Vector2D(x_ *scale, y_ * scale - app->getTexture("grass", PLAY_STATE)->getH()), app->getTexture("grass", PLAY_STATE), this);
+				gameObjects.push_back(g1);
+				intObjects.push_back(g1);
+			}
+			else if (ot.getClass() == "Lamp") {
+				TP_Lamp* l1 = new TP_Lamp(Vector2D(x_ * scale, y_ * scale - app->getTexture("lamp", PLAY_STATE)->getH()*2), app->getTexture("lamp", PLAY_STATE), this, Scale(2, 2), LAMP);
+				gameObjects.push_back(l1);
+				intObjects.push_back(l1);
+			}
+		}
 	}
 
 	physicObjects.push_back(ott);
@@ -211,14 +213,16 @@ Vector2D PlayState::checkCollisions()
 	Vector2D resultVector = ( 0,0 );
 	auto a = currentMap->getObjects();
 	for (auto it : a) {
-		SDL_Rect obstRect;
-		obstRect.x = it.getAABB().left;
-		obstRect.y = it.getAABB().top;
-		obstRect.w = it.getAABB().width;
-		obstRect.h = it.getAABB().height;
-		SDL_Rect ottRect = ott->getRect();
-		if (SDL_HasIntersection(&ottRect, &obstRect)) {
-			resultVector = collides(ott->getRect(), obstRect);
+		for (auto ot : it) {
+			SDL_Rect obstRect;
+			obstRect.x = ot.getAABB().left;
+			obstRect.y = ot.getAABB().top;
+			obstRect.w = ot.getAABB().width;
+			obstRect.h = ot.getAABB().height;
+			SDL_Rect ottRect = ott->getRect();
+			if (SDL_HasIntersection(&ottRect, &obstRect)) {
+				resultVector = collides(ott->getRect(), obstRect);
+			}
 		}
 	}
 	cout << resultVector.getX() << " " << resultVector.getY() << endl;

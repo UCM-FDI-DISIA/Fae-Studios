@@ -27,12 +27,12 @@ void Mapa::loadMap(string path) {
     if (map.load(path))
     {
         const auto& layers2 = map.getLayers();
-        // cout << "Map has " << layers2.size() << " layers" << endl;
+         cout << "Map has " << layers2.size() << " layers" << endl;
         for (const auto& layer : layers2)
         {
 #pragma region Groups
-            //cout << "Found Layer: " << layer->getName() << endl;
-            //cout << "Layer Type: " << int(layer->getType()) << endl;
+            cout << "Found Layer: " << layer->getName() << endl;
+            cout << "Layer Type: " << int(layer->getType()) << endl;
 
            /*if (layer->getType() == tmx::Layer::Type::Group)
            {
@@ -62,16 +62,14 @@ void Mapa::loadMap(string path) {
                 const auto& objects = layer->getLayerAs<ObjectGroup>().getObjects();
 
                 //Guardamos objetos en un vector
-                vectorObjects = objects;
+                vectorObjects.push_back(objects);
 
                  //Ejemplo de propiedades de un objeto (posicion, tama�o, ID y nombre)
                      cout << "Found " << objects.size() << " objects in layer" << endl;
                      for (const auto& object : objects)
                     {
                         Vector2f holi = object.getPosition();
-                        cout << holi.x << " " << holi.y << endl;
-                        cout << object.getAABB().width << " " << object.getAABB().height << endl;
-                        cout << "Object " << object.getUID() << ", " << object.getName() << endl;
+                        cout << "Object " << object.getUID() << ", " << object.getName() <<  " " << object.getClass() << endl;
                     }
                 
             }
@@ -128,6 +126,7 @@ void Mapa::loadMap(string path) {
 }
 
 void Mapa::render(const SDL_Rect& Camera) const{
+
     int offsetX = Camera.x;
     int offsetY = Camera.y; 
     for (int i = 0; i < vectorTiles.size(); i++) {

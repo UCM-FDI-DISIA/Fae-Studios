@@ -23,10 +23,6 @@ const int CAM_DEAD_ZONE = 350;
 class PlayState : public GameState {
 private:
     double gravity = 0.08f;
-    Ground* gr;
-    Ground* gr1;
-    Ground* gr2;
-    Ground* grT;
     list<Entity*> physicObjects;
     list<Ground*> groundObjects;
     list<Wall*> wallObjects;

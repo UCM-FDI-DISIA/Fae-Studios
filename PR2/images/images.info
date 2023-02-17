@@ -28,5 +28,5 @@ grass.png 1 1 grass
 1x1Pixel.png 1 1 pixel
 
 levels 2
-FondoTemporal.png 1 1 level1bg
+fondo.png 1 1 level1bg
 tilesetlevel1.png 34 20 level1tileset

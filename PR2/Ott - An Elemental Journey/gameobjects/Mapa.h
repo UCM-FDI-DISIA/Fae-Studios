@@ -50,7 +50,7 @@ private:
 	Map map;
     int mapSize;
 	vector<TileLayer::Tile> vectorTiles;
-	vector<Object> vectorObjects;
+	vector<vector<Object>> vectorObjects;
 	ListaNiveles currentLevel;
 	Texture* tilemap = nullptr;
     //std::vector<Texture*> textures;
@@ -65,7 +65,7 @@ public:
 	Mapa(SDLApplication* app, ListaNiveles l);
 	virtual void render(const SDL_Rect& Camera = {0,0,0,0}) const;
 	void changeMap();
-	vector<Object> getObjects() { return vectorObjects; }
+	vector<vector<Object>> getObjects() { return vectorObjects; }
 	inline float tileScale() { return (float)usedTileSize / (float)realTileSize; }
 };
 
