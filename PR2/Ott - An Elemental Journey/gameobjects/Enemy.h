@@ -10,8 +10,8 @@
 
 class Enemy : public MovingObject{
 protected:
-	enum triggerState {normal, preparing, attacking, afterAttack, laying
-};
+	enum triggerState {normal, preparing, attacking, afterAttack, laying};
+
 	int maxLives;
 	int actualLives;
 	elementsInfo::elements element;
@@ -32,7 +32,7 @@ protected:
 	bool detectPlayer;
 	bool movee;  // TEMPORAL PARA PRUEBAS, BORRAR TODO LO RELACIONADO CON ESTO
 	bool lookingRight = true;
-	int nearDistance = 50;
+	int nearDistance = 10;
 	bool grounded = false;
 
 	GameObject* player;

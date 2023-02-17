@@ -57,20 +57,17 @@ void Enemy::DetectPlayer() {
 void Enemy::DetectAttackTrigger() {
 	if (detectPlayer && player != nullptr || attackState != normal) {
 		SDL_Rect playerRect = { 0,0,0,0 };
-		if(player != nullptr) playerRect = player->getRect();
+		if(player != nullptr) playerRect = static_cast<Enemy*> (player)->getCollider();
 		int frameTime = SDL_GetTicks() - startAttackingTime;
 		if (attackState == normal && frameTime >= PREPARING_TIME && SDL_HasIntersection(&attackTrigger, &playerRect)) {
-			cout << attackState << endl;
 			attackState = preparing;
 			startAttackingTime = SDL_GetTicks();
 		}
 		else if (attackState == preparing && frameTime >= PREPARING_TIME) {
-			cout << attackState << endl;
 			attackState = attacking;
 			startAttackingTime = SDL_GetTicks();
 		}
 		else if (attackState == attacking && frameTime >= ATTACKING_TIME / 2) {
-			cout << attackState << endl;
 			Attack();
 			attackState = afterAttack;
 			startAttackingTime = SDL_GetTicks();
@@ -85,8 +82,11 @@ void Enemy::DetectAttackTrigger() {
 
 void Enemy::Attack() {
 	if (player != nullptr) {
-		SDL_Rect playerRect = player->getRect();
+		cout << "AAAAAAAA" << endl;
+		SDL_Rect playerRect = static_cast<Enemy*> (player)->getCollider();
 		if (SDL_HasIntersection(&attackTrigger, &playerRect)) {
+			cout << "bbbbbbbbbb" << endl;
+
 			if (static_cast<Enemy*>(player)->Damage(element)) {
 				player = nullptr;
 				detectPlayer = false;
@@ -99,14 +99,13 @@ void Enemy::Attack() {
 void Enemy::FollowPlayer() {
 	// Distancia de seguridad para comprobar que no se pega al jugador
 	SDL_Rect collider = getCollider();
-	SDL_Rect ott = player->getRect();
+	SDL_Rect ott = static_cast<Enemy*> (player)->getCollider();
 	if (lookingRight && abs(ott.x - (collider.x + collider.w)) > nearDistance ||
 		!lookingRight && abs(ott.x + collider.w - collider.x) > nearDistance) {
 		dir = { (double)(ott.x - collider.x), dir.getY()};
 		dir.normalize();
 	}
 	else {
-		cout << nearDistance << endl;
 		dir = { 0, dir.getY() };
 		dir.normalize();
 	}
@@ -153,7 +152,7 @@ void Enemy::ChangeDir(const SDL_Rect& result){
 }
 
 void Enemy::playerCollide() {
-	if (player != nullptr) {
+	/*if (player != nullptr) {
 		SDL_Rect myRect = getCollider();
 		SDL_Rect playerRect = static_cast<Enemy*> (player)->getCollider();
 		if (SDL_HasIntersection(&myRect, &playerRect)) {
@@ -162,7 +161,7 @@ void Enemy::playerCollide() {
 				detectPlayer = false;
 			}
 		}
-	}
+	}*/
 }
 
 void Enemy::MoveTriggers() {
