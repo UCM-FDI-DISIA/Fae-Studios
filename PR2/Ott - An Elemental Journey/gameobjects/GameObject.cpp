@@ -5,8 +5,8 @@
 GameObject::GameObject(const Vector2D& position, Texture* texture, const Scale& scale, GameState* state) {
     this->position = position;
     this->texture = texture;
-    this->width = texture->getW() * scale.widthScale;
-    this->height = texture->getH() * scale.heightScale;
+    this->width = texture->getW() / texture->getNumCols() * scale.widthScale;
+    this->height = texture->getH() / texture->getNumRows() * scale.heightScale;
     actualState = state;
 }
 
