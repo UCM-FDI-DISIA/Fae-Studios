@@ -156,16 +156,18 @@ void PlayState::ottCollide(const SDL_Rect& ottRect, const SDL_Rect& onGround, SD
 		it->collide(ottRect, colRect);
 		if (colRect.h > 0 && colRect.w > 16) {
 			if (speed.getX() > 0 && colRect.x >= ottRect.x) {
-				cout << "CHOCOCRISPIS" << endl;
 				ott->setPos(Vector2D(ottRect.x - speed.getX(), ottRect.y));
 			}
 			else if (speed.getX() < 0 && colRect.x <= ottRect.x) {
 				ott->setPos(Vector2D(ottRect.x - speed.getX(), ottRect.y));
 			}
 
-			if (speed.getY() < 0 && colRect.y <= ottRect.y) {
-				ott->setPos(Vector2D(ottRect.x, ottRect.y - speed.getY()));
-				speed = Vector2D(speed.getX(), 0);
+			if (speed.getY() < 0 && colRect.y <= ottRect.y && colRect.w >= colRect.h && colRect.x == ottRect.x &&
+				colRect.w >= ottRect.w / 2) {
+				cout << " PINGA SA JDBUAHSD " << endl;
+				ott->setPos(Vector2D(ott->getRect().x, ott->getRect().y - speed.getY()));
+				if (speed.getX() != 0) speed = Vector2D(speed.getX(), 1);
+				else speed = Vector2D(0, 0);
 			}
 		}
 	}

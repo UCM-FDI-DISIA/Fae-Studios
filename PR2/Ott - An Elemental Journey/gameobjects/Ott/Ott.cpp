@@ -244,14 +244,11 @@ void Ott::update() {
 	onGround.h = MAX_VERTICAL_SPEED - 1;
 	onGround.w /= 2;
 	onGround.x += onGround.w / 2;
-
-	cout << getRect().x << " " << onGround.x << " " << getRect().x + getRect().w << " " << onGround.x + onGround.w << endl;
-
 	if (!tp) { // Si ott no se está teletransportando, puede moverse y hacer las comprobaciones pertinentes
 		updateAnimState();
 		if (speed.getY() > MAX_VERTICAL_SPEED) { speed = Vector2D(speed.getX(), MAX_VERTICAL_SPEED); } // si la velocidad vertical supera un máximo, se fixea a ese máximo
 
-#pragma region COLISIONES (HIPER MEGA PROVISIONAL. MUY PROVISIONAL)
+		#pragma region COLISIONES (HIPER MEGA PROVISIONAL. MUY PROVISIONAL)
 		position = position + speed;
 
 		SDL_Rect groundCol, colRect; // recoge el rectángulo de colisión entre ott y el objeto físico contra el que colisione
@@ -277,7 +274,7 @@ void Ott::update() {
 		if (weakened && (SDL_GetTicks() - weakTimer) >= timeWeak * 1000) weakened = false;
 		
 		// mover al personaje
-#pragma endregion
+		#pragma endregion
 	}
 	else if (animState == TP_OUT) position = tpPosition; // en caso de estarse teletransportando entre lámparas, se fixea su posición
 														 // a la de la lámpara objetivo
