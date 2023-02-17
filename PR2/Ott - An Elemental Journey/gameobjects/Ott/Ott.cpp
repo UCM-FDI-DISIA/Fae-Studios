@@ -274,7 +274,10 @@ void Ott::update() {
 		}// en caso de no estar en el suelo, habrá que fixear la posición cuando choque contra algún suelo
 
 		//timer que comprueba si sigue teniendo una vida debil
-		if (weakened && (SDL_GetTicks() - weakTimer) >= timeWeak * 1000) weakened = false;
+		if (weakened && (SDL_GetTicks() - weakTimer) >= timeWeak * 1000) { 
+			weakened = false; 
+			game->getHealthBar()->changeHealth(UNWEAKEN_CONTAINER);
+		}
 		
 		// mover al personaje
 #pragma endregion
@@ -309,15 +312,20 @@ void Ott::recieveDamage(int elem)
 	if (elementsInfo[elem][currentElement] == 0) {
 		if (!weakened) {
 			weakened = true;
+			game->getHealthBar()->changeHealth(WEAKEN_CONTAINER);
 			weakTimer = SDL_GetTicks();
 		}
 		else {
 			weakened = false;
 			life--;
+			game->getHealthBar()->changeHealth(UNFULL_WEAKENED_CONTAINER);
 			Entity::recieveDamage(elem);
 		}
 	}
-	else Entity::recieveDamage(elem);
+	else {
+		Entity::recieveDamage(elem);
+		game->getHealthBar()->changeHealth(UNFULL_FULL_CONTAINER);
+	}
 }
 
 bool Ott::collide(const SDL_Rect& obj, SDL_Rect& result) // qué es esto gente
@@ -355,6 +363,7 @@ void Ott::die()
 		Vector2D newPos = { (double)r.x, (double)r.y - 50 };
 		position = newPos;
 		life = maxLife;
+		game->getHealthBar()->changeHealth(FULL_ALL_CONTAINERS);
 		notGroundedBefore = false;
 	}
 }

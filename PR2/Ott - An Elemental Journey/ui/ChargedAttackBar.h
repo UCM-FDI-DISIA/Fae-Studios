@@ -9,7 +9,7 @@ public:
         charges = 0;
     }
 
-    virtual void render() const;
+    virtual void render(const SDL_Rect& camera) const;
 
     void addCharge() {++charges;}
 

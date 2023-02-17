@@ -1,10 +1,11 @@
 ﻿#include "HealthBar.h"
+#include <iostream>
 
-void HealthBar::render() const {
-    for (auto it = containers.healthContainerList.begin(); it != containers.healthContainerList.end(); ++it) {
-        if ((*it).state == NORMAL) texture->renderFrame((*it).destRect, 0, 1);
-        else if((*it).state == EMPTY) texture->renderFrame((*it).destRect, 0, 4);
-        else if((*it).state == WEAK) texture->renderFrame((*it).destRect, 0, 12);
+void HealthBar::render(const SDL_Rect& Camera) const {
+    for (auto it = containers.healthContainerList.begin(); it != containers.healthContainerList.end(); ++it) {        
+        if ((*it).state == NORMAL) texture->renderFrame(it->destRect, 0, 1);
+        else if((*it).state == EMPTY) texture->renderFrame(it->destRect, 0, 4);
+        else if((*it).state == WEAK) texture->renderFrame(it->destRect, 0, 12);
     }
 }
 
@@ -21,6 +22,13 @@ void HealthBar::initializeContainers() {
     containers.firstEmptyContainer = containers.healthContainerList.end();
     containers.firstWeakContainer = containers.healthContainerList.end();
     weakenedContainers = 0;
+}
+
+void HealthBar::reposition() {
+    SDL_Rect tmp = getRect();
+    for (auto it = containers.healthContainerList.begin(); it != containers.healthContainerList.end(); ++it) {
+        it->destRect.y = tmp.y;
+    }
 }
 
 void HealthBar::changeHealth(HEALTHCHANGE change) {
@@ -50,7 +58,7 @@ void HealthBar::changeHealth(HEALTHCHANGE change) {
             weakenedContainers--;
             if (weakenedContainers == 0) containers.firstWeakContainer = containers.healthContainerList.end();
             break;
-        case UNFULL_WEAKEN_CONTAINER:
+        case UNFULL_WEAKENED_CONTAINER:
             --containers.firstEmptyContainer;
             containers.firstEmptyContainer->state = EMPTY;
             weakenedContainers--;

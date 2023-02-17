@@ -7,7 +7,6 @@
 #include "../../gameobjects/InteractuableObject.h"
 #include "../../gameflow/menus/PauseMenuState.h"
 #include "../../gameflow/menus/MainMenuState.h"
-#include "../../ui/HealthBar.h"
 #include "../../ui/ChargedAttackBar.h"
 #include "../../utils/InputHandler.h"
 
@@ -19,12 +18,13 @@ float lerp(float a, float b, float t)
 
 void PlayState::handleEvents() {
 	GameState::handleEvents();
-	if (InputHandler::instance()->isKeyDown(SDLK_ESCAPE)) {
+	if (InputHandler::instance()->isKeyJustDown(SDLK_ESCAPE)) {
 		app->getStateMachine()->pushState(new PauseMenuState(app));
 	}
 }
 
 PlayState::PlayState(SDLApplication* app) : GameState(PLAY_STATE, app) {
+	//Estas 3 lámparas dejan memoryleaks, o las metemos en la lista o las borramos, para que no se nos olvide
 	TP_Lamp* l1 = new TP_Lamp(Vector2D(500, 280), app->getTexture("lamp", PLAY_STATE), this, Scale(2, 2), LAMP);
 	TP_Lamp* l2 = new TP_Lamp(Vector2D(1500, 280), app->getTexture("lamp", PLAY_STATE), this, Scale(2, 2), LAMP);
 	TP_Lamp* l3 = new TP_Lamp(Vector2D(2000, 280), app->getTexture("lamp", PLAY_STATE), this, Scale(2, 2), LAMP);
@@ -63,7 +63,7 @@ PlayState::PlayState(SDLApplication* app) : GameState(PLAY_STATE, app) {
 	gameObjects.push_back(ott);
 
 	physicObjects.push_back(ott);
-    HealthBar* healthBar = new HealthBar(Vector2D(30, 100), app->getTexture("hearts", PLAY_STATE), Scale(10.0f, 10.0f));
+    healthBar = new HealthBar(Vector2D(30, 100), app->getTexture("hearts", PLAY_STATE), Scale(10.0f, 10.0f));
 	gameObjects.push_back(healthBar);
     gameObjects.push_back(new ChargedAttackBar(healthBar->lastHeartPosition() + Vector2D(100, -10), app->getTexture("chargebar", getStateID()), Scale(1.5f, 1.5f)));
     screenDarkener = new ScreenDarkener(app);

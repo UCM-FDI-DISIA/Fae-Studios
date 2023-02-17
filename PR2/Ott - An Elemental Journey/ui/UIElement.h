@@ -11,7 +11,7 @@ class UIElement : public GameObject {
 public:
     UIElement(const Vector2D& position, Texture* texture, const Scale& scale = Scale(1.0f, 1.0f)) : GameObject(position, texture, scale) {}
     UIElement() : GameObject() {}
-    virtual void render() { GameObject::render({ 0,0,0,0 }); };
+    virtual void render(const SDL_Rect& Camera = {0,0,0,0}) { GameObject::render(Camera); };
 };
 
 #endif //PROYECTOS2_UIELEMENT_H

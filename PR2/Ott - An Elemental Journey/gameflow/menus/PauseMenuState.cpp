@@ -63,7 +63,8 @@ void PauseMenuState::exit(SDLApplication* app) {
 
 void PauseMenuState::handleEvents() {
 	MenuState::handleEvents();
-	if (InputHandler::instance()->isKeyDown(SDLK_ESCAPE)) {
+	/*if (InputHandler::instance()->isKeyJustDown(SDLK_ESCAPE)) {
+		InputHandler::instance()->clearState();
 		app->getStateMachine()->popState();
-	}
+	}*/
 }

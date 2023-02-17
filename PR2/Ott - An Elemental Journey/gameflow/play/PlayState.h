@@ -6,6 +6,7 @@
 #include "../../ui/ScreenDarkener.h"
 #include <iostream>
 #include "../../gameobjects/Entity.h"
+#include "../../ui/HealthBar.h"
 #pragma once
 
 class Ott;
@@ -30,6 +31,7 @@ private:
     list<Ground*> groundObjects;
     list<Wall*> wallObjects;
     ScreenDarkener* screenDarkener;
+    HealthBar* healthBar;
     list<InteractuableObject*> intObjects;
     list< Enredaderas*> eObjects;
     Camera camera;
@@ -52,4 +54,5 @@ public:
     void addEnredadera(const Vector2D& pos);
     void backToMenu();
     Vector2D checkCollisions();
+    inline HealthBar* getHealthBar() { return healthBar; }
 };

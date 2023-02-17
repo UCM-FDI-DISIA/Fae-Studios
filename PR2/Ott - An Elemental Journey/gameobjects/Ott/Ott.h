@@ -1,6 +1,7 @@
 #include "../Entity.h"
 #include "../../gameflow/play/PlayState.h"
 #include "../Sanctuary.h"
+#include "../../ui/HealthBar.h"
 
 enum ANIM_STATE { IDLE, WALKING, LAND, JUMPING, PEAK, FALLING, ATTACK, TP_IN, TP_OUT };
 

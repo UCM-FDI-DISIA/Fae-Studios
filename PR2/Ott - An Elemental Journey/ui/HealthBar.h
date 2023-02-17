@@ -7,7 +7,7 @@ enum HEALTHCHANGE {
 	UNFULL_FULL_CONTAINER, ///< Vac�a un contenedor de vida que previamente estaba lleno, NO DEBILITADO.
 	WEAKEN_CONTAINER, ///< Debilita un contenedor de vida PREVIAMENTE LLENO.
 	UNWEAKEN_CONTAINER, ///< Quita la debilidad al contenedor PREVIAMENTE D�BIL.
-	UNFULL_WEAKEN_CONTAINER, ///< Vac�a un contenedor de vida PREVIAMENTE D�BIL.
+	UNFULL_WEAKENED_CONTAINER, ///< Vac�a un contenedor de vida PREVIAMENTE D�BIL.
 	FULL_ALL_CONTAINERS ///< Rellena todos los contenedores simult�neamente, estuviesen o no d�biles (�til si se va a otorgar un contenedor m�s).
 };
 
@@ -32,12 +32,14 @@ private:
 	healthList containers;
 	int weakenedContainers;
 
+	void reposition();
+
 public:
 	HealthBar(const Vector2D& position, Texture* texture, const Scale& scale = Scale(1.0f, 1.0f)) : UIElement(position, texture, scale) {
 		initializeContainers();
 	}
 
-	virtual void render() const;
+	virtual void render(const SDL_Rect& Camera) const;
 
 	void initializeContainers();
 
@@ -48,5 +50,7 @@ public:
 	void changeSize();
 
     Vector2D lastHeartPosition() const;
+
+	void update() override { reposition(); }
 };
 

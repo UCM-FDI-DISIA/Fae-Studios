@@ -166,6 +166,7 @@
     <ClInclude Include="ui\Button.h" />
     <ClInclude Include="ui\ChargedAttackBar.h" />
     <ClInclude Include="ui\HealthBar.h" />
+    <ClInclude Include="ui\ScreenDarkener.h" />
     <ClInclude Include="ui\Slider.h" />
     <ClInclude Include="ui\UIElement.h" />
     <ClInclude Include="utils\InputHandler.h" />
@@ -202,6 +203,7 @@
     <ClCompile Include="ui\Button.cpp" />
     <ClCompile Include="ui\ChargedAttackBar.cpp" />
     <ClCompile Include="ui\HealthBar.cpp" />
+    <ClCompile Include="ui\ScreenDarkener.cpp" />
     <ClCompile Include="ui\Slider.cpp" />
     <ClCompile Include="ui\UIText.cpp" />
   </ItemGroup>
