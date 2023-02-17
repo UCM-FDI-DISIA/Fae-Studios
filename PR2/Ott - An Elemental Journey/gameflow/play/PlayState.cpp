@@ -9,6 +9,7 @@
 #include "../../gameflow/menus/MainMenuState.h"
 #include "../../ui/ChargedAttackBar.h"
 #include "../../utils/InputHandler.h"
+#include <unordered_map>
 
 // funci�n para hacer interpolaci�n lineal. Usada en el movimiento de la c�mara
 float lerp(float a, float b, float t)
@@ -25,9 +26,9 @@ void PlayState::handleEvents() {
 
 PlayState::PlayState(SDLApplication* app) : GameState(PLAY_STATE, app) {
 	currentMap = new Mapa(app, LEVEL1);
-	ott = new Ott(Vector2D(400, 2000), app->getTexture("ott_luz", PLAY_STATE), app->getTexture("ott_tree", PLAY_STATE), app->getTexture("ott_water", PLAY_STATE), app->getTexture("ott_fire", PLAY_STATE), this, Scale(0.3f, 0.3f));
-	gameObjects.push_back(ott);
-	gameObjects.push_back(new CollisionObject(Vector2D(0, 1520), app->getTexture("level1bg", PLAY_STATE)));
+	auto scale1 = currentMap->tileScale();
+	gameObjects.push_back(new CollisionObject(Vector2D(0, 1100), app->getTexture("level1bg", PLAY_STATE), Scale(scale1, scale1)));
+
 	gameObjects.push_back(currentMap);
 
 	// santuarios
@@ -38,7 +39,10 @@ PlayState::PlayState(SDLApplication* app) : GameState(PLAY_STATE, app) {
 	*/
 	auto a = currentMap->getObjects();
 	for (auto it : a) {
+			unordered_map<string, TP_Lamp*> lamps;
 		for (auto ot : it) {
+
+
 			float x_ = ot.getAABB().left;
 			float y_ = ot.getAABB().top;
 			float w_= ot.getAABB().width;
@@ -57,12 +61,27 @@ PlayState::PlayState(SDLApplication* app) : GameState(PLAY_STATE, app) {
 			}
 			else if (ot.getClass() == "Lamp") {
 				TP_Lamp* l1 = new TP_Lamp(Vector2D(x_ * scale, y_ * scale - app->getTexture("lamp", PLAY_STATE)->getH()*2), app->getTexture("lamp", PLAY_STATE), this, Scale(2, 2), LAMP);
+				
+				string hola = ot.getName();
+				auto at = lamps.find(hola);
+				cout << ot.getName() << endl;
+				if (at != lamps.end()) {
+					l1->SetLamp((*at).second);
+					(*at).second->SetLamp(l1);
+				}
+				else {
+					cout << "hola" << endl;
+					lamps.insert({ ot.getName(), l1 });
+				}
+
 				gameObjects.push_back(l1);
 				intObjects.push_back(l1);
+
 			}
 		}
 	}
-
+	ott = new Ott(Vector2D(400, 2000), app->getTexture("ott_luz", PLAY_STATE), app->getTexture("ott_tree", PLAY_STATE), app->getTexture("ott_water", PLAY_STATE), app->getTexture("ott_fire", PLAY_STATE), this, Scale(0.3f, 0.3f));
+	gameObjects.push_back(ott);
 	physicObjects.push_back(ott);
     healthBar = new HealthBar(Vector2D(30, 100), app->getTexture("hearts", PLAY_STATE), Scale(10.0f, 10.0f));
 	gameObjects.push_back(healthBar);

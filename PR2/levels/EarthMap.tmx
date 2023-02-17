@@ -4,7 +4,7 @@
   <image source="../images/levels/tilesetlevel1.png" width="640" height="1088"/>
  </tileset>
  <imagelayer id="4" name="b" offsetx="-1220" offsety="704">
-  <image source="../../../../../Downloads/FondoTemporal (3).png" width="4500" height="879"/>
+  <image source="../../../../../Downloads/FondoTemporal (3).png"/>
  </imagelayer>
  <layer id="1" name="Paredes" width="192" height="105">
   <data encoding="csv">
@@ -115,7 +115,7 @@
 48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup id="2" name="Colisiones">
+ <objectgroup id="2" name="Colisiones" visible="0">
   <object id="1" class="Ground" x="2" y="992" width="2060" height="224"/>
   <object id="2" class="Ground" x="1792.67" y="543.333" width="266" height="447.333"/>
   <object id="3" class="Ground" x="2058.67" y="544" width="519.333" height="244"/>
@@ -138,8 +138,8 @@
   <object id="45" class="Ground" x="1939.27" y="1439.64" width="24.1818" height="21.4545"/>
  </objectgroup>
  <objectgroup id="3" name="Objetos interactuables">
-  <object id="27" name="lam1" class="Lamp" x="992" y="1408" width="32"/>
-  <object id="29" name="lam2" class="Lamp" x="1760" y="1408" width="32"/>
+  <object id="27" name="lamp1" class="Lamp" x="992" y="1408" width="32"/>
+  <object id="29" name="lamp1" class="Lamp" x="1760" y="1408" width="32"/>
   <object id="34" class="Grass" x="1920" y="1536"/>
  </objectgroup>
 </map>
