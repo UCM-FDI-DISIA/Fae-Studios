@@ -55,7 +55,7 @@ MainMenuState::MainMenuState(SDLApplication* app) : MenuState(MAIN_MENU, app->ge
 	versionFront = new UIText("InDev 0.0.1", *(app->getFont("press_start")), Vector2D(WINDOW_WIDTH / 2, 20), app->getRenderer(), { 255,217,102 }, Scale(1.0f, 1.0f));
 	versionFront->movePosition(Vector2D(WINDOW_WIDTH / 2 + 5 * versionFront->getTexture()->getW() / 2, WINDOW_HEIGHT - 30));
 	
-	littleOtt = app->getTexture("ott", MAIN_MENU);
+	littleOtt = app->getTexture("ott_luz", MAIN_MENU);
 	littleOttPos = Vector2D(400, 528);
 	littleOttRect.x = littleOttPos.getX(); littleOttRect.y = littleOttPos.getY();
 	littleOttRect.h = littleOtt->getH() * 0.5f; littleOttRect.w = littleOtt->getW() * 0.5f;

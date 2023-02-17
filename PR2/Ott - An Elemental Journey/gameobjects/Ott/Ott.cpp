@@ -1,7 +1,12 @@
 ﻿#include "Ott.h"
 #include "../../utils/InputHandler.h"
 
-Ott::Ott(const Vector2D& position, Texture* texture, PlayState* game, const Scale& scale) : Entity(position, texture, Vector2D(0, 0), 5, game, scale) {
+Ott::Ott(const Vector2D& position, Texture* texture, Texture* tree, Texture* water, Texture* fire, PlayState* game, const Scale& scale) : Entity(position, texture, Vector2D(0, 0), 5, game, scale) {
+
+	textures.push_back(texture);
+	textures.push_back(tree);
+	textures.push_back(water);
+	textures.push_back(fire);
 }
 
 void Ott::setAnimState(ANIM_STATE newState) {
@@ -61,6 +66,31 @@ void Ott::setAnimState(ANIM_STATE newState) {
 			attack = false;
 		}
 	}
+	else if (newState == CHANGE)
+	{
+		row = 6;
+		if (nextElement != currentElement) {
+			if (col < 2)
+			{
+				col++;
+				timer = ANIMATION_FRAME_RATE * 3 / 4;
+			}
+			else currentElement = nextElement;
+		}
+		else {
+			if (col > 0) {
+				col--;
+				timer = ANIMATION_FRAME_RATE * 3 / 4;
+			}
+			else change = false;
+		}
+	}
+	else if(newState == DIE)
+	{
+		row = 7;
+		if (col < 7)col++;
+		else die();
+	}
 
 	animState = newState;
 }
@@ -115,45 +145,81 @@ void Ott::handleEvents() {
 #pragma endregion
 	auto input = InputHandler::instance();
 	if (input->keyDownEvent()) {
-		if (input->isKeyDown(SDLK_LEFT)) {
-			left = true;
-			right = false;
-			ismoving = true;
-			lookingFront = false;
-		}
-		else if (input->isKeyDown(SDLK_RIGHT))
-		{
-			ismoving = true;
-			left = false;
-			right = true;
-			lookingFront = true;
-		}
+		if (!dieAnim) {
+			if (input->isKeyDown(SDLK_LEFT)) {
+				left = true;
+				right = false;
+				ismoving = true;
+				lookingFront = false;
+			}
+			else if (input->isKeyDown(SDLK_RIGHT))
+			{
+				ismoving = true;
+				left = false;
+				right = true;
+				lookingFront = true;
+			}
 
-		if (input->isKeyJustDown(SDLK_SPACE)) {
-			jump();
-			ismoving = true;
-			up = true;
+			if (input->isKeyJustDown(SDLK_SPACE)) {
+				jump();
+				ismoving = true;
+				up = true;
+			}
+			if (input->isKeyDown(SDLK_q) && lastSanctuary != nullptr) {
+				SDL_Rect sRect = lastSanctuary->getRect();
+				SDL_Rect col = getRect();
+				if (SDL_HasIntersection(&col, &sRect)) resetLives();
+				ismoving = true;
+			}
+			if (!attack && !change && input->isKeyDown(SDLK_e)) {
+				attack = true;
+				ismoving = true;
+			}
+			if (!change && input->isKeyDown(SDLK_a)) {
+				change = true;
+				ismoving = true;
+				nextElement = 1;
+			}
+			if (!change && input->isKeyDown(SDLK_d)) {
+				change = true;
+				ismoving = true;
+				nextElement = 2;
+			}
+			if (!change && input->isKeyDown(SDLK_w)) {
+				change = true;
+				ismoving = true;
+				nextElement = 3;
+			}
+			if (!change && input->isKeyDown(SDLK_s)) {
+				change = true;
+				ismoving = true;
+				nextElement = 0;
+			}
+			if (input->isKeyDown(SDLK_x)) {
+				recieveDamage(currentElement);
+			}
+			if (input->isKeyDown(SDLK_k)) {
+				dieAnim = true;
+				col = 2;
+				setAnimState(DIE);
+			}
+			//PRUEBA CORAZON ALEX
+			/*if (input->isKeyDown(SDLK_r)) {
+				weakened = true;
+			}*/
+			if (climb && input->isKeyDown(SDLK_UP)) {
+				upC = true;
+				down = false;
+			}
+			if (input->isKeyDown(SDLK_DOWN)) {
+				down = true;
+				upC = false;
+			}
 		}
-		if (input->isKeyDown(SDLK_q) && lastSanctuary != nullptr) {
-			SDL_Rect sRect = lastSanctuary->getRect();
-			SDL_Rect col = getRect();
-			if (SDL_HasIntersection(&col, &sRect)) resetLives();
-			ismoving = true;
-		}
-		if (!attack && input->isKeyDown(SDLK_e)) {
-			attack = true;
-			ismoving = true;
-		}
-		if (input->isKeyDown(SDLK_x)) {
-			recieveDamage(currentElement);
-		}
-		if (climb && input->isKeyDown(SDLK_UP)) {
-			upC = true;
-			down = false;
-		}
-		if (input->isKeyDown(SDLK_DOWN)) {
-			down = true;
-			upC = false;
+		else {
+			if (input->isKeyDown(SDLK_k)) {
+				dieAnim = false;
+			}
 		}
 	}
 	if (input->keyUpEvent()) {
@@ -185,7 +251,7 @@ bool Ott::canJump() {
 
 void Ott::jump() {
 	if (isGrounded()) { //metodo canjump es lo mismo pero no inline? 
-		if (!attack) { setAnimState(JUMPING); }
+		if (!attack && !change) { setAnimState(JUMPING); }
 		speed = Vector2D(speed.getX(), jumpForce);
 	}
 }
@@ -204,20 +270,29 @@ void Ott::setSpeed() {
 // Si se usa setAnimState, es para que cambie sin esperar a ningún frame, que lo haga directamente
 void Ott::updateAnimState() {
 	ANIM_STATE previous = animState;
-	if (attack) { // animación de ataque
-		if (previous != ATTACK) { // si se estaba atacando antes, no hace falta volver a poner la animación de ataque
-			col = 2;
-			setAnimState(ATTACK);
+	if (!dieAnim) {
+		if (attack) { // animación de ataque
+			if (previous != ATTACK) { // si se estaba atacando antes, no hace falta volver a poner la animación de ataque
+				col = 2;
+				setAnimState(ATTACK);
+			}
+		}
+		else if (change) { // animación de ataque
+			if (previous != CHANGE) { // si se estaba atacando antes, no hace falta volver a poner la animación de ataque
+				col = 0;
+				setAnimState(CHANGE);
+			}
+		}
+		else if (!ismoving && ground) { animState = IDLE; } // personaje quieto
+		else if (ismoving && ground) { animState = WALKING; } // personaje caminando
+		else if (speed.getY() < 0.5 && speed.getY() > -0.5 && !ground) { // personaje alcanza el punto máximo de la caída
+			setAnimState(PEAK);
+		}
+		else if (speed.getY() >= 1.5) { // personaje cae en picado
+			setAnimState(FALLING);
 		}
 	}
-	else if (!ismoving && ground) { animState = IDLE; } // personaje quieto
-	else if (ismoving && ground) { animState = WALKING; } // personaje caminando
-	else if (speed.getY() < 0.5 && speed.getY() > -0.5 && !ground) { // personaje alcanza el punto máximo de la caída
-		setAnimState(PEAK);
-	}
-	else if (speed.getY() >= 1.5) { // personaje cae en picado
-		setAnimState(FALLING);
-	}
+	
 }
 
 void Ott::update() {
@@ -260,7 +335,7 @@ void Ott::update() {
 			if (!(speed.getY() < 0) && !notGroundedBefore) { // y no se le ha fixeado la posición y la velocidad. En caso de que ya se le haya fixeado ya, no se entra aquí
 				position = Vector2D(position.getX(), groundCol.y - height);
 				speed = Vector2D(speed.getX(), 0);
-				if (!attack) setAnimState(LAND);
+				if (!attack &&!change) setAnimState(LAND);
 			}
 
 			notGroundedBefore = true;
@@ -296,9 +371,9 @@ void Ott::render(const SDL_Rect& Camera) const {
 	ottRect.x -= Camera.x;
 	ottRect.y -= Camera.y;
 	if (!lookingFront) { // si no estamos mirando al frente, debemos poner que su sprite está girado
-		texture->renderFrame(ottRect, row, col,0,SDL_FLIP_HORIZONTAL);
+		textures[currentElement]->renderFrame(ottRect, row, col, 0, SDL_FLIP_HORIZONTAL);
 	}
-	else texture->renderFrame(ottRect, row, col);
+	else textures[currentElement]->renderFrame(ottRect, row, col);
 }
 
 // Método para recibir daño

@@ -3,12 +3,13 @@
 #include "../Sanctuary.h"
 #include "../../ui/HealthBar.h"
 
-enum ANIM_STATE { IDLE, WALKING, LAND, JUMPING, PEAK, FALLING, ATTACK, TP_IN, TP_OUT };
+enum ANIM_STATE { IDLE, WALKING, LAND, JUMPING, PEAK, FALLING, ATTACK, TP_IN, TP_OUT,CHANGE,DIE };
 
 class Ott : public Entity {
 protected:
 
-    bool left = false, right = false, up = false, attack = false, upC = false, down = false;
+    bool left = false, right = false, up = false, attack = false, upC = false, down = false,change=false;
+    bool dieAnim = false;
 
     bool lookingFront = true; // indica hacia d�nde debe mirar el sprite
 
@@ -44,8 +45,13 @@ protected:
     int invincibilityTime = 2, invencibilityTimer = 0;
     //Game Controller 1 handler
     GameObject* lastSanctuary = nullptr;
+
+    //Texturas elementos
+    vector<Texture*>textures;
+    int nextElement = 0;
+
 public:
-    Ott(const Vector2D& position, Texture* texture, PlayState* game, const Scale& scale = Scale(1.0f, 1.0f));
+    Ott(const Vector2D& position, Texture* texture, Texture* tree, Texture* water, Texture* fire , PlayState* game, const Scale& scale = Scale(1.0f, 1.0f));
     /// Destructora de la clase GameObject
     virtual ~Ott() = default;
 
