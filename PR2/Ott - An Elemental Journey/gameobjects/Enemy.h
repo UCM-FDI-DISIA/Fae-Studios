@@ -3,24 +3,25 @@
 #include "../utils/Elements.h"
 #include "../SDLApplication.h" //cosa para texturas desde enemy(?)
 #include <iostream>
+#include <cmath>
 
 // MOVER ARCHIVOS Y COLOCAR BIEN
 // CLASE TEMPORAL PARA PROBAR COSAS
 
 class Enemy : public MovingObject{
 protected:
-	enum triggerState {normal, preparing, attacking, laying};
+	enum triggerState {normal, preparing, attacking, afterAttack, laying
+};
 	int maxLives;
 	int actualLives;
 	elementsInfo::elements element;
 	bool dead = false;
 
-	uint PREPARING_TIME = 500;
-	uint ATTACKING_TIME = 500;
+	uint PREPARING_TIME = 1000;
+	uint ATTACKING_TIME = 1000;
 	uint LAYING_TIME = 2000;
 
-
-	uint NEW_DIR = 1000;
+	uint NEW_DIR = 3000;
 	int startAttackingTime = 0;
 	int startMovingTime = 0;
 	int turningError = 1;
@@ -31,12 +32,17 @@ protected:
 	bool detectPlayer;
 	bool movee;  // TEMPORAL PARA PRUEBAS, BORRAR TODO LO RELACIONADO CON ESTO
 	bool lookingRight = true;
-	const int nearDistance = 50;
+	int nearDistance = 50;
 	bool grounded = false;
 
 	GameObject* player;
+	SDL_Rect collider;
+
+	Vector2D colliderOffset;
+	Vector2D colliderWH; // width height
+
 public:
-	Enemy(const Vector2D& position, Texture* texture, int lives, elementsInfo::elements elem, GameObject* p, bool moving, Vector2D dir = Vector2D(0,0), const Scale& scale = Scale(1.0f, 1.0f), float w = 110.0f, GameState* state = nullptr);
+	Enemy(const Vector2D& position, Texture* texture, int lives, elementsInfo::elements elem, GameObject* p, bool moving, Vector2D dir = Vector2D(0,0), const Scale& scale = Scale(1.0f, 1.0f), float wTrigger = 110, float hTrigger = 100, GameState* state = nullptr);
 	virtual ~Enemy() = default;
 
 	bool Damage(elementsInfo::elements e);
@@ -66,6 +72,12 @@ public:
 	virtual void MoveTriggers();
 
 	virtual void ChangeDir(const SDL_Rect& result); // Bordes de plataformas, no paredes
+
+	SDL_Rect getCollider() { 
+		SDL_Rect collider = { (position.getX() + colliderOffset.getX()), (position.getY() + colliderOffset.getY()),
+								colliderWH.getX(), colliderWH.getY() };
+		return collider;
+	}
 };
 
 

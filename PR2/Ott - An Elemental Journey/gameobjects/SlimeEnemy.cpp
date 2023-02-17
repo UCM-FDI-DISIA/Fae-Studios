@@ -83,7 +83,6 @@ void SlimeEnemy::Divide() { // generamos dos nuevos slimes
 	// tener en cuenta que hay que añadir estos slimes a la lista de gameObjects del estado y eso
 	static_cast<PlayState*> (this->getState())->addEnemy(new SlimeEnemy(actualSize--, Vector2D(position.getX() - 10, position.getY()), texture, maxLives - 1, element, player, true, dir, Scale(slimeScale / 1.5, slimeScale / 1.5), 70.0f, this->getState()));
 	static_cast<PlayState*> (this->getState())->addEnemy(new SlimeEnemy(actualSize--, Vector2D(position.getX() + 10, position.getY()), texture, maxLives - 1, element, player, true, dir, Scale(slimeScale / 1.5, slimeScale / 1.5), 70.0f, this->getState()));
-
 }
 
 void SlimeEnemy::Die() {

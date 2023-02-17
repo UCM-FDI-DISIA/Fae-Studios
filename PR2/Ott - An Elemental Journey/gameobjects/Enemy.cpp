@@ -2,21 +2,27 @@
 #include "../gameflow/GameState.h"
 #include "../gameflow/PlayState.h"
 
-Enemy::Enemy(const Vector2D& position, Texture* texture, int lives, elementsInfo::elements elem, GameObject* p, bool moving, Vector2D dir, const Scale& scale, float w, GameState* state) : MovingObject(position, texture, dir, scale, state), actualLives(lives), element(elem), player(p) {
+
+Enemy::Enemy(const Vector2D& position, Texture* texture, int lives, elementsInfo::elements elem, GameObject* p, bool moving, Vector2D dir, const Scale& scale, float wTrigger, float hTrigger, GameState* state) : MovingObject(position, texture, dir, scale, state), actualLives(lives), element(elem), player(p) {
 	maxLives = lives * 2;  // Representación interna doblada
 	actualLives = lives * 2;
 	speed = 0.3;
 
 	attackTrigger.x = position.getX() + width; attackTrigger.y = position.getY();
-	attackTrigger.w = w; attackTrigger.h = height;
+	attackTrigger.w = wTrigger; attackTrigger.h = height;
 	attackState = normal;
 
-	detectingTrigger.x = position.getX() + width; detectingTrigger.y = position.getY();
-	detectingTrigger.w = 2 * w; detectingTrigger.h = height;
+	detectingTrigger.x = position.getX() + width; detectingTrigger.y = position.getY() + height / 2 - hTrigger / 2;
+	detectingTrigger.w = 2 * wTrigger; detectingTrigger.h = hTrigger;
 	detectPlayer = false;
 
 	movee = moving; // TEMPORAL, BORRAR
-	if(p!=nullptr) Enemy::player = p;
+	player = p;
+	
+	colliderOffset = { 0,0 };
+	colliderWH = { (double)width, (double)height };
+
+	if(player != nullptr) nearDistance = width;
 }
 
 bool Enemy::Damage(elementsInfo::elements e) {
@@ -36,19 +42,25 @@ void Enemy::Die() {
 }
 
 void Enemy::DetectPlayer() {
-	if (!detectPlayer && player != nullptr) {
+	/*if (!detectPlayer && player != nullptr) {
 		SDL_Rect playerRect = player->getRect();
 		int frameTime = SDL_GetTicks() - startAttackingTime;
 		if (SDL_HasIntersection(&detectingTrigger, &playerRect)) detectPlayer = true;
 		if (detectPlayer) cout << "Detected" << endl;
+	}*/
+	if (player != nullptr) {
+		SDL_Rect playerRect = player->getRect();
+		detectPlayer = SDL_HasIntersection(&detectingTrigger, &playerRect);
 	}
 }
 
 void Enemy::DetectAttackTrigger() {
-	if (detectPlayer && player != nullptr) {
-		SDL_Rect playerRect = player->getRect();
+	if (detectPlayer && player != nullptr || attackState != normal) {
+		SDL_Rect playerRect = { 0,0,0,0 };
+		if(player != nullptr) playerRect = player->getRect();
 		int frameTime = SDL_GetTicks() - startAttackingTime;
-		if (attackState == normal && SDL_HasIntersection(&attackTrigger, &playerRect)) {
+		if (attackState == normal && frameTime >= PREPARING_TIME && SDL_HasIntersection(&attackTrigger, &playerRect)) {
+			cout << attackState << endl;
 			attackState = preparing;
 			startAttackingTime = SDL_GetTicks();
 		}
@@ -57,20 +69,28 @@ void Enemy::DetectAttackTrigger() {
 			attackState = attacking;
 			startAttackingTime = SDL_GetTicks();
 		}
-		else if (attackState == attacking && frameTime >= ATTACKING_TIME) {
+		else if (attackState == attacking && frameTime >= ATTACKING_TIME / 2) {
 			cout << attackState << endl;
 			Attack();
+			attackState = afterAttack;
+			startAttackingTime = SDL_GetTicks();
+		}
+		else if (attackState == afterAttack && frameTime >= ATTACKING_TIME / 2) {
 			attackState = normal;
+			startAttackingTime = SDL_GetTicks();
 		}
 	}
+	else attackState = normal;
 }
 
 void Enemy::Attack() {
-	SDL_Rect playerRect = player->getRect();
-	if (SDL_HasIntersection(&attackTrigger, &playerRect)) {
-		if (static_cast<Enemy*>(player)->Damage(element)) {
-			player = nullptr;
-			detectPlayer = false;
+	if (player != nullptr) {
+		SDL_Rect playerRect = player->getRect();
+		if (SDL_HasIntersection(&attackTrigger, &playerRect)) {
+			if (static_cast<Enemy*>(player)->Damage(element)) {
+				player = nullptr;
+				detectPlayer = false;
+			}
 		}
 	}
 }
@@ -78,12 +98,15 @@ void Enemy::Attack() {
 
 void Enemy::FollowPlayer() {
 	// Distancia de seguridad para comprobar que no se pega al jugador
-	if (lookingRight && abs(player->getRect().x - (position.getX() + width)) > nearDistance ||
-		!lookingRight && abs(player->getRect().x - position.getX()) > nearDistance) {
-		dir = { player->getRect().x - position.getX(), dir.getY()};
+	SDL_Rect collider = getCollider();
+	SDL_Rect ott = player->getRect();
+	if (lookingRight && abs(ott.x - (collider.x + collider.w)) > nearDistance ||
+		!lookingRight && abs(ott.x + collider.w - collider.x) > nearDistance) {
+		dir = { (double)(ott.x - collider.x), dir.getY()};
 		dir.normalize();
 	}
 	else {
+		cout << nearDistance << endl;
 		dir = { 0, dir.getY() };
 		dir.normalize();
 	}
@@ -98,7 +121,7 @@ void Enemy::update() {
 		useGravity();
 	}
 	SDL_Rect result = {0,0,0,0};
-	static_cast<PlayState*> (actualState)->enemyCollidesGround(getRect(), result, grounded);
+	static_cast<PlayState*> (actualState)->enemyCollidesGround(getCollider(), result, grounded);
 	
 	if (grounded) {
 		ChangeDir(result);
@@ -114,18 +137,25 @@ void Enemy::update() {
 }
 
 void Enemy::ChangeDir(const SDL_Rect& result){
-	if (!detectPlayer && result.w < width * turningOffset) {
-		if (abs(result.x - position.getX()) < turningError) dir = { -1, dir.getY() };
-		else dir = { 1, dir.getY() };
+	if (!detectPlayer && result.w < getCollider().w * turningOffset) {
+		if (abs(result.x - getCollider().x) < turningError) {
+			dir = { -1, dir.getY() }; 
+			lookingRight = false;
+		}
+		else {
+			dir = { 1, dir.getY() };
+			lookingRight = true;
+		}
 
 		dir.normalize();
 	}
+
 }
 
 void Enemy::playerCollide() {
 	if (player != nullptr) {
-		SDL_Rect myRect = getRect();
-		SDL_Rect playerRect = player->getRect();
+		SDL_Rect myRect = getCollider();
+		SDL_Rect playerRect = static_cast<Enemy*> (player)->getCollider();
 		if (SDL_HasIntersection(&myRect, &playerRect)) {
 			if (static_cast<Enemy*>(player)->Damage(element)) { // Falta implementar lo de la invulnerabilidad
 				player = nullptr;
@@ -136,15 +166,16 @@ void Enemy::playerCollide() {
 }
 
 void Enemy::MoveTriggers() {
+	SDL_Rect collider = getCollider();
 	if (lookingRight) // Ajuste del trigger en función del movimiento del enemigo
-		attackTrigger.x = position.getX() + width;
+		attackTrigger.x = collider.x + collider.w;
 	else
-		attackTrigger.x = position.getX() - attackTrigger.w;
+		attackTrigger.x = collider.x - attackTrigger.w;
 
-	attackTrigger.y = position.getY();
+	attackTrigger.y = collider.y;
 
 	detectingTrigger.x = attackTrigger.x;
-	detectingTrigger.y = attackTrigger.y;
+	detectingTrigger.y = attackTrigger.y + collider.h/2 - detectingTrigger.h/2;
 }
 
 
@@ -152,12 +183,23 @@ void Enemy::Move() {
 	position = position + dir * speed; 
 	SDL_Rect result = { 0,0,0,0 };
 	bool collided = false;
-	static_cast<PlayState*> (actualState)->enemyCollidesWall(getRect(), result, collided);
+	static_cast<PlayState*> (actualState)->enemyCollidesWall(getCollider(), result, collided);
 	if (collided) {
-		if (dir.getX() > 0) position = { position.getX() - result.w, position.getY()};
-		else position = { position.getX() + result.w, position.getY()};
-		if(!detectPlayer)
-			dir = { dir.getX() * -1, dir.getY() };
+		if (abs(result.x - getCollider().x) < turningError) {
+			position = { position.getX() + result.w, position.getY() };
+			if(!detectPlayer){
+				dir = { 1, dir.getY() };
+				lookingRight = true;
+			}
+		}
+		else {
+			position = { position.getX() - result.w, position.getY() };
+			if (!detectPlayer) {
+				dir = { -1, dir.getY() };
+				lookingRight = false;
+			}
+		}
+		dir.normalize();
 	}
 	playerCollide();
 }
