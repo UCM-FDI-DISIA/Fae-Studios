@@ -37,8 +37,6 @@ bool Enemy::Damage(elementsInfo::elements e) {
 
 void Enemy::Die() {
 	dead = true;
-	std::cout << "Muerto" << endl;
-	deleteMyself();
 }
 
 void Enemy::DetectPlayer() {
@@ -115,24 +113,30 @@ void Enemy::update() {
 	if (!movee) { // TEMPORAL, BORRAR
 		return;
 	}
-
-	if (!grounded) {
-		useGravity();
-	}
-	SDL_Rect result = {0,0,0,0};
-	static_cast<PlayState*> (actualState)->enemyCollidesGround(getCollider(), result, grounded);
+	if (!dead) {
+		if (!grounded) {
+			useGravity();
+		}
+		SDL_Rect result = {0,0,0,0};
+		static_cast<PlayState*> (actualState)->enemyCollidesGround(getCollider(), result, grounded);
 	
-	if (grounded) {
-		ChangeDir(result);
-		position = { position.getX(), position.getY() - result.h };
-	}
+		if (grounded) {
+			ChangeDir(result);
+			position = { position.getX(), position.getY() - result.h };
+		}
 
-	DetectPlayer();
-	DetectAttackTrigger();
+		DetectPlayer();
+		DetectAttackTrigger();
 
-	MoveTriggers();
+		MoveTriggers();
 	
-	Move();
+		Move();
+	}
+	else {
+		if (deadAnimationEnd) {
+			deleteMyself();
+		}
+	}
 }
 
 void Enemy::ChangeDir(const SDL_Rect& result){

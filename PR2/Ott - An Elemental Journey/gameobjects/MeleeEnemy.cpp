@@ -22,14 +22,21 @@ void MeleeEnemy::Move() {
 }
 
 void MeleeEnemy::render() const {
-	if (attackState == normal || attackState == preparing) {
+	if (dead || attackState == attacking || attackState == afterAttack) {
+		texture->renderFrame(getRect(), 0, col, 0, flip[lookingRight]);
+	}
+	else if (attackState == normal || attackState == preparing) {
 		if (dir.getX() == 0 || attackState == preparing) texture->renderFrame(getRect(), 0, (SDL_GetTicks() / time_per_frame) % 3, 0, flip[lookingRight]);
 		else texture->renderFrame(getRect(), 0, (SDL_GetTicks() / time_per_frame) % 4 + 3, 0, flip[lookingRight]);
 	}
-	else if (attackState == attacking || attackState == afterAttack) {
-		texture->renderFrame(getRect(), 0, col, 0, flip[lookingRight]);
-	}
 }
+
+void MeleeEnemy::Die() {
+	Enemy::Die();
+	col = 12;
+	timer = SDL_GetTicks();
+}
+
 
 void MeleeEnemy::Attack() {
 	Enemy::Attack();
@@ -38,26 +45,36 @@ void MeleeEnemy::Attack() {
 
 void MeleeEnemy::update() {
 	Enemy::update();
-	if (attackState == attacking || attackState == afterAttack) {
-		if (!attacked) {
-			attackStart = SDL_GetTicks();
-			attacked = true;
-		}
-		if (col >= 11) {
-			col = 11;
-		}
-		else
-		{
-			if (SDL_GetTicks() - attackStart < ATTACKING_TIME / 2) {
-				col = 7;
-				attackTimer = SDL_GetTicks();
+	if (!dead) {
+		if (attackState == attacking || attackState == afterAttack) {
+			if (!attacked) {
+				attackStart = SDL_GetTicks();
+				attacked = true;
 			}
-			else col = ((SDL_GetTicks() - attackTimer) / (time_per_frame)) % 5 + 8;
+			if (col >= 11) {
+				col = 11;
+			}
+			else
+			{
+				if (SDL_GetTicks() - attackStart < ATTACKING_TIME / 2) {
+					col = 7;
+					timer = SDL_GetTicks();
+				}
+				else col = ((SDL_GetTicks() - timer) / (time_per_frame)) % 5 + 8;
+			}
+		}
+		else {
+			attacked = false;
+			col = 7;
 		}
 	}
 	else {
-		attacked = false;
-		col = 7;
+		col = ((SDL_GetTicks() - timer) / (time_per_frame)) % 10 + 12;
+		if (col >= 21) {
+			col = 21;
+			deadAnimationEnd = true;
+		}
+
 	}
 
 	collider = getCollider();

@@ -16,6 +16,7 @@ protected:
 	int actualLives;
 	elementsInfo::elements element;
 	bool dead = false;
+	bool deadAnimationEnd = false;
 
 	uint PREPARING_TIME = 1000;
 	uint ATTACKING_TIME = 1000;
