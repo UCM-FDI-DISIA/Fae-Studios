@@ -79,6 +79,14 @@ void SlimeEnemy::DetectAttackTrigger() {
 	}
 }
 
+void SlimeEnemy::update() {
+	if (attackState == normal) {
+		col = 
+	}
+
+	Enemy::update();
+}
+
 void SlimeEnemy::Divide() { // generamos dos nuevos slimes 
 	// tener en cuenta en constructora y tal que los nuevos slime tndrian menor tamaño y menos vidas
 	// tener en cuenta que hay que añadir estos slimes a la lista de gameObjects del estado y eso
@@ -92,10 +100,5 @@ void SlimeEnemy::Die() {
 }
 
 void SlimeEnemy::render() const{
-	if (getUp) texture->render(getRect());
-	else if (layDown){
-		if (lookingRight)
-			texture->renderFrame(getRect(), 0, 0, -90);
-		else texture->renderFrame(getRect(), 0, 0, -90, SDL_FLIP_HORIZONTAL);
-	}
+	texture->renderFrame(getRect(), 0, col);
 }
