@@ -3,7 +3,6 @@
 
 void SlimeEnemy::Move() {
 	if (!detectPlayer) {
-		cout << "no detectado" << endl;
 		int frameMovingTime = SDL_GetTicks() - startMovingTime;
 		if (frameMovingTime >= NEW_DIR) {
 			dir = { (double)(rand() % 3 - 1), dir.getY() };
@@ -57,7 +56,6 @@ void SlimeEnemy::DetectAttackTrigger() {
 			startAttackingTime = SDL_GetTicks();
 		}
 		else if (attackState == preparing && frameTime >= PREPARING_TIME) {
-			cout << "preparando" << endl;
 			attackState = attacking;
 			layDownAdjust();
 			getUp = false;
@@ -65,12 +63,10 @@ void SlimeEnemy::DetectAttackTrigger() {
 			startAttackingTime = SDL_GetTicks();
 		}
 		else if (attackState == attacking && frameTime >= ATTACKING_TIME) {
-			cout << "atacando" << endl;
 			attackState = laying;
 			Attack();
 		}
 		else if (attackState == laying && frameTime >= LAYING_TIME) {
-			cout << "tumbando" << endl;
 			getUpAdjust();
 			layDown = false;
 			getUp = true;
