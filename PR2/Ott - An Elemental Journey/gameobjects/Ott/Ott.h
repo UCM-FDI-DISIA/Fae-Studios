@@ -12,12 +12,13 @@ class Ott : public Entity {
 protected:
     Shield* shield;
     Whip* whip;
-    bool left = false, right = false, 
-         up = false, 
-         attack = false, defend = false, 
-         change=false,
-         lookingFront = true,
-         jumpFlag = true,
+    bool left = false, right = false,
+        up = false,
+        attack = false, defend = false,
+        change = false,
+        lookingFront = true,
+        jumpFlag = true,
+        cooldown = false,
          jumping = false;
 
     //Analog joystick dead zone
@@ -42,6 +43,13 @@ protected:
     // Constantes Knockback
     const double X_KNOCKBACK_FORCE = 5;
     const double Y_KNOCKBACK_FORCE = 1;
+
+    //trigger ataque y ancho de ataque (pudiera aplicarse a mas ataques)
+    SDL_Rect attackTrigger;
+    int ATTACK_WIDTH = 100;
+    //constante y timer cooldown
+    const int cooldownTime = 100;
+    int cooldownTimer = 0;
 
 
     //Parámetros que controlan la vida debil

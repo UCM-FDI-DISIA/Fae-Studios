@@ -18,6 +18,11 @@ PlayState::PlayState(SDLApplication* app) : GameState(2, app) {
 	gameObjects.push_back(sct);
 	Sanctuary* sct2 = new Sanctuary(Vector2D(400, 280), app->getTexture("whiteBox", 2), Scale(0.05f, 0.1f));
 	gameObjects.push_back(sct2);
+
+	//entity para probar ataque hasta que juntemos con enemigos
+	Entity* ent = new Entity(Vector2D(600, 300), app->getTexture("whiteBox", 2), Vector2D(0, 0), 3, this, Scale(0.05f, 0.1f));
+	gameObjects.push_back(ent); physicObjects.push_back(ent);
+
 	
 	gameObjects.push_back(gr);
 	gameObjects.push_back(gr2);

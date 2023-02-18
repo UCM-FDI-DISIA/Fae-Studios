@@ -34,4 +34,6 @@ public:
     virtual void render() const;
     void backToMenu();
     inline list<Entity*> getEntityList() const { return physicObjects; }
+    list<Entity*>::iterator getIteratorToFirstElement() { return physicObjects.begin(); }
+    list<Entity*>::iterator getIteratorToEndElement() { return physicObjects.end(); }
 };

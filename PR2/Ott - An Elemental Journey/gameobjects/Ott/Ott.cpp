@@ -17,6 +17,12 @@ Ott::Ott(const Vector2D& position, Texture* texture, Texture* treeTexture,
 	textures.push_back(TextureShieldEarth);
 	shield = new Shield(position, textureShieldLuz, scale);
 	whip = new Whip(position, textureWhip, scale);
+
+	//trigger ataque
+	attackTrigger.x = position.getX() + width;//+width o no? influiria el daño por contacto antes o si ataca y se acerca como para tocarlo le hace daño?
+	attackTrigger.y = position.getY(); 
+	attackTrigger.w = ATTACK_WIDTH;
+	attackTrigger.h = height;
 }
 
 Ott::~Ott() {
@@ -98,7 +104,7 @@ void Ott::handleEvents(const SDL_Event& event) {
 			if (SDL_HasIntersection(&col, &sRect)) resetLives();
 			ismoving = true;
 		}
-		if (!change && !attack && event.key.keysym.sym == SDLK_e) {
+		if (!change && !attack &&!cooldown&& event.key.keysym.sym == SDLK_e) {
 			animState = ATTACK;
 			attack = true;
 			//cout << "ataque" << endl;
@@ -217,6 +223,9 @@ void Ott::update() {
 	}
 	if (right) dir = Vector2D(1, 0);
 	if (left) dir = Vector2D(-1, 0);
+	//cooldown
+	if (cooldown) { cooldownTimer++; }
+	if (cooldownTimer > cooldownTime) { cooldown = false; }
 #pragma region ANIMATIONS
 	timer++;
 	if (timer >= ANIMATION_FRAME_RATE) {
@@ -344,8 +353,9 @@ void Ott::update() {
 		//Reducidmos dir aquí mejor?
 		shield->move(position.getX(), position.getY(), width, lookingFront);
 	}
-	if (attack) attacking();
-	if (attack && currentElement == 1) whip->move(position.getX(), position.getY(), width, lookingFront);
+	if (attack&&!cooldown) attacking(); //el cooldown para que solo haga daño una vez, si es mientras este a true el booleano, habria que poner una
+	//condicion de si ya ha atacado a un enemigo que no le haga dañado mas de una vez mientras attack
+	if (attack && !cooldown&&currentElement == 1) whip->move(position.getX(), position.getY(), width, lookingFront);
 	//COLISION ESCUDO
 	// Recorrido de lista de entidades
 	//shield->collide(<<ENTIDAD CORRESPONDIENTE>>);
@@ -440,6 +450,29 @@ void Ott::attacking() //EL RECORRIDO DE ENTIDADES LO TIENE EVA HIHI
 		if(SDL_HasIntersection(&whipRect, &enemyRect))
 			whip->damage((*it));
 	}*/
+	cooldownTimer = 0;
+	//trigger ataque
+	if (lookingFront)
+	{
+		attackTrigger.x = position.getX() + width;
+	}
+	else
+	{
+		attackTrigger.x = position.getX() - ATTACK_WIDTH;
+	}
+	attackTrigger.y = position.getY();
+	attackTrigger.w = ATTACK_WIDTH; //por si se actualiza;
+	for (auto it = dynamic_cast<PlayState*>(game)->getIteratorToFirstElement(); it != dynamic_cast<PlayState*>(game)->getIteratorToEndElement(); ++it)
+	{
+		Entity* ent = dynamic_cast<Entity*>(*it);
+		SDL_Rect entRect = ent->getRect();
+		if (SDL_HasIntersection(&attackTrigger, &entRect))
+		{
+			cout << "Attack" << endl;
+			(*it)->recieveDamage(0);
+		}
+	}
+	cooldown = true;
 }
 void Ott::die()
 {
