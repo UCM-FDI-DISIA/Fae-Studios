@@ -29,15 +29,16 @@ public:
 
 	void useGravity();
 
-	virtual void render() const {};
 	virtual void update() {};
 	bool isGrounded();
 	bool collides();
 	void stop();
 	void start();
+	PlayState* getState() { return game; }
 	virtual void recieveDamage(int elem);
 	inline void resetLives() { life = maxLife; }
 	inline void addLive() { ++maxLife; }
 	inline void subLive() { if (life == maxLife) --life; maxLife--; }
 	inline int getCurrentElement() { return currentElement; }
+	virtual void deleteMyself();
 };

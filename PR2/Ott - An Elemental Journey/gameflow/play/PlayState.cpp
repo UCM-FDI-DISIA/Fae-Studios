@@ -10,6 +10,8 @@
 #include "../../ui/ChargedAttackBar.h"
 #include "../../utils/InputHandler.h"
 #include <unordered_map>
+#include "../../gameobjects/staticEnemy.h"
+#include "../../utils/Elements.h"
 
 // funci�n para hacer interpolaci�n lineal. Usada en el movimiento de la c�mara
 float lerp(float a, float b, float t)
@@ -64,13 +66,11 @@ PlayState::PlayState(SDLApplication* app) : GameState(PLAY_STATE, app) {
 				
 				string hola = ot.getName();
 				auto at = lamps.find(hola);
-				cout << ot.getName() << endl;
 				if (at != lamps.end()) {
 					l1->SetLamp((*at).second);
 					(*at).second->SetLamp(l1);
 				}
 				else {
-					cout << "hola" << endl;
 					lamps.insert({ ot.getName(), l1 });
 				}
 
@@ -85,8 +85,12 @@ PlayState::PlayState(SDLApplication* app) : GameState(PLAY_STATE, app) {
 		app->getTexture("ott_fire", PLAY_STATE), app->getTexture("shield", PLAY_STATE), 
 		app->getTexture("fireShield", PLAY_STATE), app->getTexture("waterShield", PLAY_STATE)
 		, app->getTexture("earthShield", PLAY_STATE), app->getTexture("whip", PLAY_STATE)
-		, this, Scale(0.3f, 0.3f));
+		, this, Scale(3.0f, 3.0f));
 	gameObjects.push_back(ott);
+
+	addObject(new staticEnemy(Vector2D(800, 2200), app->getTexture("mushroom", PLAY_STATE), ott, 2000, 5, elementsInfo::Earth,
+		110, 100, Scale(3.0f, 3.0f), this));
+
 	physicObjects.push_back(ott);
     healthBar = new HealthBar(Vector2D(30, 100), app->getTexture("hearts", PLAY_STATE), Scale(10.0f, 10.0f));
 	gameObjects.push_back(healthBar);
@@ -166,11 +170,9 @@ void PlayState::update() {
 		SDL_Rect result;
 		if (it->collide(ott->getRect(), result))
 		{ 
-			cout << "Climbing" << endl;
 			ott->canClimb();
 		}
 		else {
-			cout << "Not climbing" << endl;
 			ott->cannotClimb();
 		}
 	}
@@ -207,6 +209,35 @@ void PlayState::ottCollide(const SDL_Rect& ottRect, const SDL_Rect& onGround, SD
 	}
 }
 
+void PlayState::enemyCollide(const SDL_Rect& enemyRect, const SDL_Rect& onGround, SDL_Rect& groundRect, SDL_Rect& colRect, bool& ground, bool& walled, Vector2D& speed) {
+	// COMPROBACI�N DE COLISIONES CON OBJETOS DE TIPO SUELO (PROVISIONAL)
+	for (auto it : groundObjects) {
+		ground = it->collide(onGround, groundRect);
+		if (ground) break;
+	}
+
+	for (auto it : groundObjects) {
+		walled = it->collide(enemyRect, colRect);
+		if (walled) break;
+		//if (colRect.h > 0 && colRect.w > 16) { // si el rectángulo merece la pena
+		//	if (speed.getX() > 0 && colRect.x >= enemyRect.x) { // chocar pared por la izquierda
+		//		ott->setPos(Vector2D(enemyRect.x - speed.getX(), enemyRect.y));
+		//	}
+		//	else if (speed.getX() < 0 && colRect.x <= enemyRect.x) { // chocar pared por la derecha
+		//		ott->setPos(Vector2D(enemyRect.x - speed.getX(), enemyRect.y));
+		//	}
+
+		//	// chocar techo
+		//	if (speed.getY() < 0 && colRect.y <= enemyRect.y && colRect.w >= colRect.h && colRect.x == enemyRect.x &&
+		//		colRect.w >= enemyRect.w / 2) {
+		//		ott->setPos(Vector2D(ott->getRect().x, ott->getRect().y - speed.getY()));
+		//		if (speed.getX() != 0) speed = Vector2D(speed.getX(), 1);
+		//		else speed = Vector2D(0, 0);
+		//	}
+		//}
+	}
+}
+
 void PlayState::render() const {
 	//Recorremos la lista para renderizar los objetos,
 	// y en caso de que se haya borrado un elemento en la lista, dejamos de recorrerla
@@ -227,7 +258,6 @@ void PlayState::setOttPos(const Vector2D& newPos) {
 
 void PlayState::addEnredadera(const Vector2D& pos) {
 
-	cout << "hola" << endl;
 	Enredaderas* e1 = new Enredaderas(Vector2D(pos.getX()+5, pos.getY() - app->getTexture("enredadera", PLAY_STATE)->getH()*1.25), app->getTexture("enredadera", PLAY_STATE), this);
 	gameObjects.push_back(e1);
 	eObjects.push_back(e1);
@@ -254,7 +284,6 @@ Vector2D PlayState::checkCollisions()
 			}
 		}
 	}
-	cout << resultVector.getX() << " " << resultVector.getY() << endl;
 	return resultVector;
 }
 

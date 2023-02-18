@@ -386,7 +386,6 @@ void Ott::update() {
 		}
 		else { 
 			notGroundedBefore = false; 
-			
 		}// en caso de no estar en el suelo, habrá que fixear la posición cuando choque contra algún suelo
 
 		//timer que comprueba si sigue teniendo una vida debil

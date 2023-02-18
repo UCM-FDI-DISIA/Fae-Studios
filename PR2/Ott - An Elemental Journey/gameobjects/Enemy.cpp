@@ -1,9 +1,9 @@
 #include "Enemy.h"
 #include "../gameflow/GameState.h"
-#include "../gameflow/PlayState.h"
+#include "../gameflow/play/PlayState.h"
 
 
-Enemy::Enemy(const Vector2D& position, Texture* texture, int lives, elementsInfo::elements elem, GameObject* p, bool moving, Vector2D dir, const Scale& scale, float wTrigger, float hTrigger, GameState* state) : MovingObject(position, texture, dir, scale, state), actualLives(lives), element(elem), player(p) {
+Enemy::Enemy(const Vector2D& position, Texture* texture, int lives, elementsInfo::elements elem, GameObject* p, bool moving, PlayState* game, Vector2D dir, const Scale& scale, float wTrigger, float hTrigger) : Entity(position, texture, dir, lives, game,  scale), actualLives(lives), element(elem), player(p) {
 	maxLives = lives * 2;  // Representación interna doblada
 	actualLives = lives * 2;
 	speed = 0.3;
@@ -23,6 +23,8 @@ Enemy::Enemy(const Vector2D& position, Texture* texture, int lives, elementsInfo
 	colliderWH = { (double)width, (double)height };
 
 	if(player != nullptr) nearDistance = width;
+
+	speed = { 0,0 };
 }
 
 bool Enemy::Damage(elementsInfo::elements e) {
@@ -98,12 +100,16 @@ void Enemy::FollowPlayer() {
 	SDL_Rect ott = static_cast<Enemy*> (player)->getCollider();
 	if (lookingRight && abs(ott.x - (collider.x + collider.w)) > nearDistance ||
 		!lookingRight && abs(ott.x + collider.w - collider.x) > nearDistance) {
-		dir = { (double)(ott.x - collider.x), dir.getY()};
-		dir.normalize();
+
+		if ((double)ott.x - collider.x > 0) {
+			speed = { horizontalSpeed, speed.getY() };
+		}
+		else {
+			speed = { -horizontalSpeed, speed.getY() };
+		}
 	}
 	else {
-		dir = { 0, dir.getY() };
-		dir.normalize();
+		speed = { 0, speed.getY() };
 	}
 }
 
@@ -112,17 +118,7 @@ void Enemy::update() {
 		return;
 	}
 	if (!dead) {
-		if (!grounded) {
-			useGravity();
-		}
-		SDL_Rect result = {0,0,0,0};
-		static_cast<PlayState*> (actualState)->enemyCollidesGround(getCollider(), result, grounded);
 	
-		if (grounded) {
-			ChangeDir(result);
-			position = { position.getX(), position.getY() - result.h };
-		}
-
 		DetectPlayer();
 		DetectAttackTrigger();
 
@@ -135,17 +131,14 @@ void Enemy::update() {
 void Enemy::ChangeDir(const SDL_Rect& result){
 	if (!detectPlayer && result.w < getCollider().w * turningOffset) {
 		if (abs(result.x - getCollider().x) < turningError) {
-			dir = { -1, dir.getY() }; 
+			speed = { -horizontalSpeed, speed.getY() };
 			lookingRight = false;
 		}
 		else {
-			dir = { 1, dir.getY() };
+			speed = { horizontalSpeed, speed.getY() };
 			lookingRight = true;
 		}
-
-		dir.normalize();
 	}
-
 }
 
 void Enemy::playerCollide() {
@@ -174,38 +167,49 @@ void Enemy::MoveTriggers() {
 	detectingTrigger.y = attackTrigger.y + collider.h/2 - detectingTrigger.h/2;
 }
 
-
 void Enemy::Move() {
-	position = position + dir * speed; 
-	SDL_Rect result = { 0,0,0,0 };
+	position = position + speed; 
 	bool collided = false;
-	static_cast<PlayState*> (actualState)->enemyCollidesWall(getCollider(), result, collided);
+	SDL_Rect groundRect, colRect;
+	groundCollider = getRect();
+	groundCollider.y += groundCollider.h;
+	groundCollider.h = 10;
+	groundCollider.w /= 2;
+	groundCollider.x += groundCollider.w / 2;
+	
+	if (!grounded) {
+		useGravity();
+	}
+	game->enemyCollide(getCollider(), groundCollider, groundRect, colRect, grounded, collided, speed);
+
+	if (grounded) {
+		ChangeDir(groundRect);
+		position = { position.getX(), position.getY() - groundRect.h };
+	}
+
 	if (collided) {
-		if (abs(result.x - getCollider().x) < turningError) {
-			position = { position.getX() + result.w, position.getY() };
+		if (abs(groundRect.x - getCollider().x) < turningError) {
+			position = { position.getX() + groundRect.w, position.getY() };
 			if(!detectPlayer){
-				dir = { 1, dir.getY() };
+				speed = { horizontalSpeed, speed.getY() };
 				lookingRight = true;
 			}
 		}
 		else {
-			position = { position.getX() - result.w, position.getY() };
+			position = { position.getX() - groundRect.w, position.getY() };
 			if (!detectPlayer) {
-				dir = { -1, dir.getY() };
+				speed = { -horizontalSpeed, speed.getY() };
 				lookingRight = false;
 			}
 		}
-		dir.normalize();
 	}
 	playerCollide();
 }
-
-
 
 int Enemy::GetLives() { return actualLives; }
 
 bool Enemy::isDead() { return dead; }
 
 void Enemy::useGravity() {
-	position = position + Vector2D(0, 1 + static_cast<PlayState*> (actualState)->Gravity());
+	position = position + Vector2D(0, 1 + game->Gravity());
 }

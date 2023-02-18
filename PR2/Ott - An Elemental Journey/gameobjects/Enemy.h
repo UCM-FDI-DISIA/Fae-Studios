@@ -1,5 +1,5 @@
 #pragma once
-#include "MovingObject.h"
+#include "Entity.h"
 #include "../utils/Elements.h"
 #include "../SDLApplication.h" //cosa para texturas desde enemy(?)
 #include <iostream>
@@ -8,7 +8,7 @@
 // MOVER ARCHIVOS Y COLOCAR BIEN
 // CLASE TEMPORAL PARA PROBAR COSAS
 
-class Enemy : public MovingObject{
+class Enemy : public Entity{
 protected:
 	enum triggerState {normal, preparing, attacking, afterAttack, laying};
 
@@ -35,8 +35,11 @@ protected:
 	int nearDistance = 10;
 	bool grounded = false;
 
+	float horizontalSpeed = 1, verticalSpeed = 1;
+
 	GameObject* player;
 	SDL_Rect collider;
+	SDL_Rect groundCollider;
 
 	Vector2D colliderOffset;
 	Vector2D colliderWH; // width height
@@ -47,7 +50,7 @@ protected:
 	int timer = 0;
 
 public:
-	Enemy(const Vector2D& position, Texture* texture, int lives, elementsInfo::elements elem, GameObject* p, bool moving, Vector2D dir = Vector2D(0,0), const Scale& scale = Scale(1.0f, 1.0f), float wTrigger = 110, float hTrigger = 100, GameState* state = nullptr);
+	Enemy(const Vector2D& position, Texture* texture, int lives, elementsInfo::elements elem, GameObject* p, bool moving, PlayState* game, Vector2D dir = Vector2D(0,0), const Scale& scale = Scale(1.0f, 1.0f), float wTrigger = 110, float hTrigger = 100);
 	virtual ~Enemy() = default;
 
 	bool Damage(elementsInfo::elements e);

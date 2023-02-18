@@ -16,3 +16,7 @@ bool Entity::isGrounded() { return ground; }
 void Entity::useGravity() {
 	speed = Vector2D(speed.getX(), speed.getY() + game->Gravity());
 }
+
+void Entity::deleteMyself() {
+	game->deleteObject(this);
+}

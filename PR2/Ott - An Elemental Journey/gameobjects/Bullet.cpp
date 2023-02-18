@@ -1,8 +1,9 @@
 #include "Bullet.h"
+#include "../gameobjects/Ott/Ott.h"
 
 void Bullet::update()
 {
-	position = position + dir * speed;
+	position = position + speed;
 	Collision();
 }
 
@@ -11,7 +12,7 @@ void Bullet::Collision()
 	SDL_Rect playerRect = player->getRect();
 	SDL_Rect bulletRect = getRect();
 	if (SDL_HasIntersection(&bulletRect, &playerRect)) {
-		static_cast<Enemy*>(player)->Damage(element);
+		static_cast<Ott*>(player)->recieveDamage(element);
 		dead = true;
 		deleteMyself();
 	}

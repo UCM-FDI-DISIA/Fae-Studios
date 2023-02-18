@@ -33,6 +33,15 @@
     <ClCompile Include="ui\Slider.cpp" />
     <ClCompile Include="ui\UIText.cpp" />
     <ClCompile Include="ui\ScreenDarkener.cpp" />
+    <ClCompile Include="gameobjects\Bullet.cpp" />
+    <ClCompile Include="gameobjects\Enemy.cpp" />
+    <ClCompile Include="gameobjects\MeleeEnemy.cpp" />
+    <ClCompile Include="gameobjects\staticEnemy.cpp" />
+    <ClCompile Include="gameobjects\Ott\Shield.cpp" />
+    <ClCompile Include="gameobjects\SlimeEnemy.cpp" />
+    <ClCompile Include="gameobjects\Ott\Whip.cpp" />
+    <ClCompile Include="utils\Elements.cpp" />
+    <ClCompile Include="utils\Trigger.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="checkML.h" />
@@ -74,6 +83,15 @@
     <ClInclude Include="utils\Singleton.h" />
     <ClInclude Include="ui\UIText.h" />
     <ClInclude Include="ui\ScreenDarkener.h" />
+    <ClInclude Include="gameobjects\Bullet.h" />
+    <ClInclude Include="gameobjects\Enemy.h" />
+    <ClInclude Include="gameobjects\Ott\Shield.h" />
+    <ClInclude Include="gameobjects\staticEnemy.h" />
+    <ClInclude Include="gameobjects\MeleeEnemy.h" />
+    <ClInclude Include="gameobjects\SlimeEnemy.h" />
+    <ClInclude Include="gameobjects\Ott\Whip.h" />
+    <ClInclude Include="utils\Elements.h" />
+    <ClInclude Include="utils\Trigger.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Ott - An Elemental Journey.rc" />

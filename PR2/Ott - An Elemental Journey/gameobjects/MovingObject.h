@@ -1,20 +1,17 @@
 #include "CollisionObject.h"
 
-const double DEFAULT_SPEED = 5;
-
 #pragma once
 class MovingObject : public CollisionObject
 {
 protected:
     Vector2D dir;
-    double speed = DEFAULT_SPEED;
+    //double speed = DEFAULT_SPEED;
     
 public:
     MovingObject(Vector2D pos, Texture* texture, Vector2D dir, Scale scale = Scale(1.0f, 1.0f)) :
         CollisionObject(pos, texture, scale), dir(dir) {};
     virtual ~MovingObject() {};
     virtual void update() {};
-    virtual void render() {};
 };
 
 /*

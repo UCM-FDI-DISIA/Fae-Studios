@@ -40,8 +40,6 @@ public:
 
     list<GameObject*>::iterator it;
 
-    GameState* getState();
-
     /// Renderiza nuestro objeto en pantalla
     virtual void render(const SDL_Rect& Camera = {0,0,0,0}) const;
 
@@ -57,8 +55,6 @@ public:
     virtual void handleEvents() {};
 
     GO_TYPE getType();
-    
-    void deleteMyself();
 };
 
 #endif //PROYECTOSSDL_GAMEOBJECT_H

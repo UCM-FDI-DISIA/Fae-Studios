@@ -1,5 +1,5 @@
 #include "staticEnemy.h"
-#include "../gameflow/PlayState.h"
+#include "../gameflow/play/PlayState.h"
 
 void staticEnemy::update()
 {
@@ -18,19 +18,18 @@ void staticEnemy::update()
 }
 
 void staticEnemy::Attack(){
-
 	int timer = SDL_GetTicks() - startAttackingTime;
 	if (detectPlayer) {
 		if (timer >= shootTime && col > 4) {
 			SDL_Rect playerRect = player->getRect();
 			if (!shooted) {
 				if (playerRect.x < position.getX()) {
-					static_cast<PlayState*>(actualState)->addBullet({ position.getX(), position.getY() + height * 0.8}, Vector2D(-1, 0), element, player);
+					game->addBullet({ position.getX(), position.getY() + height * 0.8}, Vector2D(-1, 0), element, player);
 					shooted = true;
 					cout << "AAA";
 				}
 				else {
-					static_cast<PlayState*>(actualState)->addBullet({ position.getX() + width * 0.8, position.getY() + height * 0.8 }, Vector2D(1, 0), element, player);
+					game->addBullet({ position.getX() + width * 0.8, position.getY() + height * 0.8 }, Vector2D(1, 0), element, player);
 					shooted = true;
 					cout << "BBB";
 				}
@@ -57,6 +56,10 @@ void staticEnemy::Attack(){
 	}
 }
 
-void staticEnemy::render() const {
-	texture->renderFrame(getRect(), 0, col);
+void staticEnemy::render(const SDL_Rect& Camera) const {
+	cout << "HOLA" << endl;
+	SDL_Rect thisRect = getRect();
+	thisRect.x -= Camera.x;
+	thisRect.y -= Camera.y;
+	texture->renderFrame(thisRect, 0, col);
 }

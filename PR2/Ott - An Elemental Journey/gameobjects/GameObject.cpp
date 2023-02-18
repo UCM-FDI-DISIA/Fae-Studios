@@ -5,8 +5,8 @@
 GameObject::GameObject(const Vector2D& position, Texture* texture, const Scale& scale, GO_TYPE type) {
     this->position = position;
     this->texture = texture;
-    this->width = texture->getW() * scale.widthScale;
-    this->height = texture->getH()  * scale.heightScale;
+    this->width = texture->getW() / texture->getNumCols() * scale.widthScale;
+    this->height = texture->getH() / texture->getNumRows() * scale.heightScale;
     this->type = type;
 }
 
@@ -24,8 +24,4 @@ void GameObject::render(const SDL_Rect& Camera) const {
     rect.x -= Camera.x;
     rect.y -= Camera.y;
     texture->render(rect);
-}
-
-void GameObject::deleteMyself() {
-    actualState->deleteObject(this);
 }

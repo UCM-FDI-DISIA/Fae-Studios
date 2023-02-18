@@ -8,6 +8,7 @@
 #include "../../gameobjects/Entity.h"
 #include "../../ui/HealthBar.h"
 #include "../SDL2_mixer/include/SDL_mixer.h"
+#include "../../gameobjects/Bullet.h"
 #pragma once
 
 class Ott;
@@ -57,4 +58,13 @@ public:
     inline list<Entity*> getEntityList() const { return physicObjects; }
     list<Entity*>::iterator getIteratorToFirstElement() { return physicObjects.begin(); }
     list<Entity*>::iterator getIteratorToEndElement() { return physicObjects.end(); }
+    void addBullet(Vector2D pos, Vector2D dir, elementsInfo::elements elem, GameObject* g) {
+        addObject(new Bullet(pos, app->getTexture("enemy", stateID), elem, g, dir, Scale(0.1f, 0.1f), this));
+    }
+    void addEnemy(Enemy* g) {
+        addObject(g);
+        physicObjects.push_back(g);
+    }
+
+    void enemyCollide(const SDL_Rect& enemyRect, const SDL_Rect& onGround, SDL_Rect& groundRect, SDL_Rect& colRect, bool& ground, bool& walled, Vector2D& speed);
 };

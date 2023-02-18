@@ -1,5 +1,5 @@
 #include "SlimeEnemy.h"
-#include "../gameflow/PlayState.h"
+#include "../gameflow/play/PlayState.h"
 
 void SlimeEnemy::Move() {
 	if (!detectPlayer) {
@@ -77,7 +77,6 @@ void SlimeEnemy::DetectAttackTrigger() {
 
 void SlimeEnemy::update() {
 	if (attackState == normal) {
-		col = 
 	}
 
 	Enemy::update();
@@ -86,8 +85,8 @@ void SlimeEnemy::update() {
 void SlimeEnemy::Divide() { // generamos dos nuevos slimes 
 	// tener en cuenta en constructora y tal que los nuevos slime tndrian menor tamaño y menos vidas
 	// tener en cuenta que hay que añadir estos slimes a la lista de gameObjects del estado y eso
-	static_cast<PlayState*> (this->getState())->addEnemy(new SlimeEnemy(actualSize--, Vector2D(position.getX() - 10, position.getY()), texture, maxLives - 1, element, player, true, dir, Scale(slimeScale / 1.5, slimeScale / 1.5), 110, 100, this->getState()));
-	static_cast<PlayState*> (this->getState())->addEnemy(new SlimeEnemy(actualSize--, Vector2D(position.getX() + 10, position.getY()), texture, maxLives - 1, element, player, true, dir, Scale(slimeScale / 1.5, slimeScale / 1.5), 110, 100, this->getState()));
+	game->addEnemy(new SlimeEnemy(actualSize--, Vector2D(position.getX() - 10, position.getY()), texture, maxLives - 1, element, player, true, dir, Scale(slimeScale / 1.5, slimeScale / 1.5), 110, 100, game));
+	game->addEnemy(new SlimeEnemy(actualSize--, Vector2D(position.getX() + 10, position.getY()), texture, maxLives - 1, element, player, true, dir, Scale(slimeScale / 1.5, slimeScale / 1.5), 110, 100, game));
 }
 
 void SlimeEnemy::Die() {
