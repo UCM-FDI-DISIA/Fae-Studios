@@ -12,8 +12,8 @@ flags.png 1 4 flags
 
 sprites 3
 Enemy.png 1 1 enemy
-Bug_Hulk1-sheet.png 1 21 bug
-Red_Shroom2.png 1 21 mushroom
+Bug 2 21 bug
+Mushroom 2 21 mushroom
 
 test 1
 whiteBox.png 1 1 whiteBox
