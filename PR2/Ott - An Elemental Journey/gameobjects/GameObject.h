@@ -5,6 +5,8 @@
 #include "SDL.h"
 #include "../dependencies/Vector2D.h"
 #include "../dependencies/Texture.h"
+#include <list>
+class GameState;
 
 enum GO_TYPE { LAMP, SANCTUARY, OTT, DEFAULT };
 
@@ -36,6 +38,10 @@ public:
     /// Destructora de la clase GameObject
     virtual ~GameObject() = default;
 
+    list<GameObject*>::iterator it;
+
+    GameState* getState();
+
     /// Renderiza nuestro objeto en pantalla
     virtual void render(const SDL_Rect& Camera = {0,0,0,0}) const;
 
@@ -51,6 +57,8 @@ public:
     virtual void handleEvents() {};
 
     GO_TYPE getType();
+    
+    void deleteMyself();
 };
 
 #endif //PROYECTOSSDL_GAMEOBJECT_H

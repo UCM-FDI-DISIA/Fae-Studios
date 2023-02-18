@@ -1,5 +1,6 @@
 #include "../checkML.h"
 #include "GameObject.h"
+#include "../gameflow/GameState.h"
 
 GameObject::GameObject(const Vector2D& position, Texture* texture, const Scale& scale, GO_TYPE type) {
     this->position = position;
@@ -23,4 +24,8 @@ void GameObject::render(const SDL_Rect& Camera) const {
     rect.x -= Camera.x;
     rect.y -= Camera.y;
     texture->render(rect);
+}
+
+void GameObject::deleteMyself() {
+    actualState->deleteObject(this);
 }

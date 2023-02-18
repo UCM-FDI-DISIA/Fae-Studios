@@ -4,6 +4,7 @@
 #include "../loaders/TextureLoader.h"
 #include "../utils/InputHandler.h"
 
+
 GameState::~GameState() {
     for (auto e : gameObjects) delete(e); //Borramos todos los objetos de la lista
     app->getTextureManager()->unregisterTexture(getStateID());
@@ -53,4 +54,25 @@ void GameState::handleEvents() {
 
 void GameState::setDelete() {
     deleted = true;
+}
+
+GameObject* GameState::addObject(GameObject* obj) {
+    gameObjects.push_back(obj);
+    auto it = gameObjects.end();
+    --it;
+    obj->it = it;
+    return obj;
+}
+
+void GameState::deleteObject(GameObject* obj) {
+    deletedObjects.push(obj);
+}
+
+void GameState::deleteObjects() {
+    while (!deletedObjects.empty()) {
+        auto obj = deletedObjects.top();
+        obj->getState()->gameObjects.erase(obj->it);
+        deletedObjects.pop();
+        delete obj;
+    }
 }

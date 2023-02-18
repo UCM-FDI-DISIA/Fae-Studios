@@ -94,7 +94,7 @@ MainMenuState::~MainMenuState() {
 }
 
 void MainMenuState::update() {
-	if (SDL_GetTicks() >= animTime) { //Se cambia la animación de caída
+	if (SDL_GetTicks() >= animTime) { //Se cambia la animaciï¿½n de caï¿½da
 		animFrame = (animFrame + 1) % 2;
 		animTime = SDL_GetTicks() + MAIN_MENU_OTT_ANIM_TIME;
 	}

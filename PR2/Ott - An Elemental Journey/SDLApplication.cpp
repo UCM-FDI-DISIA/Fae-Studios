@@ -116,6 +116,7 @@ void SDLApplication::run() { //CAMBIAR
             startTime = SDL_GetTicks();
         }
         render(); //Renderizamos los gameobjects
+        stateMachine->currentState()->deleteObjects();
         changeState(); //Se cambia de estado si es necesario
     }
     while (!exit) { //Una vez que hayamos perdido o ganado, se mostrará el gameover o win en pantalla hasta que cerremos el juego

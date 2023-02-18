@@ -3,6 +3,7 @@
 #define PROYECTOS2_GAMESTATE_H
 
 #include <list>
+#include <stack>
 #include "../gameobjects/GameObject.h"
 #include "../gameobjects/CollisionObject.h"
 
@@ -27,6 +28,7 @@ enum STATEID{
 class GameState {
 protected:
     std::list<GameObject*> gameObjects; ///< Lista de gameObjects de nuestro juego
+    std::stack<GameObject*> deletedObjects;
     SDLApplication* app = nullptr; ///< Puntero a la clase Game
     STATEID stateID; ///< Identificador de nuestro estado
     bool deleted = false; ///< Booleano que indica si hay que borrar o no la escena (evitar problemas con iteradores)
@@ -58,6 +60,12 @@ public:
     virtual STATEID getStateID() const { return stateID; };
 
     virtual void collision(CollisionObject* c);
+
+    GameObject* addObject(GameObject* obj);
+
+    void deleteObject(GameObject* obj);
+
+    void deleteObjects();
 };
 
 #endif //PROYECTOS2_GAMESTATE_H

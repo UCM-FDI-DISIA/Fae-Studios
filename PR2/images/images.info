@@ -34,3 +34,9 @@ whip.png 1 1 whip
 waterShield.png 1 1 waterShield
 earthShield.png 1 1 earthShield
 fireShield.png 1 1 fireShield
+
+sprites 4
+Enemy.png 1 1 enemy
+Bug_Hulk1-sheet.png 1 21 bug
+SlimeBosqueAnim.png 1 15 slime
+Red_Shroom2.png 1 21 mushroom
