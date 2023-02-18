@@ -80,7 +80,12 @@ PlayState::PlayState(SDLApplication* app) : GameState(PLAY_STATE, app) {
 			}
 		}
 	}
-	ott = new Ott(Vector2D(400, 2000), app->getTexture("ott_luz", PLAY_STATE), app->getTexture("ott_tree", PLAY_STATE), app->getTexture("ott_water", PLAY_STATE), app->getTexture("ott_fire", PLAY_STATE), this, Scale(0.3f, 0.3f));
+	ott = new Ott(Vector2D(400, 2000), app->getTexture("ott_luz", PLAY_STATE), 
+		app->getTexture("ott_tree", PLAY_STATE), app->getTexture("ott_water", PLAY_STATE), 
+		app->getTexture("ott_fire", PLAY_STATE), app->getTexture("shield", PLAY_STATE), 
+		app->getTexture("fireShield", PLAY_STATE), app->getTexture("waterShield", PLAY_STATE)
+		, app->getTexture("earthShield", PLAY_STATE), app->getTexture("whip", PLAY_STATE)
+		, this, Scale(0.3f, 0.3f));
 	gameObjects.push_back(ott);
 	physicObjects.push_back(ott);
     healthBar = new HealthBar(Vector2D(30, 100), app->getTexture("hearts", PLAY_STATE), Scale(10.0f, 10.0f));

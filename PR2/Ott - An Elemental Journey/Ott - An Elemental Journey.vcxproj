@@ -209,8 +209,6 @@
     <ClCompile Include="ui\ScreenDarkener.cpp" />
     <ClCompile Include="ui\Slider.cpp" />
     <ClCompile Include="ui\UIText.cpp" />
-    <ClCompile Include="ui\Text.cpp" />
-    <ClCompile Include="ui\UIElement.cpp" />
     <ClCompile Include="gameobjects\Ott\Whip.cpp" />
   </ItemGroup>
   <ItemGroup>

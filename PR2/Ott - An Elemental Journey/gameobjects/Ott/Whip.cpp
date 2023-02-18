@@ -8,6 +8,7 @@ void Whip::move(int x, int y, float width, bool lookingFront)
 	}
 	else position = Vector2D(x + width - 20, y);
 }
+
 void Whip::render(const SDL_Rect& Camera)
 {
 	GameObject::render(Camera);

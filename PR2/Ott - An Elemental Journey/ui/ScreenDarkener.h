@@ -17,7 +17,7 @@ private:
 
 public:
     ScreenDarkener(SDLApplication* app);
-    void render(const SDL_Rect& camera = { 0,0,0,0 }) const override;
+    void render(const SDL_Rect& camera = { 0,0,0,0 }) const;
     void show();
     void hide();
 };

@@ -280,7 +280,7 @@ bool Ott::canJump() {
 	return ground;
 }
 
-void Ott::jump() {
+void Ott::jump() {	
 	if (isGrounded()) { //metodo canjump es lo mismo pero no inline? 
 		if (!attack && !change) { setAnimState(JUMPING); }
 		if(defend) speed = Vector2D(speed.getX(), jumpForce + 1);
@@ -333,7 +333,6 @@ void Ott::updateAnimState() {
 			setAnimState(FALLING);
 		}
 	}
-	
 }
 
 void Ott::update() {
@@ -404,7 +403,12 @@ void Ott::update() {
 			shield->move(position.getX(), position.getY(), width, lookingFront);
 		}
 		if (attack&&!cooldown) attacking(); //el cooldown para que solo haga daño una vez, si es mientras este a true el booleano, habria que poner una
-		if (attack && !cooldown&&currentElement == 1) whip->move(position.getX(), position.getY(), width, lookingFront);
+		if (attack && currentElement == 1) whip->move(position.getX(), position.getY(), width, lookingFront);
+
+		cout << "X: " << whip->getRect().x <<
+			"Y: " << whip->getRect().y <<
+			"W: " << whip->getRect().w <<
+			"H: " << whip->getRect().h << endl;
 	}
 
 	else if (animState == TP_OUT) position = tpPosition; // en caso de estarse teletransportando entre lámparas, se fixea su posición
@@ -438,13 +442,12 @@ void Ott::render(const SDL_Rect& Camera) const {
 	}
 	if (attack && currentElement == 1)
 	{
+		whip->move(position.getX() - Camera.x, position.getY() - Camera.y, width, lookingFront);
 		SDL_Rect whipR = whip->getRect();
-		whipR.x -= Camera.x;
-		whipR.y -= Camera.y;
-		if (lookingFront) whip->getTexture()->renderFrame(whipR , 0, 0);
+		if (lookingFront) whip->getTexture()->render(whipR);
 		else
 		{
-			whip->getTexture()->renderFrame(whipR, 0, 0, 0, SDL_FLIP_HORIZONTAL);
+			whip->getTexture()->render(whipR, SDL_FLIP_HORIZONTAL);
 		}
 	}
 }

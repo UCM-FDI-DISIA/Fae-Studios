@@ -2,8 +2,10 @@
 #include "../../gameflow/play/PlayState.h"
 #include "../Sanctuary.h"
 #include "../../ui/HealthBar.h"
+#include "Shield.h"
+#include "Whip.h"
 
-enum ANIM_STATE { IDLE, WALKING, LAND, JUMPING, PEAK, FALLING, ATTACK, TP_IN, TP_OUT,CHANGE,DIE };
+enum ANIM_STATE { IDLE, WALKING, LAND, JUMPING, PEAK, FALLING, ATTACK, TP_IN, TP_OUT,CHANGE,DIE, DEFEND };
 
 class Ott : public Entity {
 protected:
@@ -12,6 +14,8 @@ protected:
     bool dieAnim = false;
     bool cooldown = false;
     bool lookingFront = true; // indica hacia d�nde debe mirar el sprite
+
+    const int ELEMENT_CHANGE_TIME = 500;
 
     //Analog joystick dead zone
     const int JOYSTICK_DEAD_ZONE = 8000; // EL M�XIMO VALOR ES 32000, POR ESO PONEMOS UNA DEAD ZONE TAN APARENTEMENTE GRANDE
@@ -50,6 +54,8 @@ protected:
     const int cooldownTime = 100;
     int cooldownTimer = 0;
 
+    Shield* shield;
+    Whip* whip;
 
     //Par�metros que controlan la vida debil
     bool weakened = false;
