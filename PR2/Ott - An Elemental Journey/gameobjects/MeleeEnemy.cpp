@@ -34,7 +34,6 @@ void MeleeEnemy::render() const {
 void MeleeEnemy::Die() {
 	Enemy::Die();
 	col = 12;
-	timer = SDL_GetTicks();
 }
 
 
@@ -72,7 +71,7 @@ void MeleeEnemy::update() {
 		col = ((SDL_GetTicks() - timer) / (time_per_frame)) % 10 + 12;
 		if (col >= 21) {
 			col = 21;
-			deadAnimationEnd = true;
+			deleteMyself();
 		}
 
 	}

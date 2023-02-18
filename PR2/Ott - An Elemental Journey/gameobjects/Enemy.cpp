@@ -26,7 +26,7 @@ Enemy::Enemy(const Vector2D& position, Texture* texture, int lives, elementsInfo
 }
 
 bool Enemy::Damage(elementsInfo::elements e) {
-	cout << "Hit" << endl;
+	cout << "Hit " << actualLives << endl;
 	actualLives -= elementsInfo::matrix[e][element];
 	if (actualLives <= 0) {
 		Die();
@@ -37,6 +37,7 @@ bool Enemy::Damage(elementsInfo::elements e) {
 
 void Enemy::Die() {
 	dead = true;
+	timer = SDL_GetTicks();
 }
 
 void Enemy::DetectPlayer() {
@@ -80,11 +81,8 @@ void Enemy::DetectAttackTrigger() {
 
 void Enemy::Attack() {
 	if (player != nullptr) {
-		cout << "AAAAAAAA" << endl;
 		SDL_Rect playerRect = static_cast<Enemy*> (player)->getCollider();
 		if (SDL_HasIntersection(&attackTrigger, &playerRect)) {
-			cout << "bbbbbbbbbb" << endl;
-
 			if (static_cast<Enemy*>(player)->Damage(element)) {
 				player = nullptr;
 				detectPlayer = false;
@@ -131,11 +129,6 @@ void Enemy::update() {
 		MoveTriggers();
 	
 		Move();
-	}
-	else {
-		if (deadAnimationEnd) {
-			deleteMyself();
-		}
 	}
 }
 

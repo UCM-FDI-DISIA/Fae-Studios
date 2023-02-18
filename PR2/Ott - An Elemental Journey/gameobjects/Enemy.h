@@ -16,7 +16,6 @@ protected:
 	int actualLives;
 	elementsInfo::elements element;
 	bool dead = false;
-	bool deadAnimationEnd = false;
 
 	uint PREPARING_TIME = 1000;
 	uint ATTACKING_TIME = 1000;
@@ -31,7 +30,7 @@ protected:
 	triggerState attackState;
 	SDL_Rect detectingTrigger;
 	bool detectPlayer;
-	bool movee;  // TEMPORAL PARA PRUEBAS, BORRAR TODO LO RELACIONADO CON ESTO
+	bool movee = true;;  // TEMPORAL PARA PRUEBAS, BORRAR TODO LO RELACIONADO CON ESTO
 	bool lookingRight = true;
 	int nearDistance = 10;
 	bool grounded = false;
@@ -41,6 +40,11 @@ protected:
 
 	Vector2D colliderOffset;
 	Vector2D colliderWH; // width height
+
+	const int time_per_frame = 140;
+	SDL_RendererFlip flip[2] = { SDL_FLIP_NONE, SDL_FLIP_HORIZONTAL };
+	int col;
+	int timer = 0;
 
 public:
 	Enemy(const Vector2D& position, Texture* texture, int lives, elementsInfo::elements elem, GameObject* p, bool moving, Vector2D dir = Vector2D(0,0), const Scale& scale = Scale(1.0f, 1.0f), float wTrigger = 110, float hTrigger = 100, GameState* state = nullptr);
