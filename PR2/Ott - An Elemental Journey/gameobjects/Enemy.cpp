@@ -30,6 +30,7 @@ Enemy::Enemy(const Vector2D& position, Texture* texture, int lives, elementsInfo
 bool Enemy::Damage(elementsInfo::elements e) {
 	cout << "Hit " << actualLives << endl;
 	actualLives -= elementsInfo::matrix[e][element];
+	startDamagedTime = SDL_GetTicks();
 	if (actualLives <= 0) {
 		Die();
 		return true;
@@ -125,6 +126,11 @@ void Enemy::update() {
 		MoveTriggers();
 	
 		Move();
+
+		if (SDL_GetTicks() - startDamagedTime < DAMAGED_TIME) {
+			fil = 1;
+		}
+		else fil = 0;
 	}
 }
 
