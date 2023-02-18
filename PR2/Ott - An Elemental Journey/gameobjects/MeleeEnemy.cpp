@@ -23,11 +23,11 @@ void MeleeEnemy::Move() {
 
 void MeleeEnemy::render() const {
 	if (dead || attackState == attacking || attackState == afterAttack) {
-		texture->renderFrame(getRect(), 0, col, 0, flip[lookingRight]);
+		texture->renderFrame(getRect(), fil, col, 0, flip[lookingRight]);
 	}
 	else if (attackState == normal || attackState == preparing) {
-		if (dir.getX() == 0 || attackState == preparing) texture->renderFrame(getRect(), 0, (SDL_GetTicks() / time_per_frame) % 3, 0, flip[lookingRight]);
-		else texture->renderFrame(getRect(), 0, (SDL_GetTicks() / time_per_frame) % 4 + 3, 0, flip[lookingRight]);
+		if (dir.getX() == 0 || attackState == preparing) texture->renderFrame(getRect(), fil, (SDL_GetTicks() / time_per_frame) % 3, 0, flip[lookingRight]);
+		else texture->renderFrame(getRect(), fil, (SDL_GetTicks() / time_per_frame) % 4 + 3, 0, flip[lookingRight]);
 	}
 }
 

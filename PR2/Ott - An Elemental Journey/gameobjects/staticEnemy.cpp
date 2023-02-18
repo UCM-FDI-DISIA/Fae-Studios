@@ -7,6 +7,10 @@ void staticEnemy::update()
 		cout << col << endl;
 		DetectPlayer();
 		Attack();
+		if (SDL_GetTicks() - startDamagedTime < DAMAGED_TIME) {
+			fil = 1;
+		}
+		else fil = 0;
 	}
 	else {
 		col = ((SDL_GetTicks() - timer) / (time_per_frame)) % 21 + 9;
@@ -61,5 +65,5 @@ void staticEnemy::render(const SDL_Rect& Camera) const {
 	SDL_Rect thisRect = getRect();
 	thisRect.x -= Camera.x;
 	thisRect.y -= Camera.y;
-	texture->renderFrame(thisRect, 0, col);
+	texture->renderFrame(thisRect, fil, col);
 }
