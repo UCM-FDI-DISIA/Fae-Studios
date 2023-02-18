@@ -5,6 +5,7 @@ class SlimeEnemy : public Enemy
 {
 	enum size { big=3, medium=2, small=1 };
 protected:
+	int col;
 	float slimeScale = 0;
 	int actualSize = big;
 	SDL_Rect damageZone = {0,0,0,0};
@@ -25,6 +26,7 @@ public:
 		damageZone.y = position.getY(); damageZone.x = position.getX(); damageZone.w = width; damageZone.h = height / actualSize;
 	};
 	
+	virtual void update();
 	virtual void Move();
 	virtual void DetectAttackTrigger(); // probably va a ser un render frame con el bicho cayendose cuando este en Attack_Time
 	virtual bool Damage(/*const SDL_Rect& playerAttack, */elementsInfo::elements e);
