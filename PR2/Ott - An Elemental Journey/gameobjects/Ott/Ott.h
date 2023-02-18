@@ -8,9 +8,9 @@ enum ANIM_STATE { IDLE, WALKING, LAND, JUMPING, PEAK, FALLING, ATTACK, TP_IN, TP
 class Ott : public Entity {
 protected:
 
-    bool left = false, right = false, up = false, attack = false, upC = false, down = false,change=false;
+    bool left = false, right = false, up = false, attack = false, defend = false, upC = false, down = false,change=false;
     bool dieAnim = false;
-
+    bool cooldown = false;
     bool lookingFront = true; // indica hacia d�nde debe mirar el sprite
 
     //Analog joystick dead zone
@@ -39,21 +39,39 @@ protected:
     bool isJumping = false;
     int horizontalSpeed = 1;
 
+    // Constantes Knockback
+    const double X_KNOCKBACK_FORCE = 5;
+    const double Y_KNOCKBACK_FORCE = 1;
+
+    //trigger ataque y ancho de ataque (pudiera aplicarse a mas ataques)
+    SDL_Rect attackTrigger;
+    int ATTACK_WIDTH = 100;
+    //constante y timer cooldown
+    const int cooldownTime = 100;
+    int cooldownTimer = 0;
+
+
     //Par�metros que controlan la vida debil
     bool weakened = false;
     int timeWeak = 3, weakTimer;
     int invincibilityTime = 2, invencibilityTimer = 0;
+    bool invincible = false;
     //Game Controller 1 handler
     GameObject* lastSanctuary = nullptr;
 
-    //Texturas elementos
-    vector<Texture*>textures;
+    vector<Texture*> textures;
+    
     int nextElement = 0;
+    int ElementcoldDown = ELEMENT_CHANGE_TIME;
 
 public:
-    Ott(const Vector2D& position, Texture* texture, Texture* tree, Texture* water, Texture* fire , PlayState* game, const Scale& scale = Scale(1.0f, 1.0f));
+    Ott(const Vector2D& position, Texture* texture, Texture* treeTexture, Texture* waterTexture, 
+        Texture* fireTexture, Texture * TextureShieldLuz,
+        Texture* TextureShieldFire, Texture* TextureShieldWater, Texture* TextureShieldEarth,
+        Texture * textureWhip,
+        PlayState* game, const Scale& scale = Scale(1.0f, 1.0f));
     /// Destructora de la clase GameObject
-    virtual ~Ott() = default;
+    virtual ~Ott(); //hihi no borrar escudo
 
     void canClimb(){ climb = true; };
     void cannotClimb() {
@@ -61,7 +79,8 @@ public:
     }
     bool canJump();
     void jump();
-    // Renderizado
+    void changeElem();
+    // Renderizado 
     virtual void render(const SDL_Rect& Camera) const;
 
     void setAnimState(ANIM_STATE newState);
@@ -92,6 +111,9 @@ public:
     void setPos(const Vector2D& newPos);
 
     void updateAnimState();
+
 private:
+    void attacking();
     virtual void die();
+    void knockback();
 };

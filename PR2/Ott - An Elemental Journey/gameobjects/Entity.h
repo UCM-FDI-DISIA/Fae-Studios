@@ -9,6 +9,7 @@ class Entity : public MovingObject
 protected:
 	uint life, maxLife;
 	PlayState* game;
+	enum Elements{Luz,Agua,Tierra,Fuego,Oscuridad};
 	int elementsInfo [5][5] = {
 		{ 1, 1, 1, 1, 1 },
 		{ 1, 1, 2, 0, -1 },
@@ -16,7 +17,7 @@ protected:
 		{ 1, 2, 0, 1, -1 },
 		{ 1, 2, 2, 2, 1 }
 	};
-	int currentElement = 0;
+	int currentElement = Luz;
 	virtual void die();
 	Vector2D speed;
 	bool ground = false;
@@ -38,4 +39,5 @@ public:
 	inline void resetLives() { life = maxLife; }
 	inline void addLive() { ++maxLife; }
 	inline void subLive() { if (life == maxLife) --life; maxLife--; }
+	inline int getCurrentElement() { return currentElement; }
 };

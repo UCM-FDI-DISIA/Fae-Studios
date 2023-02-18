@@ -27,6 +27,11 @@ enredadera.png 1 1 enredadera
 grass.png 1 1 grass
 1x1Pixel.png 1 1 pixel
 
-levels 2
+levels 7
 fondo.png 1 1 level1bg
 tilesetlevel1.png 34 20 level1tileset
+Shield.png 1 1 shield
+whip.png 1 1 whip
+waterShield.png 1 1 waterShield
+earthShield.png 1 1 earthShield
+fireShield.png 1 1 fireShield

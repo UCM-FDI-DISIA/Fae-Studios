@@ -1,12 +1,34 @@
 ﻿#include "Ott.h"
 #include "../../utils/InputHandler.h"
 
-Ott::Ott(const Vector2D& position, Texture* texture, Texture* tree, Texture* water, Texture* fire, PlayState* game, const Scale& scale) : Entity(position, texture, Vector2D(0, 0), 5, game, scale) {
+Ott::Ott(const Vector2D& position, Texture* texture, Texture* treeTexture,
+	Texture* waterTexture, Texture* fireTexture,
+	Texture* textureShieldLuz, 
+	Texture* TextureShieldFire, Texture* TextureShieldWater, Texture* TextureShieldEarth, 
+	Texture* textureWhip, PlayState* game, const Scale& scale) :
+	Entity(position, texture, Vector2D(0, 0), 5, game, scale) {
 
 	textures.push_back(texture);
-	textures.push_back(tree);
-	textures.push_back(water);
-	textures.push_back(fire);
+	textures.push_back(treeTexture);
+	textures.push_back(waterTexture);
+	textures.push_back(fireTexture);
+	textures.push_back(textureShieldLuz);
+	textures.push_back(TextureShieldFire);
+	textures.push_back(TextureShieldWater);
+	textures.push_back(TextureShieldEarth);
+	shield = new Shield(position, textureShieldLuz, scale);
+	whip = new Whip(position, textureWhip, scale);
+
+	//trigger ataque
+	attackTrigger.x = position.getX() + width;//+width o no? influiria el daño por contacto antes o si ataca y se acerca como para tocarlo le hace daño?
+	attackTrigger.y = position.getY(); 
+	attackTrigger.w = ATTACK_WIDTH;
+	attackTrigger.h = height;
+}
+
+Ott::~Ott() {
+	delete shield;
+	delete whip;
 }
 
 void Ott::setAnimState(ANIM_STATE newState) {
@@ -146,6 +168,11 @@ void Ott::handleEvents() {
 	auto input = InputHandler::instance();
 	if (input->keyDownEvent()) {
 		if (!dieAnim) {
+			if (input->isKeyDown(SDLK_z))
+			{
+				animState = DEFEND;
+				defend = true;
+			}
 			if (input->isKeyDown(SDLK_LEFT)) {
 				left = true;
 				right = false;
@@ -228,6 +255,7 @@ void Ott::handleEvents() {
 		}
 		if (input->isKeyJustUp(SDLK_RIGHT))
 		{
+			if (left) lookingFront = false;
 			right = false;
 		}
 		if (input->isKeyUp(SDLK_RIGHT) && input->isKeyUp(SDLK_LEFT)) {
@@ -242,6 +270,9 @@ void Ott::handleEvents() {
 		if (input->isKeyJustUp(SDLK_DOWN)) {
 			down = false;
 		}
+		if(input->isKeyJustUp(SDLK_z)){
+			defend = false;
+		}
 	}
 }
 
@@ -252,8 +283,17 @@ bool Ott::canJump() {
 void Ott::jump() {
 	if (isGrounded()) { //metodo canjump es lo mismo pero no inline? 
 		if (!attack && !change) { setAnimState(JUMPING); }
-		speed = Vector2D(speed.getX(), jumpForce);
+		if(defend) speed = Vector2D(speed.getX(), jumpForce + 1);
+		else speed = Vector2D(speed.getX(), jumpForce);
 	}
+}
+void Ott::changeElem() {
+	animState = CHANGE;
+	change = true;
+	ismoving = true;
+	col = 0;
+	timer += ANIMATION_FRAME_RATE / 2;
+	ElementcoldDown += ELEMENT_CHANGE_TIME;
 }
 
 void Ott::setSpeed() {
@@ -263,6 +303,7 @@ void Ott::setSpeed() {
 	if (upC && climb) { speed = Vector2D(speed.getX(), climbForce); notGroundedBefore = true; }
 	if (!ground && down && climb) { speed = Vector2D(speed.getX(), -climbForce); notGroundedBefore = false; }
 	if (climb && !upC && !down) { speed = Vector2D(speed.getX(), 0); notGroundedBefore = false; }
+	if(defend) speed = Vector2D(speed.getX()/2, speed.getY());
 }
 
 // Método usado para comprobar en qué animación estamos
@@ -303,7 +344,6 @@ void Ott::update() {
 	if (xDir == 0 && yDir == 0) arrowAngle = 0;
 	*/
 #pragma endregion
-
 	setSpeed(); // ver qué velocidad debería tener Ott ahora en función del input
 
 	// AVANZAR / CAMBIAR DE ANIMACIÓN SEGÚN ANIMATION_FRAME_RATE
@@ -311,7 +351,11 @@ void Ott::update() {
 	if (timer >= ANIMATION_FRAME_RATE) { // comprobar si hay que cambiar/avanzar la animacións
 		timer = 0;
 		setAnimState(animState); // cambio/avance de animación
+
 	}
+
+	if (cooldown) { cooldownTimer++; }
+	if (cooldownTimer > cooldownTime) { cooldown = false; }
 
 	// Ajustamos el rectángulo que comprueba la colisión con el suelo
 	onGround = getRect();
@@ -324,6 +368,7 @@ void Ott::update() {
 		if (speed.getY() > MAX_VERTICAL_SPEED) { speed = Vector2D(speed.getX(), MAX_VERTICAL_SPEED); } // si la velocidad vertical supera un máximo, se fixea a ese máximo
 
 		#pragma region COLISIONES (HIPER MEGA PROVISIONAL. MUY PROVISIONAL)
+
 		position = position + speed;
 
 		SDL_Rect groundCol, colRect; // recoge el rectángulo de colisión entre ott y el objeto físico contra el que colisione
@@ -350,10 +395,18 @@ void Ott::update() {
 			weakened = false; 
 			game->getHealthBar()->changeHealth(UNWEAKEN_CONTAINER);
 		}
+		if (invincible && (SDL_GetTicks() - invencibilityTimer) > invincibilityTime * 1000) invincible = false;
 		
 		// mover al personaje
 		#pragma endregion
+		if (defend)
+		{
+			shield->move(position.getX(), position.getY(), width, lookingFront);
+		}
+		if (attack&&!cooldown) attacking(); //el cooldown para que solo haga daño una vez, si es mientras este a true el booleano, habria que poner una
+		if (attack && !cooldown&&currentElement == 1) whip->move(position.getX(), position.getY(), width, lookingFront);
 	}
+
 	else if (animState == TP_OUT) position = tpPosition; // en caso de estarse teletransportando entre lámparas, se fixea su posición
 														 // a la de la lámpara objetivo
 }
@@ -374,6 +427,26 @@ void Ott::render(const SDL_Rect& Camera) const {
 		textures[currentElement]->renderFrame(ottRect, row, col, 0, SDL_FLIP_HORIZONTAL);
 	}
 	else textures[currentElement]->renderFrame(ottRect, row, col);
+
+	if (defend)
+	{
+		if (currentElement == 0) shield->changeTexture(textures[4]);
+		if (currentElement == 1) shield->changeTexture(textures[7]);
+		if (currentElement == 2) shield->changeTexture(textures[6]);
+		if (currentElement == 3) shield->changeTexture(textures[5]);
+		shield->render(Camera);
+	}
+	if (attack && currentElement == 1)
+	{
+		SDL_Rect whipR = whip->getRect();
+		whipR.x -= Camera.x;
+		whipR.y -= Camera.y;
+		if (lookingFront) whip->getTexture()->renderFrame(whipR , 0, 0);
+		else
+		{
+			whip->getTexture()->renderFrame(whipR, 0, 0, 0, SDL_FLIP_HORIZONTAL);
+		}
+	}
 }
 
 // Método para recibir daño
@@ -381,6 +454,8 @@ void Ott::recieveDamage(int elem)
 {
 	if (SDL_GetTicks() - invencibilityTimer <= invincibilityTime * 1000) return;
 	invencibilityTimer = SDL_GetTicks();
+	knockback();
+	invincible = true;
 	if (elementsInfo[elem][currentElement] == 0) {
 		if (!weakened) {
 			weakened = true;
@@ -421,12 +496,44 @@ bool Ott::collide(GameObject* c)
 	}
 	return false;
 }
-
+void Ott::attacking() //EL RECORRIDO DE ENTIDADES LO TIENE EVA HIHI
+{
+	/*auto it = static_cast<PlayState*>(game)->getEntityList().begin();
+	for (it; it != static_cast<PlayState*>(game)->getEntityList().end(); ++it) {
+		SDL_Rect enemyRect = (*it)->getRect();
+		SDL_Rect whipRect = whip->getRect();
+		if(SDL_HasIntersection(&whipRect, &enemyRect))
+			whip->damage((*it));
+	}*/
+	cooldownTimer = 0;
+	//trigger ataque
+	if (lookingFront)
+	{
+		attackTrigger.x = position.getX() + width;
+	}
+	else
+	{
+		attackTrigger.x = position.getX() - ATTACK_WIDTH;
+	}
+	attackTrigger.y = position.getY();
+	attackTrigger.w = ATTACK_WIDTH; //por si se actualiza;
+	for (auto it = dynamic_cast<PlayState*>(game)->getIteratorToFirstElement(); it != dynamic_cast<PlayState*>(game)->getIteratorToEndElement(); ++it)
+	{
+		Entity* ent = dynamic_cast<Entity*>(*it);
+		SDL_Rect entRect = ent->getRect();
+		if (SDL_HasIntersection(&attackTrigger, &entRect))
+		{
+			cout << "Attack" << endl;
+			(*it)->recieveDamage(0);
+		}
+	}
+	cooldown = true;
+}
 void Ott::die()
 {
-	cout << "He muerto " << endl;
+	//cout << "He muerto " << endl;
 	if (lastSanctuary == nullptr) {
-		cout << "No hay sanctuarios recientes... Muerte inminente" << endl;
+		//cout << "No hay sanctuarios recientes... Muerte inminente" << endl;
 		PlayState* p = static_cast<PlayState*>(game);
 		p->backToMenu();
 	}
@@ -453,5 +560,14 @@ void Ott::setTpPoint(const Vector2D& newPos) {
 
 void Ott::setPos(const Vector2D& newPos ) {
 	position = newPos;
+}
+void Ott::knockback() {
+
+	Vector2D knockback = Vector2D{ 0, X_KNOCKBACK_FORCE };
+
+	if (lookingFront)
+		knockback = -1*knockback;
+
+	dir = dir + knockback;
 }
 #pragma endregion

@@ -7,6 +7,7 @@
 #include <iostream>
 #include "../../gameobjects/Entity.h"
 #include "../../ui/HealthBar.h"
+#include "../SDL2_mixer/include/SDL_mixer.h"
 #pragma once
 
 class Ott;
@@ -33,10 +34,12 @@ private:
     Camera camera;
     Ott* ott;
     Mapa* currentMap;
+    Mix_Music* music;
     Vector2D collides(SDL_Rect Rect, SDL_Rect objRect);
 
 public:
     PlayState(SDLApplication* app);
+    ~PlayState();
     virtual void handleEvents();
     void ottCollide(const SDL_Rect& Ott, const SDL_Rect& onGround, SDL_Rect& grounRect, SDL_Rect& colRect, bool& ground
     , Vector2D& speed);
@@ -51,4 +54,7 @@ public:
     void backToMenu();
     Vector2D checkCollisions();
     inline HealthBar* getHealthBar() { return healthBar; }
+    inline list<Entity*> getEntityList() const { return physicObjects; }
+    list<Entity*>::iterator getIteratorToFirstElement() { return physicObjects.begin(); }
+    list<Entity*>::iterator getIteratorToEndElement() { return physicObjects.end(); }
 };

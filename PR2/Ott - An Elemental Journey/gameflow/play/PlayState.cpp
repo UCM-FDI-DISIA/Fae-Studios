@@ -89,6 +89,11 @@ PlayState::PlayState(SDLApplication* app) : GameState(PLAY_STATE, app) {
     screenDarkener = new ScreenDarkener(app);
     gameObjects.push_back(screenDarkener);
 	camera = { 0,0,WINDOW_WIDTH, WINDOW_HEIGHT };
+
+	Mix_Init(MIX_INIT_FLAC | MIX_INIT_MOD | MIX_INIT_MP3 | MIX_INIT_OGG | MIX_INIT_MID);
+	Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 2048);
+	music = Mix_LoadMUS("../../sounds/musics/Ambient 4.wav");
+	Mix_PlayMusic(music, -1);
 }
 
 void PlayState::moveCamera() {
@@ -265,4 +270,10 @@ Vector2D PlayState::collides(SDL_Rect playerRect, SDL_Rect objRect) { //Se compr
 	}
 	//cout << cVector.getX() << " " << cVector.getY() << endl;
 	return cVector;
+}
+PlayState::~PlayState()
+{
+	Mix_HaltMusic();
+	Mix_FreeMusic(music);
+	Mix_Quit();
 }

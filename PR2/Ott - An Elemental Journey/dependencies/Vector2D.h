@@ -49,6 +49,8 @@ public:
     /// \return Un número decimal con el producto escalar de dos vectores
     double operator*(const Vector2D& other) const;
 
+    bool operator==(const Vector2D& other) const;
+
     /// Producto de un vector por un escalar (para poder hacer num * Vector en lugar de solo Vector * num)
     /// \param num Número decimal
     /// \param vector Vector2D
