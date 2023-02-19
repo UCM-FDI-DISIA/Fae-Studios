@@ -76,4 +76,7 @@ public:
     virtual void deleteObjects();
 
     void deleteEntities();
+    
+    bool bulletCollide(const SDL_Rect& bulletRect);
+
 };

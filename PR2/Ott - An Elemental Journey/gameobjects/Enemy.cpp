@@ -85,8 +85,9 @@ void Enemy::DetectAttackTrigger() {
 void Enemy::Attack() {
 	if (player != nullptr) {
 		SDL_Rect playerRect = static_cast<Ott*> (player)->getRect();
-		if (SDL_HasIntersection(&attackTrigger, &playerRect)) {
-			if (static_cast<Ott*>(player)->recieveDamage(element)) { player = nullptr; detectPlayer = false; }
+		SDL_Rect result;
+		if (SDL_IntersectRect(&attackTrigger, &playerRect, &result)) {
+			if (static_cast<Ott*>(player)->recieveDamage(element, result)) { player = nullptr; detectPlayer = false; }
 		}
 	}
 }

@@ -111,8 +111,8 @@ void Ott::setAnimState(ANIM_STATE newState) {
 	else if(newState == DIE)
 	{
 		row = 7;
-		if (col < 7)col++;
-		else die();
+		if (col < 7) col++;
+		else dead = true;
 	}
 
 	animState = newState;
@@ -168,7 +168,7 @@ void Ott::handleEvents() {
 #pragma endregion
 	auto input = InputHandler::instance();
 	if (input->keyDownEvent()) {
-		if (!dead) {
+		if (!dieAnim) {
 			if (input->isKeyDown(SDLK_z))
 			{
 				animState = DEFEND;
@@ -222,9 +222,6 @@ void Ott::handleEvents() {
 				change = true;
 				ismoving = true;
 				nextElement = 0;
-			}
-			if (input->isKeyDown(SDLK_x)) {
-				recieveDamage(currentElement);
 			}
 			//PRUEBA CORAZON ALEX
 			/*if (input->isKeyDown(SDLK_r)) {
@@ -294,6 +291,10 @@ void Ott::setSpeed() {
 	if (!ground && down && climb) { speed = Vector2D(speed.getX(), -climbForce); notGroundedBefore = false; }
 	if (climb && !upC && !down) { speed = Vector2D(speed.getX(), 0); notGroundedBefore = false; }
 	if(defend) speed = Vector2D(speed.getX()/2, speed.getY());
+	if (isKnockback) {
+		if (lookingFront) speed = speed - Vector2D(X_KNOCKBACK_FORCE * (knockbackTime - knockbackTimer) / knockbackTime, 0);
+		else speed = speed + Vector2D(X_KNOCKBACK_FORCE * (knockbackTime - knockbackTimer) / knockbackTime, 0);
+	}
 }
 
 // Método usado para comprobar en qué animación estamos
@@ -301,7 +302,7 @@ void Ott::setSpeed() {
 // Si se usa setAnimState, es para que cambie sin esperar a ningún frame, que lo haga directamente
 void Ott::updateAnimState() {
 	ANIM_STATE previous = animState;
-	if (!dead) {
+	if (!dieAnim) {
 		if (attack) { // animación de ataque
 			if (previous != ATTACK) { // si se estaba atacando antes, no hace falta volver a poner la animación de ataque
 				col = 2;
@@ -324,6 +325,7 @@ void Ott::updateAnimState() {
 		}
 	}
 	else if(previous != DIE) {
+		cout << " MUERTE Y DESTRUSION" << endl;
 		setAnimState(DIE);
 		col = 2;
 	}
@@ -338,26 +340,33 @@ void Ott::update() {
 	*/
 #pragma endregion
 	setSpeed(); // ver qué velocidad debería tener Ott ahora en función del input
-
-	// AVANZAR / CAMBIAR DE ANIMACIÓN SEGÚN ANIMATION_FRAME_RATE
+	updateAnimState();
 	timer++; // aumentar timer
 	if (timer >= ANIMATION_FRAME_RATE) { // comprobar si hay que cambiar/avanzar la animacións
 		timer = 0;
 		setAnimState(animState); // cambio/avance de animación
 
 	}
+	if (dead) goToSanctuary();
+	if (isKnockback) {
+		knockbackTimer++;
+		if (knockbackTimer > knockbackTime) {
+			isKnockback = false;
+			knockbackTimer = 0;
+		}
+	}
+	if (!tp && !dieAnim) { // Si ott no se está teletransportando, puede moverse y hacer las comprobaciones pertinentes
+		// AVANZAR / CAMBIAR DE ANIMACIÓN SEGÚN ANIMATION_FRAME_RATE
 
-	if (cooldown) { cooldownTimer++; }
-	if (cooldownTimer > cooldownTime) { cooldown = false; }
+		if (cooldown) { cooldownTimer++; }
+		if (cooldownTimer > cooldownTime) { cooldown = false; }
 
-	// Ajustamos el rectángulo que comprueba la colisión con el suelo
-	onGround = getRect();
-	onGround.y += onGround.h;
-	onGround.h = MAX_VERTICAL_SPEED - 1;
-	onGround.w /= 2;
-	onGround.x += onGround.w / 2;
-	if (!tp || dead) { // Si ott no se está teletransportando, puede moverse y hacer las comprobaciones pertinentes
-		updateAnimState();
+		// Ajustamos el rectángulo que comprueba la colisión con el suelo
+		onGround = getRect();
+		onGround.y += onGround.h;
+		onGround.h = MAX_VERTICAL_SPEED - 1;
+		onGround.w /= 2;
+		onGround.x += onGround.w / 2;
 		if (speed.getY() > MAX_VERTICAL_SPEED) { speed = Vector2D(speed.getX(), MAX_VERTICAL_SPEED); } // si la velocidad vertical supera un máximo, se fixea a ese máximo
 
 		#pragma region COLISIONES (HIPER MEGA PROVISIONAL. MUY PROVISIONAL)
@@ -383,12 +392,12 @@ void Ott::update() {
 		}// en caso de no estar en el suelo, habrá que fixear la posición cuando choque contra algún suelo
 
 		//timer que comprueba si sigue teniendo una vida debil
-		if (weakened && (SDL_GetTicks() - weakTimer) >= timeWeak * 1000) { 
+		if (weakened && (SDL_GetTicks() - weakTimer) >= timeWeak) { 
 			weakened = false; 
 			game->getHealthBar()->changeHealth(UNWEAKEN_CONTAINER);
 			cout << "NO DEBIL" << endl;
 		}
-		if (invincible && (SDL_GetTicks() - invencibilityTimer) > invincibilityTime * 1000) invincible = false;
+		if (invincible && (SDL_GetTicks() - invencibilityTimer) > invincibilityTime) invincible = false;
 		
 		// mover al personaje
 		#pragma endregion
@@ -411,7 +420,7 @@ void Ott::render(const SDL_Rect& Camera) const {
 	texture->renderFrame(getRect(), 0, 0, arrowAngle);
 	*/
 #pragma endregion
-
+	if (invincible && SDL_GetTicks() % 2 == 0) return;
 	// se fija su posición en funciónd de la cámara.
 	SDL_Rect ottRect = getRect();
 	ottRect.x -= Camera.x;
@@ -442,33 +451,45 @@ void Ott::render(const SDL_Rect& Camera) const {
 }
 
 // Método para recibir daño
-bool Ott::recieveDamage(elementsInfo::elements elem)
+bool Ott::recieveDamage(elementsInfo::elements elem, const SDL_Rect& result)
 {
-	if (SDL_GetTicks() - invencibilityTimer <= invincibilityTime * 1) return dead;
-	invencibilityTimer = SDL_GetTicks();
-	knockback();
-	invincible = true;
-	if (elementsInfo::ottMatrix[elem][currentElement] == 0) {
-		if (!weakened) { 
-			weakened = true;
-			game->getHealthBar()->changeHealth(WEAKEN_CONTAINER);
-			weakTimer = SDL_GetTicks();
+	bool hasDefended = false;
+	if (defend) {
+		SDL_Rect shieldRect = shield->getRect();
+		cout << "DEFENSA" << endl;
+		cout << result.x << " " << shieldRect.x << endl;
+		if ((shieldRect.x < position.getX() && result.x > shieldRect.x && result.x < shieldRect.x + shieldRect.w/2) || (shieldRect.x > position.getX() && result.x + result.w/2 > shieldRect.x)) {
+			// se ha defendido por la derecha
+			hasDefended = true;
+		}
+	}
+
+	if (!hasDefended) {
+		if (SDL_GetTicks() - invencibilityTimer <= invincibilityTime) return dead;
+		invencibilityTimer = SDL_GetTicks();
+		knockback();
+		invincible = true;
+		if (elementsInfo::ottMatrix[elem][currentElement] == 0) {
+			if (!weakened) {
+				weakened = true;
+				game->getHealthBar()->changeHealth(WEAKEN_CONTAINER);
+				weakTimer = SDL_GetTicks();
+			}
+			else {
+				weakened = false;
+				life--;
+				game->getHealthBar()->changeHealth(UNFULL_WEAKENED_CONTAINER);
+				Entity::recieveDamage(elem);
+			}
 		}
 		else {
-			weakened = false;
-			life--;
-			game->getHealthBar()->changeHealth(UNFULL_WEAKENED_CONTAINER);
+			if (game != nullptr)
+				for (int i = 0; i < elementsInfo::ottMatrix[elem][currentElement]; ++i)
+					if (weakened) { game->getHealthBar()->changeHealth(UNFULL_WEAKENED_CONTAINER); weakened = false; }
+					else game->getHealthBar()->changeHealth(UNFULL_FULL_CONTAINER);
 			Entity::recieveDamage(elem);
 		}
 	}
-	else {
-		if (game != nullptr) 
-			for (int i = 0; i < elementsInfo::ottMatrix[elem][currentElement]; ++i) 
-				if (weakened) { game->getHealthBar()->changeHealth(UNFULL_WEAKENED_CONTAINER); weakened = false; }
-				else game->getHealthBar()->changeHealth(UNFULL_FULL_CONTAINER);
-		Entity::recieveDamage(elem);
-	}
-
 	return dead;
 }
 
@@ -528,23 +549,22 @@ void Ott::attacking() //EL RECORRIDO DE ENTIDADES LO TIENE EVA HIHI
 }
 void Ott::die()
 {
-	//cout << "He muerto " << endl;
-	
-	//game->backToMenu();
+	dieAnim = true;
+}
+
+void Ott::goToSanctuary() {
 	if (lastSanctuary != nullptr) {
 		SDL_Rect r = lastSanctuary->getRect();
-		Vector2D newPos = { (double)r.x, (double)r.y + (double)r.h - (double) height};
+		Vector2D newPos = { (double)r.x, (double)r.y + (double)r.h - (double)height*1.1 };
 		position = newPos;
 		life = maxLife;
 		game->getHealthBar()->changeHealth(FULL_ALL_CONTAINERS);
 		notGroundedBefore = false;
 		dead = false;
-	}
-	else { 
-		cout << "No hay sanctuarios recientes... Muerte inminente" << endl; 
-		dead = true;
+		dieAnim = false;
 	}
 }
+
 
 // método para settear el punto de teletransporte. no se teletransporte directamente porque se tiene que hacer una pequeña animación
 void Ott::setTpPoint(const Vector2D& newPos) {
@@ -561,12 +581,6 @@ void Ott::setPos(const Vector2D& newPos ) {
 	position = newPos;
 }
 void Ott::knockback() {
-
-	Vector2D knockback = Vector2D{ 0, X_KNOCKBACK_FORCE };
-
-	if (lookingFront)
-		knockback = -1*knockback;
-
-	dir = dir + knockback;
+	isKnockback = true;
+	knockbackTimer = 0;
 }
-#pragma endregion

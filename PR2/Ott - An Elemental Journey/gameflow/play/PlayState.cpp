@@ -66,8 +66,8 @@ PlayState::PlayState(SDLApplication* app) : GameState(PLAY_STATE, app) {
 			else if (ot.getClass() == "Lamp") {
 				TP_Lamp* l1 = new TP_Lamp(Vector2D(x_ * scale, y_ * scale - app->getTexture("lamp", PLAY_STATE)->getH()*2), app->getTexture("lamp", PLAY_STATE), this, Scale(2, 2), LAMP);
 				
-				string hola = ot.getName();
-				auto at = lamps.find(hola);
+				string lampName = ot.getName();
+				auto at = lamps.find(lampName);
 				if (at != lamps.end()) {
 					l1->SetLamp((*at).second);
 					(*at).second->SetLamp(l1);
@@ -232,22 +232,15 @@ void PlayState::enemyCollide(const SDL_Rect& enemyRect, const SDL_Rect& onGround
 	for (auto it : groundObjects) {
 		walled = it->collide(enemyRect, colRect);
 		if (walled) break;
-		//if (colRect.h > 0 && colRect.w > 16) { // si el rectángulo merece la pena
-		//	if (speed.getX() > 0 && colRect.x >= enemyRect.x) { // chocar pared por la izquierda
-		//		ott->setPos(Vector2D(enemyRect.x - speed.getX(), enemyRect.y));
-		//	}
-		//	else if (speed.getX() < 0 && colRect.x <= enemyRect.x) { // chocar pared por la derecha
-		//		ott->setPos(Vector2D(enemyRect.x - speed.getX(), enemyRect.y));
-		//	}
+	}
+}
 
-		//	// chocar techo
-		//	if (speed.getY() < 0 && colRect.y <= enemyRect.y && colRect.w >= colRect.h && colRect.x == enemyRect.x &&
-		//		colRect.w >= enemyRect.w / 2) {
-		//		ott->setPos(Vector2D(ott->getRect().x, ott->getRect().y - speed.getY()));
-		//		if (speed.getX() != 0) speed = Vector2D(speed.getX(), 1);
-		//		else speed = Vector2D(0, 0);
-		//	}
-		//}
+bool PlayState::bulletCollide(const SDL_Rect& bulletRect) {
+	// COMPROBACI�N DE COLISIONES CON OBJETOS DE TIPO SUELO (PROVISIONAL)
+	for (auto it : groundObjects) {
+		SDL_Rect result;
+		bool ground = it->collide(bulletRect, result);
+		if (ground) return ground;
 	}
 }
 
