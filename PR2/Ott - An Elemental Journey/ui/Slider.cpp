@@ -72,7 +72,8 @@ void Slider::update() {
         UIText* tmp = textValue;
         Scale valueScale = Scale(2.0f, 2.0f);
         textValue = new UIText(std::to_string(value) + "%", *(app->getFont("vcr_osd")), position + Vector2D(texture->getW() / 2, 0), app->getRenderer(), textColor, valueScale);
-        textValue->movePosition(position);
+        //textValue->movePosition(position);
+        textValue->movePosition(Vector2D(position.getX() + (texture->getW() / 2) - (valueScale.widthScale / 2) * textValue->getTexture()->getW(), position.getY() + 0.5 * (textValue->getTexture()->getH() + 2 * (10 * 1 / valueScale.heightScale))));
         delete tmp;
     }
 }

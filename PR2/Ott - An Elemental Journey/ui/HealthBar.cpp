@@ -67,12 +67,12 @@ void HealthBar::changeHealth(HEALTHCHANGE change) {
             if (weakenedContainers == 0) containers.firstWeakContainer = containers.healthContainerList.end();
             break;
         case FULL_ALL_CONTAINERS:
-            for (auto e : containers.healthContainerList) { e.state = NORMAL; }
             containers.lastNormalContainer = containers.healthContainerList.end();
             --containers.lastNormalContainer;
             containers.firstEmptyContainer = containers.healthContainerList.end();
             containers.firstWeakContainer = containers.healthContainerList.end();
             weakenedContainers = 0;
+            for (auto it = containers.healthContainerList.begin(); it != containers.healthContainerList.end(); ++it) { it->state = NORMAL; }
             break;
     }
 }
