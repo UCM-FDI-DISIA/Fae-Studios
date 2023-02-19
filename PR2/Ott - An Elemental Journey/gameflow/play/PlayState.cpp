@@ -101,16 +101,13 @@ PlayState::PlayState(SDLApplication* app) : GameState(PLAY_STATE, app) {
 					110, 100, Scale(3.0f, 3.0f), this));
 			}
 			else if (ot.getClass() == "Melee") {
-				addEntity(new MeleeEnemy(Vector2D(x_ * scale, y_ * scale - app->getTexture(path + "Bug", PLAY_STATE)->getH() * 3), app->getTexture(path + "Bug", PLAY_STATE), 5, elem, ott, true, Vector2D(1, 0), Scale(3, 3), 110, 100, this));
+				addEntity(new MeleeEnemy(Vector2D(x_ * scale, y_ * scale - app->getTexture(path + "Bug", PLAY_STATE)->getH() * 1.5), app->getTexture(path + "Bug", PLAY_STATE), 5, elem, ott, true, Vector2D(-1, 0), Scale(3, 3), 110, 100, this));
 			}
 			else if (ot.getClass() == "Slime") {
 
 			}
 		}
 	}
-
-
-	
 
     healthBar = new HealthBar(Vector2D(30, 100), app->getTexture("hearts", PLAY_STATE), Scale(10.0f, 10.0f));
 	gameObjects.push_back(healthBar);

@@ -59,7 +59,7 @@
 48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,74,74,70,74,74,74,74,74,74,74,74,74,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,74,74,70,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,66
 </data>
  </layer>
- <objectgroup id="2" name="Colisiones">
+ <objectgroup id="2" name="Colisiones" visible="0">
   <object id="3" class="Ground" x="256" y="192" width="1792" height="448"/>
   <object id="5" class="Ground" x="1952" y="64" width="704" height="128"/>
   <object id="6" class="Ground" x="2592" y="192" width="416" height="448"/>
@@ -96,7 +96,7 @@
   <object id="92" class="Ground" x="1933.25" y="864.25" width="51" height="51.25"/>
   <object id="93" class="Ground" x="1957.33" y="838" width="27.3333" height="24"/>
  </objectgroup>
- <objectgroup id="3" name="Objetos Interactuables" visible="0">
+ <objectgroup id="3" name="Objetos Interactuables">
   <object id="54" name="lamp1" class="Lamp" x="1024" y="832" width="32"/>
   <object id="55" name="lamp1" class="Lamp" x="1664" y="832" width="32"/>
   <object id="57" name="Santuario" class="Sanctuary" x="1344" y="864" width="32"/>
@@ -107,8 +107,8 @@
  <objectgroup id="5" name="Ott" visible="0">
   <object id="74" name="Ott" class="Ott" x="416" y="960" width="32"/>
  </objectgroup>
- <objectgroup id="4" name="Enemigos" visible="0">
-  <object id="67" name="2" class="Melee" x="608" y="960" width="32"/>
+ <objectgroup id="4" name="Enemigos">
+  <object id="67" name="2" class="Melee" x="508.5" y="960" width="34"/>
   <object id="69" name="1" class="Mushroom" x="1760" y="832" width="32"/>
   <object id="72" name="3" class="Slime" x="2752" y="928" width="32"/>
  </objectgroup>
