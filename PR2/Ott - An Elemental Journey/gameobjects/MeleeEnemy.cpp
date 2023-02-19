@@ -37,8 +37,8 @@ void MeleeEnemy::render(const SDL_Rect& Camera) const {
 	}
 }
 
-void MeleeEnemy::Die() {
-	Enemy::Die();
+void MeleeEnemy::die() {
+	Enemy::die();
 	col = 12;
 }
 

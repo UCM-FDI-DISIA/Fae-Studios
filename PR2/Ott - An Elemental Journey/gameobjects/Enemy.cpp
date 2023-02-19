@@ -27,20 +27,20 @@ Enemy::Enemy(const Vector2D& position, Texture* texture, int lives, elementsInfo
 	speed = { 0,0 };
 }
 
-bool Enemy::Damage(elementsInfo::elements e) {
+bool Enemy::recieveDamage(elementsInfo::elements elem) {
 	cout << "Hit " << actualLives << endl;
-	actualLives -= elementsInfo::matrix[e][element];
+	actualLives -= elementsInfo::matrix[elem][element];
 	startDamagedTime = SDL_GetTicks();
 	if (actualLives <= 0) {
-		Die();
+		die();
 		return true;
 	}
 	else return false;
 }
 
-void Enemy::Die() {
-	dead = true;
-	timer = SDL_GetTicks();
+void Enemy::die() {
+	if(!dead) timer = SDL_GetTicks();
+	Entity::die();
 }
 
 void Enemy::DetectPlayer() {

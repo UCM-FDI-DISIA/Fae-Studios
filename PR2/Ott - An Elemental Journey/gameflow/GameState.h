@@ -65,7 +65,7 @@ public:
 
     void deleteObject(Entity* obj);
 
-    void deleteObjects();
+    virtual void deleteObjects();
 };
 
 #endif //PROYECTOS2_GAMESTATE_H

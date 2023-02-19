@@ -61,13 +61,22 @@ public:
     void addBullet(Vector2D pos, Vector2D dir, elementsInfo::elements elem, GameObject* g) {
         addObject(new Bullet(pos, app->getTexture("enemy", stateID), elem, g, dir, Scale(0.1f, 0.1f), this));
     }
-    void addEnemy(Enemy* g) {
+    void addEntity(Entity* g) {
         addObject(g);
         physicObjects.push_back(g);
+        auto it = physicObjects.end();
+        it--;
+        g->physicsIterator = &it;
     }
+
+    void deleteObject(Entity* obj);
 
     void enemyCollide(const SDL_Rect& enemyRect, const SDL_Rect& onGround, SDL_Rect& groundRect, SDL_Rect& colRect, bool& ground, bool& walled, Vector2D& speed);
 
+    virtual void deleteObjects();
+
+    void deleteEntities();
+    
     bool bulletCollide(const SDL_Rect& bulletRect);
 
 };

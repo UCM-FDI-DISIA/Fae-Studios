@@ -97,11 +97,11 @@ PlayState::PlayState(SDLApplication* app) : GameState(PLAY_STATE, app) {
 			}
 			else if (ot.getClass() == "Mushroom") {
 
-				addObject(new staticEnemy(Vector2D(x_ *scale, y_*scale - app->getTexture(path + "Mushroom", PLAY_STATE)->getH() * 1.5), app->getTexture(path + "Mushroom", PLAY_STATE), ott, 2000, 5, elem,
+				addEntity(new staticEnemy(Vector2D(x_ * scale, y_ * scale - app->getTexture(path + "Mushroom", PLAY_STATE)->getH() * 1.5), app->getTexture(path + "Mushroom", PLAY_STATE), ott, 2000, 5, elem,
 					110, 100, Scale(3.0f, 3.0f), this));
 			}
 			else if (ot.getClass() == "Melee") {
-				addObject(new MeleeEnemy(Vector2D(x_ * scale, y_ * scale - app->getTexture(path + "Bug", PLAY_STATE)->getH() * 3), app->getTexture(path + "Bug", PLAY_STATE), 5, elem, ott, true, Vector2D(1, 0), Scale(3, 3), 110, 100, this));
+				addEntity(new MeleeEnemy(Vector2D(x_ * scale, y_ * scale - app->getTexture(path + "Bug", PLAY_STATE)->getH() * 3), app->getTexture(path + "Bug", PLAY_STATE), 5, elem, ott, true, Vector2D(1, 0), Scale(3, 3), 110, 100, this));
 			}
 			else if (ot.getClass() == "Slime") {
 
@@ -110,8 +110,7 @@ PlayState::PlayState(SDLApplication* app) : GameState(PLAY_STATE, app) {
 	}
 
 
-
-	addObject(new MeleeEnemy( Vector2D(700,2300), app->getTexture("bug",PLAY_STATE),5, elementsInfo::Earth, ott, true, Vector2D(1,0), Scale(3,3),110,100,this));
+	
 
     healthBar = new HealthBar(Vector2D(30, 100), app->getTexture("hearts", PLAY_STATE), Scale(10.0f, 10.0f));
 	gameObjects.push_back(healthBar);
@@ -162,17 +161,19 @@ void PlayState::moveCamera() {
 	}
 }
 
+void PlayState::deleteObject(Entity* obj) {
+	GameState::deleteObject(obj);
+}
+
 void PlayState::update() {
 	GameState::update(); // llamada a todos los updates de la lista de gameObjects
 
 	// ACTIVAR GRAVEDAD PARA TODOS LOS OBJETOS FÍSICOS
-	for (auto it : physicObjects) {
-		if (!it->isGrounded()) {
-			it->useGravity();
-		}
-        if(dynamic_cast<Ott*>(it)->getLife() == 1) screenDarkener->show();
-        else screenDarkener->hide();
+	if (!ott->isGrounded()) {
+		ott->useGravity();
 	}
+    if(ott->getLife() == 1) screenDarkener->show();
+    else screenDarkener->hide();
 
 	// COMPROBACIÓN PARA ACTIVAR OBJETOS INTERACTUABLES
 	for (auto it : intObjects) {
@@ -329,3 +330,23 @@ PlayState::~PlayState()
 	Mix_FreeMusic(music);
 	Mix_Quit();
 }
+
+
+void PlayState::deleteObjects() {
+	deleteEntities();
+}
+
+void PlayState::deleteEntities() {
+	while (!deletedObjects.empty()) {
+		GameObject* obj = deletedObjects.top();
+		Entity* ent = dynamic_cast<Entity*>(obj);
+		if (ent != nullptr) {
+			ent->getState()->gameObjects.erase(ent->it);
+			if((ent->physicsIterator) != nullptr)
+				ent->getState()->physicObjects.erase(*(ent->physicsIterator));
+			delete obj;
+		}
+		deletedObjects.pop();
+	}
+}
+

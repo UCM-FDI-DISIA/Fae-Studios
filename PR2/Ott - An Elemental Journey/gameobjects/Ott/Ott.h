@@ -102,7 +102,7 @@ public:
     virtual void handleEvents();
 
     //Evento de da�o
-    virtual bool recieveDamage(int elem, const SDL_Rect& result);
+    virtual bool recieveDamage(elementsInfo::elements elem, const SDL_Rect& result);
 
     inline uint getLife() const {return life;}
 

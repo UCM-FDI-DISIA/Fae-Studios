@@ -98,7 +98,7 @@ void Ott::setAnimState(ANIM_STATE newState) {
 				col++;
 				timer = ANIMATION_FRAME_RATE * 3 / 4;
 			}
-			else currentElement = nextElement;
+			else currentElement = (elementsInfo::elements)nextElement;
 		}
 		else {
 			if (col > 0) {
@@ -397,6 +397,7 @@ void Ott::update() {
 		if (weakened && (SDL_GetTicks() - weakTimer) >= timeWeak) { 
 			weakened = false; 
 			game->getHealthBar()->changeHealth(UNWEAKEN_CONTAINER);
+			cout << "NO DEBIL" << endl;
 		}
 		if (invincible && (SDL_GetTicks() - invencibilityTimer) > invincibilityTime) invincible = false;
 		
@@ -452,7 +453,7 @@ void Ott::render(const SDL_Rect& Camera) const {
 }
 
 // Método para recibir daño
-bool Ott::recieveDamage(int elem, const SDL_Rect& result)
+bool Ott::recieveDamage(elementsInfo::elements elem, const SDL_Rect& result)
 {
 	bool hasDefended = false;
 	if (defend) {
@@ -470,7 +471,7 @@ bool Ott::recieveDamage(int elem, const SDL_Rect& result)
 		invencibilityTimer = SDL_GetTicks();
 		knockback();
 		invincible = true;
-		if (elementsInfo[elem][currentElement] == 0) {
+		if (elementsInfo::ottMatrix[elem][currentElement] == 0) {
 			if (!weakened) {
 				weakened = true;
 				game->getHealthBar()->changeHealth(WEAKEN_CONTAINER);
@@ -484,7 +485,10 @@ bool Ott::recieveDamage(int elem, const SDL_Rect& result)
 			}
 		}
 		else {
-			if(game != nullptr) game->getHealthBar()->changeHealth(UNFULL_FULL_CONTAINER);
+			if (game != nullptr)
+				for (int i = 0; i < elementsInfo::ottMatrix[elem][currentElement]; ++i)
+					if (weakened) { game->getHealthBar()->changeHealth(UNFULL_WEAKENED_CONTAINER); weakened = false; }
+					else game->getHealthBar()->changeHealth(UNFULL_FULL_CONTAINER);
 			Entity::recieveDamage(elem);
 		}
 	}
@@ -535,11 +539,13 @@ void Ott::attacking() //EL RECORRIDO DE ENTIDADES LO TIENE EVA HIHI
 	attackTrigger.w = ATTACK_WIDTH; //por si se actualiza;
 	for (auto it = dynamic_cast<PlayState*>(game)->getIteratorToFirstElement(); it != dynamic_cast<PlayState*>(game)->getIteratorToEndElement(); ++it)
 	{
-		Entity* ent = dynamic_cast<Entity*>(*it);
-		SDL_Rect entRect = ent->getRect();
-		if (SDL_HasIntersection(&attackTrigger, &entRect))
-		{
-			(*it)->recieveDamage(0);
+		Enemy* ent = dynamic_cast<Enemy*>(*it);
+		if (ent != nullptr) {
+			SDL_Rect entRect = ent->getCollider();
+			if (SDL_HasIntersection(&attackTrigger, &entRect))
+			{
+				(*it)->recieveDamage(currentElement);
+			}
 		}
 	}
 	cooldown = true;
