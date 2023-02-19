@@ -17,7 +17,8 @@ protected:
 	bool dead = false;
 
 public:
-	list<Entity*>::iterator* physicsIterator = nullptr;
+	bool hasPhysicsIteraror = false;
+	list<Entity*>::iterator physicsIterator;
 	Entity(Vector2D pos, Texture* texture, Vector2D dir, uint maxLife, PlayState* game, Scale scale = Scale(1.0f, 1.0f), elementsInfo::elements elem = elementsInfo::Light) :
 		MovingObject(pos, texture, dir, scale), maxLife(maxLife), life(maxLife), game(game), currentElement(elem) {};
 	virtual ~Entity() {};

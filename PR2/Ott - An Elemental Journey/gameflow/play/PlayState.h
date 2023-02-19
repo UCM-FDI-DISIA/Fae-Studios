@@ -58,6 +58,7 @@ public:
     inline list<Entity*> getEntityList() const { return physicObjects; }
     list<Entity*>::iterator getIteratorToFirstElement() { return physicObjects.begin(); }
     list<Entity*>::iterator getIteratorToEndElement() { return physicObjects.end(); }
+    list<Entity*>* getPhysicsObjects() { return &physicObjects; }
     void addBullet(Vector2D pos, Vector2D dir, elementsInfo::elements elem, GameObject* g) {
         addObject(new Bullet(pos, app->getTexture("enemy", stateID), elem, g, dir, Scale(0.1f, 0.1f), this));
     }
@@ -65,8 +66,9 @@ public:
         addObject(g);
         physicObjects.push_back(g);
         auto it = physicObjects.end();
-        it--;
-        g->physicsIterator = &it;
+        --it;
+        g->physicsIterator = it;
+        g->hasPhysicsIteraror = true;
     }
 
     void deleteObject(Entity* obj);
