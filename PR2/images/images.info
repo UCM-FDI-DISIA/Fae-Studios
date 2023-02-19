@@ -36,8 +36,16 @@ waterShield.png 1 1 waterShield
 earthShield.png 1 1 earthShield
 fireShield.png 1 1 fireShield
 
-sprites 4
+sprites 12
 Enemy.png 1 1 enemy
 Bug.png 2 21 bug
+WaterBug.png 2 21 waterBug
+EarthBug.png 2 21 earthBug
+FireBug.png 2 21 fireBug
+DarkBug.png 2 21 darkBug
 SlimeBosqueAnim.png 1 15 slime
+WaterMushroom.png 2 21 waterMushroom
+EarthMushroom.png 2 21 earthMushroom
+FireMushroom.png 2 21 fireMushroom
+DarkMushroom.png 2 21 darkMushroom
 Mushroom.png 2 21 mushroom
