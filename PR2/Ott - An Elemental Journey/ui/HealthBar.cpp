@@ -3,7 +3,7 @@
 
 void HealthBar::render(const SDL_Rect& Camera) const {
     for (auto it = containers.healthContainerList.begin(); it != containers.healthContainerList.end(); ++it) {
-        if ((*it).state == NORMAL) {cout << "HOLA" << endl;  texture->renderFrame(it->destRect, 0, 1);
+        if ((*it).state == NORMAL) {texture->renderFrame(it->destRect, 0, 1);
     }
         else if((*it).state == EMPTY) texture->renderFrame(it->destRect, 0, 4);
         else if((*it).state == WEAK) texture->renderFrame(it->destRect, 0, 12);

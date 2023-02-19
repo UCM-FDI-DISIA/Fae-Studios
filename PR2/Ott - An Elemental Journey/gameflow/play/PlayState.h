@@ -67,4 +67,7 @@ public:
     }
 
     void enemyCollide(const SDL_Rect& enemyRect, const SDL_Rect& onGround, SDL_Rect& groundRect, SDL_Rect& colRect, bool& ground, bool& walled, Vector2D& speed);
+
+    bool bulletCollide(const SDL_Rect& bulletRect);
+
 };

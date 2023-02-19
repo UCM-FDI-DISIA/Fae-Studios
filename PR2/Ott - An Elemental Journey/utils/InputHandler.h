@@ -173,7 +173,6 @@ private:
 		switch (event.button.button) {
 		case SDL_BUTTON_LEFT:
 			mbState_[LEFT] = isDown;
-			cout << isDown << endl;
 			break;
 		case SDL_BUTTON_MIDDLE:
 			mbState_[MIDDLE] = isDown;

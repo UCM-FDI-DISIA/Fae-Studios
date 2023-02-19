@@ -10,9 +10,13 @@ void Bullet::update()
 void Bullet::Collision()
 {
 	SDL_Rect playerRect = player->getRect();
-	SDL_Rect bulletRect = getRect();
-	if (SDL_HasIntersection(&bulletRect, &playerRect)) {
-		static_cast<Ott*>(player)->recieveDamage(element);
+	SDL_Rect result;
+	if (collide(playerRect, result)) {
+		static_cast<Ott*>(player)->recieveDamage(element, result);
+		dead = true;
+		deleteMyself();
+	}
+	else if (game->bulletCollide(getRect())) {
 		dead = true;
 		deleteMyself();
 	}

@@ -14,6 +14,7 @@ void Shield::render(const SDL_Rect& Camera)
 {
 	GameObject::render(Camera);
 }
+
 bool Shield::collide(Entity* ent)
 {
 	SDL_Rect shieldR = getRect();

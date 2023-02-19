@@ -4,7 +4,6 @@
 #include <math.h>
 #include "../utils/InputHandler.h"
 int Slider::SliderNeedle::move() {
-    cout << "MOVER SLIDER NEEDLE " << endl;
     SDL_Point mousePosition;
     SDL_GetMouseState(&mousePosition.x, &mousePosition.y);
     if ((position.getX() - initialPos.getX()) / 4 <= MAX_VALUE || (position.getX() - initialPos.getX()) / 4 >= MIN_VALUE) {
@@ -52,7 +51,6 @@ void Slider::handleEvents() {
         this->needle->currentSliderNeedleFrame = MOUSE_OVER;
     }
     if (SDL_PointInRect(&mousePosition, &sliderRect) && InputHandler::instance()->getMouseButtonState(InputHandler::LEFT)) { //Indica que se ha pulsado el bot�n
-        cout << " a ver si entra aquí genteeee " << endl;
         currentSliderFrame = CLICKED;
         clicked = true;
         this->needle->currentSliderNeedleFrame = CLICKED;
@@ -63,7 +61,6 @@ void Slider::handleEvents() {
         this->needle->currentSliderNeedleFrame = MOUSE_OVER;
     }
     if (clicked && InputHandler::instance()->mouseMotionEvent()) {
-        cout << "BIEEEN" << endl;
         this->needle->currentSliderNeedleFrame = CLICKED;
         value = this->needle->move();
         onChange();
