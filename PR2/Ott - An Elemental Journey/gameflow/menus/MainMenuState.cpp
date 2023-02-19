@@ -54,7 +54,7 @@ MainMenuState::MainMenuState(SDLApplication* app) : MenuState(MAIN_MENU, app->ge
 	versionFront->movePosition(Vector2D(WINDOW_WIDTH / 2 + 5 * versionFront->getTexture()->getW() / 2, WINDOW_HEIGHT - 30));
 	
 	littleOtt = app->getTexture("ott_luz", MAIN_MENU);
-	littleOttPos = Vector2D(400, 528);
+	littleOttPos = Vector2D(320, 415);
 	littleOttRect.x = littleOttPos.getX(); littleOttRect.y = littleOttPos.getY();
 	littleOttRect.h = littleOtt->getH() * 0.5f; littleOttRect.w = littleOtt->getW() * 0.5f;
 }
