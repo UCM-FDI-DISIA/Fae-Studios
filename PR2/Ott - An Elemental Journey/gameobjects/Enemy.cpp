@@ -102,9 +102,11 @@ void Enemy::FollowPlayer() {
 
 		if ((double)ott.x - collider.x > 0) {
 			speed = { horizontalSpeed, speed.getY() };
+			lookingRight = true;
 		}
 		else {
 			speed = { -horizontalSpeed, speed.getY() };
+			lookingRight = false;
 		}
 	}
 	else {
