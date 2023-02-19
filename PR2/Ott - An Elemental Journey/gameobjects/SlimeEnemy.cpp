@@ -20,7 +20,7 @@ void SlimeEnemy::Move() {
 	Enemy::Move();
 }
 
-bool SlimeEnemy::Damage(/*const SDL_Rect& playerAttack,*/ elementsInfo::elements e) { // preguntar a eva como funciona el ataque
+bool SlimeEnemy::recieveDamage(/*const SDL_Rect& playerAttack,*/ elementsInfo::elements e) { // preguntar a eva como funciona el ataque
 	/*if (SDL_HasIntersection(&playerAttack, &damageZone)) {
 		cout << "Hit" << endl;
 		actualLives -= elementsInfo::matrix[e][element];
@@ -30,7 +30,7 @@ bool SlimeEnemy::Damage(/*const SDL_Rect& playerAttack,*/ elementsInfo::elements
 		}
 		else return false;
 	}*/
-	return Enemy::Damage(e);
+	return Enemy::recieveDamage(e);
 }
 
 void SlimeEnemy::layDownAdjust() { // tener en cuenta dir
@@ -85,13 +85,13 @@ void SlimeEnemy::update() {
 void SlimeEnemy::Divide() { // generamos dos nuevos slimes 
 	// tener en cuenta en constructora y tal que los nuevos slime tndrian menor tamaño y menos vidas
 	// tener en cuenta que hay que añadir estos slimes a la lista de gameObjects del estado y eso
-	game->addEnemy(new SlimeEnemy(actualSize--, Vector2D(position.getX() - 10, position.getY()), texture, maxLives - 1, element, player, true, dir, Scale(slimeScale / 1.5, slimeScale / 1.5), 110, 100, game));
-	game->addEnemy(new SlimeEnemy(actualSize--, Vector2D(position.getX() + 10, position.getY()), texture, maxLives - 1, element, player, true, dir, Scale(slimeScale / 1.5, slimeScale / 1.5), 110, 100, game));
+	game->addEntity(new SlimeEnemy(actualSize--, Vector2D(position.getX() - 10, position.getY()), texture, maxLives - 1, element, player, true, dir, Scale(slimeScale / 1.5, slimeScale / 1.5), 110, 100, game));
+	game->addEntity(new SlimeEnemy(actualSize--, Vector2D(position.getX() + 10, position.getY()), texture, maxLives - 1, element, player, true, dir, Scale(slimeScale / 1.5, slimeScale / 1.5), 110, 100, game));
 }
 
-void SlimeEnemy::Die() {
+void SlimeEnemy::die() {
 	if(actualSize > 1) Divide();
-	Enemy::Die();
+	Enemy::die();
 }
 
 void SlimeEnemy::render(const SDL_Rect& Camera) const{

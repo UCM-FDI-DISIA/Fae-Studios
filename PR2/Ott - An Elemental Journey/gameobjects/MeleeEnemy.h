@@ -30,6 +30,6 @@ public:
 
 	virtual void MoveTriggers();
 
-	void Die();
+	void die();
 
 };

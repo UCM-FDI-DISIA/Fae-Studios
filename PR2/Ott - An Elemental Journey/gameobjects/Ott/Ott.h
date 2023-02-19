@@ -58,7 +58,7 @@ protected:
 
     //Par�metros que controlan la vida debil
     bool weakened = false;
-    int timeWeak = 3, weakTimer;
+    int timeWeak = 5, weakTimer;
     int invincibilityTime = 2, invencibilityTimer = 0;
     bool invincible = false;
     //Game Controller 1 handler
@@ -97,7 +97,7 @@ public:
     virtual void handleEvents();
 
     //Evento de da�o
-    virtual bool recieveDamage(int elem);
+    virtual bool recieveDamage(elementsInfo::elements elem);
 
     inline uint getLife() const {return life;}
 

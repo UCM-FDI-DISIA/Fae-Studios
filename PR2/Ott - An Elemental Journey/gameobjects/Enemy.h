@@ -15,7 +15,6 @@ protected:
 	int maxLives;
 	int actualLives;
 	elementsInfo::elements element;
-	bool dead = false;
 
 	uint PREPARING_TIME = 1000;
 	uint ATTACKING_TIME = 1000;
@@ -56,9 +55,7 @@ public:
 	Enemy(const Vector2D& position, Texture* texture, int lives, elementsInfo::elements elem, GameObject* p, bool moving, PlayState* game, Vector2D dir = Vector2D(0,0), const Scale& scale = Scale(1.0f, 1.0f), float wTrigger = 110, float hTrigger = 100);
 	virtual ~Enemy() = default;
 
-	bool Damage(elementsInfo::elements e);
-
-	virtual void Die();
+	virtual void die();
 
 	void DetectPlayer();
 
@@ -75,6 +72,8 @@ public:
 	virtual void Attack();
 
 	virtual void DetectAttackTrigger();
+
+	virtual bool recieveDamage(elementsInfo::elements elem);
 
 	void playerCollide();
 

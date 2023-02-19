@@ -16,5 +16,5 @@ void Whip::render(const SDL_Rect& Camera)
 
 void Whip::damage(Entity* e)
 {
-	e->recieveDamage(1); //a lo mejor mo es 1, habría que poner el tipo de tierra :)
+	e->recieveDamage(elementsInfo::Earth); //a lo mejor mo es 1, habría que poner el tipo de tierra :)
 }

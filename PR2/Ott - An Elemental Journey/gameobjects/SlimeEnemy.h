@@ -29,8 +29,8 @@ public:
 	virtual void update();
 	virtual void Move();
 	virtual void DetectAttackTrigger(); // probably va a ser un render frame con el bicho cayendose cuando este en Attack_Time
-	virtual bool Damage(/*const SDL_Rect& playerAttack, */elementsInfo::elements e);
-	virtual void Die();
+	virtual bool recieveDamage(/*const SDL_Rect& playerAttack, */elementsInfo::elements e);
+	virtual void die();
 	virtual void render(const SDL_Rect& Camera = { 0,0,0,0 }) const;
 
 };
