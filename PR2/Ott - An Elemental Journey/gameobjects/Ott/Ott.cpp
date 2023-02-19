@@ -419,6 +419,7 @@ void Ott::render(const SDL_Rect& Camera) const {
 	texture->renderFrame(getRect(), 0, 0, arrowAngle);
 	*/
 #pragma endregion
+	if (invincible && SDL_GetTicks() % 2 == 0) return;
 	// se fija su posición en funciónd de la cámara.
 	SDL_Rect ottRect = getRect();
 	ottRect.x -= Camera.x;
