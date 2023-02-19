@@ -6,7 +6,7 @@
 Enemy::Enemy(const Vector2D& position, Texture* texture, int lives, elementsInfo::elements elem, GameObject* p, bool moving, PlayState* game, Vector2D dir, const Scale& scale, float wTrigger, float hTrigger) : Entity(position, texture, dir, lives, game,  scale), actualLives(lives), element(elem), player(p) {
 	maxLives = lives * 2;  // Representación interna doblada
 	actualLives = lives * 2;
-	speed = 0.3;
+	speed = dir;
 
 	attackTrigger.x = position.getX() + width; attackTrigger.y = position.getY();
 	attackTrigger.w = wTrigger; attackTrigger.h = height;
@@ -23,8 +23,6 @@ Enemy::Enemy(const Vector2D& position, Texture* texture, int lives, elementsInfo
 	colliderWH = { (double)width, (double)height };
 
 	if(player != nullptr) nearDistance = width;
-
-	speed = { 0,0 };
 }
 
 bool Enemy::recieveDamage(elementsInfo::elements elem) {
