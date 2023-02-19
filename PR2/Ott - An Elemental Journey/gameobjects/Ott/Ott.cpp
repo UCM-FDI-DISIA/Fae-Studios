@@ -410,7 +410,7 @@ void Ott::render(const SDL_Rect& Camera) const {
 	texture->renderFrame(getRect(), 0, 0, arrowAngle);
 	*/
 #pragma endregion
-
+	if (invincible && SDL_GetTicks() % 2 == 0) return;
 	// se fija su posición en funciónd de la cámara.
 	SDL_Rect ottRect = getRect();
 	ottRect.x -= Camera.x;
@@ -555,8 +555,7 @@ void Ott::setPos(const Vector2D& newPos ) {
 	position = newPos;
 }
 void Ott::knockback() {
-
-	Vector2D knockback = Vector2D{ 0, X_KNOCKBACK_FORCE };
+	Vector2D knockback = Vector2D{ 0, X_KNOCKBACK_FORCE};
 
 	if (lookingFront)
 		knockback = -1*knockback;
