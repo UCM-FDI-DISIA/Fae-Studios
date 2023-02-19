@@ -329,7 +329,8 @@ void PlayState::deleteEntities() {
 		Entity* ent = dynamic_cast<Entity*>(obj);
 		if (ent != nullptr) {
 			ent->getState()->gameObjects.erase(ent->it);
-			ent->getState()->physicObjects.erase(ent->physicsIterator);
+			if((ent->physicsIterator) != nullptr)
+				ent->getState()->physicObjects.erase(*(ent->physicsIterator));
 			delete obj;
 		}
 		deletedObjects.pop();

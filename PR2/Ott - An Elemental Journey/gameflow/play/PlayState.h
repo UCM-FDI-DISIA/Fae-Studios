@@ -66,7 +66,7 @@ public:
         physicObjects.push_back(g);
         auto it = physicObjects.end();
         it--;
-        g->physicsIterator = it;
+        g->physicsIterator = &it;
     }
 
     void deleteObject(Entity* obj);

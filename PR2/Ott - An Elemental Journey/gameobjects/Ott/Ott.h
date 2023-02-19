@@ -63,8 +63,6 @@ protected:
 
     //Par�metros que controlan la vida debil
     bool weakened = false;
-    int timeWeak = 5, weakTimer;
-    int invincibilityTime = 2, invencibilityTimer = 0;
     int timeWeak = 3000, weakTimer;
     int invincibilityTime = 2000, invencibilityTimer = 0;
     bool invincible = false;
