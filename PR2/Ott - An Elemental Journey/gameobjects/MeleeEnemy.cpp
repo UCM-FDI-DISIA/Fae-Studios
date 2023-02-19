@@ -4,11 +4,10 @@ void MeleeEnemy::Move() {
 	if (!detectPlayer) {
 		int frameMovingTime = SDL_GetTicks() - startMovingTime;
 		if (frameMovingTime >= NEW_DIR) {
-			dir = { (double)(rand() % 3 - 1), dir.getY()};
-			dir.normalize();
+			speed = { (double)(rand() % 3 - 1) * horizontalSpeed, speed.getY()};
 
-			if (dir.getX() < 0) lookingRight = false; // Si es 0 se queda mirando según su último movimiento
-			else if (dir.getX() > 0) lookingRight = true;
+			if (speed.getX() < 0) lookingRight = false; // Si es 0 se queda mirando según su último movimiento
+			else if (speed.getX() > 0) lookingRight = true;
 			startMovingTime = SDL_GetTicks();
 		}
 	}
@@ -28,7 +27,7 @@ void MeleeEnemy::render(const SDL_Rect& Camera) const {
 	if (dead || attackState == attacking || attackState == afterAttack) {
 		texture->renderFrame(thisRect, fil, col, 0, flip[lookingRight]);
 	}
-	else if (attackState == normal || attackState == preparing) {
+	else {
 		if (dir.getX() == 0 || attackState == preparing) texture->renderFrame(getRect(), fil, (SDL_GetTicks() / time_per_frame) % 3, 0, flip[lookingRight]);
 		else texture->renderFrame(thisRect, fil, (SDL_GetTicks() / time_per_frame) % 4 + 3, 0, flip[lookingRight]);
 	}

@@ -11,6 +11,8 @@
 #include "../../utils/InputHandler.h"
 #include <unordered_map>
 #include "../../gameobjects/staticEnemy.h"
+#include "../../gameobjects/MeleeEnemy.h"
+#include "../../gameobjects/SlimeEnemy.h"
 #include "../../utils/Elements.h"
 
 // funci�n para hacer interpolaci�n lineal. Usada en el movimiento de la c�mara
@@ -90,6 +92,8 @@ PlayState::PlayState(SDLApplication* app) : GameState(PLAY_STATE, app) {
 
 	addObject(new staticEnemy(Vector2D(800, 2200), app->getTexture("mushroom", PLAY_STATE), ott, 2000, 5, elementsInfo::Earth,
 		110, 100, Scale(3.0f, 3.0f), this));
+
+	addObject(new MeleeEnemy( Vector2D(700,2300), app->getTexture("bug",PLAY_STATE),5, elementsInfo::Earth, ott, true, Vector2D(1,0), Scale(3,3),110,100,this));
 
 	physicObjects.push_back(ott);
     healthBar = new HealthBar(Vector2D(30, 100), app->getTexture("hearts", PLAY_STATE), Scale(10.0f, 10.0f));

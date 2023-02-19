@@ -1,6 +1,7 @@
 #include "Enemy.h"
 #include "../gameflow/GameState.h"
 #include "../gameflow/play/PlayState.h"
+#include "Ott/Ott.h"
 
 
 Enemy::Enemy(const Vector2D& position, Texture* texture, int lives, elementsInfo::elements elem, GameObject* p, bool moving, PlayState* game, Vector2D dir, const Scale& scale, float wTrigger, float hTrigger) : Entity(position, texture, dir, lives, game,  scale), actualLives(lives), element(elem), player(p) {
@@ -59,7 +60,7 @@ void Enemy::DetectPlayer() {
 void Enemy::DetectAttackTrigger() {
 	if (detectPlayer && player != nullptr || attackState != normal) {
 		SDL_Rect playerRect = { 0,0,0,0 };
-		if(player != nullptr) playerRect = static_cast<Enemy*> (player)->getCollider();
+		if(player != nullptr) playerRect = static_cast<Ott*> (player)->getRect();
 		int frameTime = SDL_GetTicks() - startAttackingTime;
 		if (attackState == normal && frameTime >= PREPARING_TIME && SDL_HasIntersection(&attackTrigger, &playerRect)) {
 			attackState = preparing;
@@ -84,12 +85,9 @@ void Enemy::DetectAttackTrigger() {
 
 void Enemy::Attack() {
 	if (player != nullptr) {
-		SDL_Rect playerRect = static_cast<Enemy*> (player)->getCollider();
+		SDL_Rect playerRect = static_cast<Ott*> (player)->getRect();
 		if (SDL_HasIntersection(&attackTrigger, &playerRect)) {
-			if (static_cast<Enemy*>(player)->Damage(element)) {
-				player = nullptr;
-				detectPlayer = false;
-			}
+			static_cast<Ott*>(player)->recieveDamage(element);
 		}
 	}
 }
@@ -98,7 +96,7 @@ void Enemy::Attack() {
 void Enemy::FollowPlayer() {
 	// Distancia de seguridad para comprobar que no se pega al jugador
 	SDL_Rect collider = getCollider();
-	SDL_Rect ott = static_cast<Enemy*> (player)->getCollider();
+	SDL_Rect ott = static_cast<Ott*> (player)->getRect();
 	if (lookingRight && abs(ott.x - (collider.x + collider.w)) > nearDistance ||
 		!lookingRight && abs(ott.x + collider.w - collider.x) > nearDistance) {
 
