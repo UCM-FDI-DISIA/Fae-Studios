@@ -3,7 +3,6 @@
 #include "../gameflow/play/PlayState.h"
 #include "Ott/Ott.h"
 
-
 Enemy::Enemy(const Vector2D& position, Texture* texture, int lives, elementsInfo::elements elem, GameObject* p, bool moving, PlayState* game, Vector2D dir, const Scale& scale, float wTrigger, float hTrigger) : Entity(position, texture, dir, lives, game,  scale), actualLives(lives), element(elem), player(p) {
 	maxLives = lives * 2;  // Representación interna doblada
 	actualLives = lives * 2;
@@ -190,19 +189,19 @@ void Enemy::Move() {
 
 	if (grounded) {
 		ChangeDir(groundRect);
-		position = { position.getX(), position.getY() - groundRect.h };
+		position = { position.getX(), groundRect.y - (double)height };
 	}
 
 	if (collided) {
-		if (abs(groundRect.x - getCollider().x) < turningError) {
-			position = { position.getX() + groundRect.w, position.getY() };
+		if (abs(colRect.x - getCollider().x) < turningError) {
+			position = { position.getX() + colRect.w, position.getY() };
 			if(!detectPlayer){
 				speed = { horizontalSpeed, speed.getY() };
 				lookingRight = true;
 			}
 		}
 		else {
-			position = { position.getX() - groundRect.w, position.getY() };
+			position = { position.getX() - colRect.w, position.getY() };
 			if (!detectPlayer) {
 				speed = { -horizontalSpeed, speed.getY() };
 				lookingRight = false;
