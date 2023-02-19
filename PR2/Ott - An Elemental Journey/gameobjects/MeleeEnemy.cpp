@@ -21,13 +21,16 @@ void MeleeEnemy::Move() {
 	}
 }
 
-void MeleeEnemy::render() const {
+void MeleeEnemy::render(const SDL_Rect& Camera) const {
+	SDL_Rect thisRect = getRect();
+	thisRect.x -= Camera.x;
+	thisRect.y -= Camera.y;
 	if (dead || attackState == attacking || attackState == afterAttack) {
-		texture->renderFrame(getRect(), fil, col, 0, flip[lookingRight]);
+		texture->renderFrame(thisRect, fil, col, 0, flip[lookingRight]);
 	}
 	else if (attackState == normal || attackState == preparing) {
 		if (dir.getX() == 0 || attackState == preparing) texture->renderFrame(getRect(), fil, (SDL_GetTicks() / time_per_frame) % 3, 0, flip[lookingRight]);
-		else texture->renderFrame(getRect(), fil, (SDL_GetTicks() / time_per_frame) % 4 + 3, 0, flip[lookingRight]);
+		else texture->renderFrame(thisRect, fil, (SDL_GetTicks() / time_per_frame) % 4 + 3, 0, flip[lookingRight]);
 	}
 }
 

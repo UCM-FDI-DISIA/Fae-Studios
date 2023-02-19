@@ -21,7 +21,7 @@ public:
 
 	virtual void Move();
 
-	virtual void render() const;
+	virtual void render(const SDL_Rect& Camera = { 0,0,0,0 }) const;
 
 	virtual void Attack();
 

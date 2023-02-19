@@ -94,6 +94,9 @@ void SlimeEnemy::Die() {
 	Enemy::Die();
 }
 
-void SlimeEnemy::render() const{
-	texture->renderFrame(getRect(), 0, col);
+void SlimeEnemy::render(const SDL_Rect& Camera) const{
+	SDL_Rect thisRect = getRect();
+	thisRect.x -= Camera.x;
+	thisRect.y -= Camera.y;
+	texture->renderFrame(thisRect, fil, col);
 }
