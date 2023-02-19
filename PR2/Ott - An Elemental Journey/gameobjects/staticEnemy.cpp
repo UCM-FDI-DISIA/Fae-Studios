@@ -6,6 +6,7 @@ void staticEnemy::update()
 	if (!dead) {
 		DetectPlayer();
 		Attack();
+		playerCollide();
 		if (SDL_GetTicks() - startDamagedTime < DAMAGED_TIME) {
 			fil = 1;
 		}

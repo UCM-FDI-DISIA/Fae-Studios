@@ -454,7 +454,7 @@ void Ott::render(const SDL_Rect& Camera) const {
 bool Ott::recieveDamage(elementsInfo::elements elem, const SDL_Rect& result)
 {
 	bool hasDefended = false;
-	if (defend) {
+	if (defend && !(result.x == 0 && result.y == 0 && result.h == 0 && result.w == 0)) {
 		SDL_Rect shieldRect = shield->getRect();
 		cout << "DEFENSA" << endl;
 		cout << result.x << " " << shieldRect.x << endl;

@@ -148,16 +148,16 @@ void Enemy::ChangeDir(const SDL_Rect& result){
 }
 
 void Enemy::playerCollide() {
-	/*if (player != nullptr) {
+	if (player != nullptr) {
 		SDL_Rect myRect = getCollider();
-		SDL_Rect playerRect = static_cast<Enemy*> (player)->getCollider();
+		SDL_Rect playerRect = static_cast<Ott*> (player)->getRect();
 		if (SDL_HasIntersection(&myRect, &playerRect)) {
-			if (static_cast<Enemy*>(player)->Damage(element)) { // Falta implementar lo de la invulnerabilidad
+			if (static_cast<Ott*>(player)->recieveDamage(element,{0,0,0,0})) { // Falta implementar lo de la invulnerabilidad
 				player = nullptr;
 				detectPlayer = false;
 			}
 		}
-	}*/
+	}
 }
 
 void Enemy::MoveTriggers() {
