@@ -3,6 +3,8 @@
 
 void Bullet::update()
 {
+	if (speed.getX() > 0) lookingRight = true;
+	else lookingRight = false;
 	position = position + speed;
 	Collision();
 }
@@ -25,3 +27,11 @@ void Bullet::Collision()
 			dead = true;
 	}
 }
+
+void Bullet::render(const SDL_Rect& Camera) const {
+	SDL_Rect rect = getRect();
+	rect.x -= Camera.x;
+	rect.y -= Camera.y;
+	texture->renderFrame(rect, 0, 0, 0, flip[lookingRight]);
+}
+

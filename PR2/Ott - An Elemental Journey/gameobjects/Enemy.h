@@ -51,8 +51,9 @@ protected:
 	int timer = 0;
 	int fil = 0;
 
+	Texture* colliderRender;
 public:
-	Enemy(const Vector2D& position, Texture* texture, int lives, elementsInfo::elements elem, GameObject* p, bool moving, PlayState* game, Vector2D dir = Vector2D(0,0), const Scale& scale = Scale(1.0f, 1.0f), float wTrigger = 110, float hTrigger = 100);
+	Enemy(const Vector2D& position, Texture* texture, int lives, elementsInfo::elements elem, GameObject* p, bool moving, PlayState* game, Vector2D dir = Vector2D(0,0), const Scale& scale = Scale(1.0f, 1.0f), float wTrigger = 110, float hTrigger = 100, Texture* colliderDEBUG = nullptr);
 	virtual ~Enemy() = default;
 
 	virtual void die();
@@ -88,6 +89,8 @@ public:
 								colliderWH.getX(), colliderWH.getY() };
 		return collider;
 	}
+
+	virtual void render(const SDL_Rect& Camera = { 0,0,0,0 }) const;
 };
 
 

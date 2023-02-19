@@ -60,7 +60,7 @@ public:
     list<Entity*>::iterator getIteratorToEndElement() { return physicObjects.end(); }
     list<Entity*>* getPhysicsObjects() { return &physicObjects; }
     void addBullet(Vector2D pos, Vector2D dir, elementsInfo::elements elem, GameObject* g) {
-        addObject(new Bullet(pos, app->getTexture("enemy", stateID), elem, g, dir, Scale(0.1f, 0.1f), this));
+        addObject(new Bullet(pos, app->getTexture("spores", stateID), elem, g, dir, Scale(1.0f, 1.0f), this));
     }
     void addEntity(Entity* g) {
         addObject(g);

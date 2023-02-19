@@ -32,11 +32,11 @@ void staticEnemy::Attack(){
 			SDL_Rect playerRect = player->getRect();
 			if (!shooted) {
 				if (playerRect.x < position.getX()) {
-					game->addBullet({ position.getX(), position.getY() + height * 0.8}, Vector2D(-1, 0), element, player);
+					game->addBullet({ position.getX(), position.getY() + height * 0.6}, Vector2D(-1, 0), element, player);
 					shooted = true;
 				}
 				else {
-					game->addBullet({ position.getX() + width * 0.8, position.getY() + height * 0.8 }, Vector2D(1, 0), element, player);
+					game->addBullet({ position.getX() + width * 0.8, position.getY() + height * 0.6 }, Vector2D(1, 0), element, player);
 					shooted = true;
 				}
 			}
@@ -67,4 +67,5 @@ void staticEnemy::render(const SDL_Rect& Camera) const {
 	thisRect.x -= Camera.x;
 	thisRect.y -= Camera.y;
 	texture->renderFrame(thisRect, fil, col, 0, flip[!lookingRight]);
+	Enemy::render(Camera);
 }

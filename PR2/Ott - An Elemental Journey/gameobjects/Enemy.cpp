@@ -3,7 +3,7 @@
 #include "../gameflow/play/PlayState.h"
 #include "Ott/Ott.h"
 
-Enemy::Enemy(const Vector2D& position, Texture* texture, int lives, elementsInfo::elements elem, GameObject* p, bool moving, PlayState* game, Vector2D dir, const Scale& scale, float wTrigger, float hTrigger) : Entity(position, texture, dir, lives, game,  scale), actualLives(lives), element(elem), player(p) {
+Enemy::Enemy(const Vector2D& position, Texture* texture, int lives, elementsInfo::elements elem, GameObject* p, bool moving, PlayState* game, Vector2D dir, const Scale& scale, float wTrigger, float hTrigger, Texture* colliderDEBUG) : Entity(position, texture, dir, lives, game,  scale), actualLives(lives), element(elem), player(p), colliderRender(colliderDEBUG) {
 	maxLives = lives * 2;  // Representación interna doblada
 	actualLives = lives * 2;
 
@@ -218,3 +218,13 @@ bool Enemy::isDead() { return dead; }
 void Enemy::useGravity() {
 	position = position + Vector2D(0, 1 + game->Gravity());
 }
+
+void Enemy::render(const SDL_Rect& Camera) const {
+	if (colliderRender != nullptr) {
+		SDL_Rect coll = getCollider();
+		coll.x -= Camera.x;
+		coll.y -= Camera.y;
+		colliderRender->render(coll);
+	}
+}
+

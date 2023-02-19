@@ -6,6 +6,8 @@ class Bullet : public Entity
 private:
 	elementsInfo::elements element;
 	GameObject* player;
+	bool lookingRight;
+	SDL_RendererFlip flip[2] = {SDL_FLIP_HORIZONTAL, SDL_FLIP_NONE};
 
 	bool dead = false;
 public:
@@ -18,4 +20,6 @@ public:
 	void update() override;
 
 	void Collision();
+
+	virtual void render(const SDL_Rect& Camera = { 0,0,0,0 }) const;
 };
