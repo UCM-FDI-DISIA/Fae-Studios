@@ -65,12 +65,12 @@ void Mapa::loadMap(string path) {
                 vectorObjects.push_back(objects);
 
                  //Ejemplo de propiedades de un objeto (posicion, tama�o, ID y nombre)
-                     cout << "Found " << objects.size() << " objects in layer" << endl;
-                     for (const auto& object : objects)
-                    {
-                        Vector2f holi = object.getPosition();
-                        cout << "Object " << object.getUID() << ", " << object.getName() <<  " " << object.getClass() << endl;
-                    }
+                cout << "Found " << objects.size() << " objects in layer" << endl;
+                for (const auto& object : objects)
+                {
+                    Vector2f holi = object.getPosition();
+                    cout << "Object " << object.getUID() << ", " << object.getName() <<  " " << object.getClass() << endl;
+                }
                 
             }
 #pragma endregion
@@ -132,7 +132,7 @@ void Mapa::render(const SDL_Rect& Camera) const{
     for (int i = 0; i < vectorTiles.size(); i++) {
         auto it = vectorTiles[i].ID;
         if (it == 0) continue;
-        tilemap->renderFrame({ (int)(i % 192) * usedTileSize - offsetX, (int)((i / 192) * usedTileSize) - offsetY, usedTileSize, usedTileSize }, (it - (it % 20)) / 20, it % 20 - 1);
+        tilemap->renderFrame({ (int)(i % 100) * usedTileSize - offsetX, (int)((i / 100) * usedTileSize) - offsetY, usedTileSize, usedTileSize }, (it - (it % 20)) / 20, it % 20 - 1);
     }
 }
 

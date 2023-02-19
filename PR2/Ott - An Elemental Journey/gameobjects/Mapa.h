@@ -19,8 +19,9 @@ using namespace tmx;
 
 enum ListaNiveles {
 	LEVEL1 = 0,
-    LEVEL2 = 1,
-    LEVEL3 = 2
+	LEVEL2 = 1,
+	LEVEL3 = 2,
+	DEMO = 3
 };
 enum TypeTexture {
 	BACKGROUND = 0,

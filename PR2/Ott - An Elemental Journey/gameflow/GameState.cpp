@@ -6,7 +6,6 @@
 #include "../gameobjects/Entity.h"
 #include "play/PlayState.h"
 
-
 GameState::~GameState() {
     for (auto e : gameObjects) delete(e); //Borramos todos los objetos de la lista
     app->getTextureManager()->unregisterTexture(getStateID());
@@ -22,7 +21,6 @@ void GameState::update() {
         }
         if (!deleted) ++it;
         else return;
-        
     }
 }
 void GameState::collision(CollisionObject* c) {

@@ -30,8 +30,8 @@ void PlayState::handleEvents() {
 
 PlayState::PlayState(SDLApplication* app) : GameState(PLAY_STATE, app) {
 	currentMap = new Mapa(app, LEVEL1);
-	auto scale1 = currentMap->tileScale();
-	gameObjects.push_back(new CollisionObject(Vector2D(0, 1100), app->getTexture("level1bg", PLAY_STATE), Scale(scale1, scale1)));
+	auto scale = currentMap->tileScale();
+	gameObjects.push_back(new CollisionObject(Vector2D(0, 300), app->getTexture("level1bg", PLAY_STATE), Scale(scale, scale)));
 
 	gameObjects.push_back(currentMap);
 
@@ -43,16 +43,18 @@ PlayState::PlayState(SDLApplication* app) : GameState(PLAY_STATE, app) {
 	*/
 	auto a = currentMap->getObjects();
 	for (auto it : a) {
-			unordered_map<string, TP_Lamp*> lamps;
+		unordered_map<string, TP_Lamp*> lamps;
 		for (auto ot : it) {
-
-
 			float x_ = ot.getAABB().left;
 			float y_ = ot.getAABB().top;
 			float w_= ot.getAABB().width;
 			float h_ = ot.getAABB().height;
-
-			auto scale = currentMap->tileScale();
+			elementsInfo::elements elem;
+			string path = "";
+			if (ot.getName() == "1") { elem = elementsInfo::Earth; path = "earth"; }
+			if (ot.getName() == "2") { elem = elementsInfo::Water; path = "water";}
+			if (ot.getName() == "3") { elem = elementsInfo::Fire; path = "fire";}
+			if (ot.getName() == "4") { elem = elementsInfo::Dark; path = "dark";}
 			if (ot.getClass() == "Ground") {
 				Ground* grT = new Ground(Vector2D(x_ * scale, y_ * scale), app->getTexture("pixel", PLAY_STATE), Scale(w_ * scale, h_ * scale));
 				groundObjects.push_back(grT);
@@ -83,22 +85,34 @@ PlayState::PlayState(SDLApplication* app) : GameState(PLAY_STATE, app) {
 				Sanctuary* s1 = new Sanctuary(Vector2D(x_ * scale, y_ * scale - app->getTexture("sanctuary", PLAY_STATE)->getH() * 2), app->getTexture("sanctuary", PLAY_STATE), Scale(2, 2));
 				gameObjects.push_back(s1);
 			}
+			else if (ot.getClass() == "Ott") {
+				ott = new Ott(Vector2D(x_ * scale, y_ * scale - app->getTexture("sanctuary", PLAY_STATE)->getH() * 3), app->getTexture("ott_luz", PLAY_STATE),
+					app->getTexture("ott_tree", PLAY_STATE), app->getTexture("ott_water", PLAY_STATE),
+					app->getTexture("ott_fire", PLAY_STATE), app->getTexture("shield", PLAY_STATE),
+					app->getTexture("fireShield", PLAY_STATE), app->getTexture("waterShield", PLAY_STATE)
+					, app->getTexture("earthShield", PLAY_STATE), app->getTexture("whip", PLAY_STATE)
+					, this, Scale(3.0f, 3.0f));
+				gameObjects.push_back(ott);
+				physicObjects.push_back(ott);
+			}
+			else if (ot.getClass() == "Mushroom") {
+
+				addObject(new staticEnemy(Vector2D(x_ *scale, y_*scale - app->getTexture(path + "Mushroom", PLAY_STATE)->getH() * 1.5), app->getTexture(path + "Mushroom", PLAY_STATE), ott, 2000, 5, elem,
+					110, 100, Scale(3.0f, 3.0f), this));
+			}
+			else if (ot.getClass() == "Melee") {
+				addObject(new MeleeEnemy(Vector2D(x_ * scale, y_ * scale - app->getTexture(path + "Bug", PLAY_STATE)->getH() * 3), app->getTexture(path + "Bug", PLAY_STATE), 5, elem, ott, true, Vector2D(1, 0), Scale(3, 3), 110, 100, this));
+			}
+			else if (ot.getClass() == "Slime") {
+
+			}
 		}
 	}
-	ott = new Ott(Vector2D(400, 2000), app->getTexture("ott_luz", PLAY_STATE), 
-		app->getTexture("ott_tree", PLAY_STATE), app->getTexture("ott_water", PLAY_STATE), 
-		app->getTexture("ott_fire", PLAY_STATE), app->getTexture("shield", PLAY_STATE), 
-		app->getTexture("fireShield", PLAY_STATE), app->getTexture("waterShield", PLAY_STATE)
-		, app->getTexture("earthShield", PLAY_STATE), app->getTexture("whip", PLAY_STATE)
-		, this, Scale(3.0f, 3.0f));
-	gameObjects.push_back(ott);
 
-	addObject(new staticEnemy(Vector2D(800, 2200), app->getTexture("mushroom", PLAY_STATE), ott, 2000, 5, elementsInfo::Earth,
-		110, 100, Scale(3.0f, 3.0f), this));
+
 
 	addObject(new MeleeEnemy( Vector2D(700,2300), app->getTexture("bug",PLAY_STATE),5, elementsInfo::Earth, ott, true, Vector2D(1,0), Scale(3,3),110,100,this));
 
-	physicObjects.push_back(ott);
     healthBar = new HealthBar(Vector2D(30, 100), app->getTexture("hearts", PLAY_STATE), Scale(10.0f, 10.0f));
 	gameObjects.push_back(healthBar);
     gameObjects.push_back(new ChargedAttackBar(healthBar->lastHeartPosition() + Vector2D(100, -10), app->getTexture("chargebar", getStateID()), Scale(1.5f, 1.5f)));

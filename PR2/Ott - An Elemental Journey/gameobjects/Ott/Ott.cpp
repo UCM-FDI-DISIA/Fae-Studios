@@ -275,6 +275,7 @@ void Ott::jump() {
 		else speed = Vector2D(speed.getX(), jumpForce);
 	}
 }
+
 void Ott::changeElem() {
 	animState = CHANGE;
 	change = true;
@@ -283,6 +284,7 @@ void Ott::changeElem() {
 	timer += ANIMATION_FRAME_RATE / 2;
 	ElementcoldDown += ELEMENT_CHANGE_TIME;
 }
+
 void Ott::setSpeed() {
 	if (right) speed = Vector2D(horizontalSpeed, speed.getY());
 	else if (left) speed = Vector2D(-horizontalSpeed, speed.getY());
@@ -302,7 +304,7 @@ void Ott::setSpeed() {
 // Si se usa setAnimState, es para que cambie sin esperar a ningún frame, que lo haga directamente
 void Ott::updateAnimState() {
 	ANIM_STATE previous = animState;
-	if (!dieAnim) {
+	if (!dieAnim && !tp) {
 		if (attack) { // animación de ataque
 			if (previous != ATTACK) { // si se estaba atacando antes, no hace falta volver a poner la animación de ataque
 				col = 2;
@@ -324,7 +326,7 @@ void Ott::updateAnimState() {
 			setAnimState(FALLING);
 		}
 	}
-	else if(previous != DIE) {
+	else if(!tp && previous != DIE) {
 		cout << " MUERTE Y DESTRUSION" << endl;
 		setAnimState(DIE);
 		col = 2;
@@ -509,6 +511,7 @@ bool Ott::collide(GameObject* c)
 	}
 	return false;
 }
+
 void Ott::attacking() //EL RECORRIDO DE ENTIDADES LO TIENE EVA HIHI
 {
 	/*auto it = static_cast<PlayState*>(game)->getEntityList().begin();
@@ -558,7 +561,6 @@ void Ott::goToSanctuary() {
 		dieAnim = false;
 	}
 }
-
 
 // método para settear el punto de teletransporte. no se teletransporte directamente porque se tiene que hacer una pequeña animación
 void Ott::setTpPoint(const Vector2D& newPos) {
