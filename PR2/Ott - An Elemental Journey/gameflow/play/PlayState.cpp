@@ -195,7 +195,7 @@ void PlayState::ottCollide(const SDL_Rect& ottRect, const SDL_Rect& onGround, SD
 	for (auto it : groundObjects) {
 		it->collide(ottRect, colRect);
 		if (colRect.h > 0 && colRect.w > 16) { // si el rectángulo merece la pena
-			if (speed.getX() > 0 && colRect.x >= ottRect.x) { // chocar pared por la izquierda
+			if (speed.getX() > 0 && colRect.x >= ottRect.x + ottRect.w / 2) { // chocar pared por la izquierda
 				ott->setPos(Vector2D(ottRect.x - speed.getX(), ottRect.y));
 			}
 			else if (speed.getX() < 0 && colRect.x <= ottRect.x) { // chocar pared por la derecha
@@ -203,8 +203,8 @@ void PlayState::ottCollide(const SDL_Rect& ottRect, const SDL_Rect& onGround, SD
 			}
 
 			// chocar techo
-			if (speed.getY() < 0 && colRect.y <= ottRect.y && colRect.w >= colRect.h && colRect.x == ottRect.x &&
-				colRect.w >= ottRect.w / 2) {
+			if (speed.getY() < 0 && colRect.y <= ottRect.y && colRect.w >= colRect.h &&
+				colRect.w >= ottRect.w / 4) {
 				ott->setPos(Vector2D(ott->getRect().x, ott->getRect().y - speed.getY()));
 				if (speed.getX() != 0) speed = Vector2D(speed.getX(), 1);
 				else speed = Vector2D(0, 0);

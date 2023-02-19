@@ -4,7 +4,6 @@
 void staticEnemy::update()
 {
 	if (!dead) {
-		cout << col << endl;
 		DetectPlayer();
 		Attack();
 		if (SDL_GetTicks() - startDamagedTime < DAMAGED_TIME) {
@@ -30,12 +29,10 @@ void staticEnemy::Attack(){
 				if (playerRect.x < position.getX()) {
 					game->addBullet({ position.getX(), position.getY() + height * 0.8}, Vector2D(-1, 0), element, player);
 					shooted = true;
-					cout << "AAA";
 				}
 				else {
 					game->addBullet({ position.getX() + width * 0.8, position.getY() + height * 0.8 }, Vector2D(1, 0), element, player);
 					shooted = true;
-					cout << "BBB";
 				}
 			}
 			if (col != 9) col = ((SDL_GetTicks() - attackStart) / time_per_frame) % 4 + 6;
@@ -61,7 +58,6 @@ void staticEnemy::Attack(){
 }
 
 void staticEnemy::render(const SDL_Rect& Camera) const {
-	cout << "HOLA" << endl;
 	SDL_Rect thisRect = getRect();
 	thisRect.x -= Camera.x;
 	thisRect.y -= Camera.y;

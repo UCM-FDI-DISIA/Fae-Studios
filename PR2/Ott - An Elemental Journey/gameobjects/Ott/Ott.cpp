@@ -377,6 +377,7 @@ void Ott::update() {
 
 		if (ground) { // si se ha chocado con el suelo...
 			if (!(speed.getY() < 0) && !notGroundedBefore) { // y no se le ha fixeado la posición y la velocidad. En caso de que ya se le haya fixeado ya, no se entra aquí
+				cout << "hey" << endl;
 				position = Vector2D(position.getX(), groundCol.y - height);
 				speed = Vector2D(speed.getX(), 0);
 				if (!attack &&!change) setAnimState(LAND);
@@ -403,11 +404,6 @@ void Ott::update() {
 		}
 		if (attack&&!cooldown) attacking(); //el cooldown para que solo haga daño una vez, si es mientras este a true el booleano, habria que poner una
 		if (attack && currentElement == 1) whip->move(position.getX(), position.getY(), width, lookingFront);
-
-		cout << "X: " << whip->getRect().x <<
-			"Y: " << whip->getRect().y <<
-			"W: " << whip->getRect().w <<
-			"H: " << whip->getRect().h << endl;
 	}
 
 	else if (animState == TP_OUT) position = tpPosition; // en caso de estarse teletransportando entre lámparas, se fixea su posición
@@ -490,7 +486,6 @@ bool Ott::collide(GameObject* c)
 		SDL_Rect sactRect = o->getRect();
 		if (SDL_HasIntersection(&sactRect, &col)) { 
 			if (lastSanctuary != o) {
-				cout << "Toca sanctuario" << endl; // se pone su último santuario tocado a este.
 				saveSactuary(o);
 			}
 			return true;
@@ -525,7 +520,6 @@ void Ott::attacking() //EL RECORRIDO DE ENTIDADES LO TIENE EVA HIHI
 		SDL_Rect entRect = ent->getRect();
 		if (SDL_HasIntersection(&attackTrigger, &entRect))
 		{
-			cout << "Attack" << endl;
 			(*it)->recieveDamage(0);
 		}
 	}
