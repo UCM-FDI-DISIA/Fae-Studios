@@ -5,6 +5,10 @@ void staticEnemy::update()
 {
 	if (!dead) {
 		DetectPlayer();
+		if (detectPlayer && player->getRect().x - getCollider().x > 0) lookingRight = true;
+		else lookingRight = false;
+
+		MoveTriggers();
 		Attack();
 		playerCollide();
 		if (SDL_GetTicks() - startDamagedTime < DAMAGED_TIME) {
@@ -62,5 +66,5 @@ void staticEnemy::render(const SDL_Rect& Camera) const {
 	SDL_Rect thisRect = getRect();
 	thisRect.x -= Camera.x;
 	thisRect.y -= Camera.y;
-	texture->renderFrame(thisRect, fil, col);
+	texture->renderFrame(thisRect, fil, col, 0, flip[!lookingRight]);
 }
