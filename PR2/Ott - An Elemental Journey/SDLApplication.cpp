@@ -203,7 +203,7 @@ Font* SDLApplication::getFont(const string& name) {
 void SDLApplication::changeVolume(int type, int value) {
     switch (type) {
     case 0: generalVolume = value; break;
-    case 1: musicVolume = value; break;
+    case 1: musicVolume = value; Mix_VolumeMusic(musicVolume); break;
     case 2: soundsVolume = value; break;
     }
 }
