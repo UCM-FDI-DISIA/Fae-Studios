@@ -10,8 +10,7 @@ ControlMenuState::ControlMenuState(SDLApplication* app) : MenuState(CONTROLS, ap
 		"Volver",
 		app->getTexture("button", this->getStateID()),
 		app,
-		back,
-		Scale(0.33f, 1.0f))));
+		back)));
 
 	controles = app->getTexture("whitebackground", this->getStateID());
 	controlsRect.w = 3 * WINDOW_WIDTH / 5;

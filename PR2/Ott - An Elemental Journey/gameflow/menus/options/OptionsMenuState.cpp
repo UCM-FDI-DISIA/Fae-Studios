@@ -15,7 +15,7 @@ OptionsMenuState::OptionsMenuState(SDLApplication* app) : MenuState(OPTIONS, app
 		app->getTexture("button", this->getStateID()),
 		app,
 		graphicOptions,
-		Scale(0.33f, 1.0f),
+		Scale(1.0f, 1.0f),
 		Scale(1.7f, 1.7f))));
 	//Música y sonido
 	gameObjects.push_back(new Button(ButtonParams(
@@ -23,8 +23,7 @@ OptionsMenuState::OptionsMenuState(SDLApplication* app) : MenuState(OPTIONS, app
 		"Música",
 		app->getTexture("button", this->getStateID()),
 		app,
-		musicOptions,
-		Scale(0.33f, 1.0f))));
+		musicOptions)));
 	//Controles
 	gameObjects.push_back(new Button(ButtonParams(
 		Vector2D(WINDOW_WIDTH / 2 - (app->getTexture("button", this->getStateID())->getW() / 3) / 2, 5 * WINDOW_HEIGHT / 7 - (app->getTexture("button", this->getStateID())->getH() / 2)),
@@ -32,7 +31,7 @@ OptionsMenuState::OptionsMenuState(SDLApplication* app) : MenuState(OPTIONS, app
 		app->getTexture("button", this->getStateID()),
 		app,
 		controls,
-		Scale(0.33f, 1.0f),
+		Scale(1.0f, 1.0f),
 		Scale(1.5f,1.5f))));
 	//Volver
 	gameObjects.push_back(new Button(ButtonParams(
@@ -40,8 +39,7 @@ OptionsMenuState::OptionsMenuState(SDLApplication* app) : MenuState(OPTIONS, app
 		"Volver", 
 		app->getTexture("button", this->getStateID()), 
 		app, 
-		back, 
-		Scale(0.33f, 1.0f))));
+		back)));
 
 	titleBack = new UIText("Opciones", *(app->getFont("press_start")), Vector2D(WINDOW_WIDTH / 2, 20), app->getRenderer(), { 194,147,42 }, Scale(4.0f, 4.0f));
 	titleBack->movePosition(Vector2D(WINDOW_WIDTH / 2 - 4 * titleBack->getTexture()->getW() / 2 - 5, 100));

@@ -1,14 +1,15 @@
 #include "Entity.h"
 #include "../gameflow/play/PlayState.h"
-void Entity::recieveDamage(int elem) {
+bool Entity::recieveDamage(int elem) {
 	int damageNum = elementsInfo[elem][currentElement];
 	if (damageNum != -1) {
 		life -= damageNum;
 		if (life <= 0) die();
 	}
+	return dead;
 }
 void Entity::die() {
-	
+	dead = true;
 }
 
 bool Entity::isGrounded() { return ground; }

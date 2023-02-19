@@ -14,7 +14,7 @@ PauseMenuState::PauseMenuState(SDLApplication* app) : MenuState(PAUSE_MENU, app-
 		app->getTexture("button", this->getStateID()),
 		app,
 		resume,
-		Scale(0.33f, 1.0f),
+		Scale(1.0f, 1.0f),
 		Scale(1.7f,1.7f))));
 	//Main menu
 	gameObjects.push_back(new Button(ButtonParams(
@@ -23,7 +23,7 @@ PauseMenuState::PauseMenuState(SDLApplication* app) : MenuState(PAUSE_MENU, app-
 		app->getTexture("button", this->getStateID()),
 		app,
 		mainMenu,
-		Scale(0.33f, 1.0f),
+		Scale(1.0f, 1.0f),
 		Scale(1.0f, 1.0f))));
 	//Options
 	gameObjects.push_back(new Button(ButtonParams(
@@ -32,7 +32,7 @@ PauseMenuState::PauseMenuState(SDLApplication* app) : MenuState(PAUSE_MENU, app-
 		app->getTexture("button", this->getStateID()),
 		app,
 		settings,
-		Scale(0.33f, 1.0f),
+		Scale(1.0f, 1.0f),
 		Scale(1.7f, 1.7f))));
 	//Quit
 	gameObjects.push_back(new Button(ButtonParams(
@@ -40,8 +40,7 @@ PauseMenuState::PauseMenuState(SDLApplication* app) : MenuState(PAUSE_MENU, app-
 		"X",
 		app->getTexture("quitbutton", this->getStateID()),
 		app,
-		exit,
-		Scale(0.33f, 1.0f))));
+		exit)));
 }
 
 void PauseMenuState::resume(SDLApplication* app) {

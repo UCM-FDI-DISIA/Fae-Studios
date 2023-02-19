@@ -47,8 +47,6 @@ public:
 
 	void addContainer();
 
-	void changeSize();
-
     Vector2D lastHeartPosition() const;
 
 	void update() override { reposition(); }

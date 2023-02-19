@@ -11,14 +11,13 @@ MusicOptionsMenuState::MusicOptionsMenuState(SDLApplication* app) : MenuState(MU
 		"Volver", 
 		app->getTexture("button", this->getStateID()), 
 		app, 
-		back, 
-		Scale(0.33f, 1.0f))));
+		back)));
 	//General volume
-	gameObjects.push_back(new Slider(Vector2D(WINDOW_WIDTH / 2 - app->getTexture("slider", this->getStateID())->getW() / 2, 2 * WINDOW_HEIGHT / 9 - (app->getTexture("slider", this->getStateID())->getH() / 3 / 2)), app->getTexture("slider", this->getStateID()), app->getTexture("needle", this->getStateID()), "Volumen general", app, generalVolume, app->getVolume(0), true, Scale(1.0f,0.33f), Scale(0.125f, 0.33f)));
+	gameObjects.push_back(new Slider(Vector2D(WINDOW_WIDTH / 2 - app->getTexture("slider", this->getStateID())->getW() / 2, 2 * WINDOW_HEIGHT / 9 - (app->getTexture("slider", this->getStateID())->getH() / 3 / 2)), app->getTexture("slider", this->getStateID()), app->getTexture("needle", this->getStateID()), "Volumen general", app, generalVolume, app->getVolume(0), true, Scale(1.0f, 1.0f), Scale(0.5f, 0.5f)));
 	//Music volume
-	gameObjects.push_back(new Slider(Vector2D(WINDOW_WIDTH / 2 - app->getTexture("slider", this->getStateID())->getW() / 2, 4 * WINDOW_HEIGHT / 9 - (app->getTexture("slider", this->getStateID())->getH() / 3 / 2)), app->getTexture("slider", this->getStateID()), app->getTexture("needle", this->getStateID()), "Música", app, musicVolume, app->getVolume(1), true, Scale(1.0f, 0.33f), Scale(0.125f, 0.33f)));
+	gameObjects.push_back(new Slider(Vector2D(WINDOW_WIDTH / 2 - app->getTexture("slider", this->getStateID())->getW() / 2, 4 * WINDOW_HEIGHT / 9 - (app->getTexture("slider", this->getStateID())->getH() / 3 / 2)), app->getTexture("slider", this->getStateID()), app->getTexture("needle", this->getStateID()), "Música", app, musicVolume, app->getVolume(1), true, Scale(1.0f, 1.0f), Scale(0.5f, 0.5f)));
 	//Sound volume
-	gameObjects.push_back(new Slider(Vector2D(WINDOW_WIDTH / 2 - app->getTexture("slider", this->getStateID())->getW() / 2, 6 * WINDOW_HEIGHT / 9 - (app->getTexture("slider", this->getStateID())->getH() / 3 / 2)), app->getTexture("slider", this->getStateID()), app->getTexture("needle", this->getStateID()), "Sonido", app, soundsVolume, app->getVolume(2), true, Scale(1.0f, 0.33f), Scale(0.125f, 0.33f)));
+	gameObjects.push_back(new Slider(Vector2D(WINDOW_WIDTH / 2 - app->getTexture("slider", this->getStateID())->getW() / 2, 6 * WINDOW_HEIGHT / 9 - (app->getTexture("slider", this->getStateID())->getH() / 3 / 2)), app->getTexture("slider", this->getStateID()), app->getTexture("needle", this->getStateID()), "Sonido", app, soundsVolume, app->getVolume(2), true, Scale(1.0f, 1.0f), Scale(0.5f, 0.5f)));
 }
 
 void MusicOptionsMenuState::back(SDLApplication* app) {

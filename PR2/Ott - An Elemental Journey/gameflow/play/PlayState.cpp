@@ -9,11 +9,11 @@
 #include "../../gameflow/menus/MainMenuState.h"
 #include "../../ui/ChargedAttackBar.h"
 #include "../../utils/InputHandler.h"
-#include <unordered_map>
 #include "../../gameobjects/staticEnemy.h"
 #include "../../gameobjects/MeleeEnemy.h"
 #include "../../gameobjects/SlimeEnemy.h"
 #include "../../utils/Elements.h"
+#include <unordered_map>
 
 // funci�n para hacer interpolaci�n lineal. Usada en el movimiento de la c�mara
 float lerp(float a, float b, float t)
@@ -78,7 +78,10 @@ PlayState::PlayState(SDLApplication* app) : GameState(PLAY_STATE, app) {
 
 				gameObjects.push_back(l1);
 				intObjects.push_back(l1);
-
+			}
+			else if (ot.getClass() == "Sanctuary") {
+				Sanctuary* s1 = new Sanctuary(Vector2D(x_ * scale, y_ * scale - app->getTexture("sanctuary", PLAY_STATE)->getH() * 2), app->getTexture("sanctuary", PLAY_STATE), Scale(2, 2));
+				gameObjects.push_back(s1);
 			}
 		}
 	}
@@ -183,6 +186,10 @@ void PlayState::update() {
 
 	// MOVIMIENTO DE LA CÁMARA EN FUNCIÓN DE POSICIÓN DE OTT
 	moveCamera();
+
+	if (ott->isDead()) {
+		app->getStateMachine()->changeState(new MainMenuState(app));
+	}
 }
 
 void PlayState::ottCollide(const SDL_Rect& ottRect, const SDL_Rect& onGround, SDL_Rect& groundRect, SDL_Rect& colRect, bool& ground, Vector2D& speed) {

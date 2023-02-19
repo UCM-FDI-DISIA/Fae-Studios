@@ -4,6 +4,7 @@
 #include <math.h>
 #include "../utils/InputHandler.h"
 int Slider::SliderNeedle::move() {
+    cout << "MOVER SLIDER NEEDLE " << endl;
     SDL_Point mousePosition;
     SDL_GetMouseState(&mousePosition.x, &mousePosition.y);
     if ((position.getX() - initialPos.getX()) / 4 <= MAX_VALUE || (position.getX() - initialPos.getX()) / 4 >= MIN_VALUE) {
@@ -14,8 +15,7 @@ int Slider::SliderNeedle::move() {
     }
 }
 
-
-void Slider::SliderNeedle::render() const {
+void Slider::SliderNeedle::render(const SDL_Rect& Camera) const {
     texture->renderFrame(getRect(), 0, currentSliderNeedleFrame);
 }
 
@@ -52,16 +52,18 @@ void Slider::handleEvents() {
         this->needle->currentSliderNeedleFrame = MOUSE_OVER;
     }
     if (SDL_PointInRect(&mousePosition, &sliderRect) && InputHandler::instance()->getMouseButtonState(InputHandler::LEFT)) { //Indica que se ha pulsado el bot�n
+        cout << " a ver si entra aquí genteeee " << endl;
         currentSliderFrame = CLICKED;
         clicked = true;
         this->needle->currentSliderNeedleFrame = CLICKED;
     }
-    if (InputHandler::instance()->getMouseButtonState(InputHandler::LEFT)) {
+    else if (!InputHandler::instance()->getMouseButtonState(InputHandler::LEFT)) {
         clicked = false;
         currentSliderFrame = MOUSE_OVER;
         this->needle->currentSliderNeedleFrame = MOUSE_OVER;
     }
     if (clicked && InputHandler::instance()->mouseMotionEvent()) {
+        cout << "BIEEEN" << endl;
         this->needle->currentSliderNeedleFrame = CLICKED;
         value = this->needle->move();
         onChange();
@@ -73,12 +75,12 @@ void Slider::update() {
         UIText* tmp = textValue;
         Scale valueScale = Scale(2.0f, 2.0f);
         textValue = new UIText(std::to_string(value) + "%", *(app->getFont("vcr_osd")), position + Vector2D(texture->getW() / 2, 0), app->getRenderer(), textColor, valueScale);
-        textValue->movePosition(Vector2D(position.getX() + (texture->getW() / 2) - (valueScale.widthScale / 2) * textValue->getTexture()->getW(), position.getY() + 0.5* (textValue->getTexture()->getH() + 2 * (10 * 1 / valueScale.heightScale))));
+        textValue->movePosition(position);
         delete tmp;
     }
 }
 
-void Slider::render() const {
+void Slider::render(const SDL_Rect& Camera) const {
     texture->renderFrame(getRect(), currentSliderFrame, 0);
     needle->render();
     if(showValue) textValue->render();

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="192" height="105" tilewidth="32" tileheight="32" infinite="0" nextlayerid="6" nextobjectid="50">
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="192" height="105" tilewidth="32" tileheight="32" infinite="0" nextlayerid="6" nextobjectid="55">
  <tileset firstgid="1" name="EarthMapTileset" tilewidth="32" tileheight="32" tilecount="680" columns="20">
   <image source="../images/levels/tilesetlevel1.png" width="640" height="1088"/>
  </tileset>
@@ -120,11 +120,11 @@
   <object id="2" class="Ground" x="1792.67" y="543.333" width="266" height="447.333"/>
   <object id="3" class="Ground" x="2058.67" y="544" width="519.333" height="244"/>
   <object id="4" class="Ground" x="2578" y="542.667" width="124" height="691.333"/>
-  <object id="5" class="Ground" x="1" y="1234" width="224" height="301"/>
+  <object id="5" class="Ground" x="1" y="1234" width="254" height="301"/>
   <object id="6" class="Ground" x="1" y="1534" width="850" height="223"/>
   <object id="8" class="Ground" x="848" y="1408" width="381" height="397"/>
   <object id="9" class="Ground" x="705.5" y="1472.5" width="91.5" height="10"/>
-  <object id="10" class="Ground" x="1203.5" y="1438" width="302.5" height="212"/>
+  <object id="10" class="Ground" x="1228.5" y="1438" width="255" height="212"/>
   <object id="12" class="Ground" x="1484" y="1408" width="386" height="370"/>
   <object id="13" class="Ground" x="1869" y="1536" width="833" height="242"/>
   <object id="18" class="Ground" x="1964" y="1408.67" width="229.333" height="126"/>
@@ -135,11 +135,12 @@
   <object id="23" class="Ground" x="2210.67" y="1312" width="88.6667" height="9.33333"/>
   <object id="24" class="Ground" x="2272.67" y="1248" width="126" height="9.33333"/>
   <object id="25" class="Ground" x="2370.67" y="1311.33" width="91.3333" height="11.3333"/>
-  <object id="45" class="Ground" x="1939.27" y="1439.64" width="24.1818" height="21.4545"/>
+  <object id="45" class="Ground" x="1939.27" y="1439.64" width="24.1818" height="55.4545"/>
  </objectgroup>
  <objectgroup id="3" name="Objetos interactuables">
   <object id="27" name="lamp1" class="Lamp" x="992" y="1408" width="32"/>
   <object id="29" name="lamp1" class="Lamp" x="1760" y="1408" width="32"/>
   <object id="34" class="Grass" x="1920" y="1536"/>
+  <object id="54" class="Sanctuary" x="1318" y="1439.5" width="88.5"/>
  </objectgroup>
 </map>

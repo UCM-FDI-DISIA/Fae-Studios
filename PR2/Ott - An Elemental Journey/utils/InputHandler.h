@@ -24,14 +24,16 @@ public:
 	}
 
 	// clear the state
-	inline void clearState() {
+	inline void clearState(bool clearMouseButtons = false) {
 		isCloseWindoEvent_ = false;
 		isKeyDownEvent_ = false;
 		isKeyUpEvent_ = false;
 		isMouseButtonEvent_ = false;
 		isMouseMotionEvent_ = false;
-		for (auto i = 0u; i < 3; i++) {
-			mbState_[i] = false;
+		if(clearMouseButtons){
+			for (auto i = 0u; i < 3; i++) {
+				mbState_[i] = false;
+			}
 		}
 	}
 
@@ -148,7 +150,7 @@ private:
 
 	InputHandler() {
 		kbState_ = SDL_GetKeyboardState(0);
-		clearState();
+		clearState(true);
 	}
 
 	inline void onKeyDown(const SDL_Event&) {
@@ -171,6 +173,7 @@ private:
 		switch (event.button.button) {
 		case SDL_BUTTON_LEFT:
 			mbState_[LEFT] = isDown;
+			cout << isDown << endl;
 			break;
 		case SDL_BUTTON_MIDDLE:
 			mbState_[MIDDLE] = isDown;

@@ -2,15 +2,15 @@
 #include <iostream>
 
 void HealthBar::render(const SDL_Rect& Camera) const {
-    for (auto it = containers.healthContainerList.begin(); it != containers.healthContainerList.end(); ++it) {        
-        if ((*it).state == NORMAL) texture->renderFrame(it->destRect, 0, 1);
+    for (auto it = containers.healthContainerList.begin(); it != containers.healthContainerList.end(); ++it) {
+        if ((*it).state == NORMAL) {cout << "HOLA" << endl;  texture->renderFrame(it->destRect, 0, 1);
+    }
         else if((*it).state == EMPTY) texture->renderFrame(it->destRect, 0, 4);
         else if((*it).state == WEAK) texture->renderFrame(it->destRect, 0, 12);
     }
 }
 
 void HealthBar::initializeContainers() {
-    changeSize();
     for (int i = 0; i < INITIAL_CONTAINERS; ++i) {
         SDL_Rect tmp = getRect();
         tmp.x = tmp.x + ((CONTAINER_OFFSET + tmp.w) * i);
@@ -41,9 +41,12 @@ void HealthBar::changeHealth(HEALTHCHANGE change) {
             }
             break;
         case UNFULL_FULL_CONTAINER: 
-            --containers.firstEmptyContainer;
-            --containers.lastNormalContainer;
-            containers.firstEmptyContainer->state = EMPTY;
+            if (containers.lastNormalContainer != containers.healthContainerList.begin()) {
+                --containers.firstEmptyContainer;
+                --containers.lastNormalContainer;
+                containers.firstEmptyContainer->state = EMPTY;
+            }
+            else containers.lastNormalContainer->state = EMPTY;
             break;
         case WEAKEN_CONTAINER: 
             containers.firstWeakContainer = containers.lastNormalContainer;
@@ -65,7 +68,7 @@ void HealthBar::changeHealth(HEALTHCHANGE change) {
             if (weakenedContainers == 0) containers.firstWeakContainer = containers.healthContainerList.end();
             break;
         case FULL_ALL_CONTAINERS:
-            for (healthContainer e : containers.healthContainerList) e.state = NORMAL;
+            for (auto e : containers.healthContainerList) { e.state = NORMAL; }
             containers.lastNormalContainer = containers.healthContainerList.end();
             --containers.lastNormalContainer;
             containers.firstEmptyContainer = containers.healthContainerList.end();
@@ -84,11 +87,6 @@ void HealthBar::addContainer() {
     --containers.lastNormalContainer;
     containers.firstEmptyContainer = containers.healthContainerList.end();
     containers.firstWeakContainer = containers.healthContainerList.end();
-}
-
-void HealthBar::changeSize() {
-    width = width / texture->getNumCols();
-    height = height / texture->getNumRows();
 }
 
 Vector2D HealthBar::lastHeartPosition() const {

@@ -16,8 +16,8 @@ Ott::Ott(const Vector2D& position, Texture* texture, Texture* treeTexture,
 	textures.push_back(TextureShieldFire);
 	textures.push_back(TextureShieldWater);
 	textures.push_back(TextureShieldEarth);
-	shield = new Shield(position, textureShieldLuz, scale);
-	whip = new Whip(position, textureWhip, scale);
+	shield = new Shield(position, textureShieldLuz, Scale(0.3f, 0.3f));
+	whip = new Whip(position, textureWhip, Scale(0.3f, 0.3f));
 
 	//trigger ataque
 	attackTrigger.x = position.getX() + width;//+width o no? influiria el daño por contacto antes o si ataca y se acerca como para tocarlo le hace daño?
@@ -29,6 +29,7 @@ Ott::Ott(const Vector2D& position, Texture* texture, Texture* treeTexture,
 Ott::~Ott() {
 	delete shield;
 	delete whip;
+	game = nullptr;
 }
 
 void Ott::setAnimState(ANIM_STATE newState) {
@@ -167,7 +168,7 @@ void Ott::handleEvents() {
 #pragma endregion
 	auto input = InputHandler::instance();
 	if (input->keyDownEvent()) {
-		if (!dieAnim) {
+		if (!dead) {
 			if (input->isKeyDown(SDLK_z))
 			{
 				animState = DEFEND;
@@ -225,11 +226,6 @@ void Ott::handleEvents() {
 			if (input->isKeyDown(SDLK_x)) {
 				recieveDamage(currentElement);
 			}
-			if (input->isKeyDown(SDLK_k)) {
-				dieAnim = true;
-				col = 2;
-				setAnimState(DIE);
-			}
 			//PRUEBA CORAZON ALEX
 			/*if (input->isKeyDown(SDLK_r)) {
 				weakened = true;
@@ -241,11 +237,6 @@ void Ott::handleEvents() {
 			if (input->isKeyDown(SDLK_DOWN)) {
 				down = true;
 				upC = false;
-			}
-		}
-		else {
-			if (input->isKeyDown(SDLK_k)) {
-				dieAnim = false;
 			}
 		}
 	}
@@ -295,7 +286,6 @@ void Ott::changeElem() {
 	timer += ANIMATION_FRAME_RATE / 2;
 	ElementcoldDown += ELEMENT_CHANGE_TIME;
 }
-
 void Ott::setSpeed() {
 	if (right) speed = Vector2D(horizontalSpeed, speed.getY());
 	else if (left) speed = Vector2D(-horizontalSpeed, speed.getY());
@@ -311,7 +301,7 @@ void Ott::setSpeed() {
 // Si se usa setAnimState, es para que cambie sin esperar a ningún frame, que lo haga directamente
 void Ott::updateAnimState() {
 	ANIM_STATE previous = animState;
-	if (!dieAnim) {
+	if (!dead) {
 		if (attack) { // animación de ataque
 			if (previous != ATTACK) { // si se estaba atacando antes, no hace falta volver a poner la animación de ataque
 				col = 2;
@@ -332,6 +322,10 @@ void Ott::updateAnimState() {
 		else if (speed.getY() >= 1.5) { // personaje cae en picado
 			setAnimState(FALLING);
 		}
+	}
+	else if(previous != DIE) {
+		setAnimState(DIE);
+		col = 2;
 	}
 }
 
@@ -362,7 +356,7 @@ void Ott::update() {
 	onGround.h = MAX_VERTICAL_SPEED - 1;
 	onGround.w /= 2;
 	onGround.x += onGround.w / 2;
-	if (!tp) { // Si ott no se está teletransportando, puede moverse y hacer las comprobaciones pertinentes
+	if (!tp || dead) { // Si ott no se está teletransportando, puede moverse y hacer las comprobaciones pertinentes
 		updateAnimState();
 		if (speed.getY() > MAX_VERTICAL_SPEED) { speed = Vector2D(speed.getX(), MAX_VERTICAL_SPEED); } // si la velocidad vertical supera un máximo, se fixea a ese máximo
 
@@ -377,7 +371,6 @@ void Ott::update() {
 
 		if (ground) { // si se ha chocado con el suelo...
 			if (!(speed.getY() < 0) && !notGroundedBefore) { // y no se le ha fixeado la posición y la velocidad. En caso de que ya se le haya fixeado ya, no se entra aquí
-				cout << "hey" << endl;
 				position = Vector2D(position.getX(), groundCol.y - height);
 				speed = Vector2D(speed.getX(), 0);
 				if (!attack &&!change) setAnimState(LAND);
@@ -448,9 +441,9 @@ void Ott::render(const SDL_Rect& Camera) const {
 }
 
 // Método para recibir daño
-void Ott::recieveDamage(int elem)
+bool Ott::recieveDamage(int elem)
 {
-	if (SDL_GetTicks() - invencibilityTimer <= invincibilityTime * 1000) return;
+	if (SDL_GetTicks() - invencibilityTimer <= invincibilityTime * 1) return dead;
 	invencibilityTimer = SDL_GetTicks();
 	knockback();
 	invincible = true;
@@ -468,9 +461,11 @@ void Ott::recieveDamage(int elem)
 		}
 	}
 	else {
+		if(game != nullptr) game->getHealthBar()->changeHealth(UNFULL_FULL_CONTAINER);
 		Entity::recieveDamage(elem);
-		game->getHealthBar()->changeHealth(UNFULL_FULL_CONTAINER);
 	}
+
+	return dead;
 }
 
 bool Ott::collide(const SDL_Rect& obj, SDL_Rect& result) // qué es esto gente
@@ -528,18 +523,20 @@ void Ott::attacking() //EL RECORRIDO DE ENTIDADES LO TIENE EVA HIHI
 void Ott::die()
 {
 	//cout << "He muerto " << endl;
-	if (lastSanctuary == nullptr) {
-		//cout << "No hay sanctuarios recientes... Muerte inminente" << endl;
-		PlayState* p = static_cast<PlayState*>(game);
-		p->backToMenu();
-	}
-	else {
+	
+	//game->backToMenu();
+	if (lastSanctuary != nullptr) {
 		SDL_Rect r = lastSanctuary->getRect();
-		Vector2D newPos = { (double)r.x, (double)r.y - 50 };
+		Vector2D newPos = { (double)r.x, (double)r.y + (double)r.h - (double) height};
 		position = newPos;
 		life = maxLife;
 		game->getHealthBar()->changeHealth(FULL_ALL_CONTAINERS);
 		notGroundedBefore = false;
+		dead = false;
+	}
+	else { 
+		cout << "No hay sanctuarios recientes... Muerte inminente" << endl; 
+		dead = true;
 	}
 }
 

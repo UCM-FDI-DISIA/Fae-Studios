@@ -13,8 +13,7 @@ MainMenuState::MainMenuState(SDLApplication* app) : MenuState(MAIN_MENU, app->ge
 		"Jugar",
 		app->getTexture("button", this->getStateID()), 
 		app, 
-		play, 
-		Scale(0.33f, 1.0f))));
+		play)));
     //Load
     gameObjects.push_back(new Button(ButtonParams(
             Vector2D(WINDOW_WIDTH / 2 - (app->getTexture("button", this->getStateID())->getW() / 3) / 2, 4 * WINDOW_HEIGHT / 7 - (app->getTexture("button", this->getStateID())->getH() / 2)),
@@ -22,7 +21,7 @@ MainMenuState::MainMenuState(SDLApplication* app) : MenuState(MAIN_MENU, app->ge
             app->getTexture("button", this->getStateID()),
             app,
             options,
-            Scale(0.33f, 1.0f),
+            Scale(1.0f, 1.0f),
             Scale(1.7f, 1.7f))));
 	//Options
 	gameObjects.push_back(new Button(ButtonParams(
@@ -31,7 +30,7 @@ MainMenuState::MainMenuState(SDLApplication* app) : MenuState(MAIN_MENU, app->ge
 		app->getTexture("button", this->getStateID()), 
 		app, 
 		options, 
-		Scale(0.33f, 1.0f), 
+		Scale(1.0f, 1.0f), 
 		Scale(1.7f, 1.7f))));
 	//Quit
 	gameObjects.push_back(new Button(ButtonParams(
@@ -39,8 +38,7 @@ MainMenuState::MainMenuState(SDLApplication* app) : MenuState(MAIN_MENU, app->ge
 		"X", 
 		app->getTexture("quitbutton", this->getStateID()), 
 		app, 
-		quit, 
-		Scale(0.33f, 1.0f))));
+		quit)));
 
     titleBack = new UIText("Ott: an Elemental Journey", *(app->getFont("press_start")), Vector2D(WINDOW_WIDTH / 2, 20), app->getRenderer(), { 194,147,42 }, Scale(3.0f, 3.0f));
     titleBack->movePosition(Vector2D(WINDOW_WIDTH / 2 - 3 * titleBack->getTexture()->getW() / 2 - 5, 100));

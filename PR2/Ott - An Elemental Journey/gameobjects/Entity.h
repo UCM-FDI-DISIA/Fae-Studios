@@ -21,6 +21,7 @@ protected:
 	virtual void die();
 	Vector2D speed;
 	bool ground = false;
+	bool dead = false;
 
 public:
 	Entity(Vector2D pos, Texture* texture, Vector2D dir, uint maxLife, PlayState* game, Scale scale = Scale(1.0f, 1.0f)) :
@@ -35,7 +36,7 @@ public:
 	void stop();
 	void start();
 	PlayState* getState() { return game; }
-	virtual void recieveDamage(int elem);
+	virtual bool recieveDamage(int elem);
 	inline void resetLives() { life = maxLife; }
 	inline void addLive() { ++maxLife; }
 	inline void subLive() { if (life == maxLife) --life; maxLife--; }

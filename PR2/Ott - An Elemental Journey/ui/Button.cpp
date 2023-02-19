@@ -5,7 +5,7 @@
 
 Button::Button(const ButtonParams& params) : UIElement(params.position, params.texture, params.scale), app(params.app), callback(params.callback), buttonText(params.buttonText), textScale(params.textScale) {
     text = new UIText(buttonText, *(app->getFont("vcr_osd")), Vector2D(position.getX() + (texture->getW() / 3 / 2), position.getY()), app->getRenderer(), params.textCol, textScale);
-    text->movePosition(Vector2D(position.getX() + ((texture->getW() / 3) / 2) - (textScale.widthScale / 2) * text->getTexture()->getW(), position.getY() + text->getTexture()->getH() + 2 * (10 * 1 / textScale.heightScale)));
+    text->movePosition(Vector2D(position.getX(), position.getY()));
 }
 
 Button::~Button() {
@@ -38,6 +38,7 @@ void Button::render(const SDL_Rect& camera) const {
 }
 
 void Button::onClick() {
+    InputHandler::instance()->clearState(true);
     callback(app); //Llamamos a la función callback
 }
 

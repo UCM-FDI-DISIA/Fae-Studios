@@ -10,8 +10,7 @@ enum ANIM_STATE { IDLE, WALKING, LAND, JUMPING, PEAK, FALLING, ATTACK, TP_IN, TP
 class Ott : public Entity {
 protected:
 
-    bool left = false, right = false, up = false, attack = false, defend = false, upC = false, down = false,change=false;
-    bool dieAnim = false;
+    bool left = false, right = false, up = false, attack = false, defend = false, upC = false, down = false,change=false, dead = false;
     bool cooldown = false;
     bool lookingFront = true; // indica hacia d�nde debe mirar el sprite
 
@@ -98,7 +97,7 @@ public:
     virtual void handleEvents();
 
     //Evento de da�o
-    virtual void recieveDamage(int elem);
+    virtual bool recieveDamage(int elem);
 
     inline uint getLife() const {return life;}
 
@@ -117,6 +116,8 @@ public:
     void setPos(const Vector2D& newPos);
 
     void updateAnimState();
+
+    bool isDead() { return dead; }
 
 private:
     void attacking();
