@@ -19,7 +19,7 @@ protected:
 	uint PREPARING_TIME = 1000;
 	uint ATTACKING_TIME = 1000;
 	uint DAMAGED_TIME = 1000;
-	uint LAYING_TIME = 2000;
+	uint LAYING_TIME = 3000;
 
 	uint NEW_DIR = 1000;
 	int startAttackingTime = 0;
