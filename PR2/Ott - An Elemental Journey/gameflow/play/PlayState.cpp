@@ -35,12 +35,6 @@ PlayState::PlayState(SDLApplication* app) : GameState(PLAY_STATE, app) {
 
 	gameObjects.push_back(currentMap);
 
-	// santuarios
-	/*Sanctuary* sct = new Sanctuary(Vector2D(200, 280), app->getTexture("whiteBox", 2), Scale(0.05f, 0.1f));
-	gameObjects.push_back(sct);
-	Sanctuary* sct2 = new Sanctuary(Vector2D(400, 280), app->getTexture("whiteBox", PLAY_STATE), Scale(0.05f, 0.1f));
-	gameObjects.push_back(sct2);
-	*/
 	auto a = currentMap->getObjects();
 	for (auto it : a) {
 		unordered_map<string, TP_Lamp*> lamps;
@@ -103,16 +97,16 @@ PlayState::PlayState(SDLApplication* app) : GameState(PLAY_STATE, app) {
 				addEntity(new MeleeEnemy(Vector2D(x_ * scale, y_ * scale - app->getTexture(path + "Bug", PLAY_STATE)->getH() * 1.5), app->getTexture(path + "Bug", PLAY_STATE), 5, elem, ott, true, Vector2D(1, 0), Scale(3, 3), 110, 100, this));
 			}
 			else if (ot.getClass() == "Slime") {
-
+				// crear enemigo slime
 			}
 		}
 	}
 
     healthBar = new HealthBar(Vector2D(30, 100), app->getTexture("hearts", PLAY_STATE), Scale(10.0f, 10.0f));
 	gameObjects.push_back(healthBar);
-    gameObjects.push_back(new ChargedAttackBar(healthBar->lastHeartPosition() + Vector2D(100, -10), app->getTexture("chargebar", getStateID()), Scale(1.5f, 1.5f)));
-    screenDarkener = new ScreenDarkener(app);
-    gameObjects.push_back(screenDarkener);
+	//ChargedAttackBar* bar = new ChargedAttackBar(healthBar->lastHeartPosition() + Vector2D(100, -10), app->getTexture("chargebar", getStateID()), Scale(1.5f, 1.5f));
+    //screenDarkener = new ScreenDarkener(app);
+    //gameObjects.push_back(screenDarkener);
 	camera = { 0,0,WINDOW_WIDTH, WINDOW_HEIGHT };
 
 	Mix_Init(MIX_INIT_FLAC | MIX_INIT_MOD | MIX_INIT_MP3 | MIX_INIT_OGG | MIX_INIT_MID);
@@ -168,8 +162,8 @@ void PlayState::update() {
 	if (!ott->isGrounded()) {
 		ott->useGravity();
 	}
-    if(ott->getLife() == 1) screenDarkener->show();
-    else screenDarkener->hide();
+    /*if (ott->getLife() == 1) screenDarkener->show();
+    else screenDarkener->hide();*/
 
 	// COMPROBACIÓN PARA ACTIVAR OBJETOS INTERACTUABLES
 	for (auto it : intObjects) {
