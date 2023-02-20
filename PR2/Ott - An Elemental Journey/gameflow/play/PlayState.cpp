@@ -76,7 +76,7 @@ PlayState::PlayState(SDLApplication* app) : GameState(PLAY_STATE, app) {
 				intObjects.push_back(l1);
 			}
 			else if (ot.getClass() == "Sanctuary") {
-				Sanctuary* s1 = new Sanctuary(Vector2D(x_ * scale, y_ * scale - app->getTexture("sanctuary", PLAY_STATE)->getH() * 2), app->getTexture("sanctuary", PLAY_STATE), Scale(2, 2));
+				Sanctuary* s1 = new Sanctuary(Vector2D(x_ * scale - app->getTexture("sanctuary", PLAY_STATE)->getW() * 1.5, y_ * scale - app->getTexture("sanctuary", PLAY_STATE)->getH() * 3.5), app->getTexture("sanctuary", PLAY_STATE), Scale(3.5, 3.5));
 				gameObjects.push_back(s1);
 			}
 			else if (ot.getClass() == "Ott") {
