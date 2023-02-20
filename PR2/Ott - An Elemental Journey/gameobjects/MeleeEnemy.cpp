@@ -32,7 +32,7 @@ void MeleeEnemy::render(const SDL_Rect& Camera) const {
 		texture->renderFrame(thisRect, fil, col, 0, flip[lookingRight]);
 	}
 	else {
-		if (speed.getX() == 0 || attackState == preparing) texture->renderFrame(thisRect, fil, (SDL_GetTicks() / time_per_frame) % 3, 0, flip[lookingRight]);
+		if (speed.getX() == 0) texture->renderFrame(thisRect, fil, (SDL_GetTicks() / time_per_frame) % 3, 0, flip[lookingRight]);
 		else texture->renderFrame(thisRect, fil, (SDL_GetTicks() / time_per_frame) % 4 + 3, 0, flip[lookingRight]);
 	}
 

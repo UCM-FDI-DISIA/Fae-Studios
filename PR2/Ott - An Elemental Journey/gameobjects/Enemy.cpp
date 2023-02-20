@@ -94,22 +94,23 @@ void Enemy::Attack() {
 
 void Enemy::FollowPlayer() {
 	// Distancia de seguridad para comprobar que no se pega al jugador
-	SDL_Rect collider = getCollider();
-	SDL_Rect ott = static_cast<Ott*> (player)->getRect();
-	if (lookingRight && abs(ott.x - (collider.x + collider.w)) > nearDistance ||
-		!lookingRight && abs(ott.x + collider.w - collider.x) > nearDistance) {
-
-		if ((double)ott.x - collider.x > 0) {
-			speed = { horizontalSpeed, speed.getY() };
-			lookingRight = true;
+	if (attackState != attacking && attackState != laying && attackState != afterAttack) {
+		SDL_Rect collider = getCollider();
+		SDL_Rect ott = static_cast<Ott*> (player)->getRect();
+		if (lookingRight && abs(ott.x - (collider.x + collider.w)) > nearDistance ||
+			!lookingRight && abs(ott.x + collider.w - collider.x) > nearDistance) {
+			if ((double)ott.x - collider.x > 0) {
+				speed = { horizontalSpeed, speed.getY() };
+				lookingRight = true;
+			}
+			else {
+				speed = { -horizontalSpeed, speed.getY() };
+				lookingRight = false;
+			}
 		}
 		else {
-			speed = { -horizontalSpeed, speed.getY() };
-			lookingRight = false;
+			speed = { 0, speed.getY() };
 		}
-	}
-	else {
-		speed = { 0, speed.getY() };
 	}
 }
 

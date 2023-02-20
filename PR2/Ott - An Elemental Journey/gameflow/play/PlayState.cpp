@@ -98,7 +98,7 @@ PlayState::PlayState(SDLApplication* app) : GameState(PLAY_STATE, app) {
 			}
 			else if (ot.getClass() == "Slime") {
 				// crear enemigo slime
-				// addEntity(new SlimeEnemy(4, Vector2D(x_ * scale, y_ * scale - app->getTexture("slime", PLAY_STATE)->getH() * 3), app->getTexture("slime", PLAY_STATE),10, elementsInfo::Earth, ott, true, Vector2D(1, 0), Scale(3.0f, 3.0f), 110, 100, this));
+				addEntity(new SlimeEnemy(3, Vector2D(x_ * scale, y_ * scale - app->getTexture("slime", PLAY_STATE)->getH() * 3), app->getTexture("slime", PLAY_STATE),10, elementsInfo::Earth, ott, true, Vector2D(1, 0), Scale(3.0f, 3.0f), 110, 100, this));
 			}
 		}
 	}

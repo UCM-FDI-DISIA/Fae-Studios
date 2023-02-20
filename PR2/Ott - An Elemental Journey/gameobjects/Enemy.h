@@ -21,7 +21,7 @@ protected:
 	uint DAMAGED_TIME = 1000;
 	uint LAYING_TIME = 2000;
 
-	uint NEW_DIR = 3000;
+	uint NEW_DIR = 1000;
 	int startAttackingTime = 0;
 	int startMovingTime = 0;
 	int startDamagedTime = 0;
