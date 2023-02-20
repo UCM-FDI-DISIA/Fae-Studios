@@ -76,23 +76,29 @@ void SlimeEnemy::DetectAttackTrigger() {
 }
 
 void SlimeEnemy::update() {
-	if (attackState == normal) {
-		col = (SDL_GetTicks() / time_per_frame) % 4;
-	}
-	else if (attackState == preparing) {
-		col = (SDL_GetTicks() / time_per_frame) % 4;
-		timer = SDL_GetTicks();
-	}
-	else if (attackState == attacking) {
-		
-		if (col != 10)  col = 4 + ((SDL_GetTicks() - timer) / time_per_frame) % 7;
-	}
-	else if (attackState == laying) {
-		int frameTime = SDL_GetTicks() - startAttackingTime;
-		if (frameTime < 2000) { col = 10; timer = SDL_GetTicks(); }
-		else {
-			if (col != 16) col = 10 + ((SDL_GetTicks() - timer) / time_per_frame) % 7;
+	if (!dead) {
+		if (attackState == normal) {
+			col = (SDL_GetTicks() / time_per_frame) % 4;
 		}
+		else if (attackState == preparing) {
+			col = (SDL_GetTicks() / time_per_frame) % 4;
+			timer = SDL_GetTicks();
+		}
+		else if (attackState == attacking) {
+		
+			if (col != 10)  col = 4 + ((SDL_GetTicks() - timer) / time_per_frame) % 7;
+		}
+		else if (attackState == laying) {
+			int frameTime = SDL_GetTicks() - startAttackingTime;
+			if (frameTime < 2000) { col = 10; timer = SDL_GetTicks(); }
+			else {
+				if (col != 16) col = 10 + ((SDL_GetTicks() - timer) / time_per_frame) % 7;
+			}
+		}
+	}
+	else {
+		if (col != 20) col = 16 + ((SDL_GetTicks() - timer) / time_per_frame) % 4;
+		else deleteMyself();
 	}
 	Enemy::update();
 }
@@ -110,5 +116,5 @@ void SlimeEnemy::Die() {
 }
 
 void SlimeEnemy::render() const{
-	texture->renderFrame(getRect(), 0, col);
+	texture->renderFrame(getRect(), 0, col, 0, flip[!lookingRight]);
 }
