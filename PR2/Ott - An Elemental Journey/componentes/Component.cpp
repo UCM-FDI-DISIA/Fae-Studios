@@ -1,6 +1,6 @@
 #include "Component.h"
-#include "../ecs/Manager.h"
-#include "../ecs/Entity.h"
+#include "../Src/Manager.h"
+#include "../Src/Entity.h"
 Component::Component() : ent_(), mngr_()
 {
 

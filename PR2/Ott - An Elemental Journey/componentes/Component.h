@@ -1,5 +1,5 @@
 #pragma once
-#include "../game/ecs.h"
+#include "../Src/ecs.h"
 
 class Manager;
 class Entity;

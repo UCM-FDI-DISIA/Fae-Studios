@@ -1,6 +1,6 @@
 #include "Manager.h"
 #include "Entity.h"
-Manager::Manager(Game* g) : entsByGroup_(), game(g)
+Manager::Manager(SDLApplication* g) : entsByGroup_(), game(g)
 {
     
     for (auto& groupEntities : entsByGroup_) {
@@ -52,49 +52,10 @@ void Manager::render()
             ents[i]->render();
     }
 }
-void Manager::spawnShot(Vector2D pos, Vector2D dir, float rot) {
-    Entity* aux = addEntity(ecs::_grp_BULLETS);
-    aux->setContext(this);
-    aux->addComponent<Transform>(pos, 5, 30, dir, rot);
-    aux->addComponent<Image>(game->getTexture(Fire));
-    aux->addComponent<DisableOnExit>(game->WIN_WIDTH, game->WIN_HEIGHT);
-}
 
 void Manager::createPlayer()
 {
-    player = addEntity(ecs::_grp_PLAYER);
-    player->addComponent<Transform>(game->WIN_WIDTH /2 -15, game->WIN_HEIGHT /2 -15, 30, 30);
-    player->addComponent<Image>( game->getTexture(Fighter1));
-    player->addComponent<FighterControl>();
-    player->addComponent<DeAcceleration>();
-    player->addComponent<ShowOpposite>(game->WIN_WIDTH, game->WIN_HEIGHT);
-    player->addComponent<Health>(game->getTexture(Heart), game->WIN_WIDTH, game->WIN_HEIGHT, 5);
-    player->addComponent<Gun>(10);
-}
-
-Texture* Manager::getTexture(int t)
-{
-    return game->getTexture(t);
-}
-
-const int Manager::getWidth()
-{
-    return game->WIN_WIDTH;
-}
-
-const int Manager::getHeight()
-{
-    return game->WIN_HEIGHT;
-}
-
-void Manager::exitGame()
-{
-    game->exitGame();
-}
-
-bool Manager::isPlayerAlive()
-{
-    return player->getComponent<Health>()->getLives() > 0;
+    
 }
 
 const vector<Entity*>& Manager::getEntitiesByGroup(grpId_type gId = ecs::_grp_GENERAL)

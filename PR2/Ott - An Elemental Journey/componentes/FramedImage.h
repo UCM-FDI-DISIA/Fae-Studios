@@ -2,7 +2,7 @@
 #include "Component.h"
 #include "../sdlutils/Texture.h"
 #include "Transform.h"
-#include "../ecs/Entity.h"
+#include "../Src/Entity.h"
 #include <SDL.h>
 class FramedImage : public Component
 {

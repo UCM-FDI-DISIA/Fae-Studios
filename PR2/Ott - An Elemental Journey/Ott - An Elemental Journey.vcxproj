@@ -134,6 +134,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="checkML.h" />
+    <ClInclude Include="componentes\Component.h" />
+    <ClInclude Include="componentes\FramedImage.h" />
+    <ClInclude Include="componentes\Image.h" />
+    <ClInclude Include="componentes\Transform.h" />
     <ClInclude Include="gameflow\menus\options\ControlMenuState.h" />
     <ClInclude Include="gameflow\menus\PauseMenuState.h" />
     <ClInclude Include="gameobjects\CollisionObject.h" />
@@ -168,6 +172,9 @@
     <ClInclude Include="gameobjects\staticEnemy.h" />
     <ClInclude Include="gameobjects\MeleeEnemy.h" />
     <ClInclude Include="gameobjects\SlimeEnemy.h" />
+    <ClInclude Include="Src\ecs.h" />
+    <ClInclude Include="Src\Entity.h" />
+    <ClInclude Include="Src\Manager.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="ui\Button.h" />
     <ClInclude Include="ui\ChargedAttackBar.h" />
@@ -183,6 +190,10 @@
     <ClInclude Include="utils\Trigger.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="componentes\Component.cpp" />
+    <ClCompile Include="componentes\FramedImage.cpp" />
+    <ClCompile Include="componentes\Image.cpp" />
+    <ClCompile Include="componentes\Transform.cpp" />
     <ClCompile Include="gameflow\menus\options\ControlMenuState.cpp" />
     <ClCompile Include="gameflow\menus\PauseMenuState.cpp" />
     <ClCompile Include="gameflow\play\PlayState.cpp" />
@@ -215,6 +226,7 @@
     <ClCompile Include="SDLApplication.cpp" />
     <ClCompile Include="gameobjects\Ott\Shield.cpp" />
     <ClCompile Include="gameobjects\SlimeEnemy.cpp" />
+    <ClCompile Include="Src\Manager.cpp" />
     <ClCompile Include="ui\Button.cpp" />
     <ClCompile Include="ui\ChargedAttackBar.cpp" />
     <ClCompile Include="ui\HealthBar.cpp" />

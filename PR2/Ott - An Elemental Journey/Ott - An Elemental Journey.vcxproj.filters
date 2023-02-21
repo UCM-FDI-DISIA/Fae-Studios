@@ -42,6 +42,11 @@
     <ClCompile Include="gameobjects\Ott\Whip.cpp" />
     <ClCompile Include="utils\Elements.cpp" />
     <ClCompile Include="utils\Trigger.cpp" />
+    <ClCompile Include="componentes\Component.cpp" />
+    <ClCompile Include="componentes\FramedImage.cpp" />
+    <ClCompile Include="componentes\Image.cpp" />
+    <ClCompile Include="componentes\Transform.cpp" />
+    <ClCompile Include="Src\Manager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="checkML.h" />
@@ -92,6 +97,13 @@
     <ClInclude Include="gameobjects\Ott\Whip.h" />
     <ClInclude Include="utils\Elements.h" />
     <ClInclude Include="utils\Trigger.h" />
+    <ClInclude Include="componentes\Component.h" />
+    <ClInclude Include="componentes\FramedImage.h" />
+    <ClInclude Include="componentes\Image.h" />
+    <ClInclude Include="componentes\Transform.h" />
+    <ClInclude Include="Src\ecs.h" />
+    <ClInclude Include="Src\Entity.h" />
+    <ClInclude Include="Src\Manager.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Ott - An Elemental Journey.rc" />

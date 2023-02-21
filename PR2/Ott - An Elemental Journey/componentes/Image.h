@@ -2,7 +2,7 @@
 #include "Component.h"
 #include "../sdlutils/Texture.h"
 #include "Transform.h"
-#include "../ecs/Entity.h"
+#include "../Src/Entity.h"
 class Image : public Component {
 public:
 	Image(Texture* text);
