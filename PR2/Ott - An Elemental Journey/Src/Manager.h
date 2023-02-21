@@ -1,11 +1,11 @@
 #pragma once
 #include <vector>
 #include <array>
-#include "../utils/Vector2D.h"
+#include "../dependencies/Vector2D.h"
 #include "../componentes/Transform.h"
 #include "../componentes/Image.h"
 #include "../componentes/FramedImage.h"
-#include "../SDLApplication.h"
+//#include "../SDLApplication.h"
 #include "../../checkML.h"
 using namespace std;
 using grpId_type = uint8_t;
@@ -14,7 +14,7 @@ class Manager
 {
 
 public:
-	Manager(SDLApplication* g);
+	Manager();
 	virtual ~Manager();
 	Entity* addEntity(grpId_type gId);
 	void refresh();
@@ -24,7 +24,7 @@ public:
 	const vector<Entity*>& getEntitiesByGroup(grpId_type gId);
 	void addToGroupList(grpId_type gId, Entity* e);
 private:
-	SDLApplication* game;
+	//SDLApplication* game;
 	enum ValoresArray { GrayAsteroid, GoldAsteroid, Fighter1, Fire, Heart };
 	std::array<std::vector<Entity*>, ecs::maxGroupId> entsByGroup_;
 };

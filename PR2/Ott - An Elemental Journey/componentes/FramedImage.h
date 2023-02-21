@@ -1,6 +1,6 @@
 #pragma once
 #include "Component.h"
-#include "../sdlutils/Texture.h"
+//#include "../dependencies/Texture.h"
 #include "Transform.h"
 #include "../Src/Entity.h"
 #include <SDL.h>

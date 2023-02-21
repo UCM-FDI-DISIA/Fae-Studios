@@ -1,6 +1,6 @@
 #include "Manager.h"
 #include "Entity.h"
-Manager::Manager(SDLApplication* g) : entsByGroup_(), game(g)
+Manager::Manager() : entsByGroup_()
 {
     
     for (auto& groupEntities : entsByGroup_) {

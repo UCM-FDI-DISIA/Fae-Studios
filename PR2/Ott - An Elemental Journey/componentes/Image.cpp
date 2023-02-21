@@ -11,7 +11,8 @@ void Image::initComponent()
 
 void Image::render()
 { 
-	SDL_Rect dest = build_sdlrect(tr_->getPos(), tr_->getW(), tr_->getH());
+	SDL_Rect dest; dest.x = tr_->getPos().getX(); dest.y = tr_->getPos().getY();
+	dest.w = tr_->getW(); dest.h = tr_->getH();
 	tex_->render(dest);
 }
 

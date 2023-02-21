@@ -15,7 +15,8 @@ void FramedImage::initComponent()
 
 void FramedImage::render()
 {
-	SDL_Rect dest = build_sdlrect(tr_->getPos(), tr_->getW(), tr_->getH());
+	SDL_Rect dest; dest.x = tr_->getPos().getX(); dest.y = tr_->getPos().getY();
+	dest.w = tr_->getW(); dest.h = tr_->getH();
 	tex_->renderFrame(dest, row, col);
 	row = (SDL_GetTicks() / tPerFrame) % numRows_; col = (SDL_GetTicks() / tPerFrame) % numCols_;
 }

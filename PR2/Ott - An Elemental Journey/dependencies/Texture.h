@@ -5,7 +5,6 @@
 #include "SDL.h" // Windows
 #include "SDL_image.h" // Windows
 #include "Font.h"
-
 #include <string>
 
 using namespace std;
