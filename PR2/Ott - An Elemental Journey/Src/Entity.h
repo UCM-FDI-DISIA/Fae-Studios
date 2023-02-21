@@ -61,7 +61,9 @@ public:
 		constexpr cmpId_type cId = T::id;
 		return static_cast<T*>(cmps_[cId]);
 	}
-	inline bool hasComponent(cmpId_type cId) {
+	template<typename T>
+	inline bool hasComponent() {
+		constexpr cmpId_type cId = T::id;
 		return cmps_[cId] != nullptr;
 	}
 public:
