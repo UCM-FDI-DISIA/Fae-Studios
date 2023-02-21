@@ -1,6 +1,7 @@
 #include "Manager.h"
 #include "Entity.h"
-Manager::Manager() : entsByGroup_()
+#include "../SDLApplication.h"
+Manager::Manager(SDLApplication* g) : entsByGroup_(), game(g)
 {
     
     for (auto& groupEntities : entsByGroup_) {
@@ -55,7 +56,9 @@ void Manager::render()
 
 void Manager::createPlayer()
 {
-    
+    Entity* e = addEntity(ecs::_grp_CHARACTERS);
+    e->addComponent<Transform>(100, 100, 100, 120);
+    e->addComponent<FramedImage>(game->getTexture("ott_water", PLAY_STATE), 9,8);
 }
 
 const vector<Entity*>& Manager::getEntitiesByGroup(grpId_type gId = ecs::_grp_GENERAL)

@@ -7,16 +7,10 @@ public:
 	using grpId_type = uint8_t;
 	enum cmpId : cmpId_type {
 		_TRANSFORM,
-		_DEACCELERATION,
 		_IMAGE,
 		_HEALTH,
 		_CTRL,
-		_GUN,
-		_SHOWOPOSITE,
 		_FRAMEDIMAGE,
-		_GENERATIONS,
-		_FOLLOW,
-		_DISABLEONEXIT,
 		// do not remove this
 		_LAST_CMP_ID
 	};
@@ -24,9 +18,9 @@ public:
 	
 	enum grpId : grpId_type {
 		_grp_GENERAL,
-		_grp_ASTEROIDS,
-		_grp_PLAYER,
-		_grp_BULLETS,
+		_grp_CHARACTERS,
+		_grp_GROUND,
+		_grp_PROYECTILES,
 		_LAST_GRP_ID
 	};
 	static constexpr grpId_type maxGroupId = _LAST_GRP_ID;

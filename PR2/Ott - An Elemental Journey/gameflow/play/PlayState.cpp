@@ -91,17 +91,19 @@ PlayState::PlayState(SDLApplication* app) : GameState(PLAY_STATE, app) {
 	Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 2048);
 	music = Mix_LoadMUS("../../sounds/musics/Ambient 4.wav");
 	Mix_PlayMusic(music, -1);
+	manager_ = new Manager(app);
+	manager_->createPlayer();
 }
 void PlayState::update() {
-	
+	manager_->update();
 }
 void PlayState::render() const {
-	
+	manager_->render();
 }
 
 void PlayState::refresh()
 {
-
+	manager_->refresh();
 }
 PlayState::~PlayState()
 {
