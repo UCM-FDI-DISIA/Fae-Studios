@@ -1,5 +1,5 @@
 #pragma once
-#include "Entity.h"
+#include "../Src/Entity.h"
 #include "../utils/Elements.h"
 #include "../SDLApplication.h" //cosa para texturas desde enemy(?)
 #include <iostream>

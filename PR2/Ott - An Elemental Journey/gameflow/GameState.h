@@ -4,7 +4,7 @@
 
 #include <list>
 #include <stack>
-#include "../gameobjects/Entity.h"
+#include "../Src/Entity.h"
 #include "../gameobjects/CollisionObject.h"
 
 
@@ -66,6 +66,8 @@ public:
     void deleteObject(Entity* obj);
 
     virtual void deleteObjects();
+
+    virtual void refresh();
 };
 
 #endif //PROYECTOS2_GAMESTATE_H

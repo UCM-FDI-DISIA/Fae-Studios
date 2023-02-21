@@ -1,5 +1,5 @@
 #include "Shield.h"
-#include "../Entity.h"
+#include "../../Src/Entity.h"
 #include <iostream>
 
 void Shield::move(int x, int y, float width, bool lookingFront)

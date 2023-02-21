@@ -10,7 +10,6 @@ int main(int argc, char* argv[]){
 #endif
 
     SDLApplication* game;
-
     try {
         game = new SDLApplication();
         delete game;

@@ -1,5 +1,5 @@
 #pragma once
-#include "../Entity.h"
+#include "../../Src/Entity.h"
 class Whip: public CollisionObject
 {
 private:

@@ -1,14 +1,17 @@
 #include "../GameState.h"
 #include <list>
-#include "../../gameobjects/Entity.h"
+#include <iostream>
 #include "../../gameobjects/Mapa.h"
+#include "../../Src/Entity.h"
+#include "../SDL2_mixer/include/SDL_mixer.h"
+#include "../../Src/Manager.h"
+#include "../../checkML.h"
+/*
 #include "../../gameobjects/Physics/Ground.h"
 #include "../../ui/ScreenDarkener.h"
-#include <iostream>
-#include "../../gameobjects/Entity.h"
 #include "../../ui/HealthBar.h"
-#include "../SDL2_mixer/include/SDL_mixer.h"
 #include "../../gameobjects/Bullet.h"
+*/
 
 #pragma once
 
@@ -25,7 +28,7 @@ const int CAM_DEAD_ZONE = 350;
 
 class PlayState : public GameState {
 private:
-    double gravity = 0.08f;
+    /*double gravity = 0.08f;
     list<Entity*> physicObjects;
     list<Ground*> groundObjects;
     list<Wall*> wallObjects;
@@ -33,21 +36,29 @@ private:
     HealthBar* healthBar;
     list<InteractuableObject*> intObjects;
     list< Enredaderas*> eObjects;
-    Camera camera;
+    
     Ott* ott;
-    Mapa* currentMap;
-    Mix_Music* music;
+    
     Vector2D collides(SDL_Rect Rect, SDL_Rect objRect);
+    Camera camera;
+    Mapa* currentMap;
+    */
+    Mix_Music* music;
+    Manager* manager_;
 
 public:
     PlayState(SDLApplication* app);
     ~PlayState();
+    virtual void update();
+    virtual void render() const;
+    virtual void refresh();
+    /*
     virtual void handleEvents();
     void ottCollide(const SDL_Rect& Ott, const SDL_Rect& onGround, SDL_Rect& grounRect, SDL_Rect& colRect, bool& ground
     , Vector2D& speed);
-    virtual void update();
+    
     inline double Gravity() { return gravity; };
-    virtual void render() const;
+    
     SDL_Rect ottPos() const;
     void setOttPos(const Vector2D& newPos);
     void climb();
@@ -80,6 +91,6 @@ public:
 
     void deleteEntities();
     
-    bool bulletCollide(const SDL_Rect& bulletRect);
+    bool bulletCollide(const SDL_Rect& bulletRect);*/
 
 };

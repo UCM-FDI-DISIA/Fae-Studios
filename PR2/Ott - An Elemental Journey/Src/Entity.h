@@ -2,6 +2,7 @@
 #include "ecs.h"
 #include "Manager.h"/
 #include "../componentes/Component.h"
+#include "../utils/Elements.h"
 #include <array>
 #include <vector>
 #include <bitset>
@@ -63,11 +64,42 @@ public:
 	inline bool hasComponent(cmpId_type cId) {
 		return cmps_[cId] != nullptr;
 	}
-	
+public:
+
+	void useGravity() {
+		//speed = Vector2D(speed.getX(), speed.getY() + game->Gravity());
+	}
+
+	bool isGrounded(){ return ground; }
+
+	//PlayState* getState() { return game; }
+	virtual bool recieveDamage(elementsInfo::elements elem) {
+		int damageNum = elementsInfo::ottMatrix[elem][currentElement];
+		if (damageNum != -1) {
+			life -= damageNum;
+			if (life <= 0) {
+				life = 0; die();
+			}
+		}
+		return dead;
+	}
+	inline void resetLives() { life = maxLife; }
+	inline void addLive() { ++maxLife; }
+	inline void subLive() { if (life == maxLife) --life; maxLife--; }
+	inline int getCurrentElement() { return currentElement; }
+	//virtual void deleteMyself() { game->deleteObject(this); }
 private:
 	bool alive_;
 	Manager* mngr_;
 	vector<Component*> currCmps_;
 	array<Component*, ecs::maxComponentId> cmps_;
+
+	uint life, maxLife;
+	//PlayState* game;
+	elementsInfo::elements currentElement;
+	virtual void die() { dead = true; }
+	Vector2D speed;
+	bool ground = false;
+	bool dead = false;
 };
 

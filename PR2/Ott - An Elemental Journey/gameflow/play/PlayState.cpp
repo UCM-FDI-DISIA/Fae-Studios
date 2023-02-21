@@ -1,7 +1,8 @@
 #pragma once
-#include "../../checkML.h"
 #include "PlayState.h"
 #include "../../SDLApplication.h"
+
+/*
 #include "../../gameobjects/Physics/Ground.h"
 #include "../../gameobjects/Ott/Ott.h"
 #include "../../gameobjects/InteractuableObject.h"
@@ -14,20 +15,101 @@
 #include "../../gameobjects/SlimeEnemy.h"
 #include "../../utils/Elements.h"
 #include <unordered_map>
+*/
 
-// funci�n para hacer interpolaci�n lineal. Usada en el movimiento de la c�mara
-float lerp(float a, float b, float t)
-{
-	return a + t * (b - a);
-}
+PlayState::PlayState(SDLApplication* app) : GameState(PLAY_STATE, app) {
+	/*currentMap = new Mapa(app, LEVEL1);
+	auto scale = currentMap->tileScale();
+	gameObjects.push_back(new CollisionObject(Vector2D(0, 300), app->getTexture("level1bg", PLAY_STATE), Scale(scale, scale)));
+	gameObjects.push_back(currentMap);
 
-void PlayState::handleEvents() {
-	GameState::handleEvents();
-	if (InputHandler::instance()->isKeyJustDown(SDLK_ESCAPE)) {
-		app->getStateMachine()->pushState(new PauseMenuState(app));
+	auto a = currentMap->getObjects();
+	for (auto it : a) {
+		unordered_map<string, TP_Lamp*> lamps;
+		for (auto ot : it) {
+			float x_ = ot.getAABB().left;
+			float y_ = ot.getAABB().top;
+			float w_= ot.getAABB().width;
+			float h_ = ot.getAABB().height;
+			elementsInfo::elements elem;
+			string path = "";
+			if (ot.getName() == "1") { elem = elementsInfo::Earth; path = "earth"; }
+			if (ot.getName() == "2") { elem = elementsInfo::Water; path = "water";}
+			if (ot.getName() == "3") { elem = elementsInfo::Fire; path = "fire";}
+			if (ot.getName() == "4") { elem = elementsInfo::Dark; path = "dark";}
+			if (ot.getClass() == "Ground") {
+				Ground* grT = new Ground(Vector2D(x_ * scale, y_ * scale), app->getTexture("pixel", PLAY_STATE), Scale(w_ * scale, h_ * scale));
+
+				gameObjects.push_back(grT);
+			}
+			else if (ot.getClass() == "Grass") {
+				Grass* g1 = new Grass(Vector2D(x_ *scale, y_ * scale - app->getTexture("grass", PLAY_STATE)->getH()), app->getTexture("grass", PLAY_STATE), this);
+				gameObjects.push_back(g1);
+
+			}
+			else if (ot.getClass() == "Lamp") {
+				TP_Lamp* l1 = new TP_Lamp(Vector2D(x_ * scale, y_ * scale - app->getTexture("lamp", PLAY_STATE)->getH()*2), app->getTexture("lamp", PLAY_STATE), this, Scale(2, 2), LAMP);
+				
+				string lampName = ot.getName();
+				auto at = lamps.find(lampName);
+				if (at != lamps.end()) {
+					l1->SetLamp((*at).second);
+					(*at).second->SetLamp(l1);
+				}
+				else {
+					lamps.insert({ ot.getName(), l1 });
+				}
+
+				gameObjects.push_back(l1);
+			}
+			else if (ot.getClass() == "Sanctuary") {
+				Sanctuary* s1 = new Sanctuary(Vector2D(x_ * scale - app->getTexture("sanctuary", PLAY_STATE)->getW() * 1.5, y_ * scale - app->getTexture("sanctuary", PLAY_STATE)->getH() * 3.5), app->getTexture("sanctuary", PLAY_STATE), Scale(3.5, 3.5));
+				gameObjects.push_back(s1);
+			}
+			else if (ot.getClass() == "Ott") {
+				
+			}
+			else if (ot.getClass() == "Mushroom") {
+				
+			}
+			else if (ot.getClass() == "Melee") {
+			}
+			else if (ot.getClass() == "Slime") {
+				
+			}
+		}
 	}
+
+    //healthBar = new HealthBar(Vector2D(30, 100), app->getTexture("hearts", PLAY_STATE), Scale(10.0f, 10.0f));
+	//gameObjects.push_back(healthBar);
+	//ChargedAttackBar* bar = new ChargedAttackBar(healthBar->lastHeartPosition() + Vector2D(100, -10), app->getTexture("chargebar", getStateID()), Scale(1.5f, 1.5f));
+    //screenDarkener = new ScreenDarkener(app);
+    //gameObjects.push_back(screenDarkener);
+	camera = { 0,0,WINDOW_WIDTH, WINDOW_HEIGHT };
+	*/
+	Mix_Init(MIX_INIT_FLAC | MIX_INIT_MOD | MIX_INIT_MP3 | MIX_INIT_OGG | MIX_INIT_MID);
+	Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 2048);
+	music = Mix_LoadMUS("../../sounds/musics/Ambient 4.wav");
+	Mix_PlayMusic(music, -1);
+}
+void PlayState::update() {
+	
+}
+void PlayState::render() const {
+	
 }
 
+void PlayState::refresh()
+{
+
+}
+PlayState::~PlayState()
+{
+	Mix_HaltMusic();
+	Mix_FreeMusic(music);
+	Mix_Quit();
+}
+/*
 PlayState::PlayState(SDLApplication* app) : GameState(PLAY_STATE, app) {
 	currentMap = new Mapa(app, LEVEL1);
 	auto scale = currentMap->tileScale();
@@ -61,7 +143,7 @@ PlayState::PlayState(SDLApplication* app) : GameState(PLAY_STATE, app) {
 			}
 			else if (ot.getClass() == "Lamp") {
 				TP_Lamp* l1 = new TP_Lamp(Vector2D(x_ * scale, y_ * scale - app->getTexture("lamp", PLAY_STATE)->getH()*2), app->getTexture("lamp", PLAY_STATE), this, Scale(2, 2), LAMP);
-				
+
 				string lampName = ot.getName();
 				auto at = lamps.find(lampName);
 				if (at != lamps.end()) {
@@ -103,11 +185,11 @@ PlayState::PlayState(SDLApplication* app) : GameState(PLAY_STATE, app) {
 		}
 	}
 
-    healthBar = new HealthBar(Vector2D(30, 100), app->getTexture("hearts", PLAY_STATE), Scale(10.0f, 10.0f));
+	healthBar = new HealthBar(Vector2D(30, 100), app->getTexture("hearts", PLAY_STATE), Scale(10.0f, 10.0f));
 	gameObjects.push_back(healthBar);
 	//ChargedAttackBar* bar = new ChargedAttackBar(healthBar->lastHeartPosition() + Vector2D(100, -10), app->getTexture("chargebar", getStateID()), Scale(1.5f, 1.5f));
-    //screenDarkener = new ScreenDarkener(app);
-    //gameObjects.push_back(screenDarkener);
+	//screenDarkener = new ScreenDarkener(app);
+	//gameObjects.push_back(screenDarkener);
 	camera = { 0,0,WINDOW_WIDTH, WINDOW_HEIGHT };
 
 	Mix_Init(MIX_INIT_FLAC | MIX_INIT_MOD | MIX_INIT_MP3 | MIX_INIT_OGG | MIX_INIT_MID);
@@ -115,7 +197,68 @@ PlayState::PlayState(SDLApplication* app) : GameState(PLAY_STATE, app) {
 	music = Mix_LoadMUS("../../sounds/musics/Ambient 4.wav");
 	Mix_PlayMusic(music, -1);
 }
+void PlayState::update() {
+	GameState::update(); // llamada a todos los updates de la lista de gameObjects
 
+	// ACTIVAR GRAVEDAD PARA TODOS LOS OBJETOS FÍSICOS
+	if (!ott->isGrounded()) {
+		ott->useGravity();
+	}
+	/*if (ott->getLife() == 1) screenDarkener->show();
+	else screenDarkener->hide();
+
+	// COMPROBACIÓN PARA ACTIVAR OBJETOS INTERACTUABLES
+for (auto it : intObjects) {
+	SDL_Rect result;
+	if (it->collide(ott->getRect(), result)) // SI SE HA DETECTADO INTERACCIÓN CON EL OBJETO, SE ACTIVA
+	{
+		it->interact(); // ACTIVACIÓN DEL OBJETO
+
+		if (it->getType() == LAMP) { // Si el objeto es de tipo LÁMPARA debe cambiar una animación de Ott
+			ott->setAnimState(TP_IN);
+		}
+	}
+}
+
+for (auto it : eObjects) {
+	SDL_Rect result;
+	if (it->collide(ott->getRect(), result))
+	{
+		ott->canClimb();
+	}
+	else {
+		ott->cannotClimb();
+	}
+}
+
+// MOVIMIENTO DE LA CÁMARA EN FUNCIÓN DE POSICIÓN DE OTT
+moveCamera();
+
+if (ott->isDead()) {
+	app->getStateMachine()->changeState(new MainMenuState(app));
+}
+}
+void PlayState::render() const {
+	//Recorremos la lista para renderizar los objetos,
+	// y en caso de que se haya borrado un elemento en la lista, dejamos de recorrerla
+	for (auto it = gameObjects.begin(); it != gameObjects.end() && !deleted;) {
+		(*it)->render(camera);
+		if (!deleted) ++it;
+		else return;
+	}
+}
+// funci�n para hacer interpolaci�n lineal. Usada en el movimiento de la c�mara
+float lerp(float a, float b, float t)
+{
+	return a + t * (b - a);
+}
+
+void PlayState::handleEvents() {
+	GameState::handleEvents();
+	if (InputHandler::instance()->isKeyJustDown(SDLK_ESCAPE)) {
+		app->getStateMachine()->pushState(new PauseMenuState(app));
+	}
+}
 void PlayState::moveCamera() {
 	SDL_Rect ottRect = ott->getRect(); // conseguir la posici�n de Ott
 
@@ -156,47 +299,6 @@ void PlayState::deleteObject(Entity* obj) {
 	GameState::deleteObject(obj);
 }
 
-void PlayState::update() {
-	GameState::update(); // llamada a todos los updates de la lista de gameObjects
-
-	// ACTIVAR GRAVEDAD PARA TODOS LOS OBJETOS FÍSICOS
-	if (!ott->isGrounded()) {
-		ott->useGravity();
-	}
-    /*if (ott->getLife() == 1) screenDarkener->show();
-    else screenDarkener->hide();*/
-
-	// COMPROBACIÓN PARA ACTIVAR OBJETOS INTERACTUABLES
-	for (auto it : intObjects) {
-		SDL_Rect result;
-		if (it->collide(ott->getRect(), result)) // SI SE HA DETECTADO INTERACCIÓN CON EL OBJETO, SE ACTIVA
-		{ 
-			it->interact(); // ACTIVACIÓN DEL OBJETO
-
-			if (it->getType() == LAMP) { // Si el objeto es de tipo LÁMPARA debe cambiar una animación de Ott
-				ott->setAnimState(TP_IN);
-			}
-		}
-	}
-
-	for (auto it : eObjects) {
-		SDL_Rect result;
-		if (it->collide(ott->getRect(), result))
-		{ 
-			ott->canClimb();
-		}
-		else {
-			ott->cannotClimb();
-		}
-	}
-
-	// MOVIMIENTO DE LA CÁMARA EN FUNCIÓN DE POSICIÓN DE OTT
-	moveCamera();
-
-	if (ott->isDead()) {
-		app->getStateMachine()->changeState(new MainMenuState(app));
-	}
-}
 
 void PlayState::ottCollide(const SDL_Rect& ottRect, const SDL_Rect& onGround, SDL_Rect& groundRect, SDL_Rect& colRect, bool& ground, Vector2D& speed) {
 	// COMPROBACI�N DE COLISIONES CON OBJETOS DE TIPO SUELO (PROVISIONAL)
@@ -248,15 +350,7 @@ bool PlayState::bulletCollide(const SDL_Rect& bulletRect) {
 	}
 }
 
-void PlayState::render() const {
-	//Recorremos la lista para renderizar los objetos,
-	// y en caso de que se haya borrado un elemento en la lista, dejamos de recorrerla
-	for (auto it = gameObjects.begin(); it != gameObjects.end() && !deleted;) {
-		(*it)->render(camera);
-		if (!deleted) ++it;
-		else return;
-	}
-}
+
 
 SDL_Rect PlayState::ottPos() const {
 	return ott->getRect();
@@ -315,12 +409,6 @@ Vector2D PlayState::collides(SDL_Rect playerRect, SDL_Rect objRect) { //Se compr
 	//cout << cVector.getX() << " " << cVector.getY() << endl;
 	return cVector;
 }
-PlayState::~PlayState()
-{
-	Mix_HaltMusic();
-	Mix_FreeMusic(music);
-	Mix_Quit();
-}
 
 
 void PlayState::deleteObjects() {
@@ -339,5 +427,5 @@ void PlayState::deleteEntities() {
 		}
 		deletedObjects.pop();
 	}
-}
+}*/
 

@@ -3,7 +3,7 @@
 #include "../SDLApplication.h"
 #include "../loaders/TextureLoader.h"
 #include "../utils/InputHandler.h"
-#include "../gameobjects/Entity.h"
+#include "../Src/Entity.h"
 #include "play/PlayState.h"
 
 GameState::~GameState() {
@@ -65,14 +65,18 @@ GameObject* GameState::addObject(GameObject* obj) {
 }
 
 void GameState::deleteObject(Entity* obj) {
-    deletedObjects.push(obj);
+    //deletedObjects.push(obj);
 }
 
 void GameState::deleteObjects() {
-    while (!deletedObjects.empty()) {
+    /*while (!deletedObjects.empty()) {
         auto obj = deletedObjects.top();
         dynamic_cast<Entity*>(obj)->getState()->gameObjects.erase(obj->it);
         deletedObjects.pop();
         delete obj;
-    }
+    }*/
+}
+
+void GameState::refresh()
+{
 }
