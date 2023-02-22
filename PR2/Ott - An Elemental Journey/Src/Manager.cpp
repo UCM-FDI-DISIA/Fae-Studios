@@ -63,8 +63,71 @@ void Manager::createPlayer()
 
 void Manager::createMap()
 {
+	Entity* bgrd = addEntity(ecs::_grp_MAP);
 	Entity* e = addEntity(ecs::_grp_MAP);
 	e->addComponent<MapComponent>(game,LEVEL1);
+	auto scale = e->getComponent<MapComponent>()->tileScale();
+	bgrd->addComponent<BackgroundImage>(Vector2D(0, 0), game->getTexture("level1bg", PLAY_STATE), scale, scale);
+
+	auto a = e->getComponent<MapComponent>()->getObjects();
+	for (auto it : a) {
+		//unordered_map<string, TP_Lamp*> lamps;
+		for (auto ot : it) {
+			float x_ = ot.getAABB().left;
+			float y_ = ot.getAABB().top;
+			float w_ = ot.getAABB().width;
+			float h_ = ot.getAABB().height;
+			elementsInfo::elements elem;
+			string path = "";
+			if (ot.getName() == "1") { elem = elementsInfo::Earth; path = "earth"; }
+			if (ot.getName() == "2") { elem = elementsInfo::Water; path = "water"; }
+			if (ot.getName() == "3") { elem = elementsInfo::Fire; path = "fire"; }
+			if (ot.getName() == "4") { elem = elementsInfo::Dark; path = "dark"; }
+			if (ot.getClass() == "Ground") {
+				//Ground* grT = new Ground(Vector2D(x_ * scale, y_ * scale), app->getTexture("pixel", PLAY_STATE), Scale(w_ * scale, h_ * scale));
+				//gameObjects.push_back(grT);
+				Entity* e = addEntity(ecs::_grp_GROUND);
+				e->addComponent<Transform>(x_ * scale, y_ * scale, w_ * scale, h_ * scale);
+			}
+			else if (ot.getClass() == "Grass") {
+				//Grass* g1 = new Grass(Vector2D(x_ * scale, y_ * scale - app->getTexture("grass", PLAY_STATE)->getH()), app->getTexture("grass", PLAY_STATE), this);
+				//gameObjects.push_back(g1);
+
+			}
+			else if (ot.getClass() == "Lamp") {
+				/*TP_Lamp* l1 = new TP_Lamp(Vector2D(x_ * scale, y_ * scale - app->getTexture("lamp", PLAY_STATE)->getH() * 2), app->getTexture("lamp", PLAY_STATE), this, Scale(2, 2), LAMP);
+
+				string lampName = ot.getName();
+				auto at = lamps.find(lampName);
+				if (at != lamps.end()) {
+					l1->SetLamp((*at).second);
+					(*at).second->SetLamp(l1);
+				}
+				else {
+					lamps.insert({ ot.getName(), l1 });
+				}
+
+				gameObjects.push_back(l1);*/
+			}
+			else if (ot.getClass() == "Sanctuary") {
+				//Sanctuary* s1 = new Sanctuary(Vector2D(x_ * scale - app->getTexture("sanctuary", PLAY_STATE)->getW() * 1.5, y_ * scale - app->getTexture("sanctuary", PLAY_STATE)->getH() * 3.5), app->getTexture("sanctuary", PLAY_STATE), Scale(3.5, 3.5));
+				//gameObjects.push_back(s1);
+			}
+			else if (ot.getClass() == "Ott") {
+
+			}
+			else if (ot.getClass() == "Mushroom") {
+
+			}
+			else if (ot.getClass() == "Melee") {
+			}
+			else if (ot.getClass() == "Slime") {
+
+			}
+		}
+	}
+
+	//bgrd->addComponent<Image>(game->getTexture("level1bg", PLAY_STATE));
 	/*currentMap = new Mapa(app, LEVEL1);
 	auto scale = currentMap->tileScale();
 	gameObjects.push_back(new CollisionObject(Vector2D(0, 300), app->getTexture("level1bg", PLAY_STATE), Scale(scale, scale)));

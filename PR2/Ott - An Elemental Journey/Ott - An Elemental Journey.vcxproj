@@ -133,6 +133,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="componentes\BackgroundImage.h" />
     <ClInclude Include="componentes\ButtonComponent.h" />
     <ClInclude Include="checkML.h" />
     <ClInclude Include="componentes\Component.h" />
@@ -178,6 +179,7 @@
     <ClInclude Include="utils\Trigger.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="componentes\BackgroundImage.cpp" />
     <ClCompile Include="componentes\ButtonComponent.cpp" />
     <ClCompile Include="componentes\Component.cpp" />
     <ClCompile Include="componentes\FramedImage.cpp" />

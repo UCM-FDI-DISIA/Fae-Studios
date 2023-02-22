@@ -20,11 +20,12 @@ public:
 	
 	enum grpId : grpId_type {
 		_grp_GENERAL,
+		_grp_MAP,
 		_grp_CHARACTERS,
 		_grp_GROUND,
 		_grp_PROYECTILES,
-		_grp_MAP,
-
+		
+		
 		_LAST_GRP_ID
 	};
 	static constexpr grpId_type maxGroupId = _LAST_GRP_ID;

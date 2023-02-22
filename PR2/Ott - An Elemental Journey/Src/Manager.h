@@ -6,6 +6,7 @@
 #include "../componentes/Image.h"
 #include "../componentes/FramedImage.h"
 #include "../componentes/MapComponent.h"
+#include "../componentes/BackgroundImage.h"
 #include "../checkML.h"
 
 using namespace std;
