@@ -12,6 +12,7 @@ public:
 		_CTRL,
 		_FRAMEDIMAGE,
 		_BUTTON,
+		_MAP,
 		// do not remove this
 		_LAST_CMP_ID
 	};
@@ -22,6 +23,8 @@ public:
 		_grp_CHARACTERS,
 		_grp_GROUND,
 		_grp_PROYECTILES,
+		_grp_MAP,
+
 		_LAST_GRP_ID
 	};
 	static constexpr grpId_type maxGroupId = _LAST_GRP_ID;

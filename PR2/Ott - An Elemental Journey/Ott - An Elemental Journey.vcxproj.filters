@@ -34,6 +34,7 @@
     <ClCompile Include="gameobjects\GameObject.cpp" />
     <ClCompile Include="componentes\ButtonComponent.cpp" />
     <ClCompile Include="componentes\RenderButton.cpp" />
+    <ClCompile Include="componentes\MapComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="checkML.h" />
@@ -78,6 +79,7 @@
     <ClInclude Include="gameobjects\GameObject.h" />
     <ClInclude Include="componentes\ButtonComponent.h" />
     <ClInclude Include="componentes\RenderButton.h" />
+    <ClInclude Include="componentes\MapComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Ott - An Elemental Journey.rc" />

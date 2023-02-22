@@ -18,6 +18,7 @@
 */
 
 PlayState::PlayState(SDLApplication* app) : GameState(PLAY_STATE, app) {
+	
 	/*currentMap = new Mapa(app, LEVEL1);
 	auto scale = currentMap->tileScale();
 	gameObjects.push_back(new CollisionObject(Vector2D(0, 300), app->getTexture("level1bg", PLAY_STATE), Scale(scale, scale)));
@@ -92,6 +93,7 @@ PlayState::PlayState(SDLApplication* app) : GameState(PLAY_STATE, app) {
 	music = Mix_LoadMUS("../../sounds/musics/Ambient 4.wav");
 	Mix_PlayMusic(music, -1);
 	manager_ = new Manager(app);
+	manager_->createMap();
 	manager_->createPlayer();
 }
 void PlayState::update() {

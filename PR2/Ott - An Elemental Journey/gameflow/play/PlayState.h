@@ -1,12 +1,13 @@
 #include "../GameState.h"
 #include <list>
 #include <iostream>
-#include "../../gameobjects/Mapa.h"
+
 #include "../../Src/Entity.h"
 #include "../SDL2_mixer/include/SDL_mixer.h"
 #include "../../Src/Manager.h"
 #include "../../checkML.h"
 /*
+#include "../../gameobjects/Mapa.h"
 #include "../../gameobjects/Physics/Ground.h"
 #include "../../ui/ScreenDarkener.h"
 #include "../../ui/HealthBar.h"

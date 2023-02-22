@@ -5,7 +5,7 @@
 #include "../componentes/Transform.h"
 #include "../componentes/Image.h"
 #include "../componentes/FramedImage.h"
-
+#include "../componentes/MapComponent.h"
 #include "../checkML.h"
 
 using namespace std;
@@ -23,6 +23,7 @@ public:
 	void update();
 	void render();
 	void createPlayer();
+	void createMap();
 	const vector<Entity*>& getEntitiesByGroup(grpId_type gId);
 	void addToGroupList(grpId_type gId, Entity* e);
 private:

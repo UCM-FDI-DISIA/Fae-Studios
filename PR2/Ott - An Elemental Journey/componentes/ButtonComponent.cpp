@@ -2,6 +2,9 @@
 #include "../SDLApplication.h"
 #include "../utils/InputHandler.h"
 
+ButtonComponent::ButtonComponent(std::string text, SDLApplication* a, CallBack* c) : Component(), buttonText(text), app(a), callback(c) {
+    font = app->getFont("vcr_osd");
+};
 void ButtonComponent::onClick()
 {
 	InputHandler::instance()->clearState(true);

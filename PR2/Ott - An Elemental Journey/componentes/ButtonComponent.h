@@ -19,11 +19,10 @@ private:
 	Texture* texture;
 	SDLApplication* app = nullptr;
 	CallBack* callback = nullptr;
+	Image* image;
 	void onClick();
 public:
-	ButtonComponent(std::string text, SDLApplication* a, CallBack* c) : Component(), buttonText(text), app(a), callback(c) {
-		font = app->getFont("vcr_osd");
-	};
+	ButtonComponent(std::string text, SDLApplication* a, CallBack* c);
 	void initComponent() override;
 	void update() override;
 	constexpr static cmpId_type id = ecs::_BUTTON;
