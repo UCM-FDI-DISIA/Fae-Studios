@@ -11,6 +11,7 @@ public:
 		_HEALTH,
 		_CTRL,
 		_FRAMEDIMAGE,
+		_BUTTON,
 		// do not remove this
 		_LAST_CMP_ID
 	};

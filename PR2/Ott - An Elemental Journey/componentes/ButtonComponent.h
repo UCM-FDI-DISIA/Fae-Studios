@@ -1,7 +1,8 @@
 #pragma once
 #include "Component.h"
 #include "Image.h"
-#include<string>
+#include <string>
+#include "../dependencies/Font.h"
 
 class SDLApplication;
 
@@ -14,14 +15,17 @@ private:
 
 	int currentButtonFrame = MOUSE_OUT;
 	std::string buttonText;
+	Font* font;
+	Texture* texture;
 	SDLApplication* app = nullptr;
 	CallBack* callback = nullptr;
-	Image* image = nullptr;
-
 	void onClick();
 public:
-	ButtonComponent(std::string text, SDLApplication* a, CallBack* c) : Component(), buttonText(text), app(a), callback(c) {};
+	ButtonComponent(std::string text, SDLApplication* a, CallBack* c) : Component(), buttonText(text), app(a), callback(c) {
+		font = app->getFont("vcr_osd");
+	};
 	void initComponent() override;
 	void update() override;
+	constexpr static cmpId_type id = ecs::_BUTTON;
 };
 

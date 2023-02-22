@@ -138,6 +138,7 @@
     <ClInclude Include="componentes\Component.h" />
     <ClInclude Include="componentes\FramedImage.h" />
     <ClInclude Include="componentes\Image.h" />
+    <ClInclude Include="componentes\RenderButton.h" />
     <ClInclude Include="componentes\Transform.h" />
     <ClInclude Include="gameflow\menus\options\ControlMenuState.h" />
     <ClInclude Include="gameflow\menus\PauseMenuState.h" />
@@ -180,6 +181,7 @@
     <ClCompile Include="componentes\Component.cpp" />
     <ClCompile Include="componentes\FramedImage.cpp" />
     <ClCompile Include="componentes\Image.cpp" />
+    <ClCompile Include="componentes\RenderButton.cpp" />
     <ClCompile Include="componentes\Transform.cpp" />
     <ClCompile Include="gameflow\menus\options\ControlMenuState.cpp" />
     <ClCompile Include="gameflow\menus\PauseMenuState.cpp" />

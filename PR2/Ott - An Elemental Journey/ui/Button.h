@@ -31,7 +31,6 @@ class Button : public UIElement {
 protected:
     /// Estados en los que puede estar la textura de un botón
     enum button_State {MOUSE_OUT = 0, MOUSE_OVER = 1, CLICKED = 2};
-
     std::string buttonText; ///< Texto contenido en el botón
     UIText* text = nullptr; ///< Texto del botón renderizado en pantalla
     SDLApplication* app = nullptr; ///< Puntero a la clase Game
