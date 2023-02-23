@@ -17,6 +17,8 @@
 #include <unordered_map>
 */
 
+
+
 PlayState::PlayState(SDLApplication* app) : GameState(PLAY_STATE, app) {
 	
 	/*currentMap = new Mapa(app, LEVEL1);
@@ -96,8 +98,24 @@ PlayState::PlayState(SDLApplication* app) : GameState(PLAY_STATE, app) {
 	manager_->createMap();
 	manager_->createPlayer();
 }
+void PlayState::checkCollisions()
+{
+	vector<Entity*> characters = manager_->getEntitiesByGroup(ecs::_grp_CHARACTERS);
+	vector<Entity*> ground = manager_->getEntitiesByGroup(ecs::_grp_GROUND);
+	for (Entity* e : characters) {
+		for (Entity* g : ground) {
+			SDL_Rect r1 = e->getComponent<Transform>()->getRect();
+			SDL_Rect r2 = g->getComponent<Transform>()->getRect();
+			if (SDL_HasIntersection(&r1, &r2)) {
+				e->getComponent<PhysicsComponent>()->collideGround();
+				cout << "collision" << endl;
+			}
+		}
+	}
+}
 void PlayState::update() {
 	manager_->update();
+	checkCollisions();
 }
 void PlayState::render() const {
 	manager_->render();

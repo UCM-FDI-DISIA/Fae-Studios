@@ -44,6 +44,7 @@ private:
     Camera camera;
     Mapa* currentMap;
     */
+    void checkCollisions();
     Mix_Music* music;
     Manager* manager_;
 

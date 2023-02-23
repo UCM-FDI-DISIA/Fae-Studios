@@ -13,6 +13,7 @@ public:
 		_FRAMEDIMAGE,
 		_BUTTON,
 		_MAP,
+		_PHYSICS,
 		// do not remove this
 		_LAST_CMP_ID
 	};

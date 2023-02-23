@@ -7,6 +7,7 @@
 #include "../componentes/FramedImage.h"
 #include "../componentes/MapComponent.h"
 #include "../componentes/BackgroundImage.h"
+#include "../componentes/PhysicsComponent.h"
 #include "../checkML.h"
 
 using namespace std;
@@ -27,7 +28,9 @@ public:
 	void createMap();
 	const vector<Entity*>& getEntitiesByGroup(grpId_type gId);
 	void addToGroupList(grpId_type gId, Entity* e);
+	inline float getGravityValue() { return gravityValue; }
 private:
+	float gravityValue = 0.2;
 	SDLApplication* game;
 	std::array<std::vector<Entity*>, ecs::maxGroupId> entsByGroup_;
 };

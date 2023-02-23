@@ -36,6 +36,7 @@
     <ClCompile Include="componentes\RenderButton.cpp" />
     <ClCompile Include="componentes\MapComponent.cpp" />
     <ClCompile Include="componentes\BackgroundImage.cpp" />
+    <ClCompile Include="componentes\PhysicsComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="checkML.h" />
@@ -82,6 +83,7 @@
     <ClInclude Include="componentes\RenderButton.h" />
     <ClInclude Include="componentes\MapComponent.h" />
     <ClInclude Include="componentes\BackgroundImage.h" />
+    <ClInclude Include="componentes\PhysicsComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Ott - An Elemental Journey.rc" />

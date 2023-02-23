@@ -59,6 +59,7 @@ void Manager::createPlayer()
     Entity* e = addEntity(ecs::_grp_CHARACTERS);
     e->addComponent<Transform>(100, 100, 100, 120);
     e->addComponent<FramedImage>(game->getTexture("ott_water", PLAY_STATE), 9,8);
+	e->addComponent<PhysicsComponent>();
 }
 
 void Manager::createMap()

@@ -2,6 +2,7 @@
 #include "Component.h"
 #include "../dependencies/Vector2D.h"
 #include <iostream>
+#include <SDL.h>
 class Transform : public Component {
 public:
 	Transform();
@@ -17,6 +18,10 @@ public:
 	inline float& getW() { return width_; }
 	inline float& getH() { return height_; }
 	inline float& getRotation() { return rotation_; }
+	inline SDL_Rect& getRect() {
+		SDL_Rect result; result.x = position_.getX(); result.y = position_.getY(); result.w = width_; result.h = height_;
+		return result;
+	}
 	virtual void initComponent();
 	virtual void update();
 	virtual void render(); 
