@@ -1,5 +1,5 @@
 #include "Transform.h"
-
+#include "../Src/Entity.h"
 Transform::Transform()
 {
 }
@@ -13,13 +13,6 @@ Transform::Transform(float x, float y, float w, float h) : position_(Vector2D(x,
 {
 }
 
-Transform::Transform(Vector2D pos, float w, float h, Vector2D vel, float rot) : position_(pos), width_(w), height_(h), velocity_(vel), rotation_(rot)
-{
-}
-
-Transform::Transform(float x, float y, float w, float h, Vector2D vel, float rot) : position_(Vector2D(x, y)), width_(w), height_(h), velocity_(vel), rotation_(rot)
-{
-}
 
 void Transform::initComponent()
 {
@@ -27,7 +20,10 @@ void Transform::initComponent()
 
 void Transform::update()
 {
-	position_ = position_ + velocity_;
+	if (ent_->hasComponent<PhysicsComponent>()) {
+		Vector2D vel = ent_->getComponent<PhysicsComponent>()->getVelocity();
+		position_ = position_ + vel;
+	}
 }
 
 void Transform::render()

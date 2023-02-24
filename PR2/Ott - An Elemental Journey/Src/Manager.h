@@ -8,6 +8,7 @@
 #include "../componentes/MapComponent.h"
 #include "../componentes/BackgroundImage.h"
 #include "../componentes/PhysicsComponent.h"
+#include "../componentes/PlayerInput.h"
 #include "../checkML.h"
 
 using namespace std;

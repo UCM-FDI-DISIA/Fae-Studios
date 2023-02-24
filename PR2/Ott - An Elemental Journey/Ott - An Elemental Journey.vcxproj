@@ -141,6 +141,7 @@
     <ClInclude Include="componentes\Image.h" />
     <ClInclude Include="componentes\MapComponent.h" />
     <ClInclude Include="componentes\PhysicsComponent.h" />
+    <ClInclude Include="componentes\PlayerInput.h" />
     <ClInclude Include="componentes\RenderButton.h" />
     <ClInclude Include="componentes\Transform.h" />
     <ClInclude Include="gameflow\menus\options\ControlMenuState.h" />
@@ -187,6 +188,7 @@
     <ClCompile Include="componentes\Image.cpp" />
     <ClCompile Include="componentes\MapComponent.cpp" />
     <ClCompile Include="componentes\PhysicsComponent.cpp" />
+    <ClCompile Include="componentes\PlayerInput.cpp" />
     <ClCompile Include="componentes\RenderButton.cpp" />
     <ClCompile Include="componentes\Transform.cpp" />
     <ClCompile Include="gameflow\menus\options\ControlMenuState.cpp" />

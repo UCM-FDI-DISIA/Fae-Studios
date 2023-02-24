@@ -1,8 +1,7 @@
 #pragma once
 #include "Component.h"
-#include "Transform.h"
 #include "../dependencies/Vector2D.h"
-#include "../Src/Entity.h"
+
 #include <iostream>
 class PhysicsComponent : public Component
 {
@@ -13,9 +12,10 @@ public:
 	virtual void update();
 	void collideGround();
 	constexpr static cmpId_type id = ecs::_PHYSICS;
+	Vector2D& getVelocity();
 private:
 	const int MAX_VERTICAL_SPEED = 8;
 	float verticalSpeed = 0;
-	Transform* tr_;
+	Vector2D velocity_ = (0,0);
 };
 

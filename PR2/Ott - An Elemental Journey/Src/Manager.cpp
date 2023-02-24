@@ -60,6 +60,7 @@ void Manager::createPlayer()
     e->addComponent<Transform>(100, 100, 100, 120);
     e->addComponent<FramedImage>(game->getTexture("ott_water", PLAY_STATE), 9,8);
 	e->addComponent<PhysicsComponent>();
+	e->addComponent<PlayerInput>();
 }
 
 void Manager::createMap()
