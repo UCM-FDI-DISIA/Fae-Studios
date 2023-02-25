@@ -1,8 +1,7 @@
 #pragma once
 #include <cstdint>
-class ecs
+namespace ecs
 {
-public:
 	using cmpId_type = uint8_t;
 	using grpId_type = uint8_t;
 	enum cmpId : cmpId_type {
@@ -30,5 +29,24 @@ public:
 		_LAST_GRP_ID
 	};
 	static constexpr grpId_type maxGroupId = _LAST_GRP_ID;
+
+	static enum elements { Light, Earth, Water, Fire, Dark };
+	static const int numElems = 5;
+	// Representación interna doblada
+	static int matrix[5][5] = {
+	{ 2, 2, 2, 2, 2 },
+	{ 2, 2, 4, 1, 0 },
+	{ 2, 1, 2, 4, 0 },
+	{ 2, 4, 1, 2, 0 },
+	{ 2, 4, 4, 4, 2 }
+	};
+
+	static int ottMatrix[5][5] = {
+		{ 1, 1, 1, 1, 1 },
+		{ 1, 1, 2, 0, -1 },
+		{ 1, 0, 1, 2, -1 },
+		{ 1, 2, 0, 1, -1 },
+		{ 1, 2, 2, 2, 1 }
+	};
 };
 

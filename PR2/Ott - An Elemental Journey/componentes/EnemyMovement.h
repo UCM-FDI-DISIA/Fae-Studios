@@ -1,0 +1,35 @@
+#pragma once
+#include "Transform.h"
+#include "PhysicsComponent.h"
+class EnemyMovement : public Component
+{
+private:
+	PhysicsComponent* physics;
+	Entity* player;
+	Transform* transform;
+	Transform* playerTransform;
+	SDL_Rect trigger;
+
+	bool playerDetected;
+	int nearDistance = 10;
+	double turningOffset = 0.75; //A partir de aquí no entiendo, solo he ctrl c ctrl v
+	int turningError = 1;
+public:
+	constexpr static cmpId_type id = ecs::_CTRL;
+	EnemyMovement(Entity* p, float wTrigger = 100.0f, float hTrigger = 100.0f) : Component() {
+		player = p;
+		trigger.x = 0; trigger.y = 0;
+		trigger.w = wTrigger; trigger.h = hTrigger;
+		physics = nullptr;
+		transform = nullptr;
+		playerTransform = nullptr;
+		playerDetected = false;
+	};
+	void initComponent() override;
+	void MoveTriggers();
+	void detectPlayer();
+	void FollowPlayer();
+	void ChangeDirection(const SDL_Rect& result);
+	void update() override;
+};
+
