@@ -10,6 +10,7 @@
 #include "../componentes/PhysicsComponent.h"
 #include "../componentes/PlayerInput.h"
 #include "../componentes/CameraComponent.h"
+#include "../componentes/PlayerAnimationComponent.h"
 #include "../checkML.h"
 
 using namespace std;

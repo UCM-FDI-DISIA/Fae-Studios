@@ -6,12 +6,12 @@ PlayerInput::PlayerInput()
 
 void PlayerInput::initComponent()
 {
-	//physics_ = ent_->getComponent<PhysicsComponent>();
+	physics_ = ent_->getComponent<PhysicsComponent>();
 }
 
 void PlayerInput::update()
 {
-	//Vector2D& playerV = physics_->getVelocity();
+	Vector2D& playerV = physics_->getVelocity();
 	auto input = InputHandler::instance();
 	if (input->keyDownEvent()) {
 		cout << "Tecla pulsada" << endl;
@@ -21,12 +21,12 @@ void PlayerInput::update()
 		}
 		if (input->isKeyDown(SDLK_LEFT)) {
 			//Moviento Izquierda 
-			//playerV = (-1, 1);
+			playerV = Vector2D(-1, playerV.getY());
 		}
 		else if (input->isKeyDown(SDLK_RIGHT))
 		{
 			//Movimiento derecha
-			//playerV = (1, 1);
+			playerV = Vector2D(1, playerV.getY());
 		}
 
 		if (input->isKeyJustDown(SDLK_SPACE)) {

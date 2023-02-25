@@ -13,7 +13,8 @@ void PhysicsComponent::update()
 {
 	verticalSpeed += mngr_->getGravityValue();
 	if (verticalSpeed > MAX_VERTICAL_SPEED) verticalSpeed = MAX_VERTICAL_SPEED;
-	velocity_ = Vector2D(0, verticalSpeed);
+	//velocity_ = Vector2D(0, verticalSpeed);
+	cout << velocity_.getX() << endl;
 }
 
 void PhysicsComponent::collideGround()

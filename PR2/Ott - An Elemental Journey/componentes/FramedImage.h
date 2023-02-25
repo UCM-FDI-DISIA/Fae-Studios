@@ -4,6 +4,7 @@
 #include "Transform.h"
 #include "../Src/Entity.h"
 #include <SDL.h>
+
 class FramedImage : public Component
 {
 public:

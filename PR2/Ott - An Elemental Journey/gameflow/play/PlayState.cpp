@@ -128,8 +128,8 @@ void PlayState::checkCollisions()
 					//else colVector = colVector + Vector2D{ 1,0 }; //Colisión lado derecho
 				}
 				else {
-					if (areaColision.y < r2.y + (r2.h / 2)) colVector = Vector2D{ colVector.getX(), 1 }; //Colisión por arriba
-					else colVector = Vector2D{ colVector.getX(), -1};
+					//if (areaColision.y < r2.y + (r2.h / 2)) colVector = Vector2D{ colVector.getX(), 1 }; //Colisión por arriba
+					//else colVector = Vector2D{ colVector.getX(), -1};
 				}
 			}
 			//cout << colVector.getX() << " " << colVector.getY() << endl;

@@ -3,7 +3,8 @@
 #include "../utils/InputHandler.h"
 #include <iostream>
 #include "Transform.h"
-
+#include "PhysicsComponent.h"
+#include "../Src/Entity.h"
 using namespace std;
 class PlayerInput : public Component
 {
@@ -15,5 +16,6 @@ public:
 	constexpr static cmpId_type id = ecs::_CTRL;
 private:
 	Transform* tr_;
+	PhysicsComponent* physics_;
 };
 
