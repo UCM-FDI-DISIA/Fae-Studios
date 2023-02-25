@@ -13,6 +13,7 @@ namespace ecs
 		_BUTTON,
 		_MAP,
 		_PHYSICS,
+		_CAMERA,
 		// do not remove this
 		_LAST_CMP_ID
 	};

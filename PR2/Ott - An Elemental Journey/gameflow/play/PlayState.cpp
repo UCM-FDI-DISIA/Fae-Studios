@@ -100,7 +100,7 @@ PlayState::PlayState(SDLApplication* app) : GameState(PLAY_STATE, app) {
 }
 void PlayState::checkCollisions()
 {
-	vector<Entity*> characters = manager_->getEntitiesByGroup(ecs::_grp_CHARACTERS);
+	/*vector<Entity*> characters = manager_->getEntitiesByGroup(ecs::_grp_CHARACTERS);
 	vector<Entity*> ground = manager_->getEntitiesByGroup(ecs::_grp_GROUND);
 	for (Entity* e : characters) {
 		for (Entity* g : ground) {
@@ -108,14 +108,38 @@ void PlayState::checkCollisions()
 			SDL_Rect r2 = g->getComponent<Transform>()->getRect();
 			if (SDL_HasIntersection(&r1, &r2)) {
 				e->getComponent<PhysicsComponent>()->collideGround();
-				cout << "collision" << endl;
 			}
 		}
+	}*/
+	vector<Entity*> characters = manager_->getEntitiesByGroup(ecs::_grp_CHARACTERS);
+	vector<Entity*> ground = manager_->getEntitiesByGroup(ecs::_grp_GROUND);
+	for (Entity* e : characters) {
+		SDL_Rect r1 = e->getComponent<Transform>()->getRect();
+		Vector2D& colVector = e->getComponent<PhysicsComponent>()->getVelocity();
+		colVector = Vector2D(colVector.getX(), 1);
+		for (Entity* g : ground) {
+			SDL_Rect r2 = g->getComponent<Transform>()->getRect();
+			SDL_Rect areaColision; // area de colision 	
+			bool interseccion = SDL_IntersectRect(&r1, &r2, &areaColision);
+			if (interseccion)
+			{
+				if ((areaColision.w < areaColision.h)) { //Colisión lateral
+					if (areaColision.x <= r2.x + (r2.w / 2)) colVector = colVector + Vector2D{ -1,0 }; //Colisión por la izquierda
+					else colVector = colVector + Vector2D{ 1,0 }; //Colisión lado derecho
+				}
+				else {
+					if (areaColision.y < r2.y + (r2.h / 2)) colVector = colVector + Vector2D{ 0,-1 }; //Colisión por arriba
+					else colVector = colVector + Vector2D{ 0,1 };
+				}
+			}
+			//cout << colVector.getX() << " " << colVector.getY() << endl;
+		}
 	}
+	
 }
 void PlayState::update() {
-	manager_->update();
 	checkCollisions();
+	manager_->update();
 }
 void PlayState::render() const {
 	manager_->render();

@@ -1,7 +1,6 @@
 #pragma once
 #include "Component.h"
 #include "../dependencies/Vector2D.h"
-
 #include <iostream>
 class PhysicsComponent : public Component
 {
@@ -16,6 +15,6 @@ public:
 private:
 	const int MAX_VERTICAL_SPEED = 8;
 	float verticalSpeed = 0;
-	Vector2D velocity_ = (0,0);
+	Vector2D velocity_;
 };
 
