@@ -136,6 +136,7 @@
     <ClInclude Include="componentes\BackgroundImage.h" />
     <ClInclude Include="componentes\ButtonComponent.h" />
     <ClInclude Include="checkML.h" />
+    <ClInclude Include="componentes\CameraComponent.h" />
     <ClInclude Include="componentes\Component.h" />
     <ClInclude Include="componentes\FramedImage.h" />
     <ClInclude Include="componentes\Image.h" />
@@ -183,6 +184,7 @@
   <ItemGroup>
     <ClCompile Include="componentes\BackgroundImage.cpp" />
     <ClCompile Include="componentes\ButtonComponent.cpp" />
+    <ClCompile Include="componentes\CameraComponent.cpp" />
     <ClCompile Include="componentes\Component.cpp" />
     <ClCompile Include="componentes\FramedImage.cpp" />
     <ClCompile Include="componentes\Image.cpp" />

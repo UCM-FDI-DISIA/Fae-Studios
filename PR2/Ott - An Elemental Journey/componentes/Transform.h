@@ -11,6 +11,7 @@ public:
 	Transform(float x, float y, float w, float h);
 	virtual ~Transform();
 	inline Vector2D& getPos() { return position_; }
+	inline void setPos(Vector2D newPos) { position_ = newPos; }
 	inline float& getW() { return width_; }
 	inline float& getH() { return height_; }
 	inline float& getRotation() { return rotation_; }

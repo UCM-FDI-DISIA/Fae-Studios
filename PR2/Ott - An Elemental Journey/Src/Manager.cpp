@@ -56,11 +56,14 @@ void Manager::render()
 
 void Manager::createPlayer()
 {
-    Entity* e = addEntity(ecs::_grp_CHARACTERS);
-    e->addComponent<Transform>(100, 100, 100, 120);
-    e->addComponent<FramedImage>(game->getTexture("ott_water", PLAY_STATE), 9,8);
-	e->addComponent<PhysicsComponent>();
-	e->addComponent<PlayerInput>();
+    player = addEntity(ecs::_grp_CHARACTERS);
+	player->addComponent<Transform>(200, 1500, 100, 120);
+	player->addComponent<FramedImage>(game->getTexture("ott_water", PLAY_STATE), 9,8);
+	player->addComponent<PhysicsComponent>();
+	player->addComponent<PlayerInput>();
+	camera = addEntity(ecs::_grp_GENERAL);
+	camera->addComponent<Transform>();
+	camera->addComponent<CameraComponent>();
 }
 
 void Manager::createMap()
@@ -90,6 +93,7 @@ void Manager::createMap()
 				//gameObjects.push_back(grT);
 				Entity* e = addEntity(ecs::_grp_GROUND);
 				e->addComponent<Transform>(x_ * scale, y_ * scale, w_ * scale, h_ * scale);
+				e->addComponent<Image>(game->getTexture("pixel", PLAY_STATE));
 			}
 			else if (ot.getClass() == "Grass") {
 				//Grass* g1 = new Grass(Vector2D(x_ * scale, y_ * scale - app->getTexture("grass", PLAY_STATE)->getH()), app->getTexture("grass", PLAY_STATE), this);
@@ -209,6 +213,36 @@ const vector<Entity*>& Manager::getEntitiesByGroup(grpId_type gId = ecs::_grp_GE
 void Manager::addToGroupList(grpId_type gId, Entity* e)
 {
     entsByGroup_[gId].push_back(e);
+}
+
+int Manager::getLvlW()
+{
+	return LEVEL_WIDTH;
+}
+
+int Manager::getLvlH()
+{
+	return LEVEL_HEIGHT;
+}
+
+int Manager::getCamDZ()
+{
+	return CAM_DEAD_ZONE;
+}
+
+float Manager::getCamOH()
+{
+	return CAM_OFFSET_HEIGHT;
+}
+
+int Manager::getWinW()
+{
+	return game->getWindowRect().w;
+}
+
+int Manager::getWinH()
+{
+	return game->getWindowRect().h;
 }
 
 Manager::~Manager()

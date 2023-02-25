@@ -69,8 +69,8 @@ void MapComponent::loadMap(string path) {
 void MapComponent::render() {
     //int offsetX = Camera.x;
     //int offsetY = Camera.y;
-    int offsetX = 10;
-    int offsetY = 1000;
+    int offsetX = mngr_->getCamera()->getComponent<Transform>()->getRect().x;
+    int offsetY = mngr_->getCamera()->getComponent<Transform>()->getRect().y;
     for (int i = 0; i < vectorTiles.size(); i++) {
         auto it = vectorTiles[i].ID;
         if (it == 0) continue;
