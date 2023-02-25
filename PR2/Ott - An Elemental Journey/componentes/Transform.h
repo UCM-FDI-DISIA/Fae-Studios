@@ -1,7 +1,7 @@
 #pragma once
 #include "Component.h"
 #include "../dependencies/Vector2D.h"
-
+#include "../dependencies/Texture.h"
 #include <iostream>
 #include <SDL.h>
 class Transform : public Component {
@@ -9,6 +9,7 @@ public:
 	Transform();
 	Transform(Vector2D pos, float w, float h);
 	Transform(float x, float y, float w, float h);
+	Transform(const Vector2D& position, Texture* texture, const Vector2D& scale = Vector2D(1.0f, 1.0f));
 	virtual ~Transform();
 	inline Vector2D& getPos() { return position_; }
 	inline void setPos(Vector2D newPos) { position_ = newPos; }

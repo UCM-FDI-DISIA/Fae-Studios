@@ -13,6 +13,12 @@ Transform::Transform(float x, float y, float w, float h) : position_(Vector2D(x,
 {
 }
 
+Transform::Transform(const Vector2D& position, Texture* texture, const Vector2D& scale) : position_(position)
+{
+	width_ = texture->getW() / texture->getNumCols() * scale.getX();
+	height_ = texture->getH() / texture->getNumRows() * scale.getY();
+}
+
 
 void Transform::initComponent()
 {

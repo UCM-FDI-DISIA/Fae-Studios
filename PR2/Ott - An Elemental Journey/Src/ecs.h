@@ -14,6 +14,7 @@ namespace ecs
 		_MAP,
 		_PHYSICS,
 		_CAMERA,
+		_ANIM,
 		// do not remove this
 		_LAST_CMP_ID
 	};
@@ -25,8 +26,8 @@ namespace ecs
 		_grp_CHARACTERS,
 		_grp_GROUND,
 		_grp_PROYECTILES,
-		
-		
+
+
 		_LAST_GRP_ID
 	};
 	static constexpr grpId_type maxGroupId = _LAST_GRP_ID;

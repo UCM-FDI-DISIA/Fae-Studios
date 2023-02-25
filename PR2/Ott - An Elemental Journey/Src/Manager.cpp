@@ -57,12 +57,12 @@ void Manager::render()
 void Manager::createPlayer()
 {
     player = addEntity(ecs::_grp_CHARACTERS);
-	player->addComponent<Transform>(200, 1500, 100, 120);
+	player->addComponent<Transform>(200, 700, 100, 120);
 	player->addComponent<FramedImage>(game->getTexture("ott_water", PLAY_STATE), 9,8);
 	player->addComponent<PhysicsComponent>();
 	player->addComponent<PlayerInput>();
 	camera = addEntity(ecs::_grp_GENERAL);
-	camera->addComponent<Transform>();
+	camera->addComponent<Transform>(200, 700, 100, 120);
 	camera->addComponent<CameraComponent>();
 }
 
@@ -92,7 +92,9 @@ void Manager::createMap()
 				//Ground* grT = new Ground(Vector2D(x_ * scale, y_ * scale), app->getTexture("pixel", PLAY_STATE), Scale(w_ * scale, h_ * scale));
 				//gameObjects.push_back(grT);
 				Entity* e = addEntity(ecs::_grp_GROUND);
-				e->addComponent<Transform>(x_ * scale, y_ * scale, w_ * scale, h_ * scale);
+				//int width = game->getTexture("pixel", PLAY_STATE)->getW() / game->getTexture("pixel", PLAY_STATE)->getNumCols() * (w_*scale);
+				//int height = game->getTexture("pixel", PLAY_STATE)->getH() / game->getTexture("pixel", PLAY_STATE)->getNumRows() * (h_*scale);
+				e->addComponent<Transform>(Vector2D(x_ * scale, y_ * scale), game->getTexture("pixel", PLAY_STATE), Vector2D(w_ * scale, h_ * scale));
 				e->addComponent<Image>(game->getTexture("pixel", PLAY_STATE));
 			}
 			else if (ot.getClass() == "Grass") {

@@ -30,9 +30,9 @@ void CameraComponent::update()
 	// zona, la c�mara se mueve. Tambi�n se mover� si est� por debajo del m�nimo admitido (CAM_OFFSET_HEIGHT * camera.h)
 	// Siempre se calcula la posici�n con interpolaci�n lineal
 	if (ottRect.y < y + tr_->getH() - CAM_DEAD_ZONE || ottRect.y > y + CAM_OFFSET_HEIGHT * tr_->getH()) {
-		y = lerp(y, (ottRect.y + ottRect.h / 2) - CAM_OFFSET_HEIGHT * mngr_->getWinH(), 0.03);
+		y = lerp(y, (ottRect.y + ottRect.h / 2) - CAM_OFFSET_HEIGHT * mngr_->getWinH() / 2, 0.02);
 	}
-
+	
 	// Limites de la camara dependiendo del tama�o de la sala (mapa)
 	if (x < 0)
 	{
