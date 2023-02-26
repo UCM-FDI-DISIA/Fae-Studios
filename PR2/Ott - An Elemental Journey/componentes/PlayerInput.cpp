@@ -7,6 +7,7 @@ PlayerInput::PlayerInput()
 void PlayerInput::initComponent()
 {
 	physics_ = ent_->getComponent<PhysicsComponent>();
+	anim_ = ent_->getComponent<PlayerAnimationComponent>();
 }
 
 void PlayerInput::update()
@@ -14,7 +15,6 @@ void PlayerInput::update()
 	Vector2D& playerV = physics_->getVelocity();
 	auto input = InputHandler::instance();
 	if (input->keyDownEvent()) {
-		cout << "Tecla pulsada" << endl;
 		if (input->isKeyDown(SDLK_z))
 		{
 			//Defensa
@@ -34,9 +34,11 @@ void PlayerInput::update()
 		}
 		if (input->isKeyDown(SDLK_q)) {
 			//Recuperar vidas
+			
 		}
-		if (input->isKeyDown(SDLK_e)) {
+		if (input->isKeyDown(SDLK_e) && anim_->getState() != ATTACK) {
 			//Ataque
+			anim_->setState(ATTACK);
 		}
 		if (input->isKeyDown(SDLK_a)) {
 			//Cambio elemento
@@ -58,21 +60,23 @@ void PlayerInput::update()
 		}
 	} 
 	if (input->keyUpEvent()) {
-		cout << "No hay tecla" << endl;
-		//playerV = (0, 1);
 		if (input->isKeyJustUp(SDLK_LEFT)) {
-			//left = false;
+			playerV = Vector2D(0, playerV.getY());
 		}
 		if (input->isKeyJustUp(SDLK_RIGHT))
 		{
-			//if (left) lookingFront = false;
-			//right = false;
+			playerV = Vector2D(0, playerV.getY());
 		}
 		if (input->isKeyUp(SDLK_RIGHT) && input->isKeyUp(SDLK_LEFT)) {
 			//ismoving = false;
+			playerV = Vector2D(0, playerV.getY());
 		}
 		if (input->isKeyJustUp(SDLK_SPACE)) {
 			//up = false;
+		}
+		if (input->isKeyJustUp(SDLK_q)) {
+			physics_->knockback();
+			cout << "knbck" << endl;
 		}
 		if (input->isKeyJustUp(SDLK_UP)) {
 			//upC = false;

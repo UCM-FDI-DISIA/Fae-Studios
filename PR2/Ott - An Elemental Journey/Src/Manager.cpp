@@ -60,8 +60,8 @@ void Manager::createPlayer()
 	player->addComponent<Transform>(200, 700, 100, 120);
 	player->addComponent<FramedImage>(game->getTexture("ott_water", PLAY_STATE), 9,8);
 	player->addComponent<PhysicsComponent>();
-	player->addComponent<PlayerInput>();
 	player->addComponent<PlayerAnimationComponent>();
+	player->addComponent<PlayerInput>();
 	camera = addEntity(ecs::_grp_GENERAL);
 	camera->addComponent<Transform>(200, 700, 100, 120);
 	camera->addComponent<CameraComponent>();

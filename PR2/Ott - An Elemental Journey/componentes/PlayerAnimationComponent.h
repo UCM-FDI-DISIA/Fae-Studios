@@ -9,6 +9,7 @@ class PlayerAnimationComponent : public Component
 public:
 	PlayerAnimationComponent();
 	virtual ~PlayerAnimationComponent();
+	virtual void update();
 	inline int getState() { return currentAnimation; }
 	inline void setState(int newState) { currentAnimation = newState; }
 	void endAnim();

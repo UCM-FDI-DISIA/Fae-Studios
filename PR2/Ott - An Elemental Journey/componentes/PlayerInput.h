@@ -4,6 +4,7 @@
 #include <iostream>
 #include "Transform.h"
 #include "PhysicsComponent.h"
+#include "PlayerAnimationComponent.h"
 #include "../Src/Entity.h"
 using namespace std;
 class PlayerInput : public Component
@@ -17,5 +18,6 @@ public:
 private:
 	Transform* tr_;
 	PhysicsComponent* physics_;
+	PlayerAnimationComponent* anim_;
 };
 
