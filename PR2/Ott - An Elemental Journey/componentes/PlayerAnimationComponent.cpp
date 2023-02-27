@@ -11,6 +11,7 @@ PlayerAnimationComponent::~PlayerAnimationComponent()
 
 void PlayerAnimationComponent::update()
 {
+	if (currentAnimation == ATTACK) return;
 	Vector2D vel = ent_->getComponent<PhysicsComponent>()->getVelocity();
 	if (vel.getY() == 0) {
 		if (vel.getX() != 0) currentAnimation = RUN;

@@ -11,6 +11,7 @@
 #include "../componentes/PlayerInput.h"
 #include "../componentes/CameraComponent.h"
 #include "../componentes/PlayerAnimationComponent.h"
+#include "../componentes/Health.h"
 #include "../checkML.h"
 
 using namespace std;

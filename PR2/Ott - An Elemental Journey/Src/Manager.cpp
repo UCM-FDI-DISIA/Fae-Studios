@@ -62,6 +62,7 @@ void Manager::createPlayer()
 	player->addComponent<PhysicsComponent>();
 	player->addComponent<PlayerAnimationComponent>();
 	player->addComponent<PlayerInput>();
+	//player->addComponent<Health>();
 	camera = addEntity(ecs::_grp_GENERAL);
 	camera->addComponent<Transform>(200, 700, 100, 120);
 	camera->addComponent<CameraComponent>();

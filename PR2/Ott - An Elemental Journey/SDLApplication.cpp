@@ -107,10 +107,11 @@ void SDLApplication::run() { //CAMBIAR
         frameTime = SDL_GetTicks() - startTime;
 
         // Singleton que comprueba el estado de los eventos de SDL respecto al input (KEYDOWN, KEYUP, MOUSEBUTTON...)
-        InputHandler::instance()->refresh();
+        
 
         handleEvents(); //Manejamos los eventos
         if (frameTime >= FRAME_RATE) {
+            InputHandler::instance()->refresh();
             update(); //Actualizamos cada FRAME_RATE ticks
             startTime = SDL_GetTicks();
         }

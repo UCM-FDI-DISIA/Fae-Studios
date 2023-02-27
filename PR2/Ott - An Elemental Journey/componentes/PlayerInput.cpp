@@ -21,11 +21,13 @@ void PlayerInput::update()
 		}
 		if (input->isKeyDown(SDLK_LEFT)) {
 			//Moviento Izquierda 
+			cout << "Izquierda" << endl;
 			playerV = Vector2D(-1, playerV.getY());
 		}
 		else if (input->isKeyDown(SDLK_RIGHT))
 		{
 			//Movimiento derecha
+			cout << "Derecha" << endl;
 			playerV = Vector2D(1, playerV.getY());
 		}
 
@@ -74,9 +76,9 @@ void PlayerInput::update()
 		if (input->isKeyJustUp(SDLK_SPACE)) {
 			//up = false;
 		}
-		if (input->isKeyJustUp(SDLK_q)) {
-			physics_->knockback();
-			cout << "knbck" << endl;
+		if (input->isKeyUp(SDLK_q)) {
+			//physics_->knockback();
+			//cout << "knbck" << endl;
 		}
 		if (input->isKeyJustUp(SDLK_UP)) {
 			//upC = false;
