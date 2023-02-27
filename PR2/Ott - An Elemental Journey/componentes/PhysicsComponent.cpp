@@ -1,7 +1,9 @@
 #include "PhysicsComponent.h"
 #include "../Src/Manager.h"
-PhysicsComponent::PhysicsComponent()
+PhysicsComponent::PhysicsComponent(Vector2D offset = {0, 0}, Vector2D WidthHeight = {0, 0})
 {
+	colliderOffset = offset;
+	colliderWH = WidthHeight;
 }
 
 
@@ -37,4 +39,13 @@ Vector2D& PhysicsComponent::getVelocity()
 
 PhysicsComponent::~PhysicsComponent()
 {
+}
+
+SDL_Rect PhysicsComponent::getCollider() const {
+	if (ent_->hasComponent<Transform>()) {
+		Transform* t = ent_->getComponent<Transform>();
+		SDL_Rect collider = { (t->getPos().getX() + colliderOffset.getX()), (t->getPos().getY() + colliderOffset.getY()),
+								colliderWH.getX(), colliderWH.getY() };
+		return collider;
+	}
 }

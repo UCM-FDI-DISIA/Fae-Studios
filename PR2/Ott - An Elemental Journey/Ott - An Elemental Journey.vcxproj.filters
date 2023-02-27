@@ -42,6 +42,7 @@
     <ClCompile Include="componentes\Health.cpp" />
     <ClCompile Include="componentes\CameraComponent.cpp" />
     <ClCompile Include="componentes\PlayerAnimationComponent.cpp" />
+    <ClCompile Include="componentes\EnemyAttack.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="checkML.h" />
@@ -94,6 +95,7 @@
     <ClInclude Include="componentes\Health.h" />
     <ClInclude Include="componentes\CameraComponent.h" />
     <ClInclude Include="componentes\PlayerAnimationComponent.h" />
+    <ClInclude Include="componentes\EnemyAttack.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Ott - An Elemental Journey.rc" />
