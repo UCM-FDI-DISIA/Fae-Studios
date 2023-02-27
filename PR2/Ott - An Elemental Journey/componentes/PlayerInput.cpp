@@ -40,22 +40,26 @@ void PlayerInput::update()
 			//Ataque
 			anim_->setState(ATTACK);
 		}
-		if (input->isKeyDown(SDLK_a)) {
+		if (input->isKeyDown(SDLK_a) && anim_->getState() != VANISH) {
 			//Cambio elemento
 			ent_->getComponent<Health>()->setElement(1);
 			ent_->getComponent<FramedImage>()->elementChanged(1);
+			anim_->setState(VANISH);
 		}
-		if (input->isKeyDown(SDLK_d)) {
+		if (input->isKeyDown(SDLK_d) && anim_->getState() != VANISH) {
 			ent_->getComponent<Health>()->setElement(2);
 			ent_->getComponent<FramedImage>()->elementChanged(2);
+			anim_->setState(VANISH);
 		}
-		if (input->isKeyDown(SDLK_w)) {
+		if (input->isKeyDown(SDLK_w) && anim_->getState() != VANISH) {
 			ent_->getComponent<Health>()->setElement(3);
 			ent_->getComponent<FramedImage>()->elementChanged(3);
+			anim_->setState(VANISH);
 		}
-		if (input->isKeyDown(SDLK_s)) {
+		if (input->isKeyDown(SDLK_s) && anim_->getState() != VANISH) {
 			ent_->getComponent<Health>()->setElement(0);
 			ent_->getComponent<FramedImage>()->elementChanged(0);
+			anim_->setState(VANISH);
 		}
 		if (input->isKeyDown(SDLK_UP)) {
 			//Trepar

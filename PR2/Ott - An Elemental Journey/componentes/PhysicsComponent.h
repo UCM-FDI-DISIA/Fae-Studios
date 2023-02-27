@@ -6,7 +6,8 @@
 class PhysicsComponent : public Component
 {
 public:
-	PhysicsComponent(Vector2D offset = {0, 0}, Vector2D WidthHeight = {0, 0});
+	PhysicsComponent();
+	PhysicsComponent(Vector2D offset, Vector2D WidthHeight);
 	virtual ~PhysicsComponent();
 	virtual void initComponent();
 	virtual void update();

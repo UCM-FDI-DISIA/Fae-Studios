@@ -1,6 +1,10 @@
 #include "PhysicsComponent.h"
 #include "../Src/Manager.h"
-PhysicsComponent::PhysicsComponent(Vector2D offset = {0, 0}, Vector2D WidthHeight = {0, 0})
+PhysicsComponent::PhysicsComponent()
+{
+
+}
+PhysicsComponent::PhysicsComponent(Vector2D offset = Vector2D(0, 0), Vector2D WidthHeight = Vector2D(0, 0))
 {
 	colliderOffset = offset;
 	colliderWH = WidthHeight;
