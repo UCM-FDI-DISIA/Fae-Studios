@@ -5,9 +5,6 @@ PlayerAnimationComponent::PlayerAnimationComponent()
 {
 }
 
-PlayerAnimationComponent::~PlayerAnimationComponent()
-{
-}
 
 void PlayerAnimationComponent::update()
 {
@@ -27,4 +24,8 @@ void PlayerAnimationComponent::endAnim()
 
 		currentAnimation = IDLE;
 	}
+}
+
+PlayerAnimationComponent::~PlayerAnimationComponent()
+{
 }

@@ -16,6 +16,7 @@ public:
 	inline int getTPerFrame(int i) { return animArray[i].tPerFrame; }
 	inline int getNFrames(int i) { return animArray[i].numFrames; }
 	inline int getRowNum(int i) { return animArray[i].rowNum; }
+	
 	constexpr static cmpId_type id = ecs::_ANIM;
 private:
 	int currentAnimation = IDLE;

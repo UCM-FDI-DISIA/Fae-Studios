@@ -16,6 +16,7 @@ void FramedImage::initComponent()
 {
 	if(tex_ == nullptr) tex_ = mngr_->getTexture(0);
 	tr_ = ent_->getComponent<Transform>();
+	shieldTex_ = mngr_->getTexture(4);
 }
 
 void FramedImage::render()
@@ -24,9 +25,9 @@ void FramedImage::render()
 	dest.w = tr_->getW(); dest.h = tr_->getH();
 	if (ent_->hasComponent<PlayerAnimationComponent>()) {
 		PlayerAnimationComponent* pAnim = ent_->getComponent<PlayerAnimationComponent>();
-		int direction = ent_->getComponent<PhysicsComponent>()->getVelocity().getX();
+		bool lookRight = ent_->getComponent<PhysicsComponent>()->getLookDirection();
 		SDL_RendererFlip flip = SDL_FLIP_NONE;
-		if (direction < 0) flip = SDL_FLIP_HORIZONTAL;
+		if (!lookRight) flip = SDL_FLIP_HORIZONTAL;
 		int state = pAnim->getState();
 		if (col == (pAnim->getNFrames(state) - 1) && (SDL_GetTicks() / pAnim->getTPerFrame(state)) % pAnim->getNFrames(state) == 0) pAnim->endAnim();
 		switch (state)
@@ -46,6 +47,7 @@ void FramedImage::render()
 			break;
 		}
 	}
+	if (isShielded) shieldTex_->render(tr_->getRect());
 	//tex_->renderFrame(dest, row, col);
 	//row = (SDL_GetTicks() / tPerFrame) % numRows_; col = (SDL_GetTicks() / tPerFrame) % numCols_;
 }

@@ -15,6 +15,9 @@ public:
 	constexpr static cmpId_type id = ecs::_PHYSICS;
 	Vector2D& getVelocity();
 	SDL_Rect getCollider() const;
+	inline void slowed() { velocity_ = Vector2D(velocity_.getX()/2, velocity_.getY()); }
+	inline void lookDirection(bool b) { lookingRight = b; }
+	inline bool getLookDirection() { return lookingRight; }
 private:
 	SDL_Rect collider;
 	Vector2D colliderOffset, colliderWH;
@@ -22,7 +25,7 @@ private:
 	const double X_KNOCKBACK_FORCE = 6;
 	double knockbackTimer = 0;
 	double knockbackTime = 15;
-	bool isKnockback = false;
+	bool isKnockback = false, lookingRight = true;
 	float verticalSpeed = 0;
 	Vector2D velocity_;
 };

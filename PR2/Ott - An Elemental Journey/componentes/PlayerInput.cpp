@@ -15,18 +15,17 @@ void PlayerInput::update()
 	Vector2D& playerV = physics_->getVelocity();
 	auto input = InputHandler::instance();
 	if (input->keyDownEvent()) {
-		if (input->isKeyDown(SDLK_z))
-		{
-			//Defensa
-		}
+		
 		if (input->isKeyDown(SDLK_LEFT)) {
 			//Moviento Izquierda 
 			playerV = Vector2D(-1, playerV.getY());
+			physics_->lookDirection(false);
 		}
 		else if (input->isKeyDown(SDLK_RIGHT))
 		{
 			//Movimiento derecha
 			playerV = Vector2D(1, playerV.getY());
+			physics_->lookDirection(true);
 		}
 
 		if (input->isKeyJustDown(SDLK_SPACE)) {
@@ -39,6 +38,13 @@ void PlayerInput::update()
 		if (input->isKeyDown(SDLK_e) && anim_->getState() != ATTACK) {
 			//Ataque
 			anim_->setState(ATTACK);
+		}
+		if (input->isKeyDown(SDLK_z))
+		{
+			//Defensa
+			cout << "Defensa" << endl;
+			ent_->getComponent<FramedImage>()->shielded(true);
+			physics_->slowed();
 		}
 		if (input->isKeyDown(SDLK_a) && anim_->getState() != VANISH) {
 			//Cambio elemento
@@ -95,6 +101,7 @@ void PlayerInput::update()
 		}
 		if (input->isKeyJustUp(SDLK_z)) {
 			//defend = false;
+			ent_->getComponent<FramedImage>()->shielded(false);
 		}
 	}
 }

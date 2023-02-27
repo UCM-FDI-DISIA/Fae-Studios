@@ -16,12 +16,15 @@ public:
 	void initComponent() override;
 	void render() override;
 	void elementChanged(int newElem);
+	inline void shielded(bool b) { isShielded = b; }
 	constexpr static cmpId_type id = ecs::_FRAMEDIMAGE;
 private:
 	Transform* tr_;
 	Texture* tex_;
+	Texture* shieldTex_;
 	int numRows_, numCols_;
 	int row = 0, col = 0;
 	int tPerFrame;
+	bool isShielded = false;
 };
 
