@@ -34,9 +34,17 @@ add_executable(Ott
         "Ott - An Elemental Journey/gameobjects/Entity.cpp"
         "Ott - An Elemental Journey/gameobjects/MovingObject.cpp"
         "Ott - An Elemental Journey/gameobjects/Ott/Ott.cpp"
+        "Ott - An Elemental Journey/gameobjects/Ott/Shield.cpp"
+        "Ott - An Elemental Journey/gameobjects/Ott/Whip.cpp"
         "Ott - An Elemental Journey/gameobjects/Physics/Ground.cpp"
         "Ott - An Elemental Journey/gameobjects/Mapa.cpp"
         "Ott - An Elemental Journey/gameobjects/InteractuableObject.cpp"
+        "Ott - An Elemental Journey/gameobjects/Bullet.cpp"
+        "Ott - An Elemental Journey/gameobjects/Enemy.cpp"
+        "Ott - An Elemental Journey/gameobjects/MeleeEnemy.cpp"
+        "Ott - An Elemental Journey/gameobjects/Sanctuary.cpp"
+        "Ott - An Elemental Journey/gameobjects/SlimeEnemy.cpp"
+        "Ott - An Elemental Journey/gameobjects/staticEnemy.cpp"
 
         #GAMEFLOW
         "Ott - An Elemental Journey/gameflow/GameState.cpp"

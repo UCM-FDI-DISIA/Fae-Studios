@@ -7,7 +7,7 @@
 #include <iostream>
 #include "../../gameobjects/Entity.h"
 #include "../../ui/HealthBar.h"
-#include "../SDL2_mixer/include/SDL_mixer.h"
+#include <SDL_mixer.h>
 #include "../../gameobjects/Bullet.h"
 #pragma once
 

@@ -85,8 +85,8 @@ public:
 	virtual void ChangeDir(const SDL_Rect& result); // Bordes de plataformas, no paredes
 
 	SDL_Rect getCollider() const{ 
-		SDL_Rect collider = { (position.getX() + colliderOffset.getX()), (position.getY() + colliderOffset.getY()),
-								colliderWH.getX(), colliderWH.getY() };
+		SDL_Rect collider = { (int)(position.getX() + colliderOffset.getX()), (int)(position.getY() + colliderOffset.getY()),
+                              (int)colliderWH.getX(), (int)colliderWH.getY() };
 		return collider;
 	}
 
