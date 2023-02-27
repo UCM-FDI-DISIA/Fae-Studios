@@ -11,5 +11,15 @@ public:
 	void die();
 	bool recieveDamage(ecs::elements elem);
 	inline int getHealth() { return actualLife; }
+	inline void setElement(int newElem) { 
+		switch (newElem)
+		{
+		case 0: ecs::Light; break;
+		case 1: ecs::Earth; break;
+		case 2: ecs::Water; break;
+		case 3: ecs::Fire; break;
+		default: break;
+		}
+	}
 };
 

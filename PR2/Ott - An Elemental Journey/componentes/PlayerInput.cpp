@@ -21,13 +21,11 @@ void PlayerInput::update()
 		}
 		if (input->isKeyDown(SDLK_LEFT)) {
 			//Moviento Izquierda 
-			cout << "Izquierda" << endl;
 			playerV = Vector2D(-1, playerV.getY());
 		}
 		else if (input->isKeyDown(SDLK_RIGHT))
 		{
 			//Movimiento derecha
-			cout << "Derecha" << endl;
 			playerV = Vector2D(1, playerV.getY());
 		}
 
@@ -44,15 +42,20 @@ void PlayerInput::update()
 		}
 		if (input->isKeyDown(SDLK_a)) {
 			//Cambio elemento
+			ent_->getComponent<Health>()->setElement(1);
+			ent_->getComponent<FramedImage>()->elementChanged(1);
 		}
 		if (input->isKeyDown(SDLK_d)) {
-			//Cambio elemento
+			ent_->getComponent<Health>()->setElement(2);
+			ent_->getComponent<FramedImage>()->elementChanged(2);
 		}
 		if (input->isKeyDown(SDLK_w)) {
-			//Cambio elemento
+			ent_->getComponent<Health>()->setElement(3);
+			ent_->getComponent<FramedImage>()->elementChanged(3);
 		}
 		if (input->isKeyDown(SDLK_s)) {
-			//Cambio elemento
+			ent_->getComponent<Health>()->setElement(0);
+			ent_->getComponent<FramedImage>()->elementChanged(0);
 		}
 		if (input->isKeyDown(SDLK_UP)) {
 			//Trepar
@@ -69,7 +72,7 @@ void PlayerInput::update()
 		{
 			playerV = Vector2D(0, playerV.getY());
 		}
-		if (input->isKeyUp(SDLK_RIGHT) && input->isKeyUp(SDLK_LEFT)) {
+		if (input->isKeyUp(SDLK_RIGHT) || input->isKeyUp(SDLK_LEFT)) {
 			//ismoving = false;
 			playerV = Vector2D(0, playerV.getY());
 		}

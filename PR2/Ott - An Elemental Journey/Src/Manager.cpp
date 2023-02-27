@@ -53,12 +53,24 @@ void Manager::render()
             ents[i]->render();
     }
 }
-
+Texture* Manager::getTexture(int elem)
+{
+	switch (elem)
+	{
+	case 0: return game->getTexture("ott_luz", PLAY_STATE); 
+	case 1: return game->getTexture("ott_tree", PLAY_STATE);
+	case 2: return game->getTexture("ott_water", PLAY_STATE);
+	case 3: return game->getTexture("ott_fire", PLAY_STATE);
+	//case 4: return game->getTexture("ott_light", PLAY_STATE);
+	default:
+		break;
+	}
+}
 void Manager::createPlayer()
 {
     player = addEntity(ecs::_grp_CHARACTERS);
 	player->addComponent<Transform>(200, 700, 100, 120);
-	player->addComponent<FramedImage>(game->getTexture("ott_water", PLAY_STATE), 9,8);
+	player->addComponent<FramedImage>();
 	player->addComponent<PhysicsComponent>();
 	player->addComponent<PlayerAnimationComponent>();
 	player->addComponent<PlayerInput>();
@@ -248,6 +260,8 @@ int Manager::getWinH()
 {
 	return game->getWindowRect().h;
 }
+
+
 
 Manager::~Manager()
 {

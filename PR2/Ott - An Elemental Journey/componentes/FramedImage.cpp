@@ -1,5 +1,6 @@
 #include "FramedImage.h"
 
+
 FramedImage::FramedImage(Texture* text, int r, int c) : tex_(text), numRows_(r), numCols_(c), tPerFrame(120)
 {
 }
@@ -7,9 +8,13 @@ FramedImage::FramedImage(Texture* text, int r, int c) : tex_(text), numRows_(r),
 FramedImage::FramedImage(Texture* text, int r, int c, int f) : tex_(text), numRows_(r), numCols_(c), tPerFrame(f)
 {
 }
-
+FramedImage::FramedImage() : numRows_(9), numCols_(8)
+{
+	
+}
 void FramedImage::initComponent()
 {
+	if(tex_ == nullptr) tex_ = mngr_->getTexture(0);
 	tr_ = ent_->getComponent<Transform>();
 }
 
@@ -43,6 +48,11 @@ void FramedImage::render()
 	}
 	//tex_->renderFrame(dest, row, col);
 	//row = (SDL_GetTicks() / tPerFrame) % numRows_; col = (SDL_GetTicks() / tPerFrame) % numCols_;
+}
+
+void FramedImage::elementChanged(int newElem)
+{
+	tex_ = mngr_->getTexture(newElem);
 }
 
 FramedImage::~FramedImage()

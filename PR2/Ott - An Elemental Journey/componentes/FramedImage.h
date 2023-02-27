@@ -10,9 +10,12 @@ class FramedImage : public Component
 public:
 	FramedImage(Texture* text, int r, int c);
 	FramedImage(Texture* text, int r, int c, int f);
+	//Constructor exclusivo para Ott 
+	FramedImage();
 	virtual ~FramedImage();
 	void initComponent() override;
 	void render() override;
+	void elementChanged(int newElem);
 	constexpr static cmpId_type id = ecs::_FRAMEDIMAGE;
 private:
 	Transform* tr_;

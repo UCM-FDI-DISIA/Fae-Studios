@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include <array>
+#include <string>
 #include "../dependencies/Vector2D.h"
 #include "../componentes/Transform.h"
 #include "../componentes/Image.h"
@@ -46,6 +47,7 @@ public:
 	float getCamOH();
 	int getWinW();
 	int getWinH();
+	Texture* getTexture(int elem);
 private:
 	Entity* player;
 	Entity* camera;
