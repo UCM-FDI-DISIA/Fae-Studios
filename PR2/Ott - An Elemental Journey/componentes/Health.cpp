@@ -8,6 +8,7 @@ void Health::die()
 
 bool Health::recieveDamage(ecs::elements elem)
 {
+	//if() Añadir daño dependiendo de la entidad
 	actualLife -= elementsInfo::matrix[elem][elem];
 	//startDamagedTime = SDL_GetTicks();
 	if (actualLife <= 0) {

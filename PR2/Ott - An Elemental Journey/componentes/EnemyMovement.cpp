@@ -38,8 +38,11 @@ void EnemyMovement::FollowPlayer()
 		!lookingRight && abs(ott.x + collider.w - collider.x) > nearDistance) {
 		if ((double)ott.x - collider.x < 0) {
 			//speed = { horizontalSpeed, speed.getY() };
-			physics->getVelocity() = Vector2D(physics->getVelocity().getX() * -1, physics->getVelocity().getY());
+			physics->getVelocity() = Vector2D(-horizontalSpeed, physics->getVelocity().getY());
 		}
+		else
+			physics->getVelocity() = Vector2D(horizontalSpeed, physics->getVelocity().getY());
+	
 	}
 	else {
 		physics->getVelocity() = Vector2D(0, physics->getVelocity().getY());
