@@ -12,6 +12,7 @@ public:
 	void die();
 	bool recieveDamage(ecs::elements elem);
 	inline int getHealth() { return actualLife; }
+	inline ecs::elements getElement() { return elem; }
 	inline void setElement(int newElem) { 
 		switch (newElem)
 		{

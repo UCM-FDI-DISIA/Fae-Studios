@@ -15,6 +15,8 @@ namespace ecs
 		_PHYSICS,
 		_CAMERA,
 		_ANIM,
+		_TRIGGER,
+		_ATTACK,
 		// do not remove this
 		_LAST_CMP_ID
 	};

@@ -9,6 +9,7 @@ class EnemyAttack : public Component
 	uint DAMAGED_TIME = 1000;
 	uint LAYING_TIME = 3000;
 public:
+	constexpr static cmpId_type id = ecs::_TRIGGER;
 	EnemyAttack(int w, int h, Entity* e) : Component() {
 		state = normal;
 		player = e;
@@ -24,6 +25,7 @@ public:
 	inline void setState(attackState s) { state = s; }
 	void initComponent() override;
 	void update() override;
+	bool requestAttack();
 private:
 	attackState state;
 	SDL_Rect trigger;
