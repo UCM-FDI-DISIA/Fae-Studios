@@ -15,6 +15,7 @@ private:
 	double turningOffset = 0.75; //A partir de aquí no entiendo, solo he ctrl c ctrl v
 	int turningError = 1;
 	float horizontalSpeed = 1;
+	void MoveTriggers();
 public:
 	constexpr static cmpId_type id = ecs::_CTRL;
 	EnemyMovement(Entity* p, float wTrigger = 100.0f, float hTrigger = 100.0f) : Component() {
@@ -27,7 +28,6 @@ public:
 		playerDetected = false;
 	};
 	void initComponent() override;
-	void MoveTriggers();
 	void detectPlayer();
 	void FollowPlayer();
 	void ChangeDirection(const SDL_Rect& result);
