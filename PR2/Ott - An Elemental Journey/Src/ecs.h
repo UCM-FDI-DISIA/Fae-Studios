@@ -6,6 +6,7 @@ namespace ecs
 	using grpId_type = uint8_t;
 	enum cmpId : cmpId_type {
 		_TRANSFORM,
+		_INTERACTION,
 		_IMAGE,
 		_HEALTH,
 		_CTRL,
@@ -28,7 +29,7 @@ namespace ecs
 		_grp_CHARACTERS,
 		_grp_GROUND,
 		_grp_PROYECTILES,
-
+		_grp_INTERACTION,
 
 		_LAST_GRP_ID
 	};

@@ -13,6 +13,7 @@
 #include "../componentes/CameraComponent.h"
 #include "../componentes/PlayerAnimationComponent.h"
 #include "../componentes/Health.h"
+#include "../componentes/InteractionComponent.h"
 #include "../checkML.h"
 
 using namespace std;
@@ -48,7 +49,11 @@ public:
 	int getWinW();
 	int getWinH();
 	Texture* getTexture(int elem);
+	static void Test() { cout << "interaccion" << endl; }
+	static void Teleport();
+	void checkInteraction();
 private:
+	void createLamp();
 	Entity* player;
 	Entity* camera;
 	float gravityValue = 0.2;

@@ -67,6 +67,14 @@ Texture* Manager::getTexture(int elem)
 		break;
 	}
 }
+void Manager::checkInteraction()
+{
+	for (auto& ents : entsByGroup_[ecs::_grp_INTERACTION]) {
+		SDL_Rect r1 = player->getComponent<Transform>()->getRect();
+		SDL_Rect r2 = ents->getComponent<Transform>()->getRect();
+		if(SDL_HasIntersection(&r1, &r2)) ents->getComponent<InteractionComponent>()->interact();
+	}
+}
 void Manager::createPlayer()
 {
     player = addEntity(ecs::_grp_CHARACTERS);
@@ -81,6 +89,14 @@ void Manager::createPlayer()
 	camera->addComponent<CameraComponent>();
 }
 
+void Manager::createLamp()
+{
+	Entity* lamp = addEntity(ecs::_grp_INTERACTION);
+	lamp->addComponent<Transform>(550, 670, 50, 130);
+	lamp->addComponent<Image>(game->getTexture("lamp", PLAY_STATE));
+	lamp->addComponent<InteractionComponent>(Test);
+}
+
 void Manager::createMap()
 {
 	Entity* bgrd = addEntity(ecs::_grp_MAP);
@@ -88,7 +104,7 @@ void Manager::createMap()
 	e->addComponent<MapComponent>(game,LEVEL1);
 	auto scale = e->getComponent<MapComponent>()->tileScale();
 	bgrd->addComponent<BackgroundImage>(Vector2D(0, 0), game->getTexture("level1bg", PLAY_STATE), scale, scale);
-
+	createLamp();
 	auto a = e->getComponent<MapComponent>()->getObjects();
 	for (auto it : a) {
 		//unordered_map<string, TP_Lamp*> lamps;
@@ -221,6 +237,7 @@ void Manager::createMap()
 	camera = { 0,0,WINDOW_WIDTH, WINDOW_HEIGHT };
 	*/
 }
+
 
 const vector<Entity*>& Manager::getEntitiesByGroup(grpId_type gId = ecs::_grp_GENERAL)
 {

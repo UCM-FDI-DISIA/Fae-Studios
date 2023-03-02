@@ -35,6 +35,10 @@ void PlayerInput::update()
 			//Recuperar vidas
 			
 		}
+		if (input->isKeyDown(SDLK_f)) {
+			//Recuperar vidas
+			mngr_->checkInteraction();
+		}
 		if (input->isKeyDown(SDLK_e) && anim_->getState() != ATTACK) {
 			//Ataque
 			anim_->setState(ATTACK);
