@@ -19,8 +19,8 @@ private:
 	void MoveTriggers();
 public:
 	constexpr static cmpId_type id = ecs::_CTRL;
-	EnemyMovement(Entity* p, float wTrigger = 100.0f, float hTrigger = 100.0f) : Component() {
-		player = p;
+	EnemyMovement(float wTrigger = 100.0f, float hTrigger = 100.0f) : Component() {
+		player = nullptr;
 		trigger.x = 0; trigger.y = 0;
 		trigger.w = wTrigger; trigger.h = hTrigger;
 		physics = nullptr;

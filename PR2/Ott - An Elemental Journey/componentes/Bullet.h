@@ -8,7 +8,7 @@ private:
 	PhysicsComponent* physics;
 public:
 	constexpr static cmpId_type id = ecs::_BULLET;
-	Bullet(Entity* p, ecs::elements e) : Component(), player(p), elem(e), physics(nullptr) {};
+	Bullet(ecs::elements e) : Component(), player(nullptr), elem(e), physics(nullptr) {};
 	void initComponent() override;
 	void update() override;
 };

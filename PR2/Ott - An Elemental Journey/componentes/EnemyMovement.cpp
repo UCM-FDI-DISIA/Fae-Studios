@@ -1,8 +1,10 @@
 #include "EnemyMovement.h"
 #include "../Src/Entity.h"
+#include "../Src/Manager.h"
 
 void EnemyMovement::initComponent()
 {
+	player = mngr_->getPlayer();
 	physics = ent_->getComponent<PhysicsComponent>();
 	transform = ent_->getComponent<Transform>();
 	playerTransform = player->getComponent<Transform>();

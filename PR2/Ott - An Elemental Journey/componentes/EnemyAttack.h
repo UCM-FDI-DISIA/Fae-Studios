@@ -10,11 +10,11 @@ class EnemyAttack : public Component
 	uint LAYING_TIME = 3000;
 public:
 	constexpr static cmpId_type id = ecs::_TRIGGER;
-	EnemyAttack(int w, int h, Entity* e) : Component() {
+	EnemyAttack(int w = 50 , int h = 50) : Component() {
 		state = normal;
-		player = e;
 		transform = nullptr;
 		physics = nullptr;
+		player = nullptr;
 		trigger.x = 0; trigger.y = 0;
 		trigger.w = w; trigger.h = h;
 

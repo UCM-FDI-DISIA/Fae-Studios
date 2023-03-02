@@ -22,11 +22,11 @@ void SlimeAttack::getUpAdjust()
 void SlimeAttack::divide()
 {
 	auto slime = mngr_->addEntity(ecs::_grp_CHARACTERS);
-	slime->addComponent<Transform>();
-	slime->addComponent<PhysicsComponent>();
+	slime->addComponent<Transform>(transform->getPos(), ent_->getComponent<Generations>()->getGeneration() - 1, ent_->getComponent<Generations>()->getGeneration() - 1);
+	slime->addComponent<PhysicsComponent>(); //Calcular offset
 	slime->addComponent<Generations>(ent_->getComponent<Generations>()->getGeneration() - 1);
-	slime->addComponent<EnemyMovement>();
-	slime->addComponent<EnemyAttack>();
+	slime->addComponent<EnemyMovement>(); //Calcular trigger
+	slime->addComponent<EnemyAttack>(); //Calcular trigger
 	slime->addComponent<SlimeAttack>();
 }
 

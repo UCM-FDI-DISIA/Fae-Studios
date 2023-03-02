@@ -6,8 +6,8 @@ class EnemyShootingAttack : public Component
 	const int SHOOTING_TIME = 1000;
 public:
 	constexpr static cmpId_type id = ecs::_ATTACK;
-	EnemyShootingAttack(Entity* p) : Component() {
-		player = p;
+	EnemyShootingAttack() : Component() {
+		player = nullptr;
 		health = nullptr;
 		playerHealth = nullptr;
 		enemyAttack = nullptr;

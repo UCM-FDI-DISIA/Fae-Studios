@@ -1,8 +1,10 @@
 #include "EnemyShootingAttack.h"
 #include "../Src/Entity.h"
+#include "../Src/Manager.h"
 #include "Bullet.h"
 void EnemyShootingAttack::initComponent()
 {
+	player = mngr_->getPlayer();
 	playerHealth = player->getComponent<Health>();
 	health = ent_->getComponent<Health>();
 	enemyAttack = ent_->getComponent<EnemyAttack>();
@@ -18,7 +20,7 @@ void EnemyShootingAttack::update() //Completar con constructoras y nuevos método
 			bullet->getComponent<PhysicsComponent>()->getVelocity() = Vector2D(1, 0);
 		else
 			bullet->getComponent<PhysicsComponent>()->getVelocity() = Vector2D(-1, 0);
-		bullet->addComponent<Image>();
+		bullet->addComponent<Image>(); //Falta textura
 		bullet->addComponent<Bullet>(player, health->getElement());
 
 		attackingTime = SDL_GetTicks();

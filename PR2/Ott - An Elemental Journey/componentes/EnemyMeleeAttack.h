@@ -5,8 +5,8 @@ class EnemyMeleeAttack : public Component
 {
 public:
 	constexpr static cmpId_type id = ecs::_ATTACK;
-	EnemyMeleeAttack(Entity* p) : Component() {
-		player = p;
+	EnemyMeleeAttack() : Component() {
+		player = nullptr;
 		playerHealth = nullptr;
 		health = nullptr;
 		enemyAttack = nullptr;
