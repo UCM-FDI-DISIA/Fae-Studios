@@ -25,11 +25,12 @@ void FramedImage::render()
 	dest.w = tr_->getW(); dest.h = tr_->getH();
 	if (ent_->hasComponent<PlayerAnimationComponent>()) {
 		PlayerAnimationComponent* pAnim = ent_->getComponent<PlayerAnimationComponent>();
+		if (pAnim->isInvincible() && SDL_GetTicks() % 2 == 0) return;
 		bool lookRight = ent_->getComponent<PhysicsComponent>()->getLookDirection();
 		SDL_RendererFlip flip = SDL_FLIP_NONE;
 		if (!lookRight) flip = SDL_FLIP_HORIZONTAL;
 		int state = pAnim->getState();
-		if (col == (pAnim->getNFrames(state) - 1) && (SDL_GetTicks() / pAnim->getTPerFrame(state)) % pAnim->getNFrames(state) == 0) pAnim->endAnim();
+		if (col == (pAnim->getNFrames(state) - 1) && ((SDL_GetTicks() - pAnim->getStartTicks()) / pAnim->getTPerFrame(state)) % pAnim->getNFrames(state) == 0) pAnim->endAnim();
 		switch (state)
 		{
 		case IDLE: col = (SDL_GetTicks() / pAnim->getTPerFrame(IDLE)) % pAnim->getNFrames(IDLE); tex_->renderFrame(dest, pAnim->getRowNum(IDLE), col, 0, flip); break;
@@ -39,9 +40,9 @@ void FramedImage::render()
 		case PEAK: tex_->renderFrame(dest, pAnim->getRowNum(PEAK), 4, 0, flip); break;
 		case FALL: tex_->renderFrame(dest, pAnim->getRowNum(FALL), 5, 0, flip); break;
 		case LAND: col = ((SDL_GetTicks() / pAnim->getTPerFrame(LAND))+ 6)% pAnim->getNFrames(LAND) + 6; tex_->renderFrame(dest, pAnim->getRowNum(LAND), col, 0, flip); break;
-		case VANISH: col = (SDL_GetTicks() / pAnim->getTPerFrame(VANISH)) % pAnim->getNFrames(VANISH); tex_->renderFrame(dest, pAnim->getRowNum(VANISH), col, 0, flip); break;
-		case DIE: col = (SDL_GetTicks() / pAnim->getTPerFrame(DIE)) % pAnim->getNFrames(DIE); tex_->renderFrame(dest, pAnim->getRowNum(DIE), col, 0, flip); break;
-		case ATTACK: col = (SDL_GetTicks() / pAnim->getTPerFrame(ATTACK)) % pAnim->getNFrames(ATTACK); tex_->renderFrame(dest, pAnim->getRowNum(ATTACK), col, 0, flip); break;
+		case VANISH: col = ((SDL_GetTicks() - pAnim->getStartTicks()) / pAnim->getTPerFrame(VANISH)) % pAnim->getNFrames(VANISH); tex_->renderFrame(dest, pAnim->getRowNum(VANISH), col, 0, flip); break;
+		case DIE: col = ((SDL_GetTicks() - pAnim->getStartTicks()) / pAnim->getTPerFrame(DIE)) % pAnim->getNFrames(DIE); tex_->renderFrame(dest, pAnim->getRowNum(DIE), col, 0, flip); break;
+		case ATTACK: col = ((SDL_GetTicks() - pAnim->getStartTicks()) / pAnim->getTPerFrame(ATTACK)) % pAnim->getNFrames(ATTACK); tex_->renderFrame(dest, pAnim->getRowNum(ATTACK), col, 0, flip); break;
 		default:
 			
 			break;

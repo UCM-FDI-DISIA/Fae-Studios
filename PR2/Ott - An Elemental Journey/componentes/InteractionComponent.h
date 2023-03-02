@@ -1,17 +1,17 @@
 #pragma once
 #include "Component.h"
+#include "../dependencies/Vector2D.h"
 class InteractionComponent : public Component
 {
 public:
-	InteractionComponent(void (*callback)());
-	//InteractionComponent(void (*callback)(Manager* e));
+	InteractionComponent(void (*callback)(Manager* m));
+	//Para las lámparas de teletransporte
 	virtual ~InteractionComponent();
 	void interact();
-	//void interact(Manager* e);
+
 
 	constexpr static cmpId_type id = ecs::_INTERACTION;
 private:
-	void (*m_callback)();
-	//void (*m_callback_manager)(Manager* g);
+	
+	void (*m_callback)(Manager* m);
 };
-

@@ -1,14 +1,12 @@
 #include "InteractionComponent.h"
 
-InteractionComponent::InteractionComponent(void (*callback)()) : m_callback(callback)
+InteractionComponent::InteractionComponent(void (*callback)(Manager* m)) : m_callback(callback)
 {
 }
 
-
-
 void InteractionComponent::interact()
 {
-	m_callback();
+	m_callback(mngr_);
 }
 
 

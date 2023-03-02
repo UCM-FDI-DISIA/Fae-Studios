@@ -49,14 +49,18 @@ public:
 	int getWinW();
 	int getWinH();
 	Texture* getTexture(int elem);
-	static void Test() { cout << "interaccion" << endl; }
+	static void Test(Manager* m) { cout << "interaccion" << endl; }
 	static void Teleport();
+	static void Save(Manager* m);
 	void checkInteraction();
+	inline Entity* getCurrentInteraction() { return *interactionIt; }
 private:
 	void createLamp();
+	void createSanctuary();
 	Entity* player;
 	Entity* camera;
 	float gravityValue = 0.2;
 	SDLApplication* game;
 	std::array<std::vector<Entity*>, ecs::maxGroupId> entsByGroup_;
+	vector<Entity*>::iterator interactionIt;
 };
