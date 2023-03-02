@@ -67,12 +67,18 @@ Texture* Manager::getTexture(int elem)
 		break;
 	}
 }
+void Manager::Save(Manager* m)
+{
+	m->player->getComponent<Health>()->saveSactuary();
+}
 void Manager::checkInteraction()
 {
-	for (auto& ents : entsByGroup_[ecs::_grp_INTERACTION]) {
+	interactionIt = entsByGroup_[ecs::_grp_INTERACTION].begin();
+	for (interactionIt; interactionIt != entsByGroup_[ecs::_grp_INTERACTION].end(); interactionIt++) {
+		Entity* ents = *interactionIt;
 		SDL_Rect r1 = player->getComponent<Transform>()->getRect();
 		SDL_Rect r2 = ents->getComponent<Transform>()->getRect();
-		if(SDL_HasIntersection(&r1, &r2)) ents->getComponent<InteractionComponent>()->interact();
+		if (SDL_HasIntersection(&r1, &r2)) ents->getComponent<InteractionComponent>()->interact();
 	}
 }
 void Manager::createPlayer()
@@ -83,7 +89,7 @@ void Manager::createPlayer()
 	player->addComponent<PhysicsComponent>();
 	player->addComponent<PlayerAnimationComponent>();
 	player->addComponent<PlayerInput>();
-	//player->addComponent<Health>();
+	player->addComponent<Health>(5, ecs::Light);
 	camera = addEntity(ecs::_grp_GENERAL);
 	camera->addComponent<Transform>(200, 700, 100, 120);
 	camera->addComponent<CameraComponent>();
@@ -97,6 +103,14 @@ void Manager::createLamp()
 	lamp->addComponent<InteractionComponent>(Test);
 }
 
+void Manager::createSanctuary()
+{
+	Entity* sanc = addEntity(ecs::_grp_INTERACTION);
+	sanc->addComponent<Transform>(700, 600, 230, 200);
+	sanc->addComponent<Image>(game->getTexture("sanctuary", PLAY_STATE));
+	sanc->addComponent<InteractionComponent>(Save);
+}
+
 void Manager::createMap()
 {
 	Entity* bgrd = addEntity(ecs::_grp_MAP);
@@ -105,6 +119,7 @@ void Manager::createMap()
 	auto scale = e->getComponent<MapComponent>()->tileScale();
 	bgrd->addComponent<BackgroundImage>(Vector2D(0, 0), game->getTexture("level1bg", PLAY_STATE), scale, scale);
 	createLamp();
+	createSanctuary();
 	auto a = e->getComponent<MapComponent>()->getObjects();
 	for (auto it : a) {
 		//unordered_map<string, TP_Lamp*> lamps;

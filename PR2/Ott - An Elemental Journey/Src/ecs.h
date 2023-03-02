@@ -28,10 +28,11 @@ namespace ecs
 	enum grpId : grpId_type {
 		_grp_GENERAL,
 		_grp_MAP,
+		_grp_INTERACTION,
 		_grp_CHARACTERS,
 		_grp_GROUND,
 		_grp_PROYECTILES,
-		_grp_INTERACTION,
+		
 
 		_LAST_GRP_ID
 	};
