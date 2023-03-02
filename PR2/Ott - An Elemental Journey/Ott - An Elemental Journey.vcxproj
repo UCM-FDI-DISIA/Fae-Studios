@@ -134,6 +134,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="componentes\BackgroundImage.h" />
+    <ClInclude Include="componentes\Bullet.h" />
     <ClInclude Include="componentes\ButtonComponent.h" />
     <ClInclude Include="checkML.h" />
     <ClInclude Include="componentes\CameraComponent.h" />
@@ -142,6 +143,7 @@
     <ClInclude Include="componentes\EnemyMeleeAttack.h" />
     <ClInclude Include="componentes\EnemyMovement.h" />
     <ClInclude Include="componentes\FramedImage.h" />
+    <ClInclude Include="componentes\Generations.h" />
     <ClInclude Include="componentes\Health.h" />
     <ClInclude Include="componentes\Image.h" />
     <ClInclude Include="componentes\InteractionComponent.h" />
@@ -150,6 +152,7 @@
     <ClInclude Include="componentes\PlayerAnimationComponent.h" />
     <ClInclude Include="componentes\PlayerInput.h" />
     <ClInclude Include="componentes\RenderButton.h" />
+    <ClInclude Include="componentes\SlimeAttack.h" />
     <ClInclude Include="componentes\Transform.h" />
     <ClInclude Include="componentes\EnemyShootingAttack.h" />
     <ClInclude Include="gameflow\menus\options\ControlMenuState.h" />
@@ -190,6 +193,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="componentes\BackgroundImage.cpp" />
+    <ClCompile Include="componentes\Bullet.cpp" />
     <ClCompile Include="componentes\ButtonComponent.cpp" />
     <ClCompile Include="componentes\CameraComponent.cpp" />
     <ClCompile Include="componentes\Component.cpp" />
@@ -197,6 +201,7 @@
     <ClCompile Include="componentes\EnemyMeleeAttack.cpp" />
     <ClCompile Include="componentes\EnemyMovement.cpp" />
     <ClCompile Include="componentes\FramedImage.cpp" />
+    <ClCompile Include="componentes\Generations.cpp" />
     <ClCompile Include="componentes\Health.cpp" />
     <ClCompile Include="componentes\Image.cpp" />
     <ClCompile Include="componentes\InteractionComponent.cpp" />
@@ -205,6 +210,7 @@
     <ClCompile Include="componentes\PlayerAnimationComponent.cpp" />
     <ClCompile Include="componentes\PlayerInput.cpp" />
     <ClCompile Include="componentes\RenderButton.cpp" />
+    <ClCompile Include="componentes\SlimeAttack.cpp" />
     <ClCompile Include="componentes\Transform.cpp" />
     <ClCompile Include="componentes\EnemyShootingAttack.cpp" />
     <ClCompile Include="gameflow\menus\options\ControlMenuState.cpp" />

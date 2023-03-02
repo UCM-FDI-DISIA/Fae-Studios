@@ -11,6 +11,7 @@ private:
 	SDL_Rect trigger;
 
 	bool playerDetected;
+	bool canMove;
 	int nearDistance = 10;
 	double turningOffset = 0.75; //A partir de aquí no entiendo, solo he ctrl c ctrl v
 	int turningError = 1;
@@ -26,11 +27,13 @@ public:
 		transform = nullptr;
 		playerTransform = nullptr;
 		playerDetected = false;
+		canMove = true;
 	};
 	void initComponent() override;
 	void detectPlayer();
 	void FollowPlayer();
 	void ChangeDirection(const SDL_Rect& result);
+	inline void setCanMove(bool move) { canMove = move; }
 	void update() override;
 };
 

@@ -18,6 +18,8 @@ namespace ecs
 		_ANIM,
 		_TRIGGER,
 		_ATTACK,
+		_BULLET,
+		_GEN,
 		// do not remove this
 		_LAST_CMP_ID
 	};
