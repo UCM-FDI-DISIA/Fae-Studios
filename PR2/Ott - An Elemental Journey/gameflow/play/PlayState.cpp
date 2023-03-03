@@ -116,7 +116,6 @@ void PlayState::checkCollisions()
 	for (Entity* e : characters) {
 		SDL_Rect r1 = e->getComponent<Transform>()->getRect();
 		Vector2D& colVector = e->getComponent<PhysicsComponent>()->getVelocity();
-		colVector = Vector2D(colVector.getX(), 0);
 		for (Entity* g : ground) {
 			SDL_Rect r2 = g->getComponent<Transform>()->getRect();
 			SDL_Rect areaColision; // area de colision 	
@@ -124,12 +123,16 @@ void PlayState::checkCollisions()
 			if (interseccion)
 			{
 				if ((areaColision.w < areaColision.h)) { //Colisión lateral
-					//if (areaColision.x <= r2.x + (r2.w / 2)) colVector = colVector + Vector2D{ -1,0 }; //Colisión por la izquierda
-					//else colVector = colVector + Vector2D{ 1,0 }; //Colisión lado derecho
+					cout << "colliding laterally" << endl;
+					if (areaColision.x <= r2.x + (r2.w / 2)) colVector = colVector + Vector2D{ -1,0 }; //Colisión por la izquierda
+					else colVector = colVector + Vector2D{ 1,0 }; //Colisión lado derecho
 				}
 				else {
-					//if (areaColision.y < r2.y + (r2.h / 2)) colVector = Vector2D{ colVector.getX(), 1 }; //Colisión por arriba
-					//else colVector = Vector2D{ colVector.getX(), -1};
+					colVector = Vector2D(colVector.getX(), 0);
+					/*
+					if (areaColision.y < r2.y + (r2.h / 2)) colVector = Vector2D{ colVector.getX(), 1 }; //Colisión por arriba
+					else colVector = Vector2D{ colVector.getX(), 0};
+					*/
 				}
 			}
 			//cout << colVector.getX() << " " << colVector.getY() << endl;

@@ -15,7 +15,7 @@ hearts.png 1 13 hearts
 screendarken-top.png 1 1 screendarkentop
 screendarken-side.png 1 1 screendarkenside
 
-tests 10
+tests 11
 whiteBox.png 1 1 whiteBox
 Ott_Luz.png 9 8 ott_luz
 Ott_Tree.png 9 8 ott_tree
@@ -25,6 +25,7 @@ lamp.png 1 1 lamp
 enredadera.png 1 1 enredadera
 grass.png 1 1 grass
 1x1Pixel.png 1 1 pixel
+1x1PixelWhite.png 1 1 pixelWhite
 sanctuary.png 1 1 sanctuary
 
 levels 7

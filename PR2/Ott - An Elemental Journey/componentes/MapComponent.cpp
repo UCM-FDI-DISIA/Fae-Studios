@@ -67,16 +67,15 @@ void MapComponent::loadMap(string path) {
 }
 
 void MapComponent::render() {
-    Vector2D camPos = mngr_->getCamera()->getComponent<Transform>()->getPos();
-    int offsetX = camPos.getX();
-    int offsetY = camPos.getY();
+    SDL_Rect camPos = mngr_->getCamera()->getComponent<CameraComponent>()->camera;
+    int offsetX = camPos.x;
+    int offsetY = camPos.y;
     for (int i = 0; i < vectorTiles.size(); i++) {
         auto it = vectorTiles[i].ID;
         if (it == 0) continue;
         tilemap->renderFrame({ (int)(i % 100) * usedTileSize - offsetX, (int)((i / 100) * usedTileSize) - offsetY, usedTileSize, usedTileSize }, (it - (it % 20)) / 20, it % 20 - 1);
     }
 }
-
 
 void MapComponent::initializeSources() {
     MapTexturesParser::parse(levelTextureRoute, infoLevel);

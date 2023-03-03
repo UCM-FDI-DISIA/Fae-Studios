@@ -23,6 +23,8 @@ void FramedImage::render()
 {
 	SDL_Rect dest; dest.x = tr_->getPos().getX(); dest.y = tr_->getPos().getY();
 	dest.w = tr_->getW(); dest.h = tr_->getH();
+	dest.x -= mngr_->getCamera()->getComponent<CameraComponent>()->camera.x;
+	dest.y -= mngr_->getCamera()->getComponent<CameraComponent>()->camera.y;
 	if (ent_->hasComponent<PlayerAnimationComponent>()) {
 		PlayerAnimationComponent* pAnim = ent_->getComponent<PlayerAnimationComponent>();
 		if (pAnim->isInvincible() && SDL_GetTicks() % 2 == 0) return;

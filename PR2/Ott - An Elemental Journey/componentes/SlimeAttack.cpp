@@ -47,7 +47,7 @@ void SlimeAttack::update()
 	else if (attack->getState() == attack->afterAttack)
 		getUpAdjust();
 
-	if (health <= 0 && ent_->getComponent<Generations>()->getGeneration() > 1) {
+	if (health->getHealth() <= 0 && ent_->getComponent<Generations>()->getGeneration() > 1) {
 		divide();
 		divide();
 	}

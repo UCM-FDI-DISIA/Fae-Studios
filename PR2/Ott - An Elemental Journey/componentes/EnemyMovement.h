@@ -34,6 +34,6 @@ public:
 	void FollowPlayer();
 	void ChangeDirection(const SDL_Rect& result);
 	inline void setCanMove(bool move) { canMove = move; }
-	void update() override;
+	//  void update() override;
 };
 

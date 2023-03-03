@@ -13,13 +13,15 @@ PhysicsComponent::PhysicsComponent(Vector2D offset = Vector2D(0, 0), Vector2D Wi
 
 void PhysicsComponent::initComponent()
 {
+
 }
 
 void PhysicsComponent::update()
 {
 	verticalSpeed += mngr_->getGravityValue();
 	if (verticalSpeed > MAX_VERTICAL_SPEED) verticalSpeed = MAX_VERTICAL_SPEED;
-	//velocity_ = Vector2D(0, verticalSpeed);
+	
+	velocity_ = Vector2D(velocity_.getX(), verticalSpeed);
 	//cout << velocity_.getX() << endl;
 	if (isKnockback) {
 		knockbackTimer++;

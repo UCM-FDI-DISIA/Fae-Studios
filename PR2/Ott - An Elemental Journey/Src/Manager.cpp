@@ -84,7 +84,7 @@ void Manager::checkInteraction()
 void Manager::createPlayer()
 {
     player = addEntity(ecs::_grp_CHARACTERS);
-	player->addComponent<Transform>(200, 700, 100, 120);
+	player->addComponent<Transform>(200, 1300, 100, 120);
 	player->addComponent<FramedImage>();
 	player->addComponent<PhysicsComponent>();
 	player->addComponent<PlayerAnimationComponent>();
@@ -140,8 +140,9 @@ void Manager::createMap()
 				Entity* e = addEntity(ecs::_grp_GROUND);
 				//int width = game->getTexture("pixel", PLAY_STATE)->getW() / game->getTexture("pixel", PLAY_STATE)->getNumCols() * (w_*scale);
 				//int height = game->getTexture("pixel", PLAY_STATE)->getH() / game->getTexture("pixel", PLAY_STATE)->getNumRows() * (h_*scale);
+				cout << "Ground detected " << x_*scale << " " << y_*scale << endl;
 				e->addComponent<Transform>(Vector2D(x_ * scale, y_ * scale), game->getTexture("pixel", PLAY_STATE), Vector2D(w_ * scale, h_ * scale));
-				e->addComponent<Image>(game->getTexture("pixel", PLAY_STATE));
+				e->addComponent<Image>(game->getTexture("pixelWhite", PLAY_STATE));
 			}
 			else if (ot.getClass() == "Grass") {
 				//Grass* g1 = new Grass(Vector2D(x_ * scale, y_ * scale - app->getTexture("grass", PLAY_STATE)->getH()), app->getTexture("grass", PLAY_STATE), this);

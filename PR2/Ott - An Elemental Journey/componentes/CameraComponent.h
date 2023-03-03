@@ -3,6 +3,9 @@
 #include "../dependencies/Vector2D.h"
 #include "Transform.h"
 #include "../Src/Entity.h"
+#include "../Src/Manager.h"
+
+
 class CameraComponent : public Component
 {
 public:
@@ -11,6 +14,7 @@ public:
 	virtual void initComponent();
 	virtual void update();
 	constexpr static cmpId_type id = ecs::_CAMERA;
+	SDL_Rect camera;
 private:
 	Transform* playerTrnf_;
 	Transform* tr_;

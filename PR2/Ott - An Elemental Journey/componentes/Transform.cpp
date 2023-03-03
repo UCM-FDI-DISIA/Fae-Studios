@@ -27,6 +27,7 @@ void Transform::initComponent()
 void Transform::update()
 {
 	if (ent_->hasComponent<PhysicsComponent>()) {
+
 		Vector2D vel = ent_->getComponent<PhysicsComponent>()->getVelocity();
 		position_ = position_ + vel;
 	}
