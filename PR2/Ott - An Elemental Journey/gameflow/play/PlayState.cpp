@@ -118,17 +118,24 @@ void PlayState::checkCollisions()
 		SDL_Rect r1 = eTr->getRect();
 		auto physics = e->getComponent<PhysicsComponent>();
 		Vector2D& colVector = physics->getVelocity();
-		for (Entity* g : ground) {
+		for (Entity* g : ground) { // GROUND COLLISION
+			SDL_Rect r2 = g->getComponent<Transform>()->getRect();
+			SDL_Rect areaColision; // area de colision 	
+			bool interseccion = SDL_IntersectRect(&r1, &r2, &areaColision);
+			if (interseccion && (areaColision.w < areaColision.h) && ((areaColision.x <= r2.x + (r2.w / 2) && physics->getLookDirection()) ||
+				(areaColision.x > r2.x + (r2.w / 2) && !physics->getLookDirection()))) {
+					colVector = Vector2D(0, colVector.getY());
+			}
+		}
+
+		int i = 0;
+		for (Entity* g : ground) { // WALL COLLISION
 			SDL_Rect r2 = g->getComponent<Transform>()->getRect();
 			SDL_Rect areaColision; // area de colision 	
 			bool interseccion = SDL_IntersectRect(&r1, &r2, &areaColision);
 			if (interseccion)
 			{
-				if ((areaColision.w < areaColision.h) && ((areaColision.x <= r2.x + (r2.w / 2) && physics->getLookDirection()) ||
-					(areaColision.x > r2.x + (r2.w / 2) && !physics->getLookDirection()))  ) { //Colisión lateral
-					colVector = Vector2D(0, colVector.getY());
-				}
-				else {
+				if (areaColision.w >= areaColision.h) {
 					if (!physics->isGrounded() && areaColision.y > r1.y + r1.w / 2) {
 						colVector = Vector2D(colVector.getX(), 0);
 						physics->setGrounded(true);
@@ -136,16 +143,13 @@ void PlayState::checkCollisions()
 					else if (!physics->isGrounded()) {
 						colVector = Vector2D(colVector.getX(), 1);
 					}
-					/*
-					if (areaColision.y < r2.y + (r2.h / 2)) colVector = Vector2D{ colVector.getX(), 1 }; //Colisión por arriba
-					else colVector = Vector2D{ colVector.getX(), 0};
-					*/
+					break;
 				}
 			}
-			//cout << colVector.getX() << " " << colVector.getY() << endl;
+			else if (i == ground.size() - 1) physics->setGrounded(false);
+			++i;
 		}
 	}
-	
 }
 void PlayState::update() {
 	checkCollisions();

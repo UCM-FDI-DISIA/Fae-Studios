@@ -18,7 +18,7 @@ public:
 	inline void slowed() { velocity_ = Vector2D(velocity_.getX()/2, velocity_.getY()); }
 	inline void lookDirection(bool b) { lookingRight = b; }
 	inline bool getLookDirection() { return lookingRight; }
-	inline void setGrounded(bool value) { grounded = value; }
+	inline void setGrounded(bool value) { grounded = value; if (grounded) verticalSpeed = 0; }
 	inline bool isGrounded() { return grounded; }
 	inline void setVelocity(Vector2D value) { velocity_ = value; }
 	void jump();
