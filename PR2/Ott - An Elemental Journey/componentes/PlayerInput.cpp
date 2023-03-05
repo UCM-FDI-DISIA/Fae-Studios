@@ -28,8 +28,9 @@ void PlayerInput::update()
 			physics_->lookDirection(true);
 		}
 
-		if (input->isKeyJustDown(SDLK_SPACE)) {
+		if (input->isKeyDown(SDLK_SPACE)) {
 			//Salto
+			physics_->jump();
 		}
 		if (input->isKeyDown(SDLK_q)) {
 			//Recuperar vidas
@@ -77,25 +78,12 @@ void PlayerInput::update()
 		if (input->isKeyDown(SDLK_DOWN)) {
 			//Agacharse?
 		}
-	} 
+	}
 	if (input->keyUpEvent()) {
-		if (input->isKeyJustUp(SDLK_LEFT)) {
-			playerV = Vector2D(0, playerV.getY());
-		}
-		if (input->isKeyJustUp(SDLK_RIGHT))
-		{
-			playerV = Vector2D(0, playerV.getY());
-		}
-		if (input->isKeyUp(SDLK_RIGHT) || input->isKeyUp(SDLK_LEFT)) {
+		if (input->isKeyJustUp(SDLK_RIGHT) || input->isKeyJustUp(SDLK_LEFT)) {
 			//ismoving = false;
+			cout << "KEY UP RIGHT | LEFT" << endl;
 			playerV = Vector2D(0, playerV.getY());
-		}
-		if (input->isKeyJustUp(SDLK_SPACE)) {
-			//up = false;
-		}
-		if (input->isKeyUp(SDLK_q)) {
-			//physics_->knockback();
-			//cout << "knbck" << endl;
 		}
 		if (input->isKeyJustUp(SDLK_UP)) {
 			//upC = false;

@@ -18,6 +18,10 @@ public:
 	inline void slowed() { velocity_ = Vector2D(velocity_.getX()/2, velocity_.getY()); }
 	inline void lookDirection(bool b) { lookingRight = b; }
 	inline bool getLookDirection() { return lookingRight; }
+	inline void setGrounded(bool value) { grounded = value; }
+	inline bool isGrounded() { return grounded; }
+	inline void setVelocity(Vector2D value) { velocity_ = value; }
+	void jump();
 private:
 	SDL_Rect collider;
 	Vector2D colliderOffset, colliderWH;
@@ -25,8 +29,10 @@ private:
 	const double X_KNOCKBACK_FORCE = 6;
 	double knockbackTimer = 0;
 	double knockbackTime = 15;
-	bool isKnockback = false, lookingRight = true;
+	bool isKnockback = false, lookingRight = true, grounded = false;
 	float verticalSpeed = 0;
 	Vector2D velocity_;
+
+	const int jumpForce = -10;
 };
 

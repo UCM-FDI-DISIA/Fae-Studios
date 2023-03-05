@@ -115,7 +115,8 @@ void PlayState::checkCollisions()
 	vector<Entity*> ground = manager_->getEntitiesByGroup(ecs::_grp_GROUND);
 	for (Entity* e : characters) {
 		SDL_Rect r1 = e->getComponent<Transform>()->getRect();
-		Vector2D& colVector = e->getComponent<PhysicsComponent>()->getVelocity();
+		auto physics = e->getComponent<PhysicsComponent>();
+		Vector2D& colVector = physics->getVelocity();
 		for (Entity* g : ground) {
 			SDL_Rect r2 = g->getComponent<Transform>()->getRect();
 			SDL_Rect areaColision; // area de colision 	
@@ -128,7 +129,13 @@ void PlayState::checkCollisions()
 					else colVector = colVector + Vector2D{ 1,0 }; //Colisión lado derecho
 				}
 				else {
-					colVector = Vector2D(colVector.getX(), 0);
+					if (!physics->isGrounded() && areaColision.y > r1.y + r1.w/2) {
+						colVector = Vector2D(colVector.getX(), 0);
+						physics->setGrounded(true);
+					}
+					else if (!physics->isGrounded()) {
+						colVector = Vector2D(colVector.getX(), 1);
+					}
 					/*
 					if (areaColision.y < r2.y + (r2.h / 2)) colVector = Vector2D{ colVector.getX(), 1 }; //Colisión por arriba
 					else colVector = Vector2D{ colVector.getX(), 0};
