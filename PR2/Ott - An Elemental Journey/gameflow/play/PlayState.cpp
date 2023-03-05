@@ -114,7 +114,8 @@ void PlayState::checkCollisions()
 	vector<Entity*> characters = manager_->getEntitiesByGroup(ecs::_grp_CHARACTERS);
 	vector<Entity*> ground = manager_->getEntitiesByGroup(ecs::_grp_GROUND);
 	for (Entity* e : characters) {
-		SDL_Rect r1 = e->getComponent<Transform>()->getRect();
+		auto eTr = e->getComponent<Transform>();
+		SDL_Rect r1 = eTr->getRect();
 		auto physics = e->getComponent<PhysicsComponent>();
 		Vector2D& colVector = physics->getVelocity();
 		for (Entity* g : ground) {
@@ -123,13 +124,12 @@ void PlayState::checkCollisions()
 			bool interseccion = SDL_IntersectRect(&r1, &r2, &areaColision);
 			if (interseccion)
 			{
-				if ((areaColision.w < areaColision.h)) { //Colisión lateral
-					cout << "colliding laterally" << endl;
-					if (areaColision.x <= r2.x + (r2.w / 2)) colVector = colVector + Vector2D{ -1,0 }; //Colisión por la izquierda
-					else colVector = colVector + Vector2D{ 1,0 }; //Colisión lado derecho
+				if ((areaColision.w < areaColision.h) && ((areaColision.x <= r2.x + (r2.w / 2) && physics->getLookDirection()) ||
+					(areaColision.x > r2.x + (r2.w / 2) && !physics->getLookDirection()))  ) { //Colisión lateral
+					colVector = Vector2D(0, colVector.getY());
 				}
 				else {
-					if (!physics->isGrounded() && areaColision.y > r1.y + r1.w/2) {
+					if (!physics->isGrounded() && areaColision.y > r1.y + r1.w / 2) {
 						colVector = Vector2D(colVector.getX(), 0);
 						physics->setGrounded(true);
 					}

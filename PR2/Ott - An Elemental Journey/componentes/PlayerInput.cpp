@@ -20,10 +20,12 @@ void PlayerInput::update()
 			//Moviento Izquierda 
 			playerV = Vector2D(-1, playerV.getY());
 			physics_->lookDirection(false);
+			cout << "IZQ" << endl;
 		}
-		else if (input->isKeyDown(SDLK_RIGHT))
+		if (input->isKeyDown(SDLK_RIGHT))
 		{
 			//Movimiento derecha
+			cout << "DER" << endl;
 			playerV = Vector2D(1, playerV.getY());
 			physics_->lookDirection(true);
 		}
@@ -80,11 +82,24 @@ void PlayerInput::update()
 		}
 	}
 	if (input->keyUpEvent()) {
-		if (input->isKeyJustUp(SDLK_RIGHT) || input->isKeyJustUp(SDLK_LEFT)) {
-			//ismoving = false;
-			cout << "KEY UP RIGHT | LEFT" << endl;
+		if (input->isKeyUp(SDLK_LEFT) && input->isKeyUp(SDLK_RIGHT)) {
+			cout << "parar" << endl;
 			playerV = Vector2D(0, playerV.getY());
 		}
+		else {
+			if (input->isKeyJustUp(SDLK_RIGHT)) {
+				cout << "parar de ir a la derecha" << endl;
+				playerV = playerV - Vector2D(1,0);
+				if (playerV.getX() < -1) playerV = Vector2D(-1, playerV.getY());
+				
+			}
+			if (input->isKeyJustUp(SDLK_LEFT)) {
+				cout << "parar de ir a la izquieda" << endl;
+				playerV = playerV - Vector2D(-1, 0);
+				if (playerV.getX() > 1) playerV = Vector2D(1, playerV.getY());
+			}
+		}
+
 		if (input->isKeyJustUp(SDLK_UP)) {
 			//upC = false;
 		}
