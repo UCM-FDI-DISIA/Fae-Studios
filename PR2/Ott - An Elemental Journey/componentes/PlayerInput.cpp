@@ -37,7 +37,7 @@ void PlayerInput::update()
 		}
 		if (input->isKeyDown(SDLK_q)) {
 			//Recuperar vidas
-			
+			physics_->knockback();
 		}
 		if (input->isKeyDown(SDLK_f)) {
 			//Recuperar vidas
