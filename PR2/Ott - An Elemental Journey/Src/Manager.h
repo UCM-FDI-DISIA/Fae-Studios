@@ -23,8 +23,8 @@ class SDLApplication;
 
 const uint LEVEL_WIDTH = 8000;
 const uint LEVEL_HEIGHT = 8000;
-const auto CAM_OFFSET_HEIGHT = 0.9;
-const int CAM_DEAD_ZONE = 350;
+const auto CAM_OFFSET_HEIGHT = 0.6;
+const int CAM_DEAD_ZONE = 250;
 class Manager
 {
 

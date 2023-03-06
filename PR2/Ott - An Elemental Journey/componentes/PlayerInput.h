@@ -19,5 +19,6 @@ private:
 	Transform* tr_;
 	PhysicsComponent* physics_;
 	PlayerAnimationComponent* anim_;
+	float horizontalSpeed = 0;
 };
 

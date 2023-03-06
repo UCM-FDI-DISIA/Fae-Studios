@@ -1,17 +1,20 @@
 #include "FramedImage.h"
 
-
 FramedImage::FramedImage(Texture* text, int r, int c) : tex_(text), numRows_(r), numCols_(c), tPerFrame(120)
 {
+
 }
 
 FramedImage::FramedImage(Texture* text, int r, int c, int f) : tex_(text), numRows_(r), numCols_(c), tPerFrame(f)
 {
+
 }
+
 FramedImage::FramedImage() : numRows_(9), numCols_(8)
 {
 	
 }
+
 void FramedImage::initComponent()
 {
 	if(tex_ == nullptr) tex_ = mngr_->getTexture(0);

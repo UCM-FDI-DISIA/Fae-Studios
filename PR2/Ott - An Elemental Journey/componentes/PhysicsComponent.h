@@ -21,6 +21,8 @@ public:
 	inline void setGrounded(bool value) { grounded = value; if (grounded) verticalSpeed = 0; }
 	inline bool isGrounded() { return grounded; }
 	inline void setVelocity(Vector2D value) { velocity_ = value; }
+	inline void setVerticalSpeed(float value) { verticalSpeed = value; }
+	inline float getHorizontalSpeed() { return horizontalSpeed; };
 	void jump();
 private:
 	SDL_Rect collider;
@@ -31,6 +33,7 @@ private:
 	double knockbackTime = 15;
 	bool isKnockback = false, lookingRight = true, grounded = false;
 	float verticalSpeed = 0;
+	const float horizontalSpeed = 1.8f;
 	Vector2D velocity_;
 
 	const int jumpForce = -10;

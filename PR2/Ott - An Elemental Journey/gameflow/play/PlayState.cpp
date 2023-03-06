@@ -98,12 +98,13 @@ PlayState::PlayState(SDLApplication* app) : GameState(PLAY_STATE, app) {
 	manager_->createPlayer();
 	auto player = manager_->addEntity(ecs::_grp_CHARACTERS);
 	player->addComponent<Transform>(200, 1300, 100, 120);
-	player->addComponent<FramedImage>();
+	//player->addComponent<FramedImage>();
 	auto ph = player->addComponent<PhysicsComponent>();
 	ph->setVelocity({ 1,0 });
 	ph->lookDirection(true);
 	player->addComponent<EnemyMovement>();
 }
+
 void PlayState::checkCollisions()
 {
 	/*vector<Entity*> characters = manager_->getEntitiesByGroup(ecs::_grp_CHARACTERS);
@@ -124,9 +125,10 @@ void PlayState::checkCollisions()
 		SDL_Rect r1 = eTr->getRect();
 		auto physics = e->getComponent<PhysicsComponent>();
 		Vector2D& colVector = physics->getVelocity();
-		auto mov = e->getComponent<EnemyMovement>();
 
+		auto mov = e->getComponent<EnemyMovement>();
 		for (Entity* g : ground) { // WALL COLLISION
+
 			SDL_Rect r2 = g->getComponent<Transform>()->getRect();
 			SDL_Rect areaColision; // area de colision 	
 			bool interseccion = SDL_IntersectRect(&r1, &r2, &areaColision);
@@ -149,11 +151,14 @@ void PlayState::checkCollisions()
 				if (areaColision.w >= areaColision.h) {
 					
 					if (!physics->isGrounded() && areaColision.y > r1.y + r1.w / 2) {
+						cout << "ground touched" << endl;
 						colVector = Vector2D(colVector.getX(), 0);
 						physics->setGrounded(true);
 					}
 					else if (!physics->isGrounded()) {
+						cout << "ceiling touched" << endl;
 						colVector = Vector2D(colVector.getX(), 1);
+						physics->setVerticalSpeed(1);
 					}
 					if (mov != nullptr) mov->ChangeDirection(true, areaColision);
 

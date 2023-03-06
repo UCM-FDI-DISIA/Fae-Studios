@@ -17,13 +17,11 @@ void CameraComponent::initComponent()
 void CameraComponent::update()
 {
 	SDL_Rect ottRect = playerTrnf_->getRect(); // conseguir la posici�n de Ott
-	int x = tr_->getPos().getX();
-	int y = tr_->getPos().getY();
 	// mover camera.x
 	// Comprobamos si la c�mara est� suficientemente cerca del jugador. En caso de que lo est�, la posici�n se settea a la 
 	// posici�n del jugador. En caso contrario, se hace una interpolaci�n lineal para acercarse "lentalmente". Esto solo se aprecia cuando
 	// la c�mara viaja grandes distancias (entre l�mparas, por ejemplo). 
-	x = lerp(x, (int)((ottRect.x + ottRect.w / 2) - mngr_->getWinW() / 2), 0.2);
+	camera.x = lerp(camera.x, ((ottRect.x + ottRect.w / 2) - mngr_->getWinW() / 2), 0.03);
 
 	// mover camera.y
 	// Setteamos un deadzone donde la c�mara no tiene porqu� moverse (CAM_DEAD_ZONE). En caso de que el personaje salga de esta
@@ -31,29 +29,26 @@ void CameraComponent::update()
 	// Siempre se calcula la posici�n con interpolaci�n lineal
 
 	// RETOCAR ESTAS COSAS
-	if (ottRect.y < y + tr_->getH() - CAM_DEAD_ZONE || ottRect.y > y + CAM_OFFSET_HEIGHT * tr_->getH()) {
-		y = lerp(y, (ottRect.y + ottRect.h / 2) - CAM_OFFSET_HEIGHT * mngr_->getWinH() / 2, 0.2);
+	if (ottRect.y > camera.y + camera.h - CAM_DEAD_ZONE || ottRect.y < camera.y + CAM_DEAD_ZONE) {
+		cout << ottRect.y << " " << camera.y + CAM_DEAD_ZONE << " " << camera.y + camera.h -CAM_DEAD_ZONE << endl;
+		camera.y = lerp(camera.y, (ottRect.y + ottRect.h / 2) - CAM_OFFSET_HEIGHT * mngr_->getWinH(), 0.01);
 	}
-	
-	camera = { x,y,mngr_->getWinW(), mngr_->getWinH() };
-	
+
 	// Limites de la camara dependiendo del tama�o de la sala (mapa)
-	if (x < 0)
+	if (camera.x < 0)
 	{
-		x = 0;
+		camera.x = 0;
 	}
-	if (y < 0)
+	if (camera.x > LEVEL_WIDTH - tr_->getW())
 	{
-		y = 0;
+		camera.x = LEVEL_WIDTH - tr_->getW();
 	}
-	if (x > LEVEL_WIDTH - tr_->getW())
+	if (camera.y > LEVEL_HEIGHT - tr_->getH())
 	{
-		x = LEVEL_WIDTH - tr_->getW();
+		cout << "fix Y pos" << endl;
+		camera.y = LEVEL_HEIGHT - tr_->getH();
 	}
-	if (y > LEVEL_HEIGHT - tr_->getH())
-	{
-		y = LEVEL_HEIGHT - tr_->getH();
-	}
+	camera = { camera.x,camera.y,mngr_->getWinW(), mngr_->getWinH() };
 }
 CameraComponent::~CameraComponent()
 {
