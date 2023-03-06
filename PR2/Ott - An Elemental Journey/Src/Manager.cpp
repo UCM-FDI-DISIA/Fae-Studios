@@ -72,7 +72,8 @@ void Manager::Teleport(Manager* m)
 {
 	Entity* aux = *m->interactionIt;
 	Entity* tpLamp = aux->getComponent<LampComponent>()->getConnectedLamp();
-	m->player->getComponent<Transform>()->setPos(tpLamp->getComponent<Transform>()->getPos());
+	Vector2D newPos = tpLamp->getComponent<Transform>()->getPos();
+	m->player->getComponent<Transform>()->setPos(newPos);
 }
 
 void Manager::Save(Manager* m)
@@ -81,12 +82,17 @@ void Manager::Save(Manager* m)
 }
 void Manager::checkInteraction()
 {
+	bool interact = false;
 	interactionIt = entsByGroup_[ecs::_grp_INTERACTION].begin();
-	for (interactionIt; interactionIt != entsByGroup_[ecs::_grp_INTERACTION].end(); interactionIt++) {
+	while (!interact && interactionIt != entsByGroup_[ecs::_grp_INTERACTION].end()) {
 		Entity* ents = *interactionIt;
 		SDL_Rect r1 = player->getComponent<Transform>()->getRect();
 		SDL_Rect r2 = ents->getComponent<Transform>()->getRect();
-		if (SDL_HasIntersection(&r1, &r2)) ents->getComponent<InteractionComponent>()->interact();
+		if (SDL_HasIntersection(&r1, &r2)) {
+			ents->getComponent<InteractionComponent>()->interact();
+			interact = true;
+		}
+		interactionIt++;
 	}
 }
 void Manager::createPlayer()
@@ -105,6 +111,7 @@ void Manager::createPlayer()
 
 void Manager::createLamp(int x1, int y1, int x2, int y2)
 {
+	
 	Entity* lamp = addEntity(ecs::_grp_INTERACTION);
 	Entity* lamp2 = addEntity(ecs::_grp_INTERACTION);
 
