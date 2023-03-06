@@ -1,7 +1,0 @@
-/Users/almasso/Documents/GitHub/Fae-Studios/PR2/tmxlite/build/CMakeFiles/tmxlite.dir
-/Users/almasso/Documents/GitHub/Fae-Studios/PR2/tmxlite/build/CMakeFiles/edit_cache.dir
-/Users/almasso/Documents/GitHub/Fae-Studios/PR2/tmxlite/build/CMakeFiles/rebuild_cache.dir
-/Users/almasso/Documents/GitHub/Fae-Studios/PR2/tmxlite/build/CMakeFiles/list_install_components.dir
-/Users/almasso/Documents/GitHub/Fae-Studios/PR2/tmxlite/build/CMakeFiles/install.dir
-/Users/almasso/Documents/GitHub/Fae-Studios/PR2/tmxlite/build/CMakeFiles/install/local.dir
-/Users/almasso/Documents/GitHub/Fae-Studios/PR2/tmxlite/build/CMakeFiles/install/strip.dir
