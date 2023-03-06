@@ -10,6 +10,7 @@ void EnemyMovement::initComponent()
 	playerTransform = player->getComponent<Transform>();
 
 	trigger.x = transform->getPos().getX() + transform->getW(); trigger.y = transform->getPos().getY();
+	nearDistance = transform->getW() * 2;
 }
 
 void EnemyMovement::MoveTriggers()
@@ -36,26 +37,54 @@ void EnemyMovement::FollowPlayer()
 	SDL_Rect collider = transform->getRect();
 	SDL_Rect ott = playerTransform->getRect();
 	bool lookingRight = physics->getVelocity().getX() > 0;
-	if (lookingRight && abs(ott.x - (collider.x + collider.w)) > nearDistance ||
-		!lookingRight && abs(ott.x + collider.w - collider.x) > nearDistance) {
+	if (abs(ott.x - (collider.x + collider.w / 2)) > nearDistance) {
 		if ((double)ott.x - collider.x < 0) {
 			//speed = { horizontalSpeed, speed.getY() };
 			physics->getVelocity() = Vector2D(-horizontalSpeed, physics->getVelocity().getY());
+			physics->lookDirection(false);
 		}
-		else
+		else {
 			physics->getVelocity() = Vector2D(horizontalSpeed, physics->getVelocity().getY());
-	
+			physics->lookDirection(true);
+		}
 	}
 	else {
 		physics->getVelocity() = Vector2D(0, physics->getVelocity().getY());
 	}
 }
 
-void EnemyMovement::ChangeDirection(const SDL_Rect& result)
+void EnemyMovement::ChangeDirection(bool ground, const SDL_Rect& result)
 {
-	if (!playerDetected && result.w < transform->getW() * turningOffset) {
-		if (abs(result.x - transform->getRect().x) < turningError) {
-			physics->getVelocity() = {-1 * physics->getVelocity().getX(), physics->getVelocity().getY()};
+	if (!playerDetected) {
+		if (!ground) {
+			int dir;
+			if (physics->getLookDirection()) dir = -1;
+			else dir = 1;
+			physics->getVelocity() = { (double)dir, physics->getVelocity().getY() };
+			physics->lookDirection(!physics->getLookDirection());
+		}
+		else if (result.w < transform->getRect().w * turningOffset)
+		{
+			if (abs(result.x - transform->getRect().x) < turningError) {
+				physics->setVelocity({ -horizontalSpeed, physics->getVelocity().getY() });
+				physics->lookDirection(false);
+			}
+			else {
+				physics->setVelocity({ horizontalSpeed, physics->getVelocity().getY() });
+				physics->lookDirection(true);
+			}
 		}
 	}
+	else if (!ground) {
+		collided = true;
+		playerDetected = false;
+	} 
+}
+
+
+void EnemyMovement::update() {
+	MoveTriggers();
+	if (playerDetected && !collided) FollowPlayer();
+	detectPlayer();
+	collided = false;
 }

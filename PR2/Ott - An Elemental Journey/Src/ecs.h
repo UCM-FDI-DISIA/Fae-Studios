@@ -20,6 +20,7 @@ namespace ecs
 		_ATTACK,
 		_BULLET,
 		_GEN,
+		_ENEMYMOV,
 		// do not remove this
 		_LAST_CMP_ID
 	};

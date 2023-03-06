@@ -41,15 +41,16 @@ void FramedImage::render()
 		case JUMP_UP: col = (SDL_GetTicks() / pAnim->getTPerFrame(JUMP_UP)) % pAnim->getNFrames(JUMP_UP); tex_->renderFrame(dest, pAnim->getRowNum(JUMP_UP), col, 0, flip); break;
 		case PEAK: tex_->renderFrame(dest, pAnim->getRowNum(PEAK), 4, 0, flip); break;
 		case FALL: tex_->renderFrame(dest, pAnim->getRowNum(FALL), 5, 0, flip); break;
-		case LAND: col = ((SDL_GetTicks() / pAnim->getTPerFrame(LAND))+ 6)% pAnim->getNFrames(LAND) + 6; tex_->renderFrame(dest, pAnim->getRowNum(LAND), col, 0, flip); break;
+		case LAND: col = ((SDL_GetTicks() / pAnim->getTPerFrame(LAND)) + 6) % pAnim->getNFrames(LAND) + 6; tex_->renderFrame(dest, pAnim->getRowNum(LAND), col, 0, flip); break;
 		case VANISH: col = ((SDL_GetTicks() - pAnim->getStartTicks()) / pAnim->getTPerFrame(VANISH)) % pAnim->getNFrames(VANISH); tex_->renderFrame(dest, pAnim->getRowNum(VANISH), col, 0, flip); break;
 		case DIE: col = ((SDL_GetTicks() - pAnim->getStartTicks()) / pAnim->getTPerFrame(DIE)) % pAnim->getNFrames(DIE); tex_->renderFrame(dest, pAnim->getRowNum(DIE), col, 0, flip); break;
 		case ATTACK: col = ((SDL_GetTicks() - pAnim->getStartTicks()) / pAnim->getTPerFrame(ATTACK)) % pAnim->getNFrames(ATTACK); tex_->renderFrame(dest, pAnim->getRowNum(ATTACK), col, 0, flip); break;
 		default:
-			
+
 			break;
 		}
 	}
+	else tex_->renderFrame(dest, 0, 0);
 	if (isShielded) shieldTex_->render(tr_->getRect());
 	//tex_->renderFrame(dest, row, col);
 	//row = (SDL_GetTicks() / tPerFrame) % numRows_; col = (SDL_GetTicks() / tPerFrame) % numCols_;

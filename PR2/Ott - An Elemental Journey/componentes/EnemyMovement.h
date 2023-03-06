@@ -12,13 +12,14 @@ private:
 
 	bool playerDetected;
 	bool canMove;
-	int nearDistance = 10;
+	int nearDistance;
 	double turningOffset = 0.75; //A partir de aquí no entiendo, solo he ctrl c ctrl v
 	int turningError = 1;
 	float horizontalSpeed = 1;
 	void MoveTriggers();
+	bool collided = false;
 public:
-	constexpr static cmpId_type id = ecs::_CTRL;
+	constexpr static cmpId_type id = ecs::_ENEMYMOV;
 	EnemyMovement(float wTrigger = 100.0f, float hTrigger = 100.0f) : Component() {
 		player = nullptr;
 		trigger.x = 0; trigger.y = 0;
@@ -32,8 +33,8 @@ public:
 	void initComponent() override;
 	void detectPlayer();
 	void FollowPlayer();
-	void ChangeDirection(const SDL_Rect& result);
+	void ChangeDirection(bool ground, const SDL_Rect& result);
 	inline void setCanMove(bool move) { canMove = move; }
-	//  void update() override;
+	void update() override;
 };
 

@@ -16,8 +16,7 @@
 #include "../../utils/Elements.h"
 #include <unordered_map>
 */
-
-
+#include "../../componentes/EnemyMovement.h"
 
 PlayState::PlayState(SDLApplication* app) : GameState(PLAY_STATE, app) {
 	
@@ -97,6 +96,13 @@ PlayState::PlayState(SDLApplication* app) : GameState(PLAY_STATE, app) {
 	manager_ = new Manager(app);
 	manager_->createMap();
 	manager_->createPlayer();
+	auto player = manager_->addEntity(ecs::_grp_CHARACTERS);
+	player->addComponent<Transform>(200, 1300, 100, 120);
+	player->addComponent<FramedImage>();
+	auto ph = player->addComponent<PhysicsComponent>();
+	ph->setVelocity({ 1,0 });
+	ph->lookDirection(true);
+	player->addComponent<EnemyMovement>();
 }
 void PlayState::checkCollisions()
 {
@@ -118,24 +124,30 @@ void PlayState::checkCollisions()
 		SDL_Rect r1 = eTr->getRect();
 		auto physics = e->getComponent<PhysicsComponent>();
 		Vector2D& colVector = physics->getVelocity();
-		for (Entity* g : ground) { // GROUND COLLISION
+		auto mov = e->getComponent<EnemyMovement>();
+
+		for (Entity* g : ground) { // WALL COLLISION
 			SDL_Rect r2 = g->getComponent<Transform>()->getRect();
 			SDL_Rect areaColision; // area de colision 	
 			bool interseccion = SDL_IntersectRect(&r1, &r2, &areaColision);
 			if (interseccion && (areaColision.w < areaColision.h) && ((areaColision.x <= r2.x + (r2.w / 2) && physics->getLookDirection()) ||
 				(areaColision.x > r2.x + (r2.w / 2) && !physics->getLookDirection()))) {
-					colVector = Vector2D(0, colVector.getY());
+				colVector = Vector2D(0, colVector.getY());
+				if (mov != nullptr) {
+					mov->ChangeDirection(false, areaColision);
+				}
 			}
 		}
 
 		int i = 0;
-		for (Entity* g : ground) { // WALL COLLISION
+		for (Entity* g : ground) { // GROUND COLLISION
 			SDL_Rect r2 = g->getComponent<Transform>()->getRect();
 			SDL_Rect areaColision; // area de colision 	
 			bool interseccion = SDL_IntersectRect(&r1, &r2, &areaColision);
 			if (interseccion)
 			{
 				if (areaColision.w >= areaColision.h) {
+					
 					if (!physics->isGrounded() && areaColision.y > r1.y + r1.w / 2) {
 						colVector = Vector2D(colVector.getX(), 0);
 						physics->setGrounded(true);
@@ -143,6 +155,8 @@ void PlayState::checkCollisions()
 					else if (!physics->isGrounded()) {
 						colVector = Vector2D(colVector.getX(), 1);
 					}
+					if (mov != nullptr) mov->ChangeDirection(true, areaColision);
+
 					break;
 				}
 			}
