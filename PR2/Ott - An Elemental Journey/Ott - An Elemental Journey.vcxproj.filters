@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="gameflow\menus\options\ControlMenuState.cpp" />
+    <ClCompile Include="gameflow\menus\PauseMenuState.cpp" />
+    <ClCompile Include="gameflow\play\PlayState.cpp" />
+    <ClCompile Include="gameobjects\CollisionObject.cpp" />
+    <ClCompile Include="dependencies\Font.cpp" />
+    <ClCompile Include="dependencies\Parser.cpp" />
+    <ClCompile Include="dependencies\Texture.cpp" />
+    <ClCompile Include="dependencies\Vector2D.cpp" />
+    <ClCompile Include="gameobjects\Entity.cpp" />
+    <ClCompile Include="gameobjects\Mapa.cpp" />
+    <ClCompile Include="gameobjects\MovingObject.cpp" />
+    <ClCompile Include="gameflow\GameState.cpp" />
+    <ClCompile Include="gameflow\GameStateMachine.cpp" />
+    <ClCompile Include="gameflow\menus\MainMenuState.cpp" />
+    <ClCompile Include="gameflow\menus\MenuState.cpp" />
+    <ClCompile Include="gameflow\menus\options\MusicOptionsMenuState.cpp" />
+    <ClCompile Include="gameflow\menus\options\OptionsMenuState.cpp" />
+    <ClCompile Include="gameobjects\GameObject.cpp" />
+    <ClCompile Include="gameobjects\Ott\Ott.cpp" />
+    <ClCompile Include="gameobjects\Physics\Ground.cpp" />
+    <ClCompile Include="gameobjects\Sanctuary.cpp" />
+    <ClCompile Include="gameobjects\InteractuableObject.cpp" />
+    <ClCompile Include="loaders\FontLoader.cpp" />
+    <ClCompile Include="loaders\TextureLoader.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="SDLApplication.cpp" />
+    <ClCompile Include="ui\Button.cpp" />
+    <ClCompile Include="ui\ChargedAttackBar.cpp" />
+    <ClCompile Include="ui\HealthBar.cpp" />
+    <ClCompile Include="ui\Slider.cpp" />
+    <ClCompile Include="ui\UIText.cpp" />
+    <ClCompile Include="ui\ScreenDarkener.cpp" />
+    <ClCompile Include="gameobjects\Bullet.cpp" />
+    <ClCompile Include="gameobjects\Enemy.cpp" />
+    <ClCompile Include="gameobjects\MeleeEnemy.cpp" />
+    <ClCompile Include="gameobjects\staticEnemy.cpp" />
+    <ClCompile Include="gameobjects\Ott\Shield.cpp" />
+    <ClCompile Include="gameobjects\SlimeEnemy.cpp" />
+    <ClCompile Include="gameobjects\Ott\Whip.cpp" />
+    <ClCompile Include="utils\Elements.cpp" />
+    <ClCompile Include="utils\Trigger.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="checkML.h" />
+    <ClInclude Include="gameflow\menus\options\ControlMenuState.h" />
+    <ClInclude Include="gameflow\menus\PauseMenuState.h" />
+    <ClInclude Include="gameobjects\CollisionObject.h" />
+    <ClInclude Include="dependencies\Exceptions.h" />
+    <ClInclude Include="dependencies\Font.h" />
+    <ClInclude Include="dependencies\Parser.h" />
+    <ClInclude Include="dependencies\Texture.h" />
+    <ClInclude Include="dependencies\Vector2D.h" />
+    <ClInclude Include="gameobjects\Entity.h" />
+    <ClInclude Include="gameobjects\Mapa.h" />
+    <ClInclude Include="gameobjects\MovingObject.h" />
+    <ClInclude Include="framework.h" />
+    <ClInclude Include="gameflow\GameState.h" />
+    <ClInclude Include="gameflow\GameStateMachine.h" />
+    <ClInclude Include="gameflow\menus\MainMenuState.h" />
+    <ClInclude Include="gameflow\menus\MenuState.h" />
+    <ClInclude Include="gameflow\menus\options\MusicOptionsMenuState.h" />
+    <ClInclude Include="gameflow\menus\options\OptionsMenuState.h" />
+    <ClInclude Include="gameobjects\GameObject.h" />
+    <ClInclude Include="gameobjects\Physics\Ground.h" />
+    <ClInclude Include="gameobjects\Sanctuary.h" />
+    <ClInclude Include="gameobjects\InteractuableObject.h" />
+    <ClInclude Include="loaders\FontLoader.h" />
+    <ClInclude Include="loaders\TextureLoader.h" />
+    <ClInclude Include="gameobjects\Ott\Ott.h" />
+    <ClInclude Include="gameflow\play\PlayState.h" />
+    <ClInclude Include="Resource.h" />
+    <ClInclude Include="SDLApplication.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="ui\Button.h" />
+    <ClInclude Include="ui\ChargedAttackBar.h" />
+    <ClInclude Include="ui\HealthBar.h" />
+    <ClInclude Include="ui\Slider.h" />
+    <ClInclude Include="ui\UIElement.h" />
+    <ClInclude Include="utils\InputHandler.h" />
+    <ClInclude Include="utils\Singleton.h" />
+    <ClInclude Include="ui\UIText.h" />
+    <ClInclude Include="ui\ScreenDarkener.h" />
+    <ClInclude Include="gameobjects\Bullet.h" />
+    <ClInclude Include="gameobjects\Enemy.h" />
+    <ClInclude Include="gameobjects\Ott\Shield.h" />
+    <ClInclude Include="gameobjects\staticEnemy.h" />
+    <ClInclude Include="gameobjects\MeleeEnemy.h" />
+    <ClInclude Include="gameobjects\SlimeEnemy.h" />
+    <ClInclude Include="gameobjects\Ott\Whip.h" />
+    <ClInclude Include="utils\Elements.h" />
+    <ClInclude Include="utils\Trigger.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Ott - An Elemental Journey.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Ott - An Elemental Journey.ico" />
+    <Image Include="small.ico" />
+  </ItemGroup>
+</Project>
