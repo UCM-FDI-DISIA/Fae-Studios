@@ -11,14 +11,9 @@ namespace ecs {
     /// Identificador de los componentes
     enum cmpId : cmpId_type {
         _TRANSFORM = 0, ///< Transform
-        _DEACC, ///< DeAcceleration
         _IMAGE, ///< Image y FramedImage
-        _HEALTH, ///< Health
-        _CTRL, ///< FighterCtrl
-        _GUN, ///< Gun
-        _OPPOSIDESIDE, ///< OppositeSide
-        _GEN, ///< Generations
         _TEXT, ///< Text
+        _BUTTON,
 
         _LAST_CMP_ID
     };
@@ -30,8 +25,6 @@ namespace ecs {
     /// Identificador de los grupos
     enum grpId : grpId_type {
         _grp_GENERAL, ///< General
-        _grp_ASTEROIDS, ///< Asteroides
-        _grp_BULLETS, ///< Balas
         _grp_UI, ///< Elementos de la interfaz gráfica
 
         _LAST_GRP_ID

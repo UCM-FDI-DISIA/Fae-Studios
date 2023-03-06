@@ -23,6 +23,9 @@
     <ClCompile Include="src\states\menus\options\MusicOptionsMenuState.cpp" />
     <ClCompile Include="src\states\menus\options\OptionsMenuState.cpp" />
     <ClCompile Include="src\states\menus\PauseMenuState.cpp" />
+    <ClCompile Include="src\components\Button.cpp" />
+    <ClCompile Include="src\components\Slider.cpp" />
+    <ClCompile Include="src\components\FramedImage.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\components\Image.h" />
@@ -60,5 +63,8 @@
     <ClInclude Include="src\states\menus\options\MusicOptionsMenuState.h" />
     <ClInclude Include="src\states\menus\options\OptionsMenuState.h" />
     <ClInclude Include="src\states\menus\PauseMenuState.h" />
+    <ClInclude Include="src\components\Button.h" />
+    <ClInclude Include="src\components\Slider.h" />
+    <ClInclude Include="src\components\FramedImage.h" />
   </ItemGroup>
 </Project>

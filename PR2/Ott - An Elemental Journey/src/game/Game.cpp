@@ -1,6 +1,6 @@
 #include "Game.h"
 #include "../states/GameStateMachine.h"
-#include "../states/PlayState.h"
+#include "../states/menus/MainMenuState.h"
 #include "../utils/checkML.h"
 #include "../sdlutils/SDLUtils.h"
 #include "../sdlutils/InputHandler.h"
@@ -14,10 +14,7 @@ Game::Game() {
 }
 
 void Game::run() {
-    //Pusheamos un playstate que se situará al fondo de la pila siempre...
-    stateMachine().instance()->pushState(new PlayState());
-    //... y por encima de este, un startstate
-    //stateMachine().instance()->pushState(new StartState());
+    stateMachine().instance()->pushState(new MainMenuState());
 
     //BUCLE DE EJECUCIÓN DEL JUEGO
     while (!exit) {

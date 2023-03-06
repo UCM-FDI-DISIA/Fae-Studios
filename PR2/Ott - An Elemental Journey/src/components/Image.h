@@ -7,7 +7,6 @@ class Image : public Component
 private:
 	Transform* transform;
 	Texture* texture;
-
 	SDL_Rect getRect() const;
 public:
 	constexpr static ecs::cmpId_type id = ecs::_IMAGE;
@@ -18,6 +17,5 @@ public:
 	virtual ~Image() = default;
 	void initComponent() override;
 	void render() override;
-	
 };
 

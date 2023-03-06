@@ -19,6 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\components\FramedImage.cpp" />
+    <ClCompile Include="src\components\Slider.cpp" />
+    <ClCompile Include="src\components\Button.cpp" />
     <ClCompile Include="src\states\menus\MainMenuState.cpp" />
     <ClCompile Include="src\states\menus\MenuState.cpp" />
     <ClCompile Include="src\components\Image.cpp" />
@@ -43,6 +46,9 @@
     <ClCompile Include="src\utils\Vector2D.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\components\FramedImage.h" />
+    <ClInclude Include="src\components\Slider.h" />
+    <ClInclude Include="src\components\Button.h" />
     <ClInclude Include="src\states\menus\MainMenuState.h" />
     <ClInclude Include="src\states\menus\MenuState.h" />
     <ClInclude Include="src\components\Image.h" />

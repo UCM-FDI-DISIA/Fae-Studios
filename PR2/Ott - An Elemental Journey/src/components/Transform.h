@@ -30,6 +30,8 @@ public:
 	inline void setPosition(Vector2D newPos) { position = newPos; };
 	inline Vector2D getVelocity() const { return velocity; };
 	inline void setVelocity(Vector2D v) { velocity = v; };
+	inline void setWidth(float w) { width = w; }
+	inline void setHeight(float h) { height = h; }
 	inline float getWidth() const { return width; };
 	inline float getHeight() const { return height; };
 };

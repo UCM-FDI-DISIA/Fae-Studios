@@ -21,6 +21,7 @@ public:
     int getWidth() const {return textTexture->width();}
     int getHeight() const {return textTexture->height();}
     inline void setPosition(Vector2D& v) {x = v.getX(); y = v.getY();}
+    inline Vector2D getPosition() const { return Vector2D(x, y); }
 };
 
 
