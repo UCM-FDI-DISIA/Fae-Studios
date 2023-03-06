@@ -147,6 +147,7 @@
     <ClInclude Include="componentes\Health.h" />
     <ClInclude Include="componentes\Image.h" />
     <ClInclude Include="componentes\InteractionComponent.h" />
+    <ClInclude Include="componentes\LampComponent.h" />
     <ClInclude Include="componentes\MapComponent.h" />
     <ClInclude Include="componentes\PhysicsComponent.h" />
     <ClInclude Include="componentes\PlayerAnimationComponent.h" />
@@ -205,6 +206,7 @@
     <ClCompile Include="componentes\Health.cpp" />
     <ClCompile Include="componentes\Image.cpp" />
     <ClCompile Include="componentes\InteractionComponent.cpp" />
+    <ClCompile Include="componentes\LampComponent.cpp" />
     <ClCompile Include="componentes\MapComponent.cpp" />
     <ClCompile Include="componentes\PhysicsComponent.cpp" />
     <ClCompile Include="componentes\PlayerAnimationComponent.cpp" />
