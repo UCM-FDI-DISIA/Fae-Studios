@@ -70,9 +70,12 @@ Texture* Manager::getTexture(int elem)
 
 void Manager::Teleport(Manager* m)
 {
+	int cAnim = m->player->getComponent<PlayerAnimationComponent>()->getState();
+	if (cAnim != IDLE && cAnim != RUN) return;
 	Entity* aux = *m->interactionIt;
 	Entity* tpLamp = aux->getComponent<LampComponent>()->getConnectedLamp();
 	Vector2D newPos = tpLamp->getComponent<Transform>()->getPos();
+	m->player->getComponent<PlayerAnimationComponent>()->setState(VANISH);
 	m->player->getComponent<Transform>()->setPos(newPos);
 }
 
