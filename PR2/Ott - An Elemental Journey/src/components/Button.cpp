@@ -11,25 +11,25 @@ void Button::initComponent() {
 
 void Button::handleInput() {
     SDL_Point mousePosition;
-    SDL_Rect buttonRect = { transform->getPosition().getX(), transform->getPosition().getY(), transform->getWidth(), transform->getHeight() };
+    SDL_Rect buttonRect = { (int)transform->getPosition().getX(), (int)transform->getPosition().getY(), (int)transform->getWidth(), (int)transform->getHeight() };
     Vector2D position = transform->getPosition();
-    SDL_GetMouseState(&mousePosition.x, &mousePosition.y); //Nos guardamos la posición del ratón
-    //Si clicamos en el botón, llamamos a su onClick
+    SDL_GetMouseState(&mousePosition.x, &mousePosition.y); //Nos guardamos la posiciï¿½n del ratï¿½n
+    //Si clicamos en el botï¿½n, llamamos a su onClick
     if (!SDL_PointInRect(&mousePosition, &buttonRect)) {
         Vector2D textPosition = Vector2D((transform->getWidth() - text->getWidth()) / 2, (transform->getHeight() - text->getHeight()) / 2);
         text->setPosition(textPosition);
-        currentButtonFrame = MOUSE_OUT; //Indica que el ratón ha salido de la posición del botón
+        currentButtonFrame = MOUSE_OUT; //Indica que el ratï¿½n ha salido de la posiciï¿½n del botï¿½n
     }
     if (SDL_PointInRect(&mousePosition, &buttonRect)) {
         Vector2D textPosition = Vector2D((transform->getWidth() - text->getWidth()) / 2, (transform->getHeight() - text->getHeight()) / 2);
         text->setPosition(textPosition);
-        currentButtonFrame = MOUSE_OVER; //Indica que el ratón está sobre el botón
+        currentButtonFrame = MOUSE_OVER; //Indica que el ratï¿½n estï¿½ sobre el botï¿½n
     }
-    if (SDL_PointInRect(&mousePosition, &buttonRect) && InputHandler::instance()->getMouseButtonState(InputHandler::LEFT)) { //Indica que se ha pulsado el botón
+    if (SDL_PointInRect(&mousePosition, &buttonRect) && InputHandler::instance()->getMouseButtonState(InputHandler::LEFT)) { //Indica que se ha pulsado el botï¿½n
         currentButtonFrame = CLICKED;
         Vector2D textPosition = Vector2D((transform->getWidth() - text->getWidth()) / 2, (transform->getHeight() - text->getHeight()) / 2);
         text->setPosition(textPosition);
-        onClick(); //Si clicamos, llamamos a la función asociada al botón
+        onClick(); //Si clicamos, llamamos a la funciï¿½n asociada al botï¿½n
     }
 }
 

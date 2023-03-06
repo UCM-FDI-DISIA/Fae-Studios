@@ -12,59 +12,47 @@ find_package(SDL2_mixer REQUIRED)
 
 
 add_executable(Ott
-        #MAIN Y SDLAPPLICATION
-        "Ott - An Elemental Journey/main.cpp"
-        "Ott - An Elemental Journey/SDLApplication.cpp"
+        #MAIN
+        "Ott - An Elemental Journey/src/main.cpp"
 
-        #UI
-        "Ott - An Elemental Journey/ui/Button.cpp"
-        "Ott - An Elemental Journey/ui/Slider.cpp"
-        "Ott - An Elemental Journey/ui/UIText.cpp"
-        "Ott - An Elemental Journey/ui/HealthBar.cpp"
-        "Ott - An Elemental Journey/ui/ChargedAttackBar.cpp"
-        "Ott - An Elemental Journey/ui/ScreenDarkener.cpp"
+        #COMPONENTES
+        "Ott - An Elemental Journey/src/components/Button.cpp"
+        "Ott - An Elemental Journey/src/components/FramedImage.cpp"
+        "Ott - An Elemental Journey/src/components/Image.cpp"
+        "Ott - An Elemental Journey/src/components/Slider.cpp"
+        "Ott - An Elemental Journey/src/components/Text.cpp"
+        "Ott - An Elemental Journey/src/components/Transform.cpp"
 
-        #LOADERS
-        "Ott - An Elemental Journey/loaders/FontLoader.cpp"
-        "Ott - An Elemental Journey/loaders/TextureLoader.cpp"
+        #ECS
+        "Ott - An Elemental Journey/src/ecs/Manager.cpp"
 
-        #GAMEOBJECTS
-        "Ott - An Elemental Journey/gameobjects/GameObject.cpp"
-        "Ott - An Elemental Journey/gameobjects/CollisionObject.cpp"
-        "Ott - An Elemental Journey/gameobjects/Entity.cpp"
-        "Ott - An Elemental Journey/gameobjects/MovingObject.cpp"
-        "Ott - An Elemental Journey/gameobjects/Ott/Ott.cpp"
-        "Ott - An Elemental Journey/gameobjects/Ott/Shield.cpp"
-        "Ott - An Elemental Journey/gameobjects/Ott/Whip.cpp"
-        "Ott - An Elemental Journey/gameobjects/Physics/Ground.cpp"
-        "Ott - An Elemental Journey/gameobjects/Mapa.cpp"
-        "Ott - An Elemental Journey/gameobjects/InteractuableObject.cpp"
-        "Ott - An Elemental Journey/gameobjects/Bullet.cpp"
-        "Ott - An Elemental Journey/gameobjects/Enemy.cpp"
-        "Ott - An Elemental Journey/gameobjects/MeleeEnemy.cpp"
-        "Ott - An Elemental Journey/gameobjects/Sanctuary.cpp"
-        "Ott - An Elemental Journey/gameobjects/SlimeEnemy.cpp"
-        "Ott - An Elemental Journey/gameobjects/staticEnemy.cpp"
+        #GAME
+        "Ott - An Elemental Journey/src/game/Game.cpp"
 
-        #GAMEFLOW
-        "Ott - An Elemental Journey/gameflow/GameState.cpp"
-        "Ott - An Elemental Journey/gameflow/GameStateMachine.cpp"
-        "Ott - An Elemental Journey/gameflow/menus/MainMenuState.cpp"
-        "Ott - An Elemental Journey/gameflow/menus/PauseMenuState.cpp"
-        "Ott - An Elemental Journey/gameflow/menus/MenuState.cpp"
-        "Ott - An Elemental Journey/gameflow/menus/options/MusicOptionsMenuState.cpp"
-        "Ott - An Elemental Journey/gameflow/menus/options/OptionsMenuState.cpp"
-        "Ott - An Elemental Journey/gameflow/menus/options/ControlMenuState.cpp"
-        "Ott - An Elemental Journey/gameflow/play/PlayState.cpp"
+        #JSON
+        "Ott - An Elemental Journey/src/json/JSON.cpp"
+        "Ott - An Elemental Journey/src/json/json_demo.cpp"
+        "Ott - An Elemental Journey/src/json/JSONValue.cpp"
 
-        #DEPENDENCIES
-        "Ott - An Elemental Journey/dependencies/Font.cpp"
-        "Ott - An Elemental Journey/dependencies/Parser.cpp"
-        "Ott - An Elemental Journey/dependencies/Texture.cpp"
-        "Ott - An Elemental Journey/dependencies/Vector2D.cpp"
-        "Ott - An Elemental Journey/framework.h"
-        "Ott - An Elemental Journey/Resource.h"
-        "Ott - An Elemental Journey/targetver.h")
+        #SDLUTILS
+        "Ott - An Elemental Journey/src/sdlutils/SDLUtils.cpp"
+        "Ott - An Elemental Journey/src/sdlutils/Texture.cpp"
+        "Ott - An Elemental Journey/src/sdlutils/SoundEffect.cpp"
+
+        #STATES
+        "Ott - An Elemental Journey/src/states/GameStateMachine.cpp"
+        "Ott - An Elemental Journey/src/states/PlayState.cpp"
+        "Ott - An Elemental Journey/src/states/menus/MenuState.cpp"
+        "Ott - An Elemental Journey/src/states/menus/MainMenuState.cpp"
+        "Ott - An Elemental Journey/src/states/menus/PauseMenuState.cpp"
+        "Ott - An Elemental Journey/src/states/menus/options/OptionsMenuState.cpp"
+        "Ott - An Elemental Journey/src/states/menus/options/MusicOptionsMenuState.cpp"
+        "Ott - An Elemental Journey/src/states/menus/options/ControlMenuState.cpp"
+
+        #UTILS
+        "Ott - An Elemental Journey/src/utils/Collisions.cpp"
+        "Ott - An Elemental Journey/src/utils/Vector2D.cpp"
+        )
 
 include_directories(${SDL2_INCLUDE_DIR} ${SDL2_IMAGE_INCLUDE_DIR} ${SDL2_TTF_INCLUDE_DIR} ${SDL2_MIXER_INCLUDE_DIR} "/usr/local/include")
 target_link_libraries(Ott ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARIES} ${SDL2_TTF_LIBRARIES} ${SDL2_MIXER_LIBRARIES} "/usr/local/lib/libtmxlite.dylib")

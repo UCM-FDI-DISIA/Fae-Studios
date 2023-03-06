@@ -19,7 +19,7 @@ const string WINDOW_NAME = "Ott - An Elemental Journey"; ///< Nombre de la venta
 //ponemos las dos rutas y mediante las directivas de preprocesado __APPLE__ y __WINDOWS__ dejamos que sea el propio
 //compilador quien detecte en qué sistema operativo nos encontramos
 #ifdef __APPLE__
-const std::string jsonRoute = "../TPV2/TPV2/resources/config/ott.resources.mac.json";
+const std::string jsonRoute = "../Ott - An Elemental Journey/resources/config/ott.resources.mac.json";
 #endif
 
 #ifdef __WINDOWS__
