@@ -41,37 +41,41 @@ OptionsMenuState::OptionsMenuState() : MenuState() {
 			auto graphics = mngr_->addEntity(ecs::_grp_UI);
 			graphics->addComponent<Transform>(Vector2D(sdlutils().width() / 2, 3 * sdlutils().height() / 7), Vector2D(0, 0), 50, 50);
 			graphics->addComponent<FramedImage>(&sdlutils().images().at("button"), 1, 3);
-			graphics->addComponent<Text>("Gráficos", sdlutils().fonts().at("vcr_osd48"), blanco, transparente);
+			graphics->addComponent<Text>("Gráficos", sdlutils().fonts().at("vcr_osd24"), blanco, transparente);
 			graphics->addComponent<Button>(graphicOptions);
 			graphics->getComponent<Transform>()->setWidth(graphics->getComponent<FramedImage>()->getFrameWidth());
 			graphics->getComponent<Transform>()->setHeight(graphics->getComponent<FramedImage>()->getFrameHeight());
+            graphics->getComponent<Transform>()->setPosition(graphics->getComponent<Transform>()->getPosition() - Vector2D(graphics->getComponent<FramedImage>()->getFrameWidth() / 2, graphics->getComponent<FramedImage>()->getFrameHeight() / 2));
 		}
 		{
 			auto music = mngr_->addEntity(ecs::_grp_UI);
 			music->addComponent<Transform>(Vector2D(sdlutils().width() / 2, 4 * sdlutils().height() / 7), Vector2D(0, 0), 50, 50);
 			music->addComponent<FramedImage>(&sdlutils().images().at("button"), 1, 3);
-			music->addComponent<Text>("Cargar", sdlutils().fonts().at("vcr_osd48"), blanco, transparente);
+			music->addComponent<Text>("Música y sonidos", sdlutils().fonts().at("vcr_osd16"), blanco, transparente);
 			music->addComponent<Button>(musicOptions);
 			music->getComponent<Transform>()->setWidth(music->getComponent<FramedImage>()->getFrameWidth());
 			music->getComponent<Transform>()->setHeight(music->getComponent<FramedImage>()->getFrameHeight());
+            music->getComponent<Transform>()->setPosition(music->getComponent<Transform>()->getPosition() - Vector2D(music->getComponent<FramedImage>()->getFrameWidth() / 2, music->getComponent<FramedImage>()->getFrameHeight() / 2));
 		}
 		{
 			auto controlsButton = mngr_->addEntity(ecs::_grp_UI);
 			controlsButton->addComponent<Transform>(Vector2D(sdlutils().width() / 2, 5 * sdlutils().height() / 7), Vector2D(0, 0), 50, 50);
 			controlsButton->addComponent<FramedImage>(&sdlutils().images().at("button"), 1, 3);
-			controlsButton->addComponent<Text>("Opciones", sdlutils().fonts().at("vcr_osd24"), blanco, transparente);
+			controlsButton->addComponent<Text>("Controles", sdlutils().fonts().at("vcr_osd24"), blanco, transparente);
 			controlsButton->addComponent<Button>(controls);
 			controlsButton->getComponent<Transform>()->setWidth(controlsButton->getComponent<FramedImage>()->getFrameWidth());
 			controlsButton->getComponent<Transform>()->setHeight(controlsButton->getComponent<FramedImage>()->getFrameHeight());
+            controlsButton->getComponent<Transform>()->setPosition(controlsButton->getComponent<Transform>()->getPosition() - Vector2D(controlsButton->getComponent<FramedImage>()->getFrameWidth() / 2, controlsButton->getComponent<FramedImage>()->getFrameHeight() / 2));
 		}
 		{
 			auto returnBack = mngr_->addEntity(ecs::_grp_UI);
 			returnBack->addComponent<Transform>(Vector2D(sdlutils().width() / 2, 6 * sdlutils().height() / 7), Vector2D(0, 0), 50, 50);
 			returnBack->addComponent<FramedImage>(&sdlutils().images().at("button"), 1, 3);
-			returnBack->addComponent<Text>("X", sdlutils().fonts().at("vcr_osd48"), blanco, transparente);
+			returnBack->addComponent<Text>("Volver", sdlutils().fonts().at("vcr_osd48"), blanco, transparente);
 			returnBack->addComponent<Button>(back);
 			returnBack->getComponent<Transform>()->setWidth(returnBack->getComponent<FramedImage>()->getFrameWidth());
 			returnBack->getComponent<Transform>()->setHeight(returnBack->getComponent<FramedImage>()->getFrameHeight());
+            returnBack->getComponent<Transform>()->setPosition(returnBack->getComponent<Transform>()->getPosition() - Vector2D(returnBack->getComponent<FramedImage>()->getFrameWidth() / 2, returnBack->getComponent<FramedImage>()->getFrameHeight() / 2));
 		}
 	}
 }

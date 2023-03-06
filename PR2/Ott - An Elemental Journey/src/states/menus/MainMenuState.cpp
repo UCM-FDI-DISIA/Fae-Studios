@@ -71,6 +71,7 @@ MainMenuState::MainMenuState() : MenuState() {
             playButton->addComponent<Button>(play);
             playButton->getComponent<Transform>()->setWidth(playButton->getComponent<FramedImage>()->getFrameWidth());
             playButton->getComponent<Transform>()->setHeight(playButton->getComponent<FramedImage>()->getFrameHeight());
+            playButton->getComponent<Transform>()->setPosition(playButton->getComponent<Transform>()->getPosition() - Vector2D(playButton->getComponent<FramedImage>()->getFrameWidth() / 2, playButton->getComponent<FramedImage>()->getFrameHeight() / 2));
         }
         {
             auto loadButton = mngr_->addEntity(ecs::_grp_UI);
@@ -80,6 +81,7 @@ MainMenuState::MainMenuState() : MenuState() {
             loadButton->addComponent<Button>(options);
             loadButton->getComponent<Transform>()->setWidth(loadButton->getComponent<FramedImage>()->getFrameWidth());
             loadButton->getComponent<Transform>()->setHeight(loadButton->getComponent<FramedImage>()->getFrameHeight());
+            loadButton->getComponent<Transform>()->setPosition(loadButton->getComponent<Transform>()->getPosition() - Vector2D(loadButton->getComponent<FramedImage>()->getFrameWidth() / 2, loadButton->getComponent<FramedImage>()->getFrameHeight() / 2));
         }
         {
             auto optionsButton = mngr_->addEntity(ecs::_grp_UI);
@@ -89,6 +91,7 @@ MainMenuState::MainMenuState() : MenuState() {
             optionsButton->addComponent<Button>(options);
             optionsButton->getComponent<Transform>()->setWidth(optionsButton->getComponent<FramedImage>()->getFrameWidth());
             optionsButton->getComponent<Transform>()->setHeight(optionsButton->getComponent<FramedImage>()->getFrameHeight());
+            optionsButton->getComponent<Transform>()->setPosition(optionsButton->getComponent<Transform>()->getPosition() - Vector2D(optionsButton->getComponent<FramedImage>()->getFrameWidth() / 2, optionsButton->getComponent<FramedImage>()->getFrameHeight() / 2));
         }
         {
             auto quitButton = mngr_->addEntity(ecs::_grp_UI);
@@ -98,6 +101,7 @@ MainMenuState::MainMenuState() : MenuState() {
             quitButton->addComponent<Button>(quit);
             quitButton->getComponent<Transform>()->setWidth(quitButton->getComponent<FramedImage>()->getFrameWidth());
             quitButton->getComponent<Transform>()->setHeight(quitButton->getComponent<FramedImage>()->getFrameHeight());
+            quitButton->getComponent<Transform>()->setPosition(quitButton->getComponent<Transform>()->getPosition() - Vector2D(quitButton->getComponent<FramedImage>()->getFrameWidth() / 2, quitButton->getComponent<FramedImage>()->getFrameHeight() / 2));
         }
     }
 }
