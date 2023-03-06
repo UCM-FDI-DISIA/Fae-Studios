@@ -4,18 +4,10 @@
 #include "../../sdlutils/SDLUtils.h"
 #include "../../components/Button.h"
 #include "options/OptionsMenuState.h"
-#include <iostream>
 #include "../PlayState.h"
 #include "../../components/Image.h"
 
 MainMenuState::MainMenuState() : MenuState() {
-    /*
-	littleOtt = app->getTexture("ott_luz", MAIN_MENU);
-	littleOttPos = Vector2D(320, 415);
-	littleOttRect.x = littleOttPos.getX(); littleOttRect.y = littleOttPos.getY();
-	littleOttRect.h = littleOtt->getH() * 0.5f; littleOttRect.w = littleOtt->getW() * 0.5f;
-	*/
-
 	SDL_Color transparente{ 255,255,255,1 };
 	SDL_Color darkYellow{ 194,147,42 };
 	SDL_Color yellow{ 255,217,102 };
@@ -66,7 +58,7 @@ MainMenuState::MainMenuState() : MenuState() {
         }
     }
     {
-        auto littleOtt = mngr_->addEntity(ecs::_grp_UI);
+        littleOtt = mngr_->addEntity(ecs::_grp_UI);
         littleOtt->addComponent<Transform>(Vector2D(320, 415), Vector2D(0, 0), 100, 100);
         littleOtt->addComponent<FramedImage>(&sdlutils().images().at("ott_luz"), 9, 8);
     }
@@ -93,7 +85,7 @@ MainMenuState::MainMenuState() : MenuState() {
             auto optionsButton = mngr_->addEntity(ecs::_grp_UI);
             optionsButton->addComponent<Transform>(Vector2D(sdlutils().width() / 2, 5 * sdlutils().height() / 7), Vector2D(0, 0), 50, 50);
             optionsButton->addComponent<FramedImage>(&sdlutils().images().at("button"), 1, 3);
-            optionsButton->addComponent<Text>("Opciones", sdlutils().fonts().at("vcr_osd48"), blanco, transparente);
+            optionsButton->addComponent<Text>("Opciones", sdlutils().fonts().at("vcr_osd24"), blanco, transparente);
             optionsButton->addComponent<Button>(options);
             optionsButton->getComponent<Transform>()->setWidth(optionsButton->getComponent<FramedImage>()->getFrameWidth());
             optionsButton->getComponent<Transform>()->setHeight(optionsButton->getComponent<FramedImage>()->getFrameHeight());
@@ -143,8 +135,9 @@ void MainMenuState::render() const {
 }*/
 
 void MainMenuState::update() {
-	/*if (SDL_GetTicks() >= animTime) { //Se cambia la animaci�n de ca�da
+	if (SDL_GetTicks() >= animTime) { //Se cambia la animaci�n de ca�da
 		animFrame = (animFrame + 1) % 2;
+        littleOtt->getComponent<FramedImage>()->setCol(animFrame);
 		animTime = SDL_GetTicks() + MAIN_MENU_OTT_ANIM_TIME;
-	}*/
+	}
 }
