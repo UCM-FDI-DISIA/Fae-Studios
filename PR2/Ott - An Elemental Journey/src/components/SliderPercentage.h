@@ -1,0 +1,30 @@
+#pragma once
+#ifndef TPV2_SLIDERPERCENTAGE_H
+#define TPV2_SLIDERPERCENTAGE_H
+#include "../ecs/Component.h"
+#include "../sdlutils/Font.h"
+#include "../sdlutils/Texture.h"
+#include "Transform.h"
+#include <string>
+
+//Literalmente es una copia del Text.h y Text.cpp pero es la única forma que se me ocurría
+//de meter 2 textos en los sliders
+
+class SliderPercentage : public Component{
+private:
+    Texture* textTexture;
+    int x;
+    int y;
+public:
+    constexpr static ecs::cmpId_type id = ecs::_SLIDER_PERCENTAGE;
+    SliderPercentage(std::string text, Font& f, SDL_Color fontColor, SDL_Color bgColor);
+    virtual ~SliderPercentage() {delete textTexture;}
+    void render() override;
+    int getWidth() const {return textTexture->width();}
+    int getHeight() const {return textTexture->height();}
+    inline void setPosition(Vector2D& v) {x = v.getX(); y = v.getY();}
+    inline Vector2D getPosition() const { return Vector2D(x, y); }
+};
+
+
+#endif //TPV2_TEXT_H

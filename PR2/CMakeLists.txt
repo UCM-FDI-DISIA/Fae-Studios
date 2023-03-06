@@ -20,6 +20,7 @@ add_executable(Ott
         "Ott - An Elemental Journey/src/components/FramedImage.cpp"
         "Ott - An Elemental Journey/src/components/Image.cpp"
         "Ott - An Elemental Journey/src/components/Slider.cpp"
+        "Ott - An Elemental Journey/src/components/SliderPercentage.cpp"
         "Ott - An Elemental Journey/src/components/Text.cpp"
         "Ott - An Elemental Journey/src/components/Transform.cpp"
 
