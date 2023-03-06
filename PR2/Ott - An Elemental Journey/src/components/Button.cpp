@@ -13,21 +13,25 @@ void Button::handleInput() {
     SDL_Point mousePosition;
     SDL_Rect buttonRect = { (int)transform->getPosition().getX(), (int)transform->getPosition().getY(), (int)transform->getWidth(), (int)transform->getHeight() };
     Vector2D position = transform->getPosition();
+    Vector2D textPosition;
     SDL_GetMouseState(&mousePosition.x, &mousePosition.y); //Nos guardamos la posici�n del rat�n
     //Si clicamos en el bot�n, llamamos a su onClick
     if (!SDL_PointInRect(&mousePosition, &buttonRect)) {
-        Vector2D textPosition = Vector2D((transform->getWidth() - text->getWidth()) / 2, (transform->getHeight() - text->getHeight()) / 2);
+        textPosition = Vector2D(transform->getPosition().getX() + (transform->getWidth() - text->getWidth())/2, transform->getPosition().getY() + (transform->getHeight() - text->getHeight())/2 - 10);
         text->setPosition(textPosition);
         currentButtonFrame = MOUSE_OUT; //Indica que el rat�n ha salido de la posici�n del bot�n
+        texture->setCol(currentButtonFrame);
     }
     if (SDL_PointInRect(&mousePosition, &buttonRect)) {
-        Vector2D textPosition = Vector2D((transform->getWidth() - text->getWidth()) / 2, (transform->getHeight() - text->getHeight()) / 2);
+        textPosition = Vector2D(transform->getPosition().getX() + (transform->getWidth() - text->getWidth())/2, transform->getPosition().getY() + (transform->getHeight() - text->getHeight())/2 - 10);
         text->setPosition(textPosition);
         currentButtonFrame = MOUSE_OVER; //Indica que el rat�n est� sobre el bot�n
+        texture->setCol(currentButtonFrame);
     }
     if (SDL_PointInRect(&mousePosition, &buttonRect) && InputHandler::instance()->getMouseButtonState(InputHandler::LEFT)) { //Indica que se ha pulsado el bot�n
         currentButtonFrame = CLICKED;
-        Vector2D textPosition = Vector2D((transform->getWidth() - text->getWidth()) / 2, (transform->getHeight() - text->getHeight()) / 2);
+        texture->setCol(currentButtonFrame);
+        textPosition = Vector2D(transform->getPosition().getX() + (transform->getWidth() - text->getWidth())/2, transform->getPosition().getY() + (transform->getHeight() - text->getHeight())/2);
         text->setPosition(textPosition);
         onClick(); //Si clicamos, llamamos a la funci�n asociada al bot�n
     }

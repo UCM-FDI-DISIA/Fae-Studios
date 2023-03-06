@@ -90,8 +90,10 @@ MainMenuState::MainMenuState() : MenuState() {
 	playButton->addComponent<Transform>(Vector2D(sdlutils().width() / 2, sdlutils().height() / 7), Vector2D(0, 0), 50, 50);
 	playButton->addComponent<FramedImage>(&sdlutils().images().at("button"), 1, 3);
 	SDL_Color blanco{ 255,255,255 };
-	playButton->addComponent<Text>("Jugar", sdlutils().fonts().at("vcr_osd16"), blanco, transparente);
+	playButton->addComponent<Text>("Jugar", sdlutils().fonts().at("vcr_osd48"), blanco, transparente);
 	playButton->addComponent<Button>(play);
+    playButton->getComponent<Transform>()->setWidth(playButton->getComponent<FramedImage>()->getFrameWidth());
+    playButton->getComponent<Transform>()->setHeight(playButton->getComponent<FramedImage>()->getFrameHeight());
 
 }
 

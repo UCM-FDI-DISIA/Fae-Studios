@@ -15,7 +15,7 @@ SDL_Rect FramedImage::getRect() const
 }
 
 void FramedImage::render() {
-    texture->render({ currentCol * texture->width() / (totalCols), currentRow * texture->height() / (totalRows), texture->width() / (totalCols), texture->height() / (totalRows) }, getRect());
+    texture->render({ currentCol * getFrameWidth(), currentRow * getFrameHeight(), getFrameWidth(), getFrameHeight() }, getRect());
 }
 
 void FramedImage::initComponent() {

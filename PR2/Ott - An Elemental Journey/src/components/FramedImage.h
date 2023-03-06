@@ -22,6 +22,12 @@ public:
     virtual ~FramedImage() = default;
     void initComponent() override;
     void render() override;
+    void setRow(int row) {currentRow = row;}
+    void setCol(int col) {currentCol = col;}
+    int getFullWidth() const {return texture->width();}
+    int getFullHeight() const {return texture->height();}
+    int getFrameWidth() const {return texture->width() / totalCols;}
+    int getFrameHeight() const {return texture->height() / totalRows;}
 };
 
 

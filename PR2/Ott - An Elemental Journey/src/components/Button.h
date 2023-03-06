@@ -9,8 +9,8 @@ using Callback = void(void);
 class Button : public Component {
 private:
 	enum button_State { MOUSE_OUT = 0, MOUSE_OVER = 1, CLICKED = 2 };
-	int currentButtonFrame; ///< Estado actual en que se encuentra el botón
-	Callback* callback; ///< Puntero a una función void con un parámetro Game*
+	int currentButtonFrame; ///< Estado actual en que se encuentra el botï¿½n
+	Callback* callback; ///< Puntero a una funciï¿½n void con un parï¿½metro Game*
 	FramedImage* texture;
 	Text* text;
 	Transform* transform;
@@ -28,6 +28,5 @@ public:
 	virtual ~Button() = default;
 	void initComponent() override;
 	void handleInput() override;
-	//void update() override;
 };
 
