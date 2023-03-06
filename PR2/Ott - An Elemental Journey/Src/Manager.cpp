@@ -67,6 +67,14 @@ Texture* Manager::getTexture(int elem)
 		break;
 	}
 }
+
+void Manager::Teleport(Manager* m)
+{
+	Entity* aux = *m->interactionIt;
+	Entity* tpLamp = aux->getComponent<LampComponent>()->getConnectedLamp();
+	m->player->getComponent<Transform>()->setPos(tpLamp->getComponent<Transform>()->getPos());
+}
+
 void Manager::Save(Manager* m)
 {
 	m->player->getComponent<Health>()->saveSactuary();
@@ -95,12 +103,25 @@ void Manager::createPlayer()
 	camera->addComponent<CameraComponent>();
 }
 
-void Manager::createLamp()
+void Manager::createLamp(int x1, int y1, int x2, int y2)
 {
 	Entity* lamp = addEntity(ecs::_grp_INTERACTION);
-	lamp->addComponent<Transform>(550, 670, 50, 130);
+	Entity* lamp2 = addEntity(ecs::_grp_INTERACTION);
+
+	lamp->addComponent<Transform>(x1, y1, 50, 130);
+	lamp2->addComponent<Transform>(x2, y2, 50, 130);
+
+
 	lamp->addComponent<Image>(game->getTexture("lamp", PLAY_STATE));
-	lamp->addComponent<InteractionComponent>(Test);
+	lamp->addComponent<LampComponent>(lamp2);
+	lamp->addComponent<InteractionComponent>(Teleport);
+
+	
+	lamp2->addComponent<Image>(game->getTexture("lamp", PLAY_STATE));
+	lamp2->addComponent<LampComponent>(lamp);
+	lamp2->addComponent<InteractionComponent>(Teleport);
+
+	
 }
 
 void Manager::createSanctuary()
@@ -118,7 +139,7 @@ void Manager::createMap()
 	e->addComponent<MapComponent>(game,LEVEL1);
 	auto scale = e->getComponent<MapComponent>()->tileScale();
 	bgrd->addComponent<BackgroundImage>(Vector2D(0, 0), game->getTexture("level1bg", PLAY_STATE), scale, scale);
-	createLamp();
+	createLamp(550, 1370, 750, 1370);
 	createSanctuary();
 	auto a = e->getComponent<MapComponent>()->getObjects();
 	for (auto it : a) {
@@ -145,6 +166,7 @@ void Manager::createMap()
 				e->addComponent<Image>(game->getTexture("pixelWhite", PLAY_STATE));
 			}
 			else if (ot.getClass() == "Grass") {
+				
 				//Grass* g1 = new Grass(Vector2D(x_ * scale, y_ * scale - app->getTexture("grass", PLAY_STATE)->getH()), app->getTexture("grass", PLAY_STATE), this);
 				//gameObjects.push_back(g1);
 

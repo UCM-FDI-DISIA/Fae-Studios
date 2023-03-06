@@ -14,6 +14,7 @@
 #include "../componentes/PlayerAnimationComponent.h"
 #include "../componentes/Health.h"
 #include "../componentes/InteractionComponent.h"
+#include "../componentes/LampComponent.h"
 #include "../checkML.h"
 
 using namespace std;
@@ -50,12 +51,12 @@ public:
 	int getWinH();
 	Texture* getTexture(int elem);
 	static void Test(Manager* m) { cout << "interaccion" << endl; }
-	static void Teleport();
+	static void Teleport(Manager* m);
 	static void Save(Manager* m);
 	void checkInteraction();
 	inline Entity* getCurrentInteraction() { return *interactionIt; }
 private:
-	void createLamp();
+	void createLamp(int x1, int y1, int x2, int y2);
 	void createSanctuary();
 	Entity* player;
 	Entity* camera;
