@@ -1,0 +1,3 @@
+/Users/almasso/Documents/GitHub/TPV2/cmake-build-debug/CMakeFiles/Practica1.dir
+/Users/almasso/Documents/GitHub/TPV2/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/almasso/Documents/GitHub/TPV2/cmake-build-debug/CMakeFiles/rebuild_cache.dir

@@ -1,0 +1,9 @@
+Componentes del grupo:
+-Pablo Sánchez Martín
+-Alejandro Massó Martínez
+
+Funcionalidad extra:
+-Los recursos se cargan desde un JSON ubicado en resourcesAsteroids/config
+-Hay un menú de pausa que se activa dándole a la barra espaceadora, cerrándose de la misma manera.
+-Se han hecho modificaciones al InputHandler.h incluído en la práctica para una mejor funcionalidad.
+-Los estados y la máquina de estados se encuentran en la carpeta "states". Las demás carpetas se encuentran tal y como se indica en el enunciado.

@@ -1,0 +1,33 @@
+{
+
+  "fonts" : [
+    { "id" : "ARIAL16", "file" : "../TPV2/TPV2/resourcesAsteroids/fonts/ARIAL.ttf", "size": 16 },
+    { "id" : "ARIAL24", "file" : "../TPV2/TPV2/resourcesAsteroids/fonts/ARIAL.ttf", "size": 24 },
+    { "id" : "ARIAL48", "file" : "../TPV2/TPV2/resourcesAsteroids/fonts/ARIAL.ttf", "size": 48 }
+  ],
+  
+  "images" : [
+    { "id" : "asteroid", "file" : "../TPV2/TPV2/resourcesAsteroids/images/asteroid.png", "rows" : 5, "cols" : 6 },
+    { "id" : "golden_asteroid", "file" : "../TPV2/TPV2/resourcesAsteroids/images/asteroid_gold.png", "rows" : 5, "cols" : 6 },
+    { "id" : "fighter", "file" : "../TPV2/TPV2/resourcesAsteroids/images/fighter.png", "rows" : 1, "cols" : 1},
+    { "id" : "fighter2", "file" : "../TPV2/TPV2/resourcesAsteroids/images/fighter2.png", "rows" : 1, "cols" : 1},
+    { "id" : "fire", "file" : "../TPV2/TPV2/resourcesAsteroids/images/fire.png", "rows" : 1, "cols" : 1},
+    { "id" : "heart", "file" : "../TPV2/TPV2/resourcesAsteroids/images/heart.png", "rows" : 1, "cols" : 1}
+  ],
+  
+  "messages" : [],
+  
+  "sounds" : [
+    { "id" : "bang_large", "file" : "../TPV2/TPV2/resourcesAsteroids/sound/bangLarge.wav" },
+    { "id" : "bang_small", "file" : "../TPV2/TPV2/resourcesAsteroids/sound/bangSmall.wav" },
+    { "id" : "explosion", "file" : "../TPV2/TPV2/resourcesAsteroids/sound/explosion.wav" },
+    { "id" : "explosion1", "file" : "../TPV2/TPV2/resourcesAsteroids/sound/explosion1.wav" },
+    { "id" : "fire", "file" : "../TPV2/TPV2/resourcesAsteroids/sound/fire.wav" },
+    { "id" : "gunshot", "file" : "../TPV2/TPV2/resourcesAsteroids/sound/gunshot.wav" },
+    { "id" : "thrust", "file" : "../TPV2/TPV2/resourcesAsteroids/sound/thrust.wav" },
+    { "id" : "thrust1", "file" : "../TPV2/TPV2/resourcesAsteroids/sound/thrust1.wav" }
+  ],
+
+  "musics" : []
+
+}
