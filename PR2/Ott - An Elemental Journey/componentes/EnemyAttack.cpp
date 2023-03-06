@@ -6,12 +6,15 @@ void EnemyAttack::initComponent() {
 	transform = ent_->getComponent<Transform>();
 	physics = ent_->getComponent<PhysicsComponent>();
 
-	trigger.x = transform->getPos().getX() + transform->getW(); trigger.y = transform->getPos().getY();
+	if (physics->getLookDirection())
+		trigger.x = transform->getPos().getX() + transform->getW();
+	else trigger.x = transform->getPos().getX() - trigger.w;
+	trigger.y = transform->getPos().getY();
 }
 
 void EnemyAttack::MoveTriggers() {
 	SDL_Rect collider = transform->getRect();
-	if (physics->getVelocity().getX() > 0) // Ajuste del trigger en función del movimiento del enemigo
+	if (physics->getLookDirection()) // Ajuste del trigger en función del movimiento del enemigo
 		trigger.x = collider.x + collider.w;
 	else
 		trigger.x = collider.x - trigger.w;
@@ -20,11 +23,11 @@ void EnemyAttack::MoveTriggers() {
 }
 
 void EnemyAttack::update() {
-	SDL_Rect playerRect = player->getComponent<PhysicsComponent>()->getCollider();
+	SDL_Rect playerRect = player->getComponent<Transform>()->getRect();
 	SDL_Rect collider = physics->getCollider();
 
 	int frameTime = SDL_GetTicks() - startAttackingTime;
-	if (state == normal && frameTime >= PREPARING_TIME && SDL_HasIntersection(&collider, &playerRect)) {
+	if (state == normal && frameTime >= PREPARING_TIME && SDL_HasIntersection(&trigger, &playerRect)) {
 		state = preparing;
 		startAttackingTime = SDL_GetTicks();
 	}

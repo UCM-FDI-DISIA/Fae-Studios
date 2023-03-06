@@ -17,6 +17,8 @@
 #include <unordered_map>
 */
 #include "../../componentes/EnemyMovement.h"
+#include "../../componentes/EnemyAttack.h"
+#include "../../componentes/EnemyShootingAttack.h"
 
 PlayState::PlayState(SDLApplication* app) : GameState(PLAY_STATE, app) {
 	
@@ -97,12 +99,16 @@ PlayState::PlayState(SDLApplication* app) : GameState(PLAY_STATE, app) {
 	manager_->createMap();
 	manager_->createPlayer();
 	auto player = manager_->addEntity(ecs::_grp_CHARACTERS);
-	player->addComponent<Transform>(200, 1300, 100, 120);
+	player->addComponent<Transform>(400, 1300, 100, 120);
 	player->addComponent<FramedImage>();
 	auto ph = player->addComponent<PhysicsComponent>();
-	ph->setVelocity({ 1,0 });
+	ph->setVelocity({ 0,0 });
 	ph->lookDirection(true);
-	player->addComponent<EnemyMovement>();
+	//player->addComponent<EnemyMovement>();
+	player->addComponent<Health>(5, ecs::Earth);
+	player->addComponent<EnemyAttack>(100, 100);
+	player->addComponent<EnemyShootingAttack>();
+	
 }
 void PlayState::checkCollisions()
 {

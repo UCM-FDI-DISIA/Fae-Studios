@@ -13,7 +13,6 @@ void EnemyShootingAttack::initComponent()
 void EnemyShootingAttack::update() //Completar con constructoras y nuevos métodos de las balas (a lo mejor manager debería tener un método de crear balas)
 {
 	if (enemyAttack->requestAttack() && playerHealth->getHealth() > 0 && SDL_GetTicks() - attackingTime >= SHOOTING_TIME) {
-		/*
 		auto bullet = mngr_->addEntity(ecs::_grp_PROYECTILES);
 		bullet->addComponent<Transform>(ent_->getComponent<Transform>()->getPos(), 1, 1);
 		bullet->addComponent<PhysicsComponent>();
@@ -21,10 +20,9 @@ void EnemyShootingAttack::update() //Completar con constructoras y nuevos método
 			bullet->getComponent<PhysicsComponent>()->getVelocity() = Vector2D(1, 0);
 		else
 			bullet->getComponent<PhysicsComponent>()->getVelocity() = Vector2D(-1, 0);
-		bullet->addComponent<Image>(); //Falta textura
-		bullet->addComponent<Bullet>(player, health->getElement());
+		bullet->addComponent<Image>(mngr_->getTexture(0)); //Falta textura
+		bullet->addComponent<Bullet>(health->getElement());
 
 		attackingTime = SDL_GetTicks();
-		*/
 	}
 }
