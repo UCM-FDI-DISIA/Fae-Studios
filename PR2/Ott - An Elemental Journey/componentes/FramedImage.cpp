@@ -53,9 +53,20 @@ void FramedImage::render()
 
 			break;
 		}
+
+		if (isShielded) {
+			int elemNum = ent_->getComponent<Health>()->getElement();
+			shieldTex_ = mngr_->getTexture(elemNum+4);
+			SDL_Rect shieldRect;
+			shieldRect.x = tr_->getPos().getX() - mngr_->getCamera()->getComponent<CameraComponent>()->camera.x;
+			shieldRect.y = tr_->getPos().getY() - mngr_->getCamera()->getComponent<CameraComponent>()->camera.y + 40;
+			shieldRect.w = 50; shieldRect.h = 50;
+			if (lookRight) shieldRect.x += 50;
+			shieldTex_->render(shieldRect);
+		}
 	}
 	else tex_->renderFrame(dest, 0, 0);
-	if (isShielded) shieldTex_->render(tr_->getRect());
+	
 	//tex_->renderFrame(dest, row, col);
 	//row = (SDL_GetTicks() / tPerFrame) % numRows_; col = (SDL_GetTicks() / tPerFrame) % numCols_;
 }

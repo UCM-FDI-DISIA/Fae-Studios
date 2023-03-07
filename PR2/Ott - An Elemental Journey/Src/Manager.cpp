@@ -63,6 +63,9 @@ Texture* Manager::getTexture(int elem)
 	case 2: return game->getTexture("ott_water", PLAY_STATE);
 	case 3: return game->getTexture("ott_fire", PLAY_STATE);
 	case 4: return game->getTexture("shield", PLAY_STATE);
+	case 5: return game->getTexture("earthShield", PLAY_STATE);
+	case 6: return game->getTexture("waterShield", PLAY_STATE);
+	case 7: return game->getTexture("fireShield", PLAY_STATE);
 	//case 4: return game->getTexture("ott_light", PLAY_STATE);
 	default:
 		break;
@@ -71,9 +74,13 @@ Texture* Manager::getTexture(int elem)
 
 void Manager::Teleport(Manager* m)
 {
+	int cAnim = m->player->getComponent<PlayerAnimationComponent>()->getState();
+	if (cAnim != IDLE && cAnim != RUN) return;
 	Entity* aux = *m->interactionIt;
 	Entity* tpLamp = aux->getComponent<LampComponent>()->getConnectedLamp();
-	m->player->getComponent<Transform>()->setPos(tpLamp->getComponent<Transform>()->getPos());
+	Vector2D newPos = tpLamp->getComponent<Transform>()->getPos();
+	m->player->getComponent<PlayerAnimationComponent>()->setState(VANISH);
+	m->player->getComponent<Transform>()->setPos(newPos);
 }
 
 void Manager::Save(Manager* m)
@@ -82,12 +89,17 @@ void Manager::Save(Manager* m)
 }
 void Manager::checkInteraction()
 {
+	bool interact = false;
 	interactionIt = entsByGroup_[ecs::_grp_INTERACTION].begin();
-	for (interactionIt; interactionIt != entsByGroup_[ecs::_grp_INTERACTION].end(); interactionIt++) {
+	while (!interact && interactionIt != entsByGroup_[ecs::_grp_INTERACTION].end()) {
 		Entity* ents = *interactionIt;
 		SDL_Rect r1 = player->getComponent<Transform>()->getRect();
 		SDL_Rect r2 = ents->getComponent<Transform>()->getRect();
-		if (SDL_HasIntersection(&r1, &r2)) ents->getComponent<InteractionComponent>()->interact();
+		if (SDL_HasIntersection(&r1, &r2)) {
+			ents->getComponent<InteractionComponent>()->interact();
+			interact = true;
+		}
+		interactionIt++;
 	}
 }
 void Manager::createPlayer()
@@ -106,6 +118,7 @@ void Manager::createPlayer()
 
 void Manager::createLamp(int x1, int y1, int x2, int y2)
 {
+	
 	Entity* lamp = addEntity(ecs::_grp_INTERACTION);
 	Entity* lamp2 = addEntity(ecs::_grp_INTERACTION);
 
