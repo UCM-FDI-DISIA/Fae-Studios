@@ -5,14 +5,12 @@
 #include "../Src/Entity.h"
 #include <SDL.h>
 
-class FramedImage : public Component
+class FramedImageOtt : public Component
 {
 public:
-	FramedImage(Texture* text, int r, int c);
-	FramedImage(Texture* text, int r, int c, int f);
+	FramedImageOtt();
 	//Constructor exclusivo para Ott 
-	FramedImage();
-	virtual ~FramedImage();
+	virtual ~FramedImageOtt();
 	void initComponent() override;
 	void render() override;
 	void elementChanged(int newElem);
@@ -21,6 +19,7 @@ public:
 private:
 	Transform* tr_;
 	Texture* tex_;
+	PlayerAnimationComponent* pAnim_;
 	Texture* shieldTex_;
 	int numRows_, numCols_;
 	int row = 0, col = 0;
@@ -28,3 +27,26 @@ private:
 	bool isShielded = false;
 };
 
+class FramedImageMelee : public Component
+{
+public:
+	FramedImageMelee(Texture* text, int r, int c);
+	FramedImageMelee(Texture* text, int r, int c, int f);
+	//Constructor exclusivo para Ott 
+	FramedImageMelee();
+	virtual ~FramedImageMelee();
+	void initComponent() override;
+	inline void damageStart() { row = 1; };
+	inline void damageStop() { row = 0; };
+	virtual void render();
+	constexpr static cmpId_type id = ecs::_FRAMEDIMAGE;
+private:
+	// MeleeAnimationComponent* pAnim_;
+	Transform* tr_;
+	Texture* tex_;
+	Texture* shieldTex_;
+	int numRows_, numCols_;
+	int row = 0, col = 0;
+	int tPerFrame;
+	bool isShielded = false;
+};

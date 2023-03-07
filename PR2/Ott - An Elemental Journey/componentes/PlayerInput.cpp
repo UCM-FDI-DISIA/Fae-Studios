@@ -51,28 +51,28 @@ void PlayerInput::update()
 		{
 			//Defensa
 			cout << "Defensa" << endl;
-			ent_->getComponent<FramedImage>()->shielded(true);
+			ent_->getComponent<FramedImageOtt>()->shielded(true);
 			physics_->slowed();
 		}
 		if (input->isKeyDown(SDLK_a) && anim_->getState() != VANISH) {
 			//Cambio elemento
 			ent_->getComponent<Health>()->setElement(1);
-			ent_->getComponent<FramedImage>()->elementChanged(1);
+			ent_->getComponent<FramedImageOtt>()->elementChanged(1);
 			anim_->setState(VANISH);
 		}
 		if (input->isKeyDown(SDLK_d) && anim_->getState() != VANISH) {
 			ent_->getComponent<Health>()->setElement(2);
-			ent_->getComponent<FramedImage>()->elementChanged(2);
+			ent_->getComponent<FramedImageOtt>()->elementChanged(2);
 			anim_->setState(VANISH);
 		}
 		if (input->isKeyDown(SDLK_w) && anim_->getState() != VANISH) {
 			ent_->getComponent<Health>()->setElement(3);
-			ent_->getComponent<FramedImage>()->elementChanged(3);
+			ent_->getComponent<FramedImageOtt>()->elementChanged(3);
 			anim_->setState(VANISH);
 		}
 		if (input->isKeyDown(SDLK_s) && anim_->getState() != VANISH) {
 			ent_->getComponent<Health>()->setElement(0);
-			ent_->getComponent<FramedImage>()->elementChanged(0);
+			ent_->getComponent<FramedImageOtt>()->elementChanged(0);
 			anim_->setState(VANISH);
 		}
 		if (input->isKeyDown(SDLK_UP)) {
@@ -109,7 +109,7 @@ void PlayerInput::update()
 		}
 		if (input->isKeyJustUp(SDLK_z)) {
 			//defend = false;
-			ent_->getComponent<FramedImage>()->shielded(false);
+			ent_->getComponent<FramedImageOtt>()->shielded(false);
 		}
 	}
 }

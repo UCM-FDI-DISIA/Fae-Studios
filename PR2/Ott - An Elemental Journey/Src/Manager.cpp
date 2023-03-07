@@ -106,7 +106,7 @@ void Manager::createPlayer()
 {
     player = addEntity(ecs::_grp_CHARACTERS);
 	player->addComponent<Transform>(200, 1300, 100, 120);
-	player->addComponent<FramedImage>();
+	player->addComponent<FramedImageOtt>();
 	player->addComponent<PhysicsComponent>();
 	player->addComponent<PlayerAnimationComponent>(anims::OTT_ANIM);
 	player->addComponent<PlayerInput>();
