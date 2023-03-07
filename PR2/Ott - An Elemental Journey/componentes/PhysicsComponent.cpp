@@ -14,7 +14,7 @@ void PhysicsComponent::initComponent() {
 }
 
 void PhysicsComponent::update() {
-	if (!grounded) {
+	if (!grounded && gravity) {
 		verticalSpeed += mngr_->getGravityValue();
 		if (verticalSpeed > MAX_VERTICAL_SPEED) verticalSpeed = MAX_VERTICAL_SPEED;
 		velocity_ = Vector2D(velocity_.getX(), verticalSpeed);

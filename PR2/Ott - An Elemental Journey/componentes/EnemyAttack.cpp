@@ -47,7 +47,7 @@ void EnemyAttack::update() {
 
 bool EnemyAttack::requestAttack()
 {
-	SDL_Rect playerCollider = physics->getCollider();
+	SDL_Rect playerCollider = player->getComponent<Transform>()->getRect();
 	return (state == attacking && SDL_HasIntersection(&trigger, &playerCollider));
 }
 

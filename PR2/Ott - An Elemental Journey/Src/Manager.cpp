@@ -62,6 +62,7 @@ Texture* Manager::getTexture(int elem)
 	case 2: return game->getTexture("ott_water", PLAY_STATE);
 	case 3: return game->getTexture("ott_fire", PLAY_STATE);
 	case 4: return game->getTexture("shield", PLAY_STATE);
+	case 5: return game->getTexture("spores", PLAY_STATE);
 	//case 4: return game->getTexture("ott_light", PLAY_STATE);
 	default:
 		break;
