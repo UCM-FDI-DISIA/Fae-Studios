@@ -20,10 +20,10 @@ public:
 	inline void setElement(int newElem) { 
 		switch (newElem)
 		{
-		case 0: ecs::Light; break;
-		case 1: ecs::Earth; break;
-		case 2: ecs::Water; break;
-		case 3: ecs::Fire; break;
+		case 0: elem = ecs::Light; break;
+		case 1: elem = ecs::Earth; break;
+		case 2: elem = ecs::Water; break;
+		case 3: elem = ecs::Fire; break;
 		default: break;
 		}
 	}

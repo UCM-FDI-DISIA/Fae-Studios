@@ -54,7 +54,8 @@ void FramedImage::render()
 		}
 
 		if (isShielded) {
-			cout << tr_->getPos().getY() << endl;
+			int elemNum = ent_->getComponent<Health>()->getElement();
+			shieldTex_ = mngr_->getTexture(elemNum+4);
 			SDL_Rect shieldRect;
 			shieldRect.x = tr_->getPos().getX() - mngr_->getCamera()->getComponent<CameraComponent>()->camera.x;
 			shieldRect.y = tr_->getPos().getY() - mngr_->getCamera()->getComponent<CameraComponent>()->camera.y + 40;
