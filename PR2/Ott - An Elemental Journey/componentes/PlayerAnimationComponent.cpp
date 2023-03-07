@@ -1,10 +1,11 @@
 #include "PlayerAnimationComponent.h"
 #include "PhysicsComponent.h"
 #include "../Src/Entity.h"
-PlayerAnimationComponent::PlayerAnimationComponent()
+#pragma once
+PlayerAnimationComponent::PlayerAnimationComponent(anims::Entities e)
 {
+	eAnims = e;
 }
-
 
 void PlayerAnimationComponent::update()
 {

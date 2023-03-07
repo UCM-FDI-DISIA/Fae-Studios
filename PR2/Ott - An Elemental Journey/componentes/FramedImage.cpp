@@ -1,4 +1,5 @@
 #include "FramedImage.h"
+#pragma once
 
 FramedImage::FramedImage(Texture* text, int r, int c) : tex_(text), numRows_(r), numCols_(c), tPerFrame(120)
 {
@@ -35,7 +36,7 @@ void FramedImage::render()
 		SDL_RendererFlip flip = SDL_FLIP_NONE;
 		if (!lookRight) flip = SDL_FLIP_HORIZONTAL;
 		int state = pAnim->getState();
-		if (col == (pAnim->getNFrames(state) - 1) && ((SDL_GetTicks() - pAnim->getStartTicks()) / pAnim->getTPerFrame(state)) % pAnim->getNFrames(state) == 0) pAnim->endAnim();
+		if (col == (pAnim->getNFrames(state) - 1 + pAnim->getColNum(state)) && ((SDL_GetTicks() - pAnim->getStartTicks()) / pAnim->getTPerFrame(state)) % pAnim->getNFrames(state) == 0) pAnim->endAnim();
 		switch (state)
 		{
 		case IDLE: col = (SDL_GetTicks() / pAnim->getTPerFrame(IDLE)) % pAnim->getNFrames(IDLE); tex_->renderFrame(dest, pAnim->getRowNum(IDLE), col, 0, flip); break;
@@ -47,7 +48,7 @@ void FramedImage::render()
 		case LAND: col = ((SDL_GetTicks() / pAnim->getTPerFrame(LAND)) + 6) % pAnim->getNFrames(LAND) + 6; tex_->renderFrame(dest, pAnim->getRowNum(LAND), col, 0, flip); break;
 		case VANISH: col = ((SDL_GetTicks() - pAnim->getStartTicks()) / pAnim->getTPerFrame(VANISH)) % pAnim->getNFrames(VANISH); tex_->renderFrame(dest, pAnim->getRowNum(VANISH), col, 0, flip); break;
 		case DIE: col = ((SDL_GetTicks() - pAnim->getStartTicks()) / pAnim->getTPerFrame(DIE)) % pAnim->getNFrames(DIE); tex_->renderFrame(dest, pAnim->getRowNum(DIE), col, 0, flip); break;
-		case ATTACK: col = ((SDL_GetTicks() - pAnim->getStartTicks()) / pAnim->getTPerFrame(ATTACK)) % pAnim->getNFrames(ATTACK); tex_->renderFrame(dest, pAnim->getRowNum(ATTACK), col, 0, flip); break;
+		case ATTACK: col = ((SDL_GetTicks() - pAnim->getStartTicks()) / pAnim->getTPerFrame(ATTACK)) % pAnim->getNFrames(ATTACK) + pAnim->getColNum(ATTACK); tex_->renderFrame(dest, pAnim->getRowNum(ATTACK), col, 0, flip); break;
 		default:
 
 			break;

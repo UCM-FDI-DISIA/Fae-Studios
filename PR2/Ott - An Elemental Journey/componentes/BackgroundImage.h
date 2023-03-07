@@ -1,8 +1,9 @@
-#pragma once
+/*#pragma once
 #include "Component.h"
 #include "../dependencies/Texture.h"
 #include "../Src/Entity.h"
 #include "../dependencies/Vector2D.h"
+
 class BackgroundImage : public Component
 {
 public:
@@ -15,5 +16,5 @@ private:
 	Texture* tex_;
 	Vector2D position;
 	int wScale, hScale;
-};
+};*/#
 

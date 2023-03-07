@@ -1,3 +1,4 @@
+#pragma once
 #include "Manager.h"
 #include "Entity.h"
 #include "../SDLApplication.h"
@@ -95,7 +96,7 @@ void Manager::createPlayer()
 	player->addComponent<Transform>(200, 1300, 100, 120);
 	player->addComponent<FramedImage>();
 	player->addComponent<PhysicsComponent>();
-	player->addComponent<PlayerAnimationComponent>();
+	player->addComponent<PlayerAnimationComponent>(anims::OTT_ANIM);
 	player->addComponent<PlayerInput>();
 	player->addComponent<Health>(5, ecs::Light);
 	camera = addEntity(ecs::_grp_GENERAL);
@@ -134,11 +135,11 @@ void Manager::createSanctuary()
 
 void Manager::createMap()
 {
-	Entity* bgrd = addEntity(ecs::_grp_MAP);
+	//Entity* bgrd = addEntity(ecs::_grp_MAP);
 	Entity* e = addEntity(ecs::_grp_MAP);
 	e->addComponent<MapComponent>(game,LEVEL1);
 	auto scale = e->getComponent<MapComponent>()->tileScale();
-	bgrd->addComponent<BackgroundImage>(Vector2D(0, 0), game->getTexture("level1bg", PLAY_STATE), scale, scale);
+	//bgrd->addComponent<BackgroundImage>(Vector2D(0, 0), game->getTexture("level1bg", PLAY_STATE), scale, scale);
 	createLamp(550, 1370, 750, 1370);
 	createSanctuary();
 	auto a = e->getComponent<MapComponent>()->getObjects();

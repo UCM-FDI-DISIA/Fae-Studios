@@ -50,6 +50,7 @@
     <ClCompile Include="componentes\Generations.cpp" />
     <ClCompile Include="componentes\SlimeAttack.cpp" />
     <ClCompile Include="componentes\LampComponent.cpp" />
+    <ClCompile Include="Src\anims.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="checkML.h" />
@@ -110,6 +111,7 @@
     <ClInclude Include="componentes\Generations.h" />
     <ClInclude Include="componentes\SlimeAttack.h" />
     <ClInclude Include="componentes\LampComponent.h" />
+    <ClInclude Include="Src\anims.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Ott - An Elemental Journey.rc" />
