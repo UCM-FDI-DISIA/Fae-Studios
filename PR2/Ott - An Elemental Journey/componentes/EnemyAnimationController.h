@@ -1,17 +1,17 @@
 #pragma once
+#include "../dependencies/Vector2D.h"
 #include "Component.h"
-#include <array>
-#include <SDL.h>
 #include "../Src/anims.h"
-enum Animations { IDLE, WALK, RUN, JUMP_UP, PEAK, FALL, LAND, VANISH, DIE, ATTACK };
+#include <SDL.h>
 
-class PlayerAnimationComponent : public Component
-{
+enum EnemyAnims { IDLE_ENEMY, DIE_ENEMY, ATTACK_ENEMY, WALK_ENEMY };
+
+class EnemyAnimationComponent : public Component {
 public:
 	constexpr static cmpId_type id = ecs::_ANIM;
 
-	PlayerAnimationComponent(anims::Entities e = anims::OTT_ANIM);
-	virtual ~PlayerAnimationComponent();
+	EnemyAnimationComponent(anims::Entities e) : eAnims(e) {};
+	virtual ~EnemyAnimationComponent() {};
 	virtual void update();
 	inline int getState() { return currentAnimation; }
 	inline void setState(int newState) { currentAnimation = newState; startAnimTicks = SDL_GetTicks(); }
@@ -20,16 +20,14 @@ public:
 	inline int getNFrames(int i) { return anims::animations[eAnims][i].numFrames; }
 	inline int getRowNum(int i) { return anims::animations[eAnims][i].rowNum; }
 	inline int getColNum(int i) { return anims::animations[eAnims][i].colNum; }
-	inline void playerDamaged() { invincible = true; damageTimer = SDL_GetTicks(); }
+	inline void enemyDamaged() { invincible = true; damageTimer = SDL_GetTicks(); }
 	inline bool isInvincible() { return invincible; }
 	inline int getStartTicks() { return startAnimTicks; }
-	inline void isShielded(bool b) { shielded = b; }
-	inline bool getShielded() { return shielded; }
 
 private:
-	bool invincible = false, shielded = false;
+	bool invincible = false;
 	int damageTimer, invencibilityTime = 3;
-	int currentAnimation = IDLE;
+	int currentAnimation = IDLE_ENEMY;
 	int startAnimTicks;
 	anims::Entities eAnims;
 };

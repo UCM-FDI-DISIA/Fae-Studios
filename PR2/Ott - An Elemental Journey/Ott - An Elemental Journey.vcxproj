@@ -157,6 +157,7 @@
     <ClInclude Include="componentes\SlimeAttack.h" />
     <ClInclude Include="componentes\Transform.h" />
     <ClInclude Include="componentes\EnemyShootingAttack.h" />
+    <ClInclude Include="componentes\EnemyAnimationController.h" />
     <ClInclude Include="gameflow\menus\options\ControlMenuState.h" />
     <ClInclude Include="gameflow\menus\PauseMenuState.h" />
     <ClInclude Include="dependencies\Exceptions.h" />
@@ -201,6 +202,7 @@
     <ClCompile Include="componentes\ButtonComponent.cpp" />
     <ClCompile Include="componentes\CameraComponent.cpp" />
     <ClCompile Include="componentes\Component.cpp" />
+    <ClCompile Include="componentes\EnemyAnimationController.cpp" />
     <ClCompile Include="componentes\EnemyAttack.cpp" />
     <ClCompile Include="componentes\EnemyMeleeAttack.cpp" />
     <ClCompile Include="componentes\EnemyMovement.cpp" />

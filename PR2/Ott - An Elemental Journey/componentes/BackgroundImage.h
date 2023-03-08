@@ -1,4 +1,4 @@
-/*#pragma once
+#pragma once
 #include "Component.h"
 #include "../dependencies/Texture.h"
 #include "../Src/Entity.h"
@@ -16,5 +16,4 @@ private:
 	Texture* tex_;
 	Vector2D position;
 	int wScale, hScale;
-};*/#
-
+};
