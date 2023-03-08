@@ -13,18 +13,19 @@ void EnemyShootingAttack::initComponent()
 void EnemyShootingAttack::update() //Completar con constructoras y nuevos métodos de las balas (a lo mejor manager debería tener un método de crear balas)
 {
 	if (enemyAttack->requestAttack() && playerHealth->getHealth() > 0 && SDL_GetTicks() - attackingTime >= SHOOTING_TIME) {
-		/*
 		auto bullet = mngr_->addEntity(ecs::_grp_PROYECTILES);
-		bullet->addComponent<Transform>(ent_->getComponent<Transform>()->getPos(), 1, 1);
+		if(ent_->getComponent<PhysicsComponent>()->getLookDirection())
+			bullet->addComponent<Transform>(ent_->getComponent<Transform>()->getPos().getX() + ent_->getComponent<Transform>()->getW() / 3, ent_->getComponent<Transform>()->getPos().getY() + ent_->getComponent<Transform>()->getH() / 2, 2, 2);
+		else
+			bullet->addComponent<Transform>(ent_->getComponent<Transform>()->getPos().getX(), ent_->getComponent<Transform>()->getPos().getY() + ent_->getComponent<Transform>()->getH() / 2, 2, 2);
 		bullet->addComponent<PhysicsComponent>();
+		bullet->getComponent<PhysicsComponent>()->setGravity(false);
 		if (player->getComponent<Transform>()->getPos().getX() > ent_->getComponent<Transform>()->getPos().getX())
 			bullet->getComponent<PhysicsComponent>()->getVelocity() = Vector2D(1, 0);
 		else
 			bullet->getComponent<PhysicsComponent>()->getVelocity() = Vector2D(-1, 0);
-		bullet->addComponent<Image>(); //Falta textura
-		bullet->addComponent<Bullet>(player, health->getElement());
-
+		bullet->addComponent<Image>(mngr_->getTexture(5)); //Falta textura
+		bullet->addComponent<Bullet>(health->getElement());
 		attackingTime = SDL_GetTicks();
-		*/
 	}
 }

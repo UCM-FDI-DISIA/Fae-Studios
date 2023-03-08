@@ -17,6 +17,10 @@
 #include <unordered_map>
 */
 #include "../../componentes/EnemyMovement.h"
+#include "../../componentes/EnemyAttack.h"
+#include "../../componentes/EnemyShootingAttack.h"
+#include "../../componentes/PlayerInput.h"
+#include "../../componentes/Bullet.h"
 
 PlayState::PlayState(SDLApplication* app) : GameState(PLAY_STATE, app) {
 	
@@ -97,14 +101,17 @@ PlayState::PlayState(SDLApplication* app) : GameState(PLAY_STATE, app) {
 	manager_->createMap();
 	manager_->createPlayer();
 	auto player = manager_->addEntity(ecs::_grp_CHARACTERS);
-	player->addComponent<Transform>(200, 1300, 100, 120);
+	player->addComponent<Transform>(400, 1300, 100, 120);
 	player->addComponent<FramedImage>();
 	auto ph = player->addComponent<PhysicsComponent>();
-	ph->setVelocity({ 1,0 });
+	ph->setVelocity({ 0,0 });
 	ph->lookDirection(true);
 	player->addComponent<EnemyMovement>();
 	player->addComponent<Health>(5, ecs::Fire);
+	player->addComponent<EnemyAttack>(100, 100);
+	player->addComponent<EnemyShootingAttack>();
 }
+
 void PlayState::checkCollisions()
 {
 	/*vector<Entity*> characters = manager_->getEntitiesByGroup(ecs::_grp_CHARACTERS);
@@ -120,6 +127,7 @@ void PlayState::checkCollisions()
 	}*/
 	vector<Entity*> characters = manager_->getEntitiesByGroup(ecs::_grp_CHARACTERS);
 	vector<Entity*> ground = manager_->getEntitiesByGroup(ecs::_grp_GROUND);
+	vector<Entity*> bullets = manager_->getEntitiesByGroup(ecs::_grp_PROYECTILES);
 	for (Entity* e : characters) {
 		auto eTr = e->getComponent<Transform>();
 		SDL_Rect r1 = eTr->getRect();
@@ -163,6 +171,23 @@ void PlayState::checkCollisions()
 			}
 			else if (i == ground.size() - 1) physics->setGrounded(false);
 			++i;
+		}
+	}
+
+	for (Entity* b : bullets) {
+		Entity* p = manager_->getPlayer();
+		SDL_Rect r1 = p->getComponent<Transform>()->getRect();
+		SDL_Rect r2 = b->getComponent<Transform>()->getRect();
+		if (SDL_HasIntersection(&r1, &r2)) {
+			p->getComponent<Health>()->recieveDamage(b->getComponent<Bullet>()->getElem());
+			b->setAlive(false);	
+		}
+
+		for (Entity* g : ground) { // WALL COLLISION
+			SDL_Rect r3 = g->getComponent<Transform>()->getRect();
+			if (SDL_HasIntersection(&r2, &r3)) {
+				b->setAlive(false);
+			}
 		}
 	}
 }

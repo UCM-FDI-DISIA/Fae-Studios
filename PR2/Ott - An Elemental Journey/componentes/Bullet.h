@@ -10,6 +10,6 @@ public:
 	constexpr static cmpId_type id = ecs::_BULLET;
 	Bullet(ecs::elements e) : Component(), player(nullptr), elem(e), physics(nullptr) {};
 	void initComponent() override;
-	void update() override;
+	inline ecs::elements getElem() { return elem; }
 };
 

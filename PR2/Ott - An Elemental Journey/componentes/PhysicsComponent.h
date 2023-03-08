@@ -21,6 +21,7 @@ public:
 	inline void setGrounded(bool value) { grounded = value; if (grounded) verticalSpeed = 0; }
 	inline bool isGrounded() { return grounded; }
 	inline void setVelocity(Vector2D value) { velocity_ = value; }
+	inline void setGravity(bool g) { gravity = g; }
 	void jump();
 private:
 	SDL_Rect collider;
@@ -29,7 +30,7 @@ private:
 	const double X_KNOCKBACK_FORCE = 6;
 	double knockbackTimer = 0;
 	double knockbackTime = 15;
-	bool isKnockback = false, lookingRight = true, grounded = false;
+	bool isKnockback = false, lookingRight = true, grounded = false, gravity = true;
 	float verticalSpeed = 0;
 	Vector2D velocity_;
 
