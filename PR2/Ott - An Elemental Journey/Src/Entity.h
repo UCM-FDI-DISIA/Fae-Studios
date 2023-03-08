@@ -10,6 +10,7 @@
 using namespace std;
 using cmpId_type = uint8_t;
 using grpId_type = uint8_t;
+using uint = unsigned int;
 class Entity
 {
 public:

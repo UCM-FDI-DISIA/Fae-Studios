@@ -3,6 +3,7 @@
 #include "../dependencies/Texture.h"
 #include "../Src/Entity.h"
 #include "../dependencies/Vector2D.h"
+
 class BackgroundImage : public Component
 {
 public:
@@ -16,4 +17,3 @@ private:
 	Vector2D position;
 	int wScale, hScale;
 };
-

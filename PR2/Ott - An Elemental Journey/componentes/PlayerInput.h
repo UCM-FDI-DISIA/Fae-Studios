@@ -21,5 +21,6 @@ private:
 	PhysicsComponent* physics_;
 	PlayerAnimationComponent* anim_;
 	PlayerAttack* attack_;
+	float horizontalSpeed = 0;
 };
 

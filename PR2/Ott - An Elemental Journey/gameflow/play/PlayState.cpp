@@ -1,6 +1,8 @@
 #pragma once
 #include "PlayState.h"
 #include "../../SDLApplication.h"
+#include "../../componentes/EnemyAnimationController.h"
+#include "../../componentes/TestEnemyInput.h"
 
 /*
 #include "../../gameobjects/Physics/Ground.h"
@@ -100,16 +102,23 @@ PlayState::PlayState(SDLApplication* app) : GameState(PLAY_STATE, app) {
 	manager_ = new Manager(app);
 	manager_->createMap();
 	manager_->createPlayer();
-	auto player = manager_->addEntity(ecs::_grp_CHARACTERS);
-	player->addComponent<Transform>(400, 1300, 100, 120);
-	player->addComponent<FramedImage>();
-	auto ph = player->addComponent<PhysicsComponent>();
+	auto player = manager_->getPlayer()->getComponent<Transform>()->getPos();
+	auto enemy = manager_->addEntity(ecs::_grp_CHARACTERS);
+	enemy->addComponent<Transform>(player.getX(), player.getY(), 100, 100);
+	enemy->addComponent<FramedImageEnemy>(app->getTexture("mushroom", PLAY_STATE));
+	//enemy->addComponent<EnemyMovement>();
+	enemy->addComponent<Health>(5, ecs::Fire);
+	auto ph = enemy->addComponent<PhysicsComponent>();
 	ph->setVelocity({ 0,0 });
 	ph->lookDirection(true);
-	player->addComponent<EnemyMovement>();
-	player->addComponent<Health>(5, ecs::Fire);
-	player->addComponent<EnemyAttack>(100, 100);
-	player->addComponent<EnemyShootingAttack>();
+	enemy->addComponent<EnemyAttack>(100, 100);
+	enemy->addComponent<EnemyShootingAttack>();
+	enemy->addComponent<EnemyAnimationComponent>(anims::RANGE_ANIM);
+	enemy->addComponent<TestEnemyInput>();
+	/*auto ph = player->addComponent<PhysicsComponent>();
+	ph->setVelocity({ 1,0 });
+	ph->lookDirection(true);
+	player->addComponent<EnemyMovement>();*/
 }
 
 void PlayState::checkCollisions()
@@ -133,9 +142,10 @@ void PlayState::checkCollisions()
 		SDL_Rect r1 = eTr->getRect();
 		auto physics = e->getComponent<PhysicsComponent>();
 		Vector2D& colVector = physics->getVelocity();
-		auto mov = e->getComponent<EnemyMovement>();
 
+		auto mov = e->getComponent<EnemyMovement>();
 		for (Entity* g : ground) { // WALL COLLISION
+
 			SDL_Rect r2 = g->getComponent<Transform>()->getRect();
 			SDL_Rect areaColision; // area de colision 	
 			bool interseccion = SDL_IntersectRect(&r1, &r2, &areaColision);
@@ -158,11 +168,14 @@ void PlayState::checkCollisions()
 				if (areaColision.w >= areaColision.h) {
 					
 					if (!physics->isGrounded() && areaColision.y > r1.y + r1.w / 2) {
+						cout << "ground touched" << endl;
 						colVector = Vector2D(colVector.getX(), 0);
 						physics->setGrounded(true);
 					}
 					else if (!physics->isGrounded()) {
+						cout << "ceiling touched" << endl;
 						colVector = Vector2D(colVector.getX(), 1);
+						physics->setVerticalSpeed(1);
 					}
 					if (mov != nullptr) mov->ChangeDirection(true, areaColision);
 

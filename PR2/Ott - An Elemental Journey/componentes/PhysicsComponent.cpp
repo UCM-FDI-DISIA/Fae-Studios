@@ -18,10 +18,8 @@ void PhysicsComponent::update() {
 		verticalSpeed += mngr_->getGravityValue();
 		if (verticalSpeed > MAX_VERTICAL_SPEED) verticalSpeed = MAX_VERTICAL_SPEED;
 		velocity_ = Vector2D(velocity_.getX(), verticalSpeed);
-		cout << velocity_.getY() << endl;
 	}
 	
-	//cout << velocity_.getX() << endl;
 	if (isKnockback) {
 		knockbackTimer++;
 		if (knockbackTimer > knockbackTime) {
@@ -44,7 +42,9 @@ void PhysicsComponent::jump() {
 
 void PhysicsComponent::knockback() {
 	isKnockback = true;
-	velocity_ = velocity_ + Vector2D(-X_KNOCKBACK_FORCE * (knockbackTime - knockbackTimer) / knockbackTime, 0);
+	int kckbDir = 1;
+	if (lookingRight) kckbDir = -1;
+	velocity_ = velocity_ + Vector2D(kckbDir* X_KNOCKBACK_FORCE * (knockbackTime - knockbackTimer) / knockbackTime, 0);
 }
 
 Vector2D& PhysicsComponent::getVelocity() {
