@@ -46,6 +46,7 @@
     <ClCompile Include="src\utils\Vector2D.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\game\Constructors.h" />
     <ClInclude Include="src\components\FramedImage.h" />
     <ClInclude Include="src\components\Slider.h" />
     <ClInclude Include="src\components\Button.h" />

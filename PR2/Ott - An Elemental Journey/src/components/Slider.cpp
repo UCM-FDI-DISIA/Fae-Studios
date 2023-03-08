@@ -58,6 +58,11 @@ void Slider::initComponent() {
     texture = ent_->getComponent<FramedImage>();
     title = ent_->getComponent<Text>();
     percentageText = ent_->getComponent<SliderPercentage>();
+
+    Vector2D titlePosition = Vector2D(transform->getPosition().getX() + (transform->getWidth() - title->getWidth()) / 2, transform->getPosition().getY() - (transform->getHeight() - title->getHeight()) * 2);
+    Vector2D percentagePosition = Vector2D(transform->getPosition().getX() + (transform->getWidth() - percentageText->getWidth()) / 2, transform->getPosition().getY() + (transform->getHeight() - percentageText->getHeight()) / 2 - 5);
+    title->setPosition(titlePosition);
+    percentageText->setPosition(percentagePosition);
 }
 
 void Slider::handleInput() {
@@ -105,15 +110,11 @@ void Slider::onChange() {
 
 void Slider::setNeedle(Entity* needle) {
     this->needle = needle;
-    Vector2D needlePos = transform->getPosition() - Vector2D((this->needle->getComponent<FramedImage>()->getFrameWidth() / 2.5f) / 2, (this->needle->getComponent<FramedImage>()->getFrameHeight() / 2.5f) / 2 + 10);
+    Vector2D initialPos = (transform->getPosition() - Vector2D((this->needle->getComponent<FramedImage>()->getFrameWidth() / 2.5f) / 2, (this->needle->getComponent<FramedImage>()->getFrameHeight() / 2.5f) / 2 + 10));
+    Vector2D needlePos = initialPos + Vector2D(currentValue * ((texture->getFrameWidth())/(maxValue - minValue)), 0);
     this->needle->getComponent<SliderNeedle>()->setPosition(needlePos);
-    Vector2D maxNeedlePos = needlePos + Vector2D(texture->getFrameWidth(), 0);
-    this->needle->getComponent<SliderNeedle>()->setLimitPositions(needlePos, maxNeedlePos);
+    Vector2D maxNeedlePos = initialPos + Vector2D(texture->getFrameWidth(), 0);
+    this->needle->getComponent<SliderNeedle>()->setLimitPositions(initialPos, maxNeedlePos);
     this->needle->getComponent<SliderNeedle>()->setMaxValue(getMaxValue());
     this->needle->getComponent<SliderNeedle>()->setMinValue(getMinValue());
-    
-    Vector2D titlePosition = Vector2D(transform->getPosition().getX() + (transform->getWidth() - title->getWidth()) / 2, transform->getPosition().getY() - (transform->getHeight() - title->getHeight()) * 2);
-    Vector2D percentagePosition = Vector2D(transform->getPosition().getX() + (transform->getWidth() - percentageText->getWidth()) / 2, transform->getPosition().getY() + (transform->getHeight() - percentageText->getHeight()) / 2 - 5);
-    title->setPosition(titlePosition);
-    percentageText->setPosition(percentagePosition);
 }
