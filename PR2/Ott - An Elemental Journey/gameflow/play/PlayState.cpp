@@ -19,6 +19,7 @@
 #include "../../componentes/EnemyMovement.h"
 #include "../../componentes/EnemyAttack.h"
 #include "../../componentes/EnemyShootingAttack.h"
+#include "../../componentes/EnemyMeleeAttack.h"
 #include "../../componentes/PlayerInput.h"
 #include "../../componentes/Bullet.h"
 
@@ -109,7 +110,7 @@ PlayState::PlayState(SDLApplication* app) : GameState(PLAY_STATE, app) {
 	player->addComponent<EnemyMovement>();
 	player->addComponent<Health>(5, ecs::Fire);
 	player->addComponent<EnemyAttack>(100, 100);
-	player->addComponent<EnemyShootingAttack>();
+	player->addComponent<EnemyMeleeAttack>();
 }
 
 void PlayState::checkCollisions()
