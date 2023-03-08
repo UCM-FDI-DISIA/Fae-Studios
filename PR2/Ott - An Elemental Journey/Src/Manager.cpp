@@ -168,7 +168,6 @@ void Manager::createMap()
 	Entity* e = addEntity(ecs::_grp_MAP);
 	e->addComponent<MapComponent>(game, LEVEL1);
 	auto scale = e->getComponent<MapComponent>()->tileScale();
-	auto bgrd = addEntity();
 	bgrd->addComponent<BackgroundImage>(Vector2D(0, 0), game->getTexture("level1bg", PLAY_STATE), scale, scale);
 	createLamp(550, 1370, 750, 1370);
 	//bgrd->addComponent<BackgroundImage>(Vector2D(0, 0), game->getTexture("level1bg", PLAY_STATE), scale, scale);
