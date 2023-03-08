@@ -3,7 +3,6 @@
 #include "Transform.h"
 #include "FramedImage.h"
 #include "Text.h"
-#include "SliderPercentage.h"
 
 using SliderCallback = void(int value);
 
@@ -35,12 +34,35 @@ public:
     void setLimitPositions(Vector2D& minimum, Vector2D& maximum) {minimumPosition = minimum; maximumPosition = maximum; }
     void setMaxValue(float f) {maxValue = f;}
     void setMinValue(float f) {minValue = f;}
+    FramedImage* getTexture() { return texture; }
+};
+
+class SliderPercentage : public Component {
+private:
+    Texture* textTexture;
+    int x;
+    int y;
+    Font& f;
+    SDL_Color fontColor;
+    SDL_Color bgColor;
+
+    Texture* createTexture(std::string text, Font& f, SDL_Color fontColor, SDL_Color bgColor);
+public:
+    constexpr static ecs::cmpId_type id = ecs::_SLIDER_PERCENTAGE;
+    SliderPercentage(std::string text, Font& f, SDL_Color fontColor, SDL_Color bgColor);
+    virtual ~SliderPercentage() { delete textTexture; }
+    void render() override;
+    int getWidth() const { return textTexture->width(); }
+    int getHeight() const { return textTexture->height(); }
+    inline void setPosition(Vector2D& v) { x = v.getX(); y = v.getY(); }
+    inline Vector2D getPosition() const { return Vector2D(x, y); }
+    void changeText(std::string text);
 };
 
 class Slider : public Component {
 private:
     /// Estados en los que puede estar la textura de un slider
-    SliderNeedle* needle;
+    Entity* needle;
     SliderCallback* callback;
     Transform* transform;
     FramedImage* texture;
@@ -68,5 +90,8 @@ public:
     virtual ~Slider() = default;
     void initComponent() override;
     void handleInput() override;
+    void setNeedle(Entity* needle);
+    float getMaxValue() const { return maxValue; }
+    float getMinValue() const { return minValue; }
 };
 
