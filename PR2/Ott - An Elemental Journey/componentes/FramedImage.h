@@ -3,6 +3,7 @@
 #include "../dependencies/Texture.h"
 #include "Transform.h"
 #include "../Src/Entity.h"
+#include "PlayerAnimationComponent.h"
 #include <SDL.h>
 
 class FramedImageOtt : public Component
@@ -26,15 +27,15 @@ private:
 	int tPerFrame;
 	bool isShielded = false;
 };
-
-class FramedImageMelee : public Component
+/*
+class FramedImageEnemy : public Component
 {
 public:
-	FramedImageMelee(Texture* text, int r, int c);
-	FramedImageMelee(Texture* text, int r, int c, int f);
+	FramedImageEnemy(Texture* text, int r, int c);
+	FramedImageEnemy(Texture* text, int r, int c, int f);
 	//Constructor exclusivo para Ott 
-	FramedImageMelee();
-	virtual ~FramedImageMelee();
+	FramedImageEnemy();
+	virtual ~FramedImageEnemy();
 	void initComponent() override;
 	inline void damageStart() { row = 1; };
 	inline void damageStop() { row = 0; };
@@ -49,4 +50,4 @@ private:
 	int row = 0, col = 0;
 	int tPerFrame;
 	bool isShielded = false;
-};
+};*/

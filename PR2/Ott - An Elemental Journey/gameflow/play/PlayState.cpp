@@ -98,7 +98,7 @@ PlayState::PlayState(SDLApplication* app) : GameState(PLAY_STATE, app) {
 	manager_->createPlayer();
 	auto player = manager_->addEntity(ecs::_grp_CHARACTERS);
 	player->addComponent<Transform>(200, 1300, 100, 120);
-	//player->addComponent<FramedImage>();
+	// player->addComponent<FramedImageEnemy>();
 	auto ph = player->addComponent<PhysicsComponent>();
 	ph->setVelocity({ 1,0 });
 	ph->lookDirection(true);
