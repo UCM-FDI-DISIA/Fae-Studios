@@ -1,15 +1,41 @@
 #include "EnemyAnimationController.h"
 #include "../Src/Entity.h"
+#include "FramedImage.h"
+
+void EnemyAnimationComponent::initComponent() {
+	image = ent_->getComponent<FramedImageEnemy>();
+}
 
 void EnemyAnimationComponent::update() {
 	
+	int state = currentAnimation;
+	timer_ = (timer_ + 1) % (getTPerFrame(state) * getNFrames(state)) +1;
+	cout << timer_ << endl;
+
 	if (damaged) {
-		timer_ = SDL_GetTicks() - startTime_;
-		if (timer_ >= damagedTimer_) {
+		image->setRow(1);
+		damageTimer_ = SDL_GetTicks() - damageStartTime_;
+		if (damageTimer_ >= maxDamagedTimer_) {
 			damaged = false;
 		}
 	}
-	else startTime_ = SDL_GetTicks();
+	else { damageStartTime_ = SDL_GetTicks(); image->setRow(0); }
+
+	int col = image->getCurCol();
+	if (col == (getNFrames(state) - 1 + getColNum(state)) &&
+		((SDL_GetTicks() - getStartTicks()) / getTPerFrame(state)) % getNFrames(state) == 0)
+	{
+		endAnim();
+	}
+
+	if (state == ATTACK_ENEMY || state == DIE_ENEMY || state == PREPARE_ATTACK_ENEMY) {
+		col = (timer_ / getTPerFrame(state)) % getNFrames(state) + getColNum(state);
+	}
+	else {
+		col = (timer_ / getTPerFrame(state)) % getNFrames(state) + getColNum(state);
+	}
+
+	image->setCol(col);
 
 	/*
 	if (currentAnimation == ATTACK_ENEMY || currentAnimation == DIE_ENEMY) return;
@@ -19,6 +45,10 @@ void EnemyAnimationComponent::update() {
 }
 
 void EnemyAnimationComponent::endAnim() {
-	if (currentAnimation == ATTACK_ENEMY || currentAnimation == DIE_ENEMY) setState(IDLE);
-	else if (currentAnimation == PREPARE_ATTACK_ENEMY) setState(ATTACK_ENEMY);
+	if (currentAnimation == PREPARE_ATTACK_ENEMY) 
+	{ 
+		setState(ATTACK_ENEMY); 
+		// el enemigo ataca, aquí debería llamarse a una función de ataque
+	}
+	else { setState(IDLE);  }
 }

@@ -81,27 +81,9 @@ FramedImageEnemy::FramedImageEnemy(Texture* text) {
 
 void FramedImageEnemy::initComponent() {
 	tr_ = ent_->getComponent<Transform>();
-	eAnim_ = ent_->getComponent<EnemyAnimationComponent>();
 }
 
-void FramedImageEnemy::update() {
-	if (eAnim_->isDamaged()) row = 1; // hay que hacer las filas de daño para el slime
-	else row = 0;
-
-	int state = eAnim_->getState();
-	if (col == (eAnim_->getNFrames(state) - 1 + eAnim_->getColNum(state)) &&
-		((SDL_GetTicks() - eAnim_->getStartTicks()) / eAnim_->getTPerFrame(state)) % eAnim_->getNFrames(state) == 0)
-	{
-		eAnim_->endAnim();
-	}
-
-	if (state == ATTACK_ENEMY || state == DIE_ENEMY || state == PREPARE_ATTACK_ENEMY) {
-		col = ((SDL_GetTicks() - eAnim_->getStartTicks()) / eAnim_->getTPerFrame(state)) % eAnim_->getNFrames(state) + eAnim_->getColNum(state);
-	}
-	else {
-		col = (SDL_GetTicks() / eAnim_->getTPerFrame(state)) % eAnim_->getNFrames(state) + eAnim_->getColNum(state);
-	}
-}
+void FramedImageEnemy::update() {}
 
 void FramedImageEnemy::render(){
 	SDL_Rect dest; dest.x = tr_->getPos().getX(); dest.y = tr_->getPos().getY();
@@ -109,12 +91,9 @@ void FramedImageEnemy::render(){
 	dest.x -= mngr_->getCamera()->getComponent<CameraComponent>()->camera.x;
 	dest.y -= mngr_->getCamera()->getComponent<CameraComponent>()->camera.y;
 	SDL_RendererFlip flip;
-	/*bool lookRight = ent_->getComponent<PhysicsComponent>()->getLookDirection();
-	if (!lookRight) flip = SDL_FLIP_HORIZONTAL;
-	else flip = SDL_FLIP_NONE;*/
-	int state = eAnim_->getState();
-
-	tex_->renderFrame(dest, row, col);
+	if (lookingRight) flip = SDL_FLIP_NONE;
+	else flip = SDL_FLIP_HORIZONTAL;
+	tex_->renderFrame(dest, row, col, 0, flip);
 }
 
 #pragma endregion

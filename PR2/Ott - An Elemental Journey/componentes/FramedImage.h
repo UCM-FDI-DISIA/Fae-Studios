@@ -41,14 +41,14 @@ public:
 	inline int getCurRow() { return row; }
 	inline void setRow(int r) { row = r; }
 	inline void setCol(int c) { col = c; }
+	inline void setLookingRight(bool l) { lookingRight = l; }
 	constexpr static cmpId_type id = ecs::_FRAMEDIMAGE;
 private:
 	// MeleeAnimationComponent* pAnim_;
 	Transform* tr_;
 	Texture* tex_;
-	EnemyAnimationComponent* eAnim_;
 	int numRows_, numCols_;
 	int row = 0, col = 0;
 	int tPerFrame;
-	bool isShielded = false;
+	bool isShielded = false, lookingRight = true;
 };
