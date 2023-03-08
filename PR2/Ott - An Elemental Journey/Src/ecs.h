@@ -1,3 +1,5 @@
+
+
 #pragma once
 #include <cstdint>
 namespace ecs
@@ -21,19 +23,20 @@ namespace ecs
 		_BULLET,
 		_GEN,
 		_ENEMYMOV,
+		_VINE,
 		// do not remove this
 		_LAST_CMP_ID
 	};
 	static constexpr cmpId_type maxComponentId = _LAST_CMP_ID;
-	
+
 	enum grpId : grpId_type {
 		_grp_GENERAL,
 		_grp_MAP,
+		_grp_INTERACTION,
+		_grp_VINE,
+		_grp_CHARACTERS,
 		_grp_GROUND,
 		_grp_PROYECTILES,
-		_grp_INTERACTION,
-		_grp_CHARACTERS,
-
 		_LAST_GRP_ID
 	};
 	static constexpr grpId_type maxGroupId = _LAST_GRP_ID;
@@ -57,4 +60,3 @@ namespace ecs
 		{ 1, 2, 2, 2, 1 }
 	};
 };
-

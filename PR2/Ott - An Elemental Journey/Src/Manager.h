@@ -1,7 +1,9 @@
+
 #pragma once
 #include <vector>
 #include <array>
 #include <string>
+#include "../componentes/AddVine.h"
 #include "../dependencies/Vector2D.h"
 #include "../componentes/Transform.h"
 #include "../componentes/Image.h"
@@ -16,6 +18,7 @@
 #include "../componentes/InteractionComponent.h"
 #include "../componentes/LampComponent.h"
 #include "../checkML.h"
+
 
 using namespace std;
 using grpId_type = uint8_t;
@@ -53,11 +56,14 @@ public:
 	static void Test(Manager* m) { cout << "interaccion" << endl; }
 	static void Teleport(Manager* m);
 	static void Save(Manager* m);
+	static void AddEnredadera(Manager* m);
 	void checkInteraction();
 	inline Entity* getCurrentInteraction() { return *interactionIt; }
+	void createVine(Vector2D position, int width = 60, int height = 120);
 private:
 	void createLamp(int x1, int y1, int x2, int y2);
-	void createSanctuary();
+	void createSanctuary(Vector2D position, int width = 100, int height = 130);
+	void createGrass(Vector2D position, int width = 60, int height = 60);
 	Entity* player;
 	Entity* camera;
 	float gravityValue = 0.2;
