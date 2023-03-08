@@ -15,6 +15,7 @@
 #include "../componentes/Health.h"
 #include "../componentes/InteractionComponent.h"
 #include "../componentes/PlayerAttack.h"
+#include "../componentes/Bullet.h"
 #include "../checkML.h"
 
 using namespace std;

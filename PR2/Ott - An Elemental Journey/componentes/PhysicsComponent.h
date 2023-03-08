@@ -8,6 +8,7 @@ class PhysicsComponent : public Component
 public:
 	PhysicsComponent();
 	PhysicsComponent(Vector2D offset, Vector2D WidthHeight);
+	PhysicsComponent(Vector2D vel) : velocity_(vel) {}
 	virtual ~PhysicsComponent();
 	virtual void initComponent();
 	virtual void update();

@@ -174,7 +174,7 @@ void PlayState::checkCollisions()
 		}
 	}
 
-	for (Entity* b : bullets) {
+	/*for (Entity* b : bullets) {
 		Entity* p = manager_->getPlayer();
 		SDL_Rect r1 = p->getComponent<Transform>()->getRect();
 		SDL_Rect r2 = b->getComponent<Transform>()->getRect();
@@ -189,7 +189,7 @@ void PlayState::checkCollisions()
 				b->setAlive(false);
 			}
 		}
-	}
+	}*/
 }
 void PlayState::update() {
 	checkCollisions();
