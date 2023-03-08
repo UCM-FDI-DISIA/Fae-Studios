@@ -4,7 +4,7 @@
 #include "../Src/anims.h"
 #include <SDL.h>
 
-enum EnemyAnims { IDLE_ENEMY, DIE_ENEMY, ATTACK_ENEMY, WALK_ENEMY };
+enum EnemyAnims { IDLE_ENEMY, DIE_ENEMY, ATTACK_ENEMY, PREPARE_ATTACK_ENEMY, WALK_ENEMY };
 
 class EnemyAnimationComponent : public Component {
 public:
@@ -20,14 +20,16 @@ public:
 	inline int getNFrames(int i) { return anims::animations[eAnims][i].numFrames; }
 	inline int getRowNum(int i) { return anims::animations[eAnims][i].rowNum; }
 	inline int getColNum(int i) { return anims::animations[eAnims][i].colNum; }
-	inline void enemyDamaged() { invincible = true; damageTimer = SDL_GetTicks(); }
-	inline bool isInvincible() { return invincible; }
 	inline int getStartTicks() { return startAnimTicks; }
+	inline bool isDamaged() { return damaged; }
+	inline void damage() { damaged = true; }
 
 private:
-	bool invincible = false;
-	int damageTimer, invencibilityTime = 3;
+	bool damaged = false;
 	int currentAnimation = IDLE_ENEMY;
 	int startAnimTicks;
 	anims::Entities eAnims;
+
+	int timer_, startTime_;
+	const int damagedTimer_ = 500;
 };

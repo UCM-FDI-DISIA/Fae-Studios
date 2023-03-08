@@ -183,6 +183,7 @@
     <ClInclude Include="Src\anims.h" />
     <ClInclude Include="Src\Manager.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="componentes\TestEnemyInput.h" />
     <ClInclude Include="ui\Button.h" />
     <ClInclude Include="ui\ChargedAttackBar.h" />
     <ClInclude Include="ui\HealthBar.h" />
@@ -240,6 +241,7 @@
     <ClCompile Include="SDLApplication.cpp" />
     <ClCompile Include="Src\anims.cpp" />
     <ClCompile Include="Src\Manager.cpp" />
+    <ClCompile Include="componentes\TestEnemyInput.cpp" />
     <ClCompile Include="ui\Button.cpp" />
     <ClCompile Include="ui\ChargedAttackBar.cpp" />
     <ClCompile Include="ui\HealthBar.cpp" />

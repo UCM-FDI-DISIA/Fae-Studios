@@ -1,6 +1,8 @@
 #pragma once
 #include "PlayState.h"
 #include "../../SDLApplication.h"
+#include "../../componentes/EnemyAnimationController.h"
+#include "../../componentes/TestEnemyInput.h"
 
 /*
 #include "../../gameobjects/Physics/Ground.h"
@@ -96,13 +98,16 @@ PlayState::PlayState(SDLApplication* app) : GameState(PLAY_STATE, app) {
 	manager_ = new Manager(app);
 	manager_->createMap();
 	manager_->createPlayer();
-	auto player = manager_->addEntity(ecs::_grp_CHARACTERS);
-	player->addComponent<Transform>(200, 1300, 100, 120);
-	// player->addComponent<FramedImageEnemy>();
-	auto ph = player->addComponent<PhysicsComponent>();
+	auto player = manager_->getPlayer()->getComponent<Transform>()->getPos();
+	auto enemy = manager_->addEntity(ecs::_grp_PROYECTILES);
+	enemy->addComponent<Transform>(player.getX(), player.getY(), 100, 100);
+	enemy->addComponent<EnemyAnimationComponent>(anims::RANGE_ANIM);
+	enemy->addComponent<TestEnemyInput>();
+	enemy->addComponent<FramedImageEnemy>(app->getTexture("mushroom", PLAY_STATE));
+	/*auto ph = player->addComponent<PhysicsComponent>();
 	ph->setVelocity({ 1,0 });
 	ph->lookDirection(true);
-	player->addComponent<EnemyMovement>();
+	player->addComponent<EnemyMovement>();*/
 }
 
 void PlayState::checkCollisions()

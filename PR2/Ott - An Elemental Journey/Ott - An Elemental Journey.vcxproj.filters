@@ -53,6 +53,7 @@
     <ClCompile Include="Src\anims.cpp" />
     <ClCompile Include="componentes\AddVine.cpp" />
     <ClCompile Include="componentes\EnemyAnimationController.cpp" />
+    <ClCompile Include="componentes\TestEnemyInput.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="checkML.h" />
@@ -116,6 +117,7 @@
     <ClInclude Include="Src\anims.h" />
     <ClInclude Include="componentes\AddVine.h" />
     <ClInclude Include="componentes\EnemyAnimationController.h" />
+    <ClInclude Include="componentes\TestEnemyInput.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Ott - An Elemental Journey.rc" />
