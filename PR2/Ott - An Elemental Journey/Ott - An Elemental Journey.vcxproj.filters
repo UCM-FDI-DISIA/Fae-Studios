@@ -25,6 +25,7 @@
     <ClCompile Include="src\components\Button.cpp" />
     <ClCompile Include="src\components\Slider.cpp" />
     <ClCompile Include="src\components\FramedImage.cpp" />
+    <ClCompile Include="src\components\CameraComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\components\Image.h" />
@@ -66,5 +67,7 @@
     <ClInclude Include="src\components\Slider.h" />
     <ClInclude Include="src\components\FramedImage.h" />
     <ClInclude Include="src\game\Constructors.h" />
+    <ClInclude Include="src\components\AddVine.h" />
+    <ClInclude Include="src\components\CameraComponent.h" />
   </ItemGroup>
 </Project>

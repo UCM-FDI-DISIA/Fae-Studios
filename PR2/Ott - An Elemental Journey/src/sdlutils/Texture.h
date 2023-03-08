@@ -92,6 +92,14 @@ public:
 		SDL_Rect src = { 0, 0, width_, height_ };
 		render(src, dest, rotation);
 	}
+
+	/// Devuelve el número de columnas en que se divide la textura
+	/// \return Entero con el número de columnas en que se divide la textura
+	int getNumCols() const { return numCols; };
+
+	/// Devuelve el número de filas en que se divide la textura
+	/// \return Entero con el número de filas en que se divide la textura
+	int getNumRows() const { return numRows; };
 private:
 
 	// Construct from text

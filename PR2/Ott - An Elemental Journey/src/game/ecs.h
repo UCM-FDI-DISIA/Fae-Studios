@@ -17,6 +17,8 @@ namespace ecs {
         _SLIDER,
         _SLIDER_NEEDLE,
         _SLIDER_PERCENTAGE,
+        _VINE,
+        _CAMERA,
 
         _LAST_CMP_ID
     };
@@ -29,6 +31,11 @@ namespace ecs {
     enum grpId : grpId_type {
         _grp_GENERAL, ///< General
         _grp_UI, ///< Elementos de la interfaz gráfica
+        _grp_CHARACTERS,
+        _grp_INTERACTION,
+        _grp_MAP,
+        _grp_GROUND,
+        _grp_VINE,
 
         _LAST_GRP_ID
     };

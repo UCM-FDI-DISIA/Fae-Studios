@@ -30,5 +30,51 @@ public:
     int getFrameHeight() const {return texture->height() / totalRows;}
 };
 
+class FramedImageOtt : public Component
+{
+public:
+	FramedImageOtt() : Component() {}
+	virtual ~FramedImageOtt();
+	void initComponent() override;
+	void render() override;
+	void update() override;
+	void elementChanged(int newElem);
+	inline void shielded(bool b) { isShielded = b; }
+	constexpr static ecs::cmpId_type id = ecs::_IMAGE;
+private:
+	Transform* tr_;
+	Texture* tex_;
+	PlayerAnimationComponent* pAnim_;
+	Texture* shieldTex_;
+	int numRows_, numCols_;
+	int row = 0, col = 0;
+	int tPerFrame;
+	bool isShielded = false;
+};
+
+class FramedImageEnemy : public Component
+{
+public:
+	FramedImageEnemy(Texture* text);
+	virtual ~FramedImageEnemy() {};
+	void initComponent() override;
+	virtual void render();
+	virtual void update();
+	inline int getCurCol() { return col; }
+	inline int getCurRow() { return row; }
+	inline void setRow(int r) { row = r; }
+	inline void setCol(int c) { col = c; }
+	inline void setLookingRight(bool l) { lookingRight = l; }
+	constexpr static ecs::cmpId_type id = ecs::_IMAGE;
+private:
+	// MeleeAnimationComponent* pAnim_;
+	Transform* tr_;
+	Texture* tex_;
+	int numRows_, numCols_;
+	int row = 0, col = 0;
+	int tPerFrame;
+	bool isShielded = false, lookingRight = true;
+};
+
 
 #endif //TPV2_FRAMEDIMAGE_H

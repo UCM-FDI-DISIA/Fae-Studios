@@ -1,5 +1,7 @@
 #include "Manager.h"
 #include "Entity.h"
+#include "../game/Constructors.h"
+#include "../components/AddVine.h"
 
 Manager::Manager() : entsByGroup_() {
     deleted = false;
@@ -24,8 +26,8 @@ Entity* Manager::addEntity(ecs::grpId_type gId) {
     return e; //Y la devolvemos
 }
 
-const std::vector<Entity*>& Manager::getEntities(ecs::grpId_type gId) {
-    return entsByGroup_[gId]; //Devolvemos el vector asociado a un grupo de nuestra matriz
+void Manager::addToGroupList(ecs::grpId_type gId, Entity* e) {
+    entsByGroup_[gId].push_back(e);
 }
 
 void Manager::refresh() {
@@ -73,4 +75,63 @@ void Manager::handleInput() {
             if (!deleted)ents[i]->handleInput();
             else return;
     }
+}
+
+void Manager::createPlayer() {
+    player = constructors::player(this, 200, 1300, 100, 120);
+    camera = constructors::camera(this, 200, 700, 100, 120);
+}
+
+void Manager::createGrass(Vector2D position, int width, int height) {
+    constructors::grass(this, position, width, height);
+}
+
+void Manager::createLamp(int x1, int y1, int x2, int y2) {
+    constructors::lamp(this, x1, y1, x2, y2);
+}
+
+void Manager::createSanctuary(Vector2D position, int width, int height) {
+    constructors::sanctuary(this, position, width, height);
+}
+
+void Manager::createVine(Vector2D position, int width, int height) {
+    constructors::vine(this, position, width, height);
+}
+
+void Manager::AddEnredadera(Manager* m) {
+    Entity* aux = (*m->interactionIt);
+    if (!(aux->getComponent<AddVine>()->doesntHaveVine())) {
+        aux->getComponent<AddVine>()->setVine();
+        Vector2D pos = Vector2D(aux->getComponent<Transform>()->getPosition().getX() + 5, aux->getComponent<Transform>()->getPosition().getY() - (&sdlutils().images().at("enredadera"))->height() * 1.25);
+        m->createVine(pos);
+    }
+};
+
+void Manager::checkInteraction() {
+    bool interact = false;
+    interactionIt = entsByGroup_[ecs::_grp_INTERACTION].begin();
+    while (!interact && interactionIt != entsByGroup_[ecs::_grp_INTERACTION].end()) {
+        Entity* ents = *interactionIt;
+        SDL_Rect r1 = player->getComponent<Transform>()->getRect();
+        SDL_Rect r2 = ents->getComponent<Transform>()->getRect();
+        if (SDL_HasIntersection(&r1, &r2)) {
+            ents->getComponent<InteractionComponent>()->interact();
+            interact = true;
+        }
+        interactionIt++;
+    }
+}
+
+void Manager::Teleport(Manager* m) {
+    int cAnim = m->player->getComponent<PlayerAnimationComponent>()->getState();
+    if (cAnim != IDLE && cAnim != RUN) return;
+    Entity* aux = *m->interactionIt;
+    Entity* tpLamp = aux->getComponent<LampComponent>()->getConnectedLamp();
+    Vector2D newPos = tpLamp->getComponent<Transform>()->getPosition();
+    m->player->getComponent<PlayerAnimationComponent>()->setState(VANISH);
+    m->player->getComponent<Transform>()->setPosition(newPos);
+}
+
+void Manager::Save(Manager* m) {
+    m->player->getComponent<Health>()->saveSactuary();
 }
