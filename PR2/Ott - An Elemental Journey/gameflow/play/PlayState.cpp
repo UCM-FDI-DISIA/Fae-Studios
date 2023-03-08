@@ -101,8 +101,8 @@ PlayState::PlayState(SDLApplication* app) : GameState(PLAY_STATE, app) {
 	auto player = manager_->getPlayer()->getComponent<Transform>()->getPos();
 	auto enemy = manager_->addEntity(ecs::_grp_PROYECTILES);
 	enemy->addComponent<Transform>(player.getX(), player.getY(), 100, 100);
-	enemy->addComponent<FramedImageEnemy>(app->getTexture("mushroom", PLAY_STATE));
-	enemy->addComponent<EnemyAnimationComponent>(anims::RANGE_ANIM);
+	enemy->addComponent<FramedImageEnemy>(app->getTexture("bug", PLAY_STATE));
+	enemy->addComponent<EnemyAnimationComponent>(anims::MELEE_ANIM);
 	enemy->addComponent<TestEnemyInput>();
 	/*auto ph = player->addComponent<PhysicsComponent>();
 	ph->setVelocity({ 1,0 });

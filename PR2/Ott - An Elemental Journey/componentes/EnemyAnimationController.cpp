@@ -9,7 +9,7 @@ void EnemyAnimationComponent::initComponent() {
 void EnemyAnimationComponent::update() {
 	
 	int state = currentAnimation;
-	timer_ = (timer_ + 1) % (getTPerFrame(state) * getNFrames(state)) +1;
+	timer_++;
 	cout << timer_ << endl;
 
 	if (damaged) {
@@ -22,11 +22,7 @@ void EnemyAnimationComponent::update() {
 	else { damageStartTime_ = SDL_GetTicks(); image->setRow(0); }
 
 	int col = image->getCurCol();
-	if (col == (getNFrames(state) - 1 + getColNum(state)) &&
-		((SDL_GetTicks() - getStartTicks()) / getTPerFrame(state)) % getNFrames(state) == 0)
-	{
-		endAnim();
-	}
+
 
 	if (state == ATTACK_ENEMY || state == DIE_ENEMY || state == PREPARE_ATTACK_ENEMY) {
 		col = (timer_ / getTPerFrame(state)) % getNFrames(state) + getColNum(state);
@@ -36,6 +32,11 @@ void EnemyAnimationComponent::update() {
 	}
 
 	image->setCol(col);
+
+	if (timer_ > (getTPerFrame(state) * getNFrames(state)) + 1)
+	{
+		endAnim();
+	}
 
 	/*
 	if (currentAnimation == ATTACK_ENEMY || currentAnimation == DIE_ENEMY) return;
@@ -50,5 +51,6 @@ void EnemyAnimationComponent::endAnim() {
 		setState(ATTACK_ENEMY); 
 		// el enemigo ataca, aquí debería llamarse a una función de ataque
 	}
-	else { setState(IDLE);  }
+	else { setState(IDLE); }
+	timer_ = 0;
 }
