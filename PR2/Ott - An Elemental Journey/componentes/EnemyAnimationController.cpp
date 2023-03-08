@@ -10,7 +10,6 @@ void EnemyAnimationComponent::update() {
 	
 	int state = currentAnimation;
 	timer_++;
-	cout << timer_ << endl;
 
 	if (damaged) {
 		image->setRow(1);
@@ -23,13 +22,7 @@ void EnemyAnimationComponent::update() {
 
 	int col = image->getCurCol();
 
-
-	if (state == ATTACK_ENEMY || state == DIE_ENEMY || state == PREPARE_ATTACK_ENEMY) {
-		col = (timer_ / getTPerFrame(state)) % getNFrames(state) + getColNum(state);
-	}
-	else {
-		col = (timer_ / getTPerFrame(state)) % getNFrames(state) + getColNum(state);
-	}
+	if (col != getNFrames(state) + getColNum(state) - 1) col = (timer_ / getTPerFrame(state)) % getNFrames(state) + getColNum(state);
 
 	image->setCol(col);
 
