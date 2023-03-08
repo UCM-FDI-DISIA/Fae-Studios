@@ -7,6 +7,7 @@
 #include "../PlayState.h"
 #include "../../components/Image.h"
 #include "../../game/Constructors.h"
+#include "../../game/Game.h"
 
 MainMenuState::MainMenuState() : MenuState() {
 	SDL_Color yellow{ 255,217,102 };
@@ -49,28 +50,8 @@ void MainMenuState::options() {
 }
 
 void MainMenuState::quit() {
-	sdlutils().close();
+    game().exitGame();
 }
-
-void MainMenuState::render() const {
-    MenuState::render();
-    /*titleBack->render();
-    titleFront->render();
-	faeStudiosBack->render();
-	faeStudiosFront->render();
-	versionBack->render();
-	versionFront->render();
-	littleOtt->renderFrame(littleOttRect, 0, animFrame);*/
-}
-
-/*MainMenuState::~MainMenuState() {
-    delete titleBack;
-    delete titleFront;
-	delete faeStudiosBack;
-	delete faeStudiosFront;
-	delete versionBack;
-	delete versionFront;
-}*/
 
 void MainMenuState::update() {
 	if (SDL_GetTicks() >= animTime) { //Se cambia la animaci�n de ca�da

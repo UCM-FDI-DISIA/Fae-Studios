@@ -17,7 +17,6 @@
     <ClCompile Include="src\utils\Collisions.cpp" />
     <ClCompile Include="src\utils\Vector2D.cpp" />
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\states\menus\MenuState.cpp" />
     <ClCompile Include="src\states\menus\MainMenuState.cpp" />
     <ClCompile Include="src\states\menus\options\ControlMenuState.cpp" />
     <ClCompile Include="src\states\menus\options\MusicOptionsMenuState.cpp" />

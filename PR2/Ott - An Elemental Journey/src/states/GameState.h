@@ -37,5 +37,7 @@ public:
     /// Devuelve el ID de la escena
     /// \return int con el ID de la escena
 	virtual ecs::stateId_type getStateID() const { return stateID; };
+
+    void setDelete() { mngr_->setDelete(); }
 };
 

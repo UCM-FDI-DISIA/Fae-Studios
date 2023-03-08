@@ -41,6 +41,8 @@ public:
 
     /// Contiene el bucle principal de ejecución del juego
     void run();
+
+    void exitGame() { exit = true; }
 };
 
 /// Una forma más sencilla de devolver Game::instance()

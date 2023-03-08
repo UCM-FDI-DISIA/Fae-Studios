@@ -23,7 +23,6 @@
     <ClCompile Include="src\components\Slider.cpp" />
     <ClCompile Include="src\components\Button.cpp" />
     <ClCompile Include="src\states\menus\MainMenuState.cpp" />
-    <ClCompile Include="src\states\menus\MenuState.cpp" />
     <ClCompile Include="src\components\Image.cpp" />
     <ClCompile Include="src\components\Text.cpp" />
     <ClCompile Include="src\components\Transform.cpp" />

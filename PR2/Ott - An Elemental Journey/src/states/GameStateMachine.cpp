@@ -11,6 +11,7 @@ void GameStateMachine::pushState(GameState* state) {
 void GameStateMachine::changeState(GameState* state) {
     if(!stateStack.empty()) {
         if(stateStack.front()->getStateID() == state->getStateID()) return; //Si el estado que queremos sustituir es el mismo, no hacemos nada
+        stateStack.front()->setDelete();
         delete stateStack.front();
         stateStack.pop_front();
     }
@@ -19,6 +20,7 @@ void GameStateMachine::changeState(GameState* state) {
 
 void GameStateMachine::popState() {
     if(!stateStack.empty()) {
+        stateStack.front()->setDelete();
         delete stateStack.front();
         stateStack.pop_front();
     }

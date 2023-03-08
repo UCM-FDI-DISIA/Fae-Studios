@@ -2,6 +2,7 @@
 #include "Entity.h"
 
 Manager::Manager() : entsByGroup_() {
+    deleted = false;
     for (auto& groupEntities : entsByGroup_) {
         groupEntities.reserve(100); //Reservamos un espacio de 100 entidades para cada uno de los grupos
     }
@@ -51,7 +52,8 @@ void Manager::update() {
     for (auto& ents : entsByGroup_) {
         auto n = ents.size();
         for (auto i = 0u; i < n; i++)
-            ents[i]->update();
+            if (!deleted) ents[i]->update();
+            else return;
     }
 }
 
@@ -59,7 +61,8 @@ void Manager::render() {
     for (auto& ents : entsByGroup_) {
         auto n = ents.size();
         for (auto i = 0u; i < n; i++)
-            ents[i]->render();
+            if (!deleted) ents[i]->render();
+            else return;
     }
 }
 
@@ -67,6 +70,7 @@ void Manager::handleInput() {
     for (auto& ents : entsByGroup_) {
         auto n = ents.size();
         for (auto i = 0u; i < n; i++)
-            ents[i]->handleInput();
+            if (!deleted)ents[i]->handleInput();
+            else return;
     }
 }

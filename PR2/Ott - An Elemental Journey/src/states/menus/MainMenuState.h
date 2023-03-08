@@ -18,7 +18,6 @@ private:
 
 public:
 	MainMenuState();
-    void render() const final;
 	void update() final;
 };
 

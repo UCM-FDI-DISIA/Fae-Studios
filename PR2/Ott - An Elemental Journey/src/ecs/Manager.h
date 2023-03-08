@@ -11,6 +11,8 @@ class Entity;
 class Manager {
 private:
     std::array<std::vector<Entity*>, ecs::maxGroupId> entsByGroup_; ///< Matriz que separa las entidades por grupos
+    bool deleted;
+
 public:
     /// Constructora de la clase Manager
     Manager();
@@ -39,6 +41,8 @@ public:
 
     /// Llama al handleInput de todas las entidades asociadas al manager
     void handleInput();
+
+    void setDelete() { deleted = true; }
 };
 
 #endif //TPV2_MANAGER_H

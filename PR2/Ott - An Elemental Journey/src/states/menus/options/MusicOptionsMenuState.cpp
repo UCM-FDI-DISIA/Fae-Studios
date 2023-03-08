@@ -12,9 +12,6 @@
 MusicOptionsMenuState::MusicOptionsMenuState() : MenuState() {
 	Vector2D pos;
 	constructors::background(mngr_, &sdlutils().images().at("playbackground"));
-	
-	pos = Vector2D(sdlutils().width() / 2, 6 * sdlutils().height() / 7);
-	constructors::button(mngr_, pos, "Volver", sdlutils().fonts().at("vcr_osd48"), back);
 		
 	pos = Vector2D(sdlutils().width() / 2, 2 * sdlutils().height() / 9);
 	constructors::slider(mngr_, pos, "Volumen general", 0.0f, 100.0f, 100.0f, generalVolume);
@@ -24,6 +21,9 @@ MusicOptionsMenuState::MusicOptionsMenuState() : MenuState() {
 
 	pos = Vector2D(sdlutils().width() / 2, 6 * sdlutils().height() / 9);
 	constructors::slider(mngr_, pos, "Sonido", 0.0f, 100.0f, 100.0f, soundsVolume);
+
+	pos = Vector2D(sdlutils().width() / 2, 6 * sdlutils().height() / 7);
+	constructors::button(mngr_, pos, "Volver", sdlutils().fonts().at("vcr_osd48"), back);
 
 }
 
