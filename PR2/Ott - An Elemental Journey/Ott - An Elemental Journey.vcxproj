@@ -173,6 +173,7 @@
     <ClInclude Include="loaders\FontLoader.h" />
     <ClInclude Include="loaders\TextureLoader.h" />
     <ClInclude Include="gameflow\play\PlayState.h" />
+    <ClInclude Include="componentes\PlayerAttack.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="SDLApplication.h" />
     <ClInclude Include="Src\ecs.h" />
@@ -230,6 +231,7 @@
     <ClCompile Include="loaders\FontLoader.cpp" />
     <ClCompile Include="loaders\TextureLoader.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="componentes\PlayerAttack.cpp" />
     <ClCompile Include="SDLApplication.cpp" />
     <ClCompile Include="Src\Manager.cpp" />
     <ClCompile Include="ui\Button.cpp" />

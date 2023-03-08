@@ -75,7 +75,7 @@ public:
 	bool isGrounded(){ return ground; }
 
 	//PlayState* getState() { return game; }
-	virtual bool recieveDamage(elementsInfo::elements elem) {
+	virtual bool recieveDamage(ecs::elements elem) {
 		int damageNum = elementsInfo::ottMatrix[elem][currentElement];
 		if (damageNum != -1) {
 			life -= damageNum;

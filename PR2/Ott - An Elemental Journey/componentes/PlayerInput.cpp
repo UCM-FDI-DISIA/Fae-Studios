@@ -8,6 +8,7 @@ void PlayerInput::initComponent()
 {
 	physics_ = ent_->getComponent<PhysicsComponent>();
 	anim_ = ent_->getComponent<PlayerAnimationComponent>();
+	attack_ = ent_->getComponent<PlayerAttack>();
 }
 
 void PlayerInput::update()
@@ -45,6 +46,7 @@ void PlayerInput::update()
 		if (input->isKeyDown(SDLK_e) && anim_->getState() != ATTACK) {
 			//Ataque
 			anim_->setState(ATTACK);
+			attack_->startAttack();
 		}
 		if (input->isKeyDown(SDLK_z))
 		{

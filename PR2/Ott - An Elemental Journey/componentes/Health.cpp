@@ -3,9 +3,10 @@
 
 void Health::die()
 {
-	if (ent_->hasComponent<PlayerAnimationComponent>()) ent_->getComponent<PlayerAnimationComponent>()->setState(DIE);
+	if (ent_->hasComponent<PlayerInput>()) ent_->getComponent<PlayerAnimationComponent>()->setState(DIE);
 	else ent_->setAlive(false);
-}
+	cout << "AA MORIIII" << endl;
+} 
 
 void Health::recall()
 {
@@ -24,9 +25,12 @@ bool Health::recieveDamage(ecs::elements elem)
 		PlayerAnimationComponent* pAnimRef = ent_->getComponent<PlayerAnimationComponent>();
 		if (pAnimRef->isInvincible()) return false;
 		pAnimRef->playerDamaged();
+		actualLife -= ecs::ottMatrix[elem][this->elem];
 	}
-	//if() Añadir daño dependiendo de la entidad
-	actualLife -= elementsInfo::matrix[elem][elem];
+	else {
+		actualLife -= ecs::matrix[elem][this->elem];
+		cout << "ACTUAL " << actualLife << endl;
+	}
 	//startDamagedTime = SDL_GetTicks();
 	if (actualLife <= 0) {
 		die();

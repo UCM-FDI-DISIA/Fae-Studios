@@ -103,6 +103,7 @@ PlayState::PlayState(SDLApplication* app) : GameState(PLAY_STATE, app) {
 	ph->setVelocity({ 1,0 });
 	ph->lookDirection(true);
 	player->addComponent<EnemyMovement>();
+	player->addComponent<Health>(5, ecs::Fire);
 }
 void PlayState::checkCollisions()
 {
@@ -168,6 +169,7 @@ void PlayState::checkCollisions()
 void PlayState::update() {
 	checkCollisions();
 	manager_->update();
+	refresh();
 }
 void PlayState::render() const {
 	manager_->render();
