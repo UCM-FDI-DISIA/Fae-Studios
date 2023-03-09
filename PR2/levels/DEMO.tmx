@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="100" height="52" tilewidth="32" tileheight="32" infinite="0" nextlayerid="6" nextobjectid="94">
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="100" height="52" tilewidth="32" tileheight="32" infinite="0" nextlayerid="6" nextobjectid="99">
  <tileset firstgid="1" name="EarthMapTileset" tilewidth="32" tileheight="32" tilecount="680" columns="20">
   <image source="../images/levels/tilesetlevel1.png" width="640" height="1088"/>
  </tileset>
- <layer id="1" name="Capa de patrones 1" width="100" height="52">
+ <layer id="1" name="Capa de patrones 1" width="100" height="52" visible="0">
   <data encoding="csv">
 48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,66,66,66,66,66,66,66,74,74,74,74,74,74,74,74,74,74,74,
 48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,66,66,66,66,66,66,66,74,74,74,74,74,74,74,74,74,74,74,
@@ -91,15 +91,17 @@
   <object id="92" class="Ground" x="1933.25" y="864.25" width="51" height="51.25"/>
   <object id="93" class="Ground" x="1957.33" y="838" width="27.3333" height="24"/>
  </objectgroup>
- <objectgroup id="3" name="Objetos Interactuables" visible="0">
+ <objectgroup id="3" name="Objetos Interactuables">
   <object id="54" name="lamp1" class="Lamp" x="1024" y="832" width="32"/>
   <object id="55" name="lamp1" class="Lamp" x="1664" y="832" width="32"/>
   <object id="57" name="Santuario" class="Sanctuary" x="1344" y="864" width="32"/>
-  <object id="59" name="Enredadera" class="Grass" x="1888" y="960" width="32"/>
+  <object id="59" name="Grass" class="Grass" x="1888" y="958.913" width="32" height="1.08696"/>
   <object id="63" name="lamp2" class="Lamp" x="2336" y="672" width="32"/>
   <object id="64" name="lamp2" class="Lamp" x="2880" y="928" width="32"/>
+  <object id="94" name="Grass" class="Grass" x="191.979" y="704.182" width="32.0417" height="255.961"/>
+  <object id="98" name="Grass" class="Grass" x="2144.08" y="257.041" width="31.75" height="543"/>
  </objectgroup>
- <objectgroup id="5" name="Ott">
+ <objectgroup id="5" name="Ott" visible="0">
   <object id="74" name="Ott" class="Ott" x="160" y="958.667" width="32"/>
  </objectgroup>
  <objectgroup id="4" name="Enemigos" visible="0">

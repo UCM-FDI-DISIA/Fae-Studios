@@ -20,6 +20,8 @@ public:
 	inline bool getLookDirection() { return lookingRight; }
 	inline void setGrounded(bool value) { grounded = value; if (grounded) verticalSpeed = 0; }
 	inline bool isGrounded() { return grounded; }
+	inline void setClimbing(bool value, int dir) { climbing = value; dirClimbing = dir; }
+	inline bool isClimbing() { return climbing; }
 	inline void setVelocity(Vector2D value) { velocity_ = value; }
 	inline void setVerticalSpeed(float value) { verticalSpeed = value; }
 	inline float getHorizontalSpeed() { return horizontalSpeed; };
@@ -31,10 +33,11 @@ private:
 	const double X_KNOCKBACK_FORCE = 6;
 	double knockbackTimer = 0;
 	double knockbackTime = 15;
-	bool isKnockback = false, lookingRight = true, grounded = false;
+	bool isKnockback = false, lookingRight = true, grounded = false, climbing = false;
 	float verticalSpeed = 0;
 	const float horizontalSpeed = 1.8f;
 	Vector2D velocity_;
+	float dirClimbing = 0;
 
 	const int jumpForce = -10;
 };

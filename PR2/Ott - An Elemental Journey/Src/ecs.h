@@ -24,6 +24,8 @@ namespace ecs
 		_GEN,
 		_ENEMYMOV,
 		_VINE,
+		_COLLIDERVINE,
+		_GROWVINE,
 		// do not remove this
 		_LAST_CMP_ID
 	};
@@ -31,9 +33,10 @@ namespace ecs
 
 	enum grpId : grpId_type {
 		_grp_GENERAL,
+		_grp_BACKGROUND,
+		_grp_VINE,
 		_grp_MAP,
 		_grp_INTERACTION,
-		_grp_VINE,
 		_grp_CHARACTERS,
 		_grp_GROUND,
 		_grp_PROYECTILES,

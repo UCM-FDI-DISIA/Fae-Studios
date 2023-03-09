@@ -133,6 +133,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="componentes\ColliderVine.h" />
     <ClInclude Include="componentes\AddVine.h" />
     <ClInclude Include="componentes\BackgroundImage.h" />
     <ClInclude Include="componentes\Bullet.h" />
@@ -172,6 +173,8 @@
     <ClInclude Include="gameflow\menus\options\MusicOptionsMenuState.h" />
     <ClInclude Include="gameflow\menus\options\OptionsMenuState.h" />
     <ClInclude Include="gameobjects\GameObject.h" />
+    <ClInclude Include="componentes\GrowVine.h" />
+    <ClInclude Include="componentes\ImageVine.h" />
     <ClInclude Include="loaders\FontLoader.h" />
     <ClInclude Include="loaders\TextureLoader.h" />
     <ClInclude Include="gameflow\play\PlayState.h" />
@@ -195,6 +198,7 @@
     <ClInclude Include="utils\Trigger.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="componentes\ColliderVine.cpp" />
     <ClCompile Include="componentes\AddVine.cpp" />
     <ClCompile Include="componentes\BackgroundImage.cpp" />
     <ClCompile Include="componentes\Bullet.cpp" />
@@ -232,6 +236,8 @@
     <ClCompile Include="gameflow\menus\options\MusicOptionsMenuState.cpp" />
     <ClCompile Include="gameflow\menus\options\OptionsMenuState.cpp" />
     <ClCompile Include="gameobjects\GameObject.cpp" />
+    <ClCompile Include="componentes\GrowVine.cpp" />
+    <ClCompile Include="componentes\ImageVine.cpp" />
     <ClCompile Include="loaders\FontLoader.cpp" />
     <ClCompile Include="loaders\TextureLoader.cpp" />
     <ClCompile Include="main.cpp" />

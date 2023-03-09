@@ -3,19 +3,19 @@
 #include "../dependencies/Texture.h"
 #include "Transform.h"
 #include "../Src/Entity.h"
-class Image : public Component {
+class ImageVine : public Component {
 public:
-	Image(Texture* text);
-	virtual ~Image();
+	ImageVine(Texture* text);
+	virtual ~ImageVine();
 	void initComponent() override;
 	void render() override;
 	inline SDL_Rect getRect() {
-		return dest;
+		return destTransform;
 	}
 	constexpr static cmpId_type id = ecs::_IMAGE;
 private:
 	Transform* tr_;
 	Texture* tex_;
-	SDL_Rect dest;
+	SDL_Rect destTransform;
+	SDL_Rect destTexture;
 };
-

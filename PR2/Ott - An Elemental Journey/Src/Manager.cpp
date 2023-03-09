@@ -102,6 +102,26 @@ void Manager::checkInteraction()
 		interactionIt++;
 	}
 }
+bool Manager::checkCollisionWithVine() {
+	bool interact = false;
+	interactionIt = entsByGroup_[ecs::_grp_VINE].begin();
+	while (!interact && interactionIt != entsByGroup_[ecs::_grp_VINE].end()) {
+		Entity* ents = *interactionIt;
+		if (ents->hasComponent<ColliderVine>()) {
+			SDL_Rect r1;
+			r1.x= player->getComponent<Transform>()->getRect().x + player->getComponent<Transform>()->getRect().w / 3;
+			r1.y= player->getComponent<Transform>()->getRect().y + player->getComponent<Transform>()->getRect().h - 30;
+			r1.w= player->getComponent<Transform>()->getRect().w/3;
+			r1.h= 1;
+			SDL_Rect r2 = ents->getComponent<ColliderVine>()->getRect();
+			if (SDL_HasIntersection(&r1, &r2)) {
+				interact = true;
+			}
+		}
+		interactionIt++;
+	}
+	return interact;
+}
 void Manager::createPlayer()
 {
 	player = addEntity(ecs::_grp_CHARACTERS);
@@ -131,18 +151,18 @@ void Manager::createLamp(int x1, int y1, int x2, int y2)
 
 }
 
-void Manager::createVine(Vector2D position, int width, int height) {
-	Entity* vine = addEntity(ecs::_grp_VINE);
-	vine->addComponent<Transform>(position.getX(), position.getY(), width, height);
-	vine->addComponent<Image>(game->getTexture("enredadera", PLAY_STATE));
-}
 void Manager::AddEnredadera(Manager* m) {
 
 	Entity* aux = (*m->interactionIt);
 	if (!(aux->getComponent<AddVine>()->doesntHaveVine())) {
 		aux->getComponent<AddVine>()->setVine();
-		Vector2D pos = Vector2D(aux->getComponent<Transform>()->getPos().getX() + 5, aux->getComponent<Transform>()->getPos().getY() - m->game->getTexture("enredadera", PLAY_STATE)->getH() * 1.25);
-		m->createVine(pos);
+		aux->getComponent<AddVine>()->getVine()->addComponent<ImageVine>(m->game->getTexture("enredadera", PLAY_STATE));
+		SDL_Rect dest;
+		dest = aux->getComponent<AddVine>()->getVine()->getComponent<Transform>()->getRect();
+		dest.h -= m->player->getComponent<Transform>()->getRect().h/2.5;
+		aux->getComponent<AddVine>()->getVine()->addComponent<ColliderVine>(dest);
+		aux->getComponent<AddVine>()->getVine()->addComponent<GrowVine>(aux->getComponent<AddVine>()->getPosFin(), 
+			Vector2D(aux->getComponent<AddVine>()->getPosFin().getX(), aux->getComponent<AddVine>()->getPosFin().getY() + m->player->getComponent<Transform>()->getRect().h/2));
 	}
 };
 void Manager::createSanctuary(Vector2D position, int width, int height)
@@ -153,24 +173,28 @@ void Manager::createSanctuary(Vector2D position, int width, int height)
 	sanc->addComponent<InteractionComponent>(Save);
 }
 
-void Manager::createGrass(Vector2D position, int width, int height) {
+void Manager::createGrass(Vector2D position, int widthVine, int heightVine, Vector2D posiniVine, Vector2D posfinVine, int width, int height) {
 	Entity* grass = addEntity(ecs::_grp_INTERACTION);
-	grass->addComponent<Transform>(position.getX(), position.getY(), width, height);
+	grass->addComponent<Transform>(position, width, height);
 	grass->addComponent<Image>(game->getTexture("grass", PLAY_STATE));
 	grass->addComponent<InteractionComponent>(AddEnredadera);
-	grass->addComponent<AddVine>(false);
+
+	Entity* vine = addEntity(ecs::_grp_VINE);
+	vine->addComponent<Transform>(posiniVine, widthVine, heightVine);
+	grass->addComponent<AddVine>(false,vine, posfinVine);
+
 }
 
 void Manager::createMap()
 {
-	Entity* bgrd = addEntity(ecs::_grp_MAP);
+	Entity* bgrd = addEntity(ecs::_grp_BACKGROUND);
 	Entity* e = addEntity(ecs::_grp_MAP);
 	e->addComponent<MapComponent>(game, LEVEL1);
 	auto scale = e->getComponent<MapComponent>()->tileScale();
 	//bgrd->addComponent<BackgroundImage>(Vector2D(0, 0), game->getTexture("level1bg", PLAY_STATE), scale, scale);
-	createLamp(550, 1370, 750, 1370);
+	//createLamp(550, 1370, 750, 1370);
 	//bgrd->addComponent<BackgroundImage>(Vector2D(0, 0), game->getTexture("level1bg", PLAY_STATE), scale, scale);
-	createGrass(Vector2D(200, 1450));
+	//createGrass(Vector2D(200, 1450));
 
 	auto a = e->getComponent<MapComponent>()->getObjects();
 	for (auto it : a) {
@@ -197,10 +221,9 @@ void Manager::createMap()
 				e->addComponent<Image>(game->getTexture("pixelWhite", PLAY_STATE));
 			}
 			else if (ot.getClass() == "Grass") {
-
-				//Grass* g1 = new Grass(Vector2D(x_ * scale, y_ * scale - app->getTexture("grass", PLAY_STATE)->getH()), app->getTexture("grass", PLAY_STATE), this);
-				//gameObjects.push_back(g1);
-				createGrass(Vector2D(x_ * scale, y_ * scale - game->getTexture("grass", PLAY_STATE)->getH()));
+				cout << h_ * scale << endl;
+				cout << w_ * scale << endl;
+				createGrass(Vector2D(x_ * scale, (y_ * scale - game->getTexture("grass", PLAY_STATE)->getH()) + h_*scale), w_*scale, h_*scale, Vector2D(x_ * scale, (y_ * scale - game->getTexture("grass", PLAY_STATE)->getH()) + h_ * scale + 100), Vector2D(x_ * scale, (y_ * scale - game->getTexture("grass", PLAY_STATE)->getH())));
 			}
 			else if (ot.getClass() == "Lamp") {
 				//createLamp(Vector2D(x_ * scale, y_ * scale - game->getTexture("lamp", PLAY_STATE)->getH() * 2));

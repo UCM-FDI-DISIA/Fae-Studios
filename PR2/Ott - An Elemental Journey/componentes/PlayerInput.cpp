@@ -100,18 +100,26 @@ void PlayerInput::update()
 				if (playerV.getX() > horizontalSpeed) playerV = Vector2D(horizontalSpeed, playerV.getY());
 			}
 		}
-
-		if (input->isKeyJustUp(SDLK_UP)) {
-			//upC = false;
-		}
-		if (input->isKeyJustUp(SDLK_DOWN)) {
-			//down = false;
-		}
 		if (input->isKeyJustUp(SDLK_z)) {
 			//defend = false;
 			ent_->getComponent<FramedImageOtt>()->shielded(false);
 		}
+
 	}
+
+	//Interacción con una enredadera
+	if (mngr_->checkCollisionWithVine()) {
+		if (input->isKeyDown(SDLK_UP)) {
+			cout << "ARRIBA" << endl;
+			physics_->setClimbing(true, -1);
+		}
+		else if (input->isKeyDown(SDLK_DOWN)) {
+			cout << " ABAJO" << endl;
+			physics_->setClimbing(true, 1);
+		}
+		else physics_->setClimbing(true, 0);
+	}
+	else physics_->setClimbing(false, 0);
 }
 
 PlayerInput::~PlayerInput()

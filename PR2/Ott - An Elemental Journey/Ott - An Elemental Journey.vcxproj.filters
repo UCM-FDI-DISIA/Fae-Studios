@@ -52,6 +52,9 @@
     <ClCompile Include="componentes\LampComponent.cpp" />
     <ClCompile Include="Src\anims.cpp" />
     <ClCompile Include="componentes\AddVine.cpp" />
+    <ClCompile Include="componentes\ColliderVine.cpp" />
+    <ClCompile Include="componentes\GrowVine.cpp" />
+    <ClCompile Include="componentes\ImageVine.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="checkML.h" />
@@ -114,6 +117,9 @@
     <ClInclude Include="componentes\LampComponent.h" />
     <ClInclude Include="Src\anims.h" />
     <ClInclude Include="componentes\AddVine.h" />
+    <ClInclude Include="componentes\ColliderVine.h" />
+    <ClInclude Include="componentes\GrowVine.h" />
+    <ClInclude Include="componentes\ImageVine.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Ott - An Elemental Journey.rc" />

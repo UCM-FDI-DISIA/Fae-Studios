@@ -14,7 +14,13 @@ void PhysicsComponent::initComponent() {
 }
 
 void PhysicsComponent::update() {
-	if (!grounded) {
+	if (climbing) {
+		grounded = true;
+		mngr_->desactivateGravity();
+		velocity_ =  Vector2D(velocity_.getX(),dirClimbing);
+	}
+	else if (!grounded) {
+		mngr_->activateGravity();
 		verticalSpeed += mngr_->getGravityValue();
 		if (verticalSpeed > MAX_VERTICAL_SPEED) verticalSpeed = MAX_VERTICAL_SPEED;
 		velocity_ = Vector2D(velocity_.getX(), verticalSpeed);
@@ -28,13 +34,13 @@ void PhysicsComponent::update() {
 		}
 	}
 
-	if (abs(velocity_.getY()) > 0.5f) {
+	if (!climbing && abs(velocity_.getY()) > 0.5f) {
 		grounded = false;
 	}
 }
 
 void PhysicsComponent::jump() {
-	if (grounded) {
+	if (grounded && !climbing) {
 		verticalSpeed = jumpForce;
 		velocity_ = Vector2D(velocity_.getX(), verticalSpeed);
 	}

@@ -7,6 +7,7 @@
 #include "../dependencies/Vector2D.h"
 #include "../componentes/Transform.h"
 #include "../componentes/Image.h"
+#include "../componentes/ImageVine.h"
 #include "../componentes/FramedImage.h"
 #include "../componentes/MapComponent.h"
 #include "../componentes/BackgroundImage.h"
@@ -17,6 +18,8 @@
 #include "../componentes/Health.h"
 #include "../componentes/InteractionComponent.h"
 #include "../componentes/LampComponent.h"
+#include "../componentes/ColliderVine.h"
+#include "../componentes//GrowVine.h"
 #include "../checkML.h"
 
 
@@ -44,6 +47,10 @@ public:
 	const vector<Entity*>& getEntitiesByGroup(grpId_type gId);
 	void addToGroupList(grpId_type gId, Entity* e);
 	inline float getGravityValue() { return gravityValue; }
+	inline void desactivateGravity() { gravityValue = 0; }
+	inline void activateGravity() {
+		gravityValue = 0.2;
+	}
 	inline Entity* getPlayer() { return player; }
 	inline Entity* getCamera() { return camera; }
 	int getLvlW();
@@ -58,12 +65,14 @@ public:
 	static void Save(Manager* m);
 	static void AddEnredadera(Manager* m);
 	void checkInteraction();
+	bool checkCollisionWithVine();
 	inline Entity* getCurrentInteraction() { return *interactionIt; }
-	void createVine(Vector2D position, int width = 60, int height = 120);
+	//void showVine(Vector2D position, int width = 60, int height = 120);
+	//void createVine(Vector2D position, int width, int height);
 private:
 	void createLamp(int x1, int y1, int x2, int y2);
 	void createSanctuary(Vector2D position, int width = 100, int height = 130);
-	void createGrass(Vector2D position, int width = 60, int height = 60);
+	void createGrass(Vector2D position, int widthVine, int heightVine, Vector2D posiniVine, Vector2D posfinVine, int width = 60, int height = 60);
 	Entity* player;
 	Entity* camera;
 	float gravityValue = 0.2;
