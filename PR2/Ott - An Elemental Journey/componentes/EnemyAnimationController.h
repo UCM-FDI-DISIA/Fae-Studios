@@ -6,6 +6,7 @@
 
 enum EnemyAnims { IDLE_ENEMY, DIE_ENEMY, ATTACK_ENEMY, PREPARE_ATTACK_ENEMY, WALK_ENEMY };
 
+class Health;
 class FramedImageEnemy;
 
 class EnemyAnimationComponent : public Component {
@@ -17,7 +18,7 @@ public:
 	void initComponent();
 	virtual void update();
 	inline int getState() { return currentAnimation; }
-	inline void setState(int newState) { currentAnimation = newState; startAnimTicks = SDL_GetTicks(); timer_ = 0; }
+	void setState(int newState);
 	void endAnim();
 	inline int getTPerFrame(int i) { return anims::animations[eAnims][i].tPerFrame / FRAME_ANIMATION_TIME;; }
 	inline int getNFrames(int i) { return anims::animations[eAnims][i].numFrames; }
@@ -33,6 +34,7 @@ private:
 	int startAnimTicks;
 	anims::Entities eAnims;
 	FramedImageEnemy* image;
+	Health* health_;
 
 	int damageTimer_, damageStartTime_, timer_ = 0;
 	const int maxDamagedTimer_ = 500, FRAME_ANIMATION_TIME = 3;

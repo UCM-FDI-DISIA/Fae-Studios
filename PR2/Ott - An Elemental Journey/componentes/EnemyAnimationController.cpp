@@ -2,15 +2,24 @@
 #include "../Src/Entity.h"
 #include "FramedImage.h"
 
+void EnemyAnimationComponent::setState(int newState) { 
+	if (!health_->isDead() && currentAnimation != DIE_ENEMY) { 
+		currentAnimation = newState; 
+		startAnimTicks = SDL_GetTicks(); 
+		timer_ = 0; 
+	} 
+}
+
+
 void EnemyAnimationComponent::initComponent() {
 	image = ent_->getComponent<FramedImageEnemy>();
+	health_ = ent_->getComponent<Health>();
 }
 
 void EnemyAnimationComponent::update() {
-	
 	int state = currentAnimation;
+	cout << currentAnimation << endl;
 	timer_ = (timer_ + 1) % (getTPerFrame(state) * getNFrames(state)) +1;
-	cout << timer_ << endl;
 
 	if (damaged) {
 		image->setRow(1);

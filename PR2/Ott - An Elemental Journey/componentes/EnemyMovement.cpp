@@ -1,6 +1,7 @@
 #include "EnemyMovement.h"
 #include "../Src/Entity.h"
 #include "../Src/Manager.h"
+#include "Health.h"
 
 void EnemyMovement::initComponent()
 {
@@ -8,6 +9,7 @@ void EnemyMovement::initComponent()
 	physics = ent_->getComponent<PhysicsComponent>();
 	transform = ent_->getComponent<Transform>();
 	playerTransform = player->getComponent<Transform>();
+	health_= ent_->getComponent<Health>();
 
 	trigger.x = transform->getPos().getX() + transform->getW(); trigger.y = transform->getPos().getY();
 	nearDistance = transform->getW() * 2;
@@ -83,8 +85,10 @@ void EnemyMovement::ChangeDirection(bool ground, const SDL_Rect& result)
 
 
 void EnemyMovement::update() {
-	MoveTriggers();
-	if (playerDetected && !collided) FollowPlayer();
-	detectPlayer();
-	collided = false;
+	if (!health_->isDead()) {
+		MoveTriggers();
+		if (playerDetected && !collided) FollowPlayer();
+		detectPlayer();
+		collided = false;
+	}
 }

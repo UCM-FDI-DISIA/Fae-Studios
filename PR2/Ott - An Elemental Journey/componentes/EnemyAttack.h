@@ -2,6 +2,9 @@
 #include "Transform.h"
 #include "PhysicsComponent.h"
 #include<SDL.h>
+
+class Health;
+
 class EnemyAttack : public Component
 {
 	uint PREPARING_TIME = 1000;
@@ -32,6 +35,7 @@ private:
 	Transform* transform;
 	PhysicsComponent* physics;
 	Entity* player;
+	Health* health_;
 
 	int startAttackingTime = 0;
 

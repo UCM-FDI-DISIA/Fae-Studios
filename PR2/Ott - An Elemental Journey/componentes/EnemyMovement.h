@@ -1,6 +1,9 @@
 #pragma once
 #include "Transform.h"
 #include "PhysicsComponent.h"
+
+class Health;
+
 class EnemyMovement : public Component
 {
 private:
@@ -8,6 +11,7 @@ private:
 	Entity* player;
 	Transform* transform;
 	Transform* playerTransform;
+	Health* health_;
 	SDL_Rect trigger;
 
 	bool playerDetected;
