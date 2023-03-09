@@ -56,23 +56,19 @@ void PlayerInput::update()
 		}
 		if (input->isKeyDown(SDLK_a) && anim_->getState() != VANISH) {
 			//Cambio elemento
-			ent_->getComponent<Health>()->setElement(1);
-			ent_->getComponent<FramedImageOtt>()->elementChanged(1);
+			anim_->changeElem(ecs::Earth);
 			anim_->setState(VANISH);
 		}
 		if (input->isKeyDown(SDLK_d) && anim_->getState() != VANISH) {
-			ent_->getComponent<Health>()->setElement(2);
-			ent_->getComponent<FramedImageOtt>()->elementChanged(2);
+			anim_->changeElem(ecs::Water);
 			anim_->setState(VANISH);
 		}
 		if (input->isKeyDown(SDLK_w) && anim_->getState() != VANISH) {
-			ent_->getComponent<Health>()->setElement(3);
-			ent_->getComponent<FramedImageOtt>()->elementChanged(3);
+			anim_->changeElem(ecs::Fire);
 			anim_->setState(VANISH);
 		}
 		if (input->isKeyDown(SDLK_s) && anim_->getState() != VANISH) {
-			ent_->getComponent<Health>()->setElement(0);
-			ent_->getComponent<FramedImageOtt>()->elementChanged(0);
+			anim_->changeElem(ecs::Light);
 			anim_->setState(VANISH);
 		}
 		if (input->isKeyDown(SDLK_UP)) {

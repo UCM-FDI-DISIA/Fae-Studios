@@ -108,13 +108,13 @@ void Manager::createPlayer()
 	player = addEntity(ecs::_grp_CHARACTERS);
 	player->addComponent<Transform>(200, 1300, 100, 120);
 	player->addComponent<PhysicsComponent>();
-	player->addComponent<PlayerAnimationComponent>(anims::OTT_ANIM);
-	player->addComponent<PlayerInput>();
 	player->addComponent<Health>(5, ecs::Light);
 	camera = addEntity(ecs::_grp_GENERAL);
 	camera->addComponent<Transform>(200, 700, 100, 120);
 	camera->addComponent<CameraComponent>();
 	player->addComponent<FramedImageOtt>();
+	player->addComponent<PlayerAnimationComponent>(anims::OTT_ANIM);
+	player->addComponent<PlayerInput>();
 }
 
 void Manager::createLamp(int x1, int y1, int x2, int y2)
