@@ -133,6 +133,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="componentes\AddVine.h" />
     <ClInclude Include="componentes\BackgroundImage.h" />
     <ClInclude Include="componentes\Bullet.h" />
     <ClInclude Include="componentes\ButtonComponent.h" />
@@ -147,6 +148,7 @@
     <ClInclude Include="componentes\Health.h" />
     <ClInclude Include="componentes\Image.h" />
     <ClInclude Include="componentes\InteractionComponent.h" />
+    <ClInclude Include="componentes\LampComponent.h" />
     <ClInclude Include="componentes\MapComponent.h" />
     <ClInclude Include="componentes\PhysicsComponent.h" />
     <ClInclude Include="componentes\PlayerAnimationComponent.h" />
@@ -155,6 +157,7 @@
     <ClInclude Include="componentes\SlimeStates.h" />
     <ClInclude Include="componentes\Transform.h" />
     <ClInclude Include="componentes\EnemyShootingAttack.h" />
+    <ClInclude Include="componentes\EnemyAnimationController.h" />
     <ClInclude Include="gameflow\menus\options\ControlMenuState.h" />
     <ClInclude Include="gameflow\menus\PauseMenuState.h" />
     <ClInclude Include="dependencies\Exceptions.h" />
@@ -173,12 +176,15 @@
     <ClInclude Include="loaders\FontLoader.h" />
     <ClInclude Include="loaders\TextureLoader.h" />
     <ClInclude Include="gameflow\play\PlayState.h" />
+    <ClInclude Include="componentes\PlayerAttack.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="SDLApplication.h" />
     <ClInclude Include="Src\ecs.h" />
     <ClInclude Include="Src\Entity.h" />
+    <ClInclude Include="Src\anims.h" />
     <ClInclude Include="Src\Manager.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="componentes\TestEnemyInput.h" />
     <ClInclude Include="ui\Button.h" />
     <ClInclude Include="ui\ChargedAttackBar.h" />
     <ClInclude Include="ui\HealthBar.h" />
@@ -192,11 +198,13 @@
     <ClInclude Include="utils\Trigger.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="componentes\AddVine.cpp" />
     <ClCompile Include="componentes\BackgroundImage.cpp" />
     <ClCompile Include="componentes\Bullet.cpp" />
     <ClCompile Include="componentes\ButtonComponent.cpp" />
     <ClCompile Include="componentes\CameraComponent.cpp" />
     <ClCompile Include="componentes\Component.cpp" />
+    <ClCompile Include="componentes\EnemyAnimationController.cpp" />
     <ClCompile Include="componentes\EnemyAttack.cpp" />
     <ClCompile Include="componentes\EnemyMeleeAttack.cpp" />
     <ClCompile Include="componentes\EnemyMovement.cpp" />
@@ -205,6 +213,7 @@
     <ClCompile Include="componentes\Health.cpp" />
     <ClCompile Include="componentes\Image.cpp" />
     <ClCompile Include="componentes\InteractionComponent.cpp" />
+    <ClCompile Include="componentes\LampComponent.cpp" />
     <ClCompile Include="componentes\MapComponent.cpp" />
     <ClCompile Include="componentes\PhysicsComponent.cpp" />
     <ClCompile Include="componentes\PlayerAnimationComponent.cpp" />
@@ -230,8 +239,11 @@
     <ClCompile Include="loaders\FontLoader.cpp" />
     <ClCompile Include="loaders\TextureLoader.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="componentes\PlayerAttack.cpp" />
     <ClCompile Include="SDLApplication.cpp" />
+    <ClCompile Include="Src\anims.cpp" />
     <ClCompile Include="Src\Manager.cpp" />
+    <ClCompile Include="componentes\TestEnemyInput.cpp" />
     <ClCompile Include="ui\Button.cpp" />
     <ClCompile Include="ui\ChargedAttackBar.cpp" />
     <ClCompile Include="ui\HealthBar.cpp" />

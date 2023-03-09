@@ -23,6 +23,8 @@ void EnemyAttack::MoveTriggers() {
 }
 
 void EnemyAttack::update() {
+	MoveTriggers();
+
 	SDL_Rect playerRect = player->getComponent<Transform>()->getRect();
 	SDL_Rect collider = physics->getCollider();
 
