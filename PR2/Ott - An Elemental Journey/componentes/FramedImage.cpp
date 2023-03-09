@@ -14,8 +14,6 @@ void FramedImageOtt::initComponent()
 	shieldTex_ = mngr_->getTexture(4);
 }
 
-
-
 void FramedImageOtt::render()
 {
 	SDL_Rect dest; dest.x = tr_->getPos().getX(); dest.y = tr_->getPos().getY();

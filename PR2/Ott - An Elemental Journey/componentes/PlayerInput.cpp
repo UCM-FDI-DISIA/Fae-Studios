@@ -104,14 +104,14 @@ void PlayerInput::update()
 	}
 
 	//Interacción con una enredadera
-	if (mngr_->checkCollisionWithVine()) {
-		if (input->isKeyDown(SDLK_UP)) {
-			cout << "ARRIBA" << endl;
-			physics_->setClimbing(true, -1);
+	auto vineCol = mngr_->checkCollisionWithVine();
+	int speed = 1;
+	if (vineCol.first) {
+		if (input->isKeyDown(SDLK_UP) && vineCol.second) {
+			physics_->setClimbing(true, -speed);
 		}
 		else if (input->isKeyDown(SDLK_DOWN)) {
-			cout << " ABAJO" << endl;
-			physics_->setClimbing(true, 1);
+			physics_->setClimbing(true, speed);
 		}
 		else physics_->setClimbing(true, 0);
 	}

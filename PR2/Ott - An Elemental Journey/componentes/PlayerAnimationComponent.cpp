@@ -25,7 +25,6 @@ void PlayerAnimationComponent::update()
 	if (!changingElem) timer_++; // controla el frame que se debe mostrar de la animación actual
 	else timer_--;
 	int col = image->getCurCol();
-	cout << col << endl;
 	if (col != getNFrames(state_) + getColNum(state_) - 1 || (changingElem && state_ == VANISH && timer_ < (getTPerFrame(state_) * getNFrames(state_)))) // si no es la última columna de la animación actual, se actualiza
 	{
 		col = (timer_ / getTPerFrame(state_)) % getNFrames(state_) + getColNum(state_);

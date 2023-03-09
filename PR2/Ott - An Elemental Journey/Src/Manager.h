@@ -65,7 +65,7 @@ public:
 	static void Save(Manager* m);
 	static void AddEnredadera(Manager* m);
 	void checkInteraction();
-	bool checkCollisionWithVine();
+	pair<bool,bool> checkCollisionWithVine();
 	inline Entity* getCurrentInteraction() { return *interactionIt; }
 	//void showVine(Vector2D position, int width = 60, int height = 120);
 	//void createVine(Vector2D position, int width, int height);

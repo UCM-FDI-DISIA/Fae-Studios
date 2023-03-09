@@ -103,25 +103,33 @@ void Manager::checkInteraction()
 		interactionIt++;
 	}
 }
-bool Manager::checkCollisionWithVine() {
+pair<bool,bool> Manager::checkCollisionWithVine() {
 	bool interact = false;
+	bool canGoUp = false;
 	interactionIt = entsByGroup_[ecs::_grp_VINE].begin();
 	while (!interact && interactionIt != entsByGroup_[ecs::_grp_VINE].end()) {
 		Entity* ents = *interactionIt;
 		if (ents->hasComponent<ColliderVine>()) {
 			SDL_Rect r1;
-			r1.x= player->getComponent<Transform>()->getRect().x + player->getComponent<Transform>()->getRect().w / 3;
-			r1.y= player->getComponent<Transform>()->getRect().y + player->getComponent<Transform>()->getRect().h - 30;
-			r1.w= player->getComponent<Transform>()->getRect().w/3;
+			SDL_Rect tr_ = player->getComponent<Transform>()->getRect();
+			r1.x= tr_.x + tr_.w / 3;
+			r1.y= tr_.y + tr_.h - 30;
+			r1.w= tr_.w/3;
 			r1.h= 1;
 			SDL_Rect r2 = ents->getComponent<ColliderVine>()->getRect();
+			
 			if (SDL_HasIntersection(&r1, &r2)) {
+				if (tr_.y + tr_.h*0.6 <= r2.y) {
+					canGoUp = false;
+					// no dejar que se mueva hacia arriba
+				}
+				else canGoUp = true;
 				interact = true;
 			}
 		}
 		interactionIt++;
 	}
-	return interact;
+	return make_pair(interact,canGoUp);
 }
 void Manager::createPlayer()
 {
