@@ -27,19 +27,21 @@ void EnemyAttack::update() {
 	SDL_Rect collider = physics->getCollider();
 
 	int frameTime = SDL_GetTicks() - startAttackingTime;
-	if (state == normal && frameTime >= PREPARING_TIME && SDL_HasIntersection(&trigger, &playerRect)) {
+	if (state == normal && frameTime >= PHASE1_TIME && SDL_HasIntersection(&trigger, &playerRect)) {
 		state = preparing;
 		startAttackingTime = SDL_GetTicks();
 	}
-	else if (state == preparing && frameTime >= PREPARING_TIME) {
+	else if (state == preparing && frameTime >= PHASE2_TIME) {
 		state = attacking;
 		startAttackingTime = SDL_GetTicks();
 	}
-	else if (state == attacking && frameTime >= ATTACKING_TIME / 2) {
+	else if (state == attacking && frameTime >= PHASE3_TIME) {
+		hasAttacked = true;
 		state = afterAttack;
 		startAttackingTime = SDL_GetTicks();
 	}
-	else if (state == afterAttack && frameTime >= ATTACKING_TIME / 2) {
+	else if (state == afterAttack && frameTime >= PHASE4_TIME) {
+		hasAttacked = false;
 		state = normal;
 		startAttackingTime = SDL_GetTicks();
 	}
