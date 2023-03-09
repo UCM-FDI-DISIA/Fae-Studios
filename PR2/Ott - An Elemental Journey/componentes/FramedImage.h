@@ -17,7 +17,7 @@ public:
 	void update() override;
 	void elementChanged(int newElem);
 	inline void shielded(bool b) { isShielded = b; }
-	constexpr static cmpId_type id = ecs::_FRAMEDIMAGE;
+	constexpr static cmpId_type id = ecs::_FRAMEDIMAGEOTT;
 private:
 	Transform* tr_;
 	Texture* tex_;
@@ -42,7 +42,7 @@ public:
 	inline void setRow(int r) { row = r; }
 	inline void setCol(int c) { col = c; }
 	inline void setLookingRight(bool l) { lookingRight = l; }
-	constexpr static cmpId_type id = ecs::_FRAMEDIMAGE;
+	constexpr static cmpId_type id = ecs::_FRAMEDIMAGEENEMY;
 private:
 	// MeleeAnimationComponent* pAnim_;
 	Transform* tr_;

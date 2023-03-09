@@ -118,7 +118,7 @@ PlayState::PlayState(SDLApplication* app) : GameState(PLAY_STATE, app) {
 	enemy->addComponent<TestEnemyInput>();
 	/*auto ph = player->addComponent<PhysicsComponent>();
 	ph->setVelocity({ 1,0 });
-	ph->lookDirection(true);
+	ph->lookDirection(true);*/
 }
 
 void PlayState::checkCollisions()
