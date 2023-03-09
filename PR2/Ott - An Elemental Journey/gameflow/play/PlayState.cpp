@@ -114,15 +114,12 @@ PlayState::PlayState(SDLApplication* app) : GameState(PLAY_STATE, app) {
 	ph->setVelocity({ 0,0 });
 	ph->lookDirection(true);
 
-	player->addComponent<EnemyMovement>();
-	player->addComponent<Health>(5, ecs::Earth);
-	player->addComponent<EnemyAttack>(1000, 1000, 3000, 1000, 100, 100);
-	player->addComponent<SlimeStates>();
-	player->addComponent<EnemyMeleeAttack>();
+	enemy->addComponent<EnemyMovement>();
+	enemy->addComponent<Health>(5, ecs::Earth);
+	enemy->addComponent<EnemyAttack>(1000, 1000, 3000, 1000, 100, 100);
+	enemy->addComponent<SlimeStates>();
+	enemy->addComponent<EnemyMeleeAttack>();
 	
-
-	enemy->addComponent<EnemyAttack>(100, 100);
-	enemy->addComponent<EnemyShootingAttack>();
 	enemy->addComponent<EnemyAnimationComponent>(anims::RANGE_ANIM);
 	enemy->addComponent<TestEnemyInput>();
 	/*auto ph = player->addComponent<PhysicsComponent>();
