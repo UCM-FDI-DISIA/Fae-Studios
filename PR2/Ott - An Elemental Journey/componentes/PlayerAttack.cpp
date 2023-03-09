@@ -55,6 +55,7 @@ void PlayerAttack::update() {
 			case ecs::Water: {
 				MoveTrigger(watAtackTriggWH); // Se mueven los triggers a la posici�n actual
 
+				// Añado entidad de ataque
 				wAttack = mngr_->addEntity(ecs::_grp_PROYECTILES);
 
 				// Trigger de ataque
