@@ -134,6 +134,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="componentes\AddVine.h" />
+    <ClInclude Include="componentes\AttackCharger.h" />
     <ClInclude Include="componentes\BackgroundImage.h" />
     <ClInclude Include="componentes\Bullet.h" />
     <ClInclude Include="componentes\ButtonComponent.h" />
@@ -198,6 +199,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="componentes\AddVine.cpp" />
+    <ClCompile Include="componentes\AttackCharger.cpp" />
     <ClCompile Include="componentes\BackgroundImage.cpp" />
     <ClCompile Include="componentes\Bullet.cpp" />
     <ClCompile Include="componentes\ButtonComponent.cpp" />
