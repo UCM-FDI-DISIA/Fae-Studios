@@ -18,7 +18,6 @@ void EnemyAnimationComponent::initComponent() {
 
 void EnemyAnimationComponent::update() {
 	int state = currentAnimation;
-	cout << currentAnimation << endl;
 	timer_++;
 
 	if (damaged) {

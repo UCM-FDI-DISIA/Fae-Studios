@@ -13,7 +13,6 @@ void EnemyMeleeAttack::initComponent()
 void EnemyMeleeAttack::update()
 {
 	if (enemyAttack->requestAttack() && playerHealth->getHealth() > 0 && !enemyAttack->getHasAttacked()) {
-		cout << "bonk!" << endl;
 		playerHealth->recieveDamage(health->getElement());
 		//Aplicar knockback
 	}

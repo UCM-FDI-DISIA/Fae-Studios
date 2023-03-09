@@ -53,7 +53,6 @@ void SlimeStates::getUpAdjust()
 // basicamente comprueba si esta en estado de "tumbarse" o "levantarse" y ajusta el rectángulo en el que puede recibir daño y cambia el booleano para que sólo se haga una vez
 void SlimeStates::update()
 {
-	cout << attack->getState() << endl;
 	if (attack->getState() == attack->preparing) {
 		if (ajusta) { layDownAdjust(); ajusta = false; }
 	}
