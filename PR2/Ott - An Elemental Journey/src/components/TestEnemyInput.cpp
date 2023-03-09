@@ -1,5 +1,6 @@
 #include "TestEnemyInput.h"
-#include "../Src/Entity.h"
+#include "../ecs/Entity.h"
+
 void TestEnemyInput::initComponent() {
 	anim_ = ent_->getComponent<EnemyAnimationComponent>();
 	input_ = InputHandler::instance();

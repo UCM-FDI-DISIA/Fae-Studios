@@ -1,18 +1,18 @@
 #pragma once
-#include "Component.h"
-#include "../dependencies/Vector2D.h"
+#include "../ecs/Component.h"
+#include "../utils/Vector2D.h"
 #include <iostream>
 #include <SDL.h>
 class PhysicsComponent : public Component
 {
 public:
-	PhysicsComponent();
+	PhysicsComponent() : Component() {}
 	PhysicsComponent(Vector2D offset, Vector2D WidthHeight);
 	virtual ~PhysicsComponent();
 	virtual void initComponent();
 	virtual void update();
 	void knockback();
-	constexpr static cmpId_type id = ecs::_PHYSICS;
+	constexpr static ecs::cmpId_type id = ecs::_PHYSICS;
 	Vector2D& getVelocity();
 	SDL_Rect getCollider() const;
 	inline void slowed() { velocity_ = Vector2D(velocity_.getX()/2, velocity_.getY()); }

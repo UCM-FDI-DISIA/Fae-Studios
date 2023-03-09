@@ -1,6 +1,6 @@
 #pragma once
 #include "FramedImage.h"
-#include "Text.h"
+#include "TextComponent.h"
 #include "Transform.h"
 #include "../ecs/Component.h"
 
@@ -12,7 +12,7 @@ private:
 	int currentButtonFrame; ///< Estado actual en que se encuentra el bot�n
 	Callback* callback; ///< Puntero a una funci�n void con un par�metro Game*
 	FramedImage* texture;
-	Text* text;
+	TextComponent* text;
 	Transform* transform;
 
 	void onClick();

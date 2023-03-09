@@ -25,7 +25,7 @@ MainMenuState::MainMenuState() : MenuState() {
     constructors::boldText(mngr_, "InDev 0.02", pos, sdlutils().fonts().at("press_start16"), 1, yellow);
     
     littleOtt = mngr_->addEntity(ecs::_grp_UI);
-    littleOtt->addComponent<Transform>(Vector2D(320, 415), Vector2D(0, 0), 100, 100);
+    littleOtt->addComponent<Transform>(Vector2D(320, 415), 100, 100);
     littleOtt->addComponent<FramedImage>(&sdlutils().images().at("ott_luz"), 9, 8);
 
     pos = Vector2D(sdlutils().width() / 2, 3 * sdlutils().height() / 7);

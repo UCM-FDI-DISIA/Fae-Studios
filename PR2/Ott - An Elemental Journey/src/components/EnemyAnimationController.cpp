@@ -1,6 +1,7 @@
 #include "EnemyAnimationController.h"
-#include "../Src/Entity.h"
+#include "../ecs/Entity.h"
 #include "FramedImage.h"
+#include "PlayerAnimationComponent.h"
 
 void EnemyAnimationComponent::initComponent() {
 	image = ent_->getComponent<FramedImageEnemy>();

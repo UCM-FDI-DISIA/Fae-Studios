@@ -1,7 +1,7 @@
 #pragma once
-#include "../dependencies/Vector2D.h"
-#include "Component.h"
-#include "../Src/anims.h"
+#include "../utils/Vector2D.h"
+#include "../ecs/Component.h"
+#include "../ecs/anims.h"
 #include <SDL.h>
 
 enum EnemyAnims { IDLE_ENEMY, DIE_ENEMY, ATTACK_ENEMY, PREPARE_ATTACK_ENEMY, WALK_ENEMY };
@@ -10,7 +10,7 @@ class FramedImageEnemy;
 
 class EnemyAnimationComponent : public Component {
 public:
-	constexpr static cmpId_type id = ecs::_ANIM;
+	constexpr static ecs::cmpId_type id = ecs::_ANIM;
 
 	EnemyAnimationComponent(anims::Entities e) : eAnims(e) {};
 	virtual ~EnemyAnimationComponent() {};

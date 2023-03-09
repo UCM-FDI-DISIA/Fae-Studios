@@ -4,6 +4,7 @@
 
 #include "../ecs/Component.h"
 #include "Transform.h"
+#include "PlayerAnimationComponent.h"
 
 class FramedImage : public Component {
 private:

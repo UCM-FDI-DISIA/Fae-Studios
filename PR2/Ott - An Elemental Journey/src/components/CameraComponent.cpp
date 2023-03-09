@@ -1,4 +1,5 @@
 ﻿#include "CameraComponent.h"
+#include "../sdlutils/SDLUtils.h"
 
 float lerp(float a, float b, float t)
 {
@@ -17,7 +18,7 @@ void CameraComponent::update()
 	// Comprobamos si la c�mara est� suficientemente cerca del jugador. En caso de que lo est�, la posici�n se settea a la 
 	// posici�n del jugador. En caso contrario, se hace una interpolaci�n lineal para acercarse "lentalmente". Esto solo se aprecia cuando
 	// la c�mara viaja grandes distancias (entre l�mparas, por ejemplo). 
-	camera.x = lerp(camera.x, ((ottRect.x + ottRect.w / 2) - mngr_->getWinW() / 2), 0.03);
+	camera.x = lerp(camera.x, ((ottRect.x + ottRect.w / 2) - sdlutils().width() / 2), 0.03);
 
 	// mover camera.y
 	// Setteamos un deadzone donde la c�mara no tiene porqu� moverse (CAM_DEAD_ZONE). En caso de que el personaje salga de esta
@@ -26,7 +27,7 @@ void CameraComponent::update()
 
 	// RETOCAR ESTAS COSAS
 	if (ottRect.y > camera.y + camera.h - CAM_DEAD_ZONE || ottRect.y < camera.y + CAM_DEAD_ZONE) {
-		camera.y = lerp(camera.y, (ottRect.y + ottRect.h / 2) - CAM_OFFSET_HEIGHT * mngr_->getWinH(), 0.01);
+		camera.y = lerp(camera.y, (ottRect.y + ottRect.h / 2) - CAM_OFFSET_HEIGHT * sdlutils().height(), 0.01);
 	}
 
 	// Limites de la camara dependiendo del tama�o de la sala (mapa)
@@ -34,17 +35,14 @@ void CameraComponent::update()
 	{
 		camera.x = 0;
 	}
-	if (camera.x > LEVEL_WIDTH - tr_->getW())
+	if (camera.x > LEVEL_WIDTH - tr_->getWidth())
 	{
-		camera.x = LEVEL_WIDTH - tr_->getW();
+		camera.x = LEVEL_WIDTH - tr_->getWidth();
 	}
-	if (camera.y > LEVEL_HEIGHT - tr_->getH())
+	if (camera.y > LEVEL_HEIGHT - tr_->getHeight())
 	{
-		cout << "fix Y pos" << endl;
-		camera.y = LEVEL_HEIGHT - tr_->getH();
+		//cout << "fix Y pos" << endl;
+		camera.y = LEVEL_HEIGHT - tr_->getHeight();
 	}
-	camera = { camera.x,camera.y,mngr_->getWinW(), mngr_->getWinH() };
-}
-CameraComponent::~CameraComponent()
-{
+	camera = { camera.x,camera.y,sdlutils().width(), sdlutils().height() };
 }

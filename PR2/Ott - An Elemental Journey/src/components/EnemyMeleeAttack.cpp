@@ -1,6 +1,6 @@
 #include "EnemyMeleeAttack.h"
-#include "../Src/Entity.h"
-#include "../Src/Manager.h"
+#include "../ecs/Entity.h"
+#include "../ecs/Manager.h"
 
 void EnemyMeleeAttack::initComponent()
 {

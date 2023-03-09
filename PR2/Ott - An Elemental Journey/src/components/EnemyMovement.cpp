@@ -1,6 +1,6 @@
 #include "EnemyMovement.h"
-#include "../Src/Entity.h"
-#include "../Src/Manager.h"
+#include "../ecs/Entity.h"
+#include "../ecs/Manager.h"
 
 void EnemyMovement::initComponent()
 {
@@ -9,8 +9,8 @@ void EnemyMovement::initComponent()
 	transform = ent_->getComponent<Transform>();
 	playerTransform = player->getComponent<Transform>();
 
-	trigger.x = transform->getPos().getX() + transform->getW(); trigger.y = transform->getPos().getY();
-	nearDistance = transform->getW() * 2;
+	trigger.x = transform->getPosition().getX() + transform->getWidth(); trigger.y = transform->getPosition().getY();
+	nearDistance = transform->getWidth() * 2;
 }
 
 void EnemyMovement::MoveTriggers()
@@ -60,7 +60,7 @@ void EnemyMovement::ChangeDirection(bool ground, const SDL_Rect& result)
 			int dir;
 			if (physics->getLookDirection()) dir = -1;
 			else dir = 1;
-			physics->getVelocity() = { (double)dir, physics->getVelocity().getY() };
+			physics->getVelocity() = { (float)dir, physics->getVelocity().getY() };
 			physics->lookDirection(!physics->getLookDirection());
 		}
 		else if (result.w < transform->getRect().w * turningOffset)

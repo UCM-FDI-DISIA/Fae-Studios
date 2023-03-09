@@ -8,15 +8,15 @@
 #include <string>
 
 
-class Text : public Component{
+class TextComponent : public Component{
 private:
     Texture* textTexture;
     int x;
     int y;
 public:
     constexpr static ecs::cmpId_type id = ecs::_TEXT;
-    Text(std::string text, Font& f, SDL_Color fontColor, SDL_Color bgColor);
-    virtual ~Text() {delete textTexture;}
+    TextComponent(std::string text, Font& f, SDL_Color fontColor, SDL_Color bgColor);
+    virtual ~TextComponent() {delete textTexture;}
     void render() override;
     int getWidth() const {return textTexture->width();}
     int getHeight() const {return textTexture->height();}

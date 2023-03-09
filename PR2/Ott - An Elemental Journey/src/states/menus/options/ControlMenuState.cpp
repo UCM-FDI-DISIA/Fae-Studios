@@ -4,7 +4,6 @@
 #include "../../../sdlutils/SDLUtils.h"
 #include "../../../components/Transform.h"
 #include "../../../components/Image.h"
-#include "../../../components/Text.h"
 #include "../../../components/FramedImage.h"
 #include "../../../components/Button.h"
 #include "../../../game/Constructors.h"

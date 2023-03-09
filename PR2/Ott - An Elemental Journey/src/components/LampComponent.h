@@ -1,13 +1,14 @@
 #pragma once
-#include "Component.h"
-#include "../dependencies/Vector2D.h"
+#include "../ecs/Component.h"
+#include "../utils/Vector2D.h"
+
 class LampComponent : public Component
 {
 public:
-	LampComponent(Entity* e);
-	virtual ~LampComponent();
+	LampComponent(Entity* e) : connectedLamp(e) {}
+	virtual ~LampComponent() = default;
 	inline Entity* getConnectedLamp() { return connectedLamp; }
-	constexpr static cmpId_type id = ecs::_MAP;
+	constexpr static ecs::cmpId_type id = ecs::_MAP;
 private:
 	Entity* connectedLamp;
 };

@@ -1,15 +1,17 @@
 #pragma once
 #include "Transform.h"
 #include "PhysicsComponent.h"
-#include<SDL.h>
-class EnemyAttack : public Component
-{
+
+using uint = unsigned int;
+
+class EnemyAttack : public Component {
 	uint PREPARING_TIME = 1000;
 	uint ATTACKING_TIME = 1000;
 	uint DAMAGED_TIME = 1000;
 	uint LAYING_TIME = 3000;
+
 public:
-	constexpr static cmpId_type id = ecs::_TRIGGER;
+	constexpr static ecs::cmpId_type id = ecs::_TRIGGER;
 	EnemyAttack(int w = 50 , int h = 50) : Component() {
 		state = normal;
 		transform = nullptr;

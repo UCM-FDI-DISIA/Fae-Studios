@@ -2,11 +2,6 @@
 #include "MusicOptionsMenuState.h"
 #include "../../GameStateMachine.h"
 #include "../../../sdlutils/SDLUtils.h"
-#include "../../../components/Transform.h"
-#include "../../../components/Image.h"
-#include "../../../components/Text.h"
-#include "../../../components/Button.h"
-#include "../../../components/Slider.h"
 #include "../../../game/Constructors.h"
 
 MusicOptionsMenuState::MusicOptionsMenuState() : MenuState() {

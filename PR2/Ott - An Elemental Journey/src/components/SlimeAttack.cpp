@@ -1,6 +1,6 @@
 #include "SlimeAttack.h"
-#include "../Src/Entity.h"
-#include "../Src/Manager.h"
+#include "../ecs/Entity.h"
+#include "../ecs/Manager.h"
 #include "Generations.h"
 #include "EnemyMovement.h"
 
@@ -8,21 +8,21 @@ void SlimeAttack::layDownAdjust()
 {
 	int aux = damageZone.h;
 	damageZone.h = damageZone.w; damageZone.w = aux;
-	damageZone.y += transform->getH() - damageZone.h;
-	if (physics->getVelocity().getX() > 0) damageZone.x += transform->getW() - damageZone.w;
+	damageZone.y += transform->getHeight() - damageZone.h;
+	if (physics->getVelocity().getX() > 0) damageZone.x += transform->getWidth() - damageZone.w;
 }
 
 void SlimeAttack::getUpAdjust()
 {
 	int aux = damageZone.h;
 	damageZone.h = damageZone.w; damageZone.w = aux;
-	damageZone.y = transform->getPos().getY(); damageZone.x = transform->getPos().getX();
+	damageZone.y = transform->getPosition().getY(); damageZone.x = transform->getPosition().getX();
 }
 
 void SlimeAttack::divide()
 {
 	auto slime = mngr_->addEntity(ecs::_grp_CHARACTERS);
-	slime->addComponent<Transform>(transform->getPos(), ent_->getComponent<Generations>()->getGeneration() - 1, ent_->getComponent<Generations>()->getGeneration() - 1);
+	slime->addComponent<Transform>(transform->getPosition(), ent_->getComponent<Generations>()->getGeneration() - 1, ent_->getComponent<Generations>()->getGeneration() - 1);
 	slime->addComponent<PhysicsComponent>(); //Calcular offset
 	slime->addComponent<Generations>(ent_->getComponent<Generations>()->getGeneration() - 1);
 	slime->addComponent<EnemyMovement>(); //Calcular trigger
@@ -37,7 +37,7 @@ void SlimeAttack::initComponent()
 	transform = ent_->getComponent<Transform>();
 	health = ent_->getComponent<Health>();
 
-	damageZone.y = transform->getPos().getY(); damageZone.x = transform->getPos().getX(); damageZone.w = transform->getW(); damageZone.h = transform->getH() / 3; //Ajustar tamaño de la zona
+	damageZone.y = transform->getPosition().getY(); damageZone.x = transform->getPosition().getX(); damageZone.w = transform->getWidth(); damageZone.h = transform->getHeight() / 3; //Ajustar tamaño de la zona
 }
 
 void SlimeAttack::update()

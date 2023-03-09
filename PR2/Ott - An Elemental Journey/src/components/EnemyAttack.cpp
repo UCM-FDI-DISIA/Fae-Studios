@@ -1,12 +1,12 @@
 #include "EnemyAttack.h"
-#include "../Src/Entity.h"
-#include "../Src/Manager.h"
+#include "../ecs/Entity.h"
+#include "../ecs/Manager.h"
 void EnemyAttack::initComponent() {
 	player = mngr_->getPlayer();
 	transform = ent_->getComponent<Transform>();
 	physics = ent_->getComponent<PhysicsComponent>();
 
-	trigger.x = transform->getPos().getX() + transform->getW(); trigger.y = transform->getPos().getY();
+	trigger.x = transform->getPosition().getX() + transform->getWidth(); trigger.y = transform->getPosition().getY();
 }
 
 void EnemyAttack::MoveTriggers() {

@@ -1,6 +1,6 @@
 #pragma once
-#include "Component.h"
-#include "../dependencies/Texture.h"
+#include "../ecs/Component.h"
+#include "../sdlutils/Texture.h"
 #include <tmxlite/Map.hpp>
 #include <tmxlite/Layer.hpp>
 #include <tmxlite/TileLayer.hpp>
@@ -42,11 +42,11 @@ struct infoMap {
 	int size;
 	infoMap(string route, int size) : route(route), size(size) {}
 };
-class SDLApplication;
+
+
 class MapComponent : public Component
 {
 private:
-	SDLApplication* app;
 	unordered_map<ListaNiveles, list<infoTexture>> infoLevel;
 	unordered_map<ListaNiveles, infoMap> levelPath;
 	Map map;
@@ -64,11 +64,11 @@ private:
 	void initializeSources();
 
 public:
-	MapComponent(SDLApplication* app, ListaNiveles l);
+	MapComponent(ListaNiveles l);
 	virtual void render();
 	void changeMap();
 	vector<vector<Object>> getObjects() { return vectorObjects; }
 	inline float tileScale() { return (float)usedTileSize / (float)realTileSize; }
-	constexpr static cmpId_type id = ecs::_MAP;
+	constexpr static ecs::cmpId_type id = ecs::_MAP;
 };
 

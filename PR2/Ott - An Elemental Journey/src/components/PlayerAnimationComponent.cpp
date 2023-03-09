@@ -1,11 +1,8 @@
 #include "PlayerAnimationComponent.h"
 #include "PhysicsComponent.h"
-#include "../Src/Entity.h"
+#include "Health.h"
+#include "../ecs/Entity.h"
 #pragma once
-PlayerAnimationComponent::PlayerAnimationComponent(anims::Entities e)
-{
-	eAnims = e;
-}
 
 void PlayerAnimationComponent::update()
 {
@@ -26,8 +23,4 @@ void PlayerAnimationComponent::endAnim()
 		if (currentAnimation == DIE) ent_->getComponent<Health>()->recall();
 		currentAnimation = IDLE;
 	}
-}
-
-PlayerAnimationComponent::~PlayerAnimationComponent()
-{
 }

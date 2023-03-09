@@ -4,7 +4,7 @@
 class EnemyMeleeAttack : public Component
 {
 public:
-	constexpr static cmpId_type id = ecs::_ATTACK;
+	constexpr static ecs::cmpId_type id = ecs::_ATTACK;
 	EnemyMeleeAttack() : Component() {
 		player = nullptr;
 		playerHealth = nullptr;

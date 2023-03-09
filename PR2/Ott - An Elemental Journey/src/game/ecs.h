@@ -19,6 +19,16 @@ namespace ecs {
         _SLIDER_PERCENTAGE,
         _VINE,
         _CAMERA,
+        _ANIM,
+        _TRIGGER,
+        _ATTACK,
+        _ENEMYMOV,
+        _HEALTH,
+        _INTERACTION,
+        _MAP,
+        _PHYSICS,
+        _CTRL,
+        _GEN,
 
         _LAST_CMP_ID
     };
@@ -53,6 +63,29 @@ namespace ecs {
     };
     constexpr stateId_type maxStateId = _LAST_STATE_ID;
 #pragma endregion
+
+    static enum elements { Light, Earth, Water, Fire, Dark };
+
+
+    static const int numElems = 5;
+    // Representación interna doblada
+    
+    static int matrix[5][5] = {
+    { 2, 2, 2, 2, 2 },
+    { 2, 2, 4, 1, 0 },
+    { 2, 1, 2, 4, 0 },
+    { 2, 4, 1, 2, 0 },
+    { 2, 4, 4, 4, 2 }
+    };
+
+    static int ottMatrix[5][5] = {
+        { 1, 1, 1, 1, 1 },
+        { 1, 1, 2, 0, -1 },
+        { 1, 0, 1, 2, -1 },
+        { 1, 2, 0, 1, -1 },
+        { 1, 2, 2, 2, 1 }
+    };
+    
 }
 
 #endif //TPV2_ECS_DEF_H

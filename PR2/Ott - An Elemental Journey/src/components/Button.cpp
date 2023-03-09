@@ -6,7 +6,7 @@
 void Button::initComponent() {
 	transform = ent_->getComponent<Transform>();
 	texture = ent_->getComponent<FramedImage>();
-	text = ent_->getComponent<Text>();
+	text = ent_->getComponent<TextComponent>();
 }
 
 void Button::handleInput() {

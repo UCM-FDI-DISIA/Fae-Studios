@@ -1,20 +1,20 @@
 #pragma once
-#include "Component.h"
-#include "../utils/InputHandler.h"
+#include "../ecs/Component.h"
+#include "../sdlutils/InputHandler.h"
 #include <iostream>
 #include "Transform.h"
 #include "PhysicsComponent.h"
 #include "PlayerAnimationComponent.h"
-#include "../Src/Entity.h"
-using namespace std;
+#include "../ecs/Entity.h"
+
 class PlayerInput : public Component
 {
 public:
-	PlayerInput();
-	virtual ~PlayerInput();
+	PlayerInput() : Component() {}
+	virtual ~PlayerInput() = default;
 	virtual void initComponent();
 	virtual void update();
-	constexpr static cmpId_type id = ecs::_CTRL;
+	constexpr static ecs::cmpId_type id = ecs::_CTRL;
 private:
 	Transform* tr_;
 	PhysicsComponent* physics_;

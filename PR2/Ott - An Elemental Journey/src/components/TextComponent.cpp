@@ -1,9 +1,9 @@
 #include "../utils/checkML.h"
-#include "Text.h"
+#include "TextComponent.h"
 #include "../sdlutils/SDLUtils.h"
 #include "../ecs/Entity.h"
 
-Text::Text(std::string text, Font& f, SDL_Color fontColor, SDL_Color bgColor) {
+TextComponent::TextComponent(std::string text, Font& f, SDL_Color fontColor, SDL_Color bgColor) {
     x = 0;
     y = 0;
 
@@ -18,7 +18,7 @@ Text::Text(std::string text, Font& f, SDL_Color fontColor, SDL_Color bgColor) {
 #endif
 }
 
-void Text::render() {
+void TextComponent::render() {
     textTexture->render(x, y);
 }
 

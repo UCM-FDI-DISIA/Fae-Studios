@@ -1,6 +1,7 @@
 #pragma once
 #include "Transform.h"
 #include "PhysicsComponent.h"
+
 class EnemyMovement : public Component
 {
 private:
@@ -19,7 +20,7 @@ private:
 	void MoveTriggers();
 	bool collided = false;
 public:
-	constexpr static cmpId_type id = ecs::_ENEMYMOV;
+	constexpr static ecs::cmpId_type id = ecs::_ENEMYMOV;
 	EnemyMovement(float wTrigger = 100.0f, float hTrigger = 100.0f) : Component() {
 		player = nullptr;
 		trigger.x = 0; trigger.y = 0;

@@ -1,5 +1,8 @@
 #include "Health.h"
-#include "../Src/Entity.h"
+#include "../ecs/Entity.h"
+#include "Transform.h"
+#include "PlayerAnimationComponent.h"
+#include "../game/Elements.h"
 
 void Health::die()
 {
@@ -10,12 +13,12 @@ void Health::die()
 void Health::recall()
 {
 	if (lastSanctuary != nullptr) {
-		Vector2D& newPos = ent_->getComponent<Transform>()->getPos();
-		newPos = lastSanctuary->getComponent<Transform>()->getPos();
+		Vector2D newPos = ent_->getComponent<Transform>()->getPosition();
+		newPos = lastSanctuary->getComponent<Transform>()->getPosition(); //?????
 		actualLife = maxLife;
-		cout << "vuelvo a santuario" << endl;
+		//cout << "vuelvo a santuario" << endl;
 	}
-	cout << "me muero para siempre" << endl;
+	//cout << "me muero para siempre" << endl;
 }
 
 bool Health::recieveDamage(ecs::elements elem)

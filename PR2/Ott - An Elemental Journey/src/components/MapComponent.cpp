@@ -1,14 +1,19 @@
 ﻿#include "MapComponent.h"
-#include "../dependencies/Parser.h"
-#include "../SDLApplication.h"
-MapComponent::MapComponent(SDLApplication* app, ListaNiveles l) : currentLevel(l), app(app) {
+//#include "../dependencies/Parser.h"
+#include "../sdlutils/SDLUtils.h"
+#include "../ecs/Manager.h"
+#include "../ecs/Entity.h"
+#include "../components/CameraComponent.h"
+
+MapComponent::MapComponent(ListaNiveles l) : currentLevel(l) {
     initializeSources();
     //textures = std::vector<Texture*>(NUMBER_OF_TYPES);
     auto it = infoLevel.find(l);
     if (it != infoLevel.end()) {
         auto ot = it->second.begin();
         for (ot; ot != it->second.end(); ++ot) {
-            tilemap = app->getTexture(ot->name, PLAY_STATE);
+            tilemap = &sdlutils().images().at(ot->name);
+
         }
         auto ut = levelPath.find(l);
         if (ut != levelPath.end()) {
@@ -73,11 +78,11 @@ void MapComponent::render() {
     for (int i = 0; i < vectorTiles.size(); i++) {
         auto it = vectorTiles[i].ID;
         if (it == 0) continue;
-        tilemap->renderFrame({ (int)(i % 100) * usedTileSize - offsetX, (int)((i / 100) * usedTileSize) - offsetY, usedTileSize, usedTileSize }, (it - (it % 20)) / 20, it % 20 - 1);
+        //tilemap->renderFrame({ (int)(i % 100) * usedTileSize - offsetX, (int)((i / 100) * usedTileSize) - offsetY, usedTileSize, usedTileSize }, (it - (it % 20)) / 20, it % 20 - 1);
     }
 }
 
 void MapComponent::initializeSources() {
-    MapTexturesParser::parse(levelTextureRoute, infoLevel);
-    MapParser::parse(levelRoute, levelPath);
+    //MapTexturesParser::parse(levelTextureRoute, infoLevel);
+    //MapParser::parse(levelRoute, levelPath);
 }

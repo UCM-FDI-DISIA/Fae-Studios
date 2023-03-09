@@ -56,7 +56,7 @@ void SliderPercentage::changeText(std::string text) {
 void Slider::initComponent() {
     transform = ent_->getComponent<Transform>();
     texture = ent_->getComponent<FramedImage>();
-    title = ent_->getComponent<Text>();
+    title = ent_->getComponent<TextComponent>();
     percentageText = ent_->getComponent<SliderPercentage>();
 
     Vector2D titlePosition = Vector2D(transform->getPosition().getX() + (transform->getWidth() - title->getWidth()) / 2, transform->getPosition().getY() - (transform->getHeight() - title->getHeight()) * 2);

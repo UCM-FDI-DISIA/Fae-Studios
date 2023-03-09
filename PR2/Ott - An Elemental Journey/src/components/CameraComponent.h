@@ -10,7 +10,7 @@ class CameraComponent : public Component
 {
 public:
 	CameraComponent() : Component() {}
-	virtual ~CameraComponent();
+	virtual ~CameraComponent() = default;
 	virtual void initComponent();
 	virtual void update();
 	constexpr static ecs::cmpId_type id = ecs::_CAMERA;

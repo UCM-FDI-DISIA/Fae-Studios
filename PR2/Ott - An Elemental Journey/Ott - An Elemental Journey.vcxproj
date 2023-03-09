@@ -19,14 +19,27 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\components\BackgroundImage.cpp" />
     <ClCompile Include="src\components\CameraComponent.cpp" />
+    <ClCompile Include="src\components\EnemyAnimationController.cpp" />
+    <ClCompile Include="src\components\EnemyAttack.cpp" />
+    <ClCompile Include="src\components\EnemyMeleeAttack.cpp" />
+    <ClCompile Include="src\components\EnemyMovement.cpp" />
+    <ClCompile Include="src\components\EnemyShootingAttack.cpp" />
     <ClCompile Include="src\components\FramedImage.cpp" />
+    <ClCompile Include="src\components\Health.cpp" />
+    <ClCompile Include="src\components\MapComponent.cpp" />
+    <ClCompile Include="src\components\PhysicsComponent.cpp" />
+    <ClCompile Include="src\components\PlayerAnimationComponent.cpp" />
+    <ClCompile Include="src\components\PlayerInput.cpp" />
     <ClCompile Include="src\components\Slider.cpp" />
     <ClCompile Include="src\components\Button.cpp" />
+    <ClCompile Include="src\components\SlimeAttack.cpp" />
+    <ClCompile Include="src\components\TestEnemyInput.cpp" />
+    <ClCompile Include="src\ecs\anims.cpp" />
     <ClCompile Include="src\states\menus\MainMenuState.cpp" />
     <ClCompile Include="src\components\Image.cpp" />
-    <ClCompile Include="src\components\Text.cpp" />
-    <ClCompile Include="src\components\Transform.cpp" />
+    <ClCompile Include="src\components\TextComponent.cpp" />
     <ClCompile Include="src\ecs\Manager.cpp" />
     <ClCompile Include="src\game\Game.cpp" />
     <ClCompile Include="src\json\JSON.cpp" />
@@ -47,15 +60,33 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\components\AddVine.h" />
+    <ClInclude Include="src\components\BackgroundImage.h" />
     <ClInclude Include="src\components\CameraComponent.h" />
+    <ClInclude Include="src\components\EnemyAnimationController.h" />
+    <ClInclude Include="src\components\EnemyAttack.h" />
+    <ClInclude Include="src\components\EnemyMeleeAttack.h" />
+    <ClInclude Include="src\components\EnemyMovement.h" />
+    <ClInclude Include="src\components\EnemyShootingAttack.h" />
+    <ClInclude Include="src\components\Generations.h" />
+    <ClInclude Include="src\components\Health.h" />
+    <ClInclude Include="src\components\InteractionComponent.h" />
+    <ClInclude Include="src\components\LampComponent.h" />
+    <ClInclude Include="src\components\MapComponent.h" />
+    <ClInclude Include="src\components\PhysicsComponent.h" />
+    <ClInclude Include="src\components\PlayerAnimationComponent.h" />
+    <ClInclude Include="src\components\PlayerInput.h" />
+    <ClInclude Include="src\components\SlimeAttack.h" />
+    <ClInclude Include="src\components\TestEnemyInput.h" />
+    <ClInclude Include="src\ecs\anims.h" />
     <ClInclude Include="src\game\Constructors.h" />
     <ClInclude Include="src\components\FramedImage.h" />
     <ClInclude Include="src\components\Slider.h" />
     <ClInclude Include="src\components\Button.h" />
+    <ClInclude Include="src\game\Elements.h" />
     <ClInclude Include="src\states\menus\MainMenuState.h" />
     <ClInclude Include="src\states\menus\MenuState.h" />
     <ClInclude Include="src\components\Image.h" />
-    <ClInclude Include="src\components\Text.h" />
+    <ClInclude Include="src\components\TextComponent.h" />
     <ClInclude Include="src\components\Transform.h" />
     <ClInclude Include="src\ecs\Component.h" />
     <ClInclude Include="src\ecs\Entity.h" />

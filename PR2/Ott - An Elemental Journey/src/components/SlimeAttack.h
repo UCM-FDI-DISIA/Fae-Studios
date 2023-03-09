@@ -1,6 +1,7 @@
 #pragma once
 #include "EnemyAttack.h"
 #include "Health.h"
+
 class SlimeAttack : public Component
 {
 private:
@@ -13,7 +14,7 @@ private:
 	void getUpAdjust();
 	void divide();
 public:
-	constexpr static cmpId_type id = ecs::_ATTACK;
+	constexpr static ecs::cmpId_type id = ecs::_ATTACK;
 	SlimeAttack() : Component() {
 		attack = nullptr;
 		physics = nullptr;

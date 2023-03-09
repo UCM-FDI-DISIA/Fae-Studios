@@ -1,7 +1,8 @@
 #include "EnemyShootingAttack.h"
-#include "../Src/Entity.h"
-#include "../Src/Manager.h"
-#include "Bullet.h"
+#include "../ecs/Entity.h"
+#include "../ecs/Manager.h"
+//#include "Bullet.h"
+
 void EnemyShootingAttack::initComponent()
 {
 	player = mngr_->getPlayer();

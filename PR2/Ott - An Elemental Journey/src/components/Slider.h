@@ -2,7 +2,7 @@
 #include "../ecs/Component.h"
 #include "Transform.h"
 #include "FramedImage.h"
-#include "Text.h"
+#include "TextComponent.h"
 
 using SliderCallback = void(int value);
 
@@ -66,7 +66,7 @@ private:
     SliderCallback* callback;
     Transform* transform;
     FramedImage* texture;
-    Text* title;
+    TextComponent* title;
     SliderPercentage* percentageText;
     float currentValue;
     float maxValue;

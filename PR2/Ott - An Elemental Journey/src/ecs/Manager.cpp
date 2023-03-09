@@ -2,6 +2,10 @@
 #include "Entity.h"
 #include "../game/Constructors.h"
 #include "../components/AddVine.h"
+#include "../components/Health.h"
+#include "../components/InteractionComponent.h"
+#include "../components/LampComponent.h"
+#include "../components/PlayerAnimationComponent.h"
 
 Manager::Manager() : entsByGroup_() {
     deleted = false;

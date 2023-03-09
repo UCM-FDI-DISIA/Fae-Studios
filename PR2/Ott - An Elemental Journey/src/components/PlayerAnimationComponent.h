@@ -1,17 +1,18 @@
 #pragma once
-#include "Component.h"
+#include "../ecs/Component.h"
 #include <array>
+#include "../ecs/anims.h"
 #include <SDL.h>
-#include "../Src/anims.h"
+
 enum Animations { IDLE, WALK, RUN, JUMP_UP, PEAK, FALL, LAND, VANISH, DIE, ATTACK };
 
 class PlayerAnimationComponent : public Component
 {
 public:
-	constexpr static cmpId_type id = ecs::_ANIM;
+	constexpr static ecs::cmpId_type id = ecs::_ANIM;
 
-	PlayerAnimationComponent(anims::Entities e = anims::OTT_ANIM);
-	virtual ~PlayerAnimationComponent();
+	PlayerAnimationComponent(anims::Entities e = anims::OTT_ANIM) : eAnims(e) {}
+	virtual ~PlayerAnimationComponent() = default;
 	virtual void update();
 	inline int getState() { return currentAnimation; }
 	inline void setState(int newState) { currentAnimation = newState; startAnimTicks = SDL_GetTicks(); }

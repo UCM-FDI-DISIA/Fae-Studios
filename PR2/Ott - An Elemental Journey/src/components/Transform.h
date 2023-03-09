@@ -33,7 +33,6 @@ public:
 	virtual ~Transform() = default;
 	inline float getRotation() const { return rotation; };
 	inline void setRotation(float r) { rotation += r; };
-	void update() override;
 	inline Vector2D getPosition() const { return position; };
 	inline void setPosition(Vector2D newPos) { position = newPos; };
 	inline void setWidth(float w) { width = w; }
