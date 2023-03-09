@@ -1,10 +1,15 @@
 #include "Health.h"
 #include "../Src/Entity.h"
+#include "SlimeStates.h"
+#include "Generations.h"
 
 void Health::die()
 {
 	if (ent_->hasComponent<PlayerInput>()) ent_->getComponent<PlayerAnimationComponent>()->setState(DIE);
 	else ent_->getComponent<EnemyAnimationComponent>()->setState(DIE_ENEMY);
+	auto gen = ent_->getComponent<Generations>();
+	// si la entidad muerta es un slime y no esta en su ultima gen manda a que se divida
+	if (gen != nullptr && gen->getGeneration() > 1) ent_->getComponent<Generations>()->Divide();
 	dead = true;
 } 
 

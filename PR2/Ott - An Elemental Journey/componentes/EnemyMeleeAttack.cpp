@@ -12,6 +12,7 @@ void EnemyMeleeAttack::initComponent()
 
 void EnemyMeleeAttack::update()
 {
+	// si el player tiene mas de cero vidas y esta dentro del trigger de ataque del enemigo y este no le ha atacado ya en la anterior llamada del update, se ataca al jugador
 	if (enemyAttack->requestAttack() && playerHealth->getHealth() > 0 && !enemyAttack->getHasAttacked()) {
 		cout << "bonk!" << endl;
 		playerHealth->recieveDamage(health->getElement());

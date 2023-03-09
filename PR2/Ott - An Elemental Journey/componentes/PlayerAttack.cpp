@@ -33,7 +33,7 @@ void PlayerAttack::update() {
 				for (auto e : enemiesGrp) {
 					SDL_Rect rect = e->getComponent<Transform>()->getRect();
 					if (SDL_HasIntersection(&rect, &trigger)) {
-						e->getComponent<Health>()->recieveDamage(health_->getElement());
+						e->getComponent<Health>()->recieveDamage((ecs::elements)health_->getElement());
 					}
 				}
 				break;
