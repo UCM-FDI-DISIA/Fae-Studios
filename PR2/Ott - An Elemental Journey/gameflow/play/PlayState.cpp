@@ -115,7 +115,6 @@ PlayState::PlayState(SDLApplication* app) : GameState(PLAY_STATE, app) {
 	ph->lookDirection(true);
 
 	enemy->addComponent<EnemyMovement>();
-	enemy->addComponent<Health>(5, ecs::Earth);
 	enemy->addComponent<EnemyAttack>(1000, 1000, 3000, 1000, 100, 100);
 	enemy->addComponent<SlimeStates>();
 	enemy->addComponent<EnemyMeleeAttack>();
