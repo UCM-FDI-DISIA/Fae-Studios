@@ -26,7 +26,7 @@ void PlayerAttack::startAttack() {
 void PlayerAttack::update() {
 
 	SDL_Rect trigger = { (int)triggerPos.getX(), (int)triggerPos.getY(), (int)watAtackTriggWH.getX(), (int)watAtackTriggWH.getY() };
-	MoveTrigger(watAtackTriggWH); // Se mueven los triggers a la posición actual
+	MoveTrigger(watAtackTriggWH); // Se mueven los triggers a la posiciï¿½n actual
 
 	if (anim_->getState() == ATTACK) { // ESTADO DE ATAQUE
 
@@ -34,25 +34,26 @@ void PlayerAttack::update() {
 			switch (health_->getElement())
 			{
 			case ecs::Light: {
-				MoveTrigger(triggerWH); // Se mueven los triggers a la posición actual
+				MoveTrigger(triggerWH); // Se mueven los triggers a la posiciï¿½n actual
 				trigger = { (int)triggerPos.getX(), (int)triggerPos.getY(), (int)triggerWH.getX(), (int)triggerWH.getY() };
 				attackEnemy(trigger);
 				break;
 			}
 			case ecs::Earth: break;
 			case ecs::Fire: {
-				MoveTrigger(triggerWH); // Se mueven los triggers a la posición actual
+				MoveTrigger(triggerWH); // Se mueven los triggers a la posiciï¿½n actual
 				auto pTransf = ent_->getComponent<Transform>();
 				Entity* attack = mngr_->addEntity(ecs::_grp_PROYECTILES);
 				Vector2D shootPos = Vector2D(pTransf->getPos().getX(), pTransf->getPos().getY() + pTransf->getH() / 2);
-				attack->addComponent<Transform>(shootPos, 50, 50);
-				attack->addComponent<PhysicsComponent>(Vector2D(1, 0));
+				attack->addComponent<Transform>(shootPos, 50,50);
+				if(ent_->getComponent<PhysicsComponent>()->getLookDirection()) attack->addComponent<PhysicsComponent>(Vector2D(1, 0));
+				else attack->addComponent<PhysicsComponent>(Vector2D(-1,0));
 				attack->addComponent<Image>(mngr_->getTexture(4));
 				attack->addComponent<Bullet>(health_->getElement(), ent_);
 				break;
 			}
 			case ecs::Water: {
-				MoveTrigger(watAtackTriggWH); // Se mueven los triggers a la posición actual
+				MoveTrigger(watAtackTriggWH); // Se mueven los triggers a la posiciï¿½n actual
 
 				wAttack = mngr_->addEntity(ecs::_grp_PROYECTILES);
 
@@ -88,7 +89,7 @@ void PlayerAttack::update() {
 			wAttack->setAlive(false);
 		}
 
-		// Si ha pasado el tiempo del tick, hace daño
+		// Si ha pasado el tiempo del tick, hace daï¿½o
 		if (SDL_GetTicks() >= waterTickTimer) {
 
 			// Ataca enemigo
@@ -125,7 +126,7 @@ void PlayerAttack::attackEnemy(SDL_Rect& attackZone) {
 		// Si enemigo y ataque interseccionan
 		if (SDL_HasIntersection(&rect, &attackZone)) {
 
-			// Hace daño a enemigo dependiendo del elemento
+			// Hace daï¿½o a enemigo dependiendo del elemento
 			e->getComponent<Health>()->recieveDamage(health_->getElement());
 		}
 	}
