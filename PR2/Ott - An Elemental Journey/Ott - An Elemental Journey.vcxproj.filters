@@ -55,6 +55,10 @@
     <ClCompile Include="componentes\ColliderVine.cpp" />
     <ClCompile Include="componentes\GrowVine.cpp" />
     <ClCompile Include="componentes\ImageVine.cpp" />
+    <ClCompile Include="componentes\EnemyAnimationController.cpp" />
+    <ClCompile Include="componentes\TestEnemyInput.cpp" />
+    <ClCompile Include="componentes\AttackCharger.cpp" />
+
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="checkML.h" />
@@ -120,6 +124,9 @@
     <ClInclude Include="componentes\ColliderVine.h" />
     <ClInclude Include="componentes\GrowVine.h" />
     <ClInclude Include="componentes\ImageVine.h" />
+    <ClInclude Include="componentes\EnemyAnimationController.h" />
+    <ClInclude Include="componentes\TestEnemyInput.h" />
+    <ClInclude Include="componentes\AttackCharger.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Ott - An Elemental Journey.rc" />

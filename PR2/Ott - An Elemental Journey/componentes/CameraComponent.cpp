@@ -30,7 +30,6 @@ void CameraComponent::update()
 
 	// RETOCAR ESTAS COSAS
 	if (ottRect.y > camera.y + camera.h - CAM_DEAD_ZONE || ottRect.y < camera.y + CAM_DEAD_ZONE) {
-		cout << ottRect.y << " " << camera.y + CAM_DEAD_ZONE << " " << camera.y + camera.h -CAM_DEAD_ZONE << endl;
 		camera.y = lerp(camera.y, (ottRect.y + ottRect.h / 2) - CAM_OFFSET_HEIGHT * mngr_->getWinH(), 0.01);
 	}
 

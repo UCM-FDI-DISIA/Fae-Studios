@@ -1,4 +1,4 @@
-/*#include "BackgroundImage.h"
+#include "BackgroundImage.h"
 BackgroundImage::BackgroundImage(Vector2D pos, Texture* text, int wS, int hS) : position(pos), tex_(text),wScale(wS), hScale(hS), Component()
 {
 }
@@ -19,4 +19,3 @@ void BackgroundImage::render()
 BackgroundImage::~BackgroundImage()
 {
 }
-*/
