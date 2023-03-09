@@ -9,7 +9,7 @@ public:
 	virtual ~TestEnemyInput() {};
 	virtual void initComponent();
 	virtual void update();
-	constexpr static cmpId_type id = ecs::_CTRL;
+	constexpr static cmpId_type id = ecs::_TESTENEMYINPUT;
 private:
 	EnemyAnimationComponent* anim_;
 	float horizontalSpeed = 0;

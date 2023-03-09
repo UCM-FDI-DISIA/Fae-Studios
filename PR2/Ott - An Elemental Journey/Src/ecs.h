@@ -18,6 +18,8 @@ namespace ecs
 		_PHYSICS,
 		_CAMERA,
 		_ANIM,
+		_ENEMYANIM,
+		_TESTENEMYINPUT,   // BORRAR
 		_TRIGGER,
 		_ATTACK,
 		_BULLET,

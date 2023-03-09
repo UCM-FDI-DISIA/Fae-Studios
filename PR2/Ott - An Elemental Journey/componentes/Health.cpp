@@ -4,8 +4,8 @@
 void Health::die()
 {
 	if (ent_->hasComponent<PlayerInput>()) ent_->getComponent<PlayerAnimationComponent>()->setState(DIE);
-	else ent_->setAlive(false);
-	cout << "AA MORIIII" << endl;
+	else ent_->getComponent<EnemyAnimationComponent>()->setState(DIE_ENEMY);
+	dead = true;
 } 
 
 void Health::recall()
@@ -29,10 +29,10 @@ bool Health::recieveDamage(ecs::elements elem)
 	}
 	else {
 		actualLife -= ecs::matrix[elem][this->elem];
-		cout << "ACTUAL " << actualLife << endl;
+		ent_->getComponent<EnemyAnimationComponent>()->damage();
 	}
 	//startDamagedTime = SDL_GetTicks();
-	if (actualLife <= 0) {
+	if (!dead && actualLife <= 0) {
 		die();
 		return true;
 	}
