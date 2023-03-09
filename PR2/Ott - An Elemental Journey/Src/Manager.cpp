@@ -197,7 +197,6 @@ void Manager::createMap()
 				Entity* e = addEntity(ecs::_grp_GROUND);
 				//int width = game->getTexture("pixel", PLAY_STATE)->getW() / game->getTexture("pixel", PLAY_STATE)->getNumCols() * (w_*scale);
 				//int height = game->getTexture("pixel", PLAY_STATE)->getH() / game->getTexture("pixel", PLAY_STATE)->getNumRows() * (h_*scale);
-				cout << "Ground detected " << x_ * scale << " " << y_ * scale << endl;
 				e->addComponent<Transform>(Vector2D(x_ * scale, y_ * scale), game->getTexture("pixel", PLAY_STATE), Vector2D(w_ * scale, h_ * scale));
 				e->addComponent<Image>(game->getTexture("pixelWhite", PLAY_STATE));
 			}

@@ -44,7 +44,6 @@ void CameraComponent::update()
 	}
 	if (camera.y > LEVEL_HEIGHT - tr_->getH())
 	{
-		cout << "fix Y pos" << endl;
 		camera.y = LEVEL_HEIGHT - tr_->getH();
 	}
 	camera = { camera.x,camera.y,mngr_->getWinW(), mngr_->getWinH() };

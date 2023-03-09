@@ -19,9 +19,7 @@ void Health::recall()
 		Vector2D& newPos = ent_->getComponent<Transform>()->getPos();
 		newPos = lastSanctuary->getComponent<Transform>()->getPos();
 		actualLife = maxLife;
-		cout << "vuelvo a santuario" << endl;
 	}
-	cout << "me muero para siempre" << endl;
 }
 
 bool Health::recieveDamage(ecs::elements elem)

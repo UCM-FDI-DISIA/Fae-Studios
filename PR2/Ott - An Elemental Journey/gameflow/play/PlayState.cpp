@@ -175,12 +175,10 @@ void PlayState::checkCollisions()
 				if (areaColision.w >= areaColision.h) {
 					
 					if (!physics->isGrounded() && areaColision.y > r1.y + r1.w / 2) {
-						cout << "ground touched" << endl;
 						colVector = Vector2D(colVector.getX(), 0);
 						physics->setGrounded(true);
 					}
 					else if (!physics->isGrounded()) {
-						cout << "ceiling touched" << endl;
 						colVector = Vector2D(colVector.getX(), 1);
 						physics->setVerticalSpeed(1);
 					}
