@@ -44,7 +44,8 @@ void PlayerAttack::update() {
 				Entity* attack = mngr_->addEntity(ecs::_grp_PROYECTILES);
 				Vector2D shootPos = Vector2D(pTransf->getPos().getX(), pTransf->getPos().getY() + pTransf->getH() / 2);
 				attack->addComponent<Transform>(shootPos, 50,50);
-				attack->addComponent<PhysicsComponent>(Vector2D(1,0));
+				if(ent_->getComponent<PhysicsComponent>()->getLookDirection()) attack->addComponent<PhysicsComponent>(Vector2D(1, 0));
+				else attack->addComponent<PhysicsComponent>(Vector2D(-1,0));
 				attack->addComponent<Image>(mngr_->getTexture(4));
 				attack->addComponent<Bullet>(health_->getElement(), ent_);
 				break;
