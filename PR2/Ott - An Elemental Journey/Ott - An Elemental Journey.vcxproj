@@ -154,7 +154,7 @@
     <ClInclude Include="componentes\PlayerAnimationComponent.h" />
     <ClInclude Include="componentes\PlayerInput.h" />
     <ClInclude Include="componentes\RenderButton.h" />
-    <ClInclude Include="componentes\SlimeAttack.h" />
+    <ClInclude Include="componentes\SlimeStates.h" />
     <ClInclude Include="componentes\Transform.h" />
     <ClInclude Include="componentes\EnemyShootingAttack.h" />
     <ClInclude Include="componentes\EnemyAnimationController.h" />
@@ -219,7 +219,7 @@
     <ClCompile Include="componentes\PlayerAnimationComponent.cpp" />
     <ClCompile Include="componentes\PlayerInput.cpp" />
     <ClCompile Include="componentes\RenderButton.cpp" />
-    <ClCompile Include="componentes\SlimeAttack.cpp" />
+    <ClCompile Include="componentes\SlimeStates.cpp" />
     <ClCompile Include="componentes\Transform.cpp" />
     <ClCompile Include="componentes\EnemyShootingAttack.cpp" />
     <ClCompile Include="gameflow\menus\options\ControlMenuState.cpp" />

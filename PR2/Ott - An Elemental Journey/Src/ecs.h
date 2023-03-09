@@ -26,6 +26,7 @@ namespace ecs
 		_BULLET,
 		_GEN,
 		_ENEMYMOV,
+		_ENEMYSTATES,
 		_PLAYERATTACK,
 		_VINE,
 		// do not remove this
