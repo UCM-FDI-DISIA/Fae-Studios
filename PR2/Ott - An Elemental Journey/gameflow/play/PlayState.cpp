@@ -21,6 +21,7 @@
 #include "../../componentes/EnemyMovement.h"
 #include "../../componentes/EnemyAttack.h"
 #include "../../componentes/EnemyShootingAttack.h"
+#include "../../componentes/EnemyMeleeAttack.h"
 #include "../../componentes/PlayerInput.h"
 #include "../../componentes/Bullet.h"
 
@@ -118,7 +119,6 @@ PlayState::PlayState(SDLApplication* app) : GameState(PLAY_STATE, app) {
 	/*auto ph = player->addComponent<PhysicsComponent>();
 	ph->setVelocity({ 1,0 });
 	ph->lookDirection(true);
-	player->addComponent<EnemyMovement>();*/
 }
 
 void PlayState::checkCollisions()
@@ -187,7 +187,7 @@ void PlayState::checkCollisions()
 		}
 	}
 
-	for (Entity* b : bullets) {
+	/*for (Entity* b : bullets) {
 		Entity* p = manager_->getPlayer();
 		SDL_Rect r1 = p->getComponent<Transform>()->getRect();
 		SDL_Rect r2 = b->getComponent<Transform>()->getRect();
@@ -202,7 +202,7 @@ void PlayState::checkCollisions()
 				b->setAlive(false);
 			}
 		}
-	}
+	}*/
 }
 void PlayState::update() {
 	checkCollisions();

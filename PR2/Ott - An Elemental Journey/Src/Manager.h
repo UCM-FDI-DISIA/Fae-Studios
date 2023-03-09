@@ -18,6 +18,7 @@
 #include "../componentes/InteractionComponent.h"
 #include "../componentes/PlayerAttack.h"
 #include "../componentes/LampComponent.h"
+#include "../componentes/Bullet.h"
 #include "../checkML.h"
 
 
