@@ -28,8 +28,10 @@ bool Health::recieveDamage(ecs::elements elem)
 		actualLife -= ecs::ottMatrix[elem][this->elem];
 	}
 	else {
-		actualLife -= ecs::matrix[elem][this->elem];
-		ent_->getComponent<EnemyAnimationComponent>()->damage();
+		if (!dead) {
+			actualLife -= ecs::matrix[elem][this->elem];
+			ent_->getComponent<EnemyAnimationComponent>()->damage();
+		}
 	}
 	//startDamagedTime = SDL_GetTicks();
 	if (!dead && actualLife <= 0) {
