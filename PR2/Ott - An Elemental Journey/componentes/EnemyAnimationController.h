@@ -37,5 +37,5 @@ private:
 	Health* health_;
 
 	int damageTimer_, damageStartTime_, timer_ = 0;
-	const int maxDamagedTimer_ = 500, FRAME_ANIMATION_TIME = 3;
+	const int maxDamagedTimer_ = 500, FRAME_ANIMATION_TIME = 6;
 };

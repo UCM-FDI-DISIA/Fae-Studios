@@ -19,7 +19,7 @@ void EnemyAnimationComponent::initComponent() {
 void EnemyAnimationComponent::update() {
 	int state = currentAnimation;
 	cout << currentAnimation << endl;
-	timer_ = (timer_ + 1) % (getTPerFrame(state) * getNFrames(state)) +1;
+	timer_++;
 
 	if (damaged) {
 		image->setRow(1);
@@ -31,20 +31,15 @@ void EnemyAnimationComponent::update() {
 	else { damageStartTime_ = SDL_GetTicks(); image->setRow(0); }
 
 	int col = image->getCurCol();
-	if (col == (getNFrames(state) - 1 + getColNum(state)) &&
-		((SDL_GetTicks() - getStartTicks()) / getTPerFrame(state)) % getNFrames(state) == 0)
+
+	if (col != getNFrames(state) + getColNum(state) - 1) col = (timer_ / getTPerFrame(state)) % getNFrames(state) + getColNum(state);
+
+	image->setCol(col);
+
+	if (timer_ > (getTPerFrame(state) * getNFrames(state)) + 1)
 	{
 		endAnim();
 	}
-
-	if (state == ATTACK_ENEMY || state == DIE_ENEMY || state == PREPARE_ATTACK_ENEMY) {
-		col = (timer_ / getTPerFrame(state)) % getNFrames(state) + getColNum(state);
-	}
-	else {
-		col = (timer_ / getTPerFrame(state)) % getNFrames(state) + getColNum(state);
-	}
-
-	image->setCol(col);
 
 	/*
 	if (currentAnimation == ATTACK_ENEMY || currentAnimation == DIE_ENEMY) return;
@@ -61,4 +56,5 @@ void EnemyAnimationComponent::endAnim() {
 	}
 	else if (currentAnimation != DIE_ENEMY) { setState(IDLE_ENEMY); }
 	else ent_->setAlive(false);
+	timer_ = 0;
 }
