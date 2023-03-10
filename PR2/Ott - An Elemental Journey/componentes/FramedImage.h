@@ -39,6 +39,7 @@ public:
 	void initComponent() override;
 	virtual void render();
 	virtual void update();
+	inline Texture* getTexture() { return tex_; }
 	inline int getCurCol() { return col; }
 	inline int getCurRow() { return row; }
 	inline void setRow(int r) { row = r; }

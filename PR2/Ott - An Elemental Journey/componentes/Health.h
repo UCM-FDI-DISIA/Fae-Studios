@@ -1,6 +1,7 @@
 #pragma once
 #include "Component.h"
 #include "../Src/Manager.h"
+
 class Health : public Component
 {
 private:
@@ -16,6 +17,7 @@ public:
 	//Este te lleva al santuario
 	void recall();
 	bool recieveDamage(ecs::elements elem);
+	inline int getMaxHealth() { return maxLife; }
 	inline int getHealth() { return actualLife; }
  	inline ecs::elements getElement() { return elem; }
 	inline void setElement(int newElem) { 

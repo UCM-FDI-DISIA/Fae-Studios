@@ -32,7 +32,11 @@ public:
 	enum attackState {normal, preparing, attacking, afterAttack, laying };
 	inline attackState getState() { return state; }
 	inline void setState(attackState s) { state = s; }
-	bool getHasAttacked() { return hasAttacked; }
+	inline bool getHasAttacked() { return hasAttacked; }
+	inline int getPhase1Time() { return PHASE1_TIME; }
+	inline int getPhase2Time() { return PHASE2_TIME; }
+	inline int getPhase3Time() { return PHASE3_TIME; }
+	inline int getPhase4Time() { return PHASE4_TIME; }
 	void initComponent() override;
 	void update() override;
 	bool requestAttack();
