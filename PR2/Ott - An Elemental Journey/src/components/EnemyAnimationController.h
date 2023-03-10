@@ -13,7 +13,6 @@ private:
 	
 	bool damaged;
 	int currentAnimation;
-	int startAnimTicks;
 	anims::Entities eAnims;
 	FramedImage* image;
 
@@ -22,8 +21,8 @@ private:
 public:
 	constexpr static ecs::cmpId_type id = ecs::_ANIM;
 
-	EnemyAnimationComponent(anims::Entities e) : eAnims(e), damaged(false), currentAnimation(IDLE_ENEMY), 
-		startAnimTicks(0), image(nullptr), damageTimer_(0), damageStartTime_(0), timer_(0) {};
+	EnemyAnimationComponent(anims::Entities e) : eAnims(e), damaged(false), currentAnimation(IDLE_ENEMY)
+		, image(nullptr), damageTimer_(0), damageStartTime_(0), timer_(0) {};
 	virtual ~EnemyAnimationComponent() = default;
 	
 	void initComponent();
@@ -31,12 +30,11 @@ public:
 	virtual void update();
 
 	inline int getState() { return currentAnimation; }
-	inline void setState(int newState) { currentAnimation = newState; startAnimTicks = SDL_GetTicks(); timer_ = 0; }
+	inline void setState(int newState) { currentAnimation = newState; timer_ = 0; }
 	inline int getTPerFrame(int i) { return anims::animations[eAnims][i].tPerFrame / FRAME_ANIMATION_TIME;; }
 	inline int getNFrames(int i) { return anims::animations[eAnims][i].numFrames; }
 	inline int getRowNum(int i) { return anims::animations[eAnims][i].rowNum; }
 	inline int getColNum(int i) { return anims::animations[eAnims][i].colNum; }
-	inline int getStartTicks() { return startAnimTicks; }
 	inline bool isDamaged() { return damaged; }
 	inline void damage() { damaged = true; }
 };
