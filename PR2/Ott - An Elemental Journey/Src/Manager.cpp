@@ -78,9 +78,11 @@ void Manager::Teleport(Manager* m)
 	int cAnim = m->player->getComponent<PlayerAnimationComponent>()->getState();
 	if (cAnim != IDLE && cAnim != RUN) return;
 	Entity* aux = *m->interactionIt;
-	Entity* tpLamp = aux->getComponent<LampComponent>()->getConnectedLamp();
-	Vector2D newPos = tpLamp->getComponent<Transform>()->getPos();
-	m->player->getComponent<PlayerAnimationComponent>()->startTP(newPos);
+	if (aux->getComponent<LampComponent>()->getConnectedLamp() != nullptr) {
+		Entity* tpLamp = aux->getComponent<LampComponent>()->getConnectedLamp();
+		Vector2D newPos = tpLamp->getComponent<Transform>()->getPos();
+		m->player->getComponent<PlayerAnimationComponent>()->startTP(newPos);
+	}
 	// m->player->getComponent<Transform>()->setPos(newPos);
 }
 
@@ -148,24 +150,26 @@ void Manager::createPlayer()
 void Manager::createLamp(Vector2D position, string name,  int width, int height)
 {
 	Entity* lamp1 = addEntity(ecs::_grp_INTERACTION);
-	bool interact = false;
-	interactionIt = entsByGroup_[ecs::_grp_INTERACTION].begin();
-	while (!interact && interactionIt != entsByGroup_[ecs::_grp_INTERACTION].end()) {
-		Entity* lamp2 = *interactionIt;
-		if (lamp2->getComponent<LampComponent>() != nullptr) {
-			if (lamp2->getComponent<LampComponent>()->GetName() == name) {
-				lamp2->getComponent<LampComponent>()->setConnectedLamp(lamp1);
-				lamp1->getComponent<LampComponent>()->setConnectedLamp(lamp2);
-				interact = true;
-				
-			}
-		}
-		interactionIt++;
-	}
 	lamp1->addComponent<Transform>(position, 50, 130);
 	lamp1->addComponent<Image>(game->getTexture("lamp", PLAY_STATE));
 	lamp1->addComponent<LampComponent>(name);
 	lamp1->addComponent<InteractionComponent>(Teleport);
+	bool interact = false;
+	interactionIt = entsByGroup_[ecs::_grp_INTERACTION].begin();
+	while (!interact && interactionIt != entsByGroup_[ecs::_grp_INTERACTION].end()) {
+		Entity* lamp2 = *interactionIt;
+		if (lamp2 != lamp1) {
+			if (lamp2->getComponent<LampComponent>() != nullptr) {
+				if (lamp2->getComponent<LampComponent>()->GetName() == name) {
+					lamp2->getComponent<LampComponent>()->setConnectedLamp(lamp1);
+					lamp1->getComponent<LampComponent>()->setConnectedLamp(lamp2);
+					interact = true;
+				
+				}
+			}
+		}
+		interactionIt++;
+	}
 }
 
 void Manager::AddEnredadera(Manager* m) {

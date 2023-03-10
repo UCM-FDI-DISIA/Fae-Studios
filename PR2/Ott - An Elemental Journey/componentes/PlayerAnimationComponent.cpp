@@ -46,9 +46,9 @@ void PlayerAnimationComponent::update()
 	}
 	else {
 		if (state_ == ATTACK || state_ == VANISH || state_ == DIE || state_ == LAND) return; // estas animaciones se superponen a todas las demás
-		auto physics = ent_->getComponent<PhysicsComponent>(); 
+		auto physics = ent_->getComponent<PhysicsComponent>();
 		Vector2D vel = physics->getVelocity(); // velocidad
-		if (vel.getY() == 0 && physics->isGrounded()) { 
+		if (vel.getY() == 0 && physics->isGrounded()) {
 			if (state_ == FALL) setState(LAND); // si se está cayendo el wachín y acaba de aterrizar, se pone en su estado LAND
 			else if (vel.getX() != 0) setState(RUN); // estado correr
 			else setState(IDLE); // idle
