@@ -5,8 +5,8 @@
 void EnemyAnimationComponent::setState(int newState) { 
 	if (!health_->isDead() && currentAnimation != DIE_ENEMY) { 
 		currentAnimation = newState; 
-		startAnimTicks = SDL_GetTicks(); 
 		timer_ = 0; 
+		image->setCol(getColNum(currentAnimation));
 	} 
 }
 
@@ -14,9 +14,15 @@ void EnemyAnimationComponent::setState(int newState) {
 void EnemyAnimationComponent::initComponent() {
 	image = ent_->getComponent<FramedImageEnemy>();
 	health_ = ent_->getComponent<Health>();
+	eMovement_ = ent_->getComponent<EnemyMovement>();
+	setState(IDLE_ENEMY);
 }
 
 void EnemyAnimationComponent::update() {
+	if (currentAnimation == IDLE_ENEMY && eMovement_ != nullptr && eMovement_->isMoving()) setState(WALK_ENEMY);
+	else if (currentAnimation == WALK_ENEMY && !eMovement_->isMoving()) setState(IDLE_ENEMY);
+
+
 	int state = currentAnimation;
 	timer_++;
 
@@ -39,6 +45,7 @@ void EnemyAnimationComponent::update() {
 	{
 		endAnim();
 	}
+	cout << col << endl;
 
 	/*
 	if (currentAnimation == ATTACK_ENEMY || currentAnimation == DIE_ENEMY) return;
@@ -53,7 +60,8 @@ void EnemyAnimationComponent::endAnim() {
 		setState(ATTACK_ENEMY);
 		// el enemigo ataca, aquí debería llamarse a una función de ataque
 	}
-	else if (currentAnimation != DIE_ENEMY) { setState(IDLE_ENEMY); }
+	else if (currentAnimation != DIE_ENEMY && eMovement_ != nullptr &&  eMovement_->isMoving()) { setState(WALK_ENEMY); }
+	else if (currentAnimation != DIE_ENEMY || currentAnimation == ATTACK) setState(IDLE_ENEMY);
 	else ent_->setAlive(false);
 	timer_ = 0;
 }

@@ -106,20 +106,20 @@ PlayState::PlayState(SDLApplication* app) : GameState(PLAY_STATE, app) {
 	manager_->createPlayer();
 	auto player = manager_->getPlayer()->getComponent<Transform>()->getPos();
 	auto enemy = manager_->addEntity(ecs::_grp_CHARACTERS);
-	enemy->addComponent<Transform>(player.getX(), player.getY(), 100, 100);
-	enemy->addComponent<FramedImageEnemy>(app->getTexture("mushroom", PLAY_STATE));
+	enemy->addComponent<Transform>(player.getX(), player.getY(), 150, 100);
+	auto ph = enemy->addComponent<PhysicsComponent>();
+	enemy->addComponent<FramedImageEnemy>(app->getTexture("waterBug", PLAY_STATE), anims::MELEE_ANIM);
 	//enemy->addComponent<EnemyMovement>();
 	enemy->addComponent<Health>(5, ecs::Fire);
-	auto ph = enemy->addComponent<PhysicsComponent>();
 	ph->setVelocity({ 0,0 });
 	ph->lookDirection(true);
 
-	enemy->addComponent<EnemyMovement>();
 	enemy->addComponent<EnemyAttack>(1000, 1000, 3000, 1000, 100, 100);
+	enemy->addComponent<EnemyMovement>();
 	enemy->addComponent<SlimeStates>();
 	enemy->addComponent<EnemyMeleeAttack>();
 	
-	enemy->addComponent<EnemyAnimationComponent>(anims::RANGE_ANIM);
+	enemy->addComponent<EnemyAnimationComponent>(anims::MELEE_ANIM);
 	enemy->addComponent<TestEnemyInput>();
 	/*auto ph = player->addComponent<PhysicsComponent>();
 	ph->setVelocity({ 1,0 });

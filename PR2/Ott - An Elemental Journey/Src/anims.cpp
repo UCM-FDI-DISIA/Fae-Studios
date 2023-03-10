@@ -13,7 +13,7 @@ std::vector<anims::animDescription> anims::ott_anims{
 	{ 75,2,5,6 }, { 75,4,6,0 }, // LAND, VANISH
 	{ 200 ,8,7,0 }, { 100,5,8,3 } }; // DIE, ATTACK
 // ENEMIGO MELEE
-std::vector<anims::animDescription> anims::melee_anims{ {300,4,0,0}, {150,9,0,12}, {150,4,0,8}, {450,1,0,7}, {150,3,0,4} };
+std::vector<anims::animDescription> anims::melee_anims{ {100,4,0,0}, {150,9,0,12}, {150,4,0,8}, {450,1,0,7}, {100,3,0,4} };
 // ENEMIGO A RANGO
 std::vector<anims::animDescription> anims::range_anims{ {150,3,0,0}, {150,12,0,10}, {150,3,0,7}, {250,4,0,3} };
 // ENEMIGO SLIME

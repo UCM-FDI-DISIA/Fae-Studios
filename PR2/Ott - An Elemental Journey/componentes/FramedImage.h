@@ -34,7 +34,7 @@ private:
 class FramedImageEnemy : public Component
 {
 public:
-	FramedImageEnemy(Texture* text);
+	FramedImageEnemy(Texture* text, anims::Entities e);
 	virtual ~FramedImageEnemy() {};
 	void initComponent() override;
 	virtual void render();
@@ -49,8 +49,10 @@ private:
 	// MeleeAnimationComponent* pAnim_;
 	Transform* tr_;
 	Texture* tex_;
+	PhysicsComponent* physics_;
 	int numRows_, numCols_;
 	int row = 0, col = 0;
 	int tPerFrame;
 	bool isShielded = false, lookingRight = true;
+	anims::Entities e;
 };

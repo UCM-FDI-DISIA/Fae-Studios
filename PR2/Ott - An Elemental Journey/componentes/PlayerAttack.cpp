@@ -79,7 +79,6 @@ void PlayerAttack::update() {
 		}
 	}
 
-	cout << "Pos Trig: " << triggerPos.getX() << " " << triggerPos.getY() << endl;
 
 	if (waterAttackActive) {
 

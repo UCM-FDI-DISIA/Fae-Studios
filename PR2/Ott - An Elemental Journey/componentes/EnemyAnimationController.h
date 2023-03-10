@@ -3,6 +3,7 @@
 #include "Component.h"
 #include "../Src/anims.h"
 #include <SDL.h>
+#include "EnemyMovement.h"
 
 enum EnemyAnims { IDLE_ENEMY, DIE_ENEMY, ATTACK_ENEMY, PREPARE_ATTACK_ENEMY, WALK_ENEMY };
 
@@ -24,17 +25,16 @@ public:
 	inline int getNFrames(int i) { return anims::animations[eAnims][i].numFrames; }
 	inline int getRowNum(int i) { return anims::animations[eAnims][i].rowNum; }
 	inline int getColNum(int i) { return anims::animations[eAnims][i].colNum; }
-	inline int getStartTicks() { return startAnimTicks; }
 	inline bool isDamaged() { return damaged; }
 	inline void damage() { damaged = true; }
 
 private:
 	bool damaged = false;
 	int currentAnimation = IDLE_ENEMY;
-	int startAnimTicks;
 	anims::Entities eAnims;
 	FramedImageEnemy* image;
 	Health* health_;
+	EnemyMovement* eMovement_;
 
 	int damageTimer_, damageStartTime_, timer_ = 0;
 	const int maxDamagedTimer_ = 500, FRAME_ANIMATION_TIME = 6;

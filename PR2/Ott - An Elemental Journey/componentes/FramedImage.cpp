@@ -57,15 +57,19 @@ FramedImageOtt::~FramedImageOtt()
 
 #pragma region ENEMY
 
-FramedImageEnemy::FramedImageEnemy(Texture* text) {
+FramedImageEnemy::FramedImageEnemy(Texture* text, anims::Entities e) {
 	tex_ = text;
+	this->e = e;
 }
 
 void FramedImageEnemy::initComponent() {
 	tr_ = ent_->getComponent<Transform>();
+	physics_ = ent_->getComponent<PhysicsComponent>();
 }
 
-void FramedImageEnemy::update() {}
+void FramedImageEnemy::update() {
+	lookingRight = physics_->getLookDirection();
+}
 
 void FramedImageEnemy::render(){
 	SDL_Rect dest; dest.x = tr_->getPos().getX(); dest.y = tr_->getPos().getY();
@@ -73,7 +77,7 @@ void FramedImageEnemy::render(){
 	dest.x -= mngr_->getCamera()->getComponent<CameraComponent>()->camera.x;
 	dest.y -= mngr_->getCamera()->getComponent<CameraComponent>()->camera.y;
 	SDL_RendererFlip flip;
-	if (lookingRight) flip = SDL_FLIP_NONE;
+	if (lookingRight&& e != anims::MELEE_ANIM || !lookingRight && e == anims::MELEE_ANIM) flip = SDL_FLIP_NONE;
 	else flip = SDL_FLIP_HORIZONTAL;
 	tex_->renderFrame(dest, row, col, 0, flip);
 }
