@@ -1,18 +1,15 @@
 ﻿#include "CameraComponent.h"
 #include "../sdlutils/SDLUtils.h"
 
-float lerp(float a, float b, float t)
-{
+inline float lerp(float a, float b, float t) {
 	return a + t * (b - a);
 }
-void CameraComponent::initComponent()
-{
+void CameraComponent::initComponent() {
 	playerTrnf_ = mngr_->getPlayer()->getComponent<Transform>();
 	tr_ = ent_->getComponent<Transform>();
 }
 
-void CameraComponent::update()
-{
+void CameraComponent::update() {
 	SDL_Rect ottRect = playerTrnf_->getRect(); // conseguir la posici�n de Ott
 	// mover camera.x
 	// Comprobamos si la c�mara est� suficientemente cerca del jugador. En caso de que lo est�, la posici�n se settea a la 
@@ -31,16 +28,14 @@ void CameraComponent::update()
 	}
 
 	// Limites de la camara dependiendo del tama�o de la sala (mapa)
-	if (camera.x < 0)
-	{
+	if (camera.x < 0) {
 		camera.x = 0;
 	}
-	if (camera.x > LEVEL_WIDTH - tr_->getWidth())
-	{
+	
+	if (camera.x > LEVEL_WIDTH - tr_->getWidth()) {
 		camera.x = LEVEL_WIDTH - tr_->getWidth();
 	}
-	if (camera.y > LEVEL_HEIGHT - tr_->getHeight())
-	{
+	if (camera.y > LEVEL_HEIGHT - tr_->getHeight()) {
 		//cout << "fix Y pos" << endl;
 		camera.y = LEVEL_HEIGHT - tr_->getHeight();
 	}

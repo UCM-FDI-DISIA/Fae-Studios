@@ -4,7 +4,7 @@
 #include "PlayerAnimationComponent.h"
 
 void EnemyAnimationComponent::initComponent() {
-	image = ent_->getComponent<FramedImageEnemy>();
+	image = ent_->getComponent<FramedImage>();
 }
 
 void EnemyAnimationComponent::update() {
@@ -21,7 +21,7 @@ void EnemyAnimationComponent::update() {
 	}
 	else { damageStartTime_ = SDL_GetTicks(); image->setRow(0); }
 
-	int col = image->getCurCol();
+	int col = image->getCurrentCol();
 
 	if (col != getNFrames(state) + getColNum(state) - 1) col = (timer_ / getTPerFrame(state)) % getNFrames(state) + getColNum(state);
 

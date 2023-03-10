@@ -18,7 +18,6 @@
 #include "../components/LampComponent.h"
 #include "../components/InteractionComponent.h"
 #include "../components/AddVine.h"
-#include "../components/BackgroundImage.h"
 #include <string>
 #include <iostream>
 
@@ -150,7 +149,7 @@ namespace constructors {
 		auto e = mngr_->addEntity(ecs::_grp_MAP);
 		e->addComponent<MapComponent>(LEVEL1);
 		auto scale = e->getComponent<MapComponent>()->tileScale();
-		bgrd->addComponent<BackgroundImage>(Vector2D(0, 0), &sdlutils().images().at("level1bg"), scale, scale);
+		//bgrd->addComponent<BackgroundImage>(Vector2D(0, 0), &sdlutils().images().at("level1bg"), scale, scale);
 		lamp(mngr_, 550, 1370, 750, 1370);
 		//bgrd->addComponent<BackgroundImage>(Vector2D(0, 0), game->getTexture("level1bg", PLAY_STATE), scale, scale);
 		grass(mngr_, Vector2D(200, 1450));

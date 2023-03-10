@@ -19,7 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\components\BackgroundImage.cpp" />
     <ClCompile Include="src\components\CameraComponent.cpp" />
     <ClCompile Include="src\components\EnemyAnimationController.cpp" />
     <ClCompile Include="src\components\EnemyAttack.cpp" />
@@ -60,7 +59,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\components\AddVine.h" />
-    <ClInclude Include="src\components\BackgroundImage.h" />
     <ClInclude Include="src\components\CameraComponent.h" />
     <ClInclude Include="src\components\EnemyAnimationController.h" />
     <ClInclude Include="src\components\EnemyAttack.h" />

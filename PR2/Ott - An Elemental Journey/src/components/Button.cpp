@@ -14,13 +14,13 @@ void Button::handleInput() {
     SDL_Rect buttonRect = { (int)transform->getPosition().getX(), (int)transform->getPosition().getY(), (int)transform->getWidth(), (int)transform->getHeight() };
     Vector2D position = transform->getPosition();
     Vector2D textPosition;
-    SDL_GetMouseState(&mousePosition.x, &mousePosition.y); //Nos guardamos la posici�n del rat�n
-    //Si clicamos en el bot�n, llamamos a su onClick
+    SDL_GetMouseState(&mousePosition.x, &mousePosition.y); //Nos guardamos la posición del ratón
+    //Si clicamos en el botón, llamamos a su onClick
     if (!SDL_PointInRect(&mousePosition, &buttonRect)) {
         textPosition = Vector2D(transform->getPosition().getX() + (transform->getWidth() - text->getWidth())/2, transform->getPosition().getY() + (transform->getHeight() - text->getHeight())/2 - 10);
         texture->setCol(currentButtonFrame);
         text->setPosition(textPosition);
-        currentButtonFrame = MOUSE_OUT; //Indica que el rat�n ha salido de la posici�n del bot�n
+        currentButtonFrame = MOUSE_OUT; //Indica que el rat�n ha salido de la posición del botón
     }
     if (SDL_PointInRect(&mousePosition, &buttonRect)) {
         textPosition = Vector2D(transform->getPosition().getX() + (transform->getWidth() - text->getWidth())/2, transform->getPosition().getY() + (transform->getHeight() - text->getHeight())/2 - 10);

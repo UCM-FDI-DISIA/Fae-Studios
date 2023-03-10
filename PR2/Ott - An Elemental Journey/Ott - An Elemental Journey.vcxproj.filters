@@ -38,7 +38,6 @@
     <ClCompile Include="src\components\PlayerInput.cpp" />
     <ClCompile Include="src\components\SlimeAttack.cpp" />
     <ClCompile Include="src\components\TestEnemyInput.cpp" />
-    <ClCompile Include="src\components\BackgroundImage.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\components\Image.h" />
@@ -99,6 +98,5 @@
     <ClInclude Include="src\components\Generations.h" />
     <ClInclude Include="src\components\TestEnemyInput.h" />
     <ClInclude Include="src\game\Elements.h" />
-    <ClInclude Include="src\components\BackgroundImage.h" />
   </ItemGroup>
 </Project>

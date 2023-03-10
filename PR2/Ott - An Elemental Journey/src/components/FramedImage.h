@@ -25,6 +25,8 @@ public:
     void render() override;
     void setRow(int row) {currentRow = row;}
     void setCol(int col) {currentCol = col;}
+    inline int getCurrentCol() const { return currentCol; }
+    inline int getCurrentRow() const { return currentRow; }
     int getFullWidth() const {return texture->width();}
     int getFullHeight() const {return texture->height();}
     int getFrameWidth() const {return texture->width() / totalCols;}
@@ -35,7 +37,7 @@ class FramedImageOtt : public Component
 {
 public:
 	FramedImageOtt() : Component() {}
-	virtual ~FramedImageOtt();
+	virtual ~FramedImageOtt() = default;
 	void initComponent() override;
 	void render() override;
 	void update() override;
@@ -52,30 +54,5 @@ private:
 	int tPerFrame;
 	bool isShielded = false;
 };
-
-class FramedImageEnemy : public Component
-{
-public:
-	FramedImageEnemy(Texture* text);
-	virtual ~FramedImageEnemy() {};
-	void initComponent() override;
-	virtual void render();
-	virtual void update();
-	inline int getCurCol() { return col; }
-	inline int getCurRow() { return row; }
-	inline void setRow(int r) { row = r; }
-	inline void setCol(int c) { col = c; }
-	inline void setLookingRight(bool l) { lookingRight = l; }
-	constexpr static ecs::cmpId_type id = ecs::_IMAGE;
-private:
-	// MeleeAnimationComponent* pAnim_;
-	Transform* tr_;
-	Texture* tex_;
-	int numRows_, numCols_;
-	int row = 0, col = 0;
-	int tPerFrame;
-	bool isShielded = false, lookingRight = true;
-};
-
 
 #endif //TPV2_FRAMEDIMAGE_H
