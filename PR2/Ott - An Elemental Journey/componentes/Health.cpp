@@ -29,6 +29,7 @@ bool Health::recieveDamage(ecs::elements elem)
 		if (pAnimRef->isInvincible()) return false;
 		pAnimRef->playerDamaged();
 		actualLife -= ecs::ottMatrix[elem][this->elem];
+		cout << "AAAA ATAQUE " << actualLife << endl;
 	}
 	else {
 		if (!dead) {

@@ -105,27 +105,65 @@ PlayState::PlayState(SDLApplication* app) : GameState(PLAY_STATE, app) {
 	manager_->createMap();
 	manager_->createPlayer();
 	auto player = manager_->getPlayer()->getComponent<Transform>()->getPos();
+	
+
+	// Asi se añade enemigo slime
+
 	auto enemy = manager_->addEntity(ecs::_grp_CHARACTERS);
-	enemy->addComponent<Transform>(player.getX(), player.getY(), 150, 100);
+	enemy->addComponent<Transform>(player.getX() + 100, player.getY()- 50, 170, 125);
 	auto ph = enemy->addComponent<PhysicsComponent>();
-	enemy->addComponent<FramedImageEnemy>(app->getTexture("waterBug", PLAY_STATE), anims::MELEE_ANIM);
-	//enemy->addComponent<EnemyMovement>();
-	enemy->addComponent<Health>(5, ecs::Fire);
-	ph->setVelocity({ 0,0 });
+	enemy->addComponent<FramedImageEnemy>(app->getTexture("waterSlime", PLAY_STATE), anims::SLIME_ANIM);
+	enemy->addComponent<Health>(5, ecs::Fire, false);
+	ph->setVelocity({ 1,0 });
 	ph->lookDirection(true);
 
-	enemy->addComponent<EnemyAttack>(1000, 1000, 3000, 1000, 100, 100);
+	auto eAttack_ = enemy->addComponent<EnemyAttack>(1200, 2000, 1000, 0, 8, 100);
 	enemy->addComponent<EnemyMovement>();
-	enemy->addComponent<SlimeStates>();
-	enemy->addComponent<EnemyMeleeAttack>();
 	
-	enemy->addComponent<EnemyAnimationComponent>(anims::MELEE_ANIM);
+	auto eAnim_ = enemy->addComponent<EnemyAnimationComponent>(anims::SLIME_ANIM);
+	auto meleeAttack_ = enemy->addComponent<EnemyMeleeAttack>();
 	enemy->addComponent<TestEnemyInput>();
-	/*auto ph = player->addComponent<PhysicsComponent>();
-	ph->setVelocity({ 1,0 });
-	ph->lookDirection(true);*/
-
+	enemy->addComponent<Generations>(Generations::getMaxGeneration());
+	enemy->addComponent<SlimeStates>();
+	eAttack_->SetRefs(eAnim_, nullptr, meleeAttack_);
+	
 }
+	
+	// Asi se añade enemigo rango
+
+	//auto enemy = manager_->addEntity(ecs::_grp_CHARACTERS);
+	//enemy->addComponent<Transform>(player.getX() + 100, player.getY()- 50, 110, 110);
+	//auto ph = enemy->addComponent<PhysicsComponent>();
+	//enemy->addComponent<FramedImageEnemy>(app->getTexture("waterMushroom", PLAY_STATE), anims::RANGE_ANIM);
+	////enemy->addComponent<EnemyMovement>();
+	//enemy->addComponent<Health>(5, ecs::Fire, false);
+	//ph->setVelocity({ 0,0 });
+	//ph->lookDirection(true);
+
+	//auto eAttack_ = enemy->addComponent<EnemyAttack>(1200, 2000, 1000, 0, 400, 100);
+	//
+	//auto eAnim_ = enemy->addComponent<EnemyAnimationComponent>(anims::RANGE_ANIM);
+	//auto attack_ = enemy->addComponent<EnemyShootingAttack>();
+	//enemy->addComponent<TestEnemyInput>();
+	//eAttack_->SetRefs(eAnim_, attack_, nullptr);
+	
+	// Asi se añade enemigo melee
+
+	//auto enemy = manager_->addEntity(ecs::_grp_CHARACTERS);
+	//enemy->addComponent<Transform>(player.getX() + 100, player.getY()- 50, 170, 125);
+	//auto ph = enemy->addComponent<PhysicsComponent>();
+	//enemy->addComponent<FramedImageEnemy>(app->getTexture("waterBug", PLAY_STATE), anims::MELEE_ANIM);
+	//enemy->addComponent<Health>(5, ecs::Fire, false);
+	//ph->setVelocity({ 1,0 });
+	//ph->lookDirection(true);
+
+	//auto eAttack_ = enemy->addComponent<EnemyAttack>(1200, 2000, 1000, 0, 8, 100);
+	//enemy->addComponent<EnemyMovement>();
+	//
+	//auto eAnim_ = enemy->addComponent<EnemyAnimationComponent>(anims::MELEE_ANIM);
+	//auto meleeAttack_ = enemy->addComponent<EnemyMeleeAttack>();
+	//enemy->addComponent<TestEnemyInput>();
+	//eAttack_->SetRefs(eAnim_, nullptr, meleeAttack_);
 
 void PlayState::checkCollisions()
 {

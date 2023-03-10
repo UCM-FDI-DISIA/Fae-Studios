@@ -2,6 +2,10 @@
 #include "../Src/Entity.h"
 #include "../Src/Manager.h"
 #include "Health.h"
+#include "EnemyShootingAttack.h"
+#include "EnemyMeleeAttack.h"
+#include "EnemyAnimationController.h"
+
 void EnemyAttack::initComponent() {
 	player = mngr_->getPlayer();
 	transform = ent_->getComponent<Transform>();
@@ -24,6 +28,15 @@ void EnemyAttack::MoveTriggers() {
 	trigger.y = collider.y;
 }
 
+
+void EnemyAttack::SetRefs(EnemyAnimationComponent* a, EnemyShootingAttack* s, EnemyMeleeAttack* m) {
+	eAnim_ = a;
+	shootingAttack_ = s; 
+	meleeAttack_ = m; 
+};
+
+
+
 void EnemyAttack::update() {
 	if (health_->isDead()) {
 		state == normal;
@@ -37,19 +50,18 @@ void EnemyAttack::update() {
 		int frameTime = SDL_GetTicks() - startAttackingTime;
 		if (state == normal && frameTime >= PHASE1_TIME && SDL_HasIntersection(&trigger, &playerRect)) {
 			state = preparing;
+			eAnim_->setState(PREPARE_ATTACK_ENEMY);
 			startAttackingTime = SDL_GetTicks();
 		}
-		else if (state == preparing && frameTime >= PHASE2_TIME) {
+		else if (state == preparing && eAnim_->getState() != PREPARE_ATTACK_ENEMY) {
 			state = attacking;
 			startAttackingTime = SDL_GetTicks();
 		}
-		else if (state == attacking && frameTime >= PHASE3_TIME) {
-			hasAttacked = true;
+		else if (state == attacking && eAnim_->getState() != ATTACK_ENEMY) {
 			state = afterAttack;
 			startAttackingTime = SDL_GetTicks();
 		}
 		else if (state == afterAttack && frameTime >= PHASE4_TIME) {
-			hasAttacked = false;
 			state = normal;
 			startAttackingTime = SDL_GetTicks();
 		}
@@ -59,6 +71,11 @@ void EnemyAttack::update() {
 bool EnemyAttack::requestAttack()
 {
 	SDL_Rect playerCollider = player->getComponent<Transform>()->getRect();
-	return (!health_->isDead() && state == attacking && SDL_HasIntersection(&trigger, &playerCollider));
+	return (!health_->isDead() && SDL_HasIntersection(&trigger, &playerCollider));
+}
+
+void EnemyAttack::Attack() {
+	if (shootingAttack_ != nullptr) shootingAttack_->Attack();
+	else meleeAttack_->Attack();
 }
 

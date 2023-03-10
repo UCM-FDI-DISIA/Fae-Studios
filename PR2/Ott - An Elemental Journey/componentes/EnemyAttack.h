@@ -4,6 +4,9 @@
 #include<SDL.h>
 
 class Health;
+class EnemyShootingAttack;
+class EnemyMeleeAttack;
+class EnemyAnimationComponent;
 
 class EnemyAttack : public Component
 {
@@ -25,14 +28,12 @@ public:
 		PHASE2_TIME = time2;
 		PHASE3_TIME = time3;
 		PHASE4_TIME = time4;
-		hasAttacked = false;
 
 		startAttackingTime = SDL_GetTicks();
 	}
 	enum attackState {normal, preparing, attacking, afterAttack, laying };
 	inline attackState getState() { return state; }
 	inline void setState(attackState s) { state = s; }
-	inline bool getHasAttacked() { return hasAttacked; }
 	inline int getPhase1Time() { return PHASE1_TIME; }
 	inline int getPhase2Time() { return PHASE2_TIME; }
 	inline int getPhase3Time() { return PHASE3_TIME; }
@@ -40,12 +41,17 @@ public:
 	void initComponent() override;
 	void update() override;
 	bool requestAttack();
+	void Attack();
+	void SetRefs(EnemyAnimationComponent* a, EnemyShootingAttack* s = nullptr, EnemyMeleeAttack* m = nullptr);
 private:
 	bool hasAttacked;
 	attackState state;
 	SDL_Rect trigger;
 	Transform* transform;
 	PhysicsComponent* physics;
+	EnemyShootingAttack* shootingAttack_;
+	EnemyMeleeAttack* meleeAttack_;
+	EnemyAnimationComponent* eAnim_;
 	Entity* player;
 	Health* health_;
 

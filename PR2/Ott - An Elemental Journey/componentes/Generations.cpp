@@ -5,6 +5,7 @@
 #include "EnemyAttack.h"
 #include "SlimeStates.h"
 #include "Health.h"
+#include "EnemyMeleeAttack.h"
 
 void Generations::Divide() {
 	// me guardo la pos actual del bicho grande para crear a cada bichito en su x+50 y su x-50
@@ -14,15 +15,19 @@ void Generations::Divide() {
 		// añado todos los componentes necesarios de un slime
 		auto slime = mngr_->addEntity(ecs::_grp_CHARACTERS);
 		slime->addComponent<Transform>(pos, ent_->getComponent<Transform>()->getW()/1.5, ent_->getComponent<Transform>()->getH()/1.5);
-		slime->addComponent<FramedImageEnemy>(ent_->getComponent<FramedImageEnemy>()->getTexture());
-		slime->addComponent<Health>(ent_->getComponent<Health>()->getMaxHealth() - 1, (ent_->getComponent<Health>()->getElement()));
 		slime->addComponent<PhysicsComponent>(); //Calcular offset
-		slime->addComponent<Generations>(getGeneration() - 1);
-		slime->addComponent<EnemyMovement>(); //Calcular trigger
-		slime->addComponent<EnemyAttack>(ent_->getComponent<EnemyAttack>()->getPhase1Time(), ent_->getComponent<EnemyAttack>()->getPhase2Time(),
+		slime->addComponent<FramedImageEnemy>(ent_->getComponent<FramedImageEnemy>()->getTexture(), anims::SLIME_ANIM);
+		slime->addComponent<Health>(ent_->getComponent<Health>()->getMaxHealth() / 2 - 1, (ent_->getComponent<Health>()->getElement()), false);
+		auto eAttack_ = slime->addComponent<EnemyAttack>(ent_->getComponent<EnemyAttack>()->getPhase1Time(), ent_->getComponent<EnemyAttack>()->getPhase2Time(), 
 			ent_->getComponent<EnemyAttack>()->getPhase3Time(), ent_->getComponent<EnemyAttack>()->getPhase4Time()); //Calcular trigger
+		slime->addComponent<EnemyMovement>(); //Calcular trigger
+		auto eAnim_ = slime->addComponent<EnemyAnimationComponent>(anims::SLIME_ANIM);
+		auto attack_ = slime->addComponent<EnemyMeleeAttack>();
+		slime->addComponent<Generations>(getGeneration() - 1);
+			
 		slime->addComponent<SlimeStates>();
-		slime->addComponent<EnemyAnimationComponent>(anims::RANGE_ANIM);
+		eAttack_->SetRefs(eAnim_, nullptr, attack_);
+
 		pos = pos + 50;
 	}
 }

@@ -11,7 +11,7 @@ private:
 	Entity* lastSanctuary = nullptr;
 public:
 	constexpr static cmpId_type id = ecs::_HEALTH;
-	Health(int h, ecs::elements e) : Component(), maxLife(2*h), actualLife(2*h), elem(e), dead(false) {};
+	Health(int h, ecs::elements e, bool player = true) : Component(), elem(e), dead(false) { if (player) { maxLife = h; actualLife = h; } else { maxLife = 2 * h; actualLife = 2 * h; } };
 	//Este método activa la animación
 	void die();
 	//Este te lleva al santuario

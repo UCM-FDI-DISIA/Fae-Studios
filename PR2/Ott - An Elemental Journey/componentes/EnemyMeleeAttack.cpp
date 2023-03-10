@@ -8,14 +8,14 @@ void EnemyMeleeAttack::initComponent()
 	playerHealth = player->getComponent<Health>();
 	health = ent_->getComponent<Health>();
 	enemyAttack = ent_->getComponent<EnemyAttack>();
+	eAnims_ = ent_->getComponent<EnemyAnimationComponent>();
 }
 
-void EnemyMeleeAttack::update()
-{
-	// si el player tiene mas de cero vidas y esta dentro del trigger de ataque del enemigo y este no le ha atacado ya en la anterior llamada del update, se ataca al jugador
-	if (enemyAttack->requestAttack() && playerHealth->getHealth() > 0 && !enemyAttack->getHasAttacked()) {
-		playerHealth->recieveDamage(health->getElement()); cout << "AAAA ATAQUE" << endl;
+void EnemyMeleeAttack::Attack() {
+	// si el player tiene mas de cero vidas y esta dentro del trigger de ataque del enemigo, se ataca al jugador
+	if (enemyAttack->requestAttack() && playerHealth->getHealth() > 0) {
+		playerHealth->recieveDamage(health->getElement());
 		//Aplicar knockback
 	}
-		
 }
+

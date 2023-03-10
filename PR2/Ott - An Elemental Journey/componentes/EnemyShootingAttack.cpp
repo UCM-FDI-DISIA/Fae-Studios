@@ -10,11 +10,10 @@ void EnemyShootingAttack::initComponent()
 	enemyAttack = ent_->getComponent<EnemyAttack>();
 }
 
-void EnemyShootingAttack::update() //Completar con constructoras y nuevos métodos de las balas (a lo mejor manager debería tener un método de crear balas)
-{
-	if (enemyAttack->requestAttack() && playerHealth->getHealth() > 0 && SDL_GetTicks() - attackingTime >= SHOOTING_TIME) {
+void EnemyShootingAttack::Attack() {
+	if (enemyAttack->requestAttack() && playerHealth->getHealth() > 0) {
 		auto bullet = mngr_->addEntity(ecs::_grp_PROYECTILES);
-		if(ent_->getComponent<PhysicsComponent>()->getLookDirection())
+		if (ent_->getComponent<PhysicsComponent>()->getLookDirection())
 			bullet->addComponent<Transform>(ent_->getComponent<Transform>()->getPos().getX() + ent_->getComponent<Transform>()->getW() / 3, ent_->getComponent<Transform>()->getPos().getY() + ent_->getComponent<Transform>()->getH() / 2, 30, 30);
 		else
 			bullet->addComponent<Transform>(ent_->getComponent<Transform>()->getPos().getX(), ent_->getComponent<Transform>()->getPos().getY() + ent_->getComponent<Transform>()->getH() / 2, 30, 30);

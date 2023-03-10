@@ -40,7 +40,8 @@ void EnemyMovement::FollowPlayer()
 	SDL_Rect collider = transform->getRect();
 	SDL_Rect ott = playerTransform->getRect();
 	bool lookingRight = physics->getVelocity().getX() > 0;
-	if (eAttack_->getState() == eAttack_->normal && abs(ott.x - (collider.x + collider.w / 2)) > nearDistance) {
+	if (eAttack_->getState() == eAttack_->normal && ((physics->getLookDirection() && ott.x - (collider.x + collider.w / 2) > nearDistance) ||
+		(!physics->getLookDirection() && (collider.x + collider.w / 2) - (ott.x + ott.w) > nearDistance))) {
 		if ((double)ott.x - collider.x < 0) {
 			//speed = { horizontalSpeed, speed.getY() };
 			physics->getVelocity() = Vector2D(-horizontalSpeed, physics->getVelocity().getY());
@@ -89,9 +90,10 @@ void EnemyMovement::ChangeDirection(bool ground, const SDL_Rect& result)
 void EnemyMovement::update() {
 	if (!health_->isDead()) {
 		MoveTriggers();
-		if (playerDetected && !collided) FollowPlayer();
+		if (playerDetected && !collided && eAttack_->getState() != eAttack_->attacking) FollowPlayer();
 		detectPlayer();
 		collided = false;
 		moving = abs(physics->getVelocity().getX()) > 0;
 	}
+	else physics->setVelocity({ 0,0 });
 }

@@ -15,6 +15,7 @@ void EnemyAnimationComponent::initComponent() {
 	image = ent_->getComponent<FramedImageEnemy>();
 	health_ = ent_->getComponent<Health>();
 	eMovement_ = ent_->getComponent<EnemyMovement>();
+	eAttack_ = ent_->getComponent<EnemyAttack>();
 	setState(IDLE_ENEMY);
 }
 
@@ -45,7 +46,6 @@ void EnemyAnimationComponent::update() {
 	{
 		endAnim();
 	}
-	cout << col << endl;
 
 	/*
 	if (currentAnimation == ATTACK_ENEMY || currentAnimation == DIE_ENEMY) return;
@@ -58,6 +58,7 @@ void EnemyAnimationComponent::endAnim() {
 	if (currentAnimation == PREPARE_ATTACK_ENEMY)
 	{
 		setState(ATTACK_ENEMY);
+		eAttack_->Attack();
 		// el enemigo ataca, aquí debería llamarse a una función de ataque
 	}
 	else if (currentAnimation != DIE_ENEMY && eMovement_ != nullptr &&  eMovement_->isMoving()) { setState(WALK_ENEMY); }
