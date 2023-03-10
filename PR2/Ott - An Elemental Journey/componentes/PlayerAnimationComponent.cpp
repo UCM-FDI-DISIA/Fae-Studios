@@ -12,6 +12,7 @@ PlayerAnimationComponent::PlayerAnimationComponent(anims::Entities e)
 void PlayerAnimationComponent::initComponent() {
 	image = ent_->getComponent<FramedImageOtt>();
 	health = ent_->getComponent<Health>();
+	tr_ = ent_->getComponent<Transform>();
 	elemToChange = health->getElement();
 }
 
@@ -22,7 +23,7 @@ void PlayerAnimationComponent::setState(int newState)
 
 void PlayerAnimationComponent::update()
 {
-	if (!changingElem) timer_++; // controla el frame que se debe mostrar de la animación actual
+	if (!changingElem && !tp) timer_++; // controla el frame que se debe mostrar de la animación actual
 	else timer_--;
 	int col = image->getCurCol();
 	if (col != getNFrames(state_) + getColNum(state_) - 1 || (changingElem && state_ == VANISH && timer_ < (getTPerFrame(state_) * getNFrames(state_)))) // si no es la última columna de la animación actual, se actualiza
@@ -35,9 +36,10 @@ void PlayerAnimationComponent::update()
 	if ((!changingElem && timer_ > (getTPerFrame(state_) * getNFrames(state_)) + 1)) {// si el timer ha superado al tiempo de cada frame * los frames 
 		endAnim();													// que tiene la animación actual, se llama a endAnim();
 	}
-	else if (changingElem && timer_ <= 0) {
+	else if ((changingElem || tp) && timer_ <= 0) {
 		endAnim();
 		changingElem = false;
+		tp = false;
 	}
 	if (health->getElement() != elemToChange) {
 		setState(VANISH);
@@ -61,10 +63,14 @@ void PlayerAnimationComponent::update()
 
 void PlayerAnimationComponent::endAnim()
 {
-	if (!changingElem && state_ == VANISH) {
+	if ((!changingElem || !tp) && state_ == VANISH) {
 		health->setElement(elemToChange);
 		image->changeElement(elemToChange);
 		changingElem = true;
+		if (!tp) {
+			tr_->setPos(tpPos);
+			tp = true;
+		}
 	}
 	else {
 		if (state_ == DIE) {

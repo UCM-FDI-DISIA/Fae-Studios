@@ -3,6 +3,7 @@
 #include <array>
 #include <SDL.h>
 #include "../Src/anims.h"
+#include "Transform.h"
 enum Animations { IDLE, WALK, RUN, JUMP_UP, PEAK, FALL, LAND, VANISH, DIE, ATTACK };
 
 class FramedImageOtt;
@@ -30,10 +31,11 @@ public:
 	inline void isShielded(bool b) { shielded = b; }
 	inline bool getShielded() { return shielded; }
 	inline void changeElem(ecs::elements newElem) { elemToChange = newElem; }
+	inline void startTP(const Vector2D& newPos) { state_ = VANISH;  tpPos = newPos; timer_ = 0; }
 
 private:
 	ecs::elements elemToChange;
-	bool invincible = false, shielded = false, changingElem = false;
+	bool invincible = false, shielded = false, changingElem = false, tp = false;
 	int damageTimer, invencibilityTime = 3;
 	int timer_ = 0;
 	const int FRAME_ANIMATION_TIME = 5;
@@ -41,5 +43,7 @@ private:
 	int startAnimTicks;
 	FramedImageOtt* image;
 	Health* health;
+	Transform* tr_;
 	anims::Entities eAnims;
+	Vector2D tpPos;
 };

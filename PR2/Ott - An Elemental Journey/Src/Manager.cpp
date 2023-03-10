@@ -80,8 +80,8 @@ void Manager::Teleport(Manager* m)
 	Entity* aux = *m->interactionIt;
 	Entity* tpLamp = aux->getComponent<LampComponent>()->getConnectedLamp();
 	Vector2D newPos = tpLamp->getComponent<Transform>()->getPos();
-	m->player->getComponent<PlayerAnimationComponent>()->setState(VANISH);
-	//m->player->getComponent<Transform>()->setPos(newPos);
+	m->player->getComponent<PlayerAnimationComponent>()->startTP(newPos);
+	// m->player->getComponent<Transform>()->setPos(newPos);
 }
 
 void Manager::Save(Manager* m)
