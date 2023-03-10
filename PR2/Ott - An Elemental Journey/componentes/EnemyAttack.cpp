@@ -48,7 +48,7 @@ void EnemyAttack::update() {
 		SDL_Rect collider = physics->getCollider();
 
 		int frameTime = SDL_GetTicks() - startAttackingTime;
-		if (state == normal && frameTime >= PHASE1_TIME && SDL_HasIntersection(&trigger, &playerRect)) {
+		if (state == normal && frameTime >= TIME_BETWEEN_ATTACKS && SDL_HasIntersection(&trigger, &playerRect)) {
 			state = preparing;
 			eAnim_->setState(PREPARE_ATTACK_ENEMY);
 			startAttackingTime = SDL_GetTicks();
@@ -61,7 +61,7 @@ void EnemyAttack::update() {
 			state = afterAttack;
 			startAttackingTime = SDL_GetTicks();
 		}
-		else if (state == afterAttack && frameTime >= PHASE4_TIME) {
+		else if (state == afterAttack && eAnim_->getState() != AFTER_ATTACK_ENEMY) {
 			state = normal;
 			startAttackingTime = SDL_GetTicks();
 		}

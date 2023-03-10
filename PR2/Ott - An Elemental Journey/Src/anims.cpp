@@ -1,5 +1,5 @@
 #include "anims.h"
-// enum EnemyAnims { IDLE_ENEMY, DIE_ENEMY, ATTACK_ENEMY, PREPARE_ATTACK_ENEMY, WALK_ENEMY };
+// enum EnemyAnims { IDLE_ENEMY, DIE_ENEMY, ATTACK_ENEMY, PREPARE_ATTACK_ENEMY, WALK_ENEMY, AFTER_ATTACK_ENEMY };
 
 // Declaración de variables de animaciones
 // { tiempo entre frames, nº de frames, fila, columna inicial }
@@ -17,6 +17,6 @@ std::vector<anims::animDescription> anims::melee_anims{ {150,4,0,0}, {150,9,0,12
 // ENEMIGO A RANGO
 std::vector<anims::animDescription> anims::range_anims{ {150,3,0,0}, {150,12,0,10}, {150,3,0,7}, {250,4,0,3} };
 // ENEMIGO SLIME
-std::vector<anims::animDescription> anims::slime_anims{ {300,4,0,0}, {150,4,0,17}, {200,7,0,10}, {150,6,0,4}, {300,4,0,0} };
+std::vector<anims::animDescription> anims::slime_anims{ {300,4,0,0}, {150,4,0,17}, {1000,1,0,10}, {150,6,0,4}, {300,4,0,0}, {200,7,0,10} };
 // vector con todas las animaciones definidas. se accede a él por un enum llamado Entities
 std::vector<std::vector<anims::animDescription>> anims::animations{ ott_anims, melee_anims, range_anims, slime_anims };

@@ -1,6 +1,7 @@
 #include "EnemyAnimationController.h"
 #include "../Src/Entity.h"
 #include "FramedImage.h"
+#include "Generations.h"
 
 void EnemyAnimationComponent::setState(int newState) { 
 	if (!health_->isDead() && currentAnimation != DIE_ENEMY) { 
@@ -61,6 +62,7 @@ void EnemyAnimationComponent::endAnim() {
 		eAttack_->Attack();
 		// el enemigo ataca, aquí debería llamarse a una función de ataque
 	}
+	else if (currentAnimation == ATTACK_ENEMY && ent_->hasComponent<Generations>()) setState(AFTER_ATTACK_ENEMY);
 	else if (currentAnimation != DIE_ENEMY && eMovement_ != nullptr &&  eMovement_->isMoving()) { setState(WALK_ENEMY); }
 	else if (currentAnimation != DIE_ENEMY || currentAnimation == ATTACK) setState(IDLE_ENEMY);
 	else ent_->setAlive(false);

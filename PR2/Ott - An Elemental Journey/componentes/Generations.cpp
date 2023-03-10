@@ -18,8 +18,7 @@ void Generations::Divide() {
 		slime->addComponent<PhysicsComponent>(); //Calcular offset
 		slime->addComponent<FramedImageEnemy>(ent_->getComponent<FramedImageEnemy>()->getTexture(), anims::SLIME_ANIM);
 		slime->addComponent<Health>(ent_->getComponent<Health>()->getMaxHealth() / 2 - 1, (ent_->getComponent<Health>()->getElement()), false);
-		auto eAttack_ = slime->addComponent<EnemyAttack>(ent_->getComponent<EnemyAttack>()->getPhase1Time(), ent_->getComponent<EnemyAttack>()->getPhase2Time(), 
-			ent_->getComponent<EnemyAttack>()->getPhase3Time(), ent_->getComponent<EnemyAttack>()->getPhase4Time()); //Calcular trigger
+		auto eAttack_ = slime->addComponent<EnemyAttack>(ent_->getComponent<EnemyAttack>()->getTimeBetweenAttacks()); //Calcular trigger
 		slime->addComponent<EnemyMovement>(); //Calcular trigger
 		auto eAnim_ = slime->addComponent<EnemyAnimationComponent>(anims::SLIME_ANIM);
 		auto attack_ = slime->addComponent<EnemyMeleeAttack>();

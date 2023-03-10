@@ -16,7 +16,7 @@ class EnemyAttack : public Component
 	uint LAYING_TIME = 3000;*/
 public:
 	constexpr static cmpId_type id = ecs::_TRIGGER;
-	EnemyAttack(int time1, int time2, int time3, int time4, int w = 50 , int h = 50) : Component() {
+	EnemyAttack(int time, int w = 50 , int h = 50) : Component() {
 		state = normal;
 		transform = nullptr;
 		physics = nullptr;
@@ -24,20 +24,15 @@ public:
 		trigger.x = 0; trigger.y = 0;
 		trigger.w = w; trigger.h = h;
 
-		PHASE1_TIME = time1;
-		PHASE2_TIME = time2;
-		PHASE3_TIME = time3;
-		PHASE4_TIME = time4;
+		TIME_BETWEEN_ATTACKS = time;
+
 
 		startAttackingTime = SDL_GetTicks();
 	}
 	enum attackState {normal, preparing, attacking, afterAttack, laying };
 	inline attackState getState() { return state; }
 	inline void setState(attackState s) { state = s; }
-	inline int getPhase1Time() { return PHASE1_TIME; }
-	inline int getPhase2Time() { return PHASE2_TIME; }
-	inline int getPhase3Time() { return PHASE3_TIME; }
-	inline int getPhase4Time() { return PHASE4_TIME; }
+	inline int getTimeBetweenAttacks() { return TIME_BETWEEN_ATTACKS; }
 	void initComponent() override;
 	void update() override;
 	bool requestAttack();
@@ -55,10 +50,7 @@ private:
 	Entity* player;
 	Health* health_;
 
-	uint PHASE1_TIME;
-	uint PHASE2_TIME;
-	uint PHASE3_TIME;
-	uint PHASE4_TIME;
+	uint TIME_BETWEEN_ATTACKS;
 
 	int startAttackingTime = 0;
 

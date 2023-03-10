@@ -5,7 +5,7 @@
 #include <SDL.h>
 #include "EnemyMovement.h"
 
-enum EnemyAnims { IDLE_ENEMY, DIE_ENEMY, ATTACK_ENEMY, PREPARE_ATTACK_ENEMY, WALK_ENEMY };
+enum EnemyAnims { IDLE_ENEMY, DIE_ENEMY, ATTACK_ENEMY, PREPARE_ATTACK_ENEMY, WALK_ENEMY, AFTER_ATTACK_ENEMY };
 
 class Health;
 class FramedImageEnemy;
