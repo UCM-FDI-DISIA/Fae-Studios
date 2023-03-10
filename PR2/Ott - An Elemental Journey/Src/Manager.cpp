@@ -81,7 +81,7 @@ void Manager::Teleport(Manager* m)
 	Entity* tpLamp = aux->getComponent<LampComponent>()->getConnectedLamp();
 	Vector2D newPos = tpLamp->getComponent<Transform>()->getPos();
 	m->player->getComponent<PlayerAnimationComponent>()->setState(VANISH);
-	m->player->getComponent<Transform>()->setPos(newPos);
+	//m->player->getComponent<Transform>()->setPos(newPos);
 }
 
 void Manager::Save(Manager* m)
@@ -145,19 +145,27 @@ void Manager::createPlayer()
 	player->addComponent<PlayerInput>();
 }
 
-void Manager::createLamp(int x1, int y1, int x2, int y2)
+void Manager::createLamp(Vector2D position, string name,  int width, int height)
 {
-
-	Entity* lamp = addEntity(ecs::_grp_INTERACTION);
-	Entity* lamp2 = addEntity(ecs::_grp_INTERACTION);
-
-	lamp->addComponent<Transform>(x1, y1, 50, 130);
-	lamp2->addComponent<Transform>(x2, y2, 50, 130);
-	lamp2->addComponent<Image>(game->getTexture("lamp", PLAY_STATE));
-	lamp2->addComponent<LampComponent>(lamp);
-	lamp2->addComponent<InteractionComponent>(Teleport);
-
-
+	Entity* lamp1 = addEntity(ecs::_grp_INTERACTION);
+	bool interact = false;
+	interactionIt = entsByGroup_[ecs::_grp_INTERACTION].begin();
+	while (!interact && interactionIt != entsByGroup_[ecs::_grp_INTERACTION].end()) {
+		Entity* lamp2 = *interactionIt;
+		if (lamp2->getComponent<LampComponent>() != nullptr) {
+			if (lamp2->getComponent<LampComponent>()->GetName() == name) {
+				lamp2->getComponent<LampComponent>()->setConnectedLamp(lamp1);
+				lamp1->getComponent<LampComponent>()->setConnectedLamp(lamp2);
+				interact = true;
+				
+			}
+		}
+		interactionIt++;
+	}
+	lamp1->addComponent<Transform>(position, 50, 130);
+	lamp1->addComponent<Image>(game->getTexture("lamp", PLAY_STATE));
+	lamp1->addComponent<LampComponent>(name);
+	lamp1->addComponent<InteractionComponent>(Teleport);
 }
 
 void Manager::AddEnredadera(Manager* m) {
@@ -201,7 +209,6 @@ void Manager::createMap()
 	e->addComponent<MapComponent>(game, LEVEL1);
 	auto scale = e->getComponent<MapComponent>()->tileScale();
 	bgrd->addComponent<BackgroundImage>(Vector2D(0, 0), game->getTexture("level1bg", PLAY_STATE), scale, scale);
-	createLamp(550, 1370, 750, 1370);
 	//bgrd->addComponent<BackgroundImage>(Vector2D(0, 0), game->getTexture("level1bg", PLAY_STATE), scale, scale);
 	//createGrass(Vector2D(200, 1450));
 
@@ -235,20 +242,7 @@ void Manager::createMap()
 				createGrass(Vector2D(x_ * scale, (y_ * scale - game->getTexture("grass", PLAY_STATE)->getH()) + h_*scale), w_*scale, h_*scale, Vector2D(x_ * scale, (y_ * scale - game->getTexture("grass", PLAY_STATE)->getH()) + h_ * scale + 100), Vector2D(x_ * scale, (y_ * scale - game->getTexture("grass", PLAY_STATE)->getH())));
 			}
 			else if (ot.getClass() == "Lamp") {
-				//createLamp(Vector2D(x_ * scale, y_ * scale - game->getTexture("lamp", PLAY_STATE)->getH() * 2));
-				/*TP_Lamp* l1 = new TP_Lamp(Vector2D(x_ * scale, y_ * scale - app->getTexture("lamp", PLAY_STATE)->getH() * 2), app->getTexture("lamp", PLAY_STATE), this, Scale(2, 2), LAMP);
-
-				string lampName = ot.getName();
-				auto at = lamps.find(lampName);
-				if (at != lamps.end()) {
-					l1->SetLamp((*at).second);
-					(*at).second->SetLamp(l1);
-				}
-				else {
-					lamps.insert({ ot.getName(), l1 });
-				}
-
-				gameObjects.push_back(l1);*/
+				createLamp(Vector2D(x_ * scale, y_ * scale - game->getTexture("lamp", PLAY_STATE)->getH() * 2), ot.getName());
 			}
 			else if (ot.getClass() == "Sanctuary") {
 				createSanctuary(Vector2D(x_ * scale - game->getTexture("sanctuary", PLAY_STATE)->getW() * 1.5, y_ * scale - game->getTexture("sanctuary", PLAY_STATE)->getH() * 3.5));

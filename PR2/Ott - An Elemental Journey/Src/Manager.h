@@ -70,7 +70,7 @@ public:
 	//void showVine(Vector2D position, int width = 60, int height = 120);
 	//void createVine(Vector2D position, int width, int height);
 private:
-	void createLamp(int x1, int y1, int x2, int y2);
+	void createLamp(Vector2D position, string name, int width = 50, int height = 130);
 	void createSanctuary(Vector2D position, int width = 100, int height = 130);
 	void createGrass(Vector2D position, int widthVine, int heightVine, Vector2D posiniVine, Vector2D posfinVine, int width = 60, int height = 60);
 	Entity* player;
