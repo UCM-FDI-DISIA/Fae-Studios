@@ -80,8 +80,8 @@ void Manager::Teleport(Manager* m)
 	Entity* aux = *m->interactionIt;
 	Entity* tpLamp = aux->getComponent<LampComponent>()->getConnectedLamp();
 	Vector2D newPos = tpLamp->getComponent<Transform>()->getPos();
-	m->player->getComponent<PlayerAnimationComponent>()->setState(VANISH);
-	m->player->getComponent<Transform>()->setPos(newPos);
+	m->player->getComponent<PlayerAnimationComponent>()->startTP(newPos);
+	// m->player->getComponent<Transform>()->setPos(newPos);
 }
 
 void Manager::Save(Manager* m)
@@ -147,17 +147,17 @@ void Manager::createPlayer()
 
 void Manager::createLamp(int x1, int y1, int x2, int y2)
 {
-
 	Entity* lamp = addEntity(ecs::_grp_INTERACTION);
 	Entity* lamp2 = addEntity(ecs::_grp_INTERACTION);
 
 	lamp->addComponent<Transform>(x1, y1, 50, 130);
+	lamp->addComponent<Image>(game->getTexture("lamp", PLAY_STATE));
+	lamp->addComponent<LampComponent>(lamp2);
+	lamp->addComponent<InteractionComponent>(Teleport);
 	lamp2->addComponent<Transform>(x2, y2, 50, 130);
 	lamp2->addComponent<Image>(game->getTexture("lamp", PLAY_STATE));
 	lamp2->addComponent<LampComponent>(lamp);
 	lamp2->addComponent<InteractionComponent>(Teleport);
-
-
 }
 
 void Manager::AddEnredadera(Manager* m) {
