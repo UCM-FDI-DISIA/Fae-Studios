@@ -1,13 +1,15 @@
 #include "PlayerAttack.h"
 #include "Transform.h"
 
+#include "../SDLApplication.h"
 #include "Health.h"
 #include "../Src/ecs.h"
-PlayerAttack::PlayerAttack(int width, int height) : tr_(nullptr), health_(nullptr), anim_(nullptr), physics(nullptr) {
+PlayerAttack::PlayerAttack(SDLApplication* sdlAplication, int width, int height) : tr_(nullptr), health_(nullptr), anim_(nullptr), physics(nullptr) {
 	triggerWH = Vector2D(width, height);
 	canAttack = false;
 	watAtackTriggWH = Vector2D(WATER_ATACK_WIDTH, WATER_ATACK_HEIGHT);
 	waterAttackActive = false;
+	game = sdlAplication;
 };
 
 void PlayerAttack::initComponent() {
@@ -45,9 +47,9 @@ void PlayerAttack::update() {
 				auto pTransf = ent_->getComponent<Transform>();
 				Entity* attack = mngr_->addEntity(ecs::_grp_PROYECTILES);
 				Vector2D shootPos = Vector2D(pTransf->getPos().getX(), pTransf->getPos().getY() + pTransf->getH() / 2);
-				attack->addComponent<Transform>(shootPos, 50,50);
-				if(ent_->getComponent<PhysicsComponent>()->getLookDirection()) attack->addComponent<PhysicsComponent>(Vector2D(1, 0));
-				else attack->addComponent<PhysicsComponent>(Vector2D(-1,0));
+				attack->addComponent<Transform>(shootPos, 50, 50);
+				if (ent_->getComponent<PhysicsComponent>()->getLookDirection()) attack->addComponent<PhysicsComponent>(Vector2D(1, 0));
+				else attack->addComponent<PhysicsComponent>(Vector2D(-1, 0));
 				attack->addComponent<Image>(mngr_->getTexture(4));
 				attack->addComponent<Bullet>(health_->getElement(), ent_);
 				break;
@@ -55,18 +57,22 @@ void PlayerAttack::update() {
 			case ecs::Water: {
 				MoveTrigger(watAtackTriggWH); // Se mueven los triggers a la posici�n actual
 
-				// Añado entidad de ataque
-				wAttack = mngr_->addEntity(ecs::_grp_PROYECTILES);
-
 				// Trigger de ataque
 				trigger = { (int)triggerPos.getX(), (int)triggerPos.getY(), (int)watAtackTriggWH.getX(), (int)watAtackTriggWH.getY() };
 
-				// Entidad ataque
-				wAttack->addComponent<Transform>(Vector2D(trigger.x, trigger.y), trigger.w, trigger.h);
-				wAttack->addComponent<Image>(mngr_->getTexture(0));
+				// Si no hay ya uno activo
+				if (!waterAttackActive) {
 
-				waterAttackActive = true;
-				waterDurationTimer = SDL_GetTicks();
+					// Añado entidad de ataque
+					wAttack = mngr_->addEntity(ecs::_grp_PROYECTILES);
+
+					// Entidad ataque
+					wAttack->addComponent<Transform>(Vector2D(trigger.x, trigger.y), trigger.w, trigger.h);
+					wAttack->addComponent<Image>(game->getTexture("waterAttack", PLAY_STATE));
+
+					waterAttackActive = true;
+					waterDurationTimer = SDL_GetTicks();
+				}
 
 				break;
 			}
@@ -82,8 +88,10 @@ void PlayerAttack::update() {
 
 	if (waterAttackActive) {
 
+		// Transform
 		wAttack->getComponent<Transform>()->setPos(triggerPos);
 
+		// Si han pasado los segundos totales de la duracio, mata el ataque
 		if (SDL_GetTicks() >= waterDurationTimer + WATER_ATACK_DURATION) {
 			waterAttackActive = false;
 			wAttack->setAlive(false);

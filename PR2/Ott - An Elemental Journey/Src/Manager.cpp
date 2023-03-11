@@ -117,7 +117,7 @@ void Manager::createPlayer()
 	camera->addComponent<CameraComponent>();
 	player->addComponent<FramedImageOtt>();
 	player->addComponent<PlayerAnimationComponent>(anims::OTT_ANIM);
-	player->addComponent<PlayerAttack>();
+	player->addComponent<PlayerAttack>(game);
 	player->addComponent<PlayerInput>();
 }
 

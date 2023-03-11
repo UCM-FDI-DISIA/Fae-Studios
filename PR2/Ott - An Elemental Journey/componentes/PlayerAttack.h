@@ -7,10 +7,11 @@ class Health;
 class Transform;
 class PlayerAnimationComponent;
 class PhysicsComponent;
+class SDLApplication;
 
 // Ancho y Alto ataque de agua
 const int WATER_ATACK_WIDTH =  300;
-const int WATER_ATACK_HEIGHT =  30;
+const int WATER_ATACK_HEIGHT =  50;
 
 const int WATER_ATACK_TICK_TIME = 2000; // Cada cuantos ms tick de agua
 const int WATER_ATACK_DURATION = 6000; // Duracion del ataque de agua en ms
@@ -18,7 +19,7 @@ const int WATER_ATACK_DURATION = 6000; // Duracion del ataque de agua en ms
 class PlayerAttack : public Component
 {
 public:
-	PlayerAttack(int width = 100, int height = 100);
+	PlayerAttack(SDLApplication* sdlAplication, int width = 100, int height = 100);
 	virtual ~PlayerAttack() {};
 	virtual void initComponent();
 	virtual void update();
@@ -45,5 +46,8 @@ private:
 	int waterTickTimer = 0; // timer tick de agua
 	bool waterAttackActive;
 	Entity* wAttack = nullptr; // Entidad ataque de agua
+
+
+	SDLApplication* game; // puntero game
 };
 
