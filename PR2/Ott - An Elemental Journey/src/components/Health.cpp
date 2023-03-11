@@ -10,26 +10,34 @@ void Health::die()
 	else ent_->setAlive(false);
 }
 
+void Health::initComponent() {
+	pAnim_ = ent_->getComponent<PlayerAnimationComponent>();
+	image = ent_->getComponent<HealthImage>();
+}
+
 void Health::recall()
 {
 	if (lastSanctuary != nullptr) {
 		Vector2D newPos = ent_->getComponent<Transform>()->getPosition();
-		newPos = lastSanctuary->getComponent<Transform>()->getPosition(); //?????
+		newPos = lastSanctuary->getComponent<Transform>()->getPosition();
+		ent_->getComponent<Transform>()->setPosition(newPos);
 		actualLife = maxLife;
-		//cout << "vuelvo a santuario" << endl;
+		std::cout << "vuelvo a santuario" << std::endl;
 	}
-	//cout << "me muero para siempre" << endl;
+	std::cout << "me muero para siempre" << std::endl;
 }
 
-bool Health::recieveDamage(ecs::elements elem)
+bool Health::recieveDamage(ecs::elements el)
 {
-	if (ent_->hasComponent<PlayerAnimationComponent>()) {
-		PlayerAnimationComponent* pAnimRef = ent_->getComponent<PlayerAnimationComponent>();
-		if (pAnimRef->isInvincible()) return false;
-		pAnimRef->playerDamaged();
-	}
+	if (pAnim_->isInvincible()) return false;
+	pAnim_->playerDamaged();
 	//if() Añadir daño dependiendo de la entidad
-	actualLife -= elementsInfo::matrix[elem][elem];
+	int damage = elementsInfo::ottMatrix[el][elem];
+	actualLife -= damage;
+	if (damage == 0) {
+		if (image->setWeak()) damage = 1;
+	}
+	image->damage(damage);
 	//startDamagedTime = SDL_GetTicks();
 	if (actualLife <= 0) {
 		die();

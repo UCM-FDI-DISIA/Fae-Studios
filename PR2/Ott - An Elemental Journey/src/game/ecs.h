@@ -27,6 +27,7 @@ namespace ecs {
         _INTERACTION,
         _MAP,
         _PHYSICS,
+        _HEALTH_IMAGE,
         _CTRL,
         _GEN,
 
