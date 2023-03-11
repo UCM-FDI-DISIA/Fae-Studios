@@ -3,12 +3,14 @@
 #include "FramedImage.h"
 #include "PlayerAnimationComponent.h"
 
+// LIMPIO
+
 void EnemyAnimationComponent::initComponent() {
 	image = ent_->getComponent<FramedImage>();
 }
 
 void EnemyAnimationComponent::update() {
-	
+
 	int state = currentAnimation;
 	timer_++;
 
@@ -40,9 +42,9 @@ void EnemyAnimationComponent::update() {
 }
 
 void EnemyAnimationComponent::endAnim() {
-	if (currentAnimation == PREPARE_ATTACK_ENEMY) 
-	{ 
-		setState(ATTACK_ENEMY); 
+	if (currentAnimation == PREPARE_ATTACK_ENEMY)
+	{
+		setState(ATTACK_ENEMY);
 		// el enemigo ataca, aquí debería llamarse a una función de ataque
 	}
 	else { setState(IDLE); }

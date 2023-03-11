@@ -35,6 +35,7 @@ public:
 	Texture(SDL_Renderer *renderer, const std::string &text, const Font &font,
 			const SDL_Color &fgColor, const SDL_Color &bgColor);
 
+	void renderFrame(const SDL_Rect& destRect, int row, int col, int angle = 0, SDL_RendererFlip flip = SDL_FLIP_NONE) const;
 
 	virtual ~Texture() {
 		if (texture_ != nullptr)
