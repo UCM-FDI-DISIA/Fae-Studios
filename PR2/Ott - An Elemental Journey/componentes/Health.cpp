@@ -7,6 +7,11 @@ void Health::die()
 	else ent_->setAlive(false);
 }
 
+void Health::initComponent() {
+	pAnim_ = ent_->getComponent<PlayerAnimationComponent>();
+	image = ent_->getComponent<HealthImage>();
+}
+
 void Health::recall()
 {
 	if (lastSanctuary != nullptr) {
@@ -18,15 +23,17 @@ void Health::recall()
 	cout << "me muero para siempre" << endl;
 }
 
-bool Health::recieveDamage(ecs::elements elem)
+bool Health::recieveDamage(ecs::elements el)
 {
-	if (ent_->hasComponent<PlayerAnimationComponent>()) {
-		PlayerAnimationComponent* pAnimRef = ent_->getComponent<PlayerAnimationComponent>();
-		if (pAnimRef->isInvincible()) return false;
-		pAnimRef->playerDamaged();
-	}
+	if (pAnim_->isInvincible()) return false;
+	pAnim_->playerDamaged();
 	//if() Añadir daño dependiendo de la entidad
-	actualLife -= elementsInfo::matrix[elem][elem];
+	int damage = elementsInfo::ottMatrix[el][elem];
+	actualLife -= damage;
+	if (damage == 0) {
+		if (image->setWeak()) damage = 1;
+	}
+	image->damage(damage);
 	//startDamagedTime = SDL_GetTicks();
 	if (actualLife <= 0) {
 		die();

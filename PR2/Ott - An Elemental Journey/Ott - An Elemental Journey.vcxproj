@@ -177,6 +177,7 @@
     <ClInclude Include="gameobjects\GameObject.h" />
     <ClInclude Include="componentes\GrowVine.h" />
     <ClInclude Include="componentes\ImageVine.h" />
+    <ClInclude Include="componentes\HealthImage.h" />
     <ClInclude Include="loaders\FontLoader.h" />
     <ClInclude Include="loaders\TextureLoader.h" />
     <ClInclude Include="gameflow\play\PlayState.h" />
@@ -243,6 +244,7 @@
     <ClCompile Include="gameobjects\GameObject.cpp" />
     <ClCompile Include="componentes\GrowVine.cpp" />
     <ClCompile Include="componentes\ImageVine.cpp" />
+    <ClCompile Include="componentes\HealthImage.cpp" />
     <ClCompile Include="loaders\FontLoader.cpp" />
     <ClCompile Include="loaders\TextureLoader.cpp" />
     <ClCompile Include="main.cpp" />

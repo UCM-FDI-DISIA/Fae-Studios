@@ -138,13 +138,17 @@ void Manager::createPlayer()
 	player = addEntity(ecs::_grp_CHARACTERS);
 	player->addComponent<Transform>(500, 2000, 100, 120);
 	player->addComponent<PhysicsComponent>();
-	player->addComponent<Health>(5, ecs::Light);
+	SDL_Rect rect = { 20,20,50,50 };
+	player->addComponent<HealthImage>(game->getTexture("hearts", PLAY_STATE), 5, rect);
 	camera = addEntity(ecs::_grp_GENERAL);
 	camera->addComponent<Transform>(200, 700, 100, 120);
 	camera->addComponent<CameraComponent>();
 	player->addComponent<FramedImageOtt>();
-	player->addComponent<PlayerAnimationComponent>(anims::OTT_ANIM);
+	auto pAnim = player->addComponent<PlayerAnimationComponent>(anims::OTT_ANIM);
+	auto health = player->addComponent<Health>(5, ecs::Light);
 	player->addComponent<PlayerInput>();
+	pAnim->initComponent();
+	health->initComponent();
 }
 
 void Manager::createLamp(Vector2D position, string name,  int width, int height)

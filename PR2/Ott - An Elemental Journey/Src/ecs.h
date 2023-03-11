@@ -26,6 +26,7 @@ namespace ecs
 		_VINE,
 		_COLLIDERVINE,
 		_GROWVINE,
+		_HEALTH_IMAGE,
 		// do not remove this
 		_LAST_CMP_ID
 	};
@@ -37,8 +38,8 @@ namespace ecs
 		_grp_VINE,
 		_grp_MAP,
 		_grp_INTERACTION,
-		_grp_CHARACTERS,
 		_grp_GROUND,
+		_grp_CHARACTERS,
 		_grp_PROYECTILES,
 		_LAST_GRP_ID
 	};

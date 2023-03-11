@@ -13,7 +13,7 @@ void PlayerAnimationComponent::initComponent() {
 	image = ent_->getComponent<FramedImageOtt>();
 	health = ent_->getComponent<Health>();
 	tr_ = ent_->getComponent<Transform>();
-	elemToChange = health->getElement();
+	if (health!= nullptr) elemToChange = health->getElement();
 }
 
 void PlayerAnimationComponent::setState(int newState)
@@ -68,7 +68,7 @@ void PlayerAnimationComponent::endAnim()
 		image->changeElement(elemToChange);
 		changingElem = true;
 		if (!tp) {
-			tr_->setPos(tpPos);
+			if(tpPos.getX() != 0) tr_->setPos(tpPos);
 			tp = true;
 		}
 	}

@@ -19,6 +19,8 @@
 #include "../componentes/InteractionComponent.h"
 #include "../componentes/LampComponent.h"
 #include "../componentes/ColliderVine.h"
+#include "../componentes/Health.h"
+#include "../componentes/HealthImage.h"
 #include "../componentes//GrowVine.h"
 #include "../checkML.h"
 
