@@ -158,7 +158,7 @@ namespace constructors {
 	static inline void map(Manager* mngr_) {
 		auto bgrd = mngr_->addEntity(ecs::_grp_MAP);
 		auto e = mngr_->addEntity(ecs::_grp_MAP);
-		e->addComponent<MapComponent>(LEVEL1);
+		e->addComponent<MapComponent>();
 		auto scale = e->getComponent<MapComponent>()->tileScale();
 		//bgrd->addComponent<BackgroundImage>(Vector2D(0, 0), &sdlutils().images().at("level1bg"), scale, scale);
 		lamp(mngr_, 550, 1370, 750, 1370);

@@ -78,6 +78,11 @@
     { "id" : "thrust1", "file" : "../Ott - An Elemental Journey/resources/sound/thrust1.wav" }
   ],
 
-  "musics" : []
+	"musics": [],
+
+	"maps": [
+		{ "id" : "level1", "file" : "../Ott - An Elemental Journey/resources/levels/EarthMap.tmx", "cols" : 192, "tileset" : "level1tileset", "background" : "level1bg" },
+		{ "id" : "demo", "file" : "../Ott - An Elemental Journey/resources/levels/DEMO.tmx", "cols" : 100, "tileset" : "level1tileset", "background" : "level1bg" }
+	]
 
 }

@@ -19,7 +19,8 @@ SDLUtils::SDLUtils(std::string windowTitle, int width, int height) :
 		imagesAccessWrapper_(images_, "Images Table"), //
 		msgsAccessWrapper_(msgs_, "Messages Table"), //
 		soundsAccessWrapper_(sounds_, "Sounds Table"), //
-		musicsAccessWrapper_(musics_, "Musics Table") ///
+		musicsAccessWrapper_(musics_, "Musics Table"), ///
+		levelsAccessWrapper_(levels_, "Levels Table") ///
 {
 
 	initWindow();
@@ -270,6 +271,30 @@ void SDLUtils::loadReasources(std::string filename) {
 		}
 	}
 
+	jValue = root["maps"];
+	if (jValue != nullptr) {
+		if (jValue->IsArray()) {
+			levels_.reserve(jValue->AsArray().size());
+			for (auto& v : jValue->AsArray()) {
+				if (v->IsObject()) {
+					JSONObject vObj = v->AsObject();
+					std::string id = vObj["id"]->AsString();
+					std::string file = vObj["file"]->AsString();
+					int cols = vObj["cols"]->AsNumber();
+					std::string tileset = vObj["tileset"]->AsString();
+					std::string background = vObj["background"]->AsString();
+#ifdef _DEBUG
+					std::cout << "Loading level with id: " << id << std::endl;
+#endif
+
+					levels_.emplace(id, Mapa(file, cols, tileset, background));
+				}
+				else throw "'levels' array in '" + filename + "' includes an invalid value";
+			}
+		}
+		else throw "'levels' is not an array";
+	}
+
 }
 
 void SDLUtils::closeSDLExtensions() {
@@ -279,6 +304,7 @@ void SDLUtils::closeSDLExtensions() {
 	msgs_.clear();
 	images_.clear();
 	fonts_.clear();
+	levels_.clear();
 
 	Mix_Quit(); // quit SDL_mixer
 	IMG_Quit(); // quit SDL_image

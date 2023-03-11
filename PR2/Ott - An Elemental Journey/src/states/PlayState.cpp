@@ -9,18 +9,23 @@
 #include <vector>
 #include "../components/PhysicsComponent.h"
 #include "../components/EnemyMovement.h"
+#include "../game/Constructors.h"
 
 PlayState::PlayState() : GameState(ecs::_state_PLAY) {
-	Mix_Init(MIX_INIT_FLAC | MIX_INIT_MOD | MIX_INIT_MP3 | MIX_INIT_OGG | MIX_INIT_MID);
+	/*Mix_Init(MIX_INIT_FLAC | MIX_INIT_MOD | MIX_INIT_MP3 | MIX_INIT_OGG | MIX_INIT_MID);
 	Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 2048);
 	//music = Mix_LoadMUS("../../sounds/musics/Ambient 4.wav"); la música va a ser cambiada a un json
-	Mix_PlayMusic(music, -1);
+	Mix_PlayMusic(music, -1);*/
+
+	constructors::player(mngr_, 200, 1300, 100, 120);
+	constructors::camera(mngr_, 200, 700, 100, 120);
+	constructors::map(mngr_);
 }
 
 PlayState::~PlayState() {
-	Mix_HaltMusic();
+	/*Mix_HaltMusic();
 	Mix_FreeMusic(music);
-	Mix_Quit();
+	Mix_Quit();*/
 }
 
 void PlayState::blockKeyboardInputAfterUnfreeze() {

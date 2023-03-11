@@ -14,6 +14,15 @@
 #include "Texture.h"
 #include "VirtualTimer.h"
 
+struct Mapa {
+	std::string route;
+	int cols;
+	std::string tileset;
+	std::string background;
+
+	Mapa(std::string r, int cols, std::string tileset, std::string background) : route(r), cols(cols), tileset(tileset), background(background) {}
+};
+
 class SDLUtils: public Singleton<SDLUtils> {
 
 	friend Singleton<SDLUtils> ; // needed to give access to private constructors
@@ -145,6 +154,10 @@ public:
 		return musicsAccessWrapper_;
 	}
 
+	inline auto& levels() {
+		return levelsAccessWrapper_;
+	}
+
 // Access to the random number generator. It is important to always
 // use this generator, this way you can regenerate the same sequence
 // if you start from the same seed
@@ -187,12 +200,14 @@ private:
 	sdl_resource_table<Texture> msgs_; // textures map (string -> texture)
 	sdl_resource_table<SoundEffect> sounds_; // sounds map (string -> sound)
 	sdl_resource_table<Music> musics_; // musics map (string -> music)
+	sdl_resource_table<Mapa> levels_;
 
 	map_access_wrapper<Font> fontsAccessWrapper_;
 	map_access_wrapper<Texture> imagesAccessWrapper_;
 	map_access_wrapper<Texture> msgsAccessWrapper_;
 	map_access_wrapper<SoundEffect> soundsAccessWrapper_;
 	map_access_wrapper<Music> musicsAccessWrapper_;
+	map_access_wrapper<Mapa> levelsAccessWrapper_;
 
 	RandomNumberGenerator random_; // (pseudo) random numbers generator
 	VirtualTimer timer_; // virtual timer
