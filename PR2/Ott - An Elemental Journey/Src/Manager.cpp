@@ -136,7 +136,7 @@ pair<bool,bool> Manager::checkCollisionWithVine() {
 void Manager::createPlayer()
 {
 	player = addEntity(ecs::_grp_CHARACTERS);
-	player->addComponent<Transform>(200, 1300, 100, 120);
+	player->addComponent<Transform>(500, 2000, 100, 120);
 	player->addComponent<PhysicsComponent>();
 	player->addComponent<Health>(5, ecs::Light);
 	camera = addEntity(ecs::_grp_GENERAL);

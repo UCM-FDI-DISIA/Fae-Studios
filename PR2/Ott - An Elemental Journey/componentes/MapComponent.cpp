@@ -73,7 +73,7 @@ void MapComponent::render() {
     for (int i = 0; i < vectorTiles.size(); i++) {
         auto it = vectorTiles[i].ID;
         if (it == 0) continue;
-        tilemap->renderFrame({ (int)(i % 100) * usedTileSize - offsetX, (int)((i / 100) * usedTileSize) - offsetY, usedTileSize, usedTileSize }, (it - (it % 20)) / 20, it % 20 - 1);
+        tilemap->renderFrame({ (int)(i % 192) * usedTileSize - offsetX, (int)((i / 192) * usedTileSize) - offsetY, usedTileSize, usedTileSize }, (it - (it % 20)) / 20, it % 20 - 1);
     }
 }
 
