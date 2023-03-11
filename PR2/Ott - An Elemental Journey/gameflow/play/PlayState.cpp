@@ -46,7 +46,7 @@ PlayState::PlayState(SDLApplication* app) : GameState(PLAY_STATE, app) {
 	// Asi se añade enemigo rango
 
 	auto enemy2 = manager_->addEntity(ecs::_grp_CHARACTERS);
-	enemy2->addComponent<Transform>(1700, 1100, 110, 110);
+	enemy2->addComponent<Transform>(1700, 1800, 110, 110);
 	auto ph2 = enemy2->addComponent<PhysicsComponent>();
 	enemy2->addComponent<FramedImageEnemy>(app->getTexture("waterMushroom", PLAY_STATE), anims::RANGE_ANIM);
 	enemy2->addComponent<Health>(5, ecs::Fire, false);
@@ -63,7 +63,7 @@ PlayState::PlayState(SDLApplication* app) : GameState(PLAY_STATE, app) {
 	// Asi se añade enemigo melee
 
 	auto enemy3 = manager_->addEntity(ecs::_grp_CHARACTERS);
-	enemy3->addComponent<Transform>(2400, 1100, 200, 130);
+	enemy3->addComponent<Transform>(2400, 1800, 230, 130);
 	auto ph3 = enemy3->addComponent<PhysicsComponent>();
 	enemy3->addComponent<FramedImageEnemy>(app->getTexture("waterBug", PLAY_STATE), anims::MELEE_ANIM);
 	enemy3->addComponent<Health>(5, ecs::Fire, false);
