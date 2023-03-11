@@ -42,6 +42,7 @@
     <ClCompile Include="src\components\GrowVine.cpp" />
     <ClCompile Include="src\components\ImageVine.cpp" />
     <ClCompile Include="src\components\HealthImage.cpp" />
+    <ClCompile Include="src\components\PlayerAttack.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\components\Image.h" />
@@ -108,5 +109,6 @@
     <ClInclude Include="src\components\GrowVine.h" />
     <ClInclude Include="src\components\ImageVine.h" />
     <ClInclude Include="src\components\HealthImage.h" />
+    <ClInclude Include="src\components\PlayerAttack.h" />
   </ItemGroup>
 </Project>

@@ -18,6 +18,7 @@
 #include "../components/LampComponent.h"
 #include "../components/InteractionComponent.h"
 #include "../components/AddVine.h"
+#include "../components/PlayerAttack.h"
 #include <string>
 #include <iostream>
 
@@ -100,13 +101,19 @@ namespace constructors {
 
 	static inline Entity* player(Manager* mngr_, int x, int y, int w, int h) {
 		auto player = mngr_->addEntity(ecs::_grp_CHARACTERS);
-		player->addComponent<Transform>(x, y, w, h);
+		player->addComponent<Transform>(500, 2000, 100, 120);
 		player->addComponent<PhysicsComponent>();
-		player->addComponent<PlayerAnimationComponent>(anims::OTT_ANIM);
-		player->addComponent<PlayerInput>();
+		SDL_Rect rect = { 20,20,50,50 };
+		player->addComponent<HealthImage>(&sdlutils().images().at("hearts"), 5, rect);
 		player->addComponent<Health>(5, ecs::Light);
+		player->addComponent<PlayerInput>();
 		player->addComponent<FramedImageOtt>();
-
+		auto pAnim = player->addComponent<PlayerAnimationComponent>(anims::OTT_ANIM);
+		auto health = player->addComponent<Health>(5, ecs::Light);
+		player->addComponent<PlayerAttack>();
+		player->addComponent<PlayerInput>();
+		pAnim->initComponent();
+		health->initComponent();
 		return player;
 	}
 

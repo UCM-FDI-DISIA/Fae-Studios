@@ -34,6 +34,7 @@
     <ClCompile Include="src\components\MapComponent.cpp" />
     <ClCompile Include="src\components\PhysicsComponent.cpp" />
     <ClCompile Include="src\components\PlayerAnimationComponent.cpp" />
+    <ClCompile Include="src\components\PlayerAttack.cpp" />
     <ClCompile Include="src\components\PlayerInput.cpp" />
     <ClCompile Include="src\components\Slider.cpp" />
     <ClCompile Include="src\components\Button.cpp" />
@@ -82,6 +83,7 @@
     <ClInclude Include="src\components\MapComponent.h" />
     <ClInclude Include="src\components\PhysicsComponent.h" />
     <ClInclude Include="src\components\PlayerAnimationComponent.h" />
+    <ClInclude Include="src\components\PlayerAttack.h" />
     <ClInclude Include="src\components\PlayerInput.h" />
     <ClInclude Include="src\components\SlimeAttack.h" />
     <ClInclude Include="src\components\TestEnemyInput.h" />

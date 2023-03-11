@@ -7,7 +7,7 @@ PhysicsComponent::PhysicsComponent() {
 
 }
 
-PhysicsComponent::PhysicsComponent(Vector2D offset = Vector2D(0, 0), Vector2D WidthHeight = Vector2D(0, 0)) {
+PhysicsComponent::PhysicsComponent(Vector2D offset, Vector2D WidthHeight) {
 	colliderOffset = offset;
 	colliderWH = WidthHeight;
 }

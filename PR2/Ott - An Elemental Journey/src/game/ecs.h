@@ -34,6 +34,7 @@ namespace ecs {
         _CHARGED_ATTACK,
         _COLLIDERVINE,
         _GROWVINE,
+        _PLAYERATTACK,
 
         _LAST_CMP_ID
     };
@@ -51,6 +52,7 @@ namespace ecs {
         _grp_MAP,
         _grp_GROUND,
         _grp_VINE,
+        _grp_PROYECTILES,
 
         _LAST_GRP_ID
     };
