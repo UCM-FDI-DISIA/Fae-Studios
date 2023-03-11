@@ -3,21 +3,26 @@
 #include <array>
 #include "../ecs/anims.h"
 #include <SDL.h>
+#include "Transform.h"
 
 enum Animations { IDLE, WALK, RUN, JUMP_UP, PEAK, FALL, LAND, VANISH, DIE, ATTACK };
+
+class FramedImageOtt;
+class Health;
 
 class PlayerAnimationComponent : public Component
 {
 public:
 	constexpr static ecs::cmpId_type id = ecs::_ANIM;
 
-	PlayerAnimationComponent(anims::Entities e = anims::OTT_ANIM) : eAnims(e) {}
-	virtual ~PlayerAnimationComponent() = default;
+	PlayerAnimationComponent(anims::Entities e = anims::OTT_ANIM);
+	virtual ~PlayerAnimationComponent();
 	virtual void update();
-	inline int getState() { return currentAnimation; }
-	inline void setState(int newState) { currentAnimation = newState; startAnimTicks = SDL_GetTicks(); }
+	void initComponent();
+	inline int getState() { return state_; }
+	void setState(int newState);
 	void endAnim();
-	inline int getTPerFrame(int i) { return anims::animations[eAnims][i].tPerFrame; }
+	inline int getTPerFrame(int i) { return anims::animations[eAnims][i].tPerFrame / FRAME_ANIMATION_TIME; }
 	inline int getNFrames(int i) { return anims::animations[eAnims][i].numFrames; }
 	inline int getRowNum(int i) { return anims::animations[eAnims][i].rowNum; }
 	inline int getColNum(int i) { return anims::animations[eAnims][i].colNum; }
@@ -26,11 +31,20 @@ public:
 	inline int getStartTicks() { return startAnimTicks; }
 	inline void isShielded(bool b) { shielded = b; }
 	inline bool getShielded() { return shielded; }
+	inline void changeElem(ecs::elements newElem) { elemToChange = newElem; }
+	inline void startTP(const Vector2D& newPos) { state_ = VANISH;  tpPos = newPos; timer_ = 0; }
 
 private:
-	bool invincible = false, shielded = false;
+	ecs::elements elemToChange;
+	bool invincible = false, shielded = false, changingElem = false, tp = false;
 	int damageTimer, invencibilityTime = 3;
-	int currentAnimation = IDLE;
+	int timer_ = 0;
+	const int FRAME_ANIMATION_TIME = 5;
+	int state_ = IDLE;
 	int startAnimTicks;
+	FramedImageOtt* image;
+	Health* health;
+	Transform* tr_;
 	anims::Entities eAnims;
+	Vector2D tpPos;
 };

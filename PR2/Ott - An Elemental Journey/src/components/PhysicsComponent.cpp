@@ -3,6 +3,10 @@
 #include "../ecs/Entity.h"
 #include "Transform.h"
 
+PhysicsComponent::PhysicsComponent() {
+
+}
+
 PhysicsComponent::PhysicsComponent(Vector2D offset = Vector2D(0, 0), Vector2D WidthHeight = Vector2D(0, 0)) {
 	colliderOffset = offset;
 	colliderWH = WidthHeight;
@@ -13,12 +17,18 @@ void PhysicsComponent::initComponent() {
 }
 
 void PhysicsComponent::update() {
-	if (!grounded) {
+	if (climbing) {
+		grounded = true;
+		// mngr_->desactivateGravity();
+		velocity_ = Vector2D(velocity_.getX(), dirClimbing);
+	}
+	else if (!grounded) {
+		// mngr_->activateGravity();
 		verticalSpeed += mngr_->getGravityValue();
 		if (verticalSpeed > MAX_VERTICAL_SPEED) verticalSpeed = MAX_VERTICAL_SPEED;
 		velocity_ = Vector2D(velocity_.getX(), verticalSpeed);
 	}
-	
+
 	if (isKnockback) {
 		knockbackTimer++;
 		if (knockbackTimer > knockbackTime) {
@@ -27,13 +37,13 @@ void PhysicsComponent::update() {
 		}
 	}
 
-	if (abs(velocity_.getY()) > 0.5f) {
+	if (!climbing && abs(velocity_.getY()) > 0.5f) {
 		grounded = false;
 	}
 }
 
 void PhysicsComponent::jump() {
-	if (grounded) {
+	if (grounded && !climbing) {
 		verticalSpeed = jumpForce;
 		velocity_ = Vector2D(velocity_.getX(), verticalSpeed);
 	}
@@ -43,7 +53,7 @@ void PhysicsComponent::knockback() {
 	isKnockback = true;
 	int kckbDir = 1;
 	if (lookingRight) kckbDir = -1;
-	velocity_ = velocity_ + Vector2D(kckbDir* X_KNOCKBACK_FORCE * (knockbackTime - knockbackTimer) / knockbackTime, 0);
+	velocity_ = velocity_ + Vector2D(kckbDir * X_KNOCKBACK_FORCE * (knockbackTime - knockbackTimer) / knockbackTime, 0);
 }
 
 Vector2D& PhysicsComponent::getVelocity() {

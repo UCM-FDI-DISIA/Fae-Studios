@@ -5,6 +5,7 @@
 #include "../ecs/Component.h"
 #include "Transform.h"
 #include "PlayerAnimationComponent.h"
+#include "../sdlutils/SDLUtils.h"
 
 class FramedImage : public Component {
 private:
@@ -36,23 +37,26 @@ public:
 class FramedImageOtt : public Component
 {
 public:
-	FramedImageOtt() : Component() {}
-	virtual ~FramedImageOtt() = default;
-	void initComponent() override;
-	void render() override;
-	void update() override;
-	void elementChanged(int newElem);
-	inline void shielded(bool b) { isShielded = b; }
-	constexpr static ecs::cmpId_type id = ecs::_IMAGE;
+    FramedImageOtt();
+    virtual ~FramedImageOtt();
+    void initComponent() override;
+    void render() override;
+    inline int getCurCol() { return col; }
+    inline int getCurRow() { return row; }
+    inline void setRow(int r) { row = r; }
+    inline void setCol(int c) { col = c; }
+    void changeElement(ecs::elements newElem);
+    inline void shielded(bool b) { isShielded = b; }
+    inline void setLookingRight(bool l) { lookingRight = l; }
+    constexpr static ecs::cmpId_type id = ecs::_IMAGE;
 private:
-	Transform* tr_;
-	Texture* tex_;
-	PlayerAnimationComponent* pAnim_;
-	Texture* shieldTex_;
-	int numRows_, numCols_;
-	int row = 0, col = 0;
-	int tPerFrame;
-	bool isShielded = false;
+    Transform* tr_;
+    Texture* tex_;
+    Texture* shieldTex_;
+    int numRows_, numCols_;
+    int row = 0, col = 0;
+    int tPerFrame;
+    bool isShielded = false, lookingRight = true;;
 };
 
 #endif //TPV2_FRAMEDIMAGE_H
