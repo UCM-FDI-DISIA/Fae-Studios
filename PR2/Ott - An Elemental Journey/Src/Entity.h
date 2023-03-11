@@ -76,7 +76,7 @@ public:
 	bool isGrounded(){ return ground; }
 
 	//PlayState* getState() { return game; }
-	virtual bool recieveDamage(elementsInfo::elements elem) {
+	virtual bool recieveDamage(ecs::elements elem) {
 		int damageNum = elementsInfo::ottMatrix[elem][currentElement];
 		if (damageNum != -1) {
 			life -= damageNum;
@@ -89,7 +89,7 @@ public:
 	inline void resetLives() { life = maxLife; }
 	inline void addLive() { ++maxLife; }
 	inline void subLive() { if (life == maxLife) --life; maxLife--; }
-	inline int getCurrentElement() { return currentElement; }
+	inline ecs::elements getCurrentElement() { return currentElement; }
 	//virtual void deleteMyself() { game->deleteObject(this); }
 private:
 	bool alive_;
@@ -99,7 +99,7 @@ private:
 
 	uint life, maxLife;
 	//PlayState* game;
-	elementsInfo::elements currentElement;
+	ecs::elements currentElement;
 	virtual void die() { dead = true; }
 	Vector2D speed;
 	bool ground = false;

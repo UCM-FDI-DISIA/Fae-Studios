@@ -8,6 +8,7 @@ class PhysicsComponent : public Component
 public:
 	PhysicsComponent();
 	PhysicsComponent(Vector2D offset, Vector2D WidthHeight);
+	PhysicsComponent(Vector2D vel) : velocity_(vel) {}
 	virtual ~PhysicsComponent();
 	virtual void initComponent();
 	virtual void update();
@@ -23,6 +24,7 @@ public:
 	inline void setClimbing(bool value, int dir) { climbing = value; dirClimbing = dir; }
 	inline bool isClimbing() { return climbing; }
 	inline void setVelocity(Vector2D value) { velocity_ = value; }
+	inline void setGravity(bool g) { gravity = g; }
 	inline void setVerticalSpeed(float value) { verticalSpeed = value; }
 	inline float getHorizontalSpeed() { return horizontalSpeed; };
 	void jump();
@@ -33,7 +35,7 @@ private:
 	const double X_KNOCKBACK_FORCE = 6;
 	double knockbackTimer = 0;
 	double knockbackTime = 15;
-	bool isKnockback = false, lookingRight = true, grounded = false, climbing = false;
+	bool isKnockback = false, lookingRight = true, grounded = false, climbing = false, gravity = true;
 	float verticalSpeed = 0;
 	const float horizontalSpeed = 1.8f;
 	Vector2D velocity_;

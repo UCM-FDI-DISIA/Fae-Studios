@@ -64,9 +64,11 @@ Texture* Manager::getTexture(int elem)
 	case 2: return game->getTexture("ott_water", PLAY_STATE);
 	case 3: return game->getTexture("ott_fire", PLAY_STATE);
 	case 4: return game->getTexture("shield", PLAY_STATE);
-	case 5: return game->getTexture("earthShield", PLAY_STATE);
-	case 6: return game->getTexture("waterShield", PLAY_STATE);
-	case 7: return game->getTexture("fireShield", PLAY_STATE);
+	case 5: return game->getTexture("spores", PLAY_STATE);
+	//case 4: return game->getTexture("ott_light", PLAY_STATE);
+	case 6: return game->getTexture("earthShield", PLAY_STATE);
+	case 7: return game->getTexture("waterShield", PLAY_STATE);
+	case 8: return game->getTexture("fireShield", PLAY_STATE);
 		//case 4: return game->getTexture("ott_light", PLAY_STATE);
 	default:
 		break;
@@ -140,12 +142,15 @@ void Manager::createPlayer()
 	player->addComponent<PhysicsComponent>();
 	SDL_Rect rect = { 20,20,50,50 };
 	player->addComponent<HealthImage>(game->getTexture("hearts", PLAY_STATE), 5, rect);
+	player->addComponent<Health>(5, ecs::Light);
+	player->addComponent<PlayerInput>();
 	camera = addEntity(ecs::_grp_GENERAL);
 	camera->addComponent<Transform>(200, 700, 100, 120);
 	camera->addComponent<CameraComponent>();
 	player->addComponent<FramedImageOtt>();
 	auto pAnim = player->addComponent<PlayerAnimationComponent>(anims::OTT_ANIM);
 	auto health = player->addComponent<Health>(5, ecs::Light);
+	player->addComponent<PlayerAttack>(game);
 	player->addComponent<PlayerInput>();
 	pAnim->initComponent();
 	health->initComponent();
@@ -240,7 +245,6 @@ void Manager::createMap()
 				Entity* e = addEntity(ecs::_grp_GROUND);
 				//int width = game->getTexture("pixel", PLAY_STATE)->getW() / game->getTexture("pixel", PLAY_STATE)->getNumCols() * (w_*scale);
 				//int height = game->getTexture("pixel", PLAY_STATE)->getH() / game->getTexture("pixel", PLAY_STATE)->getNumRows() * (h_*scale);
-				cout << "Ground detected " << x_ * scale << " " << y_ * scale << endl;
 				e->addComponent<Transform>(Vector2D(x_ * scale, y_ * scale), game->getTexture("pixel", PLAY_STATE), Vector2D(w_ * scale, h_ * scale));
 				e->addComponent<Image>(game->getTexture("pixelWhite", PLAY_STATE));
 			}

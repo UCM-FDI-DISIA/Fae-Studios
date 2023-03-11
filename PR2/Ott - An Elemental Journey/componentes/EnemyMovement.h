@@ -1,6 +1,10 @@
 #pragma once
 #include "Transform.h"
 #include "PhysicsComponent.h"
+#include "EnemyAttack.h"
+
+class Health;
+
 class EnemyMovement : public Component
 {
 private:
@@ -8,6 +12,8 @@ private:
 	Entity* player;
 	Transform* transform;
 	Transform* playerTransform;
+	Health* health_;
+	EnemyAttack* eAttack_;
 	SDL_Rect trigger;
 
 	bool playerDetected;
@@ -18,6 +24,7 @@ private:
 	float horizontalSpeed = 1;
 	void MoveTriggers();
 	bool collided = false;
+	bool moving = false;
 public:
 	constexpr static cmpId_type id = ecs::_ENEMYMOV;
 	EnemyMovement(float wTrigger = 100.0f, float hTrigger = 100.0f) : Component() {
@@ -36,5 +43,6 @@ public:
 	void ChangeDirection(bool ground, const SDL_Rect& result);
 	inline void setCanMove(bool move) { canMove = move; }
 	void update() override;
+	bool isMoving() { return moving; };
 };
 

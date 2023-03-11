@@ -9,6 +9,7 @@ void PlayerInput::initComponent()
 {
 	physics_ = ent_->getComponent<PhysicsComponent>();
 	anim_ = ent_->getComponent<PlayerAnimationComponent>();
+	attack_ = ent_->getComponent<PlayerAttack>();
 	horizontalSpeed = physics_->getHorizontalSpeed();
 }
 
@@ -22,12 +23,10 @@ void PlayerInput::update()
 			//Moviento Izquierda 
 			playerV = Vector2D(-horizontalSpeed, playerV.getY());
 			physics_->lookDirection(false);
-			cout << "IZQ" << endl;
 		}
 		if (input->isKeyDown(SDLK_RIGHT))
 		{
 			//Movimiento derecha
-			cout << "DER" << endl;
 			playerV = Vector2D(horizontalSpeed, playerV.getY());
 			physics_->lookDirection(true);
 		}
@@ -51,11 +50,11 @@ void PlayerInput::update()
 		if (input->isKeyDown(SDLK_e) && anim_->getState() != ATTACK) {
 			//Ataque
 			anim_->setState(ATTACK);
+			attack_->startAttack();
 		}
 		if (input->isKeyDown(SDLK_z))
 		{
 			//Defensa
-			cout << "Defensa" << endl;
 			ent_->getComponent<FramedImageOtt>()->shielded(true);
 			physics_->slowed();
 		}
@@ -85,18 +84,15 @@ void PlayerInput::update()
 	}
 	if (input->keyUpEvent()) {
 		if (input->isKeyUp(SDLK_LEFT) && input->isKeyUp(SDLK_RIGHT)) {
-			cout << "parar" << endl;
 			playerV = Vector2D(0, playerV.getY());
 		}
 		else {
 			if (input->isKeyJustUp(SDLK_RIGHT)) {
-				cout << "parar de ir a la derecha" << endl;
 				playerV = playerV - Vector2D(horizontalSpeed,0);
 				if (playerV.getX() < -horizontalSpeed) playerV = Vector2D(-horizontalSpeed, playerV.getY());
 				
 			}
 			if (input->isKeyJustUp(SDLK_LEFT)) {
-				cout << "parar de ir a la izquieda" << endl;
 				playerV = playerV - Vector2D(-horizontalSpeed, 0);
 				if (playerV.getX() > horizontalSpeed) playerV = Vector2D(horizontalSpeed, playerV.getY());
 			}

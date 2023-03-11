@@ -1,6 +1,7 @@
 #include "EnemyMovement.h"
 #include "../Src/Entity.h"
 #include "../Src/Manager.h"
+#include "Health.h"
 
 void EnemyMovement::initComponent()
 {
@@ -8,9 +9,11 @@ void EnemyMovement::initComponent()
 	physics = ent_->getComponent<PhysicsComponent>();
 	transform = ent_->getComponent<Transform>();
 	playerTransform = player->getComponent<Transform>();
+	health_= ent_->getComponent<Health>();
+	eAttack_ = ent_->getComponent<EnemyAttack>();
 
 	trigger.x = transform->getPos().getX() + transform->getW(); trigger.y = transform->getPos().getY();
-	nearDistance = transform->getW() * 2;
+	nearDistance = trigger.w / 2;
 }
 
 void EnemyMovement::MoveTriggers()
@@ -37,7 +40,8 @@ void EnemyMovement::FollowPlayer()
 	SDL_Rect collider = transform->getRect();
 	SDL_Rect ott = playerTransform->getRect();
 	bool lookingRight = physics->getVelocity().getX() > 0;
-	if (abs(ott.x - (collider.x + collider.w / 2)) > nearDistance) {
+	if (eAttack_->getState() == eAttack_->normal && ((physics->getLookDirection() && ott.x - (collider.x + collider.w / 2) > nearDistance) ||
+		(!physics->getLookDirection() && (collider.x + collider.w / 2) - (ott.x + ott.w) > nearDistance))) {
 		if ((double)ott.x - collider.x < 0) {
 			//speed = { horizontalSpeed, speed.getY() };
 			physics->getVelocity() = Vector2D(-horizontalSpeed, physics->getVelocity().getY());
@@ -50,6 +54,7 @@ void EnemyMovement::FollowPlayer()
 	}
 	else {
 		physics->getVelocity() = Vector2D(0, physics->getVelocity().getY());
+		physics->lookDirection(!((double)ott.x - collider.x < 0));
 	}
 }
 
@@ -83,8 +88,12 @@ void EnemyMovement::ChangeDirection(bool ground, const SDL_Rect& result)
 
 
 void EnemyMovement::update() {
-	MoveTriggers();
-	if (playerDetected && !collided) FollowPlayer();
-	detectPlayer();
-	collided = false;
+	if (!health_->isDead()) {
+		MoveTriggers();
+		if (playerDetected && !collided && eAttack_->getState() != eAttack_->attacking) FollowPlayer();
+		detectPlayer();
+		collided = false;
+		moving = abs(physics->getVelocity().getX()) > 0;
+	}
+	else physics->setVelocity({ 0,0 });
 }

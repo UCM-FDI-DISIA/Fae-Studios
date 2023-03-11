@@ -1,11 +1,17 @@
 #include "Health.h"
 #include "../Src/Entity.h"
+#include "SlimeStates.h"
+#include "Generations.h"
 
 void Health::die()
 {
-	if (ent_->hasComponent<PlayerAnimationComponent>()) ent_->getComponent<PlayerAnimationComponent>()->setState(DIE);
-	else ent_->setAlive(false);
-}
+	if (ent_->hasComponent<PlayerInput>()) ent_->getComponent<PlayerAnimationComponent>()->setState(DIE);
+	else ent_->getComponent<EnemyAnimationComponent>()->setState(DIE_ENEMY);
+	auto gen = ent_->getComponent<Generations>();
+	// si la entidad muerta es un slime y no esta en su ultima gen manda a que se divida
+	if (gen != nullptr && gen->getGeneration() > 1) ent_->getComponent<Generations>()->Divide();
+	dead = true;
+} 
 
 void Health::initComponent() {
 	pAnim_ = ent_->getComponent<PlayerAnimationComponent>();
@@ -18,24 +24,31 @@ void Health::recall()
 		Vector2D& newPos = ent_->getComponent<Transform>()->getPos();
 		newPos = lastSanctuary->getComponent<Transform>()->getPos();
 		actualLife = maxLife;
-		cout << "vuelvo a santuario" << endl;
 	}
-	cout << "me muero para siempre" << endl;
 }
 
-bool Health::recieveDamage(ecs::elements el)
+bool Health::recieveDamage(ecs::elements elem)
 {
-	if (pAnim_->isInvincible()) return false;
-	pAnim_->playerDamaged();
-	//if() Añadir daño dependiendo de la entidad
-	int damage = elementsInfo::ottMatrix[el][elem];
-	actualLife -= damage;
-	if (damage == 0) {
-		if (image->setWeak()) damage = 1;
+	
+	if (ent_->hasComponent<PlayerAnimationComponent>()) {
+		if (pAnim_->isInvincible()) return false;
+		pAnim_->playerDamaged();
+		//if() Añadir daño dependiendo de la entidad
+		int damage = elementsInfo::ottMatrix[elem][elem];
+		actualLife -= damage;
+		if (damage == 0) {
+			if (image->setWeak()) damage = 1;
+		}
+		image->damage(damage);
 	}
-	image->damage(damage);
+	else {
+		if (!dead) {
+			actualLife -= ecs::matrix[elem][this->elem];
+			ent_->getComponent<EnemyAnimationComponent>()->damage();
+		}
+	}
 	//startDamagedTime = SDL_GetTicks();
-	if (actualLife <= 0) {
+	if (!dead && actualLife <= 0) {
 		die();
 		return true;
 	}

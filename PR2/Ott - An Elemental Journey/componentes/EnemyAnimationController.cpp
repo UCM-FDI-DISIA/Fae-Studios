@@ -1,13 +1,30 @@
 #include "EnemyAnimationController.h"
 #include "../Src/Entity.h"
 #include "FramedImage.h"
+#include "Generations.h"
+
+void EnemyAnimationComponent::setState(int newState) { 
+	if (!health_->isDead() && currentAnimation != DIE_ENEMY) { 
+		currentAnimation = newState; 
+		timer_ = 0; 
+		image->setCol(getColNum(currentAnimation));
+	} 
+}
+
 
 void EnemyAnimationComponent::initComponent() {
 	image = ent_->getComponent<FramedImageEnemy>();
+	health_ = ent_->getComponent<Health>();
+	eMovement_ = ent_->getComponent<EnemyMovement>();
+	eAttack_ = ent_->getComponent<EnemyAttack>();
+	setState(IDLE_ENEMY);
 }
 
 void EnemyAnimationComponent::update() {
-	
+	if (currentAnimation == IDLE_ENEMY && eMovement_ != nullptr && eMovement_->isMoving()) setState(WALK_ENEMY);
+	else if (currentAnimation == WALK_ENEMY && !eMovement_->isMoving()) setState(IDLE_ENEMY);
+
+
 	int state = currentAnimation;
 	timer_++;
 
@@ -39,11 +56,15 @@ void EnemyAnimationComponent::update() {
 }
 
 void EnemyAnimationComponent::endAnim() {
-	if (currentAnimation == PREPARE_ATTACK_ENEMY) 
-	{ 
-		setState(ATTACK_ENEMY); 
+	if (currentAnimation == PREPARE_ATTACK_ENEMY)
+	{
+		setState(ATTACK_ENEMY);
+		eAttack_->Attack();
 		// el enemigo ataca, aquí debería llamarse a una función de ataque
 	}
-	else { setState(IDLE); }
+	else if (currentAnimation == ATTACK_ENEMY && ent_->hasComponent<Generations>()) setState(AFTER_ATTACK_ENEMY);
+	else if (currentAnimation != DIE_ENEMY && eMovement_ != nullptr &&  eMovement_->isMoving()) { setState(WALK_ENEMY); }
+	else if (currentAnimation != DIE_ENEMY || currentAnimation == ATTACK) setState(IDLE_ENEMY);
+	else ent_->setAlive(false);
 	timer_ = 0;
 }

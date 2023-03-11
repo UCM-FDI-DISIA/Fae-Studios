@@ -17,11 +17,13 @@
 #include "../componentes/PlayerAnimationComponent.h"
 #include "../componentes/Health.h"
 #include "../componentes/InteractionComponent.h"
+#include "../componentes/PlayerAttack.h"
 #include "../componentes/LampComponent.h"
 #include "../componentes/ColliderVine.h"
 #include "../componentes/Health.h"
 #include "../componentes/HealthImage.h"
 #include "../componentes//GrowVine.h"
+#include "../componentes/Bullet.h"
 #include "../checkML.h"
 
 

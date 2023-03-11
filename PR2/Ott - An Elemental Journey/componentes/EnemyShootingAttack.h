@@ -14,7 +14,7 @@ public:
 		attackingTime = SDL_GetTicks();
 	}
 	void initComponent() override;
-	void update() override;
+	void Attack();
 private:
 	Entity* player;
 	Health* health;

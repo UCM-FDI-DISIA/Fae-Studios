@@ -19,8 +19,8 @@ public:
 	inline void setCol(int c) { col = c; }
 	void changeElement(ecs::elements newElem);
 	inline void shielded(bool b) { isShielded = b; }
+	constexpr static cmpId_type id = ecs::_FRAMEDIMAGEOTT;
 	inline void setLookingRight(bool l) { lookingRight = l; }
-	constexpr static cmpId_type id = ecs::_FRAMEDIMAGE;
 private:
 	Transform* tr_;
 	Texture* tex_;
@@ -34,23 +34,26 @@ private:
 class FramedImageEnemy : public Component
 {
 public:
-	FramedImageEnemy(Texture* text);
+	FramedImageEnemy(Texture* text, anims::Entities e);
 	virtual ~FramedImageEnemy() {};
 	void initComponent() override;
 	virtual void render();
 	virtual void update();
+	inline Texture* getTexture() { return tex_; }
 	inline int getCurCol() { return col; }
 	inline int getCurRow() { return row; }
 	inline void setRow(int r) { row = r; }
 	inline void setCol(int c) { col = c; }
 	inline void setLookingRight(bool l) { lookingRight = l; }
-	constexpr static cmpId_type id = ecs::_FRAMEDIMAGE;
+	constexpr static cmpId_type id = ecs::_FRAMEDIMAGEENEMY;
 private:
 	// MeleeAnimationComponent* pAnim_;
 	Transform* tr_;
 	Texture* tex_;
+	PhysicsComponent* physics_;
 	int numRows_, numCols_;
 	int row = 0, col = 0;
 	int tPerFrame;
 	bool isShielded = false, lookingRight = true;
+	anims::Entities e;
 };

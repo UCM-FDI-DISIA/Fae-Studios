@@ -21,11 +21,14 @@ void PhysicsComponent::update() {
 	}
 	else if (!grounded) {
 		mngr_->activateGravity();
+	}
+
+	if (!grounded && gravity) {
 		verticalSpeed += mngr_->getGravityValue();
 		if (verticalSpeed > MAX_VERTICAL_SPEED) verticalSpeed = MAX_VERTICAL_SPEED;
 		velocity_ = Vector2D(velocity_.getX(), verticalSpeed);
 	}
-	
+
 	if (isKnockback) {
 		knockbackTimer++;
 		if (knockbackTimer > knockbackTime) {

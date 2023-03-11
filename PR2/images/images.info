@@ -15,7 +15,7 @@ hearts.png 1 13 hearts
 screendarken-top.png 1 1 screendarkentop
 screendarken-side.png 1 1 screendarkenside
 
-tests 11
+tests 12
 whiteBox.png 1 1 whiteBox
 Ott_Luz.png 9 8 ott_luz
 Ott_Tree.png 9 8 ott_tree
@@ -27,6 +27,7 @@ grass.png 1 1 grass
 1x1Pixel.png 1 1 pixel
 1x1PixelWhite.png 1 1 pixelWhite
 sanctuary.png 1 1 sanctuary
+placeHolderWaterAttacku.png 1 1 waterAttack
 
 levels 7
 fondo.png 1 1 level1bg
@@ -37,17 +38,18 @@ waterShield.png 1 1 waterShield
 earthShield.png 1 1 earthShield
 fireShield.png 1 1 fireShield
 
-sprites 13
+sprites 14
 Enemy.png 1 1 enemy
-Bug.png 2 21 bug
 WaterBug.png 2 21 waterBug
 EarthBug.png 2 21 earthBug
 FireBug.png 2 21 fireBug
 DarkBug.png 2 21 darkBug
-SlimeBosqueAnim.png 1 21 slime
-WaterMushroom.png 2 21 waterMushroom
-EarthMushroom.png 2 21 earthMushroom
-FireMushroom.png 2 21 fireMushroom
-DarkMushroom.png 2 21 darkMushroom
-Mushroom.png 2 21 mushroom
+WaterMushroom.png 2 22 waterMushroom
+EarthMushroom.png 2 22 earthMushroom
+FireMushroom.png 2 22 fireMushroom
+DarkMushroom.png 2 22 darkMushroom
+WaterSlime.png 2 21 waterSlime
+EarthSlime.png 2 21 earthSlime
+FireSlime.png 2 21 fireSlime
+DarkSlime.png 2 21 darkSlime
 spores.png 1 1 spores

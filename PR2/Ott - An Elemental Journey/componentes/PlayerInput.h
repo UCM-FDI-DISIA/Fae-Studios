@@ -5,6 +5,7 @@
 #include "Transform.h"
 #include "PhysicsComponent.h"
 #include "PlayerAnimationComponent.h"
+#include "PlayerAttack.h"
 #include "../Src/Entity.h"
 using namespace std;
 class PlayerInput : public Component
@@ -19,6 +20,7 @@ private:
 	Transform* tr_;
 	PhysicsComponent* physics_;
 	PlayerAnimationComponent* anim_;
+	PlayerAttack* attack_;
 	float horizontalSpeed = 0;
 };
 
