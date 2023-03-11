@@ -118,12 +118,16 @@ namespace constructors {
 		return camera;
 	}
 
-	static inline void grass(Manager* mngr_, Vector2D position, int width = 60, int height = 60) {
+	static inline void grass(Manager* mngr_, Vector2D position, int widthVine, int heightVine, Vector2D posiniVine, Vector2D posfinVine, int width = 60, int height = 60) {
 		auto grass = mngr_->addEntity(ecs::_grp_INTERACTION);
-		grass->addComponent<Transform>(position.getX(), position.getY(), width, height);
+		grass->addComponent<Transform>(position, width, height);
 		grass->addComponent<Image>(&sdlutils().images().at("grass"));
 		grass->addComponent<InteractionComponent>(mngr_->AddEnredadera);
-		grass->addComponent<AddVine>(false);
+
+		auto vine = mngr_->addEntity(ecs::_grp_VINE);
+		vine->addComponent<Transform>(posiniVine, widthVine, heightVine);
+		grass->addComponent<AddVine>(false, vine, posfinVine);
+
 	}
 
 	static inline void lamp(Manager* mngr_, int x1, int y1, int x2, int y2) {
@@ -152,7 +156,7 @@ namespace constructors {
 		//bgrd->addComponent<BackgroundImage>(Vector2D(0, 0), &sdlutils().images().at("level1bg"), scale, scale);
 		lamp(mngr_, 550, 1370, 750, 1370);
 		//bgrd->addComponent<BackgroundImage>(Vector2D(0, 0), game->getTexture("level1bg", PLAY_STATE), scale, scale);
-		grass(mngr_, Vector2D(200, 1450));
+		//grass(mngr_, Vector2D(200, 1450));
 
 		auto a = e->getComponent<MapComponent>()->getObjects();
 		for (auto it : a) {
@@ -182,7 +186,7 @@ namespace constructors {
 
 					//Grass* g1 = new Grass(Vector2D(x_ * scale, y_ * scale - app->getTexture("grass", PLAY_STATE)->getH()), app->getTexture("grass", PLAY_STATE), this);
 					//gameObjects.push_back(g1);
-					grass(mngr_, Vector2D(x_ * scale, y_ * scale - (&sdlutils().images().at("grass"))->height()));
+					//grass(mngr_, Vector2D(x_ * scale, y_ * scale - (&sdlutils().images().at("grass"))->height()));
 				}
 				else if (ot.getClass() == "Lamp") {
 					//createLamp(Vector2D(x_ * scale, y_ * scale - game->getTexture("lamp", PLAY_STATE)->getH() * 2));

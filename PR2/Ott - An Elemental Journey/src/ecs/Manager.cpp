@@ -87,7 +87,7 @@ void Manager::createPlayer() {
 }
 
 void Manager::createGrass(Vector2D position, int width, int height) {
-    constructors::grass(this, position, width, height);
+    //constructors::grass(this, position, width, height);
 }
 
 void Manager::createLamp(int x1, int y1, int x2, int y2) {

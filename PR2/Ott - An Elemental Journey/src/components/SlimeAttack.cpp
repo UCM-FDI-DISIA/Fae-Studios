@@ -42,9 +42,9 @@ void SlimeAttack::initComponent()
 
 void SlimeAttack::update()
 {
-	if (attack->getState() == attack->preparing)
+	if (attack->getState() == preparing)
 		layDownAdjust();
-	else if (attack->getState() == attack->afterAttack)
+	else if (attack->getState() == afterAttack)
 		getUpAdjust();
 
 	if (health->getHealth() <= 0 && ent_->getComponent<Generations>()->getGeneration() > 1) {
