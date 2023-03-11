@@ -18,7 +18,6 @@ public:
 	SDL_Rect camera;
 
 	CameraComponent() : Component(), playerTrnf_(nullptr), tr_(nullptr), camera({0,0,0,0}) {}
-	virtual ~CameraComponent() = default;
 	
 	virtual void initComponent();
 	virtual void update();

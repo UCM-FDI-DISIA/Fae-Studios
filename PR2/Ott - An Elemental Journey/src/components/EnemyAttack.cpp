@@ -1,6 +1,8 @@
 #include "EnemyAttack.h"
 #include "../ecs/Entity.h"
 #include "../ecs/Manager.h"
+#include "../utils/checkML.h"
+
 void EnemyAttack::initComponent() {
 	player = mngr_->getPlayer();
 	transform = ent_->getComponent<Transform>();
@@ -42,8 +44,7 @@ void EnemyAttack::update() {
 	}
 }
 
-bool EnemyAttack::requestAttack()
-{
+bool EnemyAttack::requestAttack() {
 	SDL_Rect playerCollider = physics->getCollider();
 	return (state == attacking && SDL_HasIntersection(&trigger, &playerCollider));
 }

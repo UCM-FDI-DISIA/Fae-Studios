@@ -29,6 +29,10 @@ namespace ecs {
         _PHYSICS,
         _CTRL,
         _GEN,
+        _BULLET,
+        _CHARGED_ATTACK,
+        _COLLIDERVINE,
+        _GROWVINE,
 
         _LAST_CMP_ID
     };

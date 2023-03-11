@@ -1,14 +1,29 @@
+//LIMPIO
+
 #pragma once
 #include "Transform.h"
 #include "PhysicsComponent.h"
 
 using uint = unsigned int;
 
+enum attackState { normal, preparing, attacking, afterAttack, laying };
+
 class EnemyAttack : public Component {
+private:
+	attackState state;
+	SDL_Rect trigger;
+	Transform* transform;
+	PhysicsComponent* physics;
+	Entity* player;
+
+	int startAttackingTime = 0;
+	
 	uint PREPARING_TIME = 1000;
 	uint ATTACKING_TIME = 1000;
 	uint DAMAGED_TIME = 1000;
 	uint LAYING_TIME = 3000;
+
+	void MoveTriggers();
 
 public:
 	constexpr static ecs::cmpId_type id = ecs::_TRIGGER;
@@ -22,21 +37,11 @@ public:
 
 		startAttackingTime = SDL_GetTicks();
 	}
-	enum attackState {normal, preparing, attacking, afterAttack, laying };
+
 	inline attackState getState() { return state; }
 	inline void setState(attackState s) { state = s; }
 	void initComponent() override;
 	void update() override;
 	bool requestAttack();
-private:
-	attackState state;
-	SDL_Rect trigger;
-	Transform* transform;
-	PhysicsComponent* physics;
-	Entity* player;
-
-	int startAttackingTime = 0;
-
-	void MoveTriggers();
 };
 

@@ -2,8 +2,7 @@
 #include "Transform.h"
 #include "PhysicsComponent.h"
 
-class EnemyMovement : public Component
-{
+class EnemyMovement : public Component {
 private:
 	PhysicsComponent* physics;
 	Entity* player;
@@ -14,13 +13,16 @@ private:
 	bool playerDetected;
 	bool canMove;
 	int nearDistance;
-	double turningOffset = 0.75; //A partir de aquí no entiendo, solo he ctrl c ctrl v
-	int turningError = 1;
-	float horizontalSpeed = 1;
+	double turningOffset; //A partir de aquí no entiendo, solo he ctrl c ctrl v
+	int turningError;
+	float horizontalSpeed;
+	bool collided;
+
 	void MoveTriggers();
-	bool collided = false;
+
 public:
 	constexpr static ecs::cmpId_type id = ecs::_ENEMYMOV;
+	
 	EnemyMovement(float wTrigger = 100.0f, float hTrigger = 100.0f) : Component() {
 		player = nullptr;
 		trigger.x = 0; trigger.y = 0;
@@ -30,7 +32,13 @@ public:
 		playerTransform = nullptr;
 		playerDetected = false;
 		canMove = true;
+		turningOffset = 0.75;
+		turningError = 1;
+		horizontalSpeed = 1;
+		collided = false;
+		nearDistance = 0;
 	};
+
 	void initComponent() override;
 	void detectPlayer();
 	void FollowPlayer();

@@ -1,5 +1,6 @@
 ﻿#include "CameraComponent.h"
 #include "../sdlutils/SDLUtils.h"
+#include "../utils/checkML.h"
 
 inline float lerp(float a, float b, float t) {
 	return a + t * (b - a);

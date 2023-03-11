@@ -2,6 +2,7 @@
 #include "../ecs/Entity.h"
 #include "../utils/Vector2D.h"
 #include "../sdlutils/InputHandler.h"
+#include "../utils/checkML.h"
 
 void Button::initComponent() {
 	transform = ent_->getComponent<Transform>();
@@ -20,13 +21,13 @@ void Button::handleInput() {
         textPosition = Vector2D(transform->getPosition().getX() + (transform->getWidth() - text->getWidth())/2, transform->getPosition().getY() + (transform->getHeight() - text->getHeight())/2 - 10);
         texture->setCol(currentButtonFrame);
         text->setPosition(textPosition);
-        currentButtonFrame = MOUSE_OUT; //Indica que el rat�n ha salido de la posición del botón
+        currentButtonFrame = MOUSE_OUT; //Indica que el ratón ha salido de la posición del botón
     }
     if (SDL_PointInRect(&mousePosition, &buttonRect)) {
         textPosition = Vector2D(transform->getPosition().getX() + (transform->getWidth() - text->getWidth())/2, transform->getPosition().getY() + (transform->getHeight() - text->getHeight())/2 - 10);
         texture->setCol(currentButtonFrame);
         text->setPosition(textPosition);
-        currentButtonFrame = MOUSE_OVER; //Indica que el rat�n est� sobre el bot�n
+        currentButtonFrame = MOUSE_OVER; //Indica que el ratón está sobre el botón
     }
     if (SDL_PointInRect(&mousePosition, &buttonRect) && InputHandler::instance()->getMouseButtonState(InputHandler::LEFT)) { //Indica que se ha pulsado el bot�n
         currentButtonFrame = CLICKED;

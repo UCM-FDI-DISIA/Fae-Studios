@@ -38,6 +38,9 @@
     <ClCompile Include="src\components\PlayerInput.cpp" />
     <ClCompile Include="src\components\SlimeAttack.cpp" />
     <ClCompile Include="src\components\TestEnemyInput.cpp" />
+    <ClCompile Include="src\components\Bullet.cpp" />
+    <ClCompile Include="src\components\GrowVine.cpp" />
+    <ClCompile Include="src\components\ImageVine.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\components\Image.h" />
@@ -98,5 +101,10 @@
     <ClInclude Include="src\components\Generations.h" />
     <ClInclude Include="src\components\TestEnemyInput.h" />
     <ClInclude Include="src\game\Elements.h" />
+    <ClInclude Include="src\components\Bullet.h" />
+    <ClInclude Include="src\components\AttackCharger.h" />
+    <ClInclude Include="src\components\ColliderVine.h" />
+    <ClInclude Include="src\components\GrowVine.h" />
+    <ClInclude Include="src\components\ImageVine.h" />
   </ItemGroup>
 </Project>

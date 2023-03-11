@@ -24,7 +24,6 @@ public:
 	
 	Button(Callback* callback) : Component(), callback(callback), 
 		currentButtonFrame(MOUSE_OUT), texture(nullptr), text(nullptr), transform(nullptr) {}
-	virtual ~Button() = default;
 	
 	void initComponent() override;
 	void handleInput() override;
