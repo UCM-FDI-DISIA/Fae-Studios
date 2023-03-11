@@ -1,9 +1,13 @@
 #pragma once
 #include "GameState.h"
+#include <SDL_mixer.h>
 
 /// Estado de juego
 class PlayState : public GameState {
 private:
+    Mix_Music* music;
+    
+    void checkCollisions();
 
 public:
     /// Constructora del estado de juego
@@ -19,5 +23,6 @@ public:
     void blockKeyboardInputAfterUnfreeze();
 
     void handleInput() override;
+
 };
 
