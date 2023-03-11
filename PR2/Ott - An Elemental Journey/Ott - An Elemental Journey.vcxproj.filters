@@ -41,6 +41,7 @@
     <ClCompile Include="src\components\Bullet.cpp" />
     <ClCompile Include="src\components\GrowVine.cpp" />
     <ClCompile Include="src\components\ImageVine.cpp" />
+    <ClCompile Include="src\components\HealthImage.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\components\Image.h" />
@@ -106,5 +107,6 @@
     <ClInclude Include="src\components\ColliderVine.h" />
     <ClInclude Include="src\components\GrowVine.h" />
     <ClInclude Include="src\components\ImageVine.h" />
+    <ClInclude Include="src\components\HealthImage.h" />
   </ItemGroup>
 </Project>

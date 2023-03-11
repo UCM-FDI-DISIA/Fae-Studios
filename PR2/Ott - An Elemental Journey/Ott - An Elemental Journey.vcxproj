@@ -30,6 +30,7 @@
     <ClCompile Include="src\components\GrowVine.cpp" />
     <ClCompile Include="src\components\Health.cpp" />
     <ClCompile Include="src\components\ImageVine.cpp" />
+    <ClCompile Include="src\components\HealthImage.cpp" />
     <ClCompile Include="src\components\MapComponent.cpp" />
     <ClCompile Include="src\components\PhysicsComponent.cpp" />
     <ClCompile Include="src\components\PlayerAnimationComponent.cpp" />
@@ -75,6 +76,7 @@
     <ClInclude Include="src\components\GrowVine.h" />
     <ClInclude Include="src\components\Health.h" />
     <ClInclude Include="src\components\ImageVine.h" />
+    <ClInclude Include="src\components\HealthImage.h" />
     <ClInclude Include="src\components\InteractionComponent.h" />
     <ClInclude Include="src\components\LampComponent.h" />
     <ClInclude Include="src\components\MapComponent.h" />
