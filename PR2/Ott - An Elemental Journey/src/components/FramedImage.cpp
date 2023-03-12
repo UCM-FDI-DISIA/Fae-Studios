@@ -25,7 +25,7 @@ void FramedImage::render() {
 		rect.y -= camera.y;
 	}
 
-	texture->renderFrame(rect, 0, 0);
+	texture->renderFrame(rect, currentRow, currentCol);
 }
 
 void FramedImage::initComponent() {

@@ -13,7 +13,7 @@
 #include "../components/FramedImage.h"
 #include "../components/Generations.h"
 #include "../components/SlimeStates.h"
-#include "../components/ColliderVine.h"
+#include "../components/ColliderVine.h"	
 #include "../components/ImageVine.h"
 #include "../components/GrowVine.h"
 
