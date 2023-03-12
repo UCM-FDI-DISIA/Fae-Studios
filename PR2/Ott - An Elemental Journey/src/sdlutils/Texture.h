@@ -25,7 +25,11 @@ public:
 	Texture(SDL_Renderer *renderer, const std::string &fileName);
 
 	//Constructor from framedImage
-	Texture(SDL_Renderer* r, std::string filename, uint32_t numRows, uint32_t numCols) : renderer_(r) { load(filename, numRows, numCols); };
+	Texture(SDL_Renderer* r, std::string filename, uint32_t numRows, uint32_t numCols) : renderer_(r)
+	{
+		load(filename, numRows, numCols);
+		std::cout << "textura leida " << fw << " " << fh << std::endl;
+	};
 
 	// Construct from text
 	Texture(SDL_Renderer *renderer, const std::string &text, const Font &font,
@@ -101,6 +105,9 @@ public:
 	/// Devuelve el número de filas en que se divide la textura
 	/// \return Entero con el número de filas en que se divide la textura
 	int getNumRows() const { return numRows; };
+
+	inline int getFrameWidth() const { return fw; };
+	inline int getFrameHeight() const { return fh; };
 private:
 
 	// Construct from text
@@ -114,8 +121,8 @@ private:
 	SDL_Renderer *renderer_;
 	int width_;
 	int height_;
-	int fw = 0; ///< Anchura del frame de la textura
-	int fh = 0; ///< Altura del frame de la textura
+	int fw = 32; ///< Anchura del frame de la textura
+	int fh = 32; ///< Altura del frame de la textura
 	int numCols = 1; ///< Número de columnas de la textura
 	int numRows = 1; ///< Número de filas de la textura
 };

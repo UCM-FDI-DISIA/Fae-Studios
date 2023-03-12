@@ -63,6 +63,9 @@ public:
 
     void createPlayer();
 
+    inline void setPlayer(Entity* player_) { player = player_; }
+    inline void setCamera(Entity* camera_) { camera = camera_; }
+
     inline float getGravityValue() const { return gravityValue; }
     inline Entity* getPlayer() const { return player; }
     inline Entity* getCamera() const { return camera; }

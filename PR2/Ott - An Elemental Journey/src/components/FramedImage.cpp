@@ -25,11 +25,6 @@ void FramedImage::initComponent() {
     transform = ent_->getComponent<Transform>();
 }
 
-FramedImageOtt::FramedImageOtt()
-{
-
-}
-
 void FramedImageOtt::initComponent()
 {
 	// está muy feo coger las texturas así, hay que cambiar esto de alguna forma
@@ -40,17 +35,12 @@ void FramedImageOtt::initComponent()
 
 void FramedImageOtt::render()
 {
-	SDL_Rect dest; dest.x = tr_->getPosition().getX(); dest.y = tr_->getPosition().getY();
-	dest.w = tr_->getWidth(); dest.h = tr_->getHeight();
+	SDL_Rect dest = tr_->getRect();
 	dest.x -= mngr_->getCamera()->getComponent<CameraComponent>()->camera.x;
 	dest.y -= mngr_->getCamera()->getComponent<CameraComponent>()->camera.y;
-	//if (pAnim_->isInvincible() && SDL_GetTicks() % 2 == 0) return;
-
 	SDL_RendererFlip flip = SDL_FLIP_NONE;
 	bool lookRight = ent_->getComponent<PhysicsComponent>()->getLookDirection();
 	if (!lookRight) flip = SDL_FLIP_HORIZONTAL;
-
-	//int state = pAnim_->getState();
 
 	tex_->renderFrame(dest, row, col, 0, flip);
 

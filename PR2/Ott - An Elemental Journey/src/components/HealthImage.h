@@ -1,6 +1,7 @@
 #include "../sdlutils/Texture.h"
 #include <vector>
 #include "../ecs/Component.h"
+#include "CameraComponent.h"
 #pragma once
 
 // COLUMNAS DE LA TEXTURA

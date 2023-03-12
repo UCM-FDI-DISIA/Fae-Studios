@@ -2,6 +2,8 @@
 #include "../ecs/Component.h"
 #include "../utils/Vector2D.h"
 #include "../sdlutils/Texture.h"
+#include "PhysicsComponent.h"
+#include "../ecs/Entity.h"
 class Transform : public Component
 {
 private:
@@ -9,6 +11,7 @@ private:
 	float rotation;
 	float width;
 	float height;
+	PhysicsComponent* physics_;
 
 public:
 	constexpr static ecs::cmpId_type id = ecs::_TRANSFORM;
@@ -43,5 +46,9 @@ public:
 		SDL_Rect result; result.x = position.getX(); result.y = position.getY(); result.w = width; result.h = height;
 		return result;
 	}
+	virtual void initComponent() {
+		physics_ = ent_->getComponent<PhysicsComponent>();
+	}
+	virtual void update() { if (physics_ != nullptr) position = position + physics_->getVelocity(); }
 };
 

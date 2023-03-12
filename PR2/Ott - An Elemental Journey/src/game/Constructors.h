@@ -101,13 +101,13 @@ namespace constructors {
 
 	static inline Entity* player(Manager* mngr_, int x, int y, int w, int h) {
 		auto player = mngr_->addEntity(ecs::_grp_CHARACTERS);
-		player->addComponent<Transform>(500, 2000, 100, 120);
 		player->addComponent<PhysicsComponent>();
+		player->addComponent<Transform>(Vector2D(x, y), w, h);
 		SDL_Rect rect = { 20,20,50,50 };
 		player->addComponent<HealthImage>(&sdlutils().images().at("hearts"), 5, rect);
 		player->addComponent<Health>(5, ecs::Light);
 		player->addComponent<PlayerInput>();
-		player->addComponent<FramedImageOtt>();
+		player->addComponent<FramedImageOtt>(&sdlutils().images().at("ott_luz"));
 		auto pAnim = player->addComponent<PlayerAnimationComponent>(anims::OTT_ANIM);
 		auto health = player->addComponent<Health>(5, ecs::Light);
 		player->addComponent<PlayerAttack>();
@@ -119,7 +119,7 @@ namespace constructors {
 
 	static inline Entity* camera(Manager* mngr_, int x, int y, int w, int h) {
 		auto camera = mngr_->addEntity(ecs::_grp_GENERAL);
-		camera->addComponent<Transform>(x, y, w, h);
+		camera->addComponent<Transform>(Vector2D(x, y), w, h);
 		camera->addComponent<CameraComponent>();
 
 		return camera;

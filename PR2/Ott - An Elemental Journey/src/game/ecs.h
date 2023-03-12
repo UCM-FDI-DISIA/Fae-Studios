@@ -47,10 +47,10 @@ namespace ecs {
     enum grpId : grpId_type {
         _grp_GENERAL, ///< General
         _grp_UI, ///< Elementos de la interfaz gráfica
-        _grp_CHARACTERS,
         _grp_INTERACTION,
-        _grp_MAP,
         _grp_GROUND,
+        _grp_MAP,
+        _grp_CHARACTERS,
         _grp_VINE,
         _grp_PROYECTILES,
 

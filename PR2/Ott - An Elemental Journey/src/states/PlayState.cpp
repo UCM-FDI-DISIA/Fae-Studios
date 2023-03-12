@@ -17,10 +17,11 @@ PlayState::PlayState() : GameState(ecs::_state_PLAY) {
 	//music = Mix_LoadMUS("../../sounds/musics/Ambient 4.wav"); la música va a ser cambiada a un json
 	Mix_PlayMusic(music, -1);*/
 
-	constructors::player(mngr_, 200, 1300, 100, 120);
-	constructors::camera(mngr_, 200, 700, 100, 120);
+	mngr_->setPlayer(constructors::player(mngr_, 500, 2000, 100, 120));
+	mngr_->setCamera(constructors::camera(mngr_, 700, 2500, sdlutils().width(), sdlutils().height()));
 	constructors::map(mngr_);
 }
+
 
 PlayState::~PlayState() {
 	/*Mix_HaltMusic();

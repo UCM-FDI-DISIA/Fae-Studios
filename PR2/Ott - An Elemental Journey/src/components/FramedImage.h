@@ -37,7 +37,7 @@ public:
 class FramedImageOtt : public Component
 {
 public:
-    FramedImageOtt();
+    FramedImageOtt(Texture* t) : tex_(t) {};
     virtual ~FramedImageOtt();
     void initComponent() override;
     void render() override;

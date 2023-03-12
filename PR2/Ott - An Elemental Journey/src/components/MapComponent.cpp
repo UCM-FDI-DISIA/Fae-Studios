@@ -44,6 +44,7 @@ void MapComponent::loadMap(std::string path) {
                 //Guardamos objetos en un vector
                 vectorObjects.push_back(objects);
 
+                /*
                 //Ejemplo de propiedades de un objeto (posicion, tama�o, ID y nombre)
                 //cout << "Found " << objects.size() << " objects in layer" << endl;
                 for (const auto& object : objects)
@@ -51,7 +52,7 @@ void MapComponent::loadMap(std::string path) {
                     Vector2f holi = object.getPosition();
                     //cout << "Object " << object.getUID() << ", " << object.getName() << " " << object.getClass() << endl;
                 }
-
+                */
             }
 #pragma endregion
 
@@ -74,11 +75,12 @@ void MapComponent::loadMap(std::string path) {
 
 void MapComponent::render() {
     SDL_Rect camPos = mngr_->getCamera()->getComponent<CameraComponent>()->camera;
+    int cols = sdlutils().levels().at("level1").cols;
     int offsetX = camPos.x;
     int offsetY = camPos.y;
     for (int i = 0; i < vectorTiles.size(); i++) {
         auto it = vectorTiles[i].ID;
         if (it == 0) continue;
-        tilemap->renderFrame({ (int)(i % sdlutils().levels().at("level1").cols) * usedTileSize - offsetX, (int)((i / sdlutils().levels().at("level1").cols) * usedTileSize) - offsetY, usedTileSize, usedTileSize}, (it - (it % 20)) / 20, it % 20 - 1);
+        tilemap->renderFrame({ (i % cols) * usedTileSize - offsetX, ((i / cols) * usedTileSize) - offsetY, usedTileSize, usedTileSize}, (it - (it % 20)) / 20, it % 20 - 1);
     }
 }

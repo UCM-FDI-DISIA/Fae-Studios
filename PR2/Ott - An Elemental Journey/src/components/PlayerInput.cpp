@@ -1,6 +1,7 @@
 #include "PlayerInput.h"
 #include "FramedImage.h"
 #include "Health.h"
+#include "Transform.h"
 
 void PlayerInput::initComponent()
 {
@@ -13,6 +14,8 @@ void PlayerInput::update()
 {
 	Vector2D& playerV = physics_->getVelocity();
 	auto input = InputHandler::instance();
+	// std::cout << ent_->getComponent<Transform>()->getPosition() << std::endl;
+
 	if (input->keyDownEvent()) {
 		
 		if (input->isKeyDown(SDLK_LEFT)) {
@@ -26,6 +29,7 @@ void PlayerInput::update()
 			//Movimiento derecha
 			//cout << "DER" << endl;
 			playerV = Vector2D(horizontalSpeed, playerV.getY());
+			physics_->setVelocity(playerV);
 			physics_->lookDirection(true);
 		}
 
