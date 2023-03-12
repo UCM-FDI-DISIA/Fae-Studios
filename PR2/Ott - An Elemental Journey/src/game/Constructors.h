@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "../ecs/Manager.h"
 #include "../ecs/Entity.h"
 #include "../components/Button.h"
@@ -20,6 +20,13 @@
 #include "../components/AddVine.h"
 #include "../components/PlayerAttack.h"
 #include "../states/PlayState.h"
+#include "../components/EnemyAttack.h"
+#include "../components/EnemyMovement.h"
+#include "../components/EnemyMeleeAttack.h"
+#include "../components/EnemyShootingAttack.h"
+#include "../components/EnemyAnimationController.h"
+#include "../components/Generations.h"
+#include "../components/SlimeStates.h"
 #include <string>
 #include <iostream>
 
@@ -28,6 +35,60 @@ const SDL_Color transparente{ 255,255,255,1 };
 const SDL_Color blanco{ 255,255,255 };
 
 namespace constructors {
+
+	static inline void eRanged(Manager* mngr_, std::string imageKey, int x, int y, float scale) {
+
+		// Asi se a�ade enemigo rango
+		auto enemy2 = mngr_->addEntity(ecs::_grp_CHARACTERS);
+		enemy2->addComponent<Transform>(x, y, 110 * scale, 110 * scale); // 1700 1800 pos para pruebas
+		auto ph2 = enemy2->addComponent<PhysicsComponent>();
+		enemy2->addComponent<FramedImage>(&sdlutils().images().at(imageKey), 2, 22);
+		enemy2->addComponent<Health>(5, ecs::Fire, false);
+		ph2->setVelocity({ 0,0 });
+		ph2->lookDirection(false);
+		auto eAttack_2 = enemy2->addComponent<EnemyAttack>(1200, 400, 100);
+		auto eAnim_2 = enemy2->addComponent<EnemyAnimationComponent>(anims::RANGE_ANIM);
+		auto attack_2 = enemy2->addComponent<EnemyShootingAttack>();
+		eAttack_2->SetRefs(eAnim_2, attack_2, nullptr);
+	}
+
+	static inline void eMelee(Manager* mngr_, std::string imageKey, int x, int y, float scale) {
+
+
+		// Asi se a�ade enemigo melee
+
+		auto enemy3 = mngr_->addEntity(ecs::_grp_CHARACTERS);
+		enemy3->addComponent<Transform>(x, y, 230 * scale, 130 * scale);  // 2400 1800 pos para pruebas
+		auto ph3 = enemy3->addComponent<PhysicsComponent>();
+		enemy3->addComponent<FramedImage>(&sdlutils().images().at(imageKey), 2, 21);
+		enemy3->addComponent<Health>(5, ecs::Fire, false);
+		ph3->setVelocity({ 1,0 });
+		ph3->lookDirection(true);
+		auto eAttack_3 = enemy3->addComponent<EnemyAttack>(1200, 8, 100);
+		enemy3->addComponent<EnemyMovement>();
+		auto eAnim_3 = enemy3->addComponent<EnemyAnimationComponent>(anims::MELEE_ANIM);
+		auto meleeAttack_3 = enemy3->addComponent<EnemyMeleeAttack>();
+		eAttack_3->SetRefs(eAnim_3, nullptr, meleeAttack_3);
+	}
+
+	static inline void eSlime(Manager* mngr_, std::string imageKey, int x, int y, float scale) {
+		// Asi se a�ade enemigo slime
+
+		auto enemy = mngr_->addEntity(ecs::_grp_CHARACTERS);
+		enemy->addComponent<Transform>(x, y, 240 * scale, 140 * scale); // 600 950 pos para pruebas
+		auto ph = enemy->addComponent<PhysicsComponent>();
+		enemy->addComponent<FramedImage>(&sdlutils().images().at(imageKey), 2, 21);
+		enemy->addComponent<Health>(5, ecs::Fire, false);
+		ph->setVelocity({ 1,0 });
+		ph->lookDirection(true);
+		auto eAttack_ = enemy->addComponent<EnemyAttack>(1200, 8, 100);
+		enemy->addComponent<EnemyMovement>();
+		auto eAnim_ = enemy->addComponent<EnemyAnimationComponent>(anims::SLIME_ANIM);
+		auto meleeAttack_ = enemy->addComponent<EnemyMeleeAttack>();
+		enemy->addComponent<Generations>(Generations::getMaxGeneration());
+		enemy->addComponent<SlimeStates>();
+		eAttack_->SetRefs(eAnim_, nullptr, meleeAttack_);
+	}
 
 	static inline void button(Manager* mngr_, Vector2D& position, std::string text, Font& f, Callback* callback) {
 		auto b = mngr_->addEntity(ecs::_grp_UI);
@@ -106,7 +167,7 @@ namespace constructors {
 		player->addComponent<Transform>(Vector2D(x, y), w, h);
 		SDL_Rect rect = { 20,20,50,50 };
 		player->addComponent<HealthImage>(&sdlutils().images().at("hearts"), 5, rect);
-		player->addComponent<Health>(5, ecs::Light);
+		player->addComponent<Health>(5, ecs::Light, true);
 		player->addComponent<FramedImageOtt>(&sdlutils().images().at("ott_luz"));
 		auto pAnim = player->addComponent<PlayerAnimationComponent>(anims::OTT_ANIM);
 		auto health = player->addComponent<Health>(5, ecs::Light);

@@ -2,12 +2,17 @@
 #include "../ecs/Entity.h"
 #include "Transform.h"
 #include "PlayerAnimationComponent.h"
+#include "EnemyAnimationController.h"
+#include "Generations.h"
 #include "../game/Elements.h"
 
 void Health::die()
 {
 	if (ent_->hasComponent<PlayerAnimationComponent>()) ent_->getComponent<PlayerAnimationComponent>()->setState(DIE);
-	else ent_->setAlive(false);
+	else ent_->getComponent<EnemyAnimationComponent>()->setState(DIE_ENEMY);
+	auto gen = ent_->getComponent<Generations>();
+	// si la entidad muerta es un slime y no esta en su ultima gen manda a que se divida
+	if (gen != nullptr && gen->getGeneration() > 1) ent_->getComponent<Generations>()->Divide();
 	dead = true;
 }
 
@@ -31,17 +36,25 @@ void Health::recall()
 
 bool Health::recieveDamage(ecs::elements el)
 {
-	if (pAnim_->isInvincible()) return false;
-	pAnim_->playerDamaged();
-	//if() Añadir daño dependiendo de la entidad
-	int damage = elementsInfo::ottMatrix[el][elem];
-	actualLife -= damage;
-	if (damage == 0) {
-		if (image->setWeak()) damage = 1;
+	if (ent_->hasComponent<PlayerAnimationComponent>()) {
+		if (pAnim_->isInvincible()) return false;
+		pAnim_->playerDamaged();
+		//if() Añadir daño dependiendo de la entidad
+		int damage = elementsInfo::ottMatrix[elem][elem];
+		actualLife -= damage;
+		if (damage == 0) {
+			if (image->setWeak()) damage = 1;
+		}
+		image->damage(damage);
 	}
-	image->damage(damage);
+	else {
+		if (!dead) {
+			actualLife -= ecs::matrix[elem][this->elem];
+			ent_->getComponent<EnemyAnimationComponent>()->damage();
+		}
+	}
 	//startDamagedTime = SDL_GetTicks();
-	if (actualLife <= 0) {
+	if (!dead && actualLife <= 0) {
 		die();
 		return true;
 	}

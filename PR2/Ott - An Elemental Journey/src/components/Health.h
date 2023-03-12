@@ -15,7 +15,10 @@ private:
 	bool dead = false;
 public:
 	constexpr static ecs::cmpId_type id = ecs::_HEALTH;
-	Health(int h, ecs::elements e) : Component(), maxLife(2 * h), actualLife(2 * h), elem(e) {};
+	Health(int h, ecs::elements e, bool player = false) : Component(), elem(e) {
+		if (player) { maxLife = h; actualLife = h; }
+		else { maxLife = 2 * h; actualLife = 2 * h; }// La vida de los enemigos tiene una representación diferente
+	};
 	//Este método activa la animación
 	void die();
 	virtual void initComponent();
