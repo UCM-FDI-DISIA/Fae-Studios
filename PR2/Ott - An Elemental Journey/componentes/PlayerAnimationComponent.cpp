@@ -40,6 +40,7 @@ void PlayerAnimationComponent::update()
 		endAnim();
 		changingElem = false;
 		tp = false;
+		canTp = false;
 	}
 	if (health->getElement() != elemToChange) {
 		setState(VANISH);
@@ -67,9 +68,10 @@ void PlayerAnimationComponent::endAnim()
 		health->setElement(elemToChange);
 		image->changeElement(elemToChange);
 		changingElem = true;
-		if (!tp) {
+		tp = true;
+		if (canTp) {
 			if(tpPos.getX() != 0) tr_->setPos(tpPos);
-			tp = true;
+			canTp = false;
 		}
 	}
 	else {
