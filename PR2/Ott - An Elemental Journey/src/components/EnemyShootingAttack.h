@@ -1,6 +1,7 @@
 #pragma once
 #include "EnemyAttack.h"
 #include "Health.h"
+#include "Image.h"
 class EnemyShootingAttack : public Component
 {
 	const int SHOOTING_TIME = 1000;
@@ -14,7 +15,7 @@ public:
 		attackingTime = SDL_GetTicks();
 	}
 	void initComponent() override;
-	void update() override;
+	void Attack();
 private:
 	Entity* player;
 	Health* health;
@@ -23,4 +24,3 @@ private:
 
 	int attackingTime = 0;
 };
-

@@ -26,7 +26,7 @@ void SlimeAttack::divide()
 	slime->addComponent<PhysicsComponent>(); //Calcular offset
 	slime->addComponent<Generations>(ent_->getComponent<Generations>()->getGeneration() - 1);
 	slime->addComponent<EnemyMovement>(); //Calcular trigger
-	slime->addComponent<EnemyAttack>(); //Calcular trigger
+	slime->addComponent<EnemyAttack>(1500); //Calcular trigger
 	slime->addComponent<SlimeAttack>();
 }
 
@@ -42,9 +42,9 @@ void SlimeAttack::initComponent()
 
 void SlimeAttack::update()
 {
-	if (attack->getState() == preparing)
+	if (attack->getState() == attack->preparing)
 		layDownAdjust();
-	else if (attack->getState() == afterAttack)
+	else if (attack->getState() == attack->afterAttack)
 		getUpAdjust();
 
 	if (health->getHealth() <= 0 && ent_->getComponent<Generations>()->getGeneration() > 1) {

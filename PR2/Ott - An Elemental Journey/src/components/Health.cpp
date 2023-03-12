@@ -8,6 +8,7 @@ void Health::die()
 {
 	if (ent_->hasComponent<PlayerAnimationComponent>()) ent_->getComponent<PlayerAnimationComponent>()->setState(DIE);
 	else ent_->setAlive(false);
+	dead = true;
 }
 
 void Health::initComponent() {
@@ -22,6 +23,7 @@ void Health::recall()
 		newPos = lastSanctuary->getComponent<Transform>()->getPosition();
 		ent_->getComponent<Transform>()->setPosition(newPos);
 		actualLife = maxLife;
+		dead = false;
 		std::cout << "vuelvo a santuario" << std::endl;
 	}
 	std::cout << "me muero para siempre" << std::endl;

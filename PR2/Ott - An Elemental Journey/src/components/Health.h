@@ -12,6 +12,7 @@ private:
 	Entity* lastSanctuary = nullptr;
 	HealthImage* image;
 	PlayerAnimationComponent* pAnim_;
+	bool dead = false;
 public:
 	constexpr static ecs::cmpId_type id = ecs::_HEALTH;
 	Health(int h, ecs::elements e) : Component(), maxLife(2 * h), actualLife(2 * h), elem(e) {};
@@ -20,6 +21,7 @@ public:
 	virtual void initComponent();
 	//Este te lleva al santuario
 	void recall();
+	inline bool isDead() { return dead; }
 	bool recieveDamage(ecs::elements el);
 	inline int getHealth() { return actualLife; }
 	inline ecs::elements getElement() { return elem; }

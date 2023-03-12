@@ -1,27 +1,28 @@
 //LIMPIO
-
 #pragma once
 #include "Health.h"
 #include "EnemyAttack.h"
+#include "EnemyAnimationController.h"
 
-class EnemyMeleeAttack : public Component {
-private:
-	Entity* player;
-	Health* playerHealth;
-	Health* health;
-	EnemyAttack* enemyAttack;
-
+class EnemyMeleeAttack : public Component
+{
 public:
 	constexpr static ecs::cmpId_type id = ecs::_ATTACK;
-	
 	EnemyMeleeAttack() : Component() {
 		player = nullptr;
 		playerHealth = nullptr;
 		health = nullptr;
 		enemyAttack = nullptr;
 	}
-	
 	void initComponent() override;
-	void update() override;
+	void Attack();
+private:
+	Entity* player;
+	Health* playerHealth;
+	Health* health;
+	EnemyAnimationComponent* eAnims_;
+
+	EnemyAttack* enemyAttack;
+
 };
 
