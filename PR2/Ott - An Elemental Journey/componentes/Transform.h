@@ -13,6 +13,8 @@ public:
 	virtual ~Transform();
 	inline Vector2D& getPos() { return position_; }
 	inline void setPos(Vector2D newPos) { position_ = newPos; }
+	inline void setWidth(int w) { width_ = w; }
+	inline void setHeight(int h) { height_ = h; }
 	inline float& getW() { return width_; }
 	inline float& getH() { return height_; }
 	inline float& getRotation() { return rotation_; }

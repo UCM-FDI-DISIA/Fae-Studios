@@ -25,7 +25,6 @@
     <ClCompile Include="ui\UIText.cpp" />
     <ClCompile Include="ui\ScreenDarkener.cpp" />
     <ClCompile Include="utils\Elements.cpp" />
-    <ClCompile Include="utils\Trigger.cpp" />
     <ClCompile Include="componentes\Component.cpp" />
     <ClCompile Include="componentes\FramedImage.cpp" />
     <ClCompile Include="componentes\Image.cpp" />
@@ -48,7 +47,6 @@
     <ClCompile Include="componentes\InteractionComponent.cpp" />
     <ClCompile Include="componentes\Bullet.cpp" />
     <ClCompile Include="componentes\Generations.cpp" />
-    <ClCompile Include="componentes\SlimeAttack.cpp" />
     <ClCompile Include="componentes\LampComponent.cpp" />
     <ClCompile Include="Src\anims.cpp" />
     <ClCompile Include="componentes\AddVine.cpp" />
@@ -60,6 +58,9 @@
     <ClCompile Include="componentes\AttackCharger.cpp" />
     <ClCompile Include="componentes\HealthImage.cpp" />
     <ClCompile Include="componentes\PlayerAttack.cpp" />
+    <ClCompile Include="componentes\SlimeStates.cpp" />
+    <ClCompile Include="componentes\Trigger.cpp" />
+    <ClCompile Include="componentes\EnterBossRoom.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="checkML.h" />
@@ -93,7 +94,6 @@
     <ClInclude Include="ui\UIText.h" />
     <ClInclude Include="ui\ScreenDarkener.h" />
     <ClInclude Include="utils\Elements.h" />
-    <ClInclude Include="utils\Trigger.h" />
     <ClInclude Include="componentes\Component.h" />
     <ClInclude Include="componentes\FramedImage.h" />
     <ClInclude Include="componentes\Image.h" />
@@ -118,7 +118,6 @@
     <ClInclude Include="componentes\InteractionComponent.h" />
     <ClInclude Include="componentes\Bullet.h" />
     <ClInclude Include="componentes\Generations.h" />
-    <ClInclude Include="componentes\SlimeAttack.h" />
     <ClInclude Include="componentes\LampComponent.h" />
     <ClInclude Include="Src\anims.h" />
     <ClInclude Include="componentes\AddVine.h" />
@@ -130,6 +129,9 @@
     <ClInclude Include="componentes\AttackCharger.h" />
     <ClInclude Include="componentes\HealthImage.h" />
     <ClInclude Include="componentes\PlayerAttack.h" />
+    <ClInclude Include="componentes\SlimeStates.h" />
+    <ClInclude Include="componentes\Trigger.h" />
+    <ClInclude Include="componentes\EnterBossRoom.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Ott - An Elemental Journey.rc" />

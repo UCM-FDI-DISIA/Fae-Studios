@@ -32,6 +32,7 @@ namespace ecs
 		_COLLIDERVINE,
 		_GROWVINE,
 		_HEALTH_IMAGE,
+		_ENTERBOSS,
 		// do not remove this
 		_LAST_CMP_ID
 	};
@@ -43,12 +44,20 @@ namespace ecs
 		_grp_VINE,
 		_grp_MAP,
 		_grp_INTERACTION,
+		_grp_TRIGGER,
 		_grp_GROUND,
 		_grp_CHARACTERS,
 		_grp_PROYECTILES,
 		_LAST_GRP_ID
 	};
 	static constexpr grpId_type maxGroupId = _LAST_GRP_ID;
+	using hdlrId_type = uint8_t;
+	enum hdlrId : hdlrId_type {
+		PLAYER,
+		CAMERA,
+		_LAST_HDLR_ID
+	};
+	constexpr hdlrId_type maxHdlrId = _LAST_HDLR_ID;
 
 	static enum elements { Light, Earth, Water, Fire, Dark };
 	static const int numElems = 5;

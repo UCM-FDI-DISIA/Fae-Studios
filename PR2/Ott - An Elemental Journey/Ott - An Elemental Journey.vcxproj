@@ -160,6 +160,7 @@
     <ClInclude Include="componentes\Transform.h" />
     <ClInclude Include="componentes\EnemyShootingAttack.h" />
     <ClInclude Include="componentes\EnemyAnimationController.h" />
+    <ClInclude Include="componentes\EnterBossRoom.h" />
     <ClInclude Include="gameflow\menus\options\ControlMenuState.h" />
     <ClInclude Include="gameflow\menus\PauseMenuState.h" />
     <ClInclude Include="dependencies\Exceptions.h" />
@@ -190,6 +191,7 @@
     <ClInclude Include="Src\Manager.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="componentes\TestEnemyInput.h" />
+    <ClInclude Include="componentes\Trigger.h" />
     <ClInclude Include="ui\Button.h" />
     <ClInclude Include="ui\ChargedAttackBar.h" />
     <ClInclude Include="ui\HealthBar.h" />
@@ -200,7 +202,6 @@
     <ClInclude Include="utils\Singleton.h" />
     <ClInclude Include="ui\UIText.h" />
     <ClInclude Include="utils\Elements.h" />
-    <ClInclude Include="utils\Trigger.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="componentes\ColliderVine.cpp" />
@@ -229,6 +230,7 @@
     <ClCompile Include="componentes\SlimeStates.cpp" />
     <ClCompile Include="componentes\Transform.cpp" />
     <ClCompile Include="componentes\EnemyShootingAttack.cpp" />
+    <ClCompile Include="componentes\EnterBossRoom.cpp" />
     <ClCompile Include="gameflow\menus\options\ControlMenuState.cpp" />
     <ClCompile Include="gameflow\menus\PauseMenuState.cpp" />
     <ClCompile Include="gameflow\play\PlayState.cpp" />
@@ -254,6 +256,7 @@
     <ClCompile Include="Src\anims.cpp" />
     <ClCompile Include="Src\Manager.cpp" />
     <ClCompile Include="componentes\TestEnemyInput.cpp" />
+    <ClCompile Include="componentes\Trigger.cpp" />
     <ClCompile Include="ui\Button.cpp" />
     <ClCompile Include="ui\ChargedAttackBar.cpp" />
     <ClCompile Include="ui\HealthBar.cpp" />
@@ -261,7 +264,6 @@
     <ClCompile Include="ui\Slider.cpp" />
     <ClCompile Include="ui\UIText.cpp" />
     <ClCompile Include="utils\Elements.cpp" />
-    <ClCompile Include="utils\Trigger.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Ott - An Elemental Journey.rc" />

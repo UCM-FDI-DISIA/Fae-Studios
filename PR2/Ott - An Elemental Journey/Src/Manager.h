@@ -24,6 +24,8 @@
 #include "../componentes/HealthImage.h"
 #include "../componentes//GrowVine.h"
 #include "../componentes/Bullet.h"
+#include "../componentes/Trigger.h"
+#include "../componentes/EnterBossRoom.h"
 #include "../checkML.h"
 
 
@@ -71,8 +73,13 @@ public:
 	void checkInteraction();
 	pair<bool,bool> checkCollisionWithVine();
 	inline Entity* getCurrentInteraction() { return *interactionIt; }
-	//void showVine(Vector2D position, int width = 60, int height = 120);
-	//void createVine(Vector2D position, int width, int height);
+	inline void setHandler(ecs::hdlrId_type hId, Entity* e) {
+		hdlrs_[hId] = e;
+	}
+
+	inline Entity* getHandler(ecs::hdlrId_type hId) {
+		return hdlrs_[hId];
+	}
 private:
 	void createLamp(Vector2D position, string name, int width = 50, int height = 130);
 	void createSanctuary(Vector2D position, int width = 100, int height = 130);
@@ -82,5 +89,6 @@ private:
 	float gravityValue = 0.2;
 	SDLApplication* game;
 	std::array<std::vector<Entity*>, ecs::maxGroupId> entsByGroup_;
+	std::array<Entity*, ecs::maxHdlrId> hdlrs_;
 	vector<Entity*>::iterator interactionIt;
 };

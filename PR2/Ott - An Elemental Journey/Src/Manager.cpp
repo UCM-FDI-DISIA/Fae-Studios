@@ -138,6 +138,7 @@ pair<bool,bool> Manager::checkCollisionWithVine() {
 void Manager::createPlayer()
 {
 	player = addEntity(ecs::_grp_CHARACTERS);
+	setHandler(ecs::PLAYER, player);
 	player->addComponent<Transform>(500, 2000, 100, 120);
 	player->addComponent<PhysicsComponent>();
 	SDL_Rect rect = { 20,20,50,50 };
@@ -145,6 +146,7 @@ void Manager::createPlayer()
 	player->addComponent<Health>(5, ecs::Light);
 	player->addComponent<PlayerInput>();
 	camera = addEntity(ecs::_grp_GENERAL);
+	setHandler(ecs::CAMERA, camera);
 	camera->addComponent<Transform>(200, 700, 100, 120);
 	camera->addComponent<CameraComponent>();
 	player->addComponent<FramedImageOtt>();
@@ -190,9 +192,8 @@ void Manager::AddEnredadera(Manager* m) {
 		SDL_Rect dest;
 		dest = aux->getComponent<AddVine>()->getVine()->getComponent<Transform>()->getRect();
 		dest.h -= m->player->getComponent<Transform>()->getRect().h/2.5;
-		aux->getComponent<AddVine>()->getVine()->addComponent<ColliderVine>(dest);
-		aux->getComponent<AddVine>()->getVine()->addComponent<GrowVine>(aux->getComponent<AddVine>()->getPosFin(), 
-			Vector2D(aux->getComponent<AddVine>()->getPosFin().getX(), aux->getComponent<AddVine>()->getPosFin().getY() + m->player->getComponent<Transform>()->getRect().h/2));
+		aux->getComponent<AddVine>()->getVine()->addComponent<ColliderVine>(dest, Vector2D(aux->getComponent<AddVine>()->getPosFin().getX(), aux->getComponent<AddVine>()->getPosFin().getY() + m->player->getComponent<Transform>()->getRect().h / 2));
+		aux->getComponent<AddVine>()->getVine()->addComponent<GrowVine>(aux->getComponent<AddVine>()->getPosFin());
 	}
 };
 void Manager::createSanctuary(Vector2D position, int width, int height)
@@ -246,11 +247,9 @@ void Manager::createMap()
 				//int width = game->getTexture("pixel", PLAY_STATE)->getW() / game->getTexture("pixel", PLAY_STATE)->getNumCols() * (w_*scale);
 				//int height = game->getTexture("pixel", PLAY_STATE)->getH() / game->getTexture("pixel", PLAY_STATE)->getNumRows() * (h_*scale);
 				e->addComponent<Transform>(Vector2D(x_ * scale, y_ * scale), game->getTexture("pixel", PLAY_STATE), Vector2D(w_ * scale, h_ * scale));
-				e->addComponent<Image>(game->getTexture("pixelWhite", PLAY_STATE));
+				e->addComponent<Image>(game->getTexture("pixel", PLAY_STATE));
 			}
 			else if (ot.getClass() == "Grass") {
-				cout << h_ * scale << endl;
-				cout << w_ * scale << endl;
 				createGrass(Vector2D(x_ * scale, (y_ * scale - game->getTexture("grass", PLAY_STATE)->getH()) + h_*scale), w_*scale, h_*scale, Vector2D(x_ * scale, (y_ * scale - game->getTexture("grass", PLAY_STATE)->getH()) + h_ * scale + 100), Vector2D(x_ * scale, (y_ * scale - game->getTexture("grass", PLAY_STATE)->getH())));
 			}
 			else if (ot.getClass() == "Lamp") {
@@ -258,6 +257,18 @@ void Manager::createMap()
 			}
 			else if (ot.getClass() == "Sanctuary") {
 				createSanctuary(Vector2D(x_ * scale - game->getTexture("sanctuary", PLAY_STATE)->getW() * 1.5, y_ * scale - game->getTexture("sanctuary", PLAY_STATE)->getH() * 3.5));
+			}
+			else if (ot.getClass() == "DoorTrigger") {
+				Entity* vine = addEntity(ecs::_grp_VINE);
+				vine->addComponent<Transform>(Vector2D((x_ * scale)-330, (y_ * scale)+h_*scale), w_ * scale, h_ * scale);
+
+				Entity* trigger = addEntity(ecs::_grp_TRIGGER);
+				trigger->addComponent<Transform>(Vector2D(x_ * scale, y_ * scale), w_ * scale,h_ * scale);
+				trigger->addComponent<EnterBossRoom>(vine, (game->getTexture("vine", PLAY_STATE)));
+				trigger->addComponent<Trigger>();
+				trigger->addComponent<AddVine>(false, vine, Vector2D((x_ * scale) - 330, y_ * scale));
+				trigger->getComponent<AddVine>()->getVine()->addComponent<ImageVine>(game->getTexture("vine", PLAY_STATE));
+				
 			}
 			else if (ot.getClass() == "Ott") {
 
