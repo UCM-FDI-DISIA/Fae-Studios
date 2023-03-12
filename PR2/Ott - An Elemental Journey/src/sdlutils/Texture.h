@@ -27,8 +27,8 @@ private:
 	SDL_Renderer* renderer_;
 	uint width_;
 	uint height_;
-	uint fw = 32; ///< Anchura del frame de la textura
-	uint fh = 32; ///< Altura del frame de la textura
+	uint fw; ///< Anchura del frame de la textura
+	uint fh; ///< Altura del frame de la textura
 	uint numCols = 1; ///< Número de columnas de la textura
 	uint numRows = 1; ///< Número de filas de la textura
 
