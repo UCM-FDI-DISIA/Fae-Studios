@@ -8,7 +8,6 @@
 #include "Bullet.h"
 #include "../sdlutils/SDLUtils.h"
 
-
 PlayerAttack::PlayerAttack(int width, int height) : tr_(nullptr), health_(nullptr), anim_(nullptr), physics(nullptr) {
 	triggerWH = Vector2D(width, height);
 	canAttack = false;
@@ -72,7 +71,7 @@ void PlayerAttack::update() {
 
 					// Entidad ataque
 					wAttack->addComponent<Transform>(Vector2D(trigger.x, trigger.y), trigger.w, trigger.h);
-					wAttack->addComponent<Image>(&sdlutils().images().at("waterattack"));
+					wAttack->addComponent<Image>(&sdlutils().images().at("ott_luz"));
 
 					waterAttackActive = true;
 					waterDurationTimer = SDL_GetTicks();

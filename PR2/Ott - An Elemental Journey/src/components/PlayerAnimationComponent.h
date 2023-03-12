@@ -37,7 +37,7 @@ public:
 private:
 	ecs::elements elemToChange;
 	bool invincible = false, shielded = false, changingElem = false, tp = false, canTp = false;
-	int damageTimer, invencibilityTime = 3;
+	int damageTimer, invencibilityTime = 1;
 	int timer_ = 0;
 	const int FRAME_ANIMATION_TIME = 5;
 	int state_ = IDLE;

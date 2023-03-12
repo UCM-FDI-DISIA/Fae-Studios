@@ -26,12 +26,13 @@ void Health::recall()
 	if (lastSanctuary != nullptr) {
 		Vector2D newPos = ent_->getComponent<Transform>()->getPosition();
 		newPos = lastSanctuary->getComponent<Transform>()->getPosition();
+		image->reset();
 		ent_->getComponent<Transform>()->setPosition(newPos);
 		actualLife = maxLife;
 		dead = false;
 		std::cout << "vuelvo a santuario" << std::endl;
 	}
-	std::cout << "me muero para siempre" << std::endl;
+	else std::cout << "me muero para siempre" << std::endl;
 }
 
 bool Health::recieveDamage(ecs::elements el)
@@ -53,6 +54,7 @@ bool Health::recieveDamage(ecs::elements el)
 			ent_->getComponent<EnemyAnimationComponent>()->damage();
 		}
 	}
+	std::cout << "LIFE (HEALTH): " << actualLife << std::endl;
 	//startDamagedTime = SDL_GetTicks();
 	if (!dead && actualLife <= 0) {
 		die();
@@ -64,5 +66,5 @@ bool Health::recieveDamage(ecs::elements el)
 void Health::saveSactuary()
 {
 	lastSanctuary = mngr_->getCurrentInteraction();
-	die();
+	// die();
 }

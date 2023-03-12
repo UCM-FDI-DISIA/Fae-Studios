@@ -20,8 +20,8 @@ void PlayerInput::update()
 {
 	Vector2D& playerV = physics_->getVelocity();
 	auto input = InputHandler::instance();
-	if (input->keyDownEvent()) {
-
+	auto state = anim_->getState();
+	if (input->keyDownEvent() && state != DIE) {
 		if (input->isKeyDown(SDLK_LEFT)) {
 			//Moviento Izquierda 
 			playerV = Vector2D(-horizontalSpeed, playerV.getY());
@@ -50,33 +50,35 @@ void PlayerInput::update()
 			//Recuperar vidas
 			health_->recieveDamage(ecs::Earth);
 		}
-		if (input->isKeyDown(SDLK_e) && anim_->getState() != ATTACK) {
-			//Ataque
-			anim_->setState(ATTACK);
-			attack_->startAttack();
-		}
-		if (input->isKeyDown(SDLK_z))
-		{
-			//Defensa
-			image_->shielded(true);
-			physics_->slowed();
-		}
-		if (input->isKeyDown(SDLK_a) && anim_->getState() != VANISH) {
-			//Cambio elemento
-			anim_->changeElem(ecs::Earth);
-			anim_->setState(VANISH);
-		}
-		if (input->isKeyDown(SDLK_d) && anim_->getState() != VANISH) {
-			anim_->changeElem(ecs::Water);
-			anim_->setState(VANISH);
-		}
-		if (input->isKeyDown(SDLK_w) && anim_->getState() != VANISH) {
-			anim_->changeElem(ecs::Fire);
-			anim_->setState(VANISH);
-		}
-		if (input->isKeyDown(SDLK_s) && anim_->getState() != VANISH) {
-			anim_->changeElem(ecs::Light);
-			anim_->setState(VANISH);
+		if (state != VANISH) {
+			if (input->isKeyDown(SDLK_z))
+			{
+				//Defensa
+				image_->shielded(true);
+				physics_->slowed();
+			}
+			if (input->isKeyDown(SDLK_e) && anim_->getState() != ATTACK) {
+				//Ataque
+				anim_->setState(ATTACK);
+				attack_->startAttack();
+			}
+			if (input->isKeyDown(SDLK_a)) {
+				//Cambio elemento
+				anim_->changeElem(ecs::Earth);
+				anim_->setState(VANISH);
+			}
+			if (input->isKeyDown(SDLK_d)) {
+				anim_->changeElem(ecs::Water);
+				anim_->setState(VANISH);
+			}
+			if (input->isKeyDown(SDLK_w)) {
+				anim_->changeElem(ecs::Fire);
+				anim_->setState(VANISH);
+			}
+			if (input->isKeyDown(SDLK_s)) {
+				anim_->changeElem(ecs::Light);
+				anim_->setState(VANISH);
+			}
 		}
 		if (input->isKeyDown(SDLK_UP)) {
 			//Trepar
@@ -85,19 +87,22 @@ void PlayerInput::update()
 			//Agacharse?
 		}
 	}
+	else if (state == DIE) playerV = Vector2D(0, playerV.getY());
 	if (input->keyUpEvent()) {
-		if (input->isKeyUp(SDLK_LEFT) && input->isKeyUp(SDLK_RIGHT)) {
-			playerV = Vector2D(0, playerV.getY());
-		}
-		else {
-			if (input->isKeyJustUp(SDLK_RIGHT)) {
-				playerV = playerV - Vector2D(horizontalSpeed, 0);
-				if (playerV.getX() < -horizontalSpeed) playerV = Vector2D(-horizontalSpeed, playerV.getY());
-
+		if (state != DIE) {
+			if (input->isKeyUp(SDLK_LEFT) && input->isKeyUp(SDLK_RIGHT)) {
+				playerV = Vector2D(0, playerV.getY());
 			}
-			if (input->isKeyJustUp(SDLK_LEFT)) {
-				playerV = playerV - Vector2D(-horizontalSpeed, 0);
-				if (playerV.getX() > horizontalSpeed) playerV = Vector2D(horizontalSpeed, playerV.getY());
+			else {
+				if (input->isKeyJustUp(SDLK_RIGHT)) {
+					playerV = playerV - Vector2D(horizontalSpeed, 0);
+					if (playerV.getX() < -horizontalSpeed) playerV = Vector2D(-horizontalSpeed, playerV.getY());
+
+				}
+				if (input->isKeyJustUp(SDLK_LEFT)) {
+					playerV = playerV - Vector2D(-horizontalSpeed, 0);
+					if (playerV.getX() > horizontalSpeed) playerV = Vector2D(horizontalSpeed, playerV.getY());
+				}
 			}
 		}
 		if (input->isKeyJustUp(SDLK_z)) {

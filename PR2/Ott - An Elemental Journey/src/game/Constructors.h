@@ -167,10 +167,9 @@ namespace constructors {
 		player->addComponent<Transform>(Vector2D(x, y), w, h);
 		SDL_Rect rect = { 20,20,50,50 };
 		player->addComponent<HealthImage>(&sdlutils().images().at("hearts"), 5, rect);
-		player->addComponent<Health>(5, ecs::Light, true);
 		player->addComponent<FramedImageOtt>(&sdlutils().images().at("ott_luz"));
 		auto pAnim = player->addComponent<PlayerAnimationComponent>(anims::OTT_ANIM);
-		auto health = player->addComponent<Health>(5, ecs::Light);
+		auto health = player->addComponent<Health>(5, ecs::Light, true);
 		player->addComponent<PlayerAttack>();
 		player->addComponent<PlayerInput>(g);
 		pAnim->initComponent();
