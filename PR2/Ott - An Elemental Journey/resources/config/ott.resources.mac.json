@@ -13,12 +13,6 @@
   ],
   
   "images" : [
-    { "id" : "asteroid", "file" : "../Ott - An Elemental Journey/resources/images/asteroid.png", "rows" : 5, "cols" : 6 },
-    { "id" : "golden_asteroid", "file" : "../Ott - An Elemental Journey/resources/images/asteroid_gold.png", "rows" : 5, "cols" : 6 },
-    { "id" : "fighter", "file" : "../Ott - An Elemental Journey/resources/images/fighter.png", "rows" : 1, "cols" : 1},
-    { "id" : "fighter2", "file" : "../Ott - An Elemental Journey/resources/images/fighter2.png", "rows" : 1, "cols" : 1},
-    { "id" : "fire", "file" : "../Ott - An Elemental Journey/resources/images/fire.png", "rows" : 1, "cols" : 1},
-    { "id" : "heart", "file" : "../Ott - An Elemental Journey/resources/images/heart.png", "rows" : 1, "cols" : 1},
 	{ "id" : "playbackground", "file" : "../Ott - An Elemental Journey/resources/images/backgrounds/defaultmenubg.png", "rows" : 1, "cols" : 1},
 	{ "id" : "mainmenubackground", "file" : "../Ott - An Elemental Journey/resources/images/backgrounds/mainmenubg.png", "rows" : 1, "cols" : 1},
 	{ "id" : "blackbackground", "file" : "../Ott - An Elemental Journey/resources/images/backgrounds/mainbg.png", "rows" : 1, "cols" : 1},

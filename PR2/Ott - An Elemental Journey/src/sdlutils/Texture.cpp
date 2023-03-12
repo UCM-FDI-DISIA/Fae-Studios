@@ -10,6 +10,8 @@ Texture& Texture::operator=(Texture &&other) noexcept {
 	other.renderer_ = nullptr;
 	width_ = other.width_;
 	height_ = other.height_;
+	fw = other.fw;
+	fh = other.fh;
 
 	return *this;
 }
@@ -21,6 +23,8 @@ Texture::Texture(Texture &&other) noexcept {
 	other.renderer_ = nullptr;
 	width_ = other.width_;
 	height_ = other.height_;
+	fw = other.fw;
+	fh = other.fh;
 }
 
 Texture::Texture(SDL_Renderer *renderer, const std::string &fileName) {
