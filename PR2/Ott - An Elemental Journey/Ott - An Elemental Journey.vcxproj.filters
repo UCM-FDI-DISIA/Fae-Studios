@@ -61,6 +61,8 @@
     <ClCompile Include="componentes\SlimeStates.cpp" />
     <ClCompile Include="componentes\Trigger.cpp" />
     <ClCompile Include="componentes\EnterBossRoom.cpp" />
+    <ClCompile Include="componentes\EarthBossMovement.cpp" />
+    <ClCompile Include="componentes\VineManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="checkML.h" />
@@ -132,6 +134,8 @@
     <ClInclude Include="componentes\SlimeStates.h" />
     <ClInclude Include="componentes\Trigger.h" />
     <ClInclude Include="componentes\EnterBossRoom.h" />
+    <ClInclude Include="componentes\EarthBossMovement.h" />
+    <ClInclude Include="componentes\VineManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Ott - An Elemental Journey.rc" />

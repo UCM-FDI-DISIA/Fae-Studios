@@ -26,6 +26,7 @@
 #include "../componentes/Bullet.h"
 #include "../componentes/Trigger.h"
 #include "../componentes/EnterBossRoom.h"
+#include "../componentes/VineManager.h"
 #include "../checkML.h"
 
 

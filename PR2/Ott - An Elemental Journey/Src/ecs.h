@@ -33,6 +33,7 @@ namespace ecs
 		_GROWVINE,
 		_HEALTH_IMAGE,
 		_ENTERBOSS,
+		_VINEMANAGER,
 		// do not remove this
 		_LAST_CMP_ID
 	};

@@ -1,14 +1,13 @@
 #include "EnterBossRoom.h"               
 void EnterBossRoom::enterRoom() {
-	cout << "entrando" << endl;
+	//meter booleano para que solo detecte que has entrado una vez
 	camera = mngr_->getHandler(ecs::CAMERA);
 	player = mngr_->getHandler(ecs::PLAYER);
 	if (resetTime) {
 		timer = SDL_GetTicks();
 		resetTime = false;
 	}
-	//ent_->getComponent<AddVine>()->getVine()->addComponent<ImageVine>(tx_);
-	ent_->getComponent<AddVine>()->getVine()->addComponent<GrowVine>(ent_->getComponent<AddVine>()->getPosFin());
+	ent_->getComponent<VineManager>()->addVine();
 }
 
 void EnterBossRoom::update(){
@@ -28,4 +27,8 @@ void EnterBossRoom::update(){
 
 		}
 	}
+}
+
+void EnterBossRoom::initComponent() {
+	blockDoor = ent_->getComponent<VineManager>()->getVine(); 
 }

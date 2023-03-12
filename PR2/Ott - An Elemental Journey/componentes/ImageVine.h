@@ -5,7 +5,7 @@
 #include "../Src/Entity.h"
 class ImageVine : public Component {
 public:
-	ImageVine(Texture* text);
+	ImageVine(Texture* text, float rot);
 	virtual ~ImageVine();
 	void initComponent() override;
 	void render() override;
@@ -18,4 +18,5 @@ private:
 	Texture* tex_;
 	SDL_Rect destTransform;
 	SDL_Rect destTexture;
+	float rotation;
 };

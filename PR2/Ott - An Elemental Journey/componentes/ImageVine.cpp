@@ -1,6 +1,6 @@
 #include "ImageVine.h"
 
-ImageVine::ImageVine(Texture* text) :tr_(nullptr), tex_(text), Component() {
+ImageVine::ImageVine(Texture* text, float rot) :tr_(nullptr), tex_(text),rotation(rot) {
 }
 
 void ImageVine::initComponent()
@@ -26,14 +26,24 @@ void ImageVine::render()
 	aux.h = destTexture.h*2;
 	aux.w = destTexture.w*2;
 	anidatedVines.push_back(aux);
+	if (rotation == 0) {
+		for (int j = 1; j < i; ++j) {
+			aux.y += (destTexture.h*2);
+			anidatedVines.push_back(aux);
+		}
 
-	for (int j = 1; j < i; ++j) {
-		aux.y += (destTexture.h*2);
-		anidatedVines.push_back(aux);
+		for (int j = 0; j < i; ++j) {
+			tex_->render(anidatedVines[j]);
+		}
 	}
-
-	for (int j = 0; j < i; ++j) {
-		tex_->render(anidatedVines[j]);
+	else {
+		for (int j = 1; j < i; ++j) {
+			aux.x += (destTexture.w * 2);
+			anidatedVines.push_back(aux);
+		}
+		for (int j = 0; j < i; ++j) {
+			tex_->renderFrame(anidatedVines[j],0,0,rotation);
+		}
 	}
 }
 

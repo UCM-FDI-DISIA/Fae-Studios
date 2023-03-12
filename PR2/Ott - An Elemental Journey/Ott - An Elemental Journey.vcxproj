@@ -203,6 +203,7 @@
     <ClInclude Include="utils\Singleton.h" />
     <ClInclude Include="ui\UIText.h" />
     <ClInclude Include="utils\Elements.h" />
+    <ClInclude Include="componentes\VineManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="componentes\ColliderVine.cpp" />
@@ -266,6 +267,7 @@
     <ClCompile Include="ui\Slider.cpp" />
     <ClCompile Include="ui\UIText.cpp" />
     <ClCompile Include="utils\Elements.cpp" />
+    <ClCompile Include="componentes\VineManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Ott - An Elemental Journey.rc" />
