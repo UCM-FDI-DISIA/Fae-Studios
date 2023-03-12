@@ -24,11 +24,11 @@ PlayState::PlayState() : GameState(ecs::_state_PLAY) {
 	Mix_PlayMusic(music, -1);*/
 
 	mngr_->setPlayer(constructors::player(mngr_, 500, 1000, 100, 120, this));
+	constructors::eSlime(mngr_, "fireSlime", 600, 900, 1.0f);
+	constructors::eMelee(mngr_, "waterBug", 2400, 900, 1.0f);
+	constructors::eRanged(mngr_, "earthMushroom", 1700, 900, 1.0f);
 	mngr_->setCamera(constructors::camera(mngr_, 700, 1000, sdlutils().width(), sdlutils().height()));
 	constructors::map(mngr_);
-	constructors::eSlime(mngr_, "fireSlime", 600, 950, 1);
-	constructors::eMelee(mngr_, "waterBug", 2400, 900, 1);
-	constructors::eRanged(mngr_, "earthMushroom", 1700, 900, 1);
 }
 
 

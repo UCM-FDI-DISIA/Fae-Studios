@@ -40,8 +40,8 @@ namespace constructors {
 
 		// Asi se a�ade enemigo rango
 		auto enemy2 = mngr_->addEntity(ecs::_grp_CHARACTERS);
-		enemy2->addComponent<Transform>(x, y, 110 * scale, 110 * scale); // 1700 1800 pos para pruebas
 		auto ph2 = enemy2->addComponent<PhysicsComponent>();
+		enemy2->addComponent<Transform>(x, y, 110 * scale, 110 * scale); // 1700 1800 pos para pruebas
 		enemy2->addComponent<FramedImage>(&sdlutils().images().at(imageKey), 2, 22);
 		enemy2->addComponent<Health>(5, ecs::Fire, false);
 		ph2->setVelocity({ 0,0 });
@@ -58,8 +58,8 @@ namespace constructors {
 		// Asi se a�ade enemigo melee
 
 		auto enemy3 = mngr_->addEntity(ecs::_grp_CHARACTERS);
-		enemy3->addComponent<Transform>(x, y, 230 * scale, 130 * scale);  // 2400 1800 pos para pruebas
 		auto ph3 = enemy3->addComponent<PhysicsComponent>();
+		enemy3->addComponent<Transform>(x, y, 230 * scale, 130 * scale);  // 2400 1800 pos para pruebas
 		enemy3->addComponent<FramedImage>(&sdlutils().images().at(imageKey), 2, 21);
 		enemy3->addComponent<Health>(5, ecs::Fire, false);
 		ph3->setVelocity({ 1,0 });
@@ -75,8 +75,8 @@ namespace constructors {
 		// Asi se a�ade enemigo slime
 
 		auto enemy = mngr_->addEntity(ecs::_grp_CHARACTERS);
-		enemy->addComponent<Transform>(x, y, 240 * scale, 140 * scale); // 600 950 pos para pruebas
 		auto ph = enemy->addComponent<PhysicsComponent>();
+		auto tr = enemy->addComponent<Transform>(Vector2D(x, y), 240 * scale, 140 * scale); // 600 950 pos para pruebas
 		enemy->addComponent<FramedImage>(&sdlutils().images().at(imageKey), 2, 21);
 		enemy->addComponent<Health>(5, ecs::Fire, false);
 		ph->setVelocity({ 1,0 });
@@ -88,6 +88,7 @@ namespace constructors {
 		enemy->addComponent<Generations>(Generations::getMaxGeneration());
 		enemy->addComponent<SlimeStates>();
 		eAttack_->SetRefs(eAnim_, nullptr, meleeAttack_);
+
 	}
 
 	static inline void button(Manager* mngr_, Vector2D& position, std::string text, Font& f, Callback* callback) {
