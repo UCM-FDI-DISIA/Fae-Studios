@@ -21,7 +21,7 @@ public:
     inline bool getLookDirection() { return lookingRight; }
     inline void setGrounded(bool value) { grounded = value; if (grounded) verticalSpeed = 0; }
     inline bool isGrounded() { return grounded; }
-    inline void setClimbing(bool value, int dir) { climbing = value; dirClimbing = dir; }
+    inline void setClimbing(bool value, int dir) { climbing = value; dirClimbing = dir; if(value) verticalSpeed = 0; }
     inline bool isClimbing() { return climbing; }
     inline void setVelocity(Vector2D value) { velocity_ = value; }
     inline void setGravity(bool g) { gravity = g; }

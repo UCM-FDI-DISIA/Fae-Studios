@@ -112,8 +112,8 @@ std::pair<bool, bool> PlayState::checkCollisionWithVine() {
 	bool interact = false;
 	bool canGoUp = false;
 	auto player = mngr_->getPlayer();
-	interactionIt = mngr_->getEntities(ecs::_grp_INTERACTION).begin();
-	while (!interact && interactionIt != mngr_->getEntities(ecs::_grp_INTERACTION).end()) {
+	interactionIt = mngr_->getEntities(ecs::_grp_VINE).begin();
+	while (!interact && interactionIt != mngr_->getEntities(ecs::_grp_VINE).end()) {
 		Entity* ents = *interactionIt;
 		if (ents->hasComponent<ColliderVine>()) {
 			SDL_Rect r1;

@@ -67,9 +67,10 @@ void PlayerAnimationComponent::endAnim()
 		health->setElement(elemToChange);
 		image->changeElement(elemToChange);
 		changingElem = true;
-		if (!tp) {
+		tp = true;
+		if (canTp) {
 			if (tpPos.getX() != 0) tr_->setPosition(tpPos);
-			tp = true;
+			canTp = false;
 		}
 	}
 	else {

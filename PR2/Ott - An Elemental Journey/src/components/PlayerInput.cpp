@@ -110,6 +110,7 @@ void PlayerInput::update()
 	auto vineCol = g->checkCollisionWithVine();
 	int speed = 1;
 	if (vineCol.first) {
+		std::cout << "tocando enredadera!" << std::endl;
 		if (input->isKeyDown(SDLK_UP) && vineCol.second) {
 			physics_->setClimbing(true, -speed);
 		}

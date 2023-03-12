@@ -32,11 +32,11 @@ public:
 	inline void isShielded(bool b) { shielded = b; }
 	inline bool getShielded() { return shielded; }
 	inline void changeElem(ecs::elements newElem) { elemToChange = newElem; }
-	inline void startTP(const Vector2D& newPos) { state_ = VANISH;  tpPos = newPos; timer_ = 0; }
+	inline void startTP(const Vector2D& newPos) { state_ = VANISH;  tpPos = newPos; timer_ = 0; canTp = true; }
 
 private:
 	ecs::elements elemToChange;
-	bool invincible = false, shielded = false, changingElem = false, tp = false;
+	bool invincible = false, shielded = false, changingElem = false, tp = false, canTp = false;
 	int damageTimer, invencibilityTime = 3;
 	int timer_ = 0;
 	const int FRAME_ANIMATION_TIME = 5;
