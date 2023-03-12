@@ -24,8 +24,8 @@ MapComponent::MapComponent() {
     //{
     //    //cout << "Failed loading map" << std::endl;
     //}
-    tilemap = &sdlutils().images().at(sdlutils().levels().at("level1").tileset);
-    loadMap(sdlutils().levels().at("level1").route);
+    tilemap = &sdlutils().images().at(sdlutils().levels().at("demo").tileset);
+    loadMap(sdlutils().levels().at("demo").route);
 
 }
 
@@ -75,7 +75,7 @@ void MapComponent::loadMap(std::string path) {
 
 void MapComponent::render() {
     SDL_Rect camPos = mngr_->getCamera()->getComponent<CameraComponent>()->camera;
-    int cols = sdlutils().levels().at("level1").cols;
+    int cols = sdlutils().levels().at("demo").cols;
     int offsetX = camPos.x;
     int offsetY = camPos.y;
     for (int i = 0; i < vectorTiles.size(); i++) {

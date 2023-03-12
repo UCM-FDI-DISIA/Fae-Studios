@@ -63,16 +63,16 @@ void FramedImageOtt::render()
 void FramedImageOtt::changeElement(ecs::elements newElem)
 {
 	if (newElem == ecs::Light) {
-		tex_ = &sdlutils().images().at("shield");
+		tex_ = &sdlutils().images().at("ott_luz");
 	}
 	else if (newElem == ecs::Earth) {
-		tex_ = &sdlutils().images().at("earthShield");
+		tex_ = &sdlutils().images().at("ott_tree");
 	}
 	else if (newElem == ecs::Water) {
-		tex_ = &sdlutils().images().at("waterShield");
+		tex_ = &sdlutils().images().at("ott_water");
 	}
 	else if (newElem == ecs::Fire) {
-		tex_ = &sdlutils().images().at("fireShield");
+		tex_ = &sdlutils().images().at("ott_fire");
 	}
 }
 

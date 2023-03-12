@@ -8,18 +8,18 @@ class Transform : public Component
 {
 private:
 	Vector2D position;
-	float rotation;
+	float rotation = 0.0f;
 	float width;
 	float height;
 	PhysicsComponent* physics_;
 
 public:
 	constexpr static ecs::cmpId_type id = ecs::_TRANSFORM;
-	Transform(Vector2D p, float w, float h, float r = 0.0f) : Component() {
+	Transform(Vector2D p, float w, float h) : Component() {
 		mngr_ = nullptr;
 		ent_ = nullptr;
 		position = p;
-		rotation = r;
+		rotation = 0.0f;
 		width = w;
 		height = h;
 	};
@@ -43,7 +43,11 @@ public:
 	inline float getWidth() const { return width; };
 	inline float getHeight() const { return height; };
 	inline SDL_Rect& getRect() {
-		SDL_Rect result; result.x = position.getX(); result.y = position.getY(); result.w = width; result.h = height;
+		SDL_Rect result; 
+		result.x = position.getX(); 
+		result.y = position.getY(); 
+		result.w = width; 
+		result.h = height;
 		return result;
 	}
 	virtual void initComponent() {

@@ -14,12 +14,13 @@
 PlayState::PlayState() : GameState(ecs::_state_PLAY) {
 	/*Mix_Init(MIX_INIT_FLAC | MIX_INIT_MOD | MIX_INIT_MP3 | MIX_INIT_OGG | MIX_INIT_MID);
 	Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 2048);
-	//music = Mix_LoadMUS("../../sounds/musics/Ambient 4.wav"); la música va a ser cambiada a un json
+	//music = Mix_LoadMUS("../../sounds/musics/Ambient 4.	wav"); la música va a ser cambiada a un json
 	Mix_PlayMusic(music, -1);*/
 
-	mngr_->setPlayer(constructors::player(mngr_, 500, 2000, 100, 120));
-	mngr_->setCamera(constructors::camera(mngr_, 700, 2500, sdlutils().width(), sdlutils().height()));
+	mngr_->setPlayer(constructors::player(mngr_, 500, 1000, 100, 120));
+	mngr_->setCamera(constructors::camera(mngr_, 700, 1000, sdlutils().width(), sdlutils().height()));
 	constructors::map(mngr_);
+	auto tr_ = mngr_->getPlayer()->getComponent<Transform>()->getPosition();
 }
 
 

@@ -20,7 +20,7 @@ private:
     std::vector<Entity*>::iterator interactionIt;
     bool deleted;
     Entity* player;
-    Entity* camera;
+    Entity* camera = nullptr;
     float gravityValue = 0.2;
 
     void createLamp(int x1, int y1, int x2, int y2);

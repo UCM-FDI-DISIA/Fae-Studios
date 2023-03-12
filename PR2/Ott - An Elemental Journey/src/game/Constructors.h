@@ -141,8 +141,13 @@ namespace constructors {
 		auto lamp = mngr_->addEntity(ecs::_grp_INTERACTION);
 		auto lamp2 = mngr_->addEntity(ecs::_grp_INTERACTION);
 
-		lamp->addComponent<Transform>(x1, y1, 50, 130);
-		lamp2->addComponent<Transform>(x2, y2, 50, 130);
+		std::cout << " CREATING LAMP " << y1 << " " << y2 << std::endl;
+
+		lamp->addComponent<Transform>(Vector2D(x1, y1), 50, 130);
+		lamp->addComponent<Image>(&sdlutils().images().at("lamp"));
+		lamp->addComponent<LampComponent>(lamp2);
+		lamp->addComponent<InteractionComponent>(mngr_->Teleport);
+		lamp2->addComponent<Transform>(Vector2D(x2, y2), 50, 130);
 		lamp2->addComponent<Image>(&sdlutils().images().at("lamp"));
 		lamp2->addComponent<LampComponent>(lamp);
 		lamp2->addComponent<InteractionComponent>(mngr_->Teleport);
@@ -150,7 +155,7 @@ namespace constructors {
 
 	static inline void sanctuary(Manager* mngr_, Vector2D position, int width = 100, int height = 130) {
 		auto sanc = mngr_->addEntity(ecs::_grp_INTERACTION);
-		sanc->addComponent<Transform>(position.getX(), position.getY(), width, height);
+		sanc->addComponent<Transform>(position, width, height);
 		sanc->addComponent<Image>(&sdlutils().images().at("sanctuary"));
 		sanc->addComponent<InteractionComponent>(mngr_->Save);
 	}
@@ -176,9 +181,9 @@ namespace constructors {
 				elementsInfo::elements elem;
 				std::string path = "";
 				if (ot.getName() == "1") { elem = elementsInfo::Earth; path = "earth"; }
-				if (ot.getName() == "2") { elem = elementsInfo::Water; path = "water"; }
-				if (ot.getName() == "3") { elem = elementsInfo::Fire; path = "fire"; }
-				if (ot.getName() == "4") { elem = elementsInfo::Dark; path = "dark"; }
+				else if (ot.getName() == "2") { elem = elementsInfo::Water; path = "water"; }
+				else if (ot.getName() == "3") { elem = elementsInfo::Fire; path = "fire"; }
+				else if (ot.getName() == "4") { elem = elementsInfo::Dark; path = "dark"; }
 				if (ot.getClass() == "Ground") {
 					//Ground* grT = new Ground(Vector2D(x_ * scale, y_ * scale), app->getTexture("pixel", PLAY_STATE), Scale(w_ * scale, h_ * scale));
 					//gameObjects.push_back(grT);

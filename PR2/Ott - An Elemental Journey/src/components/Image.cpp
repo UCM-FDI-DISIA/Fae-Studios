@@ -1,18 +1,21 @@
 #include "Image.h"
 #include "../ecs/Entity.h"
 void Image::render() {
-	texture->render(getRect(), transform->getRotation());
-}
+	auto uwu = transform->getRect();
+	if (cam != nullptr) {
+		auto camera = cam->camera;
+		uwu.x -= camera.x;
+		uwu.y -= camera.y;
+	}
 
-SDL_Rect Image::getRect() const{
-	SDL_Rect destRect;
-
-	destRect.x = transform->getPosition().getX(); destRect.y = transform->getPosition().getY();
-	destRect.w = transform->getWidth(); destRect.h = transform->getHeight();
-	
-	return destRect;
+	texture->render(uwu);
 }
 
 void Image::initComponent() {
 	transform = ent_->getComponent<Transform>();
+	auto camera = mngr_->getCamera();
+	if (camera != nullptr) {
+		cam = mngr_->getCamera()->getComponent<CameraComponent>();
+	}
+	else cam = nullptr;
 }
