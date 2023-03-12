@@ -27,37 +27,29 @@ void FramedImage::initComponent() {
 
 void FramedImageOtt::initComponent()
 {
-	// está muy feo coger las texturas así, hay que cambiar esto de alguna forma
-	tex_ = &sdlutils().images().at("ott_luz");
 	tr_ = ent_->getComponent<Transform>();
 	shieldTex_ = &sdlutils().images().at("shield");
 }
 
 void FramedImageOtt::render()
 {
-	SDL_Rect dest = tr_->getRect();
+	SDL_Rect dest; dest.x = tr_->getPosition().getX(); dest.y = tr_->getPosition().getY();
+	dest.w = tr_->getWidth(); dest.h = tr_->getHeight();
 	dest.x -= mngr_->getCamera()->getComponent<CameraComponent>()->camera.x;
 	dest.y -= mngr_->getCamera()->getComponent<CameraComponent>()->camera.y;
+	//if (pAnim_->isInvincible() && SDL_GetTicks() % 2 == 0) return;
+
 	SDL_RendererFlip flip = SDL_FLIP_NONE;
 	bool lookRight = ent_->getComponent<PhysicsComponent>()->getLookDirection();
 	if (!lookRight) flip = SDL_FLIP_HORIZONTAL;
+
+	//int state = pAnim_->getState();
 
 	tex_->renderFrame(dest, row, col, 0, flip);
 
 	if (isShielded) { // esto habría que cambiarlo de alguna forma, me parece feo que se ponga aquí
 		int elemNum = ent_->getComponent<Health>()->getElement();
-		if (elemNum == ecs::Light) {
-			shieldTex_ = &sdlutils().images().at("shield");
-		}
-		else if (elemNum == ecs::Earth) {
-			shieldTex_ = &sdlutils().images().at("earthShield");
-		}
-		else if (elemNum == ecs::Water) {
-			shieldTex_ = &sdlutils().images().at("waterShield");
-		}
-		else if (elemNum == ecs::Fire) {
-			shieldTex_ = &sdlutils().images().at("fireShield");
-		}
+		// shieldTex_ = mngr_->getTexture(elemNum + 4);
 		SDL_Rect shieldRect;
 		shieldRect.x = tr_->getPosition().getX() - mngr_->getCamera()->getComponent<CameraComponent>()->camera.x;
 		shieldRect.y = tr_->getPosition().getY() - mngr_->getCamera()->getComponent<CameraComponent>()->camera.y + 40;
@@ -66,6 +58,7 @@ void FramedImageOtt::render()
 		shieldTex_->render(shieldRect);
 	}
 }
+
 
 void FramedImageOtt::changeElement(ecs::elements newElem)
 {
