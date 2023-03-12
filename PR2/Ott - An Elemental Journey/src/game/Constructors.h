@@ -91,6 +91,26 @@ namespace constructors {
 
 	}
 
+	static inline void eSlime(Manager* mngr_, Texture* tex, int x, int y, float scale, int gens, int lives) {
+		// Asi se a�ade enemigo slime
+
+		auto enemy = mngr_->addEntity(ecs::_grp_CHARACTERS);
+		auto ph = enemy->addComponent<PhysicsComponent>();
+		auto tr = enemy->addComponent<Transform>(Vector2D(x, y), 240 * scale, 140 * scale); // 600 950 pos para pruebas
+		enemy->addComponent<FramedImage>(tex, 2, 21);
+		enemy->addComponent<Health>(lives, ecs::Fire, false);
+		ph->setVelocity({ 1,0 });
+		ph->lookDirection(true);
+		auto eAttack_ = enemy->addComponent<EnemyAttack>(1200, 8, 100);
+		enemy->addComponent<EnemyMovement>();
+		auto eAnim_ = enemy->addComponent<EnemyAnimationComponent>(anims::SLIME_ANIM);
+		auto meleeAttack_ = enemy->addComponent<EnemyMeleeAttack>();
+		enemy->addComponent<Generations>(gens);
+		enemy->addComponent<SlimeStates>();
+		eAttack_->SetRefs(eAnim_, nullptr, meleeAttack_);
+
+	}
+
 	static inline void button(Manager* mngr_, Vector2D& position, std::string text, Font& f, Callback* callback) {
 		auto b = mngr_->addEntity(ecs::_grp_UI);
 		b->addComponent<Transform>(position, 50, 50);

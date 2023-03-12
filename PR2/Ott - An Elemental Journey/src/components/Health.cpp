@@ -41,7 +41,7 @@ bool Health::recieveDamage(ecs::elements el)
 		if (pAnim_->isInvincible()) return false;
 		pAnim_->playerDamaged();
 		//if() Añadir daño dependiendo de la entidad
-		int damage = elementsInfo::ottMatrix[elem][elem];
+		int damage = elementsInfo::ottMatrix[el][elem];
 		actualLife -= damage;
 		if (damage == 0) {
 			if (image->setWeak()) damage = 1;
@@ -50,7 +50,7 @@ bool Health::recieveDamage(ecs::elements el)
 	}
 	else {
 		if (!dead) {
-			actualLife -= ecs::matrix[elem][this->elem];
+			actualLife -= ecs::matrix[el][elem];
 			ent_->getComponent<EnemyAnimationComponent>()->damage();
 		}
 	}

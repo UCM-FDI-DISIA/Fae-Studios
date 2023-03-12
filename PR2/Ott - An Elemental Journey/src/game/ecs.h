@@ -20,6 +20,7 @@ namespace ecs {
         _VINE,
         _CAMERA,
         _ANIM,
+        _ENEMYANIM,
         _TRIGGER,
         _ATTACK,
         _ENEMYMOV,

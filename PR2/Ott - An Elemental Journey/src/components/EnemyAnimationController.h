@@ -14,7 +14,7 @@ class FramedImage;
 
 class EnemyAnimationComponent : public Component {
 public:
-	constexpr static ecs::cmpId_type id = ecs::_ANIM;
+	constexpr static ecs::cmpId_type id = ecs::_ENEMYANIM;
 
 	EnemyAnimationComponent(anims::Entities e) : eAnims(e) {};
 	virtual ~EnemyAnimationComponent() {};

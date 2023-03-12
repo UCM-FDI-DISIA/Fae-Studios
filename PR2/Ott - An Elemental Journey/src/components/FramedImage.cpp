@@ -25,7 +25,11 @@ void FramedImage::render() {
 		rect.y -= camera.y;
 	}
 
-	texture->renderFrame(rect, currentRow, currentCol);
+	SDL_RendererFlip flip = SDL_FLIP_NONE;
+	auto physics = ent_->getComponent<PhysicsComponent>();
+	if (physics != nullptr) if(!physics->getLookDirection()) flip = SDL_FLIP_HORIZONTAL;
+
+	texture->renderFrame(rect, currentRow, currentCol, transform->getRotation(), flip);
 }
 
 void FramedImage::initComponent() {
