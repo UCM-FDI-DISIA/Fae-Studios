@@ -19,7 +19,7 @@ public:
 	inline void slowed() { velocity_ = Vector2D(velocity_.getX()/2, velocity_.getY()); }
 	inline void lookDirection(bool b) { lookingRight = b; }
 	inline bool getLookDirection() { return lookingRight; }
-	inline void setGrounded(bool value) { grounded = value; if (grounded) verticalSpeed = 0; }
+	inline void setGrounded(bool value) { grounded = value; if (grounded&&!inWater) verticalSpeed = 0; }
 	inline bool isGrounded() { return grounded; }
 	inline void setClimbing(bool value, int dir) { climbing = value; dirClimbing = dir; }
 	inline bool isClimbing() { return climbing; }
@@ -27,6 +27,10 @@ public:
 	inline void setGravity(bool g) { gravity = g; }
 	inline void setVerticalSpeed(float value) { verticalSpeed = value; }
 	inline float getHorizontalSpeed() { return horizontalSpeed; };
+	inline void setWater(bool value) { inWater = value; }
+	inline bool getWater() { return inWater; }
+	inline void setFloating(bool value) { floating = value; }
+	inline bool getFloating() { return floating; }
 	void jump();
 private:
 	SDL_Rect collider;
@@ -41,6 +45,13 @@ private:
 	Vector2D velocity_;
 	float dirClimbing = 0;
 
-	const int jumpForce = -10;
+	//jumpforces
+	int jumpForce;
+	const int earthJumpForce = -10;
+	const int waterJumpForce = -5;
+
+	//booleanos de agua
+	bool inWater = false, floating = false;
+
 };
 

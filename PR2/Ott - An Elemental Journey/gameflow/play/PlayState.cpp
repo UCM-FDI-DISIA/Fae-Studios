@@ -22,7 +22,11 @@ PlayState::PlayState(SDLApplication* app) : GameState(PLAY_STATE, app) {
 	manager_->createPlayer();
 	auto player = manager_->getPlayer()->getComponent<Transform>()->getPos();
 	
-
+	//prueba para movimiento de agua
+	auto waterM = manager_->addEntity(ecs::_grp_WATER);
+	//500, 2000, 100, 120
+	waterM->addComponent<Transform>(3500, 1500, 300, 420);
+	waterM->addComponent<Image>(app->getTexture("pixelWhite", PLAY_STATE));
 	// Asi se añade enemigo slime
 
 	auto enemy = manager_->addEntity(ecs::_grp_CHARACTERS);
@@ -84,11 +88,13 @@ void PlayState::checkCollisions()
 	vector<Entity*> characters = manager_->getEntitiesByGroup(ecs::_grp_CHARACTERS);
 	vector<Entity*> ground = manager_->getEntitiesByGroup(ecs::_grp_GROUND);
 	vector<Entity*> bullets = manager_->getEntitiesByGroup(ecs::_grp_PROYECTILES);
+
 	for (Entity* e : characters) {
 		auto eTr = e->getComponent<Transform>();
 		SDL_Rect r1 = eTr->getRect();
 		auto physics = e->getComponent<PhysicsComponent>();
 		Vector2D& colVector = physics->getVelocity();
+		auto health = e->getComponent<Health>();
 
 		auto mov = e->getComponent<EnemyMovement>();
 		for (Entity* g : ground) { // WALL COLLISION
@@ -115,12 +121,18 @@ void PlayState::checkCollisions()
 				if (areaColision.w >= areaColision.h) {
 					
 					if (!physics->isGrounded() && areaColision.y > r1.y + r1.w / 2) {
-						colVector = Vector2D(colVector.getX(), 0);
+						if (!(physics->getWater()) || (physics->getWater() && health->getElement() == ecs::Water))
+						{
+							colVector = Vector2D(colVector.getX(), 0);
+						}
 						physics->setGrounded(true);
 					}
 					else if (!physics->isGrounded()) {
-						colVector = Vector2D(colVector.getX(), 1);
-						physics->setVerticalSpeed(1);
+						if (!(physics->getWater()) || (physics->getWater() && health->getElement() == ecs::Water))
+						{
+							colVector = Vector2D(colVector.getX(), 1);
+							physics->setVerticalSpeed(1);
+						}
 					}
 					if (mov != nullptr) mov->ChangeDirection(true, areaColision);
 
@@ -130,6 +142,28 @@ void PlayState::checkCollisions()
 			else if (i == ground.size() - 1) physics->setGrounded(false);
 			++i;
 		}
+		//colisiones con el material de agua 
+		int j = 0;
+		vector <Entity*> water = manager_->getEntitiesByGroup(ecs::_grp_WATER);
+		for (Entity* w : water) {
+			SDL_Rect r3 = w->getComponent<Transform>()->getRect();
+			SDL_Rect areaColision; // area de colision 	
+			bool interseccion = SDL_IntersectRect(&r1, &r3, &areaColision);
+			if (interseccion)
+			{
+				physics->setWater(true); ++j;
+				if (health->getElement() != ecs::Water) { physics->setGrounded(false); }
+					//comprobación de si esta en la zona de flote, de momento sin variable de ancho de zona de flote 
+					if (areaColision.y <= r3.y +5) {
+						physics->setFloating(true);
+					}
+				else {
+					physics->setFloating(false);
+				}
+			}
+
+		} 
+		if (j == 0) { physics->setWater(false); physics->setFloating(false); }
 	}
 
 	/*for (Entity* b : bullets) {

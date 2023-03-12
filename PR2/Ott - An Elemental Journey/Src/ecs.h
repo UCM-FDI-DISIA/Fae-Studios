@@ -44,6 +44,7 @@ namespace ecs
 		_grp_MAP,
 		_grp_INTERACTION,
 		_grp_GROUND,
+		_grp_WATER,
 		_grp_CHARACTERS,
 		_grp_PROYECTILES,
 		_LAST_GRP_ID
