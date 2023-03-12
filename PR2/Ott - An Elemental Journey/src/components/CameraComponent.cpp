@@ -16,7 +16,7 @@ void CameraComponent::update() {
 	// Comprobamos si la c�mara est� suficientemente cerca del jugador. En caso de que lo est�, la posici�n se settea a la 
 	// posici�n del jugador. En caso contrario, se hace una interpolaci�n lineal para acercarse "lentalmente". Esto solo se aprecia cuando
 	// la c�mara viaja grandes distancias (entre l�mparas, por ejemplo). 
-	camera.x = lerp(camera.x, ((ottRect.x + ottRect.w / 2) - sdlutils().width() / 2), 0.06);
+	camera.x = lerp(camera.x, ((ottRect.x + ottRect.w / 2) - sdlutils().width() / 2), 0.03);
 
 	// mover camera.y
 	// Setteamos un deadzone donde la c�mara no tiene porqu� moverse (CAM_DEAD_ZONE). En caso de que el personaje salga de esta
@@ -25,7 +25,7 @@ void CameraComponent::update() {
 
 	// RETOCAR ESTAS COSAS
 	if (ottRect.y > camera.y + camera.h - CAM_DEAD_ZONE || ottRect.y < camera.y + CAM_DEAD_ZONE) {
-		camera.y = lerp(camera.y, (ottRect.y + ottRect.h / 2) - CAM_OFFSET_HEIGHT * sdlutils().height(), 0.02);
+		camera.y = lerp(camera.y, (ottRect.y + ottRect.h / 2) - CAM_OFFSET_HEIGHT * sdlutils().height(), 0.01);
 	}
 
 	// Limites de la camara dependiendo del tama�o de la sala (mapa)

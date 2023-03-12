@@ -10,7 +10,28 @@
 
 #include "Font.h"
 
+using uint = unsigned int;
+
 class Texture {
+
+private:
+
+	// Construct from text
+	void constructFromText(SDL_Renderer* renderer, const std::string& text,
+		const Font& font, const SDL_Color* fgColor,
+		const SDL_Color* bgColor = nullptr);
+
+	void load(std::string filename, uint32_t numRows = 1, uint32_t numCols = 1);
+
+	SDL_Texture* texture_;
+	SDL_Renderer* renderer_;
+	uint width_;
+	uint height_;
+	uint fw = 32; ///< Anchura del frame de la textura
+	uint fh = 32; ///< Altura del frame de la textura
+	uint numCols = 1; ///< Número de columnas de la textura
+	uint numRows = 1; ///< Número de filas de la textura
+
 public:
 
 	// cannot copy textures
@@ -108,21 +129,5 @@ public:
 
 	inline int getFrameWidth() const { return fw; };
 	inline int getFrameHeight() const { return fh; };
-private:
 
-	// Construct from text
-	void constructFromText(SDL_Renderer *renderer, const std::string &text,
-			const Font &font, const SDL_Color *fgColor,
-			const SDL_Color *bgColor = nullptr);
-
-	void load(std::string filename, uint32_t numRows = 1, uint32_t numCols = 1);
-
-	SDL_Texture *texture_;
-	SDL_Renderer *renderer_;
-	int width_;
-	int height_;
-	int fw = 32; ///< Anchura del frame de la textura
-	int fh = 32; ///< Altura del frame de la textura
-	int numCols = 1; ///< Número de columnas de la textura
-	int numRows = 1; ///< Número de filas de la textura
 };
