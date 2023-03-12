@@ -18,11 +18,23 @@ SDL_Rect FramedImage::getRect() const
 }
 
 void FramedImage::render() {
-    texture->render({ currentCol * getFrameWidth(), currentRow * getFrameHeight(), getFrameWidth(), getFrameHeight() }, getRect());
+	auto rect = getRect();
+	if (cam != nullptr) {
+		auto camera = cam->camera;
+		rect.x -= camera.x;
+		rect.y -= camera.y;
+	}
+
+	texture->renderFrame(rect, 0, 0);
 }
 
 void FramedImage::initComponent() {
     transform = ent_->getComponent<Transform>();
+	auto camera = mngr_->getCamera();
+	if (camera != nullptr) {
+		cam = mngr_->getCamera()->getComponent<CameraComponent>();
+	}
+	else cam = nullptr;
 }
 
 void FramedImageOtt::initComponent()

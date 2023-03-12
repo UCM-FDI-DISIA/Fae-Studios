@@ -1,14 +1,14 @@
 #include "Image.h"
 #include "../ecs/Entity.h"
 void Image::render() {
-	auto uwu = transform->getRect();
+	auto rect = transform->getRect();
 	if (cam != nullptr) {
 		auto camera = cam->camera;
-		uwu.x -= camera.x;
-		uwu.y -= camera.y;
+		rect.x -= camera.x;
+		rect.y -= camera.y;
 	}
 
-	texture->render(uwu);
+	texture->render(rect);
 }
 
 void Image::initComponent() {
