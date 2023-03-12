@@ -24,6 +24,7 @@ public:
 	inline bool isDead() { return dead; }
 	bool recieveDamage(ecs::elements el);
 	inline int getHealth() { return actualLife; }
+	inline int getMaxHealth() { return maxLife; }
 	inline ecs::elements getElement() { return elem; }
 	inline void setElement(int newElem) {
 		switch (newElem)

@@ -35,6 +35,7 @@ namespace ecs {
         _COLLIDERVINE,
         _GROWVINE,
         _PLAYERATTACK,
+        _ENEMYSTATES,
 
         _LAST_CMP_ID
     };

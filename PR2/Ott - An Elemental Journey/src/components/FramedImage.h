@@ -32,6 +32,7 @@ public:
     int getFullHeight() const {return texture->height();}
     int getFrameWidth() const {return texture->width() / totalCols;}
     int getFrameHeight() const {return texture->height() / totalRows;}
+    inline Texture* getTexture() { return texture; }
 };
 
 class FramedImageOtt : public Component

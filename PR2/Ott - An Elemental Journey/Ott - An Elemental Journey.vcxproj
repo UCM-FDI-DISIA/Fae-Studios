@@ -27,6 +27,7 @@
     <ClCompile Include="src\components\EnemyMovement.cpp" />
     <ClCompile Include="src\components\EnemyShootingAttack.cpp" />
     <ClCompile Include="src\components\FramedImage.cpp" />
+    <ClCompile Include="src\components\Generations.cpp" />
     <ClCompile Include="src\components\GrowVine.cpp" />
     <ClCompile Include="src\components\Health.cpp" />
     <ClCompile Include="src\components\ImageVine.cpp" />
@@ -39,6 +40,7 @@
     <ClCompile Include="src\components\Slider.cpp" />
     <ClCompile Include="src\components\Button.cpp" />
     <ClCompile Include="src\components\SlimeAttack.cpp" />
+    <ClCompile Include="src\components\SlimeStates.cpp" />
     <ClCompile Include="src\components\TestEnemyInput.cpp" />
     <ClCompile Include="src\ecs\anims.cpp" />
     <ClCompile Include="src\states\menus\MainMenuState.cpp" />
@@ -85,6 +87,7 @@
     <ClInclude Include="src\components\PlayerAttack.h" />
     <ClInclude Include="src\components\PlayerInput.h" />
     <ClInclude Include="src\components\SlimeAttack.h" />
+    <ClInclude Include="src\components\SlimeStates.h" />
     <ClInclude Include="src\components\TestEnemyInput.h" />
     <ClInclude Include="src\ecs\anims.h" />
     <ClInclude Include="src\game\Constructors.h" />

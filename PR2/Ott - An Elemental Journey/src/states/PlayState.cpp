@@ -10,6 +10,9 @@
 #include "../components/PhysicsComponent.h"
 #include "../components/EnemyMovement.h"
 #include "../game/Constructors.h"
+#include "../components/FramedImage.h"
+#include "../components/Generations.h"
+#include "../components/SlimeStates.h"
 
 PlayState::PlayState() : GameState(ecs::_state_PLAY) {
 	/*Mix_Init(MIX_INIT_FLAC | MIX_INIT_MOD | MIX_INIT_MP3 | MIX_INIT_OGG | MIX_INIT_MID);
@@ -20,7 +23,6 @@ PlayState::PlayState() : GameState(ecs::_state_PLAY) {
 	mngr_->setPlayer(constructors::player(mngr_, 500, 1000, 100, 120));
 	mngr_->setCamera(constructors::camera(mngr_, 700, 1000, sdlutils().width(), sdlutils().height()));
 	constructors::map(mngr_);
-	auto tr_ = mngr_->getPlayer()->getComponent<Transform>()->getPosition();
 }
 
 
