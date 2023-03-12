@@ -1,7 +1,9 @@
 #include "PlayerInput.h"
+#include "../states/PlayState.h"
 
-PlayerInput::PlayerInput()
+PlayerInput::PlayerInput(PlayState* g) : g(g)
 {
+
 }
 
 void PlayerInput::initComponent()
@@ -102,11 +104,10 @@ void PlayerInput::update()
 			//defend = false;
 			image_->shielded(false);
 		}
-
 	}
 
 	//Interacción con una enredadera
-	/*auto vineCol = mngr_->checkCollisionWithVine();
+	auto vineCol = g->checkCollisionWithVine();
 	int speed = 1;
 	if (vineCol.first) {
 		if (input->isKeyDown(SDLK_UP) && vineCol.second) {
@@ -118,7 +119,6 @@ void PlayerInput::update()
 		else physics_->setClimbing(true, 0);
 	}
 	else physics_->setClimbing(false, 0);
-	*/
 }
 
 PlayerInput::~PlayerInput()

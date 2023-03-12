@@ -6,6 +6,8 @@
 #include "../components/InteractionComponent.h"
 #include "../components/LampComponent.h"
 #include "../components/PlayerAnimationComponent.h"
+#include "../components/ImageVine.h"
+#include "../components/GrowVine.h"
 
 Manager::Manager() : entsByGroup_() {
     deleted = false;
@@ -82,7 +84,7 @@ void Manager::handleInput() {
 }
 
 void Manager::createPlayer() {
-    player = constructors::player(this, 200, 1300, 100, 120);
+    // player = constructors::player(this, 200, 1300, 100, 120);
     camera = constructors::camera(this, 200, 700, 100, 120);
 }
 
@@ -103,13 +105,19 @@ void Manager::createVine(Vector2D position, int width, int height) {
 }
 
 void Manager::AddEnredadera(Manager* m) {
+
     Entity* aux = (*m->interactionIt);
     if (!(aux->getComponent<AddVine>()->doesntHaveVine())) {
         aux->getComponent<AddVine>()->setVine();
-        Vector2D pos = Vector2D(aux->getComponent<Transform>()->getPosition().getX() + 5, aux->getComponent<Transform>()->getPosition().getY() - (&sdlutils().images().at("enredadera"))->height() * 1.25);
-        m->createVine(pos);
+        aux->getComponent<AddVine>()->getVine()->addComponent<ImageVine>(&sdlutils().images().at("enredadera"));
+        SDL_Rect dest;
+        dest = aux->getComponent<AddVine>()->getVine()->getComponent<Transform>()->getRect();
+        dest.h -= m->player->getComponent<Transform>()->getRect().h / 2.5;
+        aux->getComponent<AddVine>()->getVine()->addComponent<ColliderVine>(dest);
+        aux->getComponent<AddVine>()->getVine()->addComponent<GrowVine>(aux->getComponent<AddVine>()->getPosFin(),
+            Vector2D(aux->getComponent<AddVine>()->getPosFin().getX(), aux->getComponent<AddVine>()->getPosFin().getY() + m->player->getComponent<Transform>()->getRect().h / 2));
     }
-};
+}
 
 void Manager::checkInteraction() {
     bool interact = false;

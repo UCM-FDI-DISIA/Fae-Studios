@@ -49,10 +49,10 @@ namespace ecs {
         _grp_GENERAL, ///< General
         _grp_UI, ///< Elementos de la interfaz gráfica
         _grp_GROUND,
+        _grp_VINE,
         _grp_MAP,
         _grp_INTERACTION,
         _grp_CHARACTERS,
-        _grp_VINE,
         _grp_PROYECTILES,
 
         _LAST_GRP_ID

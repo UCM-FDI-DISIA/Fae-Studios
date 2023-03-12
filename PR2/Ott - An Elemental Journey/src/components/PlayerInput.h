@@ -9,10 +9,13 @@
 #include "Health.h"
 #include "FramedImage.h"
 #include "PlayerAttack.h"
+
+class PlayState;
+
 class PlayerInput : public Component
 {
 public:
-	PlayerInput();
+	PlayerInput(PlayState* g);
 	virtual ~PlayerInput();
 	virtual void initComponent();
 	virtual void update();
@@ -25,6 +28,7 @@ private:
 	FramedImageOtt* image_;
 	Health* health_;
 	float horizontalSpeed = 0;
+	PlayState* g;
 };
 
 

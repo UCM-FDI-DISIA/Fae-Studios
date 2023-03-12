@@ -19,6 +19,7 @@
 #include "../components/InteractionComponent.h"
 #include "../components/AddVine.h"
 #include "../components/PlayerAttack.h"
+#include "../states/PlayState.h"
 #include <string>
 #include <iostream>
 
@@ -99,19 +100,18 @@ namespace constructors {
 		normalText(mngr_, text, position, f, textColor, transparente);
 	}
 
-	static inline Entity* player(Manager* mngr_, int x, int y, int w, int h) {
+	static inline Entity* player(Manager* mngr_, int x, int y, int w, int h, PlayState* g) {
 		auto player = mngr_->addEntity(ecs::_grp_CHARACTERS);
 		player->addComponent<PhysicsComponent>();
 		player->addComponent<Transform>(Vector2D(x, y), w, h);
 		SDL_Rect rect = { 20,20,50,50 };
 		player->addComponent<HealthImage>(&sdlutils().images().at("hearts"), 5, rect);
 		player->addComponent<Health>(5, ecs::Light);
-		player->addComponent<PlayerInput>();
 		player->addComponent<FramedImageOtt>(&sdlutils().images().at("ott_luz"));
 		auto pAnim = player->addComponent<PlayerAnimationComponent>(anims::OTT_ANIM);
 		auto health = player->addComponent<Health>(5, ecs::Light);
 		player->addComponent<PlayerAttack>();
-		player->addComponent<PlayerInput>();
+		player->addComponent<PlayerInput>(g);
 		pAnim->initComponent();
 		health->initComponent();
 		return player;
@@ -195,10 +195,7 @@ namespace constructors {
 					e->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
 				}
 				else if (ot.getClass() == "Grass") {
-
-					//Grass* g1 = new Grass(Vector2D(x_ * scale, y_ * scale - app->getTexture("grass", PLAY_STATE)->getH()), app->getTexture("grass", PLAY_STATE), this);
-					//gameObjects.push_back(g1);
-					//grass(mngr_, Vector2D(x_ * scale, y_ * scale - (&sdlutils().images().at("grass"))->height()));
+					grass(mngr_, Vector2D(x_ * scale, (y_ * scale - sdlutils().images().at("grass").height()) + h_ * scale), w_ * scale, h_ * scale, Vector2D(x_ * scale, (y_ * scale - sdlutils().images().at("grass").height()) + h_ * scale + 100), Vector2D(x_ * scale, (y_ * scale - sdlutils().images().at("grass").height())));
 				}
 				else if (ot.getClass() == "Lamp") {
 					//createLamp(Vector2D(x_ * scale, y_ * scale - game->getTexture("lamp", PLAY_STATE)->getH() * 2));

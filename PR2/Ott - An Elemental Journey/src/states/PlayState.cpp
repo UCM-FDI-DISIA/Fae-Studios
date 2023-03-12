@@ -13,6 +13,9 @@
 #include "../components/FramedImage.h"
 #include "../components/Generations.h"
 #include "../components/SlimeStates.h"
+#include "../components/ColliderVine.h"
+#include "../components/ImageVine.h"
+#include "../components/GrowVine.h"
 
 PlayState::PlayState() : GameState(ecs::_state_PLAY) {
 	/*Mix_Init(MIX_INIT_FLAC | MIX_INIT_MOD | MIX_INIT_MP3 | MIX_INIT_OGG | MIX_INIT_MID);
@@ -20,7 +23,7 @@ PlayState::PlayState() : GameState(ecs::_state_PLAY) {
 	//music = Mix_LoadMUS("../../sounds/musics/Ambient 4.	wav"); la música va a ser cambiada a un json
 	Mix_PlayMusic(music, -1);*/
 
-	mngr_->setPlayer(constructors::player(mngr_, 500, 1000, 100, 120));
+	mngr_->setPlayer(constructors::player(mngr_, 500, 1000, 100, 120, this));
 	mngr_->setCamera(constructors::camera(mngr_, 700, 1000, sdlutils().width(), sdlutils().height()));
 	constructors::map(mngr_);
 }
@@ -102,8 +105,39 @@ void PlayState::checkCollisions() {
 	}
 }
 
+std::pair<bool, bool> PlayState::checkCollisionWithVine() {
+	bool interact = false;
+	bool canGoUp = false;
+	auto player = mngr_->getPlayer();
+	interactionIt = mngr_->getEntities(ecs::_grp_INTERACTION).begin();
+	while (!interact && interactionIt != mngr_->getEntities(ecs::_grp_INTERACTION).end()) {
+		Entity* ents = *interactionIt;
+		if (ents->hasComponent<ColliderVine>()) {
+			SDL_Rect r1;
+			SDL_Rect tr_ = player->getComponent<Transform>()->getRect();
+			r1.x = tr_.x + tr_.w / 3;
+			r1.y = tr_.y + tr_.h - 30;
+			r1.w = tr_.w / 3;
+			r1.h = 1;
+			SDL_Rect r2 = ents->getComponent<ColliderVine>()->getRect();
+
+			if (SDL_HasIntersection(&r1, &r2)) {
+				if (tr_.y + tr_.h * 0.6 <= r2.y) {
+					canGoUp = false;
+					// no dejar que se mueva hacia arriba
+				}
+				else canGoUp = true;
+				interact = true;
+			}
+		}
+		interactionIt++;
+	}
+	return std::make_pair(interact, canGoUp);
+}
+
 
 void PlayState::update() {
 	checkCollisions();
+	checkCollisionWithVine();
 	GameState::update();
 }

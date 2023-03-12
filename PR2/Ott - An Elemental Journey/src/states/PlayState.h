@@ -8,6 +8,7 @@ private:
     Mix_Music* music;
     
     void checkCollisions();
+    std::vector<Entity*>::const_iterator interactionIt;
 
 public:
     /// Constructora del estado de juego
@@ -21,6 +22,8 @@ public:
 
     /// Bloquea el uso del teclado después de volver del menú de pausa
     void blockKeyboardInputAfterUnfreeze();
+    std::pair<bool, bool> checkCollisionWithVine();
+    
 
     void handleInput() override;
 
