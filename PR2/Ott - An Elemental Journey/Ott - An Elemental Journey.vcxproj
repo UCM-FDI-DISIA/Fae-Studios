@@ -187,16 +187,6 @@
     <ClInclude Include="componentes\PlayerAttack.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="SDLApplication.h" />
-    <ClInclude Include="sdlutils\Font.h" />
-    <ClInclude Include="sdlutils\InputHandler.h" />
-    <ClInclude Include="sdlutils\macros.h" />
-    <ClInclude Include="sdlutils\Music.h" />
-    <ClInclude Include="sdlutils\RandomNumberGenerator.h" />
-    <ClInclude Include="sdlutils\SDLNetUtils.h" />
-    <ClInclude Include="sdlutils\SDLUtils.h" />
-    <ClInclude Include="sdlutils\sdlutils_demo.h" />
-    <ClInclude Include="sdlutils\SoundEffect.h" />
-    <ClInclude Include="sdlutils\VirtualTimer.h" />
     <ClInclude Include="Src\ecs.h" />
     <ClInclude Include="Src\Entity.h" />
     <ClInclude Include="Src\anims.h" />
@@ -268,9 +258,6 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="componentes\PlayerAttack.cpp" />
     <ClCompile Include="SDLApplication.cpp" />
-    <ClCompile Include="sdlutils\SDLUtils.cpp" />
-    <ClCompile Include="sdlutils\sdlutils_demo.cpp" />
-    <ClCompile Include="sdlutils\SoundEffect.cpp" />
     <ClCompile Include="Src\anims.cpp" />
     <ClCompile Include="Src\Manager.cpp" />
     <ClCompile Include="componentes\TestEnemyInput.cpp" />
