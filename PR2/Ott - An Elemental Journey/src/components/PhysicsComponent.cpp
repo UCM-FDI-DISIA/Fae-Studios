@@ -76,6 +76,7 @@ void PhysicsComponent::update() {
 		if (knockbackTimer > knockbackTime) {
 			isKnockback = false;
 			knockbackTimer = 0;
+			velocity_ = Vector2D(0, velocity_.getY());
 		}
 	}
 
@@ -98,7 +99,7 @@ void PhysicsComponent::knockback() {
 	isKnockback = true;
 	int kckbDir = 1;
 	if (lookingRight) kckbDir = -1;
-	velocity_ = velocity_ + Vector2D(kckbDir * X_KNOCKBACK_FORCE * (knockbackTime - knockbackTimer) / knockbackTime, 0);
+	velocity_ = velocity_ + Vector2D(kckbDir * X_KNOCKBACK_FORCE , 0);
 }
 
 Vector2D& PhysicsComponent::getVelocity() {

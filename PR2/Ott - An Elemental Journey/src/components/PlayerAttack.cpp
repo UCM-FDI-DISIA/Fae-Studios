@@ -46,7 +46,7 @@ void PlayerAttack::update() {
 			}
 			case ecs::Earth: break;
 			case ecs::Fire: {
-				MoveTrigger(triggerWH); // Se mueven los triggers a la posici�n actual
+				//MoveTrigger(triggerWH); // Se mueven los triggers a la posici�n actual
 				auto pTransf = ent_->getComponent<Transform>();
 				Entity* attack = mngr_->addEntity(ecs::_grp_PROYECTILES);
 				Vector2D shootPos = Vector2D(pTransf->getPosition().getX(), pTransf->getPosition().getY() + pTransf->getHeight() / 2);

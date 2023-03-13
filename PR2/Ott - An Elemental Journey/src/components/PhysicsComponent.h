@@ -41,7 +41,7 @@ private:
     SDL_Rect collider;
     Vector2D colliderOffset, colliderWH;
     const int MAX_VERTICAL_SPEED = 8;
-    const double X_KNOCKBACK_FORCE = 3;
+    const double X_KNOCKBACK_FORCE = 5;
     double knockbackTimer = 0;
     double knockbackTime = 15;
     bool isKnockback = false, lookingRight = true, grounded = false, climbing = false, gravity = true;
