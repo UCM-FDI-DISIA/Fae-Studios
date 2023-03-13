@@ -26,15 +26,23 @@ void Health::initComponent() {
 void Health::recall()
 {
 	if (lastSanctuary != nullptr) {
-		Vector2D newPos = ent_->getComponent<Transform>()->getPosition();
-		newPos = lastSanctuary->getComponent<Transform>()->getPosition();
+		Vector2D newPos = lastSanctuary->getComponent<Transform>()->getPosition();
 		image->reset();
 		ent_->getComponent<Transform>()->setPosition(newPos);
 		actualLife = maxLife;
 		dead = false;
 		std::cout << "vuelvo a santuario" << std::endl;
 	}
-	else std::cout << "me muero para siempre" << std::endl;
+	else 
+	{ 
+		std::cout << "me muero para siempre" << std::endl; 
+		Vector2D newPos = ent_->getComponent<Transform>()->getInitialPosition();
+		image->reset();
+		ent_->getComponent<Transform>()->setPosition(newPos);
+		actualLife = maxLife;
+		dead = false;
+
+	}
 }
 
 bool Health::recieveDamage(ecs::elements el)

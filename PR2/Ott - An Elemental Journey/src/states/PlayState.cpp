@@ -166,9 +166,6 @@ void PlayState::checkInteraction() {
 
 void PlayState::update() {
 	checkCollisions();
-	checkCollisionWithVine();
-	auto grp = mngr_->getEntities(ecs::_grp_PROYECTILES);
-	for (auto p : grp) std::cout << p->getComponent<PhysicsComponent>()->getVelocity().getX() << "  " << p->getComponent<PhysicsComponent>()->getVelocity().getY() << std::endl;
 	GameState::update();
 }
 

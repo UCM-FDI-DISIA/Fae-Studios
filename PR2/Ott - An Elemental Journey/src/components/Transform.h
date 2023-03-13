@@ -7,7 +7,7 @@
 class Transform : public Component
 {
 private:
-	Vector2D position;
+	Vector2D position, initialPos;
 	float rotation = 0.0f;
 	float width;
 	float height;
@@ -18,6 +18,7 @@ public:
 	Transform(Vector2D p, float w, float h) : Component() {
 		mngr_ = nullptr;
 		ent_ = nullptr;
+		initialPos = p;
 		position = p;
 		rotation = 0.0f;
 		width = w;
@@ -37,6 +38,7 @@ public:
 	inline float getRotation() const { return rotation; };
 	inline void setRotation(float r) { rotation += r; };
 	inline Vector2D getPosition() const { return position; };
+	inline Vector2D getInitialPosition() const { return initialPos; };
 	inline void setPosition(Vector2D newPos) { position = newPos; };
 	inline void setWidth(float w) { width = w; }
 	inline void setHeight(float h) { height = h; }
