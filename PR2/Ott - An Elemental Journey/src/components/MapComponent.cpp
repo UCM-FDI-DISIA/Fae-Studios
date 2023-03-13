@@ -31,6 +31,10 @@ MapComponent::MapComponent() {
 
 }
 
+void MapComponent::initComponent() {
+    cam = mngr_->getCamera()->getComponent<CameraComponent>();
+}
+
 void MapComponent::loadMap(std::string path) {
     if (map.load(path))
     {
@@ -76,7 +80,7 @@ void MapComponent::loadMap(std::string path) {
 }
 
 void MapComponent::render() {
-    SDL_Rect camPos = mngr_->getCamera()->getComponent<CameraComponent>()->camera;
+    SDL_Rect camPos = cam->camera;
     int cols = sdlutils().levels().at("demo").cols;
     int offsetX = camPos.x;
     int offsetY = camPos.y;

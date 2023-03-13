@@ -7,6 +7,9 @@
 #include "../states/GameStateMachine.h"
 #include "../states/PlayState.h"
 
+const float gravityValue = 0.2;
+
+
 PhysicsComponent::PhysicsComponent() {
 
 }
@@ -44,7 +47,7 @@ void PhysicsComponent::update() {
 		velocity_ = Vector2D(velocity_.getX(), dirClimbing);
 	}
 	else if (!grounded && gravity) {
-		verticalSpeed += static_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->getGravityValue();
+		verticalSpeed += gravityValue;
 		if (verticalSpeed > MAX_VERTICAL_SPEED) verticalSpeed = MAX_VERTICAL_SPEED;
 		velocity_ = Vector2D(velocity_.getX(), verticalSpeed);
 	}

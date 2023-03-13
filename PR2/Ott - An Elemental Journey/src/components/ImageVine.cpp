@@ -6,6 +6,7 @@
 
 void ImageVine::initComponent() {
 	tr_ = ent_->getComponent<Transform>();
+	cam = mngr_->getCamera()->getComponent<CameraComponent>();
 }
 
 void ImageVine::render()

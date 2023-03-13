@@ -6,6 +6,7 @@
 #include "Transform.h"
 #include "PlayerAnimationComponent.h"
 #include "../sdlutils/SDLUtils.h"
+#include "PhysicsComponent.h"
 #include "CameraComponent.h"
 
 class FramedImage : public Component {
@@ -16,6 +17,7 @@ private:
     int currentRow, currentCol; //Fila y columna que actualmente se renderiza
     SDL_Rect getRect() const;
     CameraComponent* cam;
+    PhysicsComponent* physics;
 public:
     constexpr static ecs::cmpId_type id = ecs::_IMAGE;
     FramedImage(Texture* texture, int rows, int cols) : Component(), texture(texture), totalRows(rows), totalCols(cols) {
@@ -55,6 +57,8 @@ public:
 private:
     Transform* tr_;
     Texture* tex_;
+    CameraComponent* cam;
+    PhysicsComponent* physics;
     Texture* shieldTex_;
     int numRows_, numCols_;
     int row = 0, col = 0;

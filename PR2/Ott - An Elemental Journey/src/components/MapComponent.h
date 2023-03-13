@@ -14,6 +14,7 @@
 #include <list>
 #include <vector>
 #include<unordered_map>
+#include "CameraComponent.h"
 
 using namespace tmx;
 
@@ -27,6 +28,7 @@ private:
 	std::vector<TileLayer::Tile> vectorTiles;
 	std::vector<std::vector<Object>> vectorObjects;
 	Texture* tilemap = nullptr;
+	CameraComponent* cam;
 	//std::vector<Texture*> textures;
 
 	int realTileSize = 32;
@@ -38,7 +40,7 @@ public:
 	constexpr static ecs::cmpId_type id = ecs::_MAP;
 	
 	MapComponent();
-	
+	void initComponent();
 	virtual void render();
 	void changeMap();
 	std::vector<std::vector<Object>> getObjects() { return vectorObjects; }

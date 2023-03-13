@@ -28,9 +28,7 @@ void FramedImage::render() {
 	}
 
 	SDL_RendererFlip flip = SDL_FLIP_NONE;
-	auto physics = ent_->getComponent<PhysicsComponent>();
 	if (physics != nullptr && !physics->getLookDirection()) flip = SDL_FLIP_HORIZONTAL;
-
 	texture->renderFrame(rect, currentRow, currentCol, transform->getRotation(), flip);
 }
 
@@ -41,27 +39,43 @@ void FramedImage::initComponent() {
 		cam = camera->getComponent<CameraComponent>();
 	}
 	else cam = nullptr;
+
+	if (ent_->hasComponent<PhysicsComponent>()) {
+		physics = ent_->getComponent<PhysicsComponent>();
+	}
+	else physics = nullptr;
+
 }
 
 void FramedImageOtt::initComponent()
 {
 	tr_ = ent_->getComponent<Transform>();
 	shieldTex_ = &sdlutils().images().at("shield");
+	auto camera = mngr_->getCamera();
+	if (camera != nullptr) {
+		cam = camera->getComponent<CameraComponent>();
+	}
+	else cam = nullptr;
+	if (ent_->hasComponent<PhysicsComponent>()) {
+		physics = ent_->getComponent<PhysicsComponent>();
+	}
+	else physics = nullptr;
 }
 
 void FramedImageOtt::render()
 {
 	SDL_Rect dest; dest.x = tr_->getPosition().getX(); dest.y = tr_->getPosition().getY();
 	dest.w = tr_->getWidth(); dest.h = tr_->getHeight();
-	auto camCmpt = mngr_->getCamera()->getComponent<CameraComponent>()->camera;
+	auto camCmpt = cam->camera;
 	dest.x -= camCmpt.x;
 	dest.y -= camCmpt.y;
 	//if (pAnim_->isInvincible() && SDL_GetTicks() % 2 == 0) return;
-
+	bool lookRight = true;
 	SDL_RendererFlip flip = SDL_FLIP_NONE;
-	bool lookRight = ent_->getComponent<PhysicsComponent>()->getLookDirection();
-	if (!lookRight) flip = SDL_FLIP_HORIZONTAL;
-
+	if (physics != nullptr) {
+		lookRight = physics->getLookDirection();
+		if (!lookRight) flip = SDL_FLIP_HORIZONTAL;
+	}
 	//int state = pAnim_->getState();
 
 	tex_->renderFrame(dest, row, col, 0, flip);
@@ -77,7 +91,6 @@ void FramedImageOtt::render()
 		shieldTex_->render(shieldRect);
 	}
 }
-
 
 void FramedImageOtt::changeElement(ecs::elements newElem)
 {

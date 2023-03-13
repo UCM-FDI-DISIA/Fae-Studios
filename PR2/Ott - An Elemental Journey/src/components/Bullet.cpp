@@ -13,14 +13,14 @@ void Bullet::initComponent()
     physics = ent_->getComponent<PhysicsComponent>();
     physics->setGravity(false);
     startTime = SDL_GetTicks();
+    tr = ent_->getComponent<Transform>();
 }
 
 void Bullet::update()
 {
     if (SDL_GetTicks() - startTime >= maxTime * 1000) ent_->setAlive(false); //Destruye las balas tras un tiempo
     else {
-        auto tr = ent_->getComponent<Transform>();
-        SDL_Rect trigger = { (int)tr->getPosition().getX(), (int)tr->getPosition().getY(), (int)tr->getWidth(), (int)tr->getHeight() };
+        SDL_Rect trigger = tr->getRect();
         auto enemiesGrp = mngr_->getEntities(ecs::_grp_CHARACTERS);
         for (auto e : enemiesGrp) {
             SDL_Rect rect = e->getComponent<PhysicsComponent>()->getCollider();

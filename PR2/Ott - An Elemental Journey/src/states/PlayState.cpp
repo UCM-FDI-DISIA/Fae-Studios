@@ -27,6 +27,14 @@ PlayState::PlayState() : GameState(ecs::_state_PLAY) {
 	mngr_->setCamera(constructors::camera(mngr_, 700, 1000, sdlutils().width(), sdlutils().height()));
 	player_ = mngr_->getPlayer();
 	camera_ = mngr_->getCamera();
+
+	player_->getComponent<FramedImageOtt>()->initComponent();
+	player_->getComponent<Transform>()->initComponent();
+	player_->getComponent<PhysicsComponent>()->initComponent();
+	player_->getComponent<PlayerInput>()->initComponent();
+	player_->getComponent<PlayerAttack>()->initComponent();
+	player_->getComponent<Health>()->initComponent();
+
 	constructors::eSlime(mngr_, "fireSlime", 600, 1100, 1.0f);
 	constructors::eMelee(mngr_, "waterBug", 2400, 1000, 1.0f);
 	constructors::eRanged(mngr_, "earthMushroom", 1700, 1000, 1.0f);
@@ -114,11 +122,11 @@ std::pair<bool, bool> PlayState::checkCollisionWithVine() {
 	bool interact = false;
 	bool canGoUp = false;
 	interactionIt = mngr_->getEntities(ecs::_grp_VINE).begin();
+	SDL_Rect tr_ = player_->getComponent<PhysicsComponent>()->getCollider();
 	while (!interact && interactionIt != mngr_->getEntities(ecs::_grp_VINE).end()) {
 		Entity* ents = *interactionIt;
 		if (ents->hasComponent<ColliderVine>()) {
 			SDL_Rect r1;
-			SDL_Rect tr_ = player_->getComponent<PhysicsComponent>()->getCollider();
 			r1.x = tr_.x + tr_.w / 3;
 			r1.y = tr_.y + tr_.h - 30;
 			r1.w = tr_.w / 3;

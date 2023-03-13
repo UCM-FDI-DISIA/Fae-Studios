@@ -184,7 +184,7 @@ namespace constructors {
 		normalText(mngr_, text, backPos, f, backCol, bgColor);
 		normalText(mngr_, text, position, f, textColor, transparente);
 	}
-
+		
 	static inline Entity* player(Manager* mngr_, int x, int y, int w, int h) {
 		auto player = mngr_->addEntity(ecs::_grp_CHARACTERS);
 		auto ph = player->addComponent<PhysicsComponent>(anims::OTT);

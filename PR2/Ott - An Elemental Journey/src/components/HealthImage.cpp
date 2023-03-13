@@ -45,7 +45,6 @@ void HealthImage::reset() { // resetteo de los corazones
 }
 
 void HealthImage::render() { // try and guess :)
-	auto cam = mngr_->getCamera()->getComponent<CameraComponent>()->camera;
 	for (int i = 0; i < numHearts; ++i) {
 		SDL_Rect finalPos = pos;
 		finalPos.x += i * OFFSET_X * pos.w;

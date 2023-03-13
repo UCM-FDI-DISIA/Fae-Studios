@@ -2,6 +2,7 @@
 
 #pragma once
 #include "PhysicsComponent.h"
+#include "Transform.h"
 
 class Bullet : public Component
 {
@@ -11,6 +12,7 @@ private:
     ecs::elements elem;
     PhysicsComponent* physics;
     int startTime, maxTime = 4;
+    Transform* tr;
 public:
     constexpr static ecs::cmpId_type id = ecs::_BULLET;
     Bullet(ecs::elements e, Entity* inst) : Component(), player(nullptr), elem(e), physics(nullptr), instigator(inst) {};

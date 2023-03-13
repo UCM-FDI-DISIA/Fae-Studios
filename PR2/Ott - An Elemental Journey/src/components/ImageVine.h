@@ -5,6 +5,7 @@
 #include "../sdlutils/Texture.h"
 #include "Transform.h"
 #include "../ecs/Entity.h"
+#include "CameraComponent.h"
 
 class ImageVine : public Component {
 private:
@@ -12,6 +13,7 @@ private:
 	Texture* tex_;
 	SDL_Rect destTransform;
 	SDL_Rect destTexture;
+	CameraComponent* cam;
 
 public:
 	constexpr static ecs::cmpId_type id = ecs::_IMAGE;

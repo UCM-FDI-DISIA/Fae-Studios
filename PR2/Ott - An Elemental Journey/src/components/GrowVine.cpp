@@ -4,8 +4,9 @@
 
 
 void GrowVine::update() {
-	if (tr_->getPosition().getY() > posFinalT.getY()) {
-		tr_->setPosition(Vector2D(tr_->getPosition().getX(), tr_->getPosition().getY() - 2));
+	auto pos = tr_->getPosition();
+	if (pos.getY() > posFinalT.getY()) {
+		tr_->setPosition(Vector2D(pos.getX(), pos.getY() - 2));
 	}
 	if (cl_->getPos().getY() > posFinalC.getY()) {
 		cl_->setPos(Vector2D(cl_->getPos().getX(), cl_->getPos().getY() - 2));

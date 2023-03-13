@@ -54,8 +54,7 @@ void EnemyAttack::update() {
 	else {
 		MoveTriggers();
 
-		SDL_Rect playerRect = player->getComponent<PhysicsComponent>()->getCollider();
-		SDL_Rect collider = physics->getCollider();
+		SDL_Rect playerRect = physics->getCollider();
 
 		int frameTime = SDL_GetTicks() - startAttackingTime;
 		if (state == normal && frameTime >= TIME_BETWEEN_ATTACKS && SDL_HasIntersection(&trigger, &playerRect)) {
@@ -80,7 +79,7 @@ void EnemyAttack::update() {
 
 bool EnemyAttack::requestAttack()
 {
-	SDL_Rect playerCollider = player->getComponent<PhysicsComponent>()->getCollider();
+	SDL_Rect playerCollider = physics->getCollider();
 	return (!health_->isDead() && SDL_HasIntersection(&trigger, &playerCollider));
 }
 
