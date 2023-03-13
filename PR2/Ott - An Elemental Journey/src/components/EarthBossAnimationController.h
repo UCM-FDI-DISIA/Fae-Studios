@@ -5,6 +5,7 @@
 #include <SDL.h>
 #include "EnemyMovement.h"
 #include"../ecs/Entity.h"
+#include "FramedImage.h"
 
 enum EarthAnims { PRESENTATION, STOP };
 
@@ -22,7 +23,7 @@ public:
     inline int getState() { return currentAnimation; }
     void setState(int newState);
     void endAnim();
-    inline int getTPerFrame(int i) { return anims::animations[eAnims][i].tPerFrame / FRAME_ANIMATION_TIME;; }
+    inline int getTPerFrame(int i) { return anims::animations[eAnims][i].tPerFrame / FRAME_ANIMATION_TIME; }
     inline int getNFrames(int i) { return anims::animations[eAnims][i].numFrames; }
     inline int getRowNum(int i) { return anims::animations[eAnims][i].rowNum; }
     inline int getColNum(int i) { return anims::animations[eAnims][i].colNum; }

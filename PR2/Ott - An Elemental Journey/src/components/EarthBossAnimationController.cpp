@@ -34,11 +34,10 @@ void EarthBossAnimationController::update() {
 		}
 	}
 	else { damageStartTime_ = SDL_GetTicks(); image->setRow(0); }*/
-
 	int col = image->getCurrentCol();
-	col = (timer_ / getTPerFrame(state)) % getNFrames(state) + getColNum(state);
-	//if (col != getNFrames(state) + getColNum(state) - 1) col = (timer_ / getTPerFrame(state)) % getNFrames(state) + getColNum(state);
-	//if (col >= 8) col = 0;
+
+	if (col != getNFrames(state) + getColNum(state) - 1) col = (timer_ / getTPerFrame(state)) % getNFrames(state) + getColNum(state);
+
 	image->setCol(col);
 
 	if (timer_ > (getTPerFrame(state) * getNFrames(state)) + 1)

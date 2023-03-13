@@ -201,7 +201,7 @@ namespace constructors {
 		player->addComponent<PlayerInput>();
 		pAnim->initComponent();
 		health->initComponent();
-		ph->createCollider();
+		ph->createCollider();	
 		return player;
 	}
 
@@ -320,7 +320,6 @@ namespace constructors {
 					sanctuary(mngr_, Vector2D(x_ * scale - (&sdlutils().images().at("sanctuary"))->width() * 1.5, y_ * scale - (&sdlutils().images().at("sanctuary"))->height() * 3.5));
 				}
 				else if (ot.getClass() == "Ott") {
-
 				}
 				else if (ot.getClass() == "Mushroom") {
 

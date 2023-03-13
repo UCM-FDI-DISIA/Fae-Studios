@@ -5,8 +5,8 @@
 #include "../game/ecs.h"
 #include "../utils/Vector2D.h"
 
-const int LEVEL_WIDTH = 8000;
-const int LEVEL_HEIGHT = 8000;
+const int LEVEL_WIDTH = 80000;
+const int LEVEL_HEIGHT = 80000;
 const auto CAM_OFFSET_HEIGHT = 0.6;
 const int CAM_DEAD_ZONE = 250;
 

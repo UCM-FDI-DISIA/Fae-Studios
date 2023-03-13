@@ -21,7 +21,7 @@ std::vector<anims::animDescription> anims::slime_anims{ {300,4,0,0}, {150,4,0,17
 //MINI BOSS TIERRA
 std::vector<anims::animDescription> anims::earth_anims{ {100, 8,0,0},{100, 1,0,7} };
 // vector con todas las animaciones definidas. se accede a él por un enum llamado Entities
-std::vector<std::vector<anims::animDescription>> anims::animations{ ott_anims, melee_anims, range_anims, slime_anims };
+std::vector<std::vector<anims::animDescription>> anims::animations{ ott_anims, melee_anims, range_anims, slime_anims, earth_anims };
 
 
 // int izqPixels, totalHorPixels, upPixels, totalVertPixels, width, height;

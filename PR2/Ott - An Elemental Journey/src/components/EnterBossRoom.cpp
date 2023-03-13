@@ -1,6 +1,7 @@
 #include "EnterBossRoom.h"  
 #include "PhysicsComponent.h"
 #include "FramedImage.h"
+#include "Transform.h"
 #include "EarthBossAnimationController.h"
 
 void EnterBossRoom::initComponent() {
@@ -33,7 +34,7 @@ void EnterBossRoom::update() {
 			camera->getComponent<CameraComponent>()->cameraShake(false);
 		}
 	}
-	if (aux > 1000 && aux <= 3000 && start) {
+	if (aux > 2000 && aux <= 5000 && start) {
 		startFight();
 		player->getComponent<PlayerInput>()->setActive(true);
 	}
@@ -42,6 +43,7 @@ void EnterBossRoom::update() {
 
 void EnterBossRoom::startFight() {
 	if (!added) {
+		earthBoss = mngr_->getEarthBoss();
 		auto ph = earthBoss->getComponent<PhysicsComponent>();
 		earthBoss->addComponent<FramedImage>(&sdlutils().images().at("animationWorm"), sdlutils().images().at("animationWorm").getNumRows(), sdlutils().images().at("animationWorm").getNumCols());
 		earthBoss->addComponent<Health>(5, ecs::Earth, false);
