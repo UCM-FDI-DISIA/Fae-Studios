@@ -2,19 +2,39 @@
 #include "../ecs/Manager.h"
 #include "../ecs/Entity.h"
 #include "Transform.h"
+#include "../sdlutils/SDLUtils.h"
+#include "CameraComponent.h"
 
 PhysicsComponent::PhysicsComponent() {
 
 }
 
-PhysicsComponent::PhysicsComponent(Vector2D offset, Vector2D WidthHeight) {
-	colliderOffset = offset;
-	colliderWH = WidthHeight;
+PhysicsComponent::PhysicsComponent(anims::Colliders c) {
+	typeofCollider = c;
 }
 
 void PhysicsComponent::initComponent() {
 
 }
+
+void PhysicsComponent::createCollider() {
+	auto tr = ent_->getComponent<Transform>();
+	colliderOffset = Vector2D(anims::colliders[typeofCollider].izqPixels / (float)anims::colliders[typeofCollider].totalHorPixels * tr->getWidth(),
+		anims::colliders[typeofCollider].upPixels / (float)anims::colliders[typeofCollider].totalVertPixels * tr->getHeight());
+
+	colliderWH = Vector2D(anims::colliders[typeofCollider].width / (float)anims::colliders[typeofCollider].totalHorPixels * tr->getWidth(),
+		anims::colliders[typeofCollider].height / (float)anims::colliders[typeofCollider].totalVertPixels * tr->getHeight());
+}
+
+//void PhysicsComponent::render() {
+//	auto cam = mngr_->getCamera()->getComponent<CameraComponent>();
+//	auto camera = cam->camera;
+//	auto rect = getCollider();
+//	rect.x -= camera.x;
+//	rect.y -= camera.y;
+//
+//	sdlutils().images().at("enemy").render(rect);
+//}
 
 void PhysicsComponent::update() {
 	if (climbing) {

@@ -40,7 +40,7 @@ namespace constructors {
 
 		// Asi se a�ade enemigo rango
 		auto enemy2 = mngr_->addEntity(ecs::_grp_CHARACTERS);
-		auto ph2 = enemy2->addComponent<PhysicsComponent>();
+		auto ph2 = enemy2->addComponent<PhysicsComponent>(anims::RANGE);
 		enemy2->addComponent<Transform>(x, y, 110 * scale, 110 * scale); // 1700 1800 pos para pruebas
 		enemy2->addComponent<FramedImage>(&sdlutils().images().at(imageKey), 2, 22);
 		enemy2->addComponent<Health>(5, ecs::Fire, false);
@@ -50,6 +50,7 @@ namespace constructors {
 		auto eAnim_2 = enemy2->addComponent<EnemyAnimationComponent>(anims::RANGE_ANIM);
 		auto attack_2 = enemy2->addComponent<EnemyShootingAttack>();
 		eAttack_2->SetRefs(eAnim_2, attack_2, nullptr);
+		ph2->createCollider();
 	}
 
 	static inline void eMelee(Manager* mngr_, std::string imageKey, int x, int y, float scale) {
@@ -58,7 +59,7 @@ namespace constructors {
 		// Asi se a�ade enemigo melee
 
 		auto enemy3 = mngr_->addEntity(ecs::_grp_CHARACTERS);
-		auto ph3 = enemy3->addComponent<PhysicsComponent>();
+		auto ph3 = enemy3->addComponent<PhysicsComponent>(anims::MELEE);
 		enemy3->addComponent<Transform>(x, y, 230 * scale, 130 * scale);  // 2400 1800 pos para pruebas
 		enemy3->addComponent<FramedImage>(&sdlutils().images().at(imageKey), 2, 21);
 		enemy3->addComponent<Health>(5, ecs::Fire, false);
@@ -69,13 +70,14 @@ namespace constructors {
 		auto eAnim_3 = enemy3->addComponent<EnemyAnimationComponent>(anims::MELEE_ANIM);
 		auto meleeAttack_3 = enemy3->addComponent<EnemyMeleeAttack>();
 		eAttack_3->SetRefs(eAnim_3, nullptr, meleeAttack_3);
+		ph3->createCollider();
 	}
 
 	static inline void eSlime(Manager* mngr_, std::string imageKey, int x, int y, float scale) {
 		// Asi se a�ade enemigo slime
 
 		auto enemy = mngr_->addEntity(ecs::_grp_CHARACTERS);
-		auto ph = enemy->addComponent<PhysicsComponent>();
+		auto ph = enemy->addComponent<PhysicsComponent>(anims::SLIME);
 		auto tr = enemy->addComponent<Transform>(Vector2D(x, y), 240 * scale, 140 * scale); // 600 950 pos para pruebas
 		enemy->addComponent<FramedImage>(&sdlutils().images().at(imageKey), 2, 21);
 		enemy->addComponent<Health>(5, ecs::Fire, false);
@@ -88,14 +90,14 @@ namespace constructors {
 		enemy->addComponent<Generations>(Generations::getMaxGeneration());
 		enemy->addComponent<SlimeStates>();
 		eAttack_->SetRefs(eAnim_, nullptr, meleeAttack_);
-
+		ph->createCollider();
 	}
 
 	static inline void eSlime(Manager* mngr_, Texture* tex, int x, int y, float scale, int gens, int lives) {
 		// Asi se a�ade enemigo slime
 
 		auto enemy = mngr_->addEntity(ecs::_grp_CHARACTERS);
-		auto ph = enemy->addComponent<PhysicsComponent>();
+		auto ph = enemy->addComponent<PhysicsComponent>(anims::SLIME);
 		auto tr = enemy->addComponent<Transform>(Vector2D(x, y), 240 * scale, 140 * scale); // 600 950 pos para pruebas
 		enemy->addComponent<FramedImage>(tex, 2, 21);
 		enemy->addComponent<Health>(lives, ecs::Fire, false);
@@ -108,7 +110,7 @@ namespace constructors {
 		enemy->addComponent<Generations>(gens);
 		enemy->addComponent<SlimeStates>();
 		eAttack_->SetRefs(eAnim_, nullptr, meleeAttack_);
-
+		ph->createCollider();
 	}
 
 	static inline void button(Manager* mngr_, Vector2D& position, std::string text, Font& f, Callback* callback) {
@@ -184,7 +186,7 @@ namespace constructors {
 
 	static inline Entity* player(Manager* mngr_, int x, int y, int w, int h, PlayState* g) {
 		auto player = mngr_->addEntity(ecs::_grp_CHARACTERS);
-		player->addComponent<PhysicsComponent>();
+		auto ph = player->addComponent<PhysicsComponent>(anims::OTT);
 		player->addComponent<Transform>(Vector2D(x, y), w, h);
 		SDL_Rect rect = { 20,20,50,50 };
 		player->addComponent<HealthImage>(&sdlutils().images().at("hearts"), 5, rect);
@@ -195,6 +197,7 @@ namespace constructors {
 		player->addComponent<PlayerInput>(g);
 		pAnim->initComponent();
 		health->initComponent();
+		ph->createCollider();
 		return player;
 	}
 

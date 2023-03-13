@@ -124,7 +124,7 @@ void Manager::checkInteraction() {
     interactionIt = entsByGroup_[ecs::_grp_INTERACTION].begin();
     while (!interact && interactionIt != entsByGroup_[ecs::_grp_INTERACTION].end()) {
         Entity* ents = *interactionIt;
-        SDL_Rect r1 = player->getComponent<Transform>()->getRect();
+        SDL_Rect r1 = player->getComponent<PhysicsComponent>()->getCollider();
         SDL_Rect r2 = ents->getComponent<Transform>()->getRect();
         if (SDL_HasIntersection(&r1, &r2)) {
             ents->getComponent<InteractionComponent>()->interact();

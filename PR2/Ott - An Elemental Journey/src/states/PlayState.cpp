@@ -25,9 +25,9 @@ PlayState::PlayState() : GameState(ecs::_state_PLAY) {
 
 	mngr_->setPlayer(constructors::player(mngr_, 500, 1000, 100, 120, this));
 	mngr_->setCamera(constructors::camera(mngr_, 700, 1000, sdlutils().width(), sdlutils().height()));
-	constructors::eSlime(mngr_, "fireSlime", 600, 900, 1.0f);
-	constructors::eMelee(mngr_, "waterBug", 2400, 900, 1.0f);
-	constructors::eRanged(mngr_, "earthMushroom", 1700, 900, 1.0f);
+	constructors::eSlime(mngr_, "fireSlime", 600, 1100, 1.0f);
+	constructors::eMelee(mngr_, "waterBug", 2400, 1000, 1.0f);
+	constructors::eRanged(mngr_, "earthMushroom", 1700, 1000, 1.0f);
 	constructors::map(mngr_);
 }
 
@@ -59,8 +59,8 @@ void PlayState::checkCollisions() {
 	std::vector<Entity*> ground = mngr_->getEntities(ecs::_grp_GROUND);
 	for (Entity* e : characters) {
 		auto eTr = e->getComponent<Transform>();
-		SDL_Rect r1 = eTr->getRect();
 		auto physics = e->getComponent<PhysicsComponent>();
+		SDL_Rect r1 = physics->getCollider();
 		Vector2D& colVector = physics->getVelocity();
 
 		auto mov = e->getComponent<EnemyMovement>();
@@ -117,7 +117,7 @@ std::pair<bool, bool> PlayState::checkCollisionWithVine() {
 		Entity* ents = *interactionIt;
 		if (ents->hasComponent<ColliderVine>()) {
 			SDL_Rect r1;
-			SDL_Rect tr_ = player->getComponent<Transform>()->getRect();
+			SDL_Rect tr_ = player->getComponent<PhysicsComponent>()->getCollider();
 			r1.x = tr_.x + tr_.w / 3;
 			r1.y = tr_.y + tr_.h - 30;
 			r1.w = tr_.w / 3;

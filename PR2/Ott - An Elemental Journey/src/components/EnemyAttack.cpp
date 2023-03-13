@@ -20,7 +20,7 @@ void EnemyAttack::initComponent() {
 }
 
 void EnemyAttack::MoveTriggers() {
-	SDL_Rect collider = transform->getRect();
+	SDL_Rect collider = physics->getCollider();
 	if (physics->getLookDirection()) // Ajuste del trigger en función del movimiento del enemigo
 		trigger.x = collider.x + collider.w;
 	else
@@ -45,7 +45,7 @@ void EnemyAttack::update() {
 	else {
 		MoveTriggers();
 
-		SDL_Rect playerRect = player->getComponent<Transform>()->getRect();
+		SDL_Rect playerRect = player->getComponent<PhysicsComponent>()->getCollider();
 		SDL_Rect collider = physics->getCollider();
 
 		int frameTime = SDL_GetTicks() - startAttackingTime;
@@ -71,7 +71,7 @@ void EnemyAttack::update() {
 
 bool EnemyAttack::requestAttack()
 {
-	SDL_Rect playerCollider = player->getComponent<Transform>()->getRect();
+	SDL_Rect playerCollider = player->getComponent<PhysicsComponent>()->getCollider();
 	return (!health_->isDead() && SDL_HasIntersection(&trigger, &playerCollider));
 }
 

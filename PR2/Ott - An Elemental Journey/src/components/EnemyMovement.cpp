@@ -9,7 +9,7 @@ void EnemyMovement::initComponent()
 	player = mngr_->getPlayer();
 	physics = ent_->getComponent<PhysicsComponent>();
 	transform = ent_->getComponent<Transform>();
-	playerTransform = player->getComponent<Transform>();
+	playerCollider = player->getComponent<PhysicsComponent>();
 	health_ = ent_->getComponent<Health>();
 	eAttack_ = ent_->getComponent<EnemyAttack>();
 
@@ -19,7 +19,7 @@ void EnemyMovement::initComponent()
 
 void EnemyMovement::MoveTriggers()
 {
-	SDL_Rect collider = transform->getRect();
+	SDL_Rect collider = physics->getCollider();
 	if (physics->getVelocity().getX() > 0) // Ajuste del trigger en función del movimiento del enemigo
 		trigger.x = collider.x + collider.w;
 	else
@@ -31,15 +31,15 @@ void EnemyMovement::MoveTriggers()
 void EnemyMovement::detectPlayer()
 {
 	if (player != nullptr) {
-		SDL_Rect playerRect = playerTransform->getRect();
+		SDL_Rect playerRect = playerCollider->getCollider();
 		if (SDL_HasIntersection(&trigger, &playerRect)) playerDetected = true;
 	}
 }
 
 void EnemyMovement::FollowPlayer()
 {
-	SDL_Rect collider = transform->getRect();
-	SDL_Rect ott = playerTransform->getRect();
+	SDL_Rect collider = physics->getCollider();
+	SDL_Rect ott = playerCollider->getCollider();
 	bool lookingRight = physics->getVelocity().getX() > 0;
 	if (eAttack_->getState() == eAttack_->normal && ((physics->getLookDirection() && ott.x - (collider.x + collider.w / 2) > nearDistance) ||
 		(!physics->getLookDirection() && (collider.x + collider.w / 2) - (ott.x + ott.w) > nearDistance))) {
@@ -69,9 +69,9 @@ void EnemyMovement::ChangeDirection(bool ground, const SDL_Rect& result)
 			physics->getVelocity() = { (float)dir, physics->getVelocity().getY() };
 			physics->lookDirection(!physics->getLookDirection());
 		}
-		else if (result.w < transform->getRect().w * turningOffset)
+		else if (result.w < physics->getCollider().w * turningOffset)
 		{
-			if (abs(result.x - transform->getRect().x) < turningError) {
+			if (abs(result.x - physics->getCollider().x) < turningError) {
 				physics->setVelocity({ -horizontalSpeed, physics->getVelocity().getY() });
 				physics->lookDirection(false);
 			}

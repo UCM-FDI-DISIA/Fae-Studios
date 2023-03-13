@@ -21,3 +21,16 @@ std::vector<anims::animDescription> anims::slime_anims{ {300,4,0,0}, {150,4,0,17
 // vector con todas las animaciones definidas. se accede a él por un enum llamado Entities
 std::vector<std::vector<anims::animDescription>> anims::animations{ ott_anims, melee_anims, range_anims, slime_anims };
 
+
+// int izqPixels, totalHorPixels, upPixels, totalVertPixels, width, height;
+
+// OTT
+anims::offsetPhysics anims::ott_collider{ 7, 32, 4, 32, 16, 28};
+// ENEMIGO MELEE
+anims::offsetPhysics anims::melee_collider{ 25, 65, 5, 32, 16, 27};
+// ENEMIGO A RANGO
+anims::offsetPhysics anims::range_collider{ 6, 32, 10, 32, 22, 22 };
+// ENEMIGO SLIME
+anims::offsetPhysics anims::slime_collider{ 49, 120, 7, 60, 23, 51 };
+// vector con todas las animaciones definidas. se accede a él por un enum llamado Entities
+std::vector<anims::offsetPhysics> anims::colliders{ ott_collider, melee_collider, range_collider, slime_collider };

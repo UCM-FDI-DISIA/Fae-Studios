@@ -11,7 +11,7 @@ private:
 	PhysicsComponent* physics;
 	Entity* player;
 	Transform* transform;
-	Transform* playerTransform;
+	PhysicsComponent* playerCollider;
 	Health* health_;
 	EnemyAttack* eAttack_;
 	SDL_Rect trigger;
@@ -33,7 +33,7 @@ public:
 		trigger.w = wTrigger; trigger.h = hTrigger;
 		physics = nullptr;
 		transform = nullptr;
-		playerTransform = nullptr;
+		playerCollider = nullptr;
 		playerDetected = false;
 		canMove = true;
 	};

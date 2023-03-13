@@ -3,11 +3,13 @@
 #include "../utils/Vector2D.h"
 #include <iostream>
 #include <SDL.h>
+#include "../ecs/anims.h"
+
 class PhysicsComponent : public Component
 {
 public:
     PhysicsComponent();
-    PhysicsComponent(Vector2D offset, Vector2D WidthHeight);
+    PhysicsComponent(anims::Colliders c);
     PhysicsComponent(Vector2D vel) : velocity_(vel) {}
     virtual ~PhysicsComponent();
     virtual void initComponent();
@@ -28,6 +30,8 @@ public:
     inline void setVerticalSpeed(float value) { verticalSpeed = value; }
     inline float getHorizontalSpeed() { return horizontalSpeed; };
     void jump();
+    void createCollider();
+    //virtual void render();
 private:
     SDL_Rect collider;
     Vector2D colliderOffset, colliderWH;
@@ -42,4 +46,5 @@ private:
     float dirClimbing = 0;
 
     const int jumpForce = -10;
+    anims::Colliders typeofCollider;
 };

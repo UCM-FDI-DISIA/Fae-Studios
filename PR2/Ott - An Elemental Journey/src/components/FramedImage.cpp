@@ -27,7 +27,7 @@ void FramedImage::render() {
 
 	SDL_RendererFlip flip = SDL_FLIP_NONE;
 	auto physics = ent_->getComponent<PhysicsComponent>();
-	if (physics != nullptr) if(!physics->getLookDirection()) flip = SDL_FLIP_HORIZONTAL;
+	if (physics != nullptr && !physics->getLookDirection()) flip = SDL_FLIP_HORIZONTAL;
 
 	texture->renderFrame(rect, currentRow, currentCol, transform->getRotation(), flip);
 }
