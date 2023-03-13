@@ -10,8 +10,10 @@ void Acceleration ::update()
 {
 	Vector2D distance = playerTransform->getPosition() - transform->getPosition();
 	float aux= distance.magnitude();
+	
 
-	physics->setVelocity(physics->getVelocity()*(aux/100));
+	physics->setVelocity(physics->getVelocity()*aux/100);
+
 
 	std::cout << "Vel DIS: " << distance << std::endl;
 
@@ -19,4 +21,10 @@ void Acceleration ::update()
 
 	std::cout << "Vel POS: " << transform->getPosition() << std::endl;
 	std::cout << "Vel AUX: " << aux / 100 << std::endl;
+
+	if (physics->getVelocity().getX() > 2)
+	{
+		Vector2D temp = { 2,0 };
+		physics->setVelocity(temp);
+	}
 }
