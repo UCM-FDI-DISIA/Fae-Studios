@@ -16,6 +16,7 @@
 #include "../components/ColliderVine.h"	
 #include "../components/ImageVine.h"
 #include "../components/GrowVine.h"
+#include "../game/ecs.h"
 
 PlayState::PlayState() : GameState(ecs::_state_PLAY) {
 	/*Mix_Init(MIX_INIT_FLAC | MIX_INIT_MOD | MIX_INIT_MP3 | MIX_INIT_OGG | MIX_INIT_MID);
@@ -142,5 +143,7 @@ std::pair<bool, bool> PlayState::checkCollisionWithVine() {
 void PlayState::update() {
 	checkCollisions();
 	checkCollisionWithVine();
+	auto grp = mngr_->getEntities(ecs::_grp_PROYECTILES);
+	for (auto p : grp) std::cout << p->getComponent<PhysicsComponent>()->getVelocity().getX() << "  " << p->getComponent<PhysicsComponent>()->getVelocity().getY() << std::endl;
 	GameState::update();
 }

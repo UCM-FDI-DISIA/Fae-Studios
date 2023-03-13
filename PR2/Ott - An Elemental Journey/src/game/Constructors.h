@@ -42,15 +42,15 @@ namespace constructors {
 		auto enemy2 = mngr_->addEntity(ecs::_grp_CHARACTERS);
 		auto ph2 = enemy2->addComponent<PhysicsComponent>(anims::RANGE);
 		enemy2->addComponent<Transform>(x, y, 110 * scale, 110 * scale); // 1700 1800 pos para pruebas
+		ph2->createCollider();
 		enemy2->addComponent<FramedImage>(&sdlutils().images().at(imageKey), 2, 22);
 		enemy2->addComponent<Health>(5, ecs::Fire, false);
 		ph2->setVelocity({ 0,0 });
 		ph2->lookDirection(false);
-		auto eAttack_2 = enemy2->addComponent<EnemyAttack>(1200, 400, 100);
+		auto eAttack_2 = enemy2->addComponent<EnemyAttack>(1200, 400);
 		auto eAnim_2 = enemy2->addComponent<EnemyAnimationComponent>(anims::RANGE_ANIM);
 		auto attack_2 = enemy2->addComponent<EnemyShootingAttack>();
 		eAttack_2->SetRefs(eAnim_2, attack_2, nullptr);
-		ph2->createCollider();
 	}
 
 	static inline void eMelee(Manager* mngr_, std::string imageKey, int x, int y, float scale) {
@@ -61,16 +61,16 @@ namespace constructors {
 		auto enemy3 = mngr_->addEntity(ecs::_grp_CHARACTERS);
 		auto ph3 = enemy3->addComponent<PhysicsComponent>(anims::MELEE);
 		enemy3->addComponent<Transform>(x, y, 230 * scale, 130 * scale);  // 2400 1800 pos para pruebas
+		ph3->createCollider();
 		enemy3->addComponent<FramedImage>(&sdlutils().images().at(imageKey), 2, 21);
 		enemy3->addComponent<Health>(5, ecs::Fire, false);
 		ph3->setVelocity({ 1,0 });
 		ph3->lookDirection(true);
-		auto eAttack_3 = enemy3->addComponent<EnemyAttack>(1200, 8, 100);
+		auto eAttack_3 = enemy3->addComponent<EnemyAttack>(1200);
 		enemy3->addComponent<EnemyMovement>();
 		auto eAnim_3 = enemy3->addComponent<EnemyAnimationComponent>(anims::MELEE_ANIM);
 		auto meleeAttack_3 = enemy3->addComponent<EnemyMeleeAttack>();
 		eAttack_3->SetRefs(eAnim_3, nullptr, meleeAttack_3);
-		ph3->createCollider();
 	}
 
 	static inline void eSlime(Manager* mngr_, std::string imageKey, int x, int y, float scale) {
@@ -79,18 +79,18 @@ namespace constructors {
 		auto enemy = mngr_->addEntity(ecs::_grp_CHARACTERS);
 		auto ph = enemy->addComponent<PhysicsComponent>(anims::SLIME);
 		auto tr = enemy->addComponent<Transform>(Vector2D(x, y), 240 * scale, 140 * scale); // 600 950 pos para pruebas
+		ph->createCollider();
 		enemy->addComponent<FramedImage>(&sdlutils().images().at(imageKey), 2, 21);
 		enemy->addComponent<Health>(5, ecs::Fire, false);
 		ph->setVelocity({ 1,0 });
 		ph->lookDirection(true);
-		auto eAttack_ = enemy->addComponent<EnemyAttack>(1200, 8, 100);
+		auto eAttack_ = enemy->addComponent<EnemyAttack>(1200);
 		enemy->addComponent<EnemyMovement>();
 		auto eAnim_ = enemy->addComponent<EnemyAnimationComponent>(anims::SLIME_ANIM);
 		auto meleeAttack_ = enemy->addComponent<EnemyMeleeAttack>();
 		enemy->addComponent<Generations>(Generations::getMaxGeneration());
 		enemy->addComponent<SlimeStates>();
 		eAttack_->SetRefs(eAnim_, nullptr, meleeAttack_);
-		ph->createCollider();
 	}
 
 	static inline void eSlime(Manager* mngr_, Texture* tex, int x, int y, float scale, int gens, int lives) {
@@ -99,18 +99,18 @@ namespace constructors {
 		auto enemy = mngr_->addEntity(ecs::_grp_CHARACTERS);
 		auto ph = enemy->addComponent<PhysicsComponent>(anims::SLIME);
 		auto tr = enemy->addComponent<Transform>(Vector2D(x, y), 240 * scale, 140 * scale); // 600 950 pos para pruebas
+		ph->createCollider();
 		enemy->addComponent<FramedImage>(tex, 2, 21);
 		enemy->addComponent<Health>(lives, ecs::Fire, false);
 		ph->setVelocity({ 1,0 });
 		ph->lookDirection(true);
-		auto eAttack_ = enemy->addComponent<EnemyAttack>(1200, 8, 100);
+		auto eAttack_ = enemy->addComponent<EnemyAttack>(1200);
 		enemy->addComponent<EnemyMovement>();
 		auto eAnim_ = enemy->addComponent<EnemyAnimationComponent>(anims::SLIME_ANIM);
 		auto meleeAttack_ = enemy->addComponent<EnemyMeleeAttack>();
 		enemy->addComponent<Generations>(gens);
 		enemy->addComponent<SlimeStates>();
 		eAttack_->SetRefs(eAnim_, nullptr, meleeAttack_);
-		ph->createCollider();
 	}
 
 	static inline void button(Manager* mngr_, Vector2D& position, std::string text, Font& f, Callback* callback) {

@@ -13,6 +13,13 @@ void EnemyAttack::initComponent() {
 	physics = ent_->getComponent<PhysicsComponent>();
 	health_ = ent_->getComponent<Health>();
 
+	SDL_Rect collider = physics->getCollider();
+	trigger.h = collider.h;
+	if (trigger.w == 0) {
+		SDL_Rect rect = transform->getRect();
+		trigger.w = rect.w + rect.x - collider.x - collider.w;
+	}
+
 	if (physics->getLookDirection())
 		trigger.x = transform->getPosition().getX() + transform->getWidth();
 	else trigger.x = transform->getPosition().getX() - trigger.w;

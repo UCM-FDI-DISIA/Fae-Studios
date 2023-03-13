@@ -39,11 +39,9 @@ void PhysicsComponent::createCollider() {
 void PhysicsComponent::update() {
 	if (climbing) {
 		grounded = true;
-		// mngr_->desactivateGravity();
 		velocity_ = Vector2D(velocity_.getX(), dirClimbing);
 	}
-	else if (!grounded) {
-		// mngr_->activateGravity();
+	else if (!grounded && gravity) {
 		verticalSpeed += mngr_->getGravityValue();
 		if (verticalSpeed > MAX_VERTICAL_SPEED) verticalSpeed = MAX_VERTICAL_SPEED;
 		velocity_ = Vector2D(velocity_.getX(), verticalSpeed);

@@ -15,16 +15,17 @@ void EnemyShootingAttack::initComponent()
 void EnemyShootingAttack::Attack() {
 	if (enemyAttack->requestAttack() && playerHealth->getHealth() > 0) {
 		auto bullet = mngr_->addEntity(ecs::_grp_PROYECTILES);
+		auto pc = bullet->addComponent<PhysicsComponent>();
 		if (ent_->getComponent<PhysicsComponent>()->getLookDirection())
 			bullet->addComponent<Transform>(ent_->getComponent<Transform>()->getPosition().getX() + ent_->getComponent<Transform>()->getWidth() / 3, ent_->getComponent<Transform>()->getPosition().getY() + ent_->getComponent<Transform>()->getHeight() / 2, 30, 30);
 		else
 			bullet->addComponent<Transform>(ent_->getComponent<Transform>()->getPosition().getX(), ent_->getComponent<Transform>()->getPosition().getY() + ent_->getComponent<Transform>()->getHeight() / 2, 30, 30);
-		bullet->addComponent<PhysicsComponent>();
 		if (player->getComponent<Transform>()->getPosition().getX() > ent_->getComponent<Transform>()->getPosition().getX())
-			bullet->getComponent<PhysicsComponent>()->getVelocity() = Vector2D(1, 0);
+			pc->setVelocity(Vector2D(1, 0));
 		else
-			bullet->getComponent<PhysicsComponent>()->getVelocity() = Vector2D(-1, 0);
-		bullet->addComponent<Image>(&sdlutils().images().at("ott_luz")); //Falta textura
+			pc->setVelocity(Vector2D(-1, 0));
+		pc->setGravity(false);
+		bullet->addComponent<Image>(&sdlutils().images().at("spores")); 
 		bullet->addComponent<Bullet>(health->getElement(), ent_);
 		attackingTime = SDL_GetTicks();
 	}

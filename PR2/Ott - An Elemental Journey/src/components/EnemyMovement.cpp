@@ -14,7 +14,7 @@ void EnemyMovement::initComponent()
 	eAttack_ = ent_->getComponent<EnemyAttack>();
 
 	trigger.x = transform->getPosition().getX() + transform->getWidth(); trigger.y = transform->getPosition().getY();
-	nearDistance = trigger.w / 2;
+	nearDistance = eAttack_->nearDistance();
 }
 
 void EnemyMovement::MoveTriggers()
