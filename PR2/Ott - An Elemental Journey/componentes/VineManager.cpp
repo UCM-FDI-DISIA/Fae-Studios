@@ -6,7 +6,7 @@ void VineManager::createVine() {
 
 void VineManager::addVine() {
 	if (!hasVine) {
-		vine->addComponent<ImageVine>(texture_);
+		vine->addComponent<ImageVine>(texture_, rotation);
 		SDL_Rect dest;
 		dest = vine->getComponent<Transform>()->getRect();
 		Entity* player = mngr_->getHandler(ecs::PLAYER);

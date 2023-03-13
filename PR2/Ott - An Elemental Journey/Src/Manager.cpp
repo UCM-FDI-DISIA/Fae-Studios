@@ -256,6 +256,10 @@ void Manager::createMap()
 				trigger->addComponent<EnterBossRoom>();
 				trigger->addComponent<Trigger>();
 			}
+			else if (ot.getClass() == "BossTrigger") {
+				SDL_Rect BossZone;
+				BossZone.x = x_ * scale; BossZone.y = y_ * scale; BossZone.w = w_ * scale; BossZone.h = h_ * scale;
+			}
 			else if (ot.getClass() == "Ott") {
 
 			}

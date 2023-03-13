@@ -156,8 +156,7 @@
   <object id="63" name="Grass" class="Grass" x="4867" y="767.666" width="31" height="609"/>
   <object id="64" name="Grass" class="Grass" x="5086.5" y="766.5" width="31" height="607"/>
   <object id="65" name="Grass" class="Grass" x="5251.17" y="770.5" width="31" height="602"/>
-  <object id="66" name="Grass" class="Grass" x="5440.5" y="767.833" width="31" height="606.667"/>
-  <object id="67" name="Grass" class="Grass" x="5633.5" y="767.5" width="31" height="607"/>
+  <object id="66" name="Grass" class="Grass" x="5469.83" y="767.833" width="31" height="606.667"/>
   <object id="70" name="Vine" class="Vine" x="4683.5" y="1151.5" width="1003" height="224"/>
   <object id="71" name="Vine" class="Vine" x="4682.5" y="925" width="1003" height="224"/>
   <object id="72" name="Vine" class="Vine" x="4682.5" y="713" width="1003" height="213"/>
