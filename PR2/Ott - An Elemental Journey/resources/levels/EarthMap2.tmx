@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.0" orientation="orthogonal" renderorder="right-down" width="192" height="105" tilewidth="32" tileheight="32" infinite="0" nextlayerid="6" nextobjectid="58">
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="192" height="105" tilewidth="32" tileheight="32" infinite="0" nextlayerid="7" nextobjectid="70">
  <tileset firstgid="1" name="EarthMapTileset" tilewidth="32" tileheight="32" tilecount="680" columns="20">
   <image source="../images/levels/tilesetlevel1.png" width="640" height="1088"/>
  </tileset>
- <imagelayer id="4" name="b" offsetx="-1220" offsety="704">
+ <imagelayer id="4" name="b" offsetx="4" offsety="8">
   <image source="../../../../../Downloads/FondoTemporal (3).png"/>
  </imagelayer>
  <layer id="1" name="Paredes" width="192" height="105" offsetx="0" offsety="-6">
@@ -116,33 +116,38 @@
 </data>
  </layer>
  <objectgroup id="2" name="Colisiones">
-  <object id="1" type="Ground" x="2" y="992" width="2060" height="235"/>
-  <object id="2" type="Ground" x="1792.67" y="543.333" width="266" height="447.333"/>
-  <object id="3" type="Ground" x="2058.67" y="544" width="519.333" height="244"/>
-  <object id="4" type="Ground" x="2578" y="542.667" width="124" height="691.333"/>
-  <object id="5" type="Ground" x="1" y="1229" width="254" height="303"/>
-  <object id="6" type="Ground" x="1" y="1534" width="850" height="223"/>
-  <object id="8" type="Ground" x="848" y="1408" width="345" height="397"/>
-  <object id="9" type="Ground" x="705.5" y="1472.5" width="91.5" height="10"/>
-  <object id="10" type="Ground" x="1191.5" y="1438" width="306" height="212"/>
-  <object id="12" type="Ground" x="1494" y="1408" width="348" height="370"/>
-  <object id="13" type="Ground" x="1965" y="1536" width="738" height="242"/>
-  <object id="18" type="Ground" x="1964" y="1408.67" width="229.333" height="126"/>
-  <object id="19" type="Ground" x="2088.67" y="1376" width="105.333" height="32.6667"/>
-  <object id="20" type="Ground" x="2477.33" y="1376" width="66.6667" height="160"/>
-  <object id="21" type="Ground" x="2544.67" y="1407.33" width="68" height="128.667"/>
-  <object id="22" type="Ground" x="2613.33" y="1439.33" width="89.3333" height="97.3333"/>
-  <object id="23" type="Ground" x="2210.67" y="1312" width="88.6667" height="9.33333"/>
-  <object id="24" type="Ground" x="2272.67" y="1248" width="126" height="9.33333"/>
-  <object id="25" type="Ground" x="2370.67" y="1311.33" width="91.3333" height="11.3333"/>
-  <object id="45" type="Ground" x="1939.27" y="1439.64" width="24.1818" height="55.4545"/>
-  <object id="57" x="1840" y="1631" width="129" height="147"/>
+  <object id="1" class="Ground" x="2" y="992" width="2060" height="235"/>
+  <object id="2" class="Ground" x="1792.67" y="543.333" width="266" height="447.333"/>
+  <object id="3" class="Ground" x="2058.67" y="544" width="519.333" height="244"/>
+  <object id="4" class="Ground" x="2578" y="542.667" width="124" height="691.333"/>
+  <object id="5" class="Ground" x="1" y="1229" width="254" height="303"/>
+  <object id="6" class="Ground" x="1" y="1534" width="850" height="223"/>
+  <object id="8" class="Ground" x="848" y="1408" width="345" height="397"/>
+  <object id="9" class="Ground" x="705.5" y="1472.5" width="91.5" height="10"/>
+  <object id="10" class="Ground" x="1191.5" y="1438" width="306" height="212"/>
+  <object id="12" class="Ground" x="1494" y="1408" width="466" height="370"/>
+  <object id="13" class="Ground" x="1965" y="1536" width="738" height="242"/>
+  <object id="18" class="Ground" x="1964" y="1408.67" width="229.333" height="126"/>
+  <object id="19" class="Ground" x="2088.67" y="1376" width="105.333" height="32.6667"/>
+  <object id="20" class="Ground" x="2477.33" y="1376" width="66.6667" height="160"/>
+  <object id="21" class="Ground" x="2544.67" y="1407.33" width="68" height="128.667"/>
+  <object id="22" class="Ground" x="2613.33" y="1439.33" width="89.3333" height="97.3333"/>
+  <object id="23" class="Ground" x="2210.67" y="1312" width="88.6667" height="9.33333"/>
+  <object id="24" class="Ground" x="2272.67" y="1248" width="126" height="9.33333"/>
+  <object id="25" class="Ground" x="2370.67" y="1311.33" width="91.3333" height="11.3333"/>
+  <object id="45" class="Ground" x="1939.27" y="1439.64" width="24.1818" height="55.4545"/>
+  <object id="57" class="Ground" x="1826" y="1798" width="129" height="147"/>
  </objectgroup>
- <objectgroup id="3" name="Objetos interactuables">
-  <object id="27" name="lamp1" type="Lamp" x="992" y="1408" width="32"/>
-  <object id="29" name="lamp1" type="Lamp" x="1760" y="1408" width="32"/>
-  <object id="34" type="Grass" x="1893" y="1621"/>
-  <object id="54" type="Sanctuary" x="1318" y="1439.5" width="88.5"/>
-  <object id="55" type="Ott" x="416" y="1536" width="32"/>
+ <objectgroup id="3" name="Objetos interactuables" visible="0">
+  <object id="27" name="lamp1" class="Lamp" x="992" y="1408" width="32"/>
+  <object id="29" name="lamp1" class="Lamp" x="1760" y="1408" width="32"/>
+  <object id="34" class="Grass" x="1893" y="1621"/>
+  <object id="54" class="Sanctuary" x="1318" y="1439.5" width="88.5"/>
+  <object id="55" class="Ott" x="416" y="1536" width="32"/>
+ </objectgroup>
+ <objectgroup id="6" name="Salas">
+  <object id="61" name="1" class="Sala" x="0" y="1120" width="896" height="572"/>
+  <object id="63" name="2" class="Sala" x="896" y="1120" width="1152" height="576"/>
+  <object id="66" name="3" class="Sala" x="2048" y="736" width="608" height="960"/>
  </objectgroup>
 </map>

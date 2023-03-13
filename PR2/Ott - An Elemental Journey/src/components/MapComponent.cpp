@@ -26,13 +26,21 @@ MapComponent::MapComponent() {
     //{
     //    //cout << "Failed loading map" << std::endl;
     //}
-    tilemap = &sdlutils().images().at(sdlutils().levels().at("demo").tileset);
-    loadMap(sdlutils().levels().at("demo").route);
+    vectorObjects.reserve(3);
+    vectorTiles.reserve(3);
+    vectorTiles.push_back({});
+    vectorTiles.push_back({});
+    vectorTiles.push_back({});
+    vectorObjects.push_back({});
+    vectorObjects.push_back({});
+    vectorObjects.push_back({});
+    tilemap = &sdlutils().images().at(sdlutils().levels().at("level1").tileset);
 
 }
 
 void MapComponent::initComponent() {
     cam = mngr_->getCamera()->getComponent<CameraComponent>();
+    loadMap(sdlutils().levels().at("level1").route);
 }
 
 void MapComponent::loadMap(std::string path) {
@@ -42,13 +50,20 @@ void MapComponent::loadMap(std::string path) {
         //cout << "Map has " << layers2.size() << " layers" << endl;
         for (const auto& layer : layers2)
         {
-#pragma region Objects
+            #pragma region Objects
             if (layer->getType() == Layer::Type::Object)
             {
                 const auto& objects = layer->getLayerAs<ObjectGroup>().getObjects();
-
+                if (layer->getName() == "Salas") {
+                    vectorObjects[0] = objects;
+                }
+                else if (layer->getName() == "Objetos interactuables") {
+                    vectorObjects[1] = objects;
+                }
+                else if (layer->getName() == "Colisiones") {
+                    vectorObjects[2] = objects;
+                }
                 //Guardamos objetos en un vector
-                vectorObjects.push_back(objects);
 
                 /*
                 //Ejemplo de propiedades de un objeto (posicion, tama�o, ID y nombre)
@@ -60,17 +75,58 @@ void MapComponent::loadMap(std::string path) {
                 }
                 */
             }
-#pragma endregion
+            #pragma endregion
 
-#pragma region Tiles
+
+        }
+
+        for (const auto& layer : layers2)
+        {
+            #pragma region Tiles
             if (layer->getType() == tmx::Layer::Type::Tile)
             {
                 const auto& tiles = layer->getLayerAs<tmx::TileLayer>().getTiles();
                 //Guardamos tiles en un vector
-                vectorTiles = tiles;
+                SDL_Rect camPos = cam->camera;
+                int cols = sdlutils().levels().at("level1").cols;
+                int offsetX = camPos.x;
+                int offsetY = camPos.y;
+                int i = 0;
+                for (auto salas : vectorObjects[0]) {
+                    int o = 0;
+                    auto rect = salas.getAABB();
+                    SDL_Rect sala = { rect.left * tileScale(), rect.top* tileScale(), rect.width * tileScale(), rect.height * tileScale() };
+                    for (auto tile : tiles) {
+
+
+                        SDL_Rect tileRect = { (float)(o % cols) * usedTileSize, ((float)(o / cols) * usedTileSize), usedTileSize, usedTileSize };
+                        /*std::cout << tileRect.x << " "
+                            << tileRect.y << " "
+                            << tileRect.w << " "
+                            << tileRect.h << " "
+                            << std::endl;
+                            
+
+                        std::cout << sala.x << " "
+                            << sala.y << " "
+                            << sala.w << " "
+                            << sala.h << " "
+                            << std::endl;*/
+
+                        if (SDL_HasIntersection(&sala, &tileRect)) {
+                            std::cout << "intersection" << std::endl;
+                            vectorTiles[i].push_back(std::make_pair(tile.ID, tileRect));
+                        }
+                        o++;
+                    }
+                    ++i;
+                }
+
+                // vectorTiles = tiles;
             }
-#pragma endregion
+            #pragma endregion
         }
+        
     }
     else
     {
@@ -81,12 +137,15 @@ void MapComponent::loadMap(std::string path) {
 
 void MapComponent::render() {
     SDL_Rect camPos = cam->camera;
-    int cols = sdlutils().levels().at("demo").cols;
+    int cols = sdlutils().levels().at("level1").cols;
     int offsetX = camPos.x;
     int offsetY = camPos.y;
-    for (int i = 0; i < vectorTiles.size(); i++) {
-        auto it = vectorTiles[i].ID;
+    for (int i = 0; i < vectorTiles[1].size(); i++) {
+        auto it = vectorTiles[1][i].first;
+        auto ot = vectorTiles[1][i].second;
+        ot.x -= offsetX;
+        ot.y -= offsetY;
         if (it == 0) continue;
-        tilemap->renderFrame({ (i % cols) * usedTileSize - offsetX, ((i / cols) * usedTileSize) - offsetY, usedTileSize, usedTileSize}, (it - (it % 20)) / 20, it % 20 - 1);
+        tilemap->renderFrame(ot, (it - (it % 20)) / 20, it % 20 - 1);
     }
 }
