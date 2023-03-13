@@ -53,6 +53,7 @@ namespace ecs {
         _grp_VINE,
         _grp_MAP,
         _grp_INTERACTION,
+        _grp_WATER,
         _grp_CHARACTERS,
         _grp_PROYECTILES,
 
