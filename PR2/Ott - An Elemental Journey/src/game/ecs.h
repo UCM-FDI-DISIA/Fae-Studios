@@ -37,7 +37,8 @@ namespace ecs {
         _GROWVINE,
         _PLAYERATTACK,
         _ENEMYSTATES,
-
+        _VINEMANAGER,
+        _ENTERBOSS,
         _LAST_CMP_ID
     };
     constexpr cmpId_type maxComponentId = _LAST_CMP_ID;
@@ -53,9 +54,10 @@ namespace ecs {
         _grp_VINE,
         _grp_MAP,
         _grp_INTERACTION,
+        _grp_TRIGGER,
         _grp_CHARACTERS,
         _grp_PROYECTILES,
-
+        _grp_MINIBOSS,
         _LAST_GRP_ID
     };
     constexpr grpId_type maxGroupId = _LAST_GRP_ID;

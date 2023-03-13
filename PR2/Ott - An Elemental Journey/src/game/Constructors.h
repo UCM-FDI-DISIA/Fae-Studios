@@ -26,7 +26,10 @@
 #include "../components/EnemyAnimationController.h"
 #include "../components/Generations.h"
 #include "../components/SlimeStates.h"
+#include "../components/EnterBossRoom.h"
+#include "../components/Trigger.h"
 #include "../states/GameStateMachine.h"
+#include "../components/VineManager.h"
 #include <string>
 #include <iostream>
 #include <functional>
@@ -214,14 +217,12 @@ namespace constructors {
 		auto grass = mngr_->addEntity(ecs::_grp_INTERACTION);
 		grass->addComponent<Transform>(position, width, height);
 		grass->addComponent<Image>(&sdlutils().images().at("grass"));
+		grass->addComponent<VineManager>(NORMAL, posiniVine, posfinVine, -1, 0, widthVine, heightVine, 2);
+		grass->getComponent<VineManager>()->createVine();
 		auto cb = []() {
 			static_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->AddEnredadera();
 		};
 		grass->addComponent<InteractionComponent>(cb);
-
-		auto vine = mngr_->addEntity(ecs::_grp_VINE);
-		vine->addComponent<Transform>(posiniVine, widthVine, heightVine);
-		grass->addComponent<AddVine>(false, vine, posfinVine);
 
 	}
 
@@ -306,6 +307,14 @@ namespace constructors {
 					}
 
 					gameObjects.push_back(l1);*/
+				}
+				else if (ot.getClass() == "DoorTrigger") {
+					Entity* trigger = mngr_->addEntity(ecs::_grp_TRIGGER);
+					trigger->addComponent<Transform>(Vector2D(x_ * scale, y_ * scale), w_ * scale, h_ * scale);
+					trigger->addComponent<VineManager>(EVIL, Vector2D((x_ * scale) - 260, ((y_ * scale) + h_ * scale) - 100), Vector2D((x_ * scale) - 170, y_ * scale - 100), -1, 0, w_ * scale, h_ * scale, 3);
+					trigger->getComponent<VineManager>()->createVine();
+					trigger->addComponent<EnterBossRoom>(& sdlutils().images().at("animationWorm"));
+					trigger->addComponent<Trigger>();
 				}
 				else if (ot.getClass() == "Sanctuary") {
 					sanctuary(mngr_, Vector2D(x_ * scale - (&sdlutils().images().at("sanctuary"))->width() * 1.5, y_ * scale - (&sdlutils().images().at("sanctuary"))->height() * 3.5));
@@ -396,10 +405,10 @@ namespace constructors {
 		*/
 	}
 
-	static inline void vine(Manager* mngr_, Vector2D position, int width, int height) {
+	/*static inline void vine(Manager* mngr_, Vector2D position, int width, int height, Texture* t) {
 		auto vine = mngr_->addEntity(ecs::_grp_VINE);
 		vine->addComponent<Transform>(position.getX(), position.getY(), width, height);
 		vine->addComponent<Image>(&sdlutils().images().at("enredadera"));
-	}
+	}*/
 }
 

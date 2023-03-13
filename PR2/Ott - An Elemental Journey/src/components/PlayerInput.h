@@ -17,6 +17,7 @@ public:
 	virtual void initComponent();
 	virtual void update();
 	constexpr static ecs::cmpId_type id = ecs::_CTRL;
+	void setActive(bool b) { active = b; }
 
 private:
 	Transform* tr_;
@@ -26,6 +27,7 @@ private:
 	FramedImageOtt* image_;
 	Health* health_;
 	float horizontalSpeed = 0;
+	bool active = true;
 };
 
 

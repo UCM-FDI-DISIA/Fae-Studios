@@ -12,7 +12,10 @@ class CameraComponent : public Component {
 private:
 	Transform* playerTrnf_;
 	Transform* tr_;
-
+	bool camerashake = false;
+	int timer;
+	bool left = false;
+	bool right = true;
 public:
 	constexpr static ecs::cmpId_type id = ecs::_CAMERA;
 	SDL_Rect camera;
@@ -21,5 +24,8 @@ public:
 	
 	virtual void initComponent();
 	virtual void update();
+	inline void cameraShake(bool n) {
+		camerashake = n;
+	}
 };
 

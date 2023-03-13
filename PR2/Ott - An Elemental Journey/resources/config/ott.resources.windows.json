@@ -59,7 +59,10 @@
 		{ "id" : "fireSlime", "file" : "../resources/images/sprites/FireSlime.png", "rows" : 2, "cols" : 21},
 		{ "id" : "darkSlime", "file" : "../resources/images/sprites/DarkSlime.png", "rows" : 2, "cols" : 21},
 		{ "id" : "mushroom", "file" : "../resources/images/sprites/Mushroom.png", "rows" : 2, "cols" : 21},
-		{ "id" : "spores", "file" : "../resources/images/sprites/spores.png", "rows" : 1, "cols" : 1}
+		{ "id" : "spores", "file" : "../resources/images/sprites/spores.png", "rows" : 1, "cols" : 1},
+		{ "id" : "animationWorm", "file" : "../resources/images/tests/AnimationWorm.png", "rows" : 1, "cols" : 8},
+		{ "id" : "vine", "file" : "../resources/images/tests/EarthBossVine.png", "rows" : 1, "cols" : 1},
+		{ "id" : "warning", "file" : "../resources/images/tests/EarthBossWarning.png", "rows" : 1, "cols" : 9}
   ],
 
   "messages" : [],

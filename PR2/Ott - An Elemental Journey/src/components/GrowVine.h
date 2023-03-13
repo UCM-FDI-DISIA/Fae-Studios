@@ -8,19 +8,18 @@
 #include "Transform.h"
 #include "ColliderVine.h"
 
-class GrowVine : public Component {
+class GrowVine : public Component
+{
 private:
 	Vector2D posFinalT;
-	Vector2D posFinalC;
-	ColliderVine* cl_;
 	Transform* tr_;
-
+	int speed;
+	int dir;
 public:
+	GrowVine(Vector2D posT, int s, int d) : posFinalT(posT), speed(s), dir(d), tr_(nullptr) {
+	}
+	virtual ~GrowVine() {}
 	constexpr static ecs::cmpId_type id = ecs::_GROWVINE;
-	
-	GrowVine(Vector2D posT, Vector2D posC) : posFinalT(posT), posFinalC(posC), tr_(nullptr), cl_(nullptr) {}
-	
 	void initComponent() override;
 	void update() override;
 };
-

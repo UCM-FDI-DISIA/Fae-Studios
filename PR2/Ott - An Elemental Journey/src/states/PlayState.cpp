@@ -15,6 +15,7 @@
 #include "../components/ColliderVine.h"	
 #include "../components/ImageVine.h"
 #include "../components/GrowVine.h"
+#include "../components/VineManager.h"
 #include "../game/ecs.h"
 
 PlayState::PlayState() : GameState(ecs::_state_PLAY) {
@@ -171,16 +172,7 @@ void PlayState::update() {
 
 void PlayState::AddEnredadera() {
     Entity* aux = (*interactionIt);
-    if (!(aux->getComponent<AddVine>()->doesntHaveVine())) {
-        aux->getComponent<AddVine>()->setVine();
-        aux->getComponent<AddVine>()->getVine()->addComponent<ImageVine>(&sdlutils().images().at("enredadera"));
-        SDL_Rect dest;
-        dest = aux->getComponent<AddVine>()->getVine()->getComponent<Transform>()->getRect();
-        dest.h -= player_->getComponent<Transform>()->getRect().h / 2.5;
-        aux->getComponent<AddVine>()->getVine()->addComponent<ColliderVine>(dest);
-        aux->getComponent<AddVine>()->getVine()->addComponent<GrowVine>(aux->getComponent<AddVine>()->getPosFin(),
-            Vector2D(aux->getComponent<AddVine>()->getPosFin().getX(), aux->getComponent<AddVine>()->getPosFin().getY() + player_->getComponent<Transform>()->getRect().h / 2));
-    }
+	aux->getComponent<VineManager>()->addVine();
 }
 
 void PlayState::Teleport() {
