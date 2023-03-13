@@ -9,7 +9,7 @@
 #include "Health.h"
 #include "FramedImage.h"
 #include "PlayerAttack.h"
-
+#include "AttackCharger.h"
 class PlayerInput : public Component {
 public:
 	PlayerInput();

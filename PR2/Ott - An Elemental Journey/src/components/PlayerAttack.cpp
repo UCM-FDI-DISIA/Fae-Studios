@@ -22,12 +22,6 @@ void PlayerAttack::initComponent() {
 	physics = ent_->getComponent<PhysicsComponent>();
 }
 
-void PlayerAttack::startAttack() {
-	startAttackingTime = SDL_GetTicks();
-	canAttack = true;
-
-}
-
 void PlayerAttack::update() {
 
 	SDL_Rect trigger = { (int)triggerPos.getX(), (int)triggerPos.getY(), (int)watAtackTriggWH.getX(), (int)watAtackTriggWH.getY() };
@@ -46,15 +40,12 @@ void PlayerAttack::update() {
 			}
 			case ecs::Earth: break;
 			case ecs::Fire: {
-				//MoveTrigger(triggerWH); // Se mueven los triggers a la posici�n actual
-				auto pTransf = ent_->getComponent<Transform>();
-				Entity* attack = mngr_->addEntity(ecs::_grp_PROYECTILES);
-				Vector2D shootPos = Vector2D(pTransf->getPosition().getX(), pTransf->getPosition().getY() + pTransf->getHeight() / 2);
-				if (ent_->getComponent<PhysicsComponent>()->getLookDirection()) attack->addComponent<PhysicsComponent>(Vector2D(1, 0));
-				else attack->addComponent<PhysicsComponent>(Vector2D(-1, 0));
-				attack->addComponent<Transform>(shootPos, 50, 50);
-				attack->addComponent<Image>(&sdlutils().images().at("ott_luz"));
-				attack->addComponent<Bullet>(health_->getElement(), ent_);
+				if (chargedAttack) { 
+					remainingAttacks = 3; 
+					lastFireBallTime = SDL_GetTicks() - timeBetweenFireBalls; 
+					chargedAttack = false;
+				}
+				else spawnFireball();
 				break;
 			}
 			case ecs::Water: {
@@ -83,7 +74,7 @@ void PlayerAttack::update() {
 				break;
 			}
 			}
-
+			
 			canAttack = false;
 		}
 	}
@@ -108,10 +99,28 @@ void PlayerAttack::update() {
 			waterTickTimer = SDL_GetTicks() + WATER_ATACK_TICK_TIME;
 		}
 	}
-
+	if (remainingAttacks > 0 && SDL_GetTicks() - lastFireBallTime >= timeBetweenFireBalls) {
+		spawnFireball();
+		lastFireBallTime = SDL_GetTicks();
+		--remainingAttacks;
+	}
 }
 
 // PRIVATE
+
+
+void PlayerAttack::spawnFireball()
+{
+	//MoveTrigger(triggerWH); // Se mueven los triggers a la posici�n actual
+	auto pTransf = ent_->getComponent<Transform>();
+	Entity* attack = mngr_->addEntity(ecs::_grp_PROYECTILES);
+	Vector2D shootPos = Vector2D(pTransf->getPosition().getX(), pTransf->getPosition().getY() + pTransf->getHeight() / 2);
+	if (ent_->getComponent<PhysicsComponent>()->getLookDirection()) attack->addComponent<PhysicsComponent>(Vector2D(1, 0));
+	else attack->addComponent<PhysicsComponent>(Vector2D(-1, 0));
+	attack->addComponent<Transform>(shootPos, 50, 50);
+	attack->addComponent<Image>(&sdlutils().images().at("ott_luz"));
+	attack->addComponent<Bullet>(health_->getElement(), ent_);
+}
 
 void PlayerAttack::MoveTrigger(Vector2D attackWH) {
 	int playerW = tr_->getWidth();
@@ -142,3 +151,4 @@ void PlayerAttack::attackEnemy(SDL_Rect& attackZone) {
 		}
 	}
 }
+

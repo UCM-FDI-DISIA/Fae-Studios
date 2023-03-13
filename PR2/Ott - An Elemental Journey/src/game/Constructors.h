@@ -201,7 +201,7 @@ namespace constructors {
 		auto pAnim = player->addComponent<PlayerAnimationComponent>(anims::OTT_ANIM);
 		auto health = player->addComponent<Health>(5, ecs::Light, true);
 		player->addComponent<PlayerAttack>();
-		//player->addComponent<AttackCh
+		player->addComponent<AttackCharger>(5);
 		player->addComponent<PlayerInput>();
 		pAnim->initComponent();
 		health->initComponent();

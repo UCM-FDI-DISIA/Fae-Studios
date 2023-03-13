@@ -22,12 +22,17 @@ public:
 	virtual ~PlayerAttack() {};
 	virtual void initComponent();
 	virtual void update();
-	void startAttack();
+	inline void startAttack(bool charged) {
+		startAttackingTime = SDL_GetTicks();
+		canAttack = true;
+		chargedAttack = charged;
+	}
 	constexpr static ecs::cmpId_type id = ecs::_PLAYERATTACK;
 private:
 	// Metodos
 	void MoveTrigger(Vector2D attackWH);
 	void attackEnemy(SDL_Rect& attackZone);
+	void spawnFireball();
 
 	// Variables
 	Vector2D triggerPos;
@@ -37,8 +42,8 @@ private:
 	Health* health_;
 	PlayerAnimationComponent* anim_;
 	PhysicsComponent* physics;
-	bool canAttack;
-	int startAttackingTime;
+	bool canAttack, chargedAttack;
+	int startAttackingTime, lastFireBallTime, timeBetweenFireBalls = 250, remainingAttacks = 0;
 	const int AttackTime = 200;
 
 	int waterDurationTimer; // timer duracion ataque de agua

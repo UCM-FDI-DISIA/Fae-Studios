@@ -40,8 +40,7 @@ void PlayerInput::update()
 			physics_->jump();
 		}
 		if (input->isKeyDown(SDLK_q)) {
-			//Recuperar vidas
-			physics_->knockback();
+			ent_->getComponent<AttackCharger>()->addCharge(5);
 		}
 		if (input->isKeyDown(SDLK_f)) {
 			//Recuperar vidas
@@ -108,10 +107,14 @@ void PlayerInput::update()
 			}
 			if (input->isKeyJustUp(SDLK_e) && attack) {
 				attack = false;
-				if (SDL_GetTicks() - attackTimer >= chargedAttackTime * 1000) std::cout << "Ataque pesado" << std::endl;
-				else std::cout << "Ataque normal" << std::endl;
+				AttackCharger* pChargedAttackComp = ent_->getComponent<AttackCharger>();
+				bool canChargeAttack = pChargedAttackComp->hasChargedAttack();
+				bool isCharged = (canChargeAttack && SDL_GetTicks() - attackTimer >= chargedAttackTime * 1000);
 				anim_->setState(ATTACK);
-				attack_->startAttack();
+				attack_->startAttack(isCharged);
+				if (isCharged) {
+					int& numCharges = pChargedAttackComp->getCharge(); numCharges = 0;
+				}
 			}
 		}
 		if (input->isKeyJustUp(SDLK_z)) {
