@@ -38,6 +38,7 @@ namespace ecs {
         _GROWVINE,
         _PLAYERATTACK,
         _ENEMYSTATES,
+        _BOSSACCELERATION,
 
         _LAST_CMP_ID
     };

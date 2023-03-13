@@ -16,6 +16,8 @@
 #include "../components/ImageVine.h"
 #include "../components/GrowVine.h"
 #include "../game/ecs.h"
+#include "../components/Acceleration.h"
+
 
 PlayState::PlayState() : GameState(ecs::_state_PLAY) {
 	/*Mix_Init(MIX_INIT_FLAC | MIX_INIT_MOD | MIX_INIT_MP3 | MIX_INIT_OGG | MIX_INIT_MID);
@@ -40,6 +42,17 @@ PlayState::PlayState() : GameState(ecs::_state_PLAY) {
 	//500, 2000, 100, 120
 	waterM->addComponent<Transform>(3500, 600, 300, 420);
 	waterM->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
+
+	auto waterBoss = mngr_->addEntity(ecs::_grp_CHARACTERS);
+	int x = 600;
+	int y = 1100;
+	float scale = 1.0f;
+	auto waterPh= waterBoss->addComponent<PhysicsComponent>();
+	waterPh->setVelocity(Vector2D(1,0));
+	waterPh->setGravity(false);
+	waterBoss->addComponent<Transform>(x, y, 110 * scale, 110 * scale);
+	waterBoss->addComponent<Image>(&sdlutils().images().at("water_attack"));
+	waterBoss->addComponent<Acceleration>();
 
 	constructors::eSlime(mngr_, "fireSlime", 600, 1100, 1.0f);
 	constructors::eMelee(mngr_, "waterBug", 2400, 1000, 1.0f);
