@@ -25,10 +25,11 @@ private:
 	//unordered_map<ListaNiveles, infoMap> levelPath;
 	Map map;
 	int mapSize;
-	std::vector<TileLayer::Tile> vectorTiles;
+	std::vector<std::vector<std::pair<int, SDL_Rect>>> vectorTiles;
 	std::vector<std::vector<Object>> vectorObjects;
 	Texture* tilemap = nullptr;
 	CameraComponent* cam;
+	
 	//std::vector<Texture*> textures;
 
 	int realTileSize = 32;

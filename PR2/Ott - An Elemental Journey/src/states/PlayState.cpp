@@ -23,8 +23,8 @@ PlayState::PlayState() : GameState(ecs::_state_PLAY) {
 	//music = Mix_LoadMUS("../../sounds/musics/Ambient 4.	wav"); la m�sica va a ser cambiada a un json
 	Mix_PlayMusic(music, -1);*/
 
-	mngr_->setPlayer(constructors::player(mngr_, 500, 1000, 100, 120));
-	mngr_->setCamera(constructors::camera(mngr_, 700, 1000, sdlutils().width(), sdlutils().height()));
+	mngr_->setPlayer(constructors::player(mngr_, 500, 2000, 100, 120));
+	mngr_->setCamera(constructors::camera(mngr_, 700, 2000, sdlutils().width(), sdlutils().height()));
 	player_ = mngr_->getPlayer();
 	camera_ = mngr_->getCamera();
 
@@ -41,9 +41,9 @@ PlayState::PlayState() : GameState(ecs::_state_PLAY) {
 	waterM->addComponent<Transform>(3500, 600, 300, 420);
 	waterM->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
 
-	constructors::eSlime(mngr_, "fireSlime", 600, 1100, 1.0f);
-	constructors::eMelee(mngr_, "waterBug", 2400, 1000, 1.0f);
-	constructors::eRanged(mngr_, "earthMushroom", 1700, 1000, 1.0f);
+	constructors::eSlime(mngr_, "fireSlime", 600, 2100, 1.0f);
+	constructors::eMelee(mngr_, "waterBug", 2400, 2000, 1.0f);
+	constructors::eRanged(mngr_, "earthMushroom", 2700, 1000, 1.0f);
 	constructors::map(mngr_);
 }
 
