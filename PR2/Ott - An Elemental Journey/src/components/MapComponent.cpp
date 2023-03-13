@@ -81,7 +81,7 @@ void MapComponent::loadMap(std::string path) {
 
 void MapComponent::render() {
     SDL_Rect camPos = cam->camera;
-    int cols = sdlutils().levels().at("demo").cols;
+    int cols = 100;
     int offsetX = camPos.x;
     int offsetY = camPos.y;
     for (int i = 0; i < vectorTiles.size(); i++) {
