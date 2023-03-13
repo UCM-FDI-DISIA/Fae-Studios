@@ -15,7 +15,7 @@ PhysicsComponent::PhysicsComponent() {
 	jumpForce = earthJumpForce;
 }
 
-PhysicsComponent::PhysicsComponent(anims::Colliders c) {
+PhysicsComponent::PhysicsComponent(colliders::Colliders c) {
 	typeofCollider = c;
 	jumpForce = earthJumpForce;
 }
@@ -26,11 +26,11 @@ void PhysicsComponent::initComponent() {
 
 void PhysicsComponent::createCollider() {
 	auto tr = ent_->getComponent<Transform>();
-	colliderOffset = Vector2D(anims::colliders[typeofCollider].izqPixels / (float)anims::colliders[typeofCollider].totalHorPixels * tr->getWidth(),
-		anims::colliders[typeofCollider].upPixels / (float)anims::colliders[typeofCollider].totalVertPixels * tr->getHeight());
+	colliderOffset = Vector2D(colliders::collider[typeofCollider].izqPixels / (float)colliders::collider[typeofCollider].totalHorPixels * tr->getWidth(),
+		colliders::collider[typeofCollider].upPixels / (float)colliders::collider[typeofCollider].totalVertPixels * tr->getHeight());
 
-	colliderWH = Vector2D(anims::colliders[typeofCollider].width / (float)anims::colliders[typeofCollider].totalHorPixels * tr->getWidth(),
-		anims::colliders[typeofCollider].height / (float)anims::colliders[typeofCollider].totalVertPixels * tr->getHeight());
+	colliderWH = Vector2D(colliders::collider[typeofCollider].width / (float)colliders::collider[typeofCollider].totalHorPixels * tr->getWidth(),
+		colliders::collider[typeofCollider].height / (float)colliders::collider[typeofCollider].totalVertPixels * tr->getHeight());
 }
 
 //void PhysicsComponent::render() {

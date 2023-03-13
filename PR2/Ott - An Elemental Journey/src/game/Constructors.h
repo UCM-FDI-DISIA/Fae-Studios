@@ -43,7 +43,7 @@ namespace constructors {
 
 		// Asi se a�ade enemigo rango
 		auto enemy2 = mngr_->addEntity(ecs::_grp_CHARACTERS);
-		auto ph2 = enemy2->addComponent<PhysicsComponent>(anims::RANGE);
+		auto ph2 = enemy2->addComponent<PhysicsComponent>(colliders::RANGE);
 		enemy2->addComponent<Transform>(x, y, 110 * scale, 110 * scale); // 1700 1800 pos para pruebas
 		ph2->createCollider();
 		enemy2->addComponent<FramedImage>(&sdlutils().images().at(imageKey), 2, 22);
@@ -63,7 +63,7 @@ namespace constructors {
 		// Asi se a�ade enemigo melee
 
 		auto enemy3 = mngr_->addEntity(ecs::_grp_CHARACTERS);
-		auto ph3 = enemy3->addComponent<PhysicsComponent>(anims::MELEE);
+		auto ph3 = enemy3->addComponent<PhysicsComponent>(colliders::MELEE);
 		enemy3->addComponent<Transform>(x, y, 230 * scale, 130 * scale);  // 2400 1800 pos para pruebas
 		ph3->createCollider();
 		enemy3->addComponent<FramedImage>(&sdlutils().images().at(imageKey), 2, 21);
@@ -82,7 +82,7 @@ namespace constructors {
 		// Asi se a�ade enemigo slime
 
 		auto enemy = mngr_->addEntity(ecs::_grp_CHARACTERS);
-		auto ph = enemy->addComponent<PhysicsComponent>(anims::SLIME);
+		auto ph = enemy->addComponent<PhysicsComponent>(colliders::SLIME);
 		auto tr = enemy->addComponent<Transform>(Vector2D(x, y), 360 * scale, 210 * scale); // 600 950 pos para pruebas
 		ph->createCollider();
 		enemy->addComponent<FramedImage>(&sdlutils().images().at(imageKey), 2, 21);
@@ -103,7 +103,7 @@ namespace constructors {
 		// Asi se a�ade enemigo slime
 
 		auto enemy = mngr_->addEntity(ecs::_grp_CHARACTERS);
-		auto ph = enemy->addComponent<PhysicsComponent>(anims::SLIME);
+		auto ph = enemy->addComponent<PhysicsComponent>(colliders::SLIME);
 		auto tr = enemy->addComponent<Transform>(Vector2D(x, y), 360 * scale, 210 * scale); // 600 950 pos para pruebas
 		ph->createCollider();
 		enemy->addComponent<FramedImage>(tex, 2, 21);
@@ -193,7 +193,7 @@ namespace constructors {
 		
 	static inline Entity* player(Manager* mngr_, int x, int y, int w, int h) {
 		auto player = mngr_->addEntity(ecs::_grp_CHARACTERS);
-		auto ph = player->addComponent<PhysicsComponent>(anims::OTT);
+		auto ph = player->addComponent<PhysicsComponent>(colliders::OTT);
 		player->addComponent<Transform>(Vector2D(x, y), w, h);
 		SDL_Rect rect = { 20,20,50,50 };
 		player->addComponent<HealthImage>(&sdlutils().images().at("hearts"), 5, rect);

@@ -4,12 +4,13 @@
 #include <iostream>
 #include <SDL.h>
 #include "../ecs/anims.h"
+#include "../ecs/colliders.h"
 
 class PhysicsComponent : public Component
 {
 public:
     PhysicsComponent();
-    PhysicsComponent(anims::Colliders c);
+    PhysicsComponent(colliders::Colliders c);
     PhysicsComponent(Vector2D vel) : velocity_(vel) {}
     virtual ~PhysicsComponent();
     virtual void initComponent();
@@ -49,7 +50,7 @@ private:
     Vector2D velocity_;
     float dirClimbing = 0;
 
-    anims::Colliders typeofCollider;
+    colliders::Colliders typeofCollider;
 
     //jumpforces
     int jumpForce;
