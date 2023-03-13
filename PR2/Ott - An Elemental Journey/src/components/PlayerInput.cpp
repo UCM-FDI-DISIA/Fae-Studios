@@ -58,10 +58,11 @@ void PlayerInput::update()
 				image_->shielded(true);
 				physics_->slowed();
 			}
-			if (input->isKeyDown(SDLK_e) && anim_->getState() != ATTACK) {
+			if (input->isKeyJustDown(SDLK_e) && anim_->getState() != ATTACK && !attack) {
 				//Ataque
-				anim_->setState(ATTACK);
-				attack_->startAttack();
+				attack = true;
+				attackTimer = SDL_GetTicks();
+				
 			}
 			if (input->isKeyDown(SDLK_a)) {
 				//Cambio elemento
@@ -104,6 +105,13 @@ void PlayerInput::update()
 					playerV = playerV - Vector2D(-horizontalSpeed, 0);
 					if (playerV.getX() > horizontalSpeed) playerV = Vector2D(horizontalSpeed, playerV.getY());
 				}
+			}
+			if (input->isKeyJustUp(SDLK_e) && attack) {
+				attack = false;
+				if (SDL_GetTicks() - attackTimer >= chargedAttackTime * 1000) std::cout << "Ataque pesado" << std::endl;
+				else std::cout << "Ataque normal" << std::endl;
+				anim_->setState(ATTACK);
+				attack_->startAttack();
 			}
 		}
 		if (input->isKeyJustUp(SDLK_z)) {

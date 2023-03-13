@@ -28,6 +28,7 @@
 #include "../components/SlimeStates.h"
 #include "../components/EnemyContactDamage.h"
 #include "../states/GameStateMachine.h"
+#include "../components/AttackCharger.h"
 #include <string>
 #include <iostream>
 #include <functional>
@@ -200,6 +201,7 @@ namespace constructors {
 		auto pAnim = player->addComponent<PlayerAnimationComponent>(anims::OTT_ANIM);
 		auto health = player->addComponent<Health>(5, ecs::Light, true);
 		player->addComponent<PlayerAttack>();
+		//player->addComponent<AttackCh
 		player->addComponent<PlayerInput>();
 		pAnim->initComponent();
 		health->initComponent();

@@ -26,6 +26,8 @@ private:
 	FramedImageOtt* image_;
 	Health* health_;
 	float horizontalSpeed = 0;
+	int attackTimer, chargedAttackTime = 1;
+	bool attack = false;
 };
 
 
