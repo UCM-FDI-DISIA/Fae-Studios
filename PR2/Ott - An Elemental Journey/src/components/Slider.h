@@ -3,8 +3,7 @@
 #include "Transform.h"
 #include "FramedImage.h"
 #include "TextComponent.h"
-
-using SliderCallback = void(int value);
+#include <functional>
 
 enum slider_State { MOUSE_OUT = 0, MOUSE_OVER = 1, CLICKED = 2 };
 
@@ -63,10 +62,10 @@ class Slider : public Component {
 private:
     /// Estados en los que puede estar la textura de un slider
     Entity* needle;
-    SliderCallback* callback;
     Transform* transform;
     FramedImage* texture;
     TextComponent* title;
+    std::function<void(int)> callback;
     SliderPercentage* percentageText;
     float currentValue;
     float maxValue;
@@ -78,7 +77,7 @@ private:
 
 public:
     constexpr static ecs::cmpId_type id = ecs::_SLIDER;
-    Slider(float maxValue, float minValue, float initialValue, SliderCallback* callback) : Component(), maxValue(maxValue), minValue(minValue), currentValue(initialValue), callback(callback) {
+    Slider(float maxValue, float minValue, float initialValue, std::function<void(int)> const& callback) : Component(), maxValue(maxValue), minValue(minValue), currentValue(initialValue), callback(callback) {
         needle = nullptr;
         transform = nullptr;
         texture = nullptr;

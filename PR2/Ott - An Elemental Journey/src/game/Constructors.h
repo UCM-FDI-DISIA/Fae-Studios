@@ -29,6 +29,7 @@
 #include "../states/GameStateMachine.h"
 #include <string>
 #include <iostream>
+#include <functional>
 
 
 const SDL_Color transparente{ 255,255,255,1 };
@@ -113,7 +114,7 @@ namespace constructors {
 		eAttack_->SetRefs(eAnim_, nullptr, meleeAttack_);
 	}
 
-	static inline void button(Manager* mngr_, Vector2D& position, std::string text, Font& f, Callback* callback) {
+	static inline void button(Manager* mngr_, Vector2D& position, std::string text, Font& f, std::function<void()> const& callback) {
 		auto b = mngr_->addEntity(ecs::_grp_UI);
 		b->addComponent<Transform>(position, 50, 50);
 		b->addComponent<FramedImage>(&sdlutils().images().at("button"), 1, 3);
@@ -124,7 +125,7 @@ namespace constructors {
 		b->getComponent<Transform>()->setPosition(b->getComponent<Transform>()->getPosition() - Vector2D(b->getComponent<FramedImage>()->getFrameWidth() / 2, b->getComponent<FramedImage>()->getFrameHeight() / 2));
 	}
 
-	static inline void exitButton(Manager* mngr_, Vector2D& position, Callback* callback) {
+	static inline void exitButton(Manager* mngr_, Vector2D& position, std::function<void()> const& callback) {
 		auto quitButton = mngr_->addEntity(ecs::_grp_UI);
 		quitButton->addComponent<Transform>(position, 50, 50);
 		quitButton->addComponent<FramedImage>(&sdlutils().images().at("quitbutton"), 1, 3);
@@ -135,7 +136,7 @@ namespace constructors {
 		quitButton->getComponent<Transform>()->setPosition(quitButton->getComponent<Transform>()->getPosition() - Vector2D(quitButton->getComponent<FramedImage>()->getFrameWidth() / 2, quitButton->getComponent<FramedImage>()->getFrameHeight() / 2));
 	}
 
-	static inline void slider(Manager* mngr_, Vector2D& position, std::string title, float minValue, float maxValue, float currentValue, SliderCallback* callback) {
+	static inline void slider(Manager* mngr_, Vector2D& position, std::string title, float minValue, float maxValue, float currentValue, std::function<void(int)> const& callback) {
 		auto s = mngr_->addEntity(ecs::_grp_UI);
 		s->addComponent<Transform>(position, 50, 50);
 		s->addComponent<FramedImage>(&sdlutils().images().at("slider"), 3, 1);

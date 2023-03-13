@@ -29,28 +29,24 @@ MainMenuState::MainMenuState() : MenuState() {
     littleOtt->addComponent<FramedImage>(&sdlutils().images().at("ott_luz"), 9, 8);
 
     pos = Vector2D(sdlutils().width() / 2, 3 * sdlutils().height() / 7);
-    constructors::button(mngr_, pos, "Jugar", sdlutils().fonts().at("vcr_osd48"), play);
+    constructors::button(mngr_, pos, "Jugar", sdlutils().fonts().at("vcr_osd48"), []() {
+            GameStateMachine::instance()->changeState(new PlayState());
+        });
 
     pos = Vector2D(sdlutils().width() / 2, 4 * sdlutils().height() / 7);
-    constructors::button(mngr_, pos, "Cargar", sdlutils().fonts().at("vcr_osd48"), options);
+    constructors::button(mngr_, pos, "Cargar", sdlutils().fonts().at("vcr_osd48"), []() {
+        GameStateMachine::instance()->pushState(new OptionsMenuState());
+        });
 
     pos = Vector2D(sdlutils().width() / 2, 5 * sdlutils().height() / 7);
-    constructors::button(mngr_, pos, "Opciones", sdlutils().fonts().at("vcr_osd24"), options);
+    constructors::button(mngr_, pos, "Opciones", sdlutils().fonts().at("vcr_osd24"), []() {
+        GameStateMachine::instance()->pushState(new OptionsMenuState());
+        });
 
     pos = Vector2D(sdlutils().width() / 2, 6 * sdlutils().height() / 7);
-    constructors::exitButton(mngr_, pos, quit);
-}
-
-void MainMenuState::play() {
-	GameStateMachine::instance()->changeState(new PlayState());
-}
-
-void MainMenuState::options() {
-	GameStateMachine::instance()->pushState(new OptionsMenuState());
-}
-
-void MainMenuState::quit() {
-    game().exitGame();
+    constructors::exitButton(mngr_, pos, []() {
+            game().exitGame();
+        });
 }
 
 void MainMenuState::update() {

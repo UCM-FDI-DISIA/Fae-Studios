@@ -9,22 +9,27 @@ MusicOptionsMenuState::MusicOptionsMenuState() : MenuState() {
 	constructors::background(mngr_, &sdlutils().images().at("playbackground"));
 		
 	pos = Vector2D(sdlutils().width() / 2, 2 * sdlutils().height() / 9);
-	constructors::slider(mngr_, pos, "Volumen general", 0.0f, 100.0f, 100.0f, generalVolume);
+	constructors::slider(mngr_, pos, "Volumen general", 0.0f, 100.0f, 100.0f, [this](int v) {
+		generalVolume(v);
+	});
 
 	pos = Vector2D(sdlutils().width() / 2, 4 * sdlutils().height() / 9);
-	constructors::slider(mngr_, pos, "Música", 0.0f, 100.0f, 100.0f, musicVolume);
+	constructors::slider(mngr_, pos, "Música", 0.0f, 100.0f, 100.0f, [this](int v) {
+		musicVolume(v);
+	});
 
 	pos = Vector2D(sdlutils().width() / 2, 6 * sdlutils().height() / 9);
-	constructors::slider(mngr_, pos, "Sonido", 0.0f, 100.0f, 100.0f, soundsVolume);
+	constructors::slider(mngr_, pos, "Sonido", 0.0f, 100.0f, 100.0f, [this](int v) {
+		soundsVolume(v);
+	});
 
 	pos = Vector2D(sdlutils().width() / 2, 6 * sdlutils().height() / 7);
-	constructors::button(mngr_, pos, "Volver", sdlutils().fonts().at("vcr_osd48"), back);
+	constructors::button(mngr_, pos, "Volver", sdlutils().fonts().at("vcr_osd48"), []() {
+		GameStateMachine::instance()->popState();
+	});
 
 }
 
-void MusicOptionsMenuState::back() {
-	GameStateMachine::instance()->popState();
-}
 
 void MusicOptionsMenuState::generalVolume(int value) {
 	//app->changeVolume(0, value);

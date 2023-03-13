@@ -18,11 +18,8 @@ ControlMenuState::ControlMenuState() : MenuState() {
     constructors::image(mngr_, pos, size, &sdlutils().images().at("whitebackground"));
     
     pos = Vector2D(sdlutils().width() / 2, 6 * sdlutils().height() / 7);
-    constructors::button(mngr_, pos, "Volver", sdlutils().fonts().at("vcr_osd48"), back);
+    constructors::button(mngr_, pos, "Volver", sdlutils().fonts().at("vcr_osd48"), []() {
+        GameStateMachine::instance()->popState();
+    });
 }
-
-void ControlMenuState::back() {
-	GameStateMachine::instance()->popState();
-}
-
 

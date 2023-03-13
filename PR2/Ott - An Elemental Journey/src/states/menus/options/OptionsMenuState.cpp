@@ -17,30 +17,22 @@ OptionsMenuState::OptionsMenuState() : MenuState() {
 	constructors::boldText(mngr_, "Opciones", pos, sdlutils().fonts().at("press_start48"), 5, yellow);
 
 	pos = Vector2D(sdlutils().width() / 2, 3 * sdlutils().height() / 7);
-	constructors::button(mngr_, pos, "Gráficos", sdlutils().fonts().at("vcr_osd24"), graphicOptions);
+	constructors::button(mngr_, pos, "Gráficos", sdlutils().fonts().at("vcr_osd24"), []() {
+			std::cout << "opciones graficas" << std::endl;
+	});
 
 	pos = Vector2D(sdlutils().width() / 2, 4 * sdlutils().height() / 7);
-	constructors::button(mngr_, pos, "Música y sonidos", sdlutils().fonts().at("vcr_osd16"), musicOptions);
+	constructors::button(mngr_, pos, "Música y sonidos", sdlutils().fonts().at("vcr_osd16"), []() {
+			GameStateMachine::instance()->pushState(new MusicOptionsMenuState());
+	});
 
 	pos = Vector2D(sdlutils().width() / 2, 5 * sdlutils().height() / 7);
-	constructors::button(mngr_, pos, "Controles", sdlutils().fonts().at("vcr_osd24"), controls);
+	constructors::button(mngr_, pos, "Controles", sdlutils().fonts().at("vcr_osd24"), []() {
+		GameStateMachine::instance()->pushState(new ControlMenuState());
+	});
 
 	pos = Vector2D(sdlutils().width() / 2, 6 * sdlutils().height() / 7);
-	constructors::button(mngr_, pos, "Volver", sdlutils().fonts().at("vcr_osd48"), back);
-}
-
-void OptionsMenuState::graphicOptions() {
-	std::cout << "opciones graficas" << std::endl;
-}
-
-void OptionsMenuState::musicOptions() {
-	GameStateMachine::instance()->pushState(new MusicOptionsMenuState());
-}
-
-void OptionsMenuState::back() {
-	GameStateMachine::instance()->popState();
-}
-
-void OptionsMenuState::controls() {
-	GameStateMachine::instance()->pushState(new ControlMenuState());
+	constructors::button(mngr_, pos, "Volver", sdlutils().fonts().at("vcr_osd48"), []() {
+		GameStateMachine::instance()->popState();
+	});
 }

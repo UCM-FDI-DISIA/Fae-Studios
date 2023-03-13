@@ -4,10 +4,9 @@
 
 class MusicOptionsMenuState : public MenuState {
 private:
-	static void generalVolume(int value);
-	static void musicVolume(int value);
-	static void soundsVolume(int value);
-	static void back();
+	void generalVolume(int value);
+	void musicVolume(int value);
+	void soundsVolume(int value);
 public:
 	MusicOptionsMenuState();
 };

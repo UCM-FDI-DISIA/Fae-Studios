@@ -11,11 +11,6 @@ private:
 	float animTime = 0;
     Entity* littleOtt;
 
-	static void play();
-	//static void loadSave();
-	static void options();
-	static void quit();
-
 public:
 	MainMenuState();
 	void update() final;
