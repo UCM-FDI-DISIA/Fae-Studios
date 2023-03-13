@@ -27,6 +27,8 @@
 #include "../componentes/Trigger.h"
 #include "../componentes/EnterBossRoom.h"
 #include "../componentes/VineManager.h"
+#include "../componentes/EarthBossAnimationController.h"
+#include "../componentes/FramedImage.h"
 #include "../checkML.h"
 
 
@@ -73,6 +75,8 @@ public:
 	static void AddEnredadera(Manager* m);
 	void checkInteraction();
 	pair<bool,bool> checkCollisionWithVine();
+	void addBossEarth();
+	bool added = false;
 	inline Entity* getCurrentInteraction() { return *interactionIt; }
 	inline void setHandler(ecs::hdlrId_type hId, Entity* e) {
 		hdlrs_[hId] = e;

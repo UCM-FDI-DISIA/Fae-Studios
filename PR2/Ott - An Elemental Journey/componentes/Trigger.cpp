@@ -13,6 +13,7 @@ void Trigger::update() {
 				if (SDL_HasIntersection(&r1, &r2)) {
 					if (ents->hasComponent<EnterBossRoom>()) {
 						ents->getComponent<EnterBossRoom>()->enterRoom();
+						ents->getComponent<EnterBossRoom>()->startAnim();
 					}
 				}
 		

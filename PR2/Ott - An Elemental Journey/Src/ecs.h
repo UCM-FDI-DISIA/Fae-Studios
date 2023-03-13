@@ -43,12 +43,13 @@ namespace ecs
 		_grp_GENERAL,
 		_grp_BACKGROUND,
 		_grp_VINE,
+		_grp_CHARACTERS,
 		_grp_MAP,
 		_grp_INTERACTION,
 		_grp_TRIGGER,
 		_grp_GROUND,
-		_grp_CHARACTERS,
 		_grp_PROYECTILES,
+		_grp_MINIBOSS,
 		_LAST_GRP_ID
 	};
 	static constexpr grpId_type maxGroupId = _LAST_GRP_ID;

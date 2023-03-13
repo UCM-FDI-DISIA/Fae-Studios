@@ -76,6 +76,17 @@ PlayState::PlayState(SDLApplication* app) : GameState(PLAY_STATE, app) {
 	auto eAnim_3 = enemy3->addComponent<EnemyAnimationComponent>(anims::MELEE_ANIM);
 	auto meleeAttack_3 = enemy3->addComponent<EnemyMeleeAttack>();
 	eAttack_3->SetRefs(eAnim_3, nullptr, meleeAttack_3);
+
+	//Mini Boss Tierra
+	/*auto enemy4 = manager_->addEntity(ecs::_grp_CHARACTERS);
+	enemy4->addComponent<Transform>(Vector2D(7319, 1225), 1069, 1144);
+	auto ph4 = enemy4->addComponent<PhysicsComponent>();
+	enemy4->addComponent<FramedImageEnemy>(app->getTexture("animationWorm", PLAY_STATE), anims::EARTH_ANIM);
+	enemy4->addComponent<Health>(5, ecs::Earth, false);
+	enemy4->addComponent<EarthBossAnimationController>(anims::EARTH_ANIM);
+	ph4->setVelocity({ 1,0 });
+	ph4->lookDirection(true);*/
+
 }
 	
 	
