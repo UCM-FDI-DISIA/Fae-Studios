@@ -20,19 +20,38 @@ add_executable(Ott
         "Ott - An Elemental Journey/src/components/FramedImage.cpp"
         "Ott - An Elemental Journey/src/components/Image.cpp"
         "Ott - An Elemental Journey/src/components/Slider.cpp"
-        "Ott - An Elemental Journey/src/components/SliderPercentage.cpp"
-        "Ott - An Elemental Journey/src/components/Text.cpp"
-        "Ott - An Elemental Journey/src/components/Transform.cpp"
+        "Ott - An Elemental Journey/src/components/TextComponent.cpp"
+        "Ott - An Elemental Journey/src/components/Bullet.cpp"
+        "Ott - An Elemental Journey/src/components/CameraComponent.cpp"
+        "Ott - An Elemental Journey/src/components/EnemyAnimationController.cpp"
+        "Ott - An Elemental Journey/src/components/EnemyAttack.cpp"
+        "Ott - An Elemental Journey/src/components/EnemyMeleeAttack.cpp"
+        "Ott - An Elemental Journey/src/components/EnemyMovement.cpp"
+        "Ott - An Elemental Journey/src/components/EnemyShootingAttack.cpp"
+        "Ott - An Elemental Journey/src/components/Generations.cpp"
+        "Ott - An Elemental Journey/src/components/GrowVine.cpp"
+        "Ott - An Elemental Journey/src/components/Health.cpp"
+        "Ott - An Elemental Journey/src/components/HealthImage.cpp"
+        "Ott - An Elemental Journey/src/components/ImageVine.cpp"
+        "Ott - An Elemental Journey/src/components/MapComponent.cpp"
+        "Ott - An Elemental Journey/src/components/PhysicsComponent.cpp"
+        "Ott - An Elemental Journey/src/components/PlayerAnimationComponent.cpp"
+        "Ott - An Elemental Journey/src/components/PlayerAttack.cpp"
+        "Ott - An Elemental Journey/src/components/PlayerInput.cpp"
+        "Ott - An Elemental Journey/src/components/SlimeAttack.cpp"
+        "Ott - An Elemental Journey/src/components/SlimeStates.cpp"
+        "Ott - An Elemental Journey/src/components/TestEnemyInput.cpp"
+
 
         #ECS
         "Ott - An Elemental Journey/src/ecs/Manager.cpp"
+        "Ott - An Elemental Journey/src/ecs/anims.cpp"
 
         #GAME
         "Ott - An Elemental Journey/src/game/Game.cpp"
 
         #JSON
         "Ott - An Elemental Journey/src/json/JSON.cpp"
-        "Ott - An Elemental Journey/src/json/json_demo.cpp"
         "Ott - An Elemental Journey/src/json/JSONValue.cpp"
 
         #SDLUTILS
@@ -43,7 +62,6 @@ add_executable(Ott
         #STATES
         "Ott - An Elemental Journey/src/states/GameStateMachine.cpp"
         "Ott - An Elemental Journey/src/states/PlayState.cpp"
-        "Ott - An Elemental Journey/src/states/menus/MenuState.cpp"
         "Ott - An Elemental Journey/src/states/menus/MainMenuState.cpp"
         "Ott - An Elemental Journey/src/states/menus/PauseMenuState.cpp"
         "Ott - An Elemental Journey/src/states/menus/options/OptionsMenuState.cpp"

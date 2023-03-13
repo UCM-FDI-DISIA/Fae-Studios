@@ -87,8 +87,8 @@ PhysicsComponent::~PhysicsComponent()
 SDL_Rect PhysicsComponent::getCollider() const {
 	if (ent_->hasComponent<Transform>()) {
 		Transform* t = ent_->getComponent<Transform>();
-		SDL_Rect collider = { (t->getPosition().getX() + colliderOffset.getX()), (t->getPosition().getY() + colliderOffset.getY()),
-								colliderWH.getX(), colliderWH.getY() };
+		SDL_Rect collider = { (int)(t->getPosition().getX() + colliderOffset.getX()), (int)(t->getPosition().getY() + colliderOffset.getY()),
+                              (int)colliderWH.getX(), (int)colliderWH.getY() };
 		return collider;
 	}
 }

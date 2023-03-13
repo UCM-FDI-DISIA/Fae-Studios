@@ -81,22 +81,148 @@ build CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/Slider.cpp.o:
   OBJECT_DIR = CMakeFiles/Ott.dir
   OBJECT_FILE_DIR = CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components
 
-build CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/SliderPercentage.cpp.o: CXX_COMPILER__Ott_Debug /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott$ -$ An$ Elemental$ Journey/src/components/SliderPercentage.cpp || cmake_object_order_depends_target_Ott
-  DEP_FILE = CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/SliderPercentage.cpp.o.d
+build CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/TextComponent.cpp.o: CXX_COMPILER__Ott_Debug /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott$ -$ An$ Elemental$ Journey/src/components/TextComponent.cpp || cmake_object_order_depends_target_Ott
+  DEP_FILE = CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/TextComponent.cpp.o.d
   FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -F/Library/Frameworks  -std=gnu++17
   INCLUDES = -I/Library/Frameworks/SDL2.framework/Headers -I/Library/Frameworks/SDL2_image.framework/Headers -I/Library/Frameworks/SDL2_ttf.framework/Headers -I/Library/Frameworks/SDL2_mixer.framework/Headers -I/usr/local/include
   OBJECT_DIR = CMakeFiles/Ott.dir
   OBJECT_FILE_DIR = CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components
 
-build CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/Text.cpp.o: CXX_COMPILER__Ott_Debug /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott$ -$ An$ Elemental$ Journey/src/components/Text.cpp || cmake_object_order_depends_target_Ott
-  DEP_FILE = CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/Text.cpp.o.d
+build CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/Bullet.cpp.o: CXX_COMPILER__Ott_Debug /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott$ -$ An$ Elemental$ Journey/src/components/Bullet.cpp || cmake_object_order_depends_target_Ott
+  DEP_FILE = CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/Bullet.cpp.o.d
   FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -F/Library/Frameworks  -std=gnu++17
   INCLUDES = -I/Library/Frameworks/SDL2.framework/Headers -I/Library/Frameworks/SDL2_image.framework/Headers -I/Library/Frameworks/SDL2_ttf.framework/Headers -I/Library/Frameworks/SDL2_mixer.framework/Headers -I/usr/local/include
   OBJECT_DIR = CMakeFiles/Ott.dir
   OBJECT_FILE_DIR = CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components
 
-build CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/Transform.cpp.o: CXX_COMPILER__Ott_Debug /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott$ -$ An$ Elemental$ Journey/src/components/Transform.cpp || cmake_object_order_depends_target_Ott
-  DEP_FILE = CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/Transform.cpp.o.d
+build CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/CameraComponent.cpp.o: CXX_COMPILER__Ott_Debug /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott$ -$ An$ Elemental$ Journey/src/components/CameraComponent.cpp || cmake_object_order_depends_target_Ott
+  DEP_FILE = CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/CameraComponent.cpp.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -F/Library/Frameworks  -std=gnu++17
+  INCLUDES = -I/Library/Frameworks/SDL2.framework/Headers -I/Library/Frameworks/SDL2_image.framework/Headers -I/Library/Frameworks/SDL2_ttf.framework/Headers -I/Library/Frameworks/SDL2_mixer.framework/Headers -I/usr/local/include
+  OBJECT_DIR = CMakeFiles/Ott.dir
+  OBJECT_FILE_DIR = CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components
+
+build CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/EnemyAnimationController.cpp.o: CXX_COMPILER__Ott_Debug /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott$ -$ An$ Elemental$ Journey/src/components/EnemyAnimationController.cpp || cmake_object_order_depends_target_Ott
+  DEP_FILE = CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/EnemyAnimationController.cpp.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -F/Library/Frameworks  -std=gnu++17
+  INCLUDES = -I/Library/Frameworks/SDL2.framework/Headers -I/Library/Frameworks/SDL2_image.framework/Headers -I/Library/Frameworks/SDL2_ttf.framework/Headers -I/Library/Frameworks/SDL2_mixer.framework/Headers -I/usr/local/include
+  OBJECT_DIR = CMakeFiles/Ott.dir
+  OBJECT_FILE_DIR = CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components
+
+build CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/EnemyAttack.cpp.o: CXX_COMPILER__Ott_Debug /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott$ -$ An$ Elemental$ Journey/src/components/EnemyAttack.cpp || cmake_object_order_depends_target_Ott
+  DEP_FILE = CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/EnemyAttack.cpp.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -F/Library/Frameworks  -std=gnu++17
+  INCLUDES = -I/Library/Frameworks/SDL2.framework/Headers -I/Library/Frameworks/SDL2_image.framework/Headers -I/Library/Frameworks/SDL2_ttf.framework/Headers -I/Library/Frameworks/SDL2_mixer.framework/Headers -I/usr/local/include
+  OBJECT_DIR = CMakeFiles/Ott.dir
+  OBJECT_FILE_DIR = CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components
+
+build CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/EnemyMeleeAttack.cpp.o: CXX_COMPILER__Ott_Debug /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott$ -$ An$ Elemental$ Journey/src/components/EnemyMeleeAttack.cpp || cmake_object_order_depends_target_Ott
+  DEP_FILE = CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/EnemyMeleeAttack.cpp.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -F/Library/Frameworks  -std=gnu++17
+  INCLUDES = -I/Library/Frameworks/SDL2.framework/Headers -I/Library/Frameworks/SDL2_image.framework/Headers -I/Library/Frameworks/SDL2_ttf.framework/Headers -I/Library/Frameworks/SDL2_mixer.framework/Headers -I/usr/local/include
+  OBJECT_DIR = CMakeFiles/Ott.dir
+  OBJECT_FILE_DIR = CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components
+
+build CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/EnemyMovement.cpp.o: CXX_COMPILER__Ott_Debug /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott$ -$ An$ Elemental$ Journey/src/components/EnemyMovement.cpp || cmake_object_order_depends_target_Ott
+  DEP_FILE = CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/EnemyMovement.cpp.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -F/Library/Frameworks  -std=gnu++17
+  INCLUDES = -I/Library/Frameworks/SDL2.framework/Headers -I/Library/Frameworks/SDL2_image.framework/Headers -I/Library/Frameworks/SDL2_ttf.framework/Headers -I/Library/Frameworks/SDL2_mixer.framework/Headers -I/usr/local/include
+  OBJECT_DIR = CMakeFiles/Ott.dir
+  OBJECT_FILE_DIR = CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components
+
+build CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/EnemyShootingAttack.cpp.o: CXX_COMPILER__Ott_Debug /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott$ -$ An$ Elemental$ Journey/src/components/EnemyShootingAttack.cpp || cmake_object_order_depends_target_Ott
+  DEP_FILE = CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/EnemyShootingAttack.cpp.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -F/Library/Frameworks  -std=gnu++17
+  INCLUDES = -I/Library/Frameworks/SDL2.framework/Headers -I/Library/Frameworks/SDL2_image.framework/Headers -I/Library/Frameworks/SDL2_ttf.framework/Headers -I/Library/Frameworks/SDL2_mixer.framework/Headers -I/usr/local/include
+  OBJECT_DIR = CMakeFiles/Ott.dir
+  OBJECT_FILE_DIR = CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components
+
+build CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/Generations.cpp.o: CXX_COMPILER__Ott_Debug /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott$ -$ An$ Elemental$ Journey/src/components/Generations.cpp || cmake_object_order_depends_target_Ott
+  DEP_FILE = CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/Generations.cpp.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -F/Library/Frameworks  -std=gnu++17
+  INCLUDES = -I/Library/Frameworks/SDL2.framework/Headers -I/Library/Frameworks/SDL2_image.framework/Headers -I/Library/Frameworks/SDL2_ttf.framework/Headers -I/Library/Frameworks/SDL2_mixer.framework/Headers -I/usr/local/include
+  OBJECT_DIR = CMakeFiles/Ott.dir
+  OBJECT_FILE_DIR = CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components
+
+build CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/GrowVine.cpp.o: CXX_COMPILER__Ott_Debug /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott$ -$ An$ Elemental$ Journey/src/components/GrowVine.cpp || cmake_object_order_depends_target_Ott
+  DEP_FILE = CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/GrowVine.cpp.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -F/Library/Frameworks  -std=gnu++17
+  INCLUDES = -I/Library/Frameworks/SDL2.framework/Headers -I/Library/Frameworks/SDL2_image.framework/Headers -I/Library/Frameworks/SDL2_ttf.framework/Headers -I/Library/Frameworks/SDL2_mixer.framework/Headers -I/usr/local/include
+  OBJECT_DIR = CMakeFiles/Ott.dir
+  OBJECT_FILE_DIR = CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components
+
+build CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/Health.cpp.o: CXX_COMPILER__Ott_Debug /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott$ -$ An$ Elemental$ Journey/src/components/Health.cpp || cmake_object_order_depends_target_Ott
+  DEP_FILE = CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/Health.cpp.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -F/Library/Frameworks  -std=gnu++17
+  INCLUDES = -I/Library/Frameworks/SDL2.framework/Headers -I/Library/Frameworks/SDL2_image.framework/Headers -I/Library/Frameworks/SDL2_ttf.framework/Headers -I/Library/Frameworks/SDL2_mixer.framework/Headers -I/usr/local/include
+  OBJECT_DIR = CMakeFiles/Ott.dir
+  OBJECT_FILE_DIR = CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components
+
+build CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/HealthImage.cpp.o: CXX_COMPILER__Ott_Debug /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott$ -$ An$ Elemental$ Journey/src/components/HealthImage.cpp || cmake_object_order_depends_target_Ott
+  DEP_FILE = CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/HealthImage.cpp.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -F/Library/Frameworks  -std=gnu++17
+  INCLUDES = -I/Library/Frameworks/SDL2.framework/Headers -I/Library/Frameworks/SDL2_image.framework/Headers -I/Library/Frameworks/SDL2_ttf.framework/Headers -I/Library/Frameworks/SDL2_mixer.framework/Headers -I/usr/local/include
+  OBJECT_DIR = CMakeFiles/Ott.dir
+  OBJECT_FILE_DIR = CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components
+
+build CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/ImageVine.cpp.o: CXX_COMPILER__Ott_Debug /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott$ -$ An$ Elemental$ Journey/src/components/ImageVine.cpp || cmake_object_order_depends_target_Ott
+  DEP_FILE = CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/ImageVine.cpp.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -F/Library/Frameworks  -std=gnu++17
+  INCLUDES = -I/Library/Frameworks/SDL2.framework/Headers -I/Library/Frameworks/SDL2_image.framework/Headers -I/Library/Frameworks/SDL2_ttf.framework/Headers -I/Library/Frameworks/SDL2_mixer.framework/Headers -I/usr/local/include
+  OBJECT_DIR = CMakeFiles/Ott.dir
+  OBJECT_FILE_DIR = CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components
+
+build CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/MapComponent.cpp.o: CXX_COMPILER__Ott_Debug /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott$ -$ An$ Elemental$ Journey/src/components/MapComponent.cpp || cmake_object_order_depends_target_Ott
+  DEP_FILE = CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/MapComponent.cpp.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -F/Library/Frameworks  -std=gnu++17
+  INCLUDES = -I/Library/Frameworks/SDL2.framework/Headers -I/Library/Frameworks/SDL2_image.framework/Headers -I/Library/Frameworks/SDL2_ttf.framework/Headers -I/Library/Frameworks/SDL2_mixer.framework/Headers -I/usr/local/include
+  OBJECT_DIR = CMakeFiles/Ott.dir
+  OBJECT_FILE_DIR = CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components
+
+build CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/PhysicsComponent.cpp.o: CXX_COMPILER__Ott_Debug /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott$ -$ An$ Elemental$ Journey/src/components/PhysicsComponent.cpp || cmake_object_order_depends_target_Ott
+  DEP_FILE = CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/PhysicsComponent.cpp.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -F/Library/Frameworks  -std=gnu++17
+  INCLUDES = -I/Library/Frameworks/SDL2.framework/Headers -I/Library/Frameworks/SDL2_image.framework/Headers -I/Library/Frameworks/SDL2_ttf.framework/Headers -I/Library/Frameworks/SDL2_mixer.framework/Headers -I/usr/local/include
+  OBJECT_DIR = CMakeFiles/Ott.dir
+  OBJECT_FILE_DIR = CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components
+
+build CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/PlayerAnimationComponent.cpp.o: CXX_COMPILER__Ott_Debug /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott$ -$ An$ Elemental$ Journey/src/components/PlayerAnimationComponent.cpp || cmake_object_order_depends_target_Ott
+  DEP_FILE = CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/PlayerAnimationComponent.cpp.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -F/Library/Frameworks  -std=gnu++17
+  INCLUDES = -I/Library/Frameworks/SDL2.framework/Headers -I/Library/Frameworks/SDL2_image.framework/Headers -I/Library/Frameworks/SDL2_ttf.framework/Headers -I/Library/Frameworks/SDL2_mixer.framework/Headers -I/usr/local/include
+  OBJECT_DIR = CMakeFiles/Ott.dir
+  OBJECT_FILE_DIR = CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components
+
+build CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/PlayerAttack.cpp.o: CXX_COMPILER__Ott_Debug /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott$ -$ An$ Elemental$ Journey/src/components/PlayerAttack.cpp || cmake_object_order_depends_target_Ott
+  DEP_FILE = CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/PlayerAttack.cpp.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -F/Library/Frameworks  -std=gnu++17
+  INCLUDES = -I/Library/Frameworks/SDL2.framework/Headers -I/Library/Frameworks/SDL2_image.framework/Headers -I/Library/Frameworks/SDL2_ttf.framework/Headers -I/Library/Frameworks/SDL2_mixer.framework/Headers -I/usr/local/include
+  OBJECT_DIR = CMakeFiles/Ott.dir
+  OBJECT_FILE_DIR = CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components
+
+build CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/PlayerInput.cpp.o: CXX_COMPILER__Ott_Debug /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott$ -$ An$ Elemental$ Journey/src/components/PlayerInput.cpp || cmake_object_order_depends_target_Ott
+  DEP_FILE = CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/PlayerInput.cpp.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -F/Library/Frameworks  -std=gnu++17
+  INCLUDES = -I/Library/Frameworks/SDL2.framework/Headers -I/Library/Frameworks/SDL2_image.framework/Headers -I/Library/Frameworks/SDL2_ttf.framework/Headers -I/Library/Frameworks/SDL2_mixer.framework/Headers -I/usr/local/include
+  OBJECT_DIR = CMakeFiles/Ott.dir
+  OBJECT_FILE_DIR = CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components
+
+build CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/SlimeAttack.cpp.o: CXX_COMPILER__Ott_Debug /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott$ -$ An$ Elemental$ Journey/src/components/SlimeAttack.cpp || cmake_object_order_depends_target_Ott
+  DEP_FILE = CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/SlimeAttack.cpp.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -F/Library/Frameworks  -std=gnu++17
+  INCLUDES = -I/Library/Frameworks/SDL2.framework/Headers -I/Library/Frameworks/SDL2_image.framework/Headers -I/Library/Frameworks/SDL2_ttf.framework/Headers -I/Library/Frameworks/SDL2_mixer.framework/Headers -I/usr/local/include
+  OBJECT_DIR = CMakeFiles/Ott.dir
+  OBJECT_FILE_DIR = CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components
+
+build CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/SlimeStates.cpp.o: CXX_COMPILER__Ott_Debug /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott$ -$ An$ Elemental$ Journey/src/components/SlimeStates.cpp || cmake_object_order_depends_target_Ott
+  DEP_FILE = CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/SlimeStates.cpp.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -F/Library/Frameworks  -std=gnu++17
+  INCLUDES = -I/Library/Frameworks/SDL2.framework/Headers -I/Library/Frameworks/SDL2_image.framework/Headers -I/Library/Frameworks/SDL2_ttf.framework/Headers -I/Library/Frameworks/SDL2_mixer.framework/Headers -I/usr/local/include
+  OBJECT_DIR = CMakeFiles/Ott.dir
+  OBJECT_FILE_DIR = CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components
+
+build CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/TestEnemyInput.cpp.o: CXX_COMPILER__Ott_Debug /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott$ -$ An$ Elemental$ Journey/src/components/TestEnemyInput.cpp || cmake_object_order_depends_target_Ott
+  DEP_FILE = CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/TestEnemyInput.cpp.o.d
   FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -F/Library/Frameworks  -std=gnu++17
   INCLUDES = -I/Library/Frameworks/SDL2.framework/Headers -I/Library/Frameworks/SDL2_image.framework/Headers -I/Library/Frameworks/SDL2_ttf.framework/Headers -I/Library/Frameworks/SDL2_mixer.framework/Headers -I/usr/local/include
   OBJECT_DIR = CMakeFiles/Ott.dir
@@ -104,6 +230,13 @@ build CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/Transform.cpp
 
 build CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/ecs/Manager.cpp.o: CXX_COMPILER__Ott_Debug /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott$ -$ An$ Elemental$ Journey/src/ecs/Manager.cpp || cmake_object_order_depends_target_Ott
   DEP_FILE = CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/ecs/Manager.cpp.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -F/Library/Frameworks  -std=gnu++17
+  INCLUDES = -I/Library/Frameworks/SDL2.framework/Headers -I/Library/Frameworks/SDL2_image.framework/Headers -I/Library/Frameworks/SDL2_ttf.framework/Headers -I/Library/Frameworks/SDL2_mixer.framework/Headers -I/usr/local/include
+  OBJECT_DIR = CMakeFiles/Ott.dir
+  OBJECT_FILE_DIR = CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/ecs
+
+build CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/ecs/anims.cpp.o: CXX_COMPILER__Ott_Debug /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott$ -$ An$ Elemental$ Journey/src/ecs/anims.cpp || cmake_object_order_depends_target_Ott
+  DEP_FILE = CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/ecs/anims.cpp.o.d
   FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -F/Library/Frameworks  -std=gnu++17
   INCLUDES = -I/Library/Frameworks/SDL2.framework/Headers -I/Library/Frameworks/SDL2_image.framework/Headers -I/Library/Frameworks/SDL2_ttf.framework/Headers -I/Library/Frameworks/SDL2_mixer.framework/Headers -I/usr/local/include
   OBJECT_DIR = CMakeFiles/Ott.dir
@@ -118,13 +251,6 @@ build CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/game/Game.cpp.o: CXX_COM
 
 build CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/json/JSON.cpp.o: CXX_COMPILER__Ott_Debug /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott$ -$ An$ Elemental$ Journey/src/json/JSON.cpp || cmake_object_order_depends_target_Ott
   DEP_FILE = CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/json/JSON.cpp.o.d
-  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -F/Library/Frameworks  -std=gnu++17
-  INCLUDES = -I/Library/Frameworks/SDL2.framework/Headers -I/Library/Frameworks/SDL2_image.framework/Headers -I/Library/Frameworks/SDL2_ttf.framework/Headers -I/Library/Frameworks/SDL2_mixer.framework/Headers -I/usr/local/include
-  OBJECT_DIR = CMakeFiles/Ott.dir
-  OBJECT_FILE_DIR = CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/json
-
-build CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/json/json_demo.cpp.o: CXX_COMPILER__Ott_Debug /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott$ -$ An$ Elemental$ Journey/src/json/json_demo.cpp || cmake_object_order_depends_target_Ott
-  DEP_FILE = CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/json/json_demo.cpp.o.d
   FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -F/Library/Frameworks  -std=gnu++17
   INCLUDES = -I/Library/Frameworks/SDL2.framework/Headers -I/Library/Frameworks/SDL2_image.framework/Headers -I/Library/Frameworks/SDL2_ttf.framework/Headers -I/Library/Frameworks/SDL2_mixer.framework/Headers -I/usr/local/include
   OBJECT_DIR = CMakeFiles/Ott.dir
@@ -171,13 +297,6 @@ build CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/states/PlayState.cpp.o: 
   INCLUDES = -I/Library/Frameworks/SDL2.framework/Headers -I/Library/Frameworks/SDL2_image.framework/Headers -I/Library/Frameworks/SDL2_ttf.framework/Headers -I/Library/Frameworks/SDL2_mixer.framework/Headers -I/usr/local/include
   OBJECT_DIR = CMakeFiles/Ott.dir
   OBJECT_FILE_DIR = CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/states
-
-build CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/states/menus/MenuState.cpp.o: CXX_COMPILER__Ott_Debug /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott$ -$ An$ Elemental$ Journey/src/states/menus/MenuState.cpp || cmake_object_order_depends_target_Ott
-  DEP_FILE = CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/states/menus/MenuState.cpp.o.d
-  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -F/Library/Frameworks  -std=gnu++17
-  INCLUDES = -I/Library/Frameworks/SDL2.framework/Headers -I/Library/Frameworks/SDL2_image.framework/Headers -I/Library/Frameworks/SDL2_ttf.framework/Headers -I/Library/Frameworks/SDL2_mixer.framework/Headers -I/usr/local/include
-  OBJECT_DIR = CMakeFiles/Ott.dir
-  OBJECT_FILE_DIR = CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/states/menus
 
 build CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/states/menus/MainMenuState.cpp.o: CXX_COMPILER__Ott_Debug /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott$ -$ An$ Elemental$ Journey/src/states/menus/MainMenuState.cpp || cmake_object_order_depends_target_Ott
   DEP_FILE = CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/states/menus/MainMenuState.cpp.o.d
@@ -236,7 +355,7 @@ build CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/utils/Vector2D.cpp.o: CX
 #############################################
 # Link the executable Ott
 
-build Ott: CXX_EXECUTABLE_LINKER__Ott_Debug CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/main.cpp.o CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/Button.cpp.o CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/FramedImage.cpp.o CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/Image.cpp.o CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/Slider.cpp.o CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/SliderPercentage.cpp.o CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/Text.cpp.o CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/Transform.cpp.o CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/ecs/Manager.cpp.o CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/game/Game.cpp.o CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/json/JSON.cpp.o CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/json/json_demo.cpp.o CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/json/JSONValue.cpp.o CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/sdlutils/SDLUtils.cpp.o CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/sdlutils/Texture.cpp.o CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/sdlutils/SoundEffect.cpp.o CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/states/GameStateMachine.cpp.o CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/states/PlayState.cpp.o CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/states/menus/MenuState.cpp.o CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/states/menus/MainMenuState.cpp.o CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/states/menus/PauseMenuState.cpp.o CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/states/menus/options/OptionsMenuState.cpp.o CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/states/menus/options/MusicOptionsMenuState.cpp.o CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/states/menus/options/ControlMenuState.cpp.o CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/utils/Collisions.cpp.o CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/utils/Vector2D.cpp.o | /usr/local/lib/libtmxlite.dylib
+build Ott: CXX_EXECUTABLE_LINKER__Ott_Debug CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/main.cpp.o CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/Button.cpp.o CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/FramedImage.cpp.o CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/Image.cpp.o CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/Slider.cpp.o CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/TextComponent.cpp.o CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/Bullet.cpp.o CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/CameraComponent.cpp.o CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/EnemyAnimationController.cpp.o CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/EnemyAttack.cpp.o CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/EnemyMeleeAttack.cpp.o CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/EnemyMovement.cpp.o CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/EnemyShootingAttack.cpp.o CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/Generations.cpp.o CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/GrowVine.cpp.o CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/Health.cpp.o CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/HealthImage.cpp.o CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/ImageVine.cpp.o CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/MapComponent.cpp.o CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/PhysicsComponent.cpp.o CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/PlayerAnimationComponent.cpp.o CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/PlayerAttack.cpp.o CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/PlayerInput.cpp.o CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/SlimeAttack.cpp.o CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/SlimeStates.cpp.o CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/TestEnemyInput.cpp.o CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/ecs/Manager.cpp.o CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/ecs/anims.cpp.o CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/game/Game.cpp.o CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/json/JSON.cpp.o CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/json/JSONValue.cpp.o CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/sdlutils/SDLUtils.cpp.o CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/sdlutils/Texture.cpp.o CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/sdlutils/SoundEffect.cpp.o CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/states/GameStateMachine.cpp.o CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/states/PlayState.cpp.o CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/states/menus/MainMenuState.cpp.o CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/states/menus/PauseMenuState.cpp.o CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/states/menus/options/OptionsMenuState.cpp.o CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/states/menus/options/MusicOptionsMenuState.cpp.o CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/states/menus/options/ControlMenuState.cpp.o CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/utils/Collisions.cpp.o CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/utils/Vector2D.cpp.o | /usr/local/lib/libtmxlite.dylib
   FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk
   LINK_LIBRARIES = -Wl,-rpath,/Library/Frameworks -Wl,-rpath,/usr/local/lib  -Xlinker -framework -Xlinker SDL2  -framework Cocoa  -Xlinker -framework -Xlinker SDL2_image  -Xlinker -framework -Xlinker SDL2_ttf  -Xlinker -framework -Xlinker SDL2_mixer  /usr/local/lib/libtmxlite.dylib
   LINK_PATH = -F/Library/Frameworks

@@ -180,7 +180,7 @@ namespace constructors {
 
 	static inline void boldText(Manager* mngr_, std::string text, Vector2D& position, Font& f, int displacement, SDL_Color textColor = blanco, SDL_Color bgColor = transparente) {
 		Vector2D backPos = position - Vector2D(displacement, 0);
-		SDL_Color backCol = { textColor.r - 50, textColor.g - 50, textColor.b - 50 };
+		SDL_Color backCol = { (Uint8)(textColor.r - 50), (Uint8)(textColor.g - 50), (Uint8)(textColor.b - 50) };
 		normalText(mngr_, text, backPos, f, backCol, bgColor);
 		normalText(mngr_, text, position, f, textColor, transparente);
 	}

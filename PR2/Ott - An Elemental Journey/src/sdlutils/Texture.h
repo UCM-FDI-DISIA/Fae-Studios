@@ -102,20 +102,20 @@ public:
 
 	// render the complete texture at position (x,y).
 	inline void render(int x, int y) {
-		SDL_Rect dest = { x, y, width_, height_ };
+		SDL_Rect dest = { x, y, (int)width_, (int)height_ };
 		render(dest);
 	}
 
 	// renders the complete texture at a destination rectangle (dest)
 	inline void render(const SDL_Rect &dest) {
-		SDL_Rect src = { 0, 0, width_, height_ };
+		SDL_Rect src = { 0, 0, (int)width_, (int)height_ };
 		render(src, dest);
 	}
 
 	// renders the complete texture at a destination rectangle (dest),
 	// with rotation
 	inline void render(const SDL_Rect &dest, float rotation) {
-		SDL_Rect src = { 0, 0, width_, height_ };
+		SDL_Rect src = { 0, 0, (int)width_, (int)height_ };
 		render(src, dest, rotation);
 	}
 

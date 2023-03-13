@@ -20,7 +20,7 @@ void Bullet::update()
     if (SDL_GetTicks() - startTime >= maxTime * 1000) ent_->setAlive(false); //Destruye las balas tras un tiempo
     else {
         auto tr = ent_->getComponent<Transform>();
-        SDL_Rect trigger = { tr->getPosition().getX(), tr->getPosition().getY(), tr->getWidth(), tr->getHeight() };
+        SDL_Rect trigger = { (int)tr->getPosition().getX(), (int)tr->getPosition().getY(), (int)tr->getWidth(), (int)tr->getHeight() };
         auto enemiesGrp = mngr_->getEntities(ecs::_grp_CHARACTERS);
         for (auto e : enemiesGrp) {
             SDL_Rect rect = e->getComponent<PhysicsComponent>()->getCollider();
