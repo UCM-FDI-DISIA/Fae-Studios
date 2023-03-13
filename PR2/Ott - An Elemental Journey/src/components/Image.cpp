@@ -1,5 +1,8 @@
 #include "Image.h"
 #include "../ecs/Entity.h"
+#include "../states/GameStateMachine.h"
+#include "../states/PlayState.h"
+
 void Image::render() {
 	auto rect = transform->getRect();
 	if (cam != nullptr) {
@@ -13,9 +16,8 @@ void Image::render() {
 
 void Image::initComponent() {
 	transform = ent_->getComponent<Transform>();
-	auto camera = mngr_->getCamera();
-	if (camera != nullptr) {
-		cam = mngr_->getCamera()->getComponent<CameraComponent>();
+	if (ent_->hasComponent<CameraComponent>()) {
+		cam = static_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->getCamera()->getComponent<CameraComponent>();
 	}
 	else cam = nullptr;
 }

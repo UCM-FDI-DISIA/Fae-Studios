@@ -6,9 +6,11 @@
 #include "EnemyAnimationController.h"
 #include "EnemyShootingAttack.h"
 #include "EnemyMeleeAttack.h"
+#include "../states/PlayState.h"
+#include "../states/GameStateMachine.h"
 
 void EnemyAttack::initComponent() {
-	player = mngr_->getPlayer();
+	player = static_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->getPlayer();
 	transform = ent_->getComponent<Transform>();
 	physics = ent_->getComponent<PhysicsComponent>();
 	health_ = ent_->getComponent<Health>();

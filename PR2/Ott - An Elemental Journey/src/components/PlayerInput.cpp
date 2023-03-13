@@ -1,7 +1,8 @@
 #include "PlayerInput.h"
 #include "../states/PlayState.h"
+#include "../states/GameStateMachine.h"
 
-PlayerInput::PlayerInput(PlayState* g) : g(g)
+PlayerInput::PlayerInput()
 {
 
 }
@@ -44,7 +45,7 @@ void PlayerInput::update()
 		}
 		if (input->isKeyDown(SDLK_f)) {
 			//Recuperar vidas
-			mngr_->checkInteraction();
+			static_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->checkInteraction();
 		}
 		if (input->isKeyDown(SDLK_x)) {
 			//Recuperar vidas
@@ -112,7 +113,7 @@ void PlayerInput::update()
 	}
 
 	//Interacción con una enredadera
-	auto vineCol = g->checkCollisionWithVine();
+	auto vineCol = static_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->checkCollisionWithVine();
 	int speed = 1;
 	if (vineCol.first) {
 		std::cout << "tocando enredadera!" << std::endl;

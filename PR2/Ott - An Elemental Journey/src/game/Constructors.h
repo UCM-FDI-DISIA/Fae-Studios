@@ -13,7 +13,6 @@
 #include "../components/PlayerInput.h";
 #include "../components/MapComponent.h"
 #include "../game/Elements.h"
-#include "../ecs/Manager.h"
 #include "../components/Health.h"
 #include "../components/LampComponent.h"
 #include "../components/InteractionComponent.h"
@@ -27,6 +26,7 @@
 #include "../components/EnemyAnimationController.h"
 #include "../components/Generations.h"
 #include "../components/SlimeStates.h"
+#include "../states/GameStateMachine.h"
 #include <string>
 #include <iostream>
 
@@ -184,7 +184,7 @@ namespace constructors {
 		normalText(mngr_, text, position, f, textColor, transparente);
 	}
 
-	static inline Entity* player(Manager* mngr_, int x, int y, int w, int h, PlayState* g) {
+	static inline Entity* player(Manager* mngr_, int x, int y, int w, int h) {
 		auto player = mngr_->addEntity(ecs::_grp_CHARACTERS);
 		auto ph = player->addComponent<PhysicsComponent>(anims::OTT);
 		player->addComponent<Transform>(Vector2D(x, y), w, h);
@@ -194,7 +194,7 @@ namespace constructors {
 		auto pAnim = player->addComponent<PlayerAnimationComponent>(anims::OTT_ANIM);
 		auto health = player->addComponent<Health>(5, ecs::Light, true);
 		player->addComponent<PlayerAttack>();
-		player->addComponent<PlayerInput>(g);
+		player->addComponent<PlayerInput>();
 		pAnim->initComponent();
 		health->initComponent();
 		ph->createCollider();
@@ -213,7 +213,10 @@ namespace constructors {
 		auto grass = mngr_->addEntity(ecs::_grp_INTERACTION);
 		grass->addComponent<Transform>(position, width, height);
 		grass->addComponent<Image>(&sdlutils().images().at("grass"));
-		grass->addComponent<InteractionComponent>(mngr_->AddEnredadera);
+		auto cb = []() {
+			static_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->AddEnredadera();
+		};
+		grass->addComponent<InteractionComponent>(cb);
 
 		auto vine = mngr_->addEntity(ecs::_grp_VINE);
 		vine->addComponent<Transform>(posiniVine, widthVine, heightVine);
@@ -230,18 +233,24 @@ namespace constructors {
 		lamp->addComponent<Transform>(Vector2D(x1, y1), 50, 130);
 		lamp->addComponent<Image>(&sdlutils().images().at("lamp"));
 		lamp->addComponent<LampComponent>(lamp2);
-		lamp->addComponent<InteractionComponent>(mngr_->Teleport);
+		auto cb = []() {
+			static_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->Teleport();
+		};
+		lamp->addComponent<InteractionComponent>(cb);
 		lamp2->addComponent<Transform>(Vector2D(x2, y2), 50, 130);
 		lamp2->addComponent<Image>(&sdlutils().images().at("lamp"));
 		lamp2->addComponent<LampComponent>(lamp);
-		lamp2->addComponent<InteractionComponent>(mngr_->Teleport);
+		lamp2->addComponent<InteractionComponent>(cb);
 	}
 
 	static inline void sanctuary(Manager* mngr_, Vector2D position, int width = 100, int height = 130) {
 		auto sanc = mngr_->addEntity(ecs::_grp_INTERACTION);
 		sanc->addComponent<Transform>(position, width, height);
 		sanc->addComponent<Image>(&sdlutils().images().at("sanctuary"));
-		sanc->addComponent<InteractionComponent>(mngr_->Save);
+		auto cb = []() {
+			static_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->Save();
+		};
+		sanc->addComponent<InteractionComponent>(cb);
 	}
 
 	static inline void map(Manager* mngr_) {

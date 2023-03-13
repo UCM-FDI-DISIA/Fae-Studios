@@ -2,6 +2,7 @@
 
 #pragma once
 #include "PhysicsComponent.h"
+
 class Bullet : public Component
 {
 private:

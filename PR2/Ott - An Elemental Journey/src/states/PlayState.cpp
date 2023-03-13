@@ -1,6 +1,5 @@
 #pragma once
 #include "../utils/checkML.h"
-#include "../ecs/Entity.h"
 #include "../components/Transform.h"
 #include"../components/Image.h"
 #include "PlayState.h"
@@ -18,14 +17,15 @@
 #include "../components/GrowVine.h"
 #include "../game/ecs.h"
 
+
 PlayState::PlayState() : GameState(ecs::_state_PLAY) {
 	/*Mix_Init(MIX_INIT_FLAC | MIX_INIT_MOD | MIX_INIT_MP3 | MIX_INIT_OGG | MIX_INIT_MID);
 	Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 2048);
-	//music = Mix_LoadMUS("../../sounds/musics/Ambient 4.	wav"); la música va a ser cambiada a un json
+	//music = Mix_LoadMUS("../../sounds/musics/Ambient 4.	wav"); la mï¿½sica va a ser cambiada a un json
 	Mix_PlayMusic(music, -1);*/
 
-	mngr_->setPlayer(constructors::player(mngr_, 500, 1000, 100, 120, this));
-	mngr_->setCamera(constructors::camera(mngr_, 700, 1000, sdlutils().width(), sdlutils().height()));
+	player_ = constructors::player(mngr_, 500, 1000, 100, 120);
+	camera_ = constructors::camera(mngr_, 700, 1000, sdlutils().width(), sdlutils().height());
 	constructors::eSlime(mngr_, "fireSlime", 600, 1100, 1.0f);
 	constructors::eMelee(mngr_, "waterBug", 2400, 1000, 1.0f);
 	constructors::eRanged(mngr_, "earthMushroom", 1700, 1000, 1.0f);
@@ -112,7 +112,6 @@ void PlayState::checkCollisions() {
 std::pair<bool, bool> PlayState::checkCollisionWithVine() {
 	bool interact = false;
 	bool canGoUp = false;
-	auto player = mngr_->getPlayer();
 	interactionIt = mngr_->getEntities(ecs::_grp_VINE).begin();
 	while (!interact && interactionIt != mngr_->getEntities(ecs::_grp_VINE).end()) {
 		Entity* ents = *interactionIt;
@@ -139,6 +138,22 @@ std::pair<bool, bool> PlayState::checkCollisionWithVine() {
 	return std::make_pair(interact, canGoUp);
 }
 
+void PlayState::checkInteraction() {
+    bool interact = false;
+    interactionIt = mngr_->getEntities(ecs::_grp_INTERACTION).begin();
+	auto itEnd = mngr_->getEntities(ecs::_grp_INTERACTION).end();
+    while (!interact && interactionIt != itEnd) {
+        Entity* ents = *interactionIt;
+        SDL_Rect r1 = player_->getComponent<Transform>()->getRect();
+        SDL_Rect r2 = ents->getComponent<Transform>()->getRect();
+        if (SDL_HasIntersection(&r1, &r2)) {
+            ents->getComponent<InteractionComponent>()->interact();
+            interact = true;
+        }
+        interactionIt++;
+    }
+}
+
 
 void PlayState::update() {
 	checkCollisions();
@@ -146,4 +161,31 @@ void PlayState::update() {
 	auto grp = mngr_->getEntities(ecs::_grp_PROYECTILES);
 	for (auto p : grp) std::cout << p->getComponent<PhysicsComponent>()->getVelocity().getX() << "  " << p->getComponent<PhysicsComponent>()->getVelocity().getY() << std::endl;
 	GameState::update();
+}
+
+void PlayState::AddEnredadera() {
+    Entity* aux = (*interactionIt);
+    if (!(aux->getComponent<AddVine>()->doesntHaveVine())) {
+        aux->getComponent<AddVine>()->setVine();
+        aux->getComponent<AddVine>()->getVine()->addComponent<ImageVine>(&sdlutils().images().at("enredadera"));
+        SDL_Rect dest;
+        dest = aux->getComponent<AddVine>()->getVine()->getComponent<Transform>()->getRect();
+        dest.h -= player_->getComponent<Transform>()->getRect().h / 2.5;
+        aux->getComponent<AddVine>()->getVine()->addComponent<ColliderVine>(dest);
+        aux->getComponent<AddVine>()->getVine()->addComponent<GrowVine>(aux->getComponent<AddVine>()->getPosFin(),
+            Vector2D(aux->getComponent<AddVine>()->getPosFin().getX(), aux->getComponent<AddVine>()->getPosFin().getY() + player_->getComponent<Transform>()->getRect().h / 2));
+    }
+}
+
+void PlayState::Teleport() {
+    int cAnim = player_->getComponent<PlayerAnimationComponent>()->getState();
+    if (cAnim != IDLE && cAnim != RUN) return;
+    Entity* aux = *interactionIt;
+    Entity* tpLamp = aux->getComponent<LampComponent>()->getConnectedLamp();
+    Vector2D newPos = tpLamp->getComponent<Transform>()->getPosition();
+    player_->getComponent<PlayerAnimationComponent>()->startTP(newPos);
+}
+
+void PlayState::Save() {
+    player_->getComponent<Health>()->saveSactuary();
 }

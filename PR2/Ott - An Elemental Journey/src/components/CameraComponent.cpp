@@ -1,12 +1,14 @@
 ﻿#include "CameraComponent.h"
 #include "../sdlutils/SDLUtils.h"
 #include "../utils/checkML.h"
+#include "../states/PlayState.h"
+#include "../states/GameStateMachine.h"
 
 inline float lerp(float a, float b, float t) {
 	return a + t * (b - a);
 }
 void CameraComponent::initComponent() {
-	playerTrnf_ = mngr_->getPlayer()->getComponent<Transform>();
+	playerTrnf_ = static_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->getPlayer()->getComponent<Transform>();
 	tr_ = ent_->getComponent<Transform>();
 }
 

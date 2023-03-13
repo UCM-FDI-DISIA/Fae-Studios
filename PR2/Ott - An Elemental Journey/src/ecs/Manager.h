@@ -17,16 +17,7 @@ class Entity;
 class Manager {
 private:
     std::array<std::vector<Entity*>, ecs::maxGroupId> entsByGroup_; ///< Matriz que separa las entidades por grupos
-    std::vector<Entity*>::iterator interactionIt;
     bool deleted;
-    Entity* player;
-    Entity* camera = nullptr;
-    float gravityValue = 0.2;
-
-    void createLamp(int x1, int y1, int x2, int y2);
-    void createSanctuary(Vector2D position, int width = 100, int height = 130);
-    void createGrass(Vector2D position, int width = 60, int height = 60);
-    void createVine(Vector2D position, int width = 60, int height = 120);
 
 public:
     /// Constructora de la clase Manager
@@ -60,25 +51,6 @@ public:
     void handleInput();
 
     void setDelete() { deleted = true; }
-
-    void createPlayer();
-
-    inline void setPlayer(Entity* player_) { player = player_; }
-    inline void setCamera(Entity* camera_) { camera = camera_; }
-
-    inline float getGravityValue() const { return gravityValue; }
-    inline Entity* getPlayer() const { return player; }
-    inline Entity* getCamera() const { return camera; }
-    inline int getLvlW() const { return LEVEL_WIDTH; }
-    inline int getLvlH() const { return LEVEL_HEIGHT; }
-    inline int getCamDZ() const { return CAM_DEAD_ZONE; }
-    inline float getCamOH() const { return CAM_OFFSET_HEIGHT; }
-
-    static void Teleport(Manager* m);
-    static void Save(Manager* m);
-    static void AddEnredadera(Manager* m);
-    void checkInteraction();
-    inline Entity* getCurrentInteraction() const { return *interactionIt; }
 };
 
 #endif //TPV2_MANAGER_H

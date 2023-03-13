@@ -10,16 +10,14 @@
 #include "FramedImage.h"
 #include "PlayerAttack.h"
 
-class PlayState;
-
-class PlayerInput : public Component
-{
+class PlayerInput : public Component {
 public:
-	PlayerInput(PlayState* g);
+	PlayerInput();
 	virtual ~PlayerInput();
 	virtual void initComponent();
 	virtual void update();
 	constexpr static ecs::cmpId_type id = ecs::_CTRL;
+
 private:
 	Transform* tr_;
 	PhysicsComponent* physics_;
@@ -28,7 +26,6 @@ private:
 	FramedImageOtt* image_;
 	Health* health_;
 	float horizontalSpeed = 0;
-	PlayState* g;
 };
 
 

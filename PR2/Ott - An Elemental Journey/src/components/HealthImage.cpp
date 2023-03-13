@@ -1,5 +1,7 @@
 #include "HealthImage.h"
 #include "../ecs/Entity.h"
+#include "../states/PlayState.h"
+#include "../states/GameStateMachine.h"
 
 void HealthImage::die() {
 	for (int o = 0; o <= lastFullHeart; ++o) {
@@ -43,7 +45,7 @@ void HealthImage::reset() { // resetteo de los corazones
 }
 
 void HealthImage::render() { // try and guess :)
-	auto cam = mngr_->getCamera()->getComponent<CameraComponent>()->camera;
+	auto cam = static_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->getCamera()->getComponent<CameraComponent>()->camera;
 	for (int i = 0; i < numHearts; ++i) {
 		SDL_Rect finalPos = pos;
 		finalPos.x += i * OFFSET_X * pos.w;

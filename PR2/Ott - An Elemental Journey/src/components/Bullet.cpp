@@ -3,11 +3,13 @@
 #include "../ecs/Manager.h"
 #include "Health.h"
 #include "../utils/checkML.h"
-#include "SDL.h"
+#include <SDL.h>
+#include "../states/GameStateMachine.h"
+#include "../states/PlayState.h"
 
 void Bullet::initComponent()
 {
-    player = mngr_->getPlayer();
+    player = dynamic_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->getPlayer();
     physics = ent_->getComponent<PhysicsComponent>();
     physics->setGravity(false);
     startTime = SDL_GetTicks();

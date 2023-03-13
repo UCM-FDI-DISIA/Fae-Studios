@@ -4,6 +4,8 @@
 #include "Transform.h"
 #include "../sdlutils/SDLUtils.h"
 #include "CameraComponent.h"
+#include "../states/GameStateMachine.h"
+#include "../states/PlayState.h"
 
 PhysicsComponent::PhysicsComponent() {
 
@@ -42,7 +44,7 @@ void PhysicsComponent::update() {
 		velocity_ = Vector2D(velocity_.getX(), dirClimbing);
 	}
 	else if (!grounded && gravity) {
-		verticalSpeed += mngr_->getGravityValue();
+		verticalSpeed += static_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->getGravityValue();
 		if (verticalSpeed > MAX_VERTICAL_SPEED) verticalSpeed = MAX_VERTICAL_SPEED;
 		velocity_ = Vector2D(velocity_.getX(), verticalSpeed);
 	}

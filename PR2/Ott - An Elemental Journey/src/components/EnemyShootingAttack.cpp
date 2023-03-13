@@ -3,10 +3,12 @@
 #include "../ecs/Manager.h"
 #include "Bullet.h"
 #include "../sdlutils/SDLUtils.h"
+#include "../states/PlayState.h"
+#include "../states/GameStateMachine.h"
 
 void EnemyShootingAttack::initComponent()
 {
-	player = mngr_->getPlayer();
+	player = static_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->getPlayer();
 	playerHealth = player->getComponent<Health>();
 	health = ent_->getComponent<Health>();
 	enemyAttack = ent_->getComponent<EnemyAttack>();

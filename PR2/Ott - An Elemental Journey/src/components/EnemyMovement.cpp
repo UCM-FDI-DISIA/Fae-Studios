@@ -3,10 +3,12 @@
 #include "../ecs/Entity.h"
 #include "../ecs/Manager.h"
 #include "EnemyAttack.h"
+#include "../states/PlayState.h"
+#include "../states/GameStateMachine.h"
 
 void EnemyMovement::initComponent()
 {
-	player = mngr_->getPlayer();
+	player = static_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->getPlayer();
 	physics = ent_->getComponent<PhysicsComponent>();
 	transform = ent_->getComponent<Transform>();
 	playerCollider = player->getComponent<PhysicsComponent>();

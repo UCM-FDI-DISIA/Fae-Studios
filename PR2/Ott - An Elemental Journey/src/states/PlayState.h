@@ -1,6 +1,7 @@
 #pragma once
 #include "GameState.h"
 #include <SDL_mixer.h>
+#include "../ecs/Entity.h"
 
 /// Estado de juego
 class PlayState : public GameState {
@@ -9,6 +10,11 @@ private:
     
     void checkCollisions();
     std::vector<Entity*>::const_iterator interactionIt;
+
+    Entity* player_;
+    Entity* camera_;
+
+    float gravityValue = 0.2;
 
 public:
     /// Constructora del estado de juego
@@ -22,10 +28,19 @@ public:
 
     /// Bloquea el uso del teclado después de volver del menú de pausa
     void blockKeyboardInputAfterUnfreeze();
+    
     std::pair<bool, bool> checkCollisionWithVine();
     
-
     void handleInput() override;
+
+    inline Entity* getPlayer() { return player_; }
+    inline Entity* getCamera() { return camera_; }
+    inline Entity* getCurrentInteraction() const { return *interactionIt; }
+    inline float getGravityValue() const { return gravityValue; }
+    void checkInteraction();
+    void AddEnredadera();
+    void Teleport();
+    void Save();
 
 };
 

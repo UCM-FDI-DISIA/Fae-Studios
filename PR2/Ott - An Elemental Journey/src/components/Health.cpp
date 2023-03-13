@@ -5,6 +5,8 @@
 #include "EnemyAnimationController.h"
 #include "Generations.h"
 #include "../game/Elements.h"
+#include "../states/PlayState.h"
+#include "../states/GameStateMachine.h"
 
 void Health::die()
 {
@@ -65,6 +67,6 @@ bool Health::recieveDamage(ecs::elements el)
 
 void Health::saveSactuary()
 {
-	lastSanctuary = mngr_->getCurrentInteraction();
+	lastSanctuary = static_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->getCurrentInteraction();
 	// die();
 }

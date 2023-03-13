@@ -2,11 +2,13 @@
 #include "../ecs/Entity.h"
 #include "../ecs/Manager.h"
 #include "EnemyMovement.h"
+#include "../states/GameStateMachine.h"
+#include "../states/PlayState.h"
 
 
 void SlimeStates::initComponent()
 {
-	player = mngr_->getPlayer();
+	player = static_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->getPlayer();
 	attack = ent_->getComponent<EnemyAttack>();
 	physics = ent_->getComponent<PhysicsComponent>();
 	transform = ent_->getComponent<Transform>();
