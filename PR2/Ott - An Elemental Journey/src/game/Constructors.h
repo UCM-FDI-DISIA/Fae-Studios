@@ -82,7 +82,7 @@ namespace constructors {
 
 		auto enemy = mngr_->addEntity(ecs::_grp_CHARACTERS);
 		auto ph = enemy->addComponent<PhysicsComponent>(anims::SLIME);
-		auto tr = enemy->addComponent<Transform>(Vector2D(x, y), 240 * scale, 140 * scale); // 600 950 pos para pruebas
+		auto tr = enemy->addComponent<Transform>(Vector2D(x, y), 360 * scale, 210 * scale); // 600 950 pos para pruebas
 		ph->createCollider();
 		enemy->addComponent<FramedImage>(&sdlutils().images().at(imageKey), 2, 21);
 		enemy->addComponent<Health>(5, ecs::Fire, false);
@@ -103,7 +103,7 @@ namespace constructors {
 
 		auto enemy = mngr_->addEntity(ecs::_grp_CHARACTERS);
 		auto ph = enemy->addComponent<PhysicsComponent>(anims::SLIME);
-		auto tr = enemy->addComponent<Transform>(Vector2D(x, y), 240 * scale, 140 * scale); // 600 950 pos para pruebas
+		auto tr = enemy->addComponent<Transform>(Vector2D(x, y), 360 * scale, 210 * scale); // 600 950 pos para pruebas
 		ph->createCollider();
 		enemy->addComponent<FramedImage>(tex, 2, 21);
 		enemy->addComponent<Health>(lives, ecs::Fire, false);

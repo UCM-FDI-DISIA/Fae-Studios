@@ -15,5 +15,5 @@ void EnemyContactDamage::update() {
 	SDL_Rect rect = collider->getCollider();
 	SDL_Rect playerRect = playerCollider->getCollider();
 
-	if (SDL_HasIntersection(&rect, &playerRect)) player->getComponent<Health>()->recieveDamage(health_->getElement());
+	if (!health_->isDead() && SDL_HasIntersection(&rect, &playerRect)) player->getComponent<Health>()->recieveDamage(health_->getElement());
 }
