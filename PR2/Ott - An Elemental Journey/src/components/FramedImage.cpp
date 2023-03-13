@@ -36,8 +36,9 @@ void FramedImage::render() {
 
 void FramedImage::initComponent() {
     transform = ent_->getComponent<Transform>();
-	if (ent_->hasComponent<CameraComponent>()) {
-		cam = static_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->getCamera()->getComponent<CameraComponent>();
+	auto camera = mngr_->getCamera();
+	if (camera != nullptr) {
+		cam = camera->getComponent<CameraComponent>();
 	}
 	else cam = nullptr;
 }
@@ -52,8 +53,9 @@ void FramedImageOtt::render()
 {
 	SDL_Rect dest; dest.x = tr_->getPosition().getX(); dest.y = tr_->getPosition().getY();
 	dest.w = tr_->getWidth(); dest.h = tr_->getHeight();
-	dest.x -= static_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->getCamera()->getComponent<CameraComponent>()->camera.x;
-	dest.y -= static_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->getCamera()->getComponent<CameraComponent>()->camera.y;
+	auto camCmpt = mngr_->getCamera()->getComponent<CameraComponent>()->camera;
+	dest.x -= camCmpt.x;
+	dest.y -= camCmpt.y;
 	//if (pAnim_->isInvincible() && SDL_GetTicks() % 2 == 0) return;
 
 	SDL_RendererFlip flip = SDL_FLIP_NONE;
@@ -68,8 +70,8 @@ void FramedImageOtt::render()
 		int elemNum = ent_->getComponent<Health>()->getElement();
 		// shieldTex_ = mngr_->getTexture(elemNum + 4);
 		SDL_Rect shieldRect;
-		shieldRect.x = tr_->getPosition().getX() - static_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->getCamera()->getComponent<CameraComponent>()->camera.x;
-		shieldRect.y = tr_->getPosition().getY() - static_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->getCamera()->getComponent<CameraComponent>()->camera.y + 40;
+		shieldRect.x = tr_->getPosition().getX() - camCmpt.x;
+		shieldRect.y = tr_->getPosition().getY() - camCmpt.y + 40;
 		shieldRect.w = 50; shieldRect.h = 50;
 		if (lookRight) shieldRect.x += 50;
 		shieldTex_->render(shieldRect);

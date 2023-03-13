@@ -8,7 +8,7 @@ inline float lerp(float a, float b, float t) {
 	return a + t * (b - a);
 }
 void CameraComponent::initComponent() {
-	playerTrnf_ = static_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->getPlayer()->getComponent<Transform>();
+	playerTrnf_ = mngr_->getPlayer()->getComponent<Transform>();
 	tr_ = ent_->getComponent<Transform>();
 }
 

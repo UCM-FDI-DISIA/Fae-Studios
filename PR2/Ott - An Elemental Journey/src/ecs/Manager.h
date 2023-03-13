@@ -18,6 +18,8 @@ class Manager {
 private:
     std::array<std::vector<Entity*>, ecs::maxGroupId> entsByGroup_; ///< Matriz que separa las entidades por grupos
     bool deleted;
+    Entity* player_ = nullptr;
+    Entity* camera_ = nullptr;
 
 public:
     /// Constructora de la clase Manager
@@ -49,6 +51,12 @@ public:
 
     /// Llama al handleInput de todas las entidades asociadas al manager
     void handleInput();
+
+    Entity* getPlayer() { return player_; } // handler para el player
+    void setPlayer(Entity* p) { player_ = p; } // handler para el player
+
+    Entity* getCamera() { return camera_; } // handler para el player
+    void setCamera(Entity* c) { camera_ = c; } // handler para el player
 
     void setDelete() { deleted = true; }
 };

@@ -9,7 +9,7 @@
 
 void Bullet::initComponent()
 {
-    player = dynamic_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->getPlayer();
+    player = mngr_->getPlayer();
     physics = ent_->getComponent<PhysicsComponent>();
     physics->setGravity(false);
     startTime = SDL_GetTicks();

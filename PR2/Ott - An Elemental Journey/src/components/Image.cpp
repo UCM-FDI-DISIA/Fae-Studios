@@ -16,8 +16,9 @@ void Image::render() {
 
 void Image::initComponent() {
 	transform = ent_->getComponent<Transform>();
-	if (ent_->hasComponent<CameraComponent>()) {
-		cam = static_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->getCamera()->getComponent<CameraComponent>();
+	auto camera = mngr_->getCamera();
+	if (camera != nullptr) {
+		cam = camera->getComponent<CameraComponent>();
 	}
 	else cam = nullptr;
 }

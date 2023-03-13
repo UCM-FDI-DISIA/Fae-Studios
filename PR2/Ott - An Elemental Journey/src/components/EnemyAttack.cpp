@@ -10,7 +10,7 @@
 #include "../states/GameStateMachine.h"
 
 void EnemyAttack::initComponent() {
-	player = static_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->getPlayer();
+	player = mngr_->getPlayer();
 	transform = ent_->getComponent<Transform>();
 	physics = ent_->getComponent<PhysicsComponent>();
 	health_ = ent_->getComponent<Health>();

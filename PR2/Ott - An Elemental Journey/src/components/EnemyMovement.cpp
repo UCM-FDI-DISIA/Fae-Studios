@@ -8,7 +8,7 @@
 
 void EnemyMovement::initComponent()
 {
-	player = static_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->getPlayer();
+	player = mngr_->getPlayer();
 	physics = ent_->getComponent<PhysicsComponent>();
 	transform = ent_->getComponent<Transform>();
 	playerCollider = player->getComponent<PhysicsComponent>();

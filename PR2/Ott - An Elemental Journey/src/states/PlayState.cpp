@@ -17,15 +17,16 @@
 #include "../components/GrowVine.h"
 #include "../game/ecs.h"
 
-
 PlayState::PlayState() : GameState(ecs::_state_PLAY) {
 	/*Mix_Init(MIX_INIT_FLAC | MIX_INIT_MOD | MIX_INIT_MP3 | MIX_INIT_OGG | MIX_INIT_MID);
 	Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 2048);
 	//music = Mix_LoadMUS("../../sounds/musics/Ambient 4.	wav"); la m�sica va a ser cambiada a un json
 	Mix_PlayMusic(music, -1);*/
 
-	player_ = constructors::player(mngr_, 500, 1000, 100, 120);
-	camera_ = constructors::camera(mngr_, 700, 1000, sdlutils().width(), sdlutils().height());
+	mngr_->setPlayer(constructors::player(mngr_, 500, 1000, 100, 120));
+	mngr_->setCamera(constructors::camera(mngr_, 700, 1000, sdlutils().width(), sdlutils().height()));
+	player_ = mngr_->getPlayer();
+	camera_ = mngr_->getCamera();
 	constructors::eSlime(mngr_, "fireSlime", 600, 1100, 1.0f);
 	constructors::eMelee(mngr_, "waterBug", 2400, 1000, 1.0f);
 	constructors::eRanged(mngr_, "earthMushroom", 1700, 1000, 1.0f);
@@ -142,9 +143,9 @@ void PlayState::checkInteraction() {
     bool interact = false;
     interactionIt = mngr_->getEntities(ecs::_grp_INTERACTION).begin();
 	auto itEnd = mngr_->getEntities(ecs::_grp_INTERACTION).end();
+	SDL_Rect r1 = mngr_->getPlayer()->getComponent<Transform>()->getRect();
     while (!interact && interactionIt != itEnd) {
         Entity* ents = *interactionIt;
-        SDL_Rect r1 = player_->getComponent<Transform>()->getRect();
         SDL_Rect r2 = ents->getComponent<Transform>()->getRect();
         if (SDL_HasIntersection(&r1, &r2)) {
             ents->getComponent<InteractionComponent>()->interact();

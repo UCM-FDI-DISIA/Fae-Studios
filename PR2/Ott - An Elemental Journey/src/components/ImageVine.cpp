@@ -17,7 +17,7 @@ void ImageVine::render()
 	//Cogemos las medidas de la textura
 	destTexture.h = tex_->height(); destTexture.w = tex_->width();
 
-	auto cam = static_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->getCamera()->getComponent<CameraComponent>()->camera;
+	auto cam = mngr_->getCamera()->getComponent<CameraComponent>()->camera;
 	destTransform = { destTransform.x - cam.x, destTransform.y - cam.y, destTransform.w, destTransform.h };
 
 	float i = (destTransform.h / (destTexture.h*2)) + 1;

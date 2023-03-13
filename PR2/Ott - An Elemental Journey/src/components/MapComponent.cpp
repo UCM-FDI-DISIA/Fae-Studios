@@ -76,7 +76,7 @@ void MapComponent::loadMap(std::string path) {
 }
 
 void MapComponent::render() {
-    SDL_Rect camPos = static_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->getCamera()->getComponent<CameraComponent>()->camera;
+    SDL_Rect camPos = mngr_->getCamera()->getComponent<CameraComponent>()->camera;
     int cols = sdlutils().levels().at("demo").cols;
     int offsetX = camPos.x;
     int offsetY = camPos.y;

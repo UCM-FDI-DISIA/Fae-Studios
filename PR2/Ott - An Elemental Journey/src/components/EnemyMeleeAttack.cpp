@@ -7,7 +7,7 @@
 
 void EnemyMeleeAttack::initComponent()
 {
-	player = static_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->getPlayer();
+	player = mngr_->getPlayer();
 	playerHealth = player->getComponent<Health>();
 	health = ent_->getComponent<Health>();
 	enemyAttack = ent_->getComponent<EnemyAttack>();

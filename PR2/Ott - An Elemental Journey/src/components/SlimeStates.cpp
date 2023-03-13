@@ -8,7 +8,7 @@
 
 void SlimeStates::initComponent()
 {
-	player = static_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->getPlayer();
+	player = mngr_->getPlayer();
 	attack = ent_->getComponent<EnemyAttack>();
 	physics = ent_->getComponent<PhysicsComponent>();
 	transform = ent_->getComponent<Transform>();
