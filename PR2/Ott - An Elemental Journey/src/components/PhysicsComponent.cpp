@@ -6,16 +6,18 @@
 #include "CameraComponent.h"
 #include "../states/GameStateMachine.h"
 #include "../states/PlayState.h"
+#include "Health.h"
 
 const float gravityValue = 0.2;
 
 
 PhysicsComponent::PhysicsComponent() {
-
+	jumpForce = earthJumpForce;
 }
 
 PhysicsComponent::PhysicsComponent(anims::Colliders c) {
 	typeofCollider = c;
+	jumpForce = earthJumpForce;
 }
 
 void PhysicsComponent::initComponent() {
@@ -42,12 +44,29 @@ void PhysicsComponent::createCollider() {
 //}
 
 void PhysicsComponent::update() {
+	//ascenso progresivo en el agua cuando tiene otros elementos
+	if (!floating && inWater && ent_->getComponent<Health>()->getElement() != ecs::Water)
+	{
+		//ajustes velocidad vertical cuando entra por arriba/lados
+		if (verticalSpeed > 0) { verticalSpeed = 0.0; }
+		verticalSpeed += -0.01; if (verticalSpeed < -1.5) { verticalSpeed = -1.5; }
+		velocity_ = Vector2D(velocity_.getX(), verticalSpeed);
+		return;
+	}
 	if (climbing) {
 		grounded = true;
 		velocity_ = Vector2D(velocity_.getX(), dirClimbing);
 	}
-	else if (!grounded && gravity) {
-		verticalSpeed += gravityValue;
+	if (!grounded && gravity && (!inWater || (inWater && ent_->getComponent<Health>()->getElement() == ecs::Water))) {
+
+		if (inWater)
+		{
+			verticalSpeed += 0.1;
+		}
+		else
+		{
+			verticalSpeed += gravityValue;
+		}
 		if (verticalSpeed > MAX_VERTICAL_SPEED) verticalSpeed = MAX_VERTICAL_SPEED;
 		velocity_ = Vector2D(velocity_.getX(), verticalSpeed);
 	}
@@ -66,7 +85,10 @@ void PhysicsComponent::update() {
 }
 
 void PhysicsComponent::jump() {
-	if (grounded && !climbing) {
+	if (inWater || floating) { jumpForce = waterJumpForce; }
+	else { jumpForce = earthJumpForce; }
+	//condiciones de salto: que este flotamdo o que este en el suelo no escalando y o bien no este en el agua o bien lo este pero sea de elemento de agua
+	if (floating || (grounded && !climbing && ((!inWater) || (inWater && ent_->getComponent<Health>()->getElement() == ecs::Water)))) {
 		verticalSpeed = jumpForce;
 		velocity_ = Vector2D(velocity_.getX(), verticalSpeed);
 	}
