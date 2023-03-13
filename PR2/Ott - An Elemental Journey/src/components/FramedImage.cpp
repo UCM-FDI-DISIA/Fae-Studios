@@ -36,9 +36,8 @@ void FramedImage::render() {
 
 void FramedImage::initComponent() {
     transform = ent_->getComponent<Transform>();
-	auto camera = mngr_->getCamera();
-	if (camera != nullptr) {
-		cam = mngr_->getCamera()->getComponent<CameraComponent>();
+	if (ent_->hasComponent<CameraComponent>()) {
+		cam = static_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->getCamera()->getComponent<CameraComponent>();
 	}
 	else cam = nullptr;
 }

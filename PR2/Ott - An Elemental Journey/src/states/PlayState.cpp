@@ -117,7 +117,7 @@ std::pair<bool, bool> PlayState::checkCollisionWithVine() {
 		Entity* ents = *interactionIt;
 		if (ents->hasComponent<ColliderVine>()) {
 			SDL_Rect r1;
-			SDL_Rect tr_ = player->getComponent<PhysicsComponent>()->getCollider();
+			SDL_Rect tr_ = player_->getComponent<PhysicsComponent>()->getCollider();
 			r1.x = tr_.x + tr_.w / 3;
 			r1.y = tr_.y + tr_.h - 30;
 			r1.w = tr_.w / 3;
