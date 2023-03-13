@@ -59,7 +59,8 @@
 	{ "id" : "fireSlime", "file" : "../Ott - An Elemental Journey/resources/images/sprites/FireSlime.png", "rows" : 2, "cols" : 21},
 	{ "id" : "darkSlime", "file" : "../Ott - An Elemental Journey/resources/images/sprites/DarkSlime.png", "rows" : 2, "cols" : 21},
 	{ "id" : "mushroom", "file" : "../Ott - An Elemental Journey/resources/images/sprites/Mushroom.png", "rows" : 2, "cols" : 21},
-	{ "id" : "spores", "file" : "../Ott - An Elemental Journey/resources/images/sprites/spores.png", "rows" : 1, "cols" : 1}
+	{ "id" : "spores", "file" : "../Ott - An Elemental Journey/resources/images/sprites/spores.png", "rows" : 1, "cols" : 1},
+	{ "id" : "water_attack", "file" : "../Ott - An Elemental Journey/resources/images/tests/water_Attack.png", "rows" : 1, "cols" : 1}
   ],
   
   "messages" : [],

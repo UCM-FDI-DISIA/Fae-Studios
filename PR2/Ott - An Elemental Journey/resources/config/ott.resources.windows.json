@@ -59,7 +59,8 @@
 		{ "id" : "fireSlime", "file" : "../resources/images/sprites/FireSlime.png", "rows" : 2, "cols" : 21},
 		{ "id" : "darkSlime", "file" : "../resources/images/sprites/DarkSlime.png", "rows" : 2, "cols" : 21},
 		{ "id" : "mushroom", "file" : "../resources/images/sprites/Mushroom.png", "rows" : 2, "cols" : 21},
-		{ "id" : "spores", "file" : "../resources/images/sprites/spores.png", "rows" : 1, "cols" : 1}
+		{ "id" : "spores", "file" : "../resources/images/sprites/spores.png", "rows" : 1, "cols" : 1},
+		{ "id" : "water_attack", "file" : "../resources/images/tests/water_Attack.png", "rows" : 1, "cols" : 1}
   ],
 
   "messages" : [],

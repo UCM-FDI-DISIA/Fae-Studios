@@ -71,7 +71,7 @@ void PlayerAttack::update() {
 
 					// Entidad ataque
 					wAttack->addComponent<Transform>(Vector2D(trigger.x, trigger.y), trigger.w, trigger.h);
-					wAttack->addComponent<Image>(&sdlutils().images().at("ott_luz"));
+					wAttack->addComponent<Image>(&sdlutils().images().at("water_attack"));
 
 					waterAttackActive = true;
 					waterDurationTimer = SDL_GetTicks();
