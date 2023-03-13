@@ -44,6 +44,7 @@
     <ClCompile Include="src\components\PlayerAttack.cpp" />
     <ClCompile Include="src\components\SlimeStates.cpp" />
     <ClCompile Include="src\components\Generations.cpp" />
+    <ClCompile Include="src\components\EnemyContactDamage.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\components\Image.h" />
@@ -111,5 +112,6 @@
     <ClInclude Include="src\components\HealthImage.h" />
     <ClInclude Include="src\components\PlayerAttack.h" />
     <ClInclude Include="src\components\SlimeStates.h" />
+    <ClInclude Include="src\components\EnemyContactDamage.h" />
   </ItemGroup>
 </Project>

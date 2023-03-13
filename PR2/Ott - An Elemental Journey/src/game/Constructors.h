@@ -26,6 +26,7 @@
 #include "../components/EnemyAnimationController.h"
 #include "../components/Generations.h"
 #include "../components/SlimeStates.h"
+#include "../components/EnemyContactDamage.h"
 #include "../states/GameStateMachine.h"
 #include <string>
 #include <iostream>
@@ -51,6 +52,7 @@ namespace constructors {
 		auto eAttack_2 = enemy2->addComponent<EnemyAttack>(1200, 400);
 		auto eAnim_2 = enemy2->addComponent<EnemyAnimationComponent>(anims::RANGE_ANIM);
 		auto attack_2 = enemy2->addComponent<EnemyShootingAttack>();
+		enemy2->addComponent<EnemyContactDamage>();
 		eAttack_2->SetRefs(eAnim_2, attack_2, nullptr);
 	}
 
@@ -71,6 +73,7 @@ namespace constructors {
 		enemy3->addComponent<EnemyMovement>();
 		auto eAnim_3 = enemy3->addComponent<EnemyAnimationComponent>(anims::MELEE_ANIM);
 		auto meleeAttack_3 = enemy3->addComponent<EnemyMeleeAttack>();
+		enemy3->addComponent<EnemyContactDamage>();
 		eAttack_3->SetRefs(eAnim_3, nullptr, meleeAttack_3);
 	}
 
@@ -91,6 +94,7 @@ namespace constructors {
 		auto meleeAttack_ = enemy->addComponent<EnemyMeleeAttack>();
 		enemy->addComponent<Generations>(Generations::getMaxGeneration());
 		enemy->addComponent<SlimeStates>();
+		enemy->addComponent<EnemyContactDamage>();
 		eAttack_->SetRefs(eAnim_, nullptr, meleeAttack_);
 	}
 
@@ -111,6 +115,7 @@ namespace constructors {
 		auto meleeAttack_ = enemy->addComponent<EnemyMeleeAttack>();
 		enemy->addComponent<Generations>(gens);
 		enemy->addComponent<SlimeStates>();
+		enemy->addComponent<EnemyContactDamage>();
 		eAttack_->SetRefs(eAnim_, nullptr, meleeAttack_);
 	}
 

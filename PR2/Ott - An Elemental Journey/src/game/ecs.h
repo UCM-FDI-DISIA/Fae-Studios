@@ -24,6 +24,7 @@ namespace ecs {
         _TRIGGER,
         _ATTACK,
         _ENEMYMOV,
+        _ENEMYCONTACT,
         _HEALTH,
         _INTERACTION,
         _MAP,
