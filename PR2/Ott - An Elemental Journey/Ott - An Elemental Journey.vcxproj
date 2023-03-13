@@ -162,6 +162,7 @@
     <ClInclude Include="componentes\EnemyAnimationController.h" />
     <ClInclude Include="componentes\EnterBossRoom.h" />
     <ClInclude Include="componentes\EarthBossMovement.h" />
+    <ClInclude Include="componentes\EarthBossAnimationController.h" />
     <ClInclude Include="gameflow\menus\options\ControlMenuState.h" />
     <ClInclude Include="gameflow\menus\PauseMenuState.h" />
     <ClInclude Include="dependencies\Exceptions.h" />
@@ -234,6 +235,7 @@
     <ClCompile Include="componentes\EnemyShootingAttack.cpp" />
     <ClCompile Include="componentes\EnterBossRoom.cpp" />
     <ClCompile Include="componentes\EarthBossMovement.cpp" />
+    <ClCompile Include="componentes\EarthBossAnimationController.cpp" />
     <ClCompile Include="gameflow\menus\options\ControlMenuState.cpp" />
     <ClCompile Include="gameflow\menus\PauseMenuState.cpp" />
     <ClCompile Include="gameflow\play\PlayState.cpp" />

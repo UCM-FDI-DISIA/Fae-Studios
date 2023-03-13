@@ -1,6 +1,7 @@
 #pragma once
 #include "Manager.h"
 #include "Entity.h"
+#include "../Src/anims.h"
 #include "../SDLApplication.h"
 Manager::Manager(SDLApplication* g) : entsByGroup_(), game(g)
 {
@@ -253,11 +254,14 @@ void Manager::createMap()
 				trigger->addComponent<Transform>(Vector2D(x_ * scale, y_ * scale), w_ * scale,h_ * scale);
 				trigger->addComponent<VineManager>(game->getTexture("vine", PLAY_STATE), Vector2D((x_ * scale) - 260, ((y_ * scale) + h_ * scale) - 100), Vector2D((x_ * scale) - 170, y_ * scale - 100), -1, 0, w_ * scale, h_ * scale, 3);
 				trigger->getComponent<VineManager>()->createVine();
-				trigger->addComponent<EnterBossRoom>();
+				trigger->addComponent<EnterBossRoom>(game->getTexture("animationWorm", PLAY_STATE));
 				trigger->addComponent<Trigger>();
 			}
 			else if (ot.getClass() == "Ott") {
-
+			}
+			else if (ot.getClass() == "EarthBoss") {
+				cout << "X: " << x_ * scale << " Y: " << y_ * scale << endl;
+				cout << w_ * scale << " " << h_*scale << endl;
 			}
 			else if (ot.getClass() == "Mushroom") {
 
@@ -390,5 +394,19 @@ Manager::~Manager()
 	for (auto& ents : entsByGroup_) {
 		for (auto e : ents)
 			delete e;
+	}
+}
+void Manager::addBossEarth() {
+	if (!added) {
+		auto enemy4 = addEntity(ecs::_grp_CHARACTERS);
+		enemy4->addComponent<Transform>(Vector2D(7319, 1230), 1069, 1144);
+		auto ph4 = enemy4->addComponent<PhysicsComponent>();
+		enemy4->addComponent<FramedImageEnemy>(game->getTexture("animationWorm", PLAY_STATE), anims::EARTH_ANIM);
+		enemy4->addComponent<Health>(5, ecs::Earth, false);
+		enemy4->addComponent<EarthBossAnimationController>(anims::EARTH_ANIM);
+		ph4->setVelocity({ 1,0 });
+		ph4->lookDirection(true);
+		added = true;
+
 	}
 }
