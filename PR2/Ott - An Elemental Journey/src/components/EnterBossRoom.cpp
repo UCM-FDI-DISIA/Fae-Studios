@@ -1,7 +1,15 @@
-#include "EnterBossRoom.h"               
-void EnterBossRoom::enterRoom() {
+#include "EnterBossRoom.h"  
+#include "PhysicsComponent.h"
+#include "FramedImage.h"
+#include "EarthBossAnimationController.h"
+
+void EnterBossRoom::initComponent() {
 	camera = mngr_->getCamera();
 	player = mngr_->getPlayer();
+	earthBoss = mngr_->getEarthBoss();
+}
+
+void EnterBossRoom::enterRoom() {
 	if (resetTime) {
 		timer = SDL_GetTicks();
 		resetTime = false;
@@ -26,8 +34,20 @@ void EnterBossRoom::update() {
 		}
 	}
 	if (aux > 1000 && aux <= 3000 && start) {
-		//mngr_->addBossEarth();
+		startFight();
 		player->getComponent<PlayerInput>()->setActive(true);
 	}
 	else start = false;
+}
+
+void EnterBossRoom::startFight() {
+	if (!added) {
+		auto ph = earthBoss->getComponent<PhysicsComponent>();
+		earthBoss->addComponent<FramedImage>(&sdlutils().images().at("animationWorm"), sdlutils().images().at("animationWorm").getNumRows(), sdlutils().images().at("animationWorm").getNumCols());
+		earthBoss->addComponent<Health>(5, ecs::Earth, false);
+		earthBoss->addComponent<EarthBossAnimationController>(anims::EARTH_ANIM);
+		ph->setVelocity({ 0,0 });
+		ph->lookDirection(true);
+		added = true;
+	}
 }

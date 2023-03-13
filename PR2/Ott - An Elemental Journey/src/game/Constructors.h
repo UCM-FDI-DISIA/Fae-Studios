@@ -330,6 +330,12 @@ namespace constructors {
 				else if (ot.getClass() == "Slime") {
 
 				}
+				else if (ot.getClass() == "EarthBoss") {
+					Entity* earthBoss = mngr_->addEntity(ecs::_grp_CHARACTERS);
+					earthBoss->addComponent<Transform>(Vector2D(x_ * scale, y_ * scale), w_ * scale, h_ * scale);
+					earthBoss->addComponent<PhysicsComponent>();
+					mngr_->setEarthBoss(earthBoss);
+				}
 			}
 		}
 

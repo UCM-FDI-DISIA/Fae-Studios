@@ -13,6 +13,7 @@ private:
 
     Entity* player_;
     Entity* camera_;
+    Entity* earthBoss_;
 
     float gravityValue = 0.2;
 
@@ -35,6 +36,7 @@ public:
 
     inline Entity* getPlayer() { return player_; }
     inline Entity* getCamera() { return camera_; }
+    inline Entity* getEarthBoss() { return earthBoss_; }
     inline Entity* getCurrentInteraction() const { return *interactionIt; }
     inline float getGravityValue() const { return gravityValue; }
     void checkInteraction();

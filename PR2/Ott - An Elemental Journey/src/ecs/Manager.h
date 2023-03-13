@@ -20,6 +20,7 @@ private:
     bool deleted;
     Entity* player_ = nullptr;
     Entity* camera_ = nullptr;
+    Entity* earthBoss_ = nullptr;
 
 public:
     /// Constructora de la clase Manager
@@ -57,6 +58,9 @@ public:
 
     Entity* getCamera() { return camera_; } // handler para el player
     void setCamera(Entity* c) { camera_ = c; } // handler para el player
+
+    Entity* getEarthBoss() { return earthBoss_; }
+    void setEarthBoss(Entity* e) { earthBoss_ = e; }
 
     void setDelete() { deleted = true; }
 };
