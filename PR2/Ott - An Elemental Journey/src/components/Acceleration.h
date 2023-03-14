@@ -11,7 +11,7 @@ private:
 
 
 public:
-	constexpr static ecs::cmpId_type id = ecs::_BOSSACCELERATION;
+	constexpr static ecs::cmpId_type id = ecs::_BOSS_PIVOT;
 	Acceleration() {}
 	~Acceleration() {}
 	void initComponent() override;

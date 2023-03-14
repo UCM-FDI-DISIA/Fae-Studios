@@ -17,6 +17,9 @@
 #include "../components/GrowVine.h"
 #include "../game/ecs.h"
 #include "../components/Acceleration.h"
+#include "../components/Pivot.h"
+#include "../components/Health.h"
+#include "../components/EnemyContactDamage.h"
 
 
 PlayState::PlayState() : GameState(ecs::_state_PLAY) {
@@ -44,17 +47,64 @@ PlayState::PlayState() : GameState(ecs::_state_PLAY) {
 	waterM->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
 
 	auto waterBoss = mngr_->addEntity(ecs::_grp_CHARACTERS);
-	int x = 600;
-	int y = 1100;
-	float scale = 1.0f;
-	auto waterPh= waterBoss->addComponent<PhysicsComponent>();
-	waterPh->setVelocity(Vector2D(1,0));
+	int x = 100;
+	int y = 1000;
+	float scale = 2.5f;
+	auto waterPh= waterBoss->addComponent<PhysicsComponent>(anims::SLIME);
+	waterPh->setVelocity(Vector2D(-1,0));
 	waterPh->setGravity(false);
+	waterPh->lookDirection(false);
 	waterBoss->addComponent<Transform>(x, y, 110 * scale, 110 * scale);
-	waterBoss->addComponent<Image>(&sdlutils().images().at("water_attack"));
+	waterPh->createCollider();
+	waterBoss->addComponent<FramedImage>(&sdlutils().images().at("water_boss"), 4, 8);
 	waterBoss->addComponent<Acceleration>();
+	waterBoss->addComponent<Health>(5, ecs::Fire, false);
+	waterBoss->addComponent<EnemyContactDamage>();
+	waterBoss->addComponent<EnemyAnimationComponent>(anims::WATERBOSS_ANIM);
 
-	constructors::eSlime(mngr_, "fireSlime", 600, 1100, 1.0f);
+	auto box0 = mngr_->addEntity(ecs::_grp_CHARACTERS);
+	 x = 100;
+	 y = 1000;
+	 scale = 1.0f;
+	auto boxPh0 = box0->addComponent<PhysicsComponent>();
+	boxPh0->setGravity(false);
+	box0->addComponent<Transform>(x, y, 110 * scale, 110 * scale);
+	box0->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
+	box0->addComponent<Pivot>(waterBoss,0);
+
+	auto box1 = mngr_->addEntity(ecs::_grp_CHARACTERS);
+	x = 100;
+	y = 1200;
+	scale = 1.0f;
+	auto boxPh1 = box1->addComponent<PhysicsComponent>();
+	boxPh1->setGravity(false);
+	box1->addComponent<Transform>(x, y, 110 * scale, 110 * scale);
+	box1->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
+	box1->addComponent<Pivot>(waterBoss, 1);
+
+	auto box2 = mngr_->addEntity(ecs::_grp_CHARACTERS);
+	x = 800;
+	y = 1200;
+	scale = 1.0f;
+	auto boxPh2 = box2->addComponent<PhysicsComponent>();
+	boxPh2->setGravity(false);
+	box2->addComponent<Transform>(x, y, 110 * scale, 110 * scale);
+	box2->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
+	box2->addComponent<Pivot>(waterBoss, 2);
+
+	auto box3 = mngr_->addEntity(ecs::_grp_CHARACTERS);
+	x = 800;
+	y = 1000;
+	scale = 1.0f;
+	auto boxPh3 = box3->addComponent<PhysicsComponent>();
+	boxPh3->setGravity(false);
+	box3->addComponent<Transform>(x, y, 110 * scale, 110 * scale);
+	box3->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
+	box3->addComponent<Pivot>(waterBoss, 3);
+	
+
+
+	//constructors::eSlime(mngr_, "fireSlime", 600, 1100, 1.0f);
 	constructors::eMelee(mngr_, "waterBug", 2400, 1000, 1.0f);
 	constructors::eRanged(mngr_, "earthMushroom", 1700, 1000, 1.0f);
 	constructors::map(mngr_);

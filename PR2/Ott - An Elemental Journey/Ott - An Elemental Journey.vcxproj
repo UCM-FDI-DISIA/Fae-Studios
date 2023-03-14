@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\components\Pivot.cpp" />
     <ClCompile Include="src\components\Acceleration.cpp" />
     <ClCompile Include="src\components\EnemyContactDamage.cpp" />
     <ClCompile Include="src\components\Bullet.cpp" />
@@ -66,6 +67,7 @@
     <ClCompile Include="src\utils\Vector2D.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\components\Pivot.h" />
     <ClInclude Include="src\components\Acceleration.h" />
     <ClInclude Include="src\components\EnemyContactDamage.h" />
     <ClInclude Include="src\components\AddVine.h" />
