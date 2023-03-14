@@ -10,6 +10,8 @@ void FadeOutAnimationComponent::initComponent() {
 
 void FadeOutAnimationComponent::update() {
 	tr_->setPosition(Vector2D(cam_->camera.x, cam_->camera.y));
+	//tr_->setWidth(sdlutils().width());
+	//tr_->setHeight(sdlutils().height());   ESTO NO VA
 	if (fadeOut || fadeIn) {
 		timer_++;
 		if (timer_ > timeBetweenFrames) {
