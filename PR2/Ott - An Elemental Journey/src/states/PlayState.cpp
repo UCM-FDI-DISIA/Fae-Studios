@@ -60,7 +60,7 @@ PlayState::PlayState() : GameState(ecs::_state_PLAY) {
 	waterBoss->addComponent<Acceleration>();
 	waterBoss->addComponent<Health>(5, ecs::Fire, false);
 	waterBoss->addComponent<EnemyContactDamage>();
-	waterBoss->addComponent<EnemyAnimationComponent>(anims::WATERBOSS_ANIM);
+	//waterBoss->addComponent<EnemyAnimationComponent>(anims::WATERBOSS_ANIM);
 
 	auto box0 = mngr_->addEntity(ecs::_grp_CHARACTERS);
 	 x = 100;
