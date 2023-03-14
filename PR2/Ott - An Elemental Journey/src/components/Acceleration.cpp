@@ -13,44 +13,38 @@ void Acceleration ::update()
 	float aux= distance.magnitude();
 	auto input = InputHandler::instance();
 	
-		std::cout <<std::endl<< "Vel VEL: " << physics->getVelocity() << std::endl;
-		Vector2D vecAux;
-		if (physics->getVelocity().getX() > 0.0f)vecAux = { aux/250,0};
-		else if (physics->getVelocity().getX() < 0.0f)vecAux = { -aux / 250,0 };
-		else if (physics->getVelocity().getY() < 0.0f)vecAux = {0,-aux/250 };
-		else vecAux = { 0,aux / 250 };
-		physics->setVelocity(vecAux);
-
-
-		std::cout << "Vel DIS: " << distance << std::endl;
-
-		std::cout << "Vel PLAY: " << playerTransform->getPosition() << std::endl;
-
-		std::cout << "Vel POS: " << transform->getPosition() << std::endl;
-		std::cout << "Vel AUX: " << aux / 250 << std::endl;
-
-
-		if (std::abs(physics->getVelocity().getX()) > 2.5)
-		{
-			Vector2D temp;
-			if(physics->getVelocity().getX()>0) temp = { 2.5,0 };
-			else  temp = { -2.5,0 };
-			physics->setVelocity(temp);
-		}
-		if (std::abs(physics->getVelocity().getY()) > 2.5)
-		{
-			Vector2D temp;
-			if (physics->getVelocity().getY() > 0) temp = { 0,2.5 };
-			else  temp = { 0,-2.5 };
-			physics->setVelocity(temp);
-		}
 	
-	if (input->isKeyJustDown(SDLK_o))
+	Vector2D vecAux;
+	//derecha
+	if (physics->getVelocity().getX() > 0.0f)vecAux = { aux/250,0};
+	//izquierda
+	else if (physics->getVelocity().getX() < 0.0f)vecAux = { -aux / 250,0 };
+	//arriba
+	else if (physics->getVelocity().getY() < 0.0f)vecAux = {0,-aux/250 };
+	//abajo
+	else vecAux = { 0,aux / 250 };
+	physics->setVelocity(vecAux);
+
+
+	/*std::cout << "Vel DIS: " << distance << std::endl;
+	std::cout << "Vel PLAY: " << playerTransform->getPosition() << std::endl;
+	std::cout << "Vel POS: " << transform->getPosition() << std::endl;
+	std::cout << "Vel AUX: " << aux / 250 << std::endl;*/
+
+
+	//limites velocidad
+	if (std::abs(physics->getVelocity().getX()) > 3)
 	{
-		physics->setVelocity({0,0});
+		Vector2D temp;
+		if(physics->getVelocity().getX()>0) temp = { 3,0 };
+		else  temp = { -3,0 };
+		physics->setVelocity(temp);
 	}
-	if (input->isKeyJustDown(SDLK_i))
+	if (std::abs(physics->getVelocity().getY()) > 3)
 	{
-		physics->setVelocity({ 0.5,0 });
+		Vector2D temp;
+		if (physics->getVelocity().getY() > 0) temp = { 0,3 };
+		else  temp = { 0,-3 };
+		physics->setVelocity(temp);
 	}
 }

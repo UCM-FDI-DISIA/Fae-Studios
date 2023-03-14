@@ -5,14 +5,13 @@
 void Pivot::initComponent() {
 	
 	physics = ent_->getComponent<PhysicsComponent>();
-	transform = ent_->getComponent<Transform>();
-	
+	transform = ent_->getComponent<Transform>();	
 }
 void Pivot::update()
 {
-	Vector2D distance = playerTransform->getPosition() - transform->getPosition();
-	
+	Vector2D distance = playerTransform->getPosition() - transform->getPosition();	
 	Vector2D aux= bossPhysics->getVelocity();
+
 	if ((std::abs(distance.getX()) < 10.f && std::abs(distance.getY()) < 10.f))
 	{
 		if (!active) {
@@ -41,7 +40,6 @@ void Pivot::update()
 			}
 			active = true;
 		}
-		//this->ent_->setAlive(false);*/
 	}
 	else active = false;
 }
