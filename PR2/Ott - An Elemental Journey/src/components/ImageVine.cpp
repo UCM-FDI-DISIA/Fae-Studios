@@ -3,7 +3,8 @@
 #include <vector>
 #include "../states/PlayState.h"
 #include "../states/GameStateMachine.h"
-ImageVine::ImageVine(Texture* text, float rot) :tr_(nullptr), tex_(text), rotation(rot) {
+ImageVine::ImageVine(Texture* text, float rot, bool canClimb) :tr_(nullptr), tex_(text), rotation(rot) {
+    canClimb_ = canClimb;
 }
 
 void ImageVine::initComponent()

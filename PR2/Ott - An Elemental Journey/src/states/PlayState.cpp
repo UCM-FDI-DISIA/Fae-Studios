@@ -29,6 +29,7 @@ PlayState::PlayState() : GameState(ecs::_state_PLAY) {
 	player_ = mngr_->getPlayer();
 	camera_ = mngr_->getCamera();
 
+	std::cout << "prueba" << std::endl;
 	player_->getComponent<FramedImageOtt>()->initComponent();
 	player_->getComponent<Transform>()->initComponent();
 	player_->getComponent<PhysicsComponent>()->initComponent();
@@ -126,7 +127,7 @@ std::pair<bool, bool> PlayState::checkCollisionWithVine() {
 	SDL_Rect tr_ = player_->getComponent<PhysicsComponent>()->getCollider();
 	while (!interact && interactionIt != mngr_->getEntities(ecs::_grp_VINE).end()) {
 		Entity* ents = *interactionIt;
-		if (ents->hasComponent<ColliderVine>()) {
+		if (ents->hasComponent<ColliderVine>() && ents->getComponent<ImageVine>()->canClimb()) {
 			SDL_Rect r1;
 			r1.x = tr_.x + tr_.w / 3;
 			r1.y = tr_.y + tr_.h - 30;

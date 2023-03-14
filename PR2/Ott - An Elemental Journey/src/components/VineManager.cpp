@@ -8,8 +8,8 @@ void VineManager::createVine() {
 void VineManager::addVine() {
     if (!hasVine) {
         switch (texture_){
-        case NORMAL:  vine->addComponent<ImageVine>(&sdlutils().images().at("enredadera"), rotation); break;
-            case EVIL: vine->addComponent<ImageVine>(&sdlutils().images().at("vine"), rotation); break;
+        case NORMAL:  vine->addComponent<ImageVine>(&sdlutils().images().at("enredadera"), rotation, true); break;
+            case EVIL: vine->addComponent<ImageVine>(&sdlutils().images().at("vine"), rotation, false); break;
         }
         SDL_Rect dest;
         dest = vine->getComponent<Transform>()->getRect();

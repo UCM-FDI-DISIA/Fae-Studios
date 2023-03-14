@@ -8,18 +8,20 @@
 #include "CameraComponent.h"
 class ImageVine : public Component {
 public:
-    ImageVine(Texture* text, float rot);
+    ImageVine(Texture* text, float rot, bool canClimb);
     virtual ~ImageVine();
     void initComponent() override;
     void render() override;
     inline SDL_Rect getRect() {
         return destTransform;
     }
+    inline bool canClimb() { return canClimb_; }
     constexpr static ecs::cmpId_type id = ecs::_IMAGE;
 private:
-    Transform* tr_;
-    Texture* tex_;
+    Transform* tr_ = nullptr;
+    Texture* tex_ = nullptr;
     SDL_Rect destTransform;
     SDL_Rect destTexture;
     float rotation;
+    bool canClimb_;
 };
