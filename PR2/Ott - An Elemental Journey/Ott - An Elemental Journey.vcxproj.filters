@@ -45,6 +45,10 @@
     <ClCompile Include="src\components\SlimeStates.cpp" />
     <ClCompile Include="src\components\Generations.cpp" />
     <ClCompile Include="src\components\EnemyContactDamage.cpp" />
+    <ClCompile Include="src\components\Pivot.cpp" />
+    <ClCompile Include="src\components\Acceleration.cpp" />
+    <ClCompile Include="src\components\Destruction.cpp" />
+    <ClCompile Include="ObstacleCollision.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\components\Image.h" />
@@ -113,5 +117,9 @@
     <ClInclude Include="src\components\PlayerAttack.h" />
     <ClInclude Include="src\components\SlimeStates.h" />
     <ClInclude Include="src\components\EnemyContactDamage.h" />
+    <ClInclude Include="src\components\Pivot.h" />
+    <ClInclude Include="src\components\Acceleration.h" />
+    <ClInclude Include="src\components\Destruction.h" />
+    <ClInclude Include="ObstacleCollision.h" />
   </ItemGroup>
 </Project>

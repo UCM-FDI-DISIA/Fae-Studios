@@ -40,6 +40,7 @@ namespace ecs {
         _ENEMYSTATES,
         _BOSSACCELERATION,
         _BOSS_PIVOT,
+        _BOSS_DESTRUCTION,
 
         _LAST_CMP_ID
     };

@@ -20,6 +20,7 @@
 #include "../components/Pivot.h"
 #include "../components/Health.h"
 #include "../components/EnemyContactDamage.h"
+#include "../components/Destruction.h"
 
 
 PlayState::PlayState() : GameState(ecs::_state_PLAY) {
@@ -61,6 +62,28 @@ PlayState::PlayState() : GameState(ecs::_state_PLAY) {
 	waterBoss->addComponent<Health>(5, ecs::Fire, false);
 	waterBoss->addComponent<EnemyContactDamage>();
 	//waterBoss->addComponent<EnemyAnimationComponent>(anims::WATERBOSS_ANIM);
+
+	// OBJETOS QUE DESTRUYE BOSS AGUA
+	x = 500;
+	y = 1000;
+	scale = 1.0f;
+	auto waterObj = mngr_->addEntity(ecs::_grp_GROUND);
+	auto watObjPh = waterObj->addComponent<PhysicsComponent>();
+	watObjPh->setGravity(false);
+	waterObj->addComponent<Transform>(x, y, 100 * scale, 100 * scale);
+	waterObj->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
+	waterObj->addComponent<Destruction>(waterBoss);
+
+	// OBJETO DESTRUCTIBLE 2
+	x =1200;
+	y = 1300;
+	scale = 1.0f;
+	auto waterObj2 = mngr_->addEntity(ecs::_grp_GROUND);
+	auto watObjPh2 = waterObj2->addComponent<PhysicsComponent>();
+	watObjPh2->setGravity(false);
+	waterObj2->addComponent<Transform>(x, y, 100 * scale, 100 * scale);
+	waterObj2->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
+	waterObj2->addComponent<Destruction>(waterBoss);
 
 	auto box0 = mngr_->addEntity(ecs::_grp_CHARACTERS);
 	 x = 100;
