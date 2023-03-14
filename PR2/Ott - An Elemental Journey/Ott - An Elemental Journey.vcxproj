@@ -27,6 +27,7 @@
     <ClCompile Include="src\components\EnemyMeleeAttack.cpp" />
     <ClCompile Include="src\components\EnemyMovement.cpp" />
     <ClCompile Include="src\components\EnemyShootingAttack.cpp" />
+    <ClCompile Include="src\components\FirePillarComponent.cpp" />
     <ClCompile Include="src\components\FramedImage.cpp" />
     <ClCompile Include="src\components\Generations.cpp" />
     <ClCompile Include="src\components\GrowVine.cpp" />
@@ -76,6 +77,7 @@
     <ClInclude Include="src\components\EnemyMeleeAttack.h" />
     <ClInclude Include="src\components\EnemyMovement.h" />
     <ClInclude Include="src\components\EnemyShootingAttack.h" />
+    <ClInclude Include="src\components\FirePillarComponent.h" />
     <ClInclude Include="src\components\Generations.h" />
     <ClInclude Include="src\components\GrowVine.h" />
     <ClInclude Include="src\components\Health.h" />

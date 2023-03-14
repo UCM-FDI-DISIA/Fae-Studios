@@ -28,6 +28,7 @@
 #include "../components/SlimeStates.h"
 #include "../components/EnemyContactDamage.h"
 #include "../states/GameStateMachine.h"
+#include "../components/FirePillarComponent.h"
 #include <string>
 #include <iostream>
 #include <functional>
@@ -75,6 +76,13 @@ namespace constructors {
 		auto meleeAttack_3 = enemy3->addComponent<EnemyMeleeAttack>();
 		enemy3->addComponent<EnemyContactDamage>();
 		eAttack_3->SetRefs(eAnim_3, nullptr, meleeAttack_3);
+	}
+	static inline void firePillar(Manager* mngr_, std::string imageKey, int x, int y, float scale) {
+		// Asi se a�ade pilar de fuego
+		auto pilar = mngr_->addEntity(ecs::_grp_VINE);
+		pilar->addComponent<Transform>(x, y, 30 * scale, 130 * scale);  // 2400 1800 pos para pruebas
+		pilar->addComponent<Image>(&sdlutils().images().at(imageKey));
+		pilar->addComponent<FirePillarComponent>();
 	}
 
 	static inline void eSlime(Manager* mngr_, std::string imageKey, int x, int y, float scale) {
