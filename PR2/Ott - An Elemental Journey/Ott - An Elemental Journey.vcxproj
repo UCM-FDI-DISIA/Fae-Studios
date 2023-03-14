@@ -19,7 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ObstacleCollision.cpp" />
     <ClCompile Include="src\components\Destruction.cpp" />
     <ClCompile Include="src\components\Pivot.cpp" />
     <ClCompile Include="src\components\Acceleration.cpp" />
@@ -69,7 +68,6 @@
     <ClCompile Include="src\utils\Vector2D.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ObstacleCollision.h" />
     <ClInclude Include="src\components\Destruction.h" />
     <ClInclude Include="src\components\Pivot.h" />
     <ClInclude Include="src\components\Acceleration.h" />
