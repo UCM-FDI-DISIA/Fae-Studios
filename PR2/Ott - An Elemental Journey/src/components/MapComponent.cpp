@@ -7,7 +7,8 @@
 #include "../states/PlayState.h"
 #include "../states/GameStateMachine.h"
 
-MapComponent::MapComponent() {
+
+MapComponent::MapComponent(Entity* fadeOut) : fadeOut(fadeOut) {
     //textures = std::vector<Texture*>(NUMBER_OF_TYPES);
     //auto it = infoLevel.find(l);
     //if (it != infoLevel.end()) {
@@ -26,21 +27,72 @@ MapComponent::MapComponent() {
     //{
     //    //cout << "Failed loading map" << std::endl;
     //}
-    vectorObjects.reserve(3);
-    vectorTiles.reserve(3);
-    vectorTiles.push_back({});
-    vectorTiles.push_back({});
-    vectorTiles.push_back({});
+
+    vectorObjects.reserve(4);
     vectorObjects.push_back({});
     vectorObjects.push_back({});
     vectorObjects.push_back({});
+    vectorObjects.push_back({});
+
+    vectorTiles.reserve(6);
+    vectorTiles.push_back({});
+    vectorTiles.push_back({});
+    vectorTiles.push_back({});
+    vectorTiles.push_back({});
+    vectorTiles.push_back({});
+    vectorTiles.push_back({});
+    vectorTiles.push_back({});
+
     tilemap = &sdlutils().images().at(sdlutils().levels().at("level1").tileset);
 
 }
 
 void MapComponent::initComponent() {
     cam = mngr_->getCamera()->getComponent<CameraComponent>();
+    player_ = mngr_->getPlayer();
+    anim_ = fadeOut->getComponent<FadeOutAnimationComponent>();
+    anim_->setMap(ent_);
     loadMap(sdlutils().levels().at("level1").route);
+}
+
+void MapComponent::update() {
+    if (!anim_->onAnim()) {
+        Transform* playerTr_ = player_->getComponent<Transform>();
+        SDL_Rect playerRect = playerTr_->getRect();
+        for (auto trigger : triggers[std::to_string(currentRoom)]) {
+            SDL_Rect result;
+            if (SDL_IntersectRect(&playerRect, &trigger.second, &result)) {
+
+                Vector2D newPos;
+                if (trigger.second.w > trigger.second.h) { // TRIGGER VERTICAL
+                    if (result.y < trigger.second.y) { // por arriba
+                        newPos = Vector2D(playerRect.x,
+                            trigger.second.y + trigger.second.h - playerRect.h);
+                    }
+                    else { // por abajo
+                        newPos = Vector2D(trigger.second.x + trigger.second.w + playerRect.w,
+                            trigger.second.y - trigger.second.h - playerRect.h*1.5);
+                    }
+                }
+                else { // TRIGGER HORIZONTAL
+                    if (result.x > trigger.second.x + trigger.second.w / 2) {
+                        newPos = Vector2D(trigger.second.x - trigger.second.w - playerRect.w,
+                            trigger.second.y + trigger.second.h - playerRect.h);
+                    }
+                    else {
+                        newPos = Vector2D(trigger.second.x + trigger.second.w + playerRect.w,
+                            trigger.second.y + trigger.second.h - playerRect.h);
+                    }
+                }
+                changeRoom(trigger.first, newPos);
+            }
+        }
+    }
+}
+
+void MapComponent::changeRoom(std::string newRoom, Vector2D newPos) {
+    // std::stoi -> String TO Int
+    anim_->startFadeOut(newPos, std::stoi(newRoom));
 }
 
 void MapComponent::loadMap(std::string path) {
@@ -53,15 +105,19 @@ void MapComponent::loadMap(std::string path) {
             #pragma region Objects
             if (layer->getType() == Layer::Type::Object)
             {
+                auto name = layer->getName();
                 const auto& objects = layer->getLayerAs<ObjectGroup>().getObjects();
-                if (layer->getName() == "Salas") {
-                    vectorObjects[0] = objects;
+                if (name == "Salas") {
+                    vectorObjects[ROOM_VECTOR_POS] = objects;
                 }
-                else if (layer->getName() == "Objetos interactuables") {
-                    vectorObjects[1] = objects;
+                else if (name == "Objetos interactuables") {
+                    vectorObjects[I_OBJECTS_VECTOR_POS] = objects;
                 }
-                else if (layer->getName() == "Colisiones") {
-                    vectorObjects[2] = objects;
+                else if (name == "Colisiones") {
+                    vectorObjects[COLLISIONS_VECTOR_POS] = objects;
+                }
+                else if (name == "Triggers") {
+                    vectorObjects[TRIGGERS_VECTOR_POS] = objects;
                 }
                 //Guardamos objetos en un vector
 
@@ -92,7 +148,7 @@ void MapComponent::loadMap(std::string path) {
                 int offsetX = camPos.x;
                 int offsetY = camPos.y;
                 int i = 0;
-                for (auto salas : vectorObjects[0]) {
+                for (auto salas : vectorObjects[ROOM_VECTOR_POS]) {
                     int o = 0;
                     auto rect = salas.getAABB();
                     SDL_Rect sala = { rect.left * tileScale(), rect.top* tileScale(), rect.width * tileScale(), rect.height * tileScale() };
@@ -126,12 +182,21 @@ void MapComponent::loadMap(std::string path) {
             }
             #pragma endregion
         }
-        
+
+        for (auto trigger : vectorObjects[TRIGGERS_VECTOR_POS]) {
+            SDL_Rect rect = getSDLRect(trigger.getAABB());
+            // guardamos los triggers en las dos salas, ya que son bidireccionales
+            triggers[trigger.getName()].push_back(std::make_pair(trigger.getClass(),rect));
+            triggers[trigger.getClass()].push_back(std::make_pair(trigger.getName(),rect));
+        }
     }
     else
     {
         std::cout << "Failed loading map" << std::endl;
     }
+
+    cam->setBounds(getCamBounds());
+
 
 }
 
@@ -140,9 +205,10 @@ void MapComponent::render() {
     int cols = sdlutils().levels().at("level1").cols;
     int offsetX = camPos.x;
     int offsetY = camPos.y;
-    for (int i = 0; i < vectorTiles[1].size(); i++) {
-        auto it = vectorTiles[1][i].first;
-        auto ot = vectorTiles[1][i].second;
+    int room = currentRoom;
+    for (int i = 0; i < vectorTiles[room].size(); i++) {
+        auto it = vectorTiles[room][i].first;
+        auto ot = vectorTiles[room][i].second;
         ot.x -= offsetX;
         ot.y -= offsetY;
         if (it == 0) continue;

@@ -29,6 +29,7 @@
 #include "../components/EnemyContactDamage.h"
 #include "../states/GameStateMachine.h"
 #include "../components/AttackCharger.h"
+#include "../components/FadeOutAnimationComponent.h"
 #include <string>
 #include <iostream>
 #include <functional>
@@ -262,9 +263,13 @@ namespace constructors {
 	}
 
 	static inline void map(Manager* mngr_) {
-		auto bgrd = mngr_->addEntity(ecs::_grp_MAP);
+		// auto bgrd = mngr_->addEntity(ecs::_grp_MAP);
 		auto e = mngr_->addEntity(ecs::_grp_MAP);
-		e->addComponent<MapComponent>();
+		auto fadeOut = mngr_->addEntity(ecs::_grp_FADEOUT);
+		fadeOut->addComponent<Transform>(0,0,sdlutils().width()*1.5, sdlutils().height()*1.5);
+		fadeOut->addComponent<FramedImage>(&sdlutils().images().at("fadeOut"), 5, 5);
+		fadeOut->addComponent<FadeOutAnimationComponent>();
+		e->addComponent<MapComponent>(fadeOut);
 		auto scale = e->getComponent<MapComponent>()->tileScale();
 		//bgrd->addComponent<BackgroundImage>(Vector2D(0, 0), &sdlutils().images().at("level1bg"), scale, scale);
 		lamp(mngr_, 550, 1370, 750, 1370);
@@ -296,7 +301,10 @@ namespace constructors {
 					e->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
 				}
 				else if (ot.getClass() == "Grass") {
-					grass(mngr_, Vector2D(x_ * scale, (y_ * scale - sdlutils().images().at("grass").height()) + h_ * scale), w_ * scale, h_ * scale, Vector2D(x_ * scale, (y_ * scale - sdlutils().images().at("grass").height()) + h_ * scale + 100), Vector2D(x_ * scale, (y_ * scale - sdlutils().images().at("grass").height())));
+					grass(mngr_, Vector2D(x_ * scale, (y_ * scale - sdlutils().images().at("grass").height()) + h_ * scale), 
+						w_ * scale, h_ * scale, Vector2D(x_ * scale, 
+							(y_ * scale - sdlutils().images().at("grass").height()) + h_ * scale + 100), 
+						Vector2D(x_ * scale, (y_ * scale - sdlutils().images().at("grass").height())));
 				}
 				else if (ot.getClass() == "Lamp") {
 					//createLamp(Vector2D(x_ * scale, y_ * scale - game->getTexture("lamp", PLAY_STATE)->getH() * 2));

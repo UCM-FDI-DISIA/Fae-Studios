@@ -12,6 +12,7 @@ class CameraComponent : public Component {
 private:
 	Transform* playerTrnf_;
 	Transform* tr_;
+	SDL_Rect bounds;
 
 public:
 	constexpr static ecs::cmpId_type id = ecs::_CAMERA;
@@ -21,5 +22,7 @@ public:
 	
 	virtual void initComponent();
 	virtual void update();
+	inline void setBounds(const SDL_Rect& b) { bounds = b; }
+
 };
 

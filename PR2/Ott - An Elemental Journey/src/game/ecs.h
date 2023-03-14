@@ -38,6 +38,7 @@ namespace ecs {
         _GROWVINE,
         _PLAYERATTACK,
         _ENEMYSTATES,
+        _FADEOUTANIM,
 
         _LAST_CMP_ID
     };
@@ -57,6 +58,7 @@ namespace ecs {
         _grp_WATER,
         _grp_CHARACTERS,
         _grp_PROYECTILES,
+        _grp_FADEOUT,
 
         _LAST_GRP_ID
     };

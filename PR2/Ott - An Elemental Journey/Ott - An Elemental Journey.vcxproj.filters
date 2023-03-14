@@ -46,6 +46,7 @@
     <ClCompile Include="src\components\Generations.cpp" />
     <ClCompile Include="src\components\EnemyContactDamage.cpp" />
     <ClCompile Include="src\ecs\colliders.cpp" />
+    <ClCompile Include="src\components\FadeOutAnimationComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\components\Image.h" />
@@ -115,5 +116,6 @@
     <ClInclude Include="src\components\SlimeStates.h" />
     <ClInclude Include="src\components\EnemyContactDamage.h" />
     <ClInclude Include="src\ecs\colliders.h" />
+    <ClInclude Include="src\components\FadeOutAnimationComponent.h" />
   </ItemGroup>
 </Project>

@@ -32,6 +32,7 @@
 	{ "id" : "ott_water", "file" : "../Ott - An Elemental Journey/resources/images/tests/Ott_Water.png", "rows" : 9, "cols" : 8},
 	{ "id" : "ott_fire", "file" : "../Ott - An Elemental Journey/resources/images/tests/Ott_Fire.png", "rows" : 9, "cols" : 8},
 	{ "id" : "lamp", "file" : "../Ott - An Elemental Journey/resources/images/tests/lamp.png", "rows" : 1, "cols" : 1},
+	{ "id" : "fadeOut", "file" : "../Ott - An Elemental Journey/resources/images/tests/fadeOut.png", "rows" : 1, "cols" : 11},
 	{ "id" : "enredadera", "file" : "../Ott - An Elemental Journey/resources/images/tests/enredadera.png", "rows" : 1, "cols" : 1},
 	{ "id" : "grass", "file" : "../Ott - An Elemental Journey/resources/images/tests/grass.png", "rows" : 1, "cols" : 1},
 	{ "id" : "pixel", "file" : "../Ott - An Elemental Journey/resources/images/tests/1x1Pixel.png", "rows" : 1, "cols" : 1},

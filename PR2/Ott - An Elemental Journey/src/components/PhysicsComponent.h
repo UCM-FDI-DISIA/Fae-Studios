@@ -36,6 +36,8 @@ public:
     inline bool getWater() { return inWater; }
     inline void setFloating(bool value) { floating = value; }
     inline bool getFloating() { return floating; }
+    inline void Stop() { stopped = true; }
+    inline void Resume() { stopped = false; }
     //virtual void render();
 private:
     SDL_Rect collider;
@@ -45,6 +47,7 @@ private:
     double knockbackTimer = 0;
     double knockbackTime = 15;
     bool isKnockback = false, lookingRight = true, grounded = false, climbing = false, gravity = true;
+    bool stopped = false;
     float verticalSpeed = 0;
     const float horizontalSpeed = 1.8f;
     Vector2D velocity_;

@@ -40,10 +40,12 @@ PlayState::PlayState() : GameState(ecs::_state_PLAY) {
 	//500, 2000, 100, 120
 	waterM->addComponent<Transform>(3500, 600, 300, 420);
 	waterM->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
+	
+	// COMENTO A LOS ENEMIGOS PORQUE ME ESTÁN DANDO POR CULO UN RATO CHAU BESOS
 
-	constructors::eSlime(mngr_, "fireSlime", 600, 2100, 1.0f, ecs::Fire);
-	constructors::eMelee(mngr_, "waterBug", 2400, 2000, 1.0f, ecs::Water);
-	constructors::eRanged(mngr_, "earthMushroom", 1700, 2000, 1.0f, ecs::Earth);
+	// constructors::eSlime(mngr_, "fireSlime", 600, 2100, 1.0f, ecs::Fire);
+	// constructors::eMelee(mngr_, "waterBug", 2400, 2000, 1.0f, ecs::Water);
+	// constructors::eRanged(mngr_, "earthMushroom", 1700, 2000, 1.0f, ecs::Earth);
 	constructors::map(mngr_);
 }
 
