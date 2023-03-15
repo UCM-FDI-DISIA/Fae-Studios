@@ -38,15 +38,15 @@ void PlayerAttack::update() {
 			{
 			case ecs::Light: {
 				MoveTrigger(Vector2D(triggerWidth, triggerHeight)); // Se mueven los triggers a la posici�n actual
-				trigger = { (int)triggerPos.getX(), (int)triggerPos.getY(), triggerWidth, triggerHeight};
+				trigger = { trigger.x, trigger.y, triggerWidth, triggerHeight};
 				attackEnemy(trigger);
 				break;
 			}
 			case ecs::Earth: 
-				MoveTrigger(Vector2D(EARTH_ATTACK_WIDTH, EARTH_ATTACK_HEIGHT)); // Se mueven los triggers a la posici�n actual
+				//MoveTrigger(Vector2D(EARTH_ATTACK_WIDTH, EARTH_ATTACK_HEIGHT)); // Se mueven los triggers a la posici�n actual
 				if (!earthAttackActive)
 				{
-					trigger = { (int)triggerPos.getX(), (int)triggerPos.getY(), 0,EARTH_ATTACK_HEIGHT }; //cambiar altura 
+					trigger = { trigger.x, trigger.y, 0,EARTH_ATTACK_HEIGHT }; //cambiar altura 
 					tAttack = mngr_->addEntity(ecs::_grp_PROYECTILES);
 					tAttack->addComponent<Transform>(Vector2D(trigger.x, trigger.y), EARTH_ATTACK_WIDTH, EARTH_ATTACK_HEIGHT);
 					tAttack->addComponent<FramedImage>(&sdlutils().images().at("earth_attack"), 1, 10);
@@ -69,7 +69,7 @@ void PlayerAttack::update() {
 				MoveTrigger(watAtackTriggWH); // Se mueven los triggers a la posici�n actual
 
 				// Trigger de ataque
-				trigger = { (int)triggerPos.getX(), (int)triggerPos.getY(), (int)watAtackTriggWH.getX(), (int)watAtackTriggWH.getY() };
+				trigger = { trigger.x, trigger.y, (int)watAtackTriggWH.getX(), (int)watAtackTriggWH.getY() };
 
 				// Si no hay ya uno activo
 				if (!waterAttackActive) {
@@ -99,9 +99,9 @@ void PlayerAttack::update() {
 
 
 	if (waterAttackActive) {
-
+		MoveTrigger(Vector2D(WATER_ATACK_WIDTH, WATER_ATACK_HEIGHT));
 		// Transform
-		wAttack->getComponent<Transform>()->setPosition(triggerPos);
+		wAttack->getComponent<Transform>()->setPosition(Vector2D(trigger.x, trigger.y));
 
 		// Si han pasado los segundos totales de la duracio, mata el ataque
 		if (SDL_GetTicks() >= waterDurationTimer + WATER_ATACK_DURATION) {
@@ -121,18 +121,19 @@ void PlayerAttack::update() {
 	{
 		// Transform
 		auto trAttack = tAttack->getComponent<Transform>();
-		trAttack->setPosition(triggerPos);
+		moveEarthAttack(trAttack);
 		auto earthAnimation = tAttack->getComponent<FramedImage>();
 		auto earthStateAnimation = tAttack->getComponent<earthAnimationController>();
 
 		auto colAnim = earthAnimation->getCurrentCol();
+		if (!physics->getLookDirection()) earthAnimation->flipTexture(true);
+		else earthAnimation->flipTexture(false);
 		if (colEarthtrigger != colAnim + 1)
 		{
 			colEarthtrigger = colAnim + 1;
 			trigger.w = colEarthtrigger * (trAttack->getWidth() / earthAnimation->getTexture()->getNumCols()) ;
 		}
 		MoveTrigger(Vector2D(trigger.w, EARTH_ATTACK_HEIGHT));
-
 		//si CRECER -> atacckEnemy
 		//bool attackEnemy, true->DECRECE
 		if (earthStateAnimation->getState() == ADVANCE)
@@ -145,7 +146,6 @@ void PlayerAttack::update() {
 
 		}
 		
-
 		//setAlive false depende de la animación
 	}
 	if (remainingAttacks > 0 && SDL_GetTicks() - lastFireBallTime >= timeBetweenFireBalls) {
@@ -177,10 +177,23 @@ void PlayerAttack::MoveTrigger(Vector2D attackWH) {
 	Vector2D playerPos = tr_->getPosition();
 
 	if (physics->getLookDirection()) {
-		triggerPos = Vector2D(playerPos.getX() + playerW, playerPos.getY() + playerW / 2);
+		trigger.x = playerPos.getX() + playerW;
 	}
 	else {
-		triggerPos = Vector2D(playerPos.getX() - attackWH.getX(), playerPos.getY() + playerW / 2);
+		trigger.x = playerPos.getX() - attackWH.getX();
+	}
+		trigger.y = playerPos.getY() + playerW / 2;
+}
+void PlayerAttack::moveEarthAttack(Transform* tr)
+{
+	int playerW = tr_->getWidth();
+	int playerH = tr_->getHeight();
+	Vector2D playerPos = tr_->getPosition();
+	if (physics->getLookDirection()) {
+		tr->setPosition(Vector2D(playerPos.getX() + playerW, playerPos.getY() + playerW / 2));
+	}
+	else {
+		tr->setPosition(Vector2D(playerPos.getX() - EARTH_ATTACK_WIDTH, playerPos.getY() + playerW / 2));
 	}
 }
 

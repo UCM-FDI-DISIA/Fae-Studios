@@ -42,9 +42,8 @@ private:
 	void MoveTrigger(Vector2D attackWH);
 	bool attackEnemy(SDL_Rect& attackZone);
 	void spawnFireball();
-
+	void moveEarthAttack(Transform* tr);
 	// Variables
-	Vector2D triggerPos;
 	//Vector2D triggerWH;
 	Vector2D watAtackTriggWH; // tamaño ataque de agua
 	Transform* tr_;
