@@ -46,7 +46,7 @@ PlayState::PlayState() : GameState(ecs::_state_PLAY) {
 	constructors::eSlime(mngr_, "fireSlime", 800, 2100, 1.0f, ecs::Fire);
 	// constructors::eMelee(mngr_, "waterBug", 2400, 2000, 1.0f, ecs::Water);
 	// constructors::eRanged(mngr_, "earthMushroom", 1700, 2000, 1.0f, ecs::Earth);
-	map_ = constructors::map(mngr_)->getComponent<MapComponent>();
+	map_ = constructors::map(mngr_, this)->getComponent<MapComponent>();
 }
 
 
@@ -69,17 +69,16 @@ void PlayState::handleInput() {
             //GameStateMachine::instance()->pushState(new PauseMenuState());
         }
     }
-   
 }
 
-void PlayState::checkCollisions() {
-	std::vector<Entity*> characters = mngr_->getEntities(ecs::_grp_CHARACTERS);
-	std::vector<Entity*> ground = mngr_->getEntities(ecs::_grp_GROUND);
-	for (Entity* e : characters) {
+void PlayState::checkCollisions(std::vector<Entity*> entities) {
+	int aa = 0;
+	for (Entity* e : entities) {
 		auto eTr = e->getComponent<Transform>();
 		auto physics = e->getComponent<PhysicsComponent>();
 		auto health = e->getComponent<Health>();
 		SDL_Rect r1 = physics->getCollider();
+		std::cout << r1.x << " " << r1.y << std::endl;
 		Vector2D& colVector = physics->getVelocity();
 
 		auto mov = e->getComponent<EnemyMovement>();
@@ -139,6 +138,7 @@ void PlayState::checkCollisions() {
 		}
 		
 		if(i == 0) physics->setGrounded(false);
+
 		/*
  		int i = 0;
 		for (Entity* g : ground) { // GROUND COLLISION
@@ -196,6 +196,7 @@ void PlayState::checkCollisions() {
 
 		}
 		if (j == 0) { physics->setWater(false); physics->setFloating(false); }
+		aa++;
 	}
 }
 
@@ -244,9 +245,19 @@ void PlayState::checkInteraction() {
     }
 }
 
-
 void PlayState::update() {
-	checkCollisions();
+	checkCollisions({ player_ });
+	checkCollisions(enemies[map_->getCurrentRoom()]);
+	for (auto it : enemies) {
+		for (auto ot : it) {
+			if (it != enemies[map_->getCurrentRoom()]) {
+				ot->getComponent<PhysicsComponent>()->Stop();
+			}
+			else {
+				ot->getComponent<PhysicsComponent>()->Resume();
+			}
+		}
+	}
 	GameState::update();
 }
 

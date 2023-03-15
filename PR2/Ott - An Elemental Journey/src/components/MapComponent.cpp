@@ -1,5 +1,4 @@
 ﻿#include "MapComponent.h"
-//#include "../dependencies/Parser.h"
 #include "../sdlutils/SDLUtils.h"
 #include "../ecs/Manager.h"
 #include "../ecs/Entity.h"
@@ -8,7 +7,27 @@
 #include "../states/GameStateMachine.h"
 #include "../game/Constructors.h"
 
-MapComponent::MapComponent(Entity* fadeOut) : fadeOut(fadeOut) {
+
+std::vector<std::string> strSplit(std::string s, char c) {
+
+    std::vector<std::string> split;
+    std::string word = "";
+
+    for (int i = 0; i < s.size(); ++i) {
+        if (s[i] == c) {
+            split.push_back(word);
+            word = "";
+        }
+        else {
+            word += s[i];
+        }
+    }
+
+    split.push_back(word);
+    return split;
+}
+
+MapComponent::MapComponent(Entity* fadeOut, PlayState* game) : fadeOut(fadeOut), game(game) {
     //textures = std::vector<Texture*>(NUMBER_OF_TYPES);
     //auto it = infoLevel.find(l);
     //if (it != infoLevel.end()) {
@@ -27,8 +46,8 @@ MapComponent::MapComponent(Entity* fadeOut) : fadeOut(fadeOut) {
     //{
     //    //cout << "Failed loading map" << std::endl;
     //}
-
-    vectorObjects.reserve(4);
+    vectorObjects.reserve(5);
+    vectorObjects.push_back({});
     vectorObjects.push_back({});
     vectorObjects.push_back({});
     vectorObjects.push_back({});
@@ -44,7 +63,6 @@ MapComponent::MapComponent(Entity* fadeOut) : fadeOut(fadeOut) {
     vectorTiles.push_back({});
 
     tilemap = &sdlutils().images().at(sdlutils().levels().at("level1").tileset);
-
 }
 
 void MapComponent::initComponent() {
@@ -100,6 +118,7 @@ void MapComponent::changeRoom(std::string newRoom, Vector2D newPos) {
 void MapComponent::loadMap(std::string path) {
     if (map.load(path))
     {
+        std::vector<std::vector<Entity*>> enemies;
         const auto& layers2 = map.getLayers();
         //cout << "Map has " << layers2.size() << " layers" << endl;
         for (const auto& layer : layers2)
@@ -111,6 +130,9 @@ void MapComponent::loadMap(std::string path) {
                 const auto& objects = layer->getLayerAs<ObjectGroup>().getObjects();
                 if (name == "Salas") {
                     vectorObjects[ROOM_VECTOR_POS] = objects;
+                    for (auto it : objects) {
+                        enemies.push_back({});
+                    }
                 }
                 else if (name == "Objetos interactuables") {
                     vectorObjects[I_OBJECTS_VECTOR_POS] = objects;
@@ -120,6 +142,9 @@ void MapComponent::loadMap(std::string path) {
                 }
                 else if (name == "Triggers") {
                     vectorObjects[TRIGGERS_VECTOR_POS] = objects;
+                }
+                else if (name == "Enemigos") {
+                    vectorObjects[ENEMIES_VECTOR_POS] = objects;
                 }
             }
             #pragma endregion
@@ -248,16 +273,44 @@ void MapComponent::loadMap(std::string path) {
             else if (ot.getClass() == "Ott") {
 
             }
-            else if (ot.getClass() == "Mushroom") {
 
-            }
-            else if (ot.getClass() == "Melee") {
-            }
-            else if (ot.getClass() == "Slime") {
+        }
+        for (auto it : vectorObjects[ENEMIES_VECTOR_POS]) {
+            float x_ = it.getAABB().left;
+            float y_ = it.getAABB().top;
+            float w_ = it.getAABB().width;
+            float h_ = it.getAABB().height;
 
+            auto split = strSplit(it.getName(), '_');
+            auto elem = (ecs::elements)std::stoi(split[1]);
+            std::string path;
+            if (elem == ecs::Earth) {
+                path = "earth";
+            }
+            else if (elem == ecs::Water) {
+                path = "water";
+            }
+            else if (elem == ecs::Fire) {
+                path = "fire";
+            }
+            int roomNum = std::stoi(split[0]);
+            float roomScale = vectorTiles[roomNum].first;
+            std::cout << roomNum << std::endl;
+
+            if (it.getClass() == "Mushroom") {
+                Entity* enemie = constructors::eRanged(mngr_, path + "Mushroom", x_* scale * roomScale, y_* scale * roomScale, roomScale, elem);
+                enemies[roomNum].push_back(enemie);
+            }
+            else if (it.getClass() == "Melee") {
+                Entity* enemie = constructors::eMelee(mngr_, path + "Bug", x_ * scale * roomScale, y_ * scale * roomScale, roomScale, elem);
+                enemies[roomNum].push_back(enemie);
+            }
+            else if (it.getClass() == "Slime") {
+                Entity* enemie = constructors::eSlime(mngr_, path + "Slime", x_ * scale * roomScale, y_ * scale * roomScale, roomScale, elem);
+                enemies[roomNum].push_back(enemie);
             }
         }
-
+        game->setEnemies(enemies);
     }
     else
     {

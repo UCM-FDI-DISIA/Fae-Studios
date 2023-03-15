@@ -9,12 +9,13 @@ class PlayState : public GameState {
 private:
     Mix_Music* music;
     
-    void checkCollisions();
+    void checkCollisions(std::vector<Entity*> entities);
     std::vector<Entity*>::const_iterator interactionIt;
 
     Entity* player_;
     Entity* camera_;
     MapComponent* map_;
+    std::vector<std::vector<Entity*>> enemies;
 
     float gravityValue = 0.2;
 
@@ -33,6 +34,8 @@ public:
     
     std::pair<bool, bool> checkCollisionWithVine();
     
+    void setEnemies(const std::vector<std::vector<Entity*>>& enemies) { this->enemies = enemies; };
+
     void handleInput() override;
 
     inline Entity* getPlayer() { return player_; }

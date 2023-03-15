@@ -40,7 +40,7 @@ const SDL_Color blanco{ 255,255,255 };
 
 namespace constructors {
 
-	static inline void eRanged(Manager* mngr_, std::string imageKey, int x, int y, float scale, ecs::elements el) {
+	static inline Entity* eRanged(Manager* mngr_, std::string imageKey, int x, int y, float scale, ecs::elements el) {
 
 		// Asi se a�ade enemigo rango
 		auto enemy2 = mngr_->addEntity(ecs::_grp_CHARACTERS);
@@ -56,9 +56,11 @@ namespace constructors {
 		auto attack_2 = enemy2->addComponent<EnemyShootingAttack>();
 		enemy2->addComponent<EnemyContactDamage>();
 		eAttack_2->SetRefs(eAnim_2, attack_2, nullptr);
+
+		return enemy2;
 	}
 
-	static inline void eMelee(Manager* mngr_, std::string imageKey, int x, int y, float scale, ecs::elements el) {
+	static inline Entity* eMelee(Manager* mngr_, std::string imageKey, int x, int y, float scale, ecs::elements el) {
 
 
 		// Asi se a�ade enemigo melee
@@ -77,9 +79,11 @@ namespace constructors {
 		auto meleeAttack_3 = enemy3->addComponent<EnemyMeleeAttack>();
 		enemy3->addComponent<EnemyContactDamage>();
 		eAttack_3->SetRefs(eAnim_3, nullptr, meleeAttack_3);
+
+		return enemy3;
 	}
 
-	static inline void eSlime(Manager* mngr_, std::string imageKey, int x, int y, float scale, ecs::elements el) {
+	static inline Entity* eSlime(Manager* mngr_, std::string imageKey, int x, int y, float scale, ecs::elements el) {
 		// Asi se a�ade enemigo slime
 
 		auto enemy = mngr_->addEntity(ecs::_grp_CHARACTERS);
@@ -98,9 +102,11 @@ namespace constructors {
 		enemy->addComponent<SlimeStates>();
 		enemy->addComponent<EnemyContactDamage>();
 		eAttack_->SetRefs(eAnim_, nullptr, meleeAttack_);
+
+		return enemy;
 	}
 
-	static inline void eSlime(Manager* mngr_, Texture* tex, int x, int y, float scale, int gens, int lives, ecs::elements el) {
+	static inline Entity* eSlime(Manager* mngr_, Texture* tex, int x, int y, float scale, int gens, int lives, ecs::elements el) {
 		// Asi se a�ade enemigo slime
 
 		auto enemy = mngr_->addEntity(ecs::_grp_CHARACTERS);
@@ -119,6 +125,8 @@ namespace constructors {
 		enemy->addComponent<SlimeStates>();
 		enemy->addComponent<EnemyContactDamage>();
 		eAttack_->SetRefs(eAnim_, nullptr, meleeAttack_);
+
+		return enemy;
 	}
 
 	static inline void button(Manager* mngr_, Vector2D& position, std::string text, Font& f, std::function<void()> const& callback) {
@@ -260,14 +268,14 @@ namespace constructors {
 		sanc->addComponent<InteractionComponent>(cb);
 	}
 
-	static inline Entity* map(Manager* mngr_) {
+	static inline Entity* map(Manager* mngr_, PlayState* game) {
 		// auto bgrd = mngr_->addEntity(ecs::_grp_MAP);
 		auto e = mngr_->addEntity(ecs::_grp_MAP);
 		auto fadeOut = mngr_->addEntity(ecs::_grp_FADEOUT);
 		fadeOut->addComponent<Transform>(0,0,sdlutils().width()*1.5, sdlutils().height()*1.5);
 		fadeOut->addComponent<FramedImage>(&sdlutils().images().at("fadeOut"), 5, 5);
 		fadeOut->addComponent<FadeOutAnimationComponent>();
-		e->addComponent<MapComponent>(fadeOut);
+		e->addComponent<MapComponent>(fadeOut, game);
 		auto scale = e->getComponent<MapComponent>()->tileScale();
 		//bgrd->addComponent<BackgroundImage>(Vector2D(0, 0), &sdlutils().images().at("level1bg"), scale, scale);
 		lamp(mngr_, 550, 1370, 750, 1370);

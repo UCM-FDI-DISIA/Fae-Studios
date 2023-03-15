@@ -19,6 +19,8 @@
 
 using namespace tmx;
 
+class PlayState;
+
 class MapComponent : public Component {
 private:
 	//unordered_map<ListaNiveles, list<infoTexture>> infoLevel;
@@ -26,7 +28,8 @@ private:
 	Map map;
 	int mapSize;
 
-	// Se guarda un vector por cada tileset que hay. En estas tiles se guarda su ID y su posición
+	// Se guarda un vector por cada habitación que hay. En este vector se guarda su ID y su posición
+	// El float indica la escala del mapa
 	std::vector<std::pair<float, std::vector<std::pair<int, SDL_Rect>>>> vectorTiles;
 
 	// Se guarda un vector con cada tipo de objetos que tiene el mapa (Colisiones, Objetos Interactuables, Salas, Triggers
@@ -47,6 +50,7 @@ private:
 	FadeOutAnimationComponent* anim_;
 	Entity* player_;
 	Entity* fadeOut;
+	PlayState* game;
 	
 	// std::vector<Texture*> textures;
 
@@ -54,6 +58,7 @@ private:
 	const int I_OBJECTS_VECTOR_POS = 1;
 	const int COLLISIONS_VECTOR_POS = 2;
 	const int TRIGGERS_VECTOR_POS = 3;
+	const int ENEMIES_VECTOR_POS = 4;
 
 	int realTileSize = 32;
 	int usedTileSize = 50;
@@ -64,7 +69,7 @@ private:
 public:
 	constexpr static ecs::cmpId_type id = ecs::_MAP;
 	
-	MapComponent(Entity* fadeOut);
+	MapComponent(Entity* fadeOut, PlayState* game);
 	void initComponent();
 	virtual void render();
 
@@ -75,6 +80,7 @@ public:
 
 	std::vector<std::pair<SDL_Rect, SDL_Rect>> checkCollisions(const SDL_Rect& playerRect);
 
+	inline int getCurrentRoom() { return currentRoom; }
 	inline void setCurrentRoom(int newRoom) { currentRoom = newRoom; }
 
 	void changeRoom(std::string newRoom, Vector2D newPos);
