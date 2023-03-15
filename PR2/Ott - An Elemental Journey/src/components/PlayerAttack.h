@@ -15,6 +15,9 @@ const int WATER_ATACK_HEIGHT =  50;
 const int WATER_ATACK_TICK_TIME = 2000; // Cada cuantos ms tick de agua
 const int WATER_ATACK_DURATION = 6000; // Duracion del ataque de agua en ms
 
+const int EARTH_ATTACK_WIDTH = 300;
+const int EARTH_ATTACK_HEIGHT = 50;
+
 class PlayerAttack : public Component
 {
 public:
@@ -36,7 +39,7 @@ private:
 
 	// Variables
 	Vector2D triggerPos;
-	Vector2D triggerWH;
+	//Vector2D triggerWH;
 	Vector2D watAtackTriggWH; // tamaño ataque de agua
 	Transform* tr_;
 	Health* health_;
@@ -45,10 +48,18 @@ private:
 	bool canAttack, chargedAttack;
 	int startAttackingTime, lastFireBallTime, timeBetweenFireBalls = 250, remainingAttacks = 0;
 	const int AttackTime = 200;
+	int triggerWidth;
+	int triggerHeight;
+	SDL_Rect trigger;
 
 	int waterDurationTimer; // timer duracion ataque de agua
 	int waterTickTimer = 0; // timer tick de agua
 	bool waterAttackActive;
+	int earthDurationTimer;
+	int earthTickTimer= 0;
+	bool earthAttackActive;
+	int colEarthtrigger;
 	Entity* wAttack = nullptr; // Entidad ataque de agua
+	Entity* tAttack = nullptr; // Entidad ataque de agua
 };
 
