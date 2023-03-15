@@ -91,9 +91,8 @@ void PlayerAttack::update() {
 		wAttack->getComponent<Transform>()->setPosition(triggerPos);
 
 		// Si han pasado los segundos totales de la duracion, mata el ataque
-		if (SDL_GetTicks() >= waterDurationTimer + WATER_ATACK_DURATION) {
-			waterAttackActive = false;
-			wAttack->setAlive(false);
+		if ((SDL_GetTicks() >= waterDurationTimer + WATER_ATACK_DURATION) || health_->getElement() != ecs::Water) {
+			deleteWaterAttack();
 		}
 
 
@@ -145,6 +144,11 @@ void PlayerAttack::update() {
 }
 
 // PRIVATE
+
+void PlayerAttack ::deleteWaterAttack() {
+	waterAttackActive = false;
+	wAttack->setAlive(false);
+}
 
 void PlayerAttack::waterAttack(SDL_Rect& trigger) {
 	// Trigger de ataque
