@@ -86,7 +86,7 @@ void PlayState::checkCollisions() {
 
 		auto grounds = map_->checkCollisions(r1);
 
-		for (auto gr : grounds) { // WALL COLLISION
+		for (std::pair<SDL_Rect, SDL_Rect> gr : grounds) { // WALL COLLISION
 			if (gr.first.w < gr.first.h && ((gr.first.x <= gr.second.x + (gr.second.w / 2) && physics->getLookDirection()) ||
 				(gr.first.x > gr.second.x + (gr.second.w / 2) && !physics->getLookDirection()))) {
 				colVector = Vector2D(0, colVector.getY());
@@ -109,9 +109,12 @@ void PlayState::checkCollisions() {
 				}
 			}
 		}*/
-		if (grounds.size() >= 1) {
-			auto areaColision = grounds[0].first;
+		int i = 0;
+		for (std::pair<SDL_Rect, SDL_Rect> gr : grounds) {
+			auto areaColision = gr.first;
+
 			if (areaColision.w >= areaColision.h) {
+				std::cout << "collision with ground " << std::endl;
 
 				if (!physics->isGrounded() && areaColision.y > r1.y + r1.w / 2) {
 					//cout << "ground touched" << endl;
@@ -131,12 +134,14 @@ void PlayState::checkCollisions() {
 				}
 				if (mov != nullptr) mov->ChangeDirection(true, areaColision);
 
+				++i;
 				break;
 			}
 		}
-		else physics->setGrounded(false);
+		
+		if(i == 0) physics->setGrounded(false);
 		/*
-		int i = 0;
+ 		int i = 0;
 		for (Entity* g : ground) { // GROUND COLLISION
 			SDL_Rect r2 = g->getComponent<Transform>()->getRect();
 			SDL_Rect areaColision; // area de colision 	
