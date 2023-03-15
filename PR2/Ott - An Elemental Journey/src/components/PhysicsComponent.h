@@ -38,6 +38,7 @@ public:
     inline bool getFloating() { return floating; }
     inline void Stop() { stopped = true; }
     inline void Resume() { stopped = false; }
+    inline bool isStopped()  { return stopped; }
     //virtual void render();
 private:
     SDL_Rect collider;
