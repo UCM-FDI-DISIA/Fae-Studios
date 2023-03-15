@@ -46,7 +46,7 @@ PlayState::PlayState() : GameState(ecs::_state_PLAY) {
 	// constructors::eSlime(mngr_, "fireSlime", 600, 2100, 1.0f, ecs::Fire);
 	// constructors::eMelee(mngr_, "waterBug", 2400, 2000, 1.0f, ecs::Water);
 	// constructors::eRanged(mngr_, "earthMushroom", 1700, 2000, 1.0f, ecs::Earth);
-	constructors::map(mngr_);
+	map_ = constructors::map(mngr_)->getComponent<MapComponent>();
 }
 
 
@@ -83,6 +83,19 @@ void PlayState::checkCollisions() {
 		Vector2D& colVector = physics->getVelocity();
 
 		auto mov = e->getComponent<EnemyMovement>();
+
+		auto grounds = map_->checkCollisions(r1);
+
+		for (auto gr : grounds) { // WALL COLLISION
+			if (gr.first.w < gr.first.h && ((gr.first.x <= gr.second.x + (gr.second.w / 2) && physics->getLookDirection()) ||
+				(gr.first.x > gr.second.x + (gr.second.w / 2) && !physics->getLookDirection()))) {
+				colVector = Vector2D(0, colVector.getY());
+				if (mov != nullptr) {
+					mov->ChangeDirection(false, gr.first);
+				}
+			}
+		}
+		/*
 		for (Entity* g : ground) { // WALL COLLISION
 
 			SDL_Rect r2 = g->getComponent<Transform>()->getRect();
@@ -95,8 +108,34 @@ void PlayState::checkCollisions() {
 					mov->ChangeDirection(false, areaColision);
 				}
 			}
-		}
+		}*/
+		if (grounds.size() >= 1) {
+			auto areaColision = grounds[0].first;
+			if (areaColision.w >= areaColision.h) {
 
+				if (!physics->isGrounded() && areaColision.y > r1.y + r1.w / 2) {
+					//cout << "ground touched" << endl;
+					if (!(physics->getWater()) || (physics->getWater() && health->getElement() == ecs::Water))
+					{
+						colVector = Vector2D(colVector.getX(), 0);
+					}
+					physics->setGrounded(true);
+				}
+				else if (!physics->isGrounded()) {
+					//cout << "ceiling touched" << endl;
+					if (!(physics->getWater()) || (physics->getWater() && health->getElement() == ecs::Water))
+					{
+						colVector = Vector2D(colVector.getX(), 1);
+						physics->setVerticalSpeed(1);
+					}
+				}
+				if (mov != nullptr) mov->ChangeDirection(true, areaColision);
+
+				break;
+			}
+		}
+		else physics->setGrounded(false);
+		/*
 		int i = 0;
 		for (Entity* g : ground) { // GROUND COLLISION
 			SDL_Rect r2 = g->getComponent<Transform>()->getRect();
@@ -130,6 +169,7 @@ void PlayState::checkCollisions() {
 			else if (i == ground.size() - 1) physics->setGrounded(false);
 			++i;
 		}
+		*/
 		//colisiones con el material de agua 
 		int j = 0;
 		std::vector <Entity*> water = mngr_->getEntities(ecs::_grp_WATER);
