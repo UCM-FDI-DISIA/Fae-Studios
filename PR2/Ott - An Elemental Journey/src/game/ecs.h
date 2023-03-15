@@ -40,6 +40,7 @@ namespace ecs {
         _ENEMYSTATES,
         _FADEOUTANIM,
         _EARTH_ATTACK_ANIM,
+        _WATER_ATTACK_ANIM,
 
         _LAST_CMP_ID
     };

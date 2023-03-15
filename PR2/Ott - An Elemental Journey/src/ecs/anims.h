@@ -13,7 +13,7 @@ public:
 		int rowNum;
 		int colNum = 0;
 	};
-	static enum Entities { OTT_ANIM, MELEE_ANIM, RANGE_ANIM, SLIME_ANIM, EARTH_ATTACK };
+	static enum Entities { OTT_ANIM, MELEE_ANIM, RANGE_ANIM, SLIME_ANIM, EARTH_ATTACK, WATER_ATTACK };
 	static std::vector<std::vector<animDescription>> animations;
 private:
 	static std::vector<animDescription> ott_anims;
@@ -21,4 +21,5 @@ private:
 	static std::vector<animDescription> range_anims;
 	static std::vector<animDescription> slime_anims;
 	static std::vector<animDescription> earth_attack;
+	static std::vector<animDescription> water_attack;
 };
