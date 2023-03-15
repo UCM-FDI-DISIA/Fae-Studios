@@ -52,7 +52,7 @@ void PlayerAttack::update() {
 					tAttack->addComponent<FramedImage>(&sdlutils().images().at("earth_attack"), 1, 10);
 					tAttack->addComponent<earthAnimationController>(anims::EARTH_ATTACK);
 
-					colEarthtrigger = 1;
+					colEarthtrigger = 0;
 					earthAttackActive = true;
 				}
 				break;
@@ -121,7 +121,6 @@ void PlayerAttack::update() {
 	{
 		// Transform
 		auto trAttack = tAttack->getComponent<Transform>();
-		MoveTrigger(Vector2D(EARTH_ATTACK_WIDTH, EARTH_ATTACK_HEIGHT));
 		trAttack->setPosition(triggerPos);
 		auto earthAnimation = tAttack->getComponent<FramedImage>();
 		auto earthStateAnimation = tAttack->getComponent<earthAnimationController>();
@@ -132,6 +131,8 @@ void PlayerAttack::update() {
 			colEarthtrigger = colAnim + 1;
 			trigger.w = colEarthtrigger * (trAttack->getWidth() / earthAnimation->getTexture()->getNumCols()) ;
 		}
+		MoveTrigger(Vector2D(trigger.w, EARTH_ATTACK_HEIGHT));
+
 		//si CRECER -> atacckEnemy
 		//bool attackEnemy, true->DECRECE
 		if (earthStateAnimation->getState() == ADVANCE)
@@ -139,7 +140,7 @@ void PlayerAttack::update() {
 			if (attackEnemy(trigger))
 			{
 				earthAnimation->setCol(colEarthtrigger - 1);
-				earthStateAnimation->setState(BACK);
+				earthStateAnimation->setState(BACK, colEarthtrigger - 1);
 			}
 
 		}
@@ -190,7 +191,7 @@ bool PlayerAttack::attackEnemy(SDL_Rect& attackZone) {
 
 	for (auto e : enemiesGrp) {
 
-		SDL_Rect rect = e->getComponent<Transform>()->getRect();
+		SDL_Rect rect = e->getComponent<PhysicsComponent>()->getCollider();
 
 		// Si enemigo y ataque interseccionan
 		if (SDL_HasIntersection(&rect, &attackZone)&&!e->hasComponent<PlayerAttack>()) {
