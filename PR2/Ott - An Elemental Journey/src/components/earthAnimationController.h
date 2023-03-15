@@ -13,7 +13,7 @@ private:
 	anims::Entities eAnims;
 	FramedImage* image;
 	PlayerAttack* playerAttack;
-	int currentAnimation, timer_ ;
+	int currentAnimation, timer_, startingCol;
 	int animationTime;
 	const int FRAME_ANIMATION_TIME = 6;
 public:
@@ -22,6 +22,7 @@ public:
 	earthAnimationController(anims::Entities e) : eAnims(e) 
 	{
 		timer_ = 0;
+		startingCol = 0;
 	};
 	virtual ~earthAnimationController() {};
 	void initComponent();

@@ -88,8 +88,8 @@ namespace constructors {
 		ph->createCollider();
 		enemy->addComponent<FramedImage>(&sdlutils().images().at(imageKey), 2, 21);
 		enemy->addComponent<Health>(5, el, false);
-		ph->setVelocity({ 1,0 });
-		ph->lookDirection(true);
+		ph->setVelocity({ -1,0 });
+		ph->lookDirection(false);
 		auto eAttack_ = enemy->addComponent<EnemyAttack>(1200);
 		enemy->addComponent<EnemyMovement>();
 		auto eAnim_ = enemy->addComponent<EnemyAnimationComponent>(anims::SLIME_ANIM);

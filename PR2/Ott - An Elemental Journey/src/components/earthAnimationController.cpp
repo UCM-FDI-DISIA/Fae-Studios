@@ -8,8 +8,12 @@ void earthAnimationController::setState(int newState, int col) {
 	if (col != -1)
 	{
 		animationTime = getTPerFrame(currentAnimation) * (col + 1) + 1;
+		startingCol = col;
 	}
-	else animationTime = (getTPerFrame(currentAnimation) * getNFrames(currentAnimation)) + 1;
+	else {
+		animationTime = (getTPerFrame(currentAnimation) * getNFrames(currentAnimation)) + 1;
+		startingCol = getColNum(currentAnimation);
+	}
 }
 
 
@@ -27,11 +31,11 @@ void earthAnimationController::update() {
 	//Si la columna es distinta a la última de la animación aumentamos col
 	if (state == ADVANCE)
 	{
-		if (col != getNFrames(state) + getColNum(state) - 1) col = (timer_ / getTPerFrame(state)) % getNFrames(state) + getColNum(state);
+		if (col != getNFrames(state) + getColNum(state) - 1) col = (timer_ / getTPerFrame(state)) % getNFrames(state) + startingCol;
 	}
 	else if (state == BACK)
 	{
-		if (col != getNFrames(state) - getColNum(state) - 1) col = getColNum(state) - (timer_ / getTPerFrame(state)) % getNFrames(state) ;
+		if (col != getNFrames(state) - getColNum(state) - 1) col = startingCol - (timer_ / getTPerFrame(state)) % getNFrames(state) ;
 	}
 	image->setCol(col);
 

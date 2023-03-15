@@ -43,7 +43,7 @@ PlayState::PlayState() : GameState(ecs::_state_PLAY) {
 	
 	// COMENTO A LOS ENEMIGOS PORQUE ME ESTÁN DANDO POR CULO UN RATO CHAU BESOS
 
-	// constructors::eSlime(mngr_, "fireSlime", 600, 2100, 1.0f, ecs::Fire);
+	constructors::eSlime(mngr_, "fireSlime", 800, 2100, 1.0f, ecs::Fire);
 	// constructors::eMelee(mngr_, "waterBug", 2400, 2000, 1.0f, ecs::Water);
 	// constructors::eRanged(mngr_, "earthMushroom", 1700, 2000, 1.0f, ecs::Earth);
 	map_ = constructors::map(mngr_)->getComponent<MapComponent>();
