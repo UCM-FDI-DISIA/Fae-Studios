@@ -44,10 +44,9 @@ private:
 	void spawnFireball();
 	void moveEarthAttack(Transform* tr);
 	void waterAttack(SDL_Rect &trigger);
-	void deleteWaterAttack();
 	// Variables
 	//Vector2D triggerWH;
-	Vector2D watAtackTriggWH; // tamaño ataque de agua
+	Vector2D watAtackTriggWH; // tamaï¿½o ataque de agua
 	Transform* tr_;
 	Health* health_;
 	PlayerAnimationComponent* anim_;
@@ -59,6 +58,7 @@ private:
 	int triggerHeight;
 	SDL_Rect trigger;
 
+	int waterAttackDuration = WATER_ATACK_DURATION;
 	int waterDurationTimer; // timer duracion ataque de agua
 	int waterTickTimer = 0; // timer tick de agua
 	bool waterAttackActive;

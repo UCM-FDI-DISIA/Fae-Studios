@@ -64,27 +64,14 @@ void PlayerAttack::update() {
 			}
 			case ecs::Water: {
 				if (chargedAttack) {
-
-					// Trigger de ataque
-					trigger = { trigger.x, trigger.y, (int)watAtackTriggWH.getX(), (int)watAtackTriggWH.getY() };
-
-					// Si no hay ya uno activo
-					if (!waterAttackActive) {
-
-						// Añado entidad de ataque
-						wAttack = mngr_->addEntity(ecs::_grp_PROYECTILES);
-
-						// Entidad ataque
-						wAttack->addComponent<Transform>(Vector2D(trigger.x, trigger.y), trigger.w, trigger.h);
-						wAttack->addComponent<Image>(&sdlutils().images().at("water_attack"));
-
-						waterAttackActive = true;
-						waterDurationTimer = SDL_GetTicks();
-					}
-				}
-				else
+					waterAttackDuration = 2 * WATER_ATACK_DURATION;
 					waterAttack(trigger);
+					chargedAttack = false;
+				}
+				else {
 
+					waterAttackDuration = WATER_ATACK_DURATION;
+				}
 				break;
 			}
 			default: {
@@ -96,8 +83,6 @@ void PlayerAttack::update() {
 		}
 	}
 
-
-
 	if (waterAttackActive) {
 		MoveTrigger(watAtackTriggWH);
 		trigger = { trigger.x, trigger.y, (int)watAtackTriggWH.getX(), (int)watAtackTriggWH.getY() };
@@ -105,8 +90,9 @@ void PlayerAttack::update() {
 		wAttack->getComponent<Transform>()->setPosition(Vector2D(trigger.x, trigger.y));
 
 		// Si han pasado los segundos totales de la duracion, mata el ataque
-		if ((SDL_GetTicks() >= waterDurationTimer + WATER_ATACK_DURATION) || health_->getElement() != ecs::Water) {
-			deleteWaterAttack();
+		if ((SDL_GetTicks() >= waterDurationTimer + waterAttackDuration) || health_->getElement() != ecs::Water) {
+			waterAttackActive = false;
+			wAttack->setAlive(false);
 		}
 
 
@@ -157,11 +143,6 @@ void PlayerAttack::update() {
 }
 
 // PRIVATE
-
-void PlayerAttack ::deleteWaterAttack() {
-	waterAttackActive = false;
-	wAttack->setAlive(false);
-}
 
 void PlayerAttack::waterAttack(SDL_Rect& trigger) {
 	// Trigger de ataque
@@ -231,7 +212,7 @@ bool PlayerAttack::attackEnemy(SDL_Rect& attackZone) {
 		SDL_Rect rect = e->getComponent<PhysicsComponent>()->getCollider();
 
 		// Si enemigo y ataque interseccionan
-		if (SDL_HasIntersection(&rect, &attackZone)&&!e->hasComponent<PlayerAttack>()) {
+		if (SDL_HasIntersection(&rect, &attackZone) && !e->hasComponent<PlayerAttack>()) {
 
 			attack = true;
 			// Hace da�o a enemigo dependiendo del elemento
