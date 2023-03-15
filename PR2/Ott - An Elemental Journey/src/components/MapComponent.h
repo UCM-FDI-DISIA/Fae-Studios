@@ -32,6 +32,8 @@ private:
 	// Se guarda un vector con cada tipo de objetos que tiene el mapa (Colisiones, Objetos Interactuables, Salas, Triggers
 	std::vector<std::vector<Object>> vectorObjects;
 
+	std::unordered_map<std::string, std::vector<SDL_Rect>> ground;
+
 	// En este mapa se guarda:
 	// string -> número de sala
 	// vector -> todos los triggers que hay en esa sala
@@ -70,6 +72,8 @@ public:
 
 	// cambio de mapa
 	void changeMap();
+
+	std::vector<std::pair<SDL_Rect, SDL_Rect>> checkCollisions(const SDL_Rect& playerRect);
 
 	inline void setCurrentRoom(int newRoom) { currentRoom = newRoom; }
 

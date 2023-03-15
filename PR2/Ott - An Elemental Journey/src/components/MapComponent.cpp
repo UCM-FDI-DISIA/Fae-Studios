@@ -6,7 +6,7 @@
 #include "../components/CameraComponent.h"
 #include "../states/PlayState.h"
 #include "../states/GameStateMachine.h"
-
+#include "../game/Constructors.h"
 
 MapComponent::MapComponent(Entity* fadeOut) : fadeOut(fadeOut) {
     //textures = std::vector<Texture*>(NUMBER_OF_TYPES);
@@ -132,8 +132,10 @@ void MapComponent::loadMap(std::string path) {
                 */
             }
             #pragma endregion
+        }
 
-
+        for (auto obj : vectorObjects[COLLISIONS_VECTOR_POS]) {
+            ground[obj.getName()].push_back(getSDLRect(obj.getAABB()));
         }
 
         for (const auto& layer : layers2)
@@ -189,6 +191,60 @@ void MapComponent::loadMap(std::string path) {
             triggers[trigger.getName()].push_back(std::make_pair(trigger.getClass(),rect));
             triggers[trigger.getClass()].push_back(std::make_pair(trigger.getName(),rect));
         }
+
+        float scale = tileScale();
+        for (auto ot : vectorObjects[I_OBJECTS_VECTOR_POS]) {
+            //unordered_map<string, TP_Lamp*> lamps;
+            float x_ = ot.getAABB().left;
+            float y_ = ot.getAABB().top;
+            float w_ = ot.getAABB().width;
+            float h_ = ot.getAABB().height;
+            /*
+            elementsInfo::elements elem;
+            std::string path = "";
+            if (ot.getName() == "1") { elem = elementsInfo::Earth; path = "earth"; }
+            else if (ot.getName() == "2") { elem = elementsInfo::Water; path = "water"; }
+            else if (ot.getName() == "3") { elem = elementsInfo::Fire; path = "fire"; }
+            else if (ot.getName() == "4") { elem = elementsInfo::Dark; path = "dark"; }
+            */
+            if (ot.getClass() == "Grass") {
+                constructors::grass(mngr_, Vector2D(x_ * scale, (y_ * scale - sdlutils().images().at("grass").height()) + h_ * scale),
+                    w_ * scale, h_ * scale, Vector2D(x_ * scale,
+                        (y_ * scale - sdlutils().images().at("grass").height()) + h_ * scale + 100),
+                    Vector2D(x_ * scale, (y_ * scale - sdlutils().images().at("grass").height())));
+            }
+            else if (ot.getClass() == "Lamp") {
+                //createLamp(Vector2D(x_ * scale, y_ * scale - game->getTexture("lamp", PLAY_STATE)->getH() * 2));
+                /*TP_Lamp* l1 = new TP_Lamp(Vector2D(x_ * scale, y_ * scale - app->getTexture("lamp", PLAY_STATE)->getH() * 2), app->getTexture("lamp", PLAY_STATE), this, Scale(2, 2), LAMP);
+
+                string lampName = ot.getName();
+                auto at = lamps.find(lampName);
+                if (at != lamps.end()) {
+                    l1->SetLamp((*at).second);
+                    (*at).second->SetLamp(l1);
+                }
+                else {
+                    lamps.insert({ ot.getName(), l1 });
+                }
+
+                gameObjects.push_back(l1);*/
+            }
+            else if (ot.getClass() == "Sanctuary") {
+                constructors::sanctuary(mngr_, Vector2D(x_ * scale - (&sdlutils().images().at("sanctuary"))->width() * 1.5, y_ * scale - (&sdlutils().images().at("sanctuary"))->height() * 3.5));
+            }
+            else if (ot.getClass() == "Ott") {
+
+            }
+            else if (ot.getClass() == "Mushroom") {
+
+            }
+            else if (ot.getClass() == "Melee") {
+            }
+            else if (ot.getClass() == "Slime") {
+
+            }
+        }
+
     }
     else
     {
@@ -199,6 +255,19 @@ void MapComponent::loadMap(std::string path) {
 
 
 }
+
+std::vector<std::pair<SDL_Rect, SDL_Rect>> MapComponent::checkCollisions(const SDL_Rect& playerRect) {
+    std::vector<std::pair<SDL_Rect, SDL_Rect>> rects;
+    for (SDL_Rect it : ground[std::to_string(currentRoom)]) {
+        SDL_Rect result;
+        if (SDL_IntersectRect(&playerRect, &it, &result)) {
+            rects.push_back(std::make_pair(result, it));
+        }
+    }
+
+    return rects;
+}
+
 
 void MapComponent::render() {
     SDL_Rect camPos = cam->camera;
