@@ -9,7 +9,7 @@
 #include "Health.h"
 #include "FramedImage.h"
 #include "PlayerAttack.h"
-
+#include "AttackCharger.h"
 class PlayerInput : public Component {
 public:
 	PlayerInput();
@@ -17,7 +17,6 @@ public:
 	virtual void initComponent();
 	virtual void update();
 	constexpr static ecs::cmpId_type id = ecs::_CTRL;
-	void setActive(bool b) { active = b; }
 
 private:
 	Transform* tr_;
@@ -27,7 +26,8 @@ private:
 	FramedImageOtt* image_;
 	Health* health_;
 	float horizontalSpeed = 0;
-	bool active = true;
+	int attackTimer, chargedAttackTime = 1;
+	bool attack = false;
 };
 
 

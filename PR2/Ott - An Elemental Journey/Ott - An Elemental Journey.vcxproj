@@ -22,6 +22,10 @@
     <ClCompile Include="src\components\EnterBossRoom.cpp" />
     <ClCompile Include="src\components\EarthBossAttack.cpp" />
     <ClCompile Include="src\components\EarthBossAnimationController.cpp" />
+    <ClCompile Include="src\components\earthAnimationController.cpp" />
+    <ClCompile Include="src\components\FadeOutAnimationComponent.cpp" />
+    <ClCompile Include="src\ecs\colliders.cpp" />
+    <ClCompile Include="src\components\EnemyContactDamage.cpp" />
     <ClCompile Include="src\components\Bullet.cpp" />
     <ClCompile Include="src\components\CameraComponent.cpp" />
     <ClCompile Include="src\components\ColliderVine.cpp" />
@@ -73,6 +77,10 @@
     <ClInclude Include="src\components\EnterBossRoom.h" />
     <ClInclude Include="src\components\EarthBossAttack.h" />
     <ClInclude Include="src\components\EarthBossAnimationController.h" />
+    <ClInclude Include="src\components\earthAnimationController.h" />
+    <ClInclude Include="src\components\FadeOutAnimationComponent.h" />
+    <ClInclude Include="src\ecs\colliders.h" />
+    <ClInclude Include="src\components\EnemyContactDamage.h" />
     <ClInclude Include="src\components\AddVine.h" />
     <ClInclude Include="src\components\AttackCharger.h" />
     <ClInclude Include="src\components\Bullet.h" />

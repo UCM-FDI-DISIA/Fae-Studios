@@ -24,6 +24,7 @@ namespace ecs {
         _TRIGGER,
         _ATTACK,
         _ENEMYMOV,
+        _ENEMYCONTACT,
         _HEALTH,
         _INTERACTION,
         _MAP,
@@ -39,6 +40,9 @@ namespace ecs {
         _ENEMYSTATES,
         _VINEMANAGER,
         _ENTERBOSS,
+        _FADEOUTANIM,
+        _EARTH_ATTACK_ANIM,
+
         _LAST_CMP_ID
     };
     constexpr cmpId_type maxComponentId = _LAST_CMP_ID;
@@ -58,6 +62,11 @@ namespace ecs {
         _grp_CHARACTERS,
         _grp_PROYECTILES,
         _grp_MINIBOSS,
+        _grp_WATER,
+        _grp_CHARACTERS,
+        _grp_PROYECTILES,
+        _grp_FADEOUT,
+
         _LAST_GRP_ID
     };
     constexpr grpId_type maxGroupId = _LAST_GRP_ID;

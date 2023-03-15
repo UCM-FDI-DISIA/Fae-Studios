@@ -55,16 +55,15 @@ void CameraComponent::update() {
 		}
 
 		// Limites de la camara dependiendo del tama�o de la sala (mapa)
-		if (camera.x < 0) {
-			camera.x = 0;
+		if (camera.x < bounds.x) {
+			camera.x = bounds.x;
 		}
 	
-		if (camera.x > LEVEL_WIDTH - tr_->getWidth()) {
-			camera.x = LEVEL_WIDTH - tr_->getWidth();
+		if (camera.x > bounds.x + bounds.w - tr_->getWidth()) {
+			camera.x = bounds.x + bounds.w - tr_->getWidth();
 		}
-		if (camera.y > LEVEL_HEIGHT - tr_->getHeight()) {
-			//cout << "fix Y pos" << endl;
-			camera.y = LEVEL_HEIGHT - tr_->getHeight();
+		if (camera.y > bounds.y + bounds.h - tr_->getHeight()) {
+			camera.y = bounds.y + bounds.h - tr_->getHeight();
 		}
 		camera = { camera.x,camera.y,sdlutils().width(), sdlutils().height() };
 	}

@@ -19,7 +19,7 @@ void PlayerInput::initComponent()
 
 void PlayerInput::update()
 {
-	if (active) {
+	if (!physics_->isStopped()) {
 		Vector2D& playerV = physics_->getVelocity();
 		auto input = InputHandler::instance();
 		auto state = anim_->getState();
@@ -41,8 +41,7 @@ void PlayerInput::update()
 				physics_->jump();
 			}
 			if (input->isKeyDown(SDLK_q)) {
-				//Recuperar vidas
-				physics_->knockback();
+				ent_->getComponent<AttackCharger>()->addCharge(5);
 			}
 			if (input->isKeyDown(SDLK_f)) {
 				//Recuperar vidas
@@ -59,10 +58,11 @@ void PlayerInput::update()
 					image_->shielded(true);
 					physics_->slowed();
 				}
-				if (input->isKeyDown(SDLK_e) && anim_->getState() != ATTACK) {
+				if (input->isKeyJustDown(SDLK_e) && anim_->getState() != ATTACK && !attack) {
 					//Ataque
-					anim_->setState(ATTACK);
-					attack_->startAttack();
+					attack = true;
+					attackTimer = SDL_GetTicks();
+
 				}
 				if (input->isKeyDown(SDLK_a)) {
 					//Cambio elemento
@@ -106,6 +106,17 @@ void PlayerInput::update()
 						if (playerV.getX() > horizontalSpeed) playerV = Vector2D(horizontalSpeed, playerV.getY());
 					}
 				}
+				if (input->isKeyJustUp(SDLK_e) && attack) {
+					attack = false;
+					AttackCharger* pChargedAttackComp = ent_->getComponent<AttackCharger>();
+					bool canChargeAttack = pChargedAttackComp->hasChargedAttack();
+					bool isCharged = (canChargeAttack && SDL_GetTicks() - attackTimer >= chargedAttackTime * 1000);
+					anim_->setState(ATTACK);
+					attack_->startAttack(isCharged);
+					if (isCharged) {
+						int& numCharges = pChargedAttackComp->getCharge(); numCharges = 0;
+					}
+				}
 			}
 			if (input->isKeyJustUp(SDLK_z)) {
 				//defend = false;
@@ -128,10 +139,7 @@ void PlayerInput::update()
 		}
 		else physics_->setClimbing(false, 0);
 	}
-	else {
-		Vector2D& playerV = physics_->getVelocity();
-		playerV = Vector2D(0, 0);
-	}
+	
 }
 
 PlayerInput::~PlayerInput()

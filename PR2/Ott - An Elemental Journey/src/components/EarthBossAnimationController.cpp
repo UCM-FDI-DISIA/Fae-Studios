@@ -9,7 +9,6 @@ void EarthBossAnimationController::setState(int newState) {
 	currentAnimation = newState;
 }
 
-
 void EarthBossAnimationController::initComponent() {
 	image = ent_->getComponent<FramedImage>();
 	/*health_ = ent_->getComponent<Health>();
@@ -19,6 +18,7 @@ void EarthBossAnimationController::initComponent() {
 }
 
 void EarthBossAnimationController::update() {
+
 	/*if (currentAnimation == IDLE_ENEMY && eMovement_ != nullptr && eMovement_->isMoving()) setState(WALK_ENEMY);
 	else if (currentAnimation == WALK_ENEMY && !eMovement_->isMoving()) setState(IDLE_ENEMY);*/
 
@@ -54,7 +54,7 @@ void EarthBossAnimationController::update() {
 
 void EarthBossAnimationController::endAnim() {
 	if (currentAnimation == PRESENTATION) {
-		setState(STOP);
+		setState(WARNING);
 	}
 	//if (currentAnimation == PREPARE_ATTACK_ENEMY)
 	//{

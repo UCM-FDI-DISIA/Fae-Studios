@@ -12,6 +12,8 @@
 	{ "id" : "press_start48", "file" : "../Ott - An Elemental Journey/resources/fonts/PressStart2P-Regular.ttf", "size": 48 }
   ],
 
+	
+
 	"images": [
 		{
 			"id": "playbackground",
@@ -126,6 +128,12 @@
 			"file": "../Ott - An Elemental Journey/resources/images/tests/lamp.png",
 			"rows": 1,
 			"cols": 1
+		},
+		{
+			"id": "fadeOut",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/fadeOut.png",
+			"rows": 1,
+			"cols": 11
 		},
 		{
 			"id": "enredadera",
@@ -292,6 +300,12 @@
 		{
 			"id": "spores",
 			"file": "../Ott - An Elemental Journey/resources/images/sprites/spores.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "water_attack",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/water_Attack.png",
 			"rows": 1,
 			"cols": 1
 		},
