@@ -13,6 +13,7 @@ class FramedImage : public Component {
 private:
     Texture* texture;
     Transform* transform;
+    
     int totalRows, totalCols; //Columnas y filas totales de la imagen
     int currentRow, currentCol; //Fila y columna que actualmente se renderiza
     SDL_Rect getRect() const;
@@ -60,6 +61,7 @@ private:
     CameraComponent* cam;
     PhysicsComponent* physics;
     Texture* shieldTex_;
+    PlayerAnimationComponent* pAnim;
     int numRows_, numCols_;
     int row = 0, col = 0;
     int tPerFrame;

@@ -5,6 +5,8 @@
 // { tiempo entre frames, nº de frames, fila, columna inicial }
 // enum Animations { IDLE, WALK, RUN, JUMP_UP, PEAK, FALL, LAND, VANISH, DIE, ATTACK };
 
+// enum EarthAnims { ADVANCE, BACK }
+
 // OTT
 std::vector<anims::animDescription> anims::ott_anims{
 	{300, 2, 0, 0}, { 200,4,2,0 },  // IDLE, WALK
@@ -36,3 +38,7 @@ anims::offsetPhysics anims::range_collider{ 6, 32, 10, 32, 22, 22 };
 anims::offsetPhysics anims::slime_collider{ 49, 120, 7, 60, 23, 51 };
 // vector con todas las animaciones definidas. se accede a él por un enum llamado Entities
 std::vector<anims::offsetPhysics> anims::colliders{ ott_collider, melee_collider, range_collider, slime_collider };
+// ATAQUE TIERRA
+std::vector<anims::animDescription> anims::earth_attack{ {100,10,0,0}, {100,10,0,9} };
+// vector con todas las animaciones definidas. se accede a él por un enum llamado Entities
+std::vector<std::vector<anims::animDescription>> anims::animations{ ott_anims, melee_anims, range_anims, slime_anims, earth_attack };

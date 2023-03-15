@@ -6,16 +6,18 @@
 #include "CameraComponent.h"
 #include "../states/GameStateMachine.h"
 #include "../states/PlayState.h"
+#include "Health.h"
 
 const float gravityValue = 0.2;
 
 
 PhysicsComponent::PhysicsComponent() {
-
+	jumpForce = earthJumpForce;
 }
 
-PhysicsComponent::PhysicsComponent(anims::Colliders c) {
+PhysicsComponent::PhysicsComponent(colliders::Colliders c) {
 	typeofCollider = c;
+	jumpForce = earthJumpForce;
 }
 
 void PhysicsComponent::initComponent() {
@@ -24,11 +26,11 @@ void PhysicsComponent::initComponent() {
 
 void PhysicsComponent::createCollider() {
 	auto tr = ent_->getComponent<Transform>();
-	colliderOffset = Vector2D(anims::colliders[typeofCollider].izqPixels / (float)anims::colliders[typeofCollider].totalHorPixels * tr->getWidth(),
-		anims::colliders[typeofCollider].upPixels / (float)anims::colliders[typeofCollider].totalVertPixels * tr->getHeight());
+	colliderOffset = Vector2D(colliders::collider[typeofCollider].izqPixels / (float)colliders::collider[typeofCollider].totalHorPixels * tr->getWidth(),
+		colliders::collider[typeofCollider].upPixels / (float)colliders::collider[typeofCollider].totalVertPixels * tr->getHeight());
 
-	colliderWH = Vector2D(anims::colliders[typeofCollider].width / (float)anims::colliders[typeofCollider].totalHorPixels * tr->getWidth(),
-		anims::colliders[typeofCollider].height / (float)anims::colliders[typeofCollider].totalVertPixels * tr->getHeight());
+	colliderWH = Vector2D(colliders::collider[typeofCollider].width / (float)colliders::collider[typeofCollider].totalHorPixels * tr->getWidth(),
+		colliders::collider[typeofCollider].height / (float)colliders::collider[typeofCollider].totalVertPixels * tr->getHeight());
 }
 
 //void PhysicsComponent::render() {
@@ -42,41 +44,70 @@ void PhysicsComponent::createCollider() {
 //}
 
 void PhysicsComponent::update() {
-	if (climbing) {
-		grounded = true;
-		velocity_ = Vector2D(velocity_.getX(), dirClimbing);
-	}
-	else if (!grounded && gravity) {
-		verticalSpeed += gravityValue;
-		if (verticalSpeed > MAX_VERTICAL_SPEED) verticalSpeed = MAX_VERTICAL_SPEED;
-		velocity_ = Vector2D(velocity_.getX(), verticalSpeed);
-	}
+	if (!stopped) {
+		//ascenso progresivo en el agua cuando tiene otros elementos
+		if (!floating && inWater && ent_->getComponent<Health>()->getElement() != ecs::Water)
+		{
+			//ajustes velocidad vertical cuando entra por arriba/lados
+			if (verticalSpeed > 0) { verticalSpeed = 0.0; }
+			verticalSpeed += -0.01; if (verticalSpeed < -1.5) { verticalSpeed = -1.5; }
+			velocity_ = Vector2D(velocity_.getX(), verticalSpeed);
+			return;
+		}
+		if (climbing) {
+			grounded = true;
+			velocity_ = Vector2D(velocity_.getX(), dirClimbing);
+		}
+		if (!grounded && gravity && (!inWater || (inWater && ent_->getComponent<Health>()->getElement() == ecs::Water))) {
 
-	if (isKnockback) {
-		knockbackTimer++;
-		if (knockbackTimer > knockbackTime) {
-			isKnockback = false;
-			knockbackTimer = 0;
+			if (inWater)
+			{
+				verticalSpeed += 0.1;
+			}
+			else
+			{
+				verticalSpeed += gravityValue;
+			}
+			if (verticalSpeed > MAX_VERTICAL_SPEED) verticalSpeed = MAX_VERTICAL_SPEED;
+			velocity_ = Vector2D(velocity_.getX(), verticalSpeed);
+		}
+
+		if (isKnockback) {
+			knockbackTimer++;
+			if (knockbackTimer > knockbackTime) {
+				isKnockback = false;
+				knockbackTimer = 0;
+				velocity_ = Vector2D(0, velocity_.getY());
+			}
+		}
+
+		if (!climbing && abs(velocity_.getY()) > 0.5f) {
+			grounded = false;
 		}
 	}
+	else setVelocity(Vector2D(0, 0));
 
-	if (!climbing && abs(velocity_.getY()) > 0.5f) {
-		grounded = false;
-	}
 }
 
 void PhysicsComponent::jump() {
-	if (grounded && !climbing) {
-		verticalSpeed = jumpForce;
-		velocity_ = Vector2D(velocity_.getX(), verticalSpeed);
+	if (!stopped) {
+		if (inWater || floating) { jumpForce = waterJumpForce; }
+		else { jumpForce = earthJumpForce; }
+		//condiciones de salto: que este flotamdo o que este en el suelo no escalando y o bien no este en el agua o bien lo este pero sea de elemento de agua
+		if (floating || (grounded && !climbing && ((!inWater) || (inWater && ent_->getComponent<Health>()->getElement() == ecs::Water)))) {
+			verticalSpeed = jumpForce;
+			velocity_ = Vector2D(velocity_.getX(), verticalSpeed);
+		}
 	}
 }
 
 void PhysicsComponent::knockback() {
-	isKnockback = true;
-	int kckbDir = 1;
-	if (lookingRight) kckbDir = -1;
-	velocity_ = velocity_ + Vector2D(kckbDir * X_KNOCKBACK_FORCE * (knockbackTime - knockbackTimer) / knockbackTime, 0);
+	if (!stopped) {
+		isKnockback = true;
+		int kckbDir = 1;
+		if (lookingRight) kckbDir = -1;
+		velocity_ = velocity_ + Vector2D(kckbDir * X_KNOCKBACK_FORCE, 0);
+	}
 }
 
 Vector2D& PhysicsComponent::getVelocity() {

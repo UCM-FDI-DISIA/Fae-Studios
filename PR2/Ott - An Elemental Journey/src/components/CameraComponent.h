@@ -16,6 +16,8 @@ private:
 	int timer;
 	bool left = false;
 	bool right = true;
+	SDL_Rect bounds;
+
 public:
 	constexpr static ecs::cmpId_type id = ecs::_CAMERA;
 	SDL_Rect camera;
@@ -27,5 +29,7 @@ public:
 	inline void cameraShake(bool n) {
 		camerashake = n;
 	}
+	inline void setBounds(const SDL_Rect& b) { bounds = b; }
+
 };
 

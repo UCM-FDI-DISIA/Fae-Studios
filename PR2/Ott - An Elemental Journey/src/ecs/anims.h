@@ -24,6 +24,7 @@ public:
 	};
 	static enum Colliders { OTT, MELEE, RANGE, SLIME};
 	static std::vector<offsetPhysics> colliders;
+
 private:
 	static std::vector<animDescription> ott_anims;
 	static std::vector<animDescription> melee_anims;
@@ -36,5 +37,4 @@ private:
 	static offsetPhysics range_collider;
 	static offsetPhysics slime_collider;
 	//static offsetPhysics earth_collider;
-
 };

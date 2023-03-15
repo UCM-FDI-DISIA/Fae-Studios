@@ -2,6 +2,7 @@
 #include "GameState.h"
 #include <SDL_mixer.h>
 #include "../ecs/Entity.h"
+#include "../components/MapComponent.h"
 
 /// Estado de juego
 class PlayState : public GameState {
@@ -14,6 +15,7 @@ private:
     Entity* player_;
     Entity* camera_;
     Entity* earthBoss_;
+    MapComponent* map_;
 
     float gravityValue = 0.2;
 

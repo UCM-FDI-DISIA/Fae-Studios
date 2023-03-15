@@ -50,6 +50,10 @@
     <ClCompile Include="src\components\EarthBossAttack.cpp" />
     <ClCompile Include="src\components\EnterBossRoom.cpp" />
     <ClCompile Include="src\components\Trigger.cpp" />
+    <ClCompile Include="src\components\EnemyContactDamage.cpp" />
+    <ClCompile Include="src\ecs\colliders.cpp" />
+    <ClCompile Include="src\components\FadeOutAnimationComponent.cpp" />
+    <ClCompile Include="src\components\earthAnimationController.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\components\Image.h" />
@@ -122,5 +126,9 @@
     <ClInclude Include="src\components\EarthBossAttack.h" />
     <ClInclude Include="src\components\EnterBossRoom.h" />
     <ClInclude Include="src\components\Trigger.h" />
+    <ClInclude Include="src\components\EnemyContactDamage.h" />
+    <ClInclude Include="src\ecs\colliders.h" />
+    <ClInclude Include="src\components\FadeOutAnimationComponent.h" />
+    <ClInclude Include="src\components\earthAnimationController.h" />
   </ItemGroup>
 </Project>

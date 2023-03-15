@@ -31,6 +31,7 @@
 		{ "id" : "ott_tree", "file" : "../resources/images/tests/Ott_Tree.png", "rows" : 9, "cols" : 8},
 		{ "id" : "ott_water", "file" : "../resources/images/tests/Ott_Water.png", "rows" : 9, "cols" : 8},
 		{ "id" : "ott_fire", "file" : "../resources/images/tests/Ott_Fire.png", "rows" : 9, "cols" : 8},
+		{ "id" : "fadeOut", "file" : "../resources/images/tests/fadeOut.png", "rows" : 1, "cols" : 11},
 		{ "id" : "lamp", "file" : "../resources/images/tests/lamp.png", "rows" : 1, "cols" : 1},
 		{ "id" : "enredadera", "file" : "../resources/images/tests/enredadera.png", "rows" : 1, "cols" : 1},
 		{ "id" : "grass", "file" : "../resources/images/tests/grass.png", "rows" : 1, "cols" : 1},
@@ -63,6 +64,8 @@
 		{ "id" : "animationWorm", "file" : "../resources/images/tests/AnimationWorm.png", "rows" : 1, "cols" : 8},
 		{ "id" : "vine", "file" : "../resources/images/tests/EarthBossVine.png", "rows" : 1, "cols" : 1},
 		{ "id" : "warning", "file" : "../resources/images/tests/EarthBossWarning.png", "rows" : 1, "cols" : 9}
+		{ "id" : "water_attack", "file" : "../resources/images/tests/water_Attack.png", "rows" : 1, "cols" : 1},
+		{ "id" : "earth_attack", "file" : "../resources/images/tests/earth_Attack.png", "rows" : 1, "cols" : 10}
   ],
 
   "messages" : [],
@@ -81,7 +84,7 @@
   "musics" : [],
   
   "maps": [
-		{ "id" : "level1", "file" : "../resources/levels/EarthMap.tmx", "cols" : 192, "tileset" : "level1tileset", "background" : "level1bg" },
+		{ "id" : "level1", "file" : "../resources/levels/EarthMap2.tmx", "cols" : 192, "tileset" : "level1tileset", "background" : "level1bg" },
 		{ "id" : "demo", "file" : "../resources/levels/DEMO.tmx", "cols" : 100, "tileset" : "level1tileset", "background" : "level1bg" }
 	]
 
