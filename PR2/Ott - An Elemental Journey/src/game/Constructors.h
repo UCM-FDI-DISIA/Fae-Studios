@@ -239,8 +239,6 @@ namespace constructors {
 		auto lamp = mngr_->addEntity(ecs::_grp_INTERACTION);
 		auto lamp2 = mngr_->addEntity(ecs::_grp_INTERACTION);
 
-		std::cout << " CREATING LAMP " << y1 << " " << y2 << std::endl;
-
 		lamp->addComponent<Transform>(Vector2D(x1, y1), 50, 130);
 		lamp->addComponent<Image>(&sdlutils().images().at("lamp"));
 		lamp->addComponent<LampComponent>(lamp2);

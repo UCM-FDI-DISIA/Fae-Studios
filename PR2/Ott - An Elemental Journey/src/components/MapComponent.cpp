@@ -63,27 +63,29 @@ void MapComponent::update() {
         SDL_Rect playerRect = playerTr_->getRect();
         for (auto trigger : triggers[std::to_string(currentRoom)]) {
             SDL_Rect result;
-            if (SDL_IntersectRect(&playerRect, &trigger.second, &result)) {
+            SDL_Rect rect = trigger.second.first;
+            if (SDL_IntersectRect(&playerRect, &rect, &result)) {
 
                 Vector2D newPos;
-                if (trigger.second.w > trigger.second.h) { // TRIGGER VERTICAL
-                    if (result.y < trigger.second.y) { // por arriba
+                SDL_Rect newRect = trigger.second.second;
+                if (newRect.w > newRect.h) { // TRIGGER VERTICAL
+                    if (result.y < newRect.y) { // por arriba
                         newPos = Vector2D(playerRect.x,
-                            trigger.second.y + trigger.second.h - playerRect.h);
+                            newRect.y + newRect.h - playerRect.h);
                     }
                     else { // por abajo
-                        newPos = Vector2D(trigger.second.x + trigger.second.w + playerRect.w,
-                            trigger.second.y - trigger.second.h - playerRect.h*1.5);
+                        newPos = Vector2D(newRect.x + newRect.w + playerRect.w,
+                            newRect.y - newRect.h - playerRect.h*1.5);
                     }
                 }
                 else { // TRIGGER HORIZONTAL
-                    if (result.x > trigger.second.x + trigger.second.w / 2) {
-                        newPos = Vector2D(trigger.second.x - trigger.second.w - playerRect.w,
-                            trigger.second.y + trigger.second.h - playerRect.h);
+                    if (result.x > newRect.x + newRect.w / 2) {
+                        newPos = Vector2D(newRect.x - newRect.w - playerRect.w,
+                            newRect.y + newRect.h - playerRect.h);
                     }
                     else {
-                        newPos = Vector2D(trigger.second.x + trigger.second.w + playerRect.w,
-                            trigger.second.y + trigger.second.h - playerRect.h);
+                        newPos = Vector2D(newRect.x + newRect.w + playerRect.w,
+                            newRect.y + newRect.h - playerRect.h);
                     }
                 }
                 changeRoom(trigger.first, newPos);
@@ -121,23 +123,8 @@ void MapComponent::loadMap(std::string path) {
                 else if (name == "Triggers") {
                     vectorObjects[TRIGGERS_VECTOR_POS] = objects;
                 }
-                //Guardamos objetos en un vector
-
-                /*
-                //Ejemplo de propiedades de un objeto (posicion, tama�o, ID y nombre)
-                //cout << "Found " << objects.size() << " objects in layer" << endl;
-                for (const auto& object : objects)
-                {
-                    Vector2f holi = object.getPosition();
-                    //cout << "Object " << object.getUID() << ", " << object.getName() << " " << object.getClass() << endl;
-                }
-                */
             }
             #pragma endregion
-        }
-
-        for (auto obj : vectorObjects[COLLISIONS_VECTOR_POS]) {
-            ground[obj.getName()].push_back(getSDLRect(obj.getAABB()));
         }
 
         for (const auto& layer : layers2)
@@ -157,8 +144,6 @@ void MapComponent::loadMap(std::string path) {
                     auto rect = salas.getAABB();
                     SDL_Rect sala = { rect.left * tileScale(), rect.top* tileScale(), rect.width * tileScale(), rect.height * tileScale() };
                     for (auto tile : tiles) {
-
-
                         SDL_Rect tileRect = { (float)(o % cols) * usedTileSize, ((float)(o / cols) * usedTileSize), usedTileSize, usedTileSize };
                         /*std::cout << tileRect.x << " "
                             << tileRect.y << " "
@@ -174,8 +159,8 @@ void MapComponent::loadMap(std::string path) {
                             << std::endl;*/
 
                         if (SDL_HasIntersection(&sala, &tileRect)) {
-                            std::cout << "intersection" << std::endl;
-                            vectorTiles[i].push_back(std::make_pair(tile.ID, tileRect));
+                            vectorTiles[i].first = std::stof(salas.getClass());
+                            vectorTiles[i].second.push_back(std::make_pair(tile.ID, tileRect));
                         }
                         o++;
                     }
@@ -187,11 +172,39 @@ void MapComponent::loadMap(std::string path) {
             #pragma endregion
         }
 
+        for (auto obj : vectorObjects[COLLISIONS_VECTOR_POS]) {
+            SDL_Rect rect = getSDLRect(obj.getAABB());
+
+            auto roomScale = vectorTiles[std::stoi(obj.getName())].first;
+
+            rect.x *= roomScale;
+            rect.y *= roomScale;
+            rect.w *= roomScale;
+            rect.h *= roomScale;
+            ground[obj.getName()].push_back(rect);
+        }
+
         for (auto trigger : vectorObjects[TRIGGERS_VECTOR_POS]) {
-            SDL_Rect rect = getSDLRect(trigger.getAABB());
+            SDL_Rect rect1 = getSDLRect(trigger.getAABB());
+            SDL_Rect rect2 = rect1;
+
+            auto roomScale = vectorTiles[std::stoi(trigger.getName())].first;
+
+            rect1.x *= roomScale;
+            rect1.y *= roomScale;
+            rect1.w *= roomScale;
+            rect1.h *= roomScale;
+
+            roomScale = vectorTiles[std::stoi(trigger.getClass())].first;
+
+            rect2.x *= roomScale;
+            rect2.y *= roomScale;
+            rect2.w *= roomScale;
+            rect2.h *= roomScale;
+
             // guardamos los triggers en las dos salas, ya que son bidireccionales
-            triggers[trigger.getName()].push_back(std::make_pair(trigger.getClass(),rect));
-            triggers[trigger.getClass()].push_back(std::make_pair(trigger.getName(),rect));
+            triggers[trigger.getName()].push_back(std::make_pair(trigger.getClass(),std::make_pair(rect1,rect2)));
+            triggers[trigger.getClass()].push_back(std::make_pair(trigger.getName(),std::make_pair(rect2,rect1)));
         }
 
         float scale = tileScale();
@@ -277,12 +290,16 @@ void MapComponent::render() {
     int offsetX = camPos.x;
     int offsetY = camPos.y;
     int room = currentRoom;
-    for (int i = 0; i < vectorTiles[room].size(); i++) {
-        auto it = vectorTiles[room][i].first;
-        auto ot = vectorTiles[room][i].second;
+    for (int i = 0; i < vectorTiles[room].second.size(); i++) {
+        auto it = vectorTiles[room].second[i].first;
+        auto ot = vectorTiles[room].second[i].second;
+        if (it == 0) continue;
+        ot.x *= vectorTiles[room].first;
+        ot.y *= vectorTiles[room].first;
         ot.x -= offsetX;
         ot.y -= offsetY;
-        if (it == 0) continue;
+        ot.w *= vectorTiles[room].first;
+        ot.h *= vectorTiles[room].first;
         tilemap->renderFrame(ot, (it - (it % 20)) / 20, it % 20 - 1);
     }
 }
