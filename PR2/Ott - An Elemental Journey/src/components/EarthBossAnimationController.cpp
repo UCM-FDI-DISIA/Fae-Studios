@@ -9,7 +9,6 @@ void EarthBossAnimationController::setState(int newState) {
 	currentAnimation = newState;
 }
 
-
 void EarthBossAnimationController::initComponent() {
 	image = ent_->getComponent<FramedImage>();
 	/*health_ = ent_->getComponent<Health>();
