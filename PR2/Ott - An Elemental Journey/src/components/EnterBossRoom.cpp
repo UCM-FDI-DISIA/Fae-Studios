@@ -23,7 +23,7 @@ void EnterBossRoom::update() {
 	if (aux <= 1000) {
 		if (camera != nullptr && player != nullptr) {
 			camera->getComponent<CameraComponent>()->cameraShake(true);
-			player->getComponent<PlayerInput>()->setActive(false);
+			//player->getComponent<PlayerInput>()->setActive(false);
 			start = true;
 		}
 		if (col == 7) col = 0;
@@ -36,20 +36,20 @@ void EnterBossRoom::update() {
 	}
 	if (aux > 2000 && aux <= 5000 && start) {
 		startFight();
-		player->getComponent<PlayerInput>()->setActive(true);
+		//player->getComponent<PlayerInput>()->setActive(true);
 	}
 	else start = false;
 }
-
-void EnterBossRoom::startFight() {
-	if (!added) {
-		earthBoss = mngr_->getEarthBoss();
-		auto ph = earthBoss->getComponent<PhysicsComponent>();
-		earthBoss->addComponent<FramedImage>(&sdlutils().images().at("animationWorm"), sdlutils().images().at("animationWorm").getNumRows(), sdlutils().images().at("animationWorm").getNumCols());
-		earthBoss->addComponent<Health>(5, ecs::Earth, false);
-		earthBoss->addComponent<EarthBossAnimationController>(anims::EARTH_ANIM);
-		ph->setVelocity({ 0,0 });
-		ph->lookDirection(true);
-		added = true;
-	}
-}
+//
+//void EnterBossRoom::startFight() {
+//	if (!added) {
+//		earthBoss = mngr_->getEarthBoss();
+//		auto ph = earthBoss->getComponent<PhysicsComponent>();
+//		earthBoss->addComponent<FramedImage>(&sdlutils().images().at("animationWorm"), sdlutils().images().at("animationWorm").getNumRows(), sdlutils().images().at("animationWorm").getNumCols());
+//		earthBoss->addComponent<Health>(5, ecs::Earth, false);
+//		earthBoss->addComponent<EarthBossAnimationController>(anims::EARTH_ANIM);
+//		ph->setVelocity({ 0,0 });
+//		ph->lookDirection(true);
+//		added = true;
+//	}
+//}

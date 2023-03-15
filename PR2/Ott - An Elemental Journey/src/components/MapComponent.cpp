@@ -27,8 +27,6 @@ MapComponent::MapComponent(Entity* fadeOut) : fadeOut(fadeOut) {
     //{
     //    //cout << "Failed loading map" << std::endl;
     //}
-    tilemap = &sdlutils().images().at(sdlutils().levels().at("level1").tileset);
-    loadMap(sdlutils().levels().at("level1").route);
 
     vectorObjects.reserve(4);
     vectorObjects.push_back({});
@@ -256,6 +254,16 @@ void MapComponent::loadMap(std::string path) {
             else if (ot.getClass() == "Melee") {
             }
             else if (ot.getClass() == "Slime") {
+
+            }
+            else if (ot.getClass() == "BossRoom") {
+                SDL_Rect roomDimensions;
+                roomDimensions.x = x_ * scale;
+                roomDimensions.y = y_ * scale;
+                roomDimensions.w = w_ * scale;
+                roomDimensions.h = h_ * scale;
+                Entity* earthBoss = mngr_->addEntity(ecs::_grp_GENERAL);
+                earthBoss->addComponent<EarthBossManager>(roomDimensions, earthBoss);
 
             }
         }

@@ -42,6 +42,7 @@ namespace ecs {
         _ENTERBOSS,
         _FADEOUTANIM,
         _EARTH_ATTACK_ANIM,
+        _EARTHMNGR,
 
         _LAST_CMP_ID
     };
@@ -63,8 +64,6 @@ namespace ecs {
         _grp_PROYECTILES,
         _grp_MINIBOSS,
         _grp_WATER,
-        _grp_CHARACTERS,
-        _grp_PROYECTILES,
         _grp_FADEOUT,
 
         _LAST_GRP_ID

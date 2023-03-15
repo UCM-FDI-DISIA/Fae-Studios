@@ -119,7 +119,6 @@ void SDLUtils::loadReasources(std::string filename) {
 	// can exit the method in different ways, this way we guarantee that
 	// it is always deleted
 	std::unique_ptr<JSONValue> jValueRoot(JSON::ParseFromFile(filename));
-
 	// check it was loaded correctly
 	// the root must be a JSON object
 	if (jValueRoot == nullptr || !jValueRoot->IsObject()) {

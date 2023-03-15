@@ -7,7 +7,7 @@
 #include"../ecs/Entity.h"
 #include "FramedImage.h"
 
-enum EarthAnims { PRESENTATION, STOP, PAUSA, HORIZONTAL, VERTICAL, WARNING};
+enum EarthBossAnims { PRESENTATION, STOP, PAUSA, HORIZONTAL, VERTICAL, WARNING};
 
 class Health;
 class FramedImage;
@@ -34,10 +34,9 @@ private:
     bool damaged = false;
     int currentAnimation = PRESENTATION;
     anims::Entities eAnims;
-    FramedImage* image;
-    Health* health_;
-    EnemyMovement* eMovement_;
-    EnemyAttack* eAttack_;
+    FramedImage* boss;
+    FramedImage* warning;
+    float timer;
 
     int damageTimer_, damageStartTime_, timer_ = 0;
     const int maxDamagedTimer_ = 500, FRAME_ANIMATION_TIME = 6;

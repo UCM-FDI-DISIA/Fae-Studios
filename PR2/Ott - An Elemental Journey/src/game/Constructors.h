@@ -34,6 +34,7 @@
 #include "../states/GameStateMachine.h"
 #include "../components/AttackCharger.h"
 #include "../components/FadeOutAnimationComponent.h"
+#include "../components/EarthBossManager.h"
 #include <string>
 #include <iostream>
 #include <functional>
@@ -339,11 +340,21 @@ namespace constructors {
 
 				}
 				else if (ot.getClass() == "EarthBoss") {
-					Entity* earthBoss = mngr_->addEntity(ecs::_grp_CHARACTERS);
+					/*Entity* earthBoss = mngr_->addEntity(ecs::_grp_CHARACTERS);
 					earthBoss->addComponent<Transform>(Vector2D(x_ * scale, y_ * scale), w_ * scale, h_ * scale);
 					earthBoss->addComponent<PhysicsComponent>();
-					mngr_->setEarthBoss(earthBoss);
+					mngr_->setEarthBoss(earthBoss);*/
 				}
+				/*else if (ot.getClass() == "BossRoom") {
+					SDL_Rect roomDimensions;
+					roomDimensions.x = x_ * scale;
+					roomDimensions.y = y_ * scale;
+					roomDimensions.w = w_ * scale;
+					roomDimensions.h = h_ * scale;
+					Entity* earthBoss = mngr_->addEntity(ecs::_grp_GENERAL);
+					earthBoss->addComponent<EarthBossManager>(roomDimensions, earthBoss);
+
+				}*/
 			}
 		}
 

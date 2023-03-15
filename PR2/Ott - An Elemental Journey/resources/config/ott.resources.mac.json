@@ -12,7 +12,7 @@
 	{ "id" : "press_start48", "file" : "../Ott - An Elemental Journey/resources/fonts/PressStart2P-Regular.ttf", "size": 48 }
   ],
 
-	
+
 
 	"images": [
 		{
@@ -321,6 +321,13 @@
 			"rows": 1,
 			"cols": 1
 		},
+		{
+			"id": "vineBoss",
+			"file": "../resources/images/tests/EarthBossVineAttack.png",
+			"rows": 1,
+			"cols": 1
+		},
+
 		{
 			"id": "warning",
 			"file": "../resources/images/tests/EarthBossWarning.png",
