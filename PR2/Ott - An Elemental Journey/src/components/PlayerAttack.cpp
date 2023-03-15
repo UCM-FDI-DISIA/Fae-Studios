@@ -43,16 +43,17 @@ void PlayerAttack::update() {
 				break;
 			}
 			case ecs::Earth: 
-				MoveTrigger(watAtackTriggWH); // Se mueven los triggers a la posici�n actual
-				trigger = { (int)triggerPos.getX(), (int)triggerPos.getY(), 0, triggerHeight }; //cambiar altura 
+				MoveTrigger(Vector2D(EARTH_ATTACK_WIDTH, EARTH_ATTACK_HEIGHT)); // Se mueven los triggers a la posici�n actual
 				if (!earthAttackActive)
 				{
+					trigger = { (int)triggerPos.getX(), (int)triggerPos.getY(), 0,EARTH_ATTACK_HEIGHT }; //cambiar altura 
 					tAttack = mngr_->addEntity(ecs::_grp_PROYECTILES);
 					tAttack->addComponent<Transform>(Vector2D(trigger.x, trigger.y), EARTH_ATTACK_WIDTH, EARTH_ATTACK_HEIGHT);
-					tAttack->addComponent<FramedImage>(&sdlutils().images().at("water_attack"));
+					tAttack->addComponent<FramedImage>(&sdlutils().images().at("earth_attack"), 1, 10);
+					tAttack->addComponent<earthAnimationController>(anims::EARTH_ATTACK);
+
 					colEarthtrigger = 1;
 					earthAttackActive = true;
-					earthDurationTimer = SDL_GetTicks();
 				}
 				break;
 			case ecs::Fire: {
@@ -120,8 +121,11 @@ void PlayerAttack::update() {
 	{
 		// Transform
 		auto trAttack = tAttack->getComponent<Transform>();
+		MoveTrigger(Vector2D(EARTH_ATTACK_WIDTH, EARTH_ATTACK_HEIGHT));
 		trAttack->setPosition(triggerPos);
 		auto earthAnimation = tAttack->getComponent<FramedImage>();
+		auto earthStateAnimation = tAttack->getComponent<earthAnimationController>();
+
 		auto colAnim = earthAnimation->getCurrentCol();
 		if (colEarthtrigger != colAnim + 1)
 		{
@@ -130,7 +134,16 @@ void PlayerAttack::update() {
 		}
 		//si CRECER -> atacckEnemy
 		//bool attackEnemy, true->DECRECE
-		attackEnemy(trigger);
+		if (earthStateAnimation->getState() == ADVANCE)
+		{
+			if (attackEnemy(trigger))
+			{
+				earthAnimation->setCol(colEarthtrigger - 1);
+				earthStateAnimation->setState(BACK);
+			}
+
+		}
+		
 
 		//setAlive false depende de la animación
 	}
@@ -171,7 +184,8 @@ void PlayerAttack::MoveTrigger(Vector2D attackWH) {
 }
 
 // Ataca enemigo si esta en la zona de ataque
-void PlayerAttack::attackEnemy(SDL_Rect& attackZone) {
+bool PlayerAttack::attackEnemy(SDL_Rect& attackZone) {
+	bool attack = false;
 	auto enemiesGrp = mngr_->getEntities(ecs::_grp_CHARACTERS);
 
 	for (auto e : enemiesGrp) {
@@ -179,11 +193,13 @@ void PlayerAttack::attackEnemy(SDL_Rect& attackZone) {
 		SDL_Rect rect = e->getComponent<Transform>()->getRect();
 
 		// Si enemigo y ataque interseccionan
-		if (SDL_HasIntersection(&rect, &attackZone)) {
+		if (SDL_HasIntersection(&rect, &attackZone)&&!e->hasComponent<PlayerAttack>()) {
 
+			attack = true;
 			// Hace da�o a enemigo dependiendo del elemento
 			e->getComponent<Health>()->recieveDamage(health_->getElement());
 		}
 	}
+	return attack;
 }
 

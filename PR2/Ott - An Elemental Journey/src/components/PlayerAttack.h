@@ -2,6 +2,7 @@
 #include "../ecs/Component.h"
 #include "../utils/Vector2D.h"
 #include "PlayerAnimationComponent.h"
+#include "earthAnimationController.h"
 
 class Health;
 class Transform;
@@ -25,6 +26,11 @@ public:
 	virtual ~PlayerAttack() {};
 	virtual void initComponent();
 	virtual void update();
+	inline void deleteEarthAttack()
+	{
+		earthAttackActive = false;
+		tAttack->setAlive(false);
+	}
 	inline void startAttack(bool charged) {
 		startAttackingTime = SDL_GetTicks();
 		canAttack = true;
@@ -34,7 +40,7 @@ public:
 private:
 	// Metodos
 	void MoveTrigger(Vector2D attackWH);
-	void attackEnemy(SDL_Rect& attackZone);
+	bool attackEnemy(SDL_Rect& attackZone);
 	void spawnFireball();
 
 	// Variables
