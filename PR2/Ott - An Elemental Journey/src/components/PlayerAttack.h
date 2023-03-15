@@ -43,6 +43,8 @@ private:
 	bool attackEnemy(SDL_Rect& attackZone);
 	void spawnFireball();
 	void moveEarthAttack(Transform* tr);
+	void waterAttack(SDL_Rect &trigger);
+	void deleteWaterAttack();
 	// Variables
 	//Vector2D triggerWH;
 	Vector2D watAtackTriggWH; // tamaño ataque de agua

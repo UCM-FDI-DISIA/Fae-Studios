@@ -27,7 +27,7 @@ private:
 	int mapSize;
 
 	// Se guarda un vector por cada tileset que hay. En estas tiles se guarda su ID y su posición
-	std::vector<std::vector<std::pair<int, SDL_Rect>>> vectorTiles;
+	std::vector<std::pair<float, std::vector<std::pair<int, SDL_Rect>>>> vectorTiles;
 
 	// Se guarda un vector con cada tipo de objetos que tiene el mapa (Colisiones, Objetos Interactuables, Salas, Triggers
 	std::vector<std::vector<Object>> vectorObjects;
@@ -40,7 +40,7 @@ private:
 	// pair<string, SDL_Rect> -> 
 		// string: la sala a la que lleva ese trigger; 
 		// SDL_Rect: su colisión
-	std::unordered_map<std::string, std::vector<std::pair<std::string, SDL_Rect>>> triggers;
+	std::unordered_map<std::string, std::vector<std::pair<std::string, std::pair<SDL_Rect,SDL_Rect>>>> triggers;
 
 	Texture* tilemap = nullptr;
 	CameraComponent* cam;
@@ -84,7 +84,12 @@ public:
 
 	// Límites de la cámara en X sala
 	inline SDL_Rect getCamBounds() { 
-		return getSDLRect(vectorObjects[ROOM_VECTOR_POS][currentRoom].getAABB());
+		SDL_Rect rect = getSDLRect(vectorObjects[ROOM_VECTOR_POS][currentRoom].getAABB());
+		rect.x *= vectorTiles[currentRoom].first;
+		rect.y *= vectorTiles[currentRoom].first;
+		rect.w *= vectorTiles[currentRoom].first;
+		rect.h *= vectorTiles[currentRoom].first;
+		return rect;
 	}
 
 	// recibe un FloatRecy se convierte a SDL_Rect, multiplicándolo también por la escala de las Tiles
