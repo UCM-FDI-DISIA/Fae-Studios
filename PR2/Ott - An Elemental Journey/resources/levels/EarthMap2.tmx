@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="192" height="105" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="145">
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="192" height="105" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="149">
  <tileset firstgid="1" name="EarthMapTileset" tilewidth="32" tileheight="32" tilecount="680" columns="20">
   <image source="../images/levels/tilesetlevel1.png" width="640" height="1088"/>
  </tileset>
@@ -123,7 +123,7 @@
   <object id="5" name="0" class="Ground" x="1" y="1229" width="254" height="303"/>
   <object id="6" name="0" class="Ground" x="1" y="1534" width="850" height="223"/>
   <object id="8" name="0" class="Ground" x="848" y="1408" width="211.667" height="397"/>
-  <object id="9" class="Ground" x="705.5" y="1472.5" width="91.5" height="10"/>
+  <object id="9" name="0" class="Ground" x="705.5" y="1472.5" width="91.5" height="10"/>
   <object id="10" name="1" class="Ground" x="1191.5" y="1438" width="306" height="212"/>
   <object id="12" name="1" class="Ground" x="1494" y="1408" width="466" height="370"/>
   <object id="13" name="1" class="Ground" x="1965" y="1536" width="738" height="242"/>
@@ -136,36 +136,39 @@
   <object id="24" name="1" class="Ground" x="2272.67" y="1248" width="126" height="9.33333"/>
   <object id="25" name="1" class="Ground" x="2370.67" y="1311.33" width="91.3333" height="11.3333"/>
   <object id="45" name="1" class="Ground" x="1939.27" y="1439.64" width="24.1818" height="55.4545"/>
-  <object id="57" name="2" class="Ground" x="2452" y="2106" width="177" height="749"/>
+  <object id="57" name="3" class="Ground" x="2452" y="2106" width="177" height="749"/>
   <object id="82" name="2" class="Ground" x="2638.33" y="2106.03" width="1141.33" height="48.6667"/>
-  <object id="83" name="2" class="Ground" x="2016" y="2106.5" width="433.997" height="18.5"/>
-  <object id="84" name="2" class="Ground" x="1877.33" y="2234.33" width="426.664" height="19"/>
-  <object id="85" name="2" class="Ground" x="1873.33" y="2173.67" width="47.9973" height="17"/>
-  <object id="86" name="2" class="Ground" x="2398.67" y="2296" width="49.3307" height="24"/>
-  <object id="87" name="2" class="Ground" x="2016.67" y="2358.67" width="426.664" height="24"/>
-  <object id="88" name="2" class="Ground" x="1874.67" y="2488" width="426.664" height="24"/>
-  <object id="89" name="2" class="Ground" x="1872" y="2425.33" width="49.3307" height="24"/>
-  <object id="90" name="2" class="Ground" x="2396.67" y="2554.67" width="49.3307" height="24"/>
-  <object id="91" name="2" class="Ground" x="1491.33" y="2114.67" width="382.664" height="381.333"/>
-  <object id="92" name="2" class="Ground" x="1828" y="2621.33" width="610.664" height="234.667"/>
-  <object id="94" name="2" class="Ground" x="1805.5" y="2620.17" width="20.9973" height="245.333"/>
-  <object id="95" name="2" class="Ground" x="1780" y="2653.83" width="25.9973" height="209.333"/>
-  <object id="96" name="2" class="Ground" x="1747" y="2684.33" width="32.4973" height="179.333"/>
-  <object id="97" name="2" class="Ground" x="1713.25" y="2715.83" width="32.4973" height="146.833"/>
-  <object id="98" name="2" class="Ground" x="1681.25" y="2747.58" width="32.4973" height="115.833"/>
-  <object id="99" name="2" class="Ground" x="1314.42" y="2844.91" width="59.3303" height="11.6663"/>
-  <object id="100" name="2" class="Ground" x="1648.25" y="2783.58" width="32.4973" height="79.833"/>
-  <object id="117" name="2" class="Ground" x="1062.67" y="2276.67" width="164.664" height="72.6663"/>
-  <object id="118" name="2" class="Ground" x="1329" y="2275.67" width="164.664" height="72.6663"/>
-  <object id="119" name="2" class="Ground" x="1022.67" y="1897.33" width="46.664" height="1085.33"/>
-  <object id="126" name="2" class="Ground" x="1491.5" y="2498.5" width="248.333" height="68.5"/>
-  <object id="136" name="2" class="Ground" x="1492" y="1794" width="182" height="166"/>
-  <object id="137" name="2" class="Ground" x="1054.67" y="2976" width="993.333" height="96"/>
-  <object id="139" name="2" class="Ground" x="1065.33" y="1841.33" width="425.333" height="64"/>
-  <object id="141" name="2" class="Ground" x="1743.75" y="2495.7" width="31.189" height="41.4189" rotation="0.947117"/>
-  <object id="142" name="2" class="Ground" x="1504" y="2810.83" width="149.997" height="50.333"/>
+  <object id="83" name="3" class="Ground" x="2016" y="2106.5" width="433.997" height="18.5"/>
+  <object id="84" name="3" class="Ground" x="1877.33" y="2234.33" width="426.664" height="19"/>
+  <object id="85" name="3" class="Ground" x="1873.33" y="2173.67" width="47.9973" height="17"/>
+  <object id="86" name="3" class="Ground" x="2398.67" y="2296" width="49.3307" height="24"/>
+  <object id="87" name="3" class="Ground" x="2016.67" y="2358.67" width="426.664" height="24"/>
+  <object id="88" name="3" class="Ground" x="1874.67" y="2488" width="426.664" height="24"/>
+  <object id="89" name="3" class="Ground" x="1872" y="2425.33" width="49.3307" height="24"/>
+  <object id="90" name="3" class="Ground" x="2396.67" y="2554.67" width="49.3307" height="24"/>
+  <object id="91" name="3" class="Ground" x="1537.33" y="2114.67" width="336.664" height="381.333"/>
+  <object id="92" name="3" class="Ground" x="1828" y="2621.33" width="610.664" height="234.667"/>
+  <object id="94" name="3" class="Ground" x="1805.5" y="2620.17" width="20.9973" height="245.333"/>
+  <object id="95" name="3" class="Ground" x="1780" y="2653.83" width="25.9973" height="209.333"/>
+  <object id="96" name="3" class="Ground" x="1747" y="2684.33" width="32.4973" height="179.333"/>
+  <object id="97" name="3" class="Ground" x="1713.25" y="2715.83" width="32.4973" height="146.833"/>
+  <object id="98" name="3" class="Ground" x="1681.25" y="2747.58" width="32.4973" height="115.833"/>
+  <object id="99" name="4" class="Ground" x="1314.42" y="2844.91" width="59.3303" height="11.6663"/>
+  <object id="100" name="3" class="Ground" x="1648.25" y="2783.58" width="32.4973" height="79.833"/>
+  <object id="117" name="4" class="Ground" x="1062.67" y="2276.67" width="164.664" height="72.6663"/>
+  <object id="118" name="4" class="Ground" x="1329" y="2275.67" width="164.664" height="72.6663"/>
+  <object id="119" name="4" class="Ground" x="1022.67" y="1897.33" width="46.664" height="1085.33"/>
+  <object id="126" name="3" class="Ground" x="1538.5" y="2498.5" width="201.333" height="68.5"/>
+  <object id="136" name="3" class="Ground" x="1537" y="1794" width="137" height="166"/>
+  <object id="137" name="4" class="Ground" x="1054.67" y="2976" width="993.333" height="96"/>
+  <object id="139" name="4" class="Ground" x="1065.33" y="1841.33" width="425.333" height="64"/>
+  <object id="141" name="3" class="Ground" x="1743.75" y="2495.7" width="31.189" height="41.4189" rotation="0.947117"/>
+  <object id="142" name="3" class="Ground" x="1539" y="2810.83" width="114.997" height="50.333"/>
   <object id="143" name="1" class="Ground" x="1056" y="992" width="1006.78" height="235"/>
   <object id="144" name="1" class="Ground" x="1056" y="1408" width="131.667" height="397"/>
+  <object id="145" name="4" class="Ground" x="1491" y="2112" width="37" height="459"/>
+  <object id="146" name="4" class="Ground" x="1492" y="2816" width="43" height="45"/>
+  <object id="148" name="4" class="Ground" x="1492" y="1824" width="44" height="139"/>
  </objectgroup>
  <objectgroup id="3" name="Objetos interactuables" visible="0">
   <object id="27" name="lamp1" class="Lamp" x="992" y="1408" width="32"/>
@@ -178,14 +181,14 @@
   <object id="61" name="0" class="Sala" x="0" y="913.939" width="1037.33" height="778.061"/>
   <object id="63" name="1" class="Sala" x="1098" y="598.788" width="1503.45" height="1100.24"/>
   <object id="73" name="2" class="Sala" x="2660.76" y="881.88" width="1099.64" height="1332.24"/>
-  <object id="74" name="3" class="Sala" x="1605.18" y="1731.88" width="1009.64" height="1108.24"/>
-  <object id="75" name="4" class="Sala" x="1031.18" y="1880.55" width="474.307" height="1141.57"/>
+  <object id="74" name="3" class="Sala" x="1559.85" y="1731.88" width="1054.97" height="1108.24"/>
+  <object id="75" name="4" class="Sala" x="1031.18" y="1880.55" width="471.64" height="1141.57"/>
  </objectgroup>
- <objectgroup id="7" name="Triggers" visible="0">
+ <objectgroup id="7" name="Triggers">
   <object id="70" name="1" class="0" x="1050" y="1218" width="34" height="190"/>
   <object id="77" name="2" class="1" x="2615.33" y="1210.3" width="34" height="235"/>
   <object id="78" name="3" class="2" x="2624.33" y="1805.84" width="27.3333" height="276.334"/>
-  <object id="79" name="4" class="3" x="1566.33" y="1953.17" width="27.3333" height="175.667"/>
+  <object id="79" name="4" class="3" x="1517" y="1949.17" width="27.3333" height="175.667"/>
   <object id="81" name="4" class="3" x="1511.66" y="2574.83" width="27.3333" height="227"/>
  </objectgroup>
 </map>
