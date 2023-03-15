@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\components\FireBossComponent.cpp" />
     <ClCompile Include="src\components\EnemyContactDamage.cpp" />
     <ClCompile Include="src\components\Bullet.cpp" />
     <ClCompile Include="src\components\CameraComponent.cpp" />
@@ -66,6 +67,7 @@
     <ClCompile Include="src\utils\Vector2D.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\components\FireBossComponent.h" />
     <ClInclude Include="src\components\EnemyContactDamage.h" />
     <ClInclude Include="src\components\AddVine.h" />
     <ClInclude Include="src\components\AttackCharger.h" />
