@@ -29,6 +29,7 @@
 #include "../components/EnemyContactDamage.h"
 #include "../states/GameStateMachine.h"
 #include "../components/FirePillarComponent.h"
+#include "../components/FireBossComponent.h"
 #include <string>
 #include <iostream>
 #include <functional>
@@ -83,6 +84,7 @@ namespace constructors {
 		pilar->addComponent<Transform>(x, y, 30 * scale, 130 * scale);  // 2400 1800 pos para pruebas
 		pilar->addComponent<Image>(&sdlutils().images().at(imageKey));
 		pilar->addComponent<FirePillarComponent>();
+		
 	}
 
 	static inline void eSlime(Manager* mngr_, std::string imageKey, int x, int y, float scale) {
@@ -255,6 +257,7 @@ namespace constructors {
 		lamp2->addComponent<Image>(&sdlutils().images().at("lamp"));
 		lamp2->addComponent<LampComponent>(lamp);
 		lamp2->addComponent<InteractionComponent>(cb);
+		lamp->addComponent<FireBossComponent>();
 	}
 
 	static inline void sanctuary(Manager* mngr_, Vector2D position, int width = 100, int height = 130) {

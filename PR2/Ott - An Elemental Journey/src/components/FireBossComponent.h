@@ -1,11 +1,15 @@
 #pragma once
-#include "Transform.h"
+#include "../ecs/Component.h"
 
 class FireBossComponent:public Component
 { 
 private:
-	Transform tr_;
+	class Transform* tr_;
+	int specialAttackTimer = 0, timeSpecialAttack = 15, normalAttackTimer = 0, timeNormalAttack = 4;
 public:
 	FireBossComponent();
+	virtual void initComponent();
+	virtual void update();
+	constexpr static ecs::cmpId_type id = ecs::_BOSS;
 };
 
