@@ -25,7 +25,7 @@ void Bullet::update()
         for (auto e : enemiesGrp) {
             SDL_Rect rect = e->getComponent<PhysicsComponent>()->getCollider();
             if (e != instigator && SDL_HasIntersection(&rect, &trigger)) {
-                e->getComponent<Health>()->recieveDamage(instigator->getComponent<Health>()->getElement());
+                e->getComponent<Health>()->recieveDamage(elem);
                 ent_->setAlive(false);
             }
         }

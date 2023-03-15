@@ -5,7 +5,11 @@ class FireBossComponent:public Component
 { 
 private:
 	class Transform* tr_;
-	int specialAttackTimer = 0, timeSpecialAttack = 15, normalAttackTimer = 0, timeNormalAttack = 4;
+	Entity* player;
+	int specialAttackTimer = 0, timeSpecialAttack = 5, normalAttackTimer = 0, timeNormalAttack = 4;
+	void startSpecialAttack();
+	void spawnPillars();
+	void shootAtPlayer();
 public:
 	FireBossComponent();
 	virtual void initComponent();

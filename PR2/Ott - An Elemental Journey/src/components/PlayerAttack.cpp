@@ -7,6 +7,7 @@
 #include "Image.h"
 #include "Bullet.h"
 #include "../sdlutils/SDLUtils.h"
+#include "../game/Constructors.h"
 
 PlayerAttack::PlayerAttack(int width, int height) : tr_(nullptr), health_(nullptr), anim_(nullptr), physics(nullptr) {
 	triggerWH = Vector2D(width, height);
@@ -50,11 +51,9 @@ void PlayerAttack::update() {
 				auto pTransf = ent_->getComponent<Transform>();
 				Entity* attack = mngr_->addEntity(ecs::_grp_PROYECTILES);
 				Vector2D shootPos = Vector2D(pTransf->getPosition().getX(), pTransf->getPosition().getY() + pTransf->getHeight() / 2);
-				attack->addComponent<Transform>(shootPos, 50, 50);
-				if (ent_->getComponent<PhysicsComponent>()->getLookDirection()) attack->addComponent<PhysicsComponent>(Vector2D(1, 0));
-				else attack->addComponent<PhysicsComponent>(Vector2D(-1, 0));
-				attack->addComponent<Image>(&sdlutils().images().at("ott_luz"));
-				attack->addComponent<Bullet>(health_->getElement(), ent_);
+				if (ent_->getComponent<PhysicsComponent>()->getLookDirection())
+				constructors::bullet(mngr_, "lamp", shootPos.getX(), shootPos.getY(), 50, Vector2D(1, 0), ent_, ecs::Fire, 1);
+				else constructors::bullet(mngr_, "lamp", shootPos.getX(), shootPos.getY(), 50, Vector2D(-1, 0), ent_, ecs::Fire, 1);
 				break;
 			}
 			case ecs::Water: {

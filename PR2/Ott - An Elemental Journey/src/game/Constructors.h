@@ -30,6 +30,7 @@
 #include "../states/GameStateMachine.h"
 #include "../components/FirePillarComponent.h"
 #include "../components/FireBossComponent.h"
+#include "../components/Bullet.h"
 #include <string>
 #include <iostream>
 #include <functional>
@@ -86,7 +87,14 @@ namespace constructors {
 		pilar->addComponent<FirePillarComponent>();
 		
 	}
-
+	static inline void bullet(Manager* mngr_, std::string imageKey, int x, int y, int dim, Vector2D dir, Entity* instigator, ecs::elements elem, float scale) {
+		auto attack = mngr_->addEntity(ecs::_grp_PROYECTILES);
+		Vector2D shootPos = Vector2D(x, y);
+		attack->addComponent<PhysicsComponent>(dir);
+		attack->addComponent<Transform>(shootPos, dim * scale, dim * scale);
+		attack->addComponent<Image>(&sdlutils().images().at(imageKey));
+		attack->addComponent<Bullet>(elem, instigator);
+	}
 	static inline void eSlime(Manager* mngr_, std::string imageKey, int x, int y, float scale) {
 		// Asi se a�ade enemigo slime
 
