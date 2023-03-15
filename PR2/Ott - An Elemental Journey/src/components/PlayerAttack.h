@@ -42,6 +42,7 @@ private:
 	void MoveTrigger(Vector2D attackWH);
 	bool attackEnemy(SDL_Rect& attackZone);
 	void spawnFireball();
+	void waterAttack(SDL_Rect &trigger);
 
 	// Variables
 	Vector2D triggerPos;

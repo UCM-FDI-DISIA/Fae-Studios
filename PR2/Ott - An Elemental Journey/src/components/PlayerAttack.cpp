@@ -28,9 +28,6 @@ void PlayerAttack::initComponent() {
 
 void PlayerAttack::update() {
 
-	//SDL_Rect trigger = { (int)triggerPos.getX(), (int)triggerPos.getY(), (int)watAtackTriggWH.getX(), (int)watAtackTriggWH.getY() };
-	//MoveTrigger(watAtackTriggWH); // Se mueven los triggers a la posici�n actual
-
 	if (anim_->getState() == ATTACK) { // ESTADO DE ATAQUE
 
 		if (SDL_GetTicks() - startAttackingTime > AttackTime && canAttack) { // TIEMPO PARA HACER EL ATAQUE JUNTO CON LA ANIMACION
@@ -57,33 +54,20 @@ void PlayerAttack::update() {
 				}
 				break;
 			case ecs::Fire: {
-				if (chargedAttack) { 
-					remainingAttacks = 3; 
-					lastFireBallTime = SDL_GetTicks() - timeBetweenFireBalls; 
+				if (chargedAttack) {
+					remainingAttacks = 3;
+					lastFireBallTime = SDL_GetTicks() - timeBetweenFireBalls;
 					chargedAttack = false;
 				}
 				else spawnFireball();
 				break;
 			}
 			case ecs::Water: {
-				MoveTrigger(watAtackTriggWH); // Se mueven los triggers a la posici�n actual
+				if (chargedAttack) {
 
-				// Trigger de ataque
-				trigger = { (int)triggerPos.getX(), (int)triggerPos.getY(), (int)watAtackTriggWH.getX(), (int)watAtackTriggWH.getY() };
-
-				// Si no hay ya uno activo
-				if (!waterAttackActive) {
-
-					// Añado entidad de ataque
-					wAttack = mngr_->addEntity(ecs::_grp_PROYECTILES);
-
-					// Entidad ataque
-					wAttack->addComponent<Transform>(Vector2D(trigger.x, trigger.y), trigger.w, trigger.h);
-					wAttack->addComponent<Image>(&sdlutils().images().at("water_attack"));
-
-					waterAttackActive = true;
-					waterDurationTimer = SDL_GetTicks();
 				}
+				else
+					waterAttack(trigger);
 
 				break;
 			}
@@ -91,7 +75,7 @@ void PlayerAttack::update() {
 				break;
 			}
 			}
-			
+
 			canAttack = false;
 		}
 	}
@@ -100,14 +84,18 @@ void PlayerAttack::update() {
 
 	if (waterAttackActive) {
 
+		trigger = { (int)triggerPos.getX(), (int)triggerPos.getY(), (int)watAtackTriggWH.getX(), (int)watAtackTriggWH.getY() };
+		MoveTrigger(watAtackTriggWH);
+
 		// Transform
 		wAttack->getComponent<Transform>()->setPosition(triggerPos);
 
-		// Si han pasado los segundos totales de la duracio, mata el ataque
+		// Si han pasado los segundos totales de la duracion, mata el ataque
 		if (SDL_GetTicks() >= waterDurationTimer + WATER_ATACK_DURATION) {
 			waterAttackActive = false;
 			wAttack->setAlive(false);
 		}
+
 
 		// Si ha pasado el tiempo del tick, hace da�o
 		if (SDL_GetTicks() >= waterTickTimer) {
@@ -129,7 +117,7 @@ void PlayerAttack::update() {
 		if (colEarthtrigger != colAnim + 1)
 		{
 			colEarthtrigger = colAnim + 1;
-			trigger.w = colEarthtrigger * (trAttack->getWidth() / earthAnimation->getTexture()->getNumCols()) ;
+			trigger.w = colEarthtrigger * (trAttack->getWidth() / earthAnimation->getTexture()->getNumCols());
 		}
 		MoveTrigger(Vector2D(trigger.w, EARTH_ATTACK_HEIGHT));
 
@@ -144,10 +132,11 @@ void PlayerAttack::update() {
 			}
 
 		}
-		
+
 
 		//setAlive false depende de la animación
 	}
+
 	if (remainingAttacks > 0 && SDL_GetTicks() - lastFireBallTime >= timeBetweenFireBalls) {
 		spawnFireball();
 		lastFireBallTime = SDL_GetTicks();
@@ -157,6 +146,24 @@ void PlayerAttack::update() {
 
 // PRIVATE
 
+void PlayerAttack::waterAttack(SDL_Rect& trigger) {
+	// Trigger de ataque
+	trigger = { (int)triggerPos.getX(), (int)triggerPos.getY(), (int)watAtackTriggWH.getX(), (int)watAtackTriggWH.getY() };
+
+	// Si no hay ya uno activo
+	if (!waterAttackActive) {
+
+		// Añado entidad de ataque
+		wAttack = mngr_->addEntity(ecs::_grp_PROYECTILES);
+
+		// Entidad ataque
+		wAttack->addComponent<Transform>(Vector2D(trigger.x, trigger.y), trigger.w, trigger.h);
+		wAttack->addComponent<Image>(&sdlutils().images().at("water_attack"));
+
+		waterAttackActive = true;
+		waterDurationTimer = SDL_GetTicks();
+	}
+}
 
 void PlayerAttack::spawnFireball()
 {
