@@ -7,7 +7,7 @@
 #include"../ecs/Entity.h"
 #include "FramedImage.h"
 
-enum EarthAnims { PRESENTATION, STOP };
+enum EarthAnims { PRESENTATION, STOP, PAUSA, HORIZONTAL, VERTICAL, WARNING};
 
 class Health;
 class FramedImage;

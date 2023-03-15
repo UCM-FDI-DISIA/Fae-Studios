@@ -293,7 +293,7 @@ namespace constructors {
 					grass(mngr_, Vector2D(x_ * scale, (y_ * scale - sdlutils().images().at("grass").height()) + h_ * scale), w_ * scale, h_ * scale, Vector2D(x_ * scale, (y_ * scale - sdlutils().images().at("grass").height()) + h_ * scale + 100), Vector2D(x_ * scale, (y_ * scale - sdlutils().images().at("grass").height())));
 				}
 				else if (ot.getClass() == "Lamp") {
-					//createLamp(Vector2D(x_ * scale, y_ * scale - game->getTexture("lamp", PLAY_STATE)->getH() * 2));
+					//lamp(Vector2D(x_ * scale, y_ * scale - game->getTexture("lamp", PLAY_STATE)->getH() * 2));
 					/*TP_Lamp* l1 = new TP_Lamp(Vector2D(x_ * scale, y_ * scale - app->getTexture("lamp", PLAY_STATE)->getH() * 2), app->getTexture("lamp", PLAY_STATE), this, Scale(2, 2), LAMP);
 
 					string lampName = ot.getName();

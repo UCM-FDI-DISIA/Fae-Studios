@@ -1,15 +1,18 @@
 #include "VineManager.h"
 
 void VineManager::createVine() {
-    vine = mngr_->addEntity(ecs::_grp_VINE);
+    switch (texture_) {
+        case NORMAL: vine = mngr_->addEntity(ecs::_grp_VINE); break;
+        case EVIL: vine = mngr_->addEntity(ecs::_grp_GROUND); break;
+    }
     vine->addComponent<Transform>(iniPos, width, height);
 }
 
 void VineManager::addVine() {
     if (!hasVine) {
-        switch (texture_){
-        case NORMAL:  vine->addComponent<ImageVine>(&sdlutils().images().at("enredadera"), rotation, true); break;
-            case EVIL: vine->addComponent<ImageVine>(&sdlutils().images().at("vine"), rotation, false); break;
+        switch (texture_) {
+             case NORMAL:  vine->addComponent<ImageVine>(&sdlutils().images().at("enredadera"), rotation, true); break;
+             case EVIL: vine->addComponent<ImageVine>(&sdlutils().images().at("vine"), rotation, false); break;
         }
         SDL_Rect dest;
         dest = vine->getComponent<Transform>()->getRect();
