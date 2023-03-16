@@ -203,7 +203,6 @@ void MapComponent::loadMap(std::string path) {
             SDL_Rect rect = getSDLRect(obj.getAABB());
 
             auto roomScale = vectorTiles[std::stoi(obj.getName())].first;
-
             rect.x *= roomScale;
             rect.y *= roomScale;
             rect.w *= roomScale;
@@ -347,23 +346,29 @@ std::vector<std::pair<SDL_Rect, SDL_Rect>> MapComponent::checkCollisions(const S
     return rects;
 }
 
-
 void MapComponent::render() {
     SDL_Rect camPos = cam->camera;
     int cols = sdlutils().levels().at("level1").cols;
     int offsetX = camPos.x;
     int offsetY = camPos.y;
     int room = currentRoom;
+    auto roomScale = vectorTiles[room].first;
     for (int i = 0; i < vectorTiles[room].second.size(); i++) {
         auto it = vectorTiles[room].second[i].first;
-        auto ot = vectorTiles[room].second[i].second;
         if (it == 0) continue;
-        ot.x *= vectorTiles[room].first;
-        ot.y *= vectorTiles[room].first;
+        auto ot = vectorTiles[room].second[i].second;
+        ot.x *= roomScale;
+        ot.y *= roomScale;
+        ot.w *= roomScale;
+        ot.h *= roomScale;
         ot.x -= offsetX;
         ot.y -= offsetY;
-        ot.w *= vectorTiles[room].first;
-        ot.h *= vectorTiles[room].first;
         tilemap->renderFrame(ot, (it - (it % 20)) / 20, it % 20 - 1);
+    }
+
+    for (auto it : ground[std::to_string(room)]) {
+        it.x -= cam->camera.x;
+        it.y -= cam->camera.y;
+        sdlutils().images().at("pixelWhite").render(it);
     }
 }
