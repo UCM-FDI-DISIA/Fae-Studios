@@ -263,8 +263,17 @@ void MapComponent::loadMap(std::string path) {
                 roomDimensions.w = w_ * scale;
                 roomDimensions.h = h_ * scale;
                 Entity* earthBoss = mngr_->addEntity(ecs::_grp_GENERAL);
-                earthBoss->addComponent<EarthBossManager>(roomDimensions, earthBoss);
-
+                earthBoss->addComponent<EarthBossManager>(roomDimensions);
+                earthBoss->getComponent<EarthBossManager>()->initializeEntities();
+                //mngr_->setEarthBoss(earthBoss);
+            }
+            else if (ot.getClass() == "DoorTrigger") {
+                Entity* trigger = mngr_->addEntity(ecs::_grp_TRIGGER);
+                trigger->addComponent<Transform>(Vector2D(x_ * scale, y_ * scale), w_ * scale, h_ * scale);
+                trigger->addComponent<VineManager>(EVIL, Vector2D((x_ * scale) - 260, ((y_ * scale) + h_ * scale) - 100), Vector2D((x_ * scale) - 170, y_ * scale - 100), -1, 0, w_ * scale, h_ * scale, 3);
+                trigger->getComponent<VineManager>()->createVine();
+                trigger->addComponent<EnterBossRoom>(&sdlutils().images().at("animationWorm"));
+                trigger->addComponent<Trigger>();
             }
         }
 

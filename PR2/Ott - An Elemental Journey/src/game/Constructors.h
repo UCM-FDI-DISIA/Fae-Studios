@@ -318,14 +318,14 @@ namespace constructors {
 
 					gameObjects.push_back(l1);*/
 				}
-				else if (ot.getClass() == "DoorTrigger") {
+				/*else if (ot.getClass() == "DoorTrigger") {
 					Entity* trigger = mngr_->addEntity(ecs::_grp_TRIGGER);
 					trigger->addComponent<Transform>(Vector2D(x_ * scale, y_ * scale), w_ * scale, h_ * scale);
 					trigger->addComponent<VineManager>(EVIL, Vector2D((x_ * scale) - 260, ((y_ * scale) + h_ * scale) - 100), Vector2D((x_ * scale) - 170, y_ * scale - 100), -1, 0, w_ * scale, h_ * scale, 3);
 					trigger->getComponent<VineManager>()->createVine();
 					trigger->addComponent<EnterBossRoom>(& sdlutils().images().at("animationWorm"));
 					trigger->addComponent<Trigger>();
-				}
+				}*/
 				else if (ot.getClass() == "Sanctuary") {
 					sanctuary(mngr_, Vector2D(x_ * scale - (&sdlutils().images().at("sanctuary"))->width() * 1.5, y_ * scale - (&sdlutils().images().at("sanctuary"))->height() * 3.5));
 				}

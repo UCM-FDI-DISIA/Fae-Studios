@@ -5,6 +5,10 @@
 #include <SDL.h>
 #include"../ecs/Entity.h"
 #include <vector>
+#include "EarthBossAnimationController.h"
+#include "../ecs/anims.h"
+
+enum EarthBossStates{PRESENTATION, WARNING, ATTACKVERTICAL, ATTACKHORIZONTAL, PAUSE};
 class EarthBossManager : public Component
 {
     struct Warnings {
@@ -13,20 +17,35 @@ class EarthBossManager : public Component
     };
 public:
     constexpr static ecs::cmpId_type id = ecs::_EARTHMNGR;
-    EarthBossManager(SDL_Rect rD, Entity* b) : roomDimensions(rD), presentBoss(b) {
-        initializeEntities();
-    }
+    EarthBossManager(SDL_Rect rD);
     virtual ~EarthBossManager(){}
+    void isFighting(bool b) { isFight = b; }
+    void initializeEntities();
+    inline void setState(int newState);
 private:
+    //Dimensiones de la sala del boss de tierra
     SDL_Rect roomDimensions;
+
+    //Entidades de juego
     std::vector<Warnings> warningVector;
     std::vector<Entity*> vineVector;
     Entity* boss;
     Entity* presentBoss;
+    Entity* pause;
+
+    //Referencias
+    EarthBossAnimationController* animController;
+    int state;
+
+    //Variables numéricas
     int NUM_VINES = 3;
     int NUM_WARNINGS = 8;
     float offSet = 30;
-    void initializeEntities();
+
+    //Booleanos de juego
+    bool isFight = false; // para empezar o acabar la partida
+    //Métodos
     void verticalAttackPosition();
+    void update() override;
 };
 
