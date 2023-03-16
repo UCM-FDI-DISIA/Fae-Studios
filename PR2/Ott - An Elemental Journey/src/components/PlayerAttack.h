@@ -77,5 +77,7 @@ private:
 	int colTrigger;
 	Entity* wAttack = nullptr; // Entidad ataque de agua
 	Entity* tAttack = nullptr; // Entidad ataque de tierra
+
+	int contPrueba = 0;
 };
 

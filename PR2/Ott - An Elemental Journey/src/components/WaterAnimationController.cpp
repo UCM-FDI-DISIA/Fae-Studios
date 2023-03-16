@@ -56,7 +56,7 @@ void WaterAnimationController::endAnim() {
 	else if (currentAnimation == WATER_BACK)
 	{
 		playerAttack->deleteWaterAttack();
-
+		
 	}
 
 	timer_ = 0;

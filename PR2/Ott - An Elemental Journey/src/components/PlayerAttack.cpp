@@ -77,13 +77,13 @@ void PlayerAttack::update() {
 					else {
 						waterAttackDuration = WATER_ATTACK_DURATION;
 
+						// ATAQUE AGUA SIMPLE
 						wAttack = mngr_->addEntity(ecs::_grp_PROYECTILES);
 						wAttack->addComponent<Transform>(Vector2D(trigger.x, trigger.y), WATER_ATTACK_WIDTH, WATER_ATTACK_HEIGHT);
-						wAttack->addComponent<FramedImage>(&sdlutils().images().at("earth_attack"), 1, 10);
+						wAttack->addComponent<FramedImage>(&sdlutils().images().at("water_attack"), 1, 10);
 						wAttack->addComponent<WaterAnimationController>(anims::WATER_ATTACK);
 						waterAttackActive = true;
-
-
+						contPrueba++;
 					}
 				}
 				break;
@@ -108,6 +108,11 @@ void PlayerAttack::update() {
 			// Transform
 			wAttack->getComponent<Transform>()->setPosition(Vector2D(trigger.x, trigger.y));
 
+			// Si esta girado
+			auto waterIm = wAttack->getComponent<FramedImage>();
+			if (!physics->getLookDirection()) waterIm->flipTexture(true);
+			else waterIm->flipTexture(false);
+
 			// Si han pasado los segundos totales de la duracion, mata el ataque
 			if ((SDL_GetTicks() >= waterDurationTimer + waterAttackDuration) || health_->getElement() != ecs::Water) {
 				waterAttackActive = false;
@@ -123,6 +128,8 @@ void PlayerAttack::update() {
 				waterTickTimer = SDL_GetTicks() + WATER_ATTACK_TICK_TIME;
 			}
 		}
+
+		// ATAQUE SIMPLE
 		else {
 			// Transform
 			auto trAttack = wAttack->getComponent<Transform>();
@@ -130,6 +137,10 @@ void PlayerAttack::update() {
 			auto waterAnimation = wAttack->getComponent<FramedImage>();
 			auto waterStateAnimation = wAttack->getComponent<WaterAnimationController>();
 
+			if (contPrueba == 2) {
+				contPrueba = contPrueba + 0;
+			}
+			
 			auto colAnim = waterAnimation->getCurrentCol();
 			if (!physics->getLookDirection()) waterAnimation->flipTexture(true);
 			else waterAnimation->flipTexture(false);
@@ -138,6 +149,8 @@ void PlayerAttack::update() {
 				colTrigger = colAnim + 1;
 				trigger.w = colTrigger * (trAttack->getWidth() / waterAnimation->getTexture()->getNumCols());
 			}
+
+
 			MoveTrigger(Vector2D(trigger.w, WATER_ATTACK_HEIGHT));
 
 			if (waterStateAnimation->getState() == WATER_ADVANCE)
@@ -196,7 +209,7 @@ void PlayerAttack::waterChargedAttack(SDL_Rect& trigger) {
 
 	// Entidad ataque
 	wAttack->addComponent<Transform>(Vector2D(trigger.x, trigger.y), trigger.w, trigger.h);
-	wAttack->addComponent<Image>(&sdlutils().images().at("water_attack"));
+	wAttack->addComponent<FramedImage>(&sdlutils().images().at("water_chargedAttack"),1,1);
 
 	waterAttackActive = true;
 	waterDurationTimer = SDL_GetTicks();
