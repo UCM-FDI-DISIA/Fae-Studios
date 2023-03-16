@@ -67,7 +67,6 @@ private:
 	int triggerHeight;
 	SDL_Rect trigger;
 
-	int waterAttackDuration = WATER_ATTACK_DURATION;
 	int waterDurationTimer; // timer duracion ataque de agua
 	int waterTickTimer = 0; // timer tick de agua
 	bool waterAttackActive;
@@ -77,7 +76,5 @@ private:
 	int colTrigger;
 	Entity* wAttack = nullptr; // Entidad ataque de agua
 	Entity* tAttack = nullptr; // Entidad ataque de tierra
-
-	int contPrueba = 0;
 };
 

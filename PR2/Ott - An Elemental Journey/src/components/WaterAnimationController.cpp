@@ -38,7 +38,11 @@ void WaterAnimationController::update() {
 		image->setRow(1);
 		if (col != getNFrames(state) - getColNum(state) - 1) col = startingCol - (timer_ / getTPerFrame(state)) % getNFrames(state);
 	}
-	image->setCol(col);
+	if (image->getCurrentCol() != col) {
+		int a = image->getCurrentCol();
+		image->setCol(col);
+
+	}
 
 	if (timer_ > animationTime)
 	{
