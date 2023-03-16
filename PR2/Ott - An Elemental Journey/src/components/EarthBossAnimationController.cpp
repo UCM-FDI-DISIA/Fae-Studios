@@ -1,59 +1,44 @@
 #include "EarthBossAnimationController.h"
 #include "FramedImage.h"
+#include "EarthBossManager.h"
 
-void EarthBossAnimationController::setState(int newState) {
-	/*if (!health_->isDead() && currentAnimation != DIE_ENEMY) {
-		timer_ = 0;
-		image->setCol(getColNum(currentAnimation));
-	}*/
-	currentAnimation = newState;
+void EarthBossAnimationController::setState(anims::Entities newState, Entity* e) {
+	state = newState;
+	image = e->getComponent<FramedImage>();
 }
 
 void EarthBossAnimationController::initComponent() {
-	image = ent_->getComponent<FramedImage>();
-	setState(PRESENTATION);
+	image = nullptr;
 }
 
 void EarthBossAnimationController::update() {
+	if (image != nullptr) {
+		timer_++;
+		int col = image->getCurrentCol();
 
-	/*if (currentAnimation == IDLE_ENEMY && eMovement_ != nullptr && eMovement_->isMoving()) setState(WALK_ENEMY);
-	else if (currentAnimation == WALK_ENEMY && !eMovement_->isMoving()) setState(IDLE_ENEMY);*/
+		if (col != getNFrames(state) + getColNum(state) - 1) col = (timer_ / getTPerFrame(state)) % getNFrames(state) + getColNum(state);
 
+		image->setCol(col);
 
-	int state = currentAnimation;
-	timer_++;
-
-	/*if (damaged) {
-		image->setRow(1);
-		damageTimer_ = SDL_GetTicks() - damageStartTime_;
-		if (damageTimer_ >= maxDamagedTimer_) {
-			damaged = false;
+		if (timer_ > (getTPerFrame(state) * getNFrames(state)) + 1)
+		{
+			endAnim();
 		}
 	}
-	else { damageStartTime_ = SDL_GetTicks(); image->setRow(0); }*/
-	int col = image->getCurrentCol();
-
-	if (col != getNFrames(state) + getColNum(state) - 1) col = (timer_ / getTPerFrame(state)) % getNFrames(state) + getColNum(state);
-
-	image->setCol(col);
-
-	if (timer_ > (getTPerFrame(state) * getNFrames(state)) + 1)
-	{
-		endAnim();
-	}
-
-	/*
-	if (currentAnimation == ATTACK_ENEMY || currentAnimation == DIE_ENEMY) return;
-	Vector2D vel = ent_->getComponent<PhysicsComponent>()->getVelocity();
-	if (vel.getX() != 0) currentAnimation = WALK_ENEMY;
-	else currentAnimation = IDLE_ENEMY;*/
 }
 
 void EarthBossAnimationController::endAnim() {
-	if (currentAnimation == PRESENTATION) {
+	if (state == anims::EARTHBOSSPRESENT) {
+		std::cout << "Termine la presentación, ahora paso al de pausa" << std::endl;
+		//emngr_->setState(PAUSE);
+	}
+	else if (state == anims::PAUSE_ANIM) {
+		std::cout << "Termine la pausa" << std::endl;
+	}
+	/*if (currentAnimation == PRESENTATION) {
 		setState(STOP);
 	}
-	else if(currentAnimation == WARNING)
+	else if(currentAnimation == WARNING)*/
 	//if (currentAnimation == PREPARE_ATTACK_ENEMY)
 	//{
 	//	setState(ATTACK_ENEMY);

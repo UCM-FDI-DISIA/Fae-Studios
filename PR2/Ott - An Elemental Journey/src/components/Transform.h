@@ -29,6 +29,11 @@ public:
 		width = w;
 		height = h;
 	}
+	Transform(SDL_Rect pos) :Component() {
+		position = Vector2D(pos.x, pos.y);
+		width = pos.w;
+		height = pos.h;
+	}
 	Transform(const Vector2D& position, Texture* texture, const Vector2D& scale = Vector2D(1.0f, 1.0f)) : Component() {
 		this->position = position;
 		width = texture->width() / texture->getNumCols() * scale.getX();

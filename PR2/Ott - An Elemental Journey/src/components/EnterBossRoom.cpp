@@ -2,7 +2,7 @@
 #include "PhysicsComponent.h"
 #include "FramedImage.h"
 #include "Transform.h"
-#include "EarthBossAnimationController.h"
+#include "EarthBossManager.h"
 
 void EnterBossRoom::initComponent() {
 	camera = mngr_->getCamera();
@@ -40,16 +40,16 @@ void EnterBossRoom::update() {
 	}
 	else start = false;
 }
-//
-//void EnterBossRoom::startFight() {
-//	if (!added) {
-//		earthBoss = mngr_->getEarthBoss();
-//		auto ph = earthBoss->getComponent<PhysicsComponent>();
-//		earthBoss->addComponent<FramedImage>(&sdlutils().images().at("animationWorm"), sdlutils().images().at("animationWorm").getNumRows(), sdlutils().images().at("animationWorm").getNumCols());
-//		earthBoss->addComponent<Health>(5, ecs::Earth, false);
-//		earthBoss->addComponent<EarthBossAnimationController>(anims::EARTH_ANIM);
-//		ph->setVelocity({ 0,0 });
-//		ph->lookDirection(true);
-//		added = true;
-//	}
-//}
+
+void EnterBossRoom::startFight() {
+	if (!added) {
+		earthBoss = mngr_->getEarthBoss();
+		earthBoss->getComponent<EarthBossManager>()->isFighting(true);
+		//earthBoss->getComponent<EarthBossManager>()->setState(PRESENTATION);
+		auto ph = earthBoss->getComponent<PhysicsComponent>();
+		earthBoss->addComponent<Health>(5, ecs::Earth, false);
+		ph->setVelocity({ 0,0 });
+		ph->lookDirection(true);
+		added = true;
+	}
+}

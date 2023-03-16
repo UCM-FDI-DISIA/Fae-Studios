@@ -4,6 +4,22 @@
 #include "GrowVine.h"
 #include "../utils/Vector2D.h"
 #include "FramedImage.h"
+
+EarthBossManager::EarthBossManager(SDL_Rect rD) : roomDimensions(rD) {
+	//initializeEntities();
+	animController = ent_->addComponent<EarthBossAnimationController>(this);
+}
+void EarthBossManager::setState(int newState) {
+	state = newState;
+	switch (newState) {
+		case PRESENTATION:animController->setState(anims::EARTHBOSSPRESENT, presentBoss); break;
+		case ATTACKVERTICAL:animController->setState(anims::EARTHBOSSATTACK, boss); break;
+		case PAUSE:animController->setState(anims::PAUSE_ANIM, pause); break;
+		//case WARNING:animController->setState(anims::WARNINGEARTH, presentBoss); break;
+	}
+	
+
+}
 void EarthBossManager::initializeEntities() {
 
 	//CREACIÓN DE LAS 3 ENREDADERAS LATERALES
@@ -53,17 +69,39 @@ void EarthBossManager::initializeEntities() {
 	//CREACIÓN DEL BOSS
 	SDL_Rect boss_Rect;
 	boss_Rect.x = roomDimensions.x;
-	boss_Rect.y = roomDimensions.y - roomDimensions.h - offSet;
+	boss_Rect.y = roomDimensions.y - offSet;
 	boss_Rect.h = roomDimensions.h;
-	boss_Rect.w = roomDimensions.h / 5;
-	Vector2D finPosBoss = Vector2D{ boss_Rect.x , boss_Rect.y + boss_Rect.h };
+	boss_Rect.w = roomDimensions.w / 5;
+	Vector2D finPosBoss = Vector2D{ (float)boss_Rect.x , (float)boss_Rect.y + (float)boss_Rect.h };
 	boss = mngr_->addEntity(ecs::_grp_MINIBOSS);
 	boss->addComponent<FramedImage>(&sdlutils().images().at("animationWorm"), sdlutils().images().at("animationWorm").getNumRows(), sdlutils().images().at("animationWorm").getNumCols());
 	boss->addComponent<Transform>(boss_Rect);
 	boss->addComponent<GrowVine>(finPosBoss, 2, 1);
 	//HEALTH, INTERSECCIONAR Y DAÑAR AL JUGADOR
+
+	//CREACIÓN DEL PAUSA
+	pause->addComponent<FramedImage>(&sdlutils().images().at("pixel"), sdlutils().images().at("pixel").getNumRows(), sdlutils().images().at("pixel").getNumCols());
+	pause->addComponent<Transform>(boss_Rect);
+
+	//CREACIÓN DE LA PRESENTACIÓN
+	SDL_Rect presentation_Rect;
+	presentation_Rect.x = roomDimensions.x;
+	presentation_Rect.y = roomDimensions.y;
+	presentation_Rect.h = roomDimensions.h;
+	presentation_Rect.w = roomDimensions.w;
+	presentBoss = mngr_->addEntity(ecs::_grp_MINIBOSS);
+	presentBoss->addComponent<FramedImage>(&sdlutils().images().at("animationWorm"), sdlutils().images().at("animationWorm").getNumRows(), sdlutils().images().at("animationWorm").getNumCols());
+	presentBoss->addComponent<Transform>(presentation_Rect);
 }
 
+void EarthBossManager::update() {
+	if (isFight) {
+		if(state == WARNING){}
+		else if(state == ATTACKVERTICAL){}
+		else if(state == ATTACKHORIZONTAL){}
+
+	}
+}
 void EarthBossManager::verticalAttackPosition() {
 	//QUE LA SALA SEPA DONDE ESTA EL JUGADOR Y SE DIVIDA ENTRE CINCO PARA CAMBIAR LA
 	//POS DEL BOSS VERTICAL
