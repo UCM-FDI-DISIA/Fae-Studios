@@ -35,5 +35,4 @@ private:
 	static offsetPhysics melee_collider;
 	static offsetPhysics range_collider;
 	static offsetPhysics slime_collider;
-
 };
