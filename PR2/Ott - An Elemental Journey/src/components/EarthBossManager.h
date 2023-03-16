@@ -9,7 +9,6 @@
 #include "EarthBossAnimationController.h"
 
 
-enum EarthBossStates{PRESENTATION, WARNING, ATTACKVERTICAL, ATTACKHORIZONTAL, PAUSE};
 class EarthBossManager : public Component
 {
     struct Warnings {
@@ -24,9 +23,11 @@ public:
     constexpr static ecs::cmpId_type id = ecs::_EARTHMNGR;
     EarthBossManager(SDL_Rect rD);
     virtual ~EarthBossManager(){}
-    void isFighting(bool b) { isFight = b; }
     void initializeEntities();
+    void isFighting(bool b) { isFight = b; }
     inline void setState(int newState);
+    void update() override;
+    void initComponent() override;
 private:
     //Dimensiones de la sala del boss de tierra
     SDL_Rect roomDimensions;
@@ -56,8 +57,7 @@ private:
 
     //Métodos
     void verticalAttackPosition();
-    void initializeEntities();
-    void update() override;
-    void initComponent() override;
+    
+
 };
 

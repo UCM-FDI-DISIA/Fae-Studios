@@ -17,10 +17,16 @@ void EarthBossAnimationController::initComponent() {
 void EarthBossAnimationController::update() {
 	if (image1 != nullptr) {
 		if (state == anims::EARTHBOSSPRESENT) {
-			std::cout << "Animación de Presentación" << std::endl;
+			std::cout << "Animacion de Presentación" << std::endl;
 		}
 		else if (state == anims::PAUSE_ANIM) {
-			std::cout << "Animación de Pause" << std::endl;
+			std::cout << "Animacion de Pause" << std::endl;
+		}
+		else if (state == anims::EARTHBOSSATTACK) {
+			std::cout << "Animacion de Ataque vertical" << std::endl;
+		}
+		else if (state == anims::WARNINGEARTH) {
+			std::cout << "Animacion de Warning" << std::endl;
 		}
 		timer_++;
 		int col = image1->getCurrentCol();
@@ -49,26 +55,8 @@ void EarthBossAnimationController::update() {
 }
 
 void EarthBossAnimationController::endAnim() {
-	if (state == anims::EARTHBOSSPRESENT) {
-		std::cout << "Termine la presentación, ahora paso al de pausa" << std::endl;
-		emngr_->setState(PAUSE);
-	}
-	else if (state == anims::PAUSE_ANIM) {
-		std::cout << "Termine la pausa" << std::endl;
-	}
-	/*if (currentAnimation == PRESENTATION) {
-		setState(STOP);
-	}
-	else if(currentAnimation == WARNING)*/
-	//if (currentAnimation == PREPARE_ATTACK_ENEMY)
-	//{
-	//	setState(ATTACK_ENEMY);
-	//	eAttack_->Attack();
-	//	// el enemigo ataca, aquí debería llamarse a una función de ataque
-	//}
-	////else if (currentAnimation == ATTACK_ENEMY && ent_->hasComponent<Generations>()) setState(AFTER_ATTACK_ENEMY);
-	//else if (currentAnimation != DIE_ENEMY && eMovement_ != nullptr && eMovement_->isMoving()) { setState(WALK_ENEMY); }
-	//else if (currentAnimation != DIE_ENEMY || currentAnimation == ATTACK) setState(IDLE_ENEMY);
-	//else ent_->setAlive(false);
+	emngr_->setState(states[actualState]);
+	if (actualState < states.size()-1) { ++actualState; }
+	else { actualState = 0; }
 	timer_ = 0;
 }

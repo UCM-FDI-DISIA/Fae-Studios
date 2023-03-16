@@ -36,7 +36,7 @@ void EarthBossManager::initializeEntities() {
 		vine->addComponent<Transform>(vine_Rect);
 		vine->addComponent<ImageVine>(&sdlutils().images().at("vineBoss"), sdlutils().images().at("vineBoss").getNumRows(), sdlutils().images().at("vineBoss").getNumCols());
 		finPosVine.setX(vine_Rect.y + (vine_Rect.h * i));
-		vine->addComponent<GrowVine>(finPosVine, 2, -1);
+		vine->addComponent<GrowVine>(finPosVine, 2, -1, "horizontal");
 		vineVector.push_back(vine);
 	}
 
@@ -77,7 +77,7 @@ void EarthBossManager::initializeEntities() {
 	boss = mngr_->addEntity(ecs::_grp_MINIBOSS);
 	boss->addComponent<Transform>(boss_Rect);
 	boss->addComponent<FramedImage>(&sdlutils().images().at("animationWorm"), sdlutils().images().at("animationWorm").getNumRows(), sdlutils().images().at("animationWorm").getNumCols());
-	boss->addComponent<GrowVine>(finPosBoss, 2, 1);
+	boss->addComponent<GrowVine>(finPosBoss, 2, 1, "vertical");
 	//HEALTH, INTERSECCIONAR Y DAÑAR AL JUGADOR
 
 	//CREACIÓN DEL PAUSA
@@ -103,12 +103,12 @@ void EarthBossManager::initializeEntities() {
 	platform_Rect.y = vineVector[2]->getComponent<Transform>()->getRect().y + platform_Rect.h;
 	for (int k = 0; k < 5; ++k) {
 		Entity* platform = mngr_->addEntity(ecs::_grp_MINIBOSS);
-		platform->addComponent<FramedImage>(); // rellenar
+		platform->addComponent<Transform>(platform_Rect.x, platform_Rect.y, platform_Rect.w, platform_Rect.h);
 		platform_Rect.x = roomDimensions.x + offSet + ((roomDimensions.x / 5) * k);
 		if (k % 2 == 0) platform_Rect.y = vineVector[2]->getComponent<Transform>()->getRect().y + platform_Rect.h;
 		else platform_Rect.y = vineVector[1]->getComponent<Transform>()->getRect().y + platform_Rect.h;
-		platform->addComponent<Transform>(platform_Rect.x, platform_Rect.y, platform_Rect.w, platform_Rect.h);
 		platformVector.push_back({ platform, k });
+		//platform->addComponent<FramedImage>(); // rellenar
 	}
 
 	setState(PRESENTATION);
@@ -133,8 +133,4 @@ void EarthBossManager::update() {
 		else if(state == ATTACKHORIZONTAL){}
 
 	}
-}
-void EarthBossManager::verticalAttackPosition() {
-	//QUE LA SALA SEPA DONDE ESTA EL JUGADOR Y SE DIVIDA ENTRE CINCO PARA CAMBIAR LA
-	//POS DEL BOSS VERTICAL
 }

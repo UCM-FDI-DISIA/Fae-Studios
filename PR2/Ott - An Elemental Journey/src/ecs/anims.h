@@ -2,6 +2,8 @@
 #include <vector>
 #include <array>
 
+
+enum EarthBossStates { PRESENTATION, WARNING, ATTACKVERTICAL, ATTACKHORIZONTAL, PAUSE };
 class anims {
 
 public:

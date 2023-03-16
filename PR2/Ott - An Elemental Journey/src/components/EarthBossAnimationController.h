@@ -6,6 +6,7 @@
 #include "EnemyMovement.h"
 #include"../ecs/Entity.h"
 #include "FramedImage.h"
+#include <vector>
 
 class EarthBossManager;
 class FramedImage;
@@ -34,6 +35,9 @@ private:
     FramedImage* image2;
     EarthBossManager* emngr_;
     float timer;
+
+    int actualState = 0;
+    std::vector<EarthBossStates> states = { PAUSE, WARNING, ATTACKHORIZONTAL, PAUSE, WARNING, ATTACKHORIZONTAL,PAUSE, WARNING, ATTACKVERTICAL, };
 
     int damageTimer_, damageStartTime_, timer_ = 0;
     const int maxDamagedTimer_ = 500, FRAME_ANIMATION_TIME = 6;
