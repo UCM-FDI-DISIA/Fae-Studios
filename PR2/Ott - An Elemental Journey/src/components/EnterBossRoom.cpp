@@ -44,12 +44,13 @@ void EnterBossRoom::update() {
 void EnterBossRoom::startFight() {
 	if (!added) {
 		earthBoss = mngr_->getEarthBoss();
-		earthBoss->getComponent<EarthBossManager>()->isFighting(true);
-		//earthBoss->getComponent<EarthBossManager>()->setState(PRESENTATION);
-		auto ph = earthBoss->getComponent<PhysicsComponent>();
+		earthBoss->getComponent<EarthBossManager>()->initializeEntities();
+		//earthBoss->getComponent<EarthBossManager>()->setState(0);
+		/*earthBoss->getComponent<EarthBossManager>()->isFighting(true);
+		auto ph = earthBoss->addComponent<PhysicsComponent>();
 		earthBoss->addComponent<Health>(5, ecs::Earth, false);
-		ph->setVelocity({ 0,0 });
-		ph->lookDirection(true);
+		earthBoss->getComponent<PhysicsComponent>()->setVelocity(Vector2D(0,0));
+		earthBoss->getComponent<PhysicsComponent>()->lookDirection(true);*/
 		added = true;
 	}
 }

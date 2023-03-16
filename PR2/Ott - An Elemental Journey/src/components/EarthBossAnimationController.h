@@ -18,7 +18,7 @@ public:
     virtual ~EarthBossAnimationController() {};
     void initComponent();
     virtual void update();
-    void setState(anims::Entities newState, Entity* e);
+    void setState(anims::Entities newState, Entity* e1, Entity* e2);
     void endAnim();
     inline int getTPerFrame(anims::Entities eAnims) { return anims::animations[eAnims][0].tPerFrame / FRAME_ANIMATION_TIME; }
     inline int getNFrames(anims::Entities eAnims) { return anims::animations[eAnims][0].numFrames; }
@@ -30,7 +30,8 @@ public:
 private:
     bool damaged = false;
     anims::Entities state;
-    FramedImage* image;
+    FramedImage* image1;
+    FramedImage* image2;
     EarthBossManager* emngr_;
     float timer;
 

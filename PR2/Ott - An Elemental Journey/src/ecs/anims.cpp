@@ -24,9 +24,9 @@ std::vector<anims::animDescription> anims::slime_anims{ {300,4,0,0}, {150,4,0,17
 std::vector<anims::animDescription> anims::earth_attack{ {100,10,0,0}, {100,10,0,9} };
 //MINI BOSS TIERRA
 std::vector<anims::animDescription> anims::earthBossPresent_anims{ {100, 8, 0, 0} };
-std::vector<anims::animDescription> anims::earthBoss_anims{ {100, 0,0,0} };
-std::vector<anims::animDescription> anims::warning_anims{ {100, 0,0,0} };
-std::vector<anims::animDescription> anims::pause_anims{ {600, 0,0,0} };
+std::vector<anims::animDescription> anims::earthBoss_anims{ {100, 1,0,0} };
+std::vector<anims::animDescription> anims::warning_anims{ {100, 1,0,0} };
+std::vector<anims::animDescription> anims::pause_anims{ {600, 1,0,0} };
 // vector con todas las animaciones definidas. se accede a él por un enum llamado Entities
 std::vector<std::vector<anims::animDescription>> anims::animations{ott_anims, melee_anims, range_anims, slime_anims, earth_attack, earthBossPresent_anims,earthBoss_anims, warning_anims,pause_anims };
 

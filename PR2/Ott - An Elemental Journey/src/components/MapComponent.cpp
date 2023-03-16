@@ -264,8 +264,8 @@ void MapComponent::loadMap(std::string path) {
                 roomDimensions.h = h_ * scale;
                 Entity* earthBoss = mngr_->addEntity(ecs::_grp_GENERAL);
                 earthBoss->addComponent<EarthBossManager>(roomDimensions);
-                earthBoss->getComponent<EarthBossManager>()->initializeEntities();
-                //mngr_->setEarthBoss(earthBoss);
+                mngr_->setEarthBoss(earthBoss);
+                //earthBoss->getComponent<EarthBossManager>()->initializeEntities();
             }
             else if (ot.getClass() == "DoorTrigger") {
                 Entity* trigger = mngr_->addEntity(ecs::_grp_TRIGGER);

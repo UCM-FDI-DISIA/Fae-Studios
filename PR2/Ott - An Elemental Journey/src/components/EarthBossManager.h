@@ -5,14 +5,19 @@
 #include <SDL.h>
 #include"../ecs/Entity.h"
 #include <vector>
-#include "EarthBossAnimationController.h"
 #include "../ecs/anims.h"
+#include "EarthBossAnimationController.h"
+
 
 enum EarthBossStates{PRESENTATION, WARNING, ATTACKVERTICAL, ATTACKHORIZONTAL, PAUSE};
 class EarthBossManager : public Component
 {
     struct Warnings {
         Entity* warning;
+        int num;
+    };
+    struct Platforms {
+        Entity* platform;
         int num;
     };
 public:
@@ -29,9 +34,13 @@ private:
     //Entidades de juego
     std::vector<Warnings> warningVector;
     std::vector<Entity*> vineVector;
+    std::vector<Platforms> platformVector;
     Entity* boss;
     Entity* presentBoss;
     Entity* pause;
+
+    //Player referencia
+    Entity* player;
 
     //Referencias
     EarthBossAnimationController* animController;
@@ -44,8 +53,11 @@ private:
 
     //Booleanos de juego
     bool isFight = false; // para empezar o acabar la partida
+
     //Métodos
     void verticalAttackPosition();
+    void initializeEntities();
     void update() override;
+    void initComponent() override;
 };
 
