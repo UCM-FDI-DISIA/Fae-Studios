@@ -212,8 +212,6 @@ namespace constructors {
 		player->addComponent<PlayerAttack>();
 		player->addComponent<AttackCharger>(5);
 		player->addComponent<PlayerInput>();
-		pAnim->initComponent();
-		health->initComponent();
 		ph->createCollider();
 		return player;
 	}

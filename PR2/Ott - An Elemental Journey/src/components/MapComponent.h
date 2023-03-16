@@ -82,6 +82,7 @@ public:
 
 	inline int getCurrentRoom() { return currentRoom; }
 	inline void setCurrentRoom(int newRoom) { currentRoom = newRoom; }
+	inline float getCurrentRoomScale() { return vectorTiles[currentRoom].first; }
 
 	void changeRoom(std::string newRoom, Vector2D newPos);
 

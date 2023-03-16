@@ -118,6 +118,7 @@ void MapComponent::changeRoom(std::string newRoom, Vector2D newPos) {
 void MapComponent::loadMap(std::string path) {
     if (map.load(path))
     {
+        tmx::Object playerPos;
         std::vector<std::vector<Entity*>> enemies;
         const auto& layers2 = map.getLayers();
         //cout << "Map has " << layers2.size() << " layers" << endl;
@@ -145,6 +146,9 @@ void MapComponent::loadMap(std::string path) {
                 }
                 else if (name == "Enemigos") {
                     vectorObjects[ENEMIES_VECTOR_POS] = objects;
+                }
+                else if (name == "Ott") {
+                    playerPos = objects[0];
                 }
             }
             #pragma endregion
@@ -209,7 +213,7 @@ void MapComponent::loadMap(std::string path) {
 
         for (auto trigger : vectorObjects[TRIGGERS_VECTOR_POS]) {
             SDL_Rect rect1 = getSDLRect(trigger.getAABB());
-            SDL_Rect rect2 = rect1;
+            SDL_Rect rect2 = getSDLRect(trigger.getAABB());
 
             auto roomScale = vectorTiles[std::stoi(trigger.getName())].first;
 
@@ -310,14 +314,23 @@ void MapComponent::loadMap(std::string path) {
                 enemies[roomNum].push_back(enemie);
             }
         }
+
+        SDL_Rect playerRect = getSDLRect(playerPos.getAABB());
+        auto playerRoom = std::stoi(playerPos.getClass());
+        float playerRoomScale = vectorTiles[playerRoom].first;
+        playerRect.x *= playerRoomScale;
+        playerRect.y *= playerRoomScale;
+        player_->getComponent<Transform>()->setPosition(Vector2D(playerRect.x, playerRect.y));
+        player_->getComponent<Transform>()->setScale(playerRoomScale);
         game->setEnemies(enemies);
+        currentRoom = playerRoom;
+        cam->setBounds(getCamBounds());
     }
     else
     {
         std::cout << "Failed loading map" << std::endl;
     }
 
-    cam->setBounds(getCamBounds());
 
 
 }

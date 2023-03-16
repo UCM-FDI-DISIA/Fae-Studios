@@ -37,6 +37,7 @@ void FadeOutAnimationComponent::update() {
 void FadeOutAnimationComponent::startFadeIn() {
 	mngr_->getPlayer()->getComponent<Transform>()->setPosition(newPlayerPos);
 	map_->setCurrentRoom(newMapRoom);
+	mngr_->getPlayer()->getComponent<Transform>()->setScale(map_->getCurrentRoomScale());
 	cam_->setBounds(map_->getCamBounds());
 	playerPs_->Resume();
 	fadeOut = false;

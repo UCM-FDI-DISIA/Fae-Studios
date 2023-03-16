@@ -23,17 +23,14 @@ PlayState::PlayState() : GameState(ecs::_state_PLAY) {
 	//music = Mix_LoadMUS("../../sounds/musics/Ambient 4.	wav"); la m�sica va a ser cambiada a un json
 	Mix_PlayMusic(music, -1);*/
 
-	mngr_->setPlayer(constructors::player(mngr_, 700, 1500, 100, 120));
+	mngr_->setPlayer(constructors::player(mngr_, 0, 0, 100, 120));
 	mngr_->setCamera(constructors::camera(mngr_, 700, 2000, sdlutils().width(), sdlutils().height()));
 	player_ = mngr_->getPlayer();
 	camera_ = mngr_->getCamera();
 
-	player_->getComponent<FramedImageOtt>()->initComponent();
-	player_->getComponent<Transform>()->initComponent();
-	player_->getComponent<PhysicsComponent>()->initComponent();
-	player_->getComponent<PlayerInput>()->initComponent();
-	player_->getComponent<PlayerAttack>()->initComponent();
-	player_->getComponent<Health>()->initComponent();
+	// se reinicializan los componentes del jugador porque muchos tienen referencias entre ellos y con la cámara 
+	// y no se podrían coger de otra forma más que forzando el initComponent()
+	player_->reinitCmpts();
 
 	//prueba para movimiento de agua
 	auto waterM = mngr_->addEntity(ecs::_grp_WATER);

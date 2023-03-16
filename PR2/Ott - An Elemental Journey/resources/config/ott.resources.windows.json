@@ -63,7 +63,7 @@
 		{ "id" : "spores", "file" : "../resources/images/sprites/spores.png", "rows" : 1, "cols" : 1},
 		{ "id" : "water_attack", "file" : "../resources/images/tests/water_Attack.png", "rows" : 1, "cols" : 1},
 		{ "id" : "earth_attack", "file" : "../resources/images/tests/earth_Attack.png", "rows" : 1, "cols" : 10},
-		{ "id" : "water_attack_PlaceHolder", "file" : "../resources/images/tests/water_Attack_PlaceHolder.png", "rows" : 2, "cols" : 9}
+		{ "id" : "water_attack", "file" : "../resources/images/tests/water_Attack.png", "rows" : 2, "cols" : 9}
   ],
 
   "messages" : [],
