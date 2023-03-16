@@ -113,6 +113,7 @@ void MapComponent::update() {
 void MapComponent::changeRoom(std::string newRoom, Vector2D newPos) {
     // std::stoi -> String TO Int
     anim_->startFadeOut(newPos, std::stoi(newRoom));
+
 }
 
 void MapComponent::loadMap(std::string path) {
@@ -169,9 +170,9 @@ void MapComponent::loadMap(std::string path) {
                 for (auto salas : vectorObjects[ROOM_VECTOR_POS]) {
                     int o = 0;
                     auto rect = salas.getAABB();
-                    SDL_Rect sala = { rect.left * tileScale(), rect.top* tileScale(), rect.width * tileScale(), rect.height * tileScale() };
+                    SDL_Rect sala = { (int)(rect.left * tileScale()), (int)(rect.top* tileScale()), (int)(rect.width * tileScale()), (int)(rect.height * tileScale()) };
                     for (auto tile : tiles) {
-                        SDL_Rect tileRect = { (float)(o % cols) * usedTileSize, ((float)(o / cols) * usedTileSize), usedTileSize, usedTileSize };
+                        SDL_Rect tileRect = { (int)(o % cols) * usedTileSize, ((int)(o / cols) * usedTileSize), usedTileSize, usedTileSize };
                         /*std::cout << tileRect.x << " "
                             << tileRect.y << " "
                             << tileRect.w << " "
