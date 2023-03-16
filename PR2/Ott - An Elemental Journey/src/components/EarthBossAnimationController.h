@@ -36,6 +36,7 @@ private:
     anims::Entities eAnims;
     FramedImage* boss;
     FramedImage* warning;
+    FramedImage* image;
     float timer;
 
     int damageTimer_, damageStartTime_, timer_ = 0;
