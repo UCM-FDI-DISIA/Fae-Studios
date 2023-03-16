@@ -25,6 +25,15 @@ void FireBossComponent::update()
 	else if (SDL_GetTicks() - normalAttackTimer >= timeNormalAttack * 1000) {
 		std::cout << "Ataque normal" << std::endl;
 		normalAttackTimer = SDL_GetTicks();
+		ambushing = true;
+	}
+	if (ambushing) { ambush(); }
+	else if (retirada)
+	{
+		int speed = 2;
+		if (tr_->getPosition().getX() - tr_->getInitialPosition().getX() > 0) { speed = -speed; }
+		tr_->setPosition(Vector2D(tr_->getPosition().getX() + speed, tr_->getPosition().getY()));
+		if (tr_->getPosition().getX() == tr_->getInitialPosition().getX()) { retirada = false; }
 	}
 }
 void FireBossComponent::startSpecialAttack()
@@ -50,6 +59,42 @@ void FireBossComponent::shootAtPlayer()
 	Vector2D direction = pTr->getPosition() - position; 
 	direction = direction.normalize() * 2;
 	constructors::bullet(mngr_, "lamp", position.getX(), position.getY(), 50, direction, ent_, ecs::Fire, 1);
+}
+void FireBossComponent::ambush()
+{
+	Transform* playerTr = player->getComponent<Transform>();
+	Health* playerH = player->getComponent<Health>();
+	std::vector<Entity*> ground = mngr_->getEntities(ecs::_grp_GROUND);
+
+	//colliders jugador, boss
+	SDL_Rect collider = tr_->getRect();
+	SDL_Rect playerCollider = playerTr->getRect();
+	SDL_Rect collision;
+
+	bool collided = false;
+	int speed;
+
+	//direccion en que hacer la emboscada
+	if (tr_->getPosition().getX() - playerTr->getPosition().getX() > 0) { speed = -ambushSpeed; }
+	else { speed = ambushSpeed; }
+	tr_->setPosition(Vector2D(tr_->getPosition().getX() + speed, tr_->getPosition().getY()));
+
+	//colisiones con ott, paredes como condicion de paro de la emboscada
+	//ott
+	bool interseccion = SDL_IntersectRect(&collider, &playerCollider, &collision);
+	if (interseccion)
+	{
+		ambushing = false; playerH->recieveDamage(ecs::Fire); retirada = true;
+	}
+	//wall
+	else
+	{
+		for (Entity* g : ground) {
+			SDL_Rect r2 = g->getComponent<Transform>()->getRect();
+			bool interseccion = SDL_IntersectRect(&collider, &r2, &collision);
+			if (interseccion && (collision.w < collision.h)) { ambushing = false; retirada = true; }
+		}
+	}
 }
 
 
