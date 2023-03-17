@@ -9,23 +9,29 @@ void Acceleration:: initComponent(){
 }
 void Acceleration ::update()
 {
-	Vector2D distance = playerTransform->getPosition() - transform->getPosition();
+	Vector2D distance = Vector2D( ((playerTransform->getPosition().getX() + playerTransform->getWidth() / 2) -
+		(transform->getPosition().getX() + transform->getWidth() / 2)),
+		((playerTransform->getPosition().getY() + playerTransform->getHeight() / 2) -
+		(transform->getPosition().getY() + transform->getHeight() / 2) ));
+
+
 	float aux= distance.magnitude();
 	auto input = InputHandler::instance();
 	
 	
 	Vector2D vecAux;
 	//derecha
-	if (physics->getVelocity().getX() > 0.0f)vecAux = { aux/250,0};
+	if (physics->getVelocity().getX() > 0.0f)vecAux = { aux/500,0};
 	//izquierda
-	else if (physics->getVelocity().getX() < 0.0f)vecAux = { -aux / 250,0 };
+	else if (physics->getVelocity().getX() < 0.0f)vecAux = { -aux / 500,0 };
 	//arriba
-	else if (physics->getVelocity().getY() < 0.0f)vecAux = {0,-aux/250 };
+	else if (physics->getVelocity().getY() < 0.0f)vecAux = {0,-aux/500 };
 	//abajo
-	else vecAux = { 0,aux / 250 };
+	else vecAux = { 0,aux / 500 };
 	physics->setVelocity(vecAux);
 
-
+	
+	
 	/*std::cout << "Vel DIS: " << distance << std::endl;
 	std::cout << "Vel PLAY: " << playerTransform->getPosition() << std::endl;
 	std::cout << "Vel POS: " << transform->getPosition() << std::endl;
@@ -33,7 +39,7 @@ void Acceleration ::update()
 
 
 	//limites velocidad
-	if (std::abs(physics->getVelocity().getX()) > 3)
+	/*if (std::abs(physics->getVelocity().getX()) > 3)
 	{
 		Vector2D temp;
 		if(physics->getVelocity().getX()>0) temp = { 3,0 };
@@ -46,5 +52,5 @@ void Acceleration ::update()
 		if (physics->getVelocity().getY() > 0) temp = { 0,3 };
 		else  temp = { 0,-3 };
 		physics->setVelocity(temp);
-	}
+	}*/
 }

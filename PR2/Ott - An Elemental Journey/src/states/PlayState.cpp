@@ -64,8 +64,8 @@ PlayState::PlayState() : GameState(ecs::_state_PLAY) {
 	//waterBoss->addComponent<EnemyAnimationComponent>(anims::WATERBOSS_ANIM);
 
 	// OBJETOS QUE DESTRUYE BOSS AGUA
-	x = 500;
-	y = 1000;
+	x = 600;
+	y = 1300;
 	scale = 1.0f;
 	auto waterObj = mngr_->addEntity(ecs::_grp_GROUND);
 	auto watObjPh = waterObj->addComponent<PhysicsComponent>();
@@ -84,6 +84,8 @@ PlayState::PlayState() : GameState(ecs::_state_PLAY) {
 	waterObj2->addComponent<Transform>(x, y, 100 * scale, 100 * scale);
 	waterObj2->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
 	waterObj2->addComponent<Destruction>(waterBoss);
+
+
 
 	auto box0 = mngr_->addEntity(ecs::_grp_CHARACTERS);
 	 x = 100;

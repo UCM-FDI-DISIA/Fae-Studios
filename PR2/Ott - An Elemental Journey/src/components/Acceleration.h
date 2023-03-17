@@ -9,7 +9,6 @@ private:
 	Transform* playerTransform;
 	PhysicsComponent* physics;
 
-
 public:
 	constexpr static ecs::cmpId_type id = ecs::_BOSS_PIVOT;
 	Acceleration() {}
