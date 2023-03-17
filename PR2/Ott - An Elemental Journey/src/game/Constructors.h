@@ -30,6 +30,7 @@
 #include "../states/GameStateMachine.h"
 #include "../components/AttackCharger.h"
 #include "../components/FadeOutAnimationComponent.h"
+#include "../components/DamageArea.h"
 #include <string>
 #include <iostream>
 #include <functional>
@@ -39,7 +40,15 @@ const SDL_Color transparente{ 255,255,255,1 };
 const SDL_Color blanco{ 255,255,255 };
 
 namespace constructors {
+	static inline Entity* damageArea(Manager* mngr_, std::string imageKey, ecs::elements el, int x, int y, int w, int h)
+	{
+		auto a = mngr_->addEntity(ecs::_grp_GENERAL); //crear grupo
+		a->addComponent<Transform>(x, y, w, h);
+		a->addComponent<Image>(&sdlutils().images().at(imageKey));
+		a->addComponent<DamageArea>(el);
 
+		return a;
+	}
 	static inline Entity* eRanged(Manager* mngr_, std::string imageKey, int x, int y, float scale, ecs::elements el) {
 
 		// Asi se a�ade enemigo rango
