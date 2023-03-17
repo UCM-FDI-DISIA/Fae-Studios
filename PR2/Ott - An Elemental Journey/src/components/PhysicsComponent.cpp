@@ -11,8 +11,9 @@
 const float gravityValue = 0.2;
 
 
-PhysicsComponent::PhysicsComponent() {
+PhysicsComponent::PhysicsComponent(bool activate) {
 	jumpForce = earthJumpForce;
+	gravity = activate;
 }
 
 PhysicsComponent::PhysicsComponent(anims::Colliders c) {

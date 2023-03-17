@@ -26,14 +26,16 @@ void WaterContainerComponent::update()
 
 void WaterContainerComponent::dropWater()
 {
+	std::cout << "Cae agua" << std::endl;
 	currentFill = 0;
 	auto tr = ent_->getComponent<Transform>();
 	auto bossTr = fireBoss->getComponent<Transform>();
 	SDL_Rect stunRect;
-	stunRect.x = tr->getPosition().getX(); stunRect.y = tr->getPosition().getY();
-	stunRect.w = tr->getWidth(); stunRect.h = (bossTr->getPosition().getY() + bossTr->getHeight())- tr->getPosition().getY();
+	stunRect.x = tr->getPosition().getX(); stunRect.y = tr->getPosition().getY() + tr->getHeight();
+	stunRect.w = tr->getWidth(); stunRect.h = 1000;
 	SDL_Rect bossRect = bossTr->getRect();
 	if (SDL_HasIntersection(&stunRect, &bossRect)) {
+		std::cout << "Boss mojado" << std::endl;
 		fireBoss->getComponent<FireBossComponent>()->stunBoss();
 	}
 }

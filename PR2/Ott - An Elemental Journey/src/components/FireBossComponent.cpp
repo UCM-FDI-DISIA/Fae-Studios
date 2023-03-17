@@ -36,7 +36,7 @@ void FireBossComponent::update()
 	if (ambushing) { ambush(); }
 	else if (retirada)
 	{
-		int speed = 2;
+		float speed = 1;
 		if (tr_->getPosition().getX() - tr_->getInitialPosition().getX() > 0) { speed = -speed; }
 		tr_->setPosition(Vector2D(tr_->getPosition().getX() + speed, tr_->getPosition().getY()));
 		if (tr_->getPosition().getX() == tr_->getInitialPosition().getX()) { retirada = false; }
@@ -101,6 +101,12 @@ void FireBossComponent::ambush()
 			if (interseccion && (collision.w < collision.h)) { ambushing = false; retirada = true; }
 		}
 	}
+}
+
+void FireBossComponent::stunBoss()
+{
+	stunned = true; 
+	stunTimer = SDL_GetTicks();
 }
 
 

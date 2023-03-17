@@ -278,9 +278,17 @@ namespace constructors {
 		lamp2->addComponent<Image>(&sdlutils().images().at("lamp"));
 		lamp2->addComponent<LampComponent>(lamp);
 		lamp2->addComponent<InteractionComponent>(cb);
-		lamp->addComponent<FireBossComponent>();
+		
 	}
-
+	static inline Entity* FireBoss(Manager* mngr_, int x, int y) {
+		auto boss = mngr_->addEntity(ecs::_grp_CHARACTERS);
+		boss->addComponent<Transform>(Vector2D(x, y), 50, 130);
+		boss->addComponent<Image>(&sdlutils().images().at("lamp"));
+		boss->addComponent<FireBossComponent>();
+		boss->addComponent<Health>(10, ecs::Fire);
+		boss->addComponent<PhysicsComponent>(false);
+		return boss;
+	}
 	static inline void sanctuary(Manager* mngr_, Vector2D position, int width = 100, int height = 130) {
 		auto sanc = mngr_->addEntity(ecs::_grp_INTERACTION);
 		sanc->addComponent<Transform>(position, width, height);

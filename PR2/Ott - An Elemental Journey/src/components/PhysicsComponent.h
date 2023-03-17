@@ -8,7 +8,7 @@
 class PhysicsComponent : public Component
 {
 public:
-    PhysicsComponent();
+    PhysicsComponent(bool activate = true);
     PhysicsComponent(anims::Colliders c);
     PhysicsComponent(Vector2D vel) : velocity_(vel) {}
     virtual ~PhysicsComponent();
