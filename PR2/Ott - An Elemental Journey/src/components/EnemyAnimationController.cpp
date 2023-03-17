@@ -6,7 +6,8 @@
 #include "Health.h"
 #include "Generations.h"
 #include "FramedImage.h"
-
+#include "../states/GameStateMachine.h"
+#include "../states/PlayState.h"
 // LIMPIO
 
 void EnemyAnimationComponent::setState(int newState) {
@@ -17,6 +18,9 @@ void EnemyAnimationComponent::setState(int newState) {
 	}
 }
 
+EnemyAnimationComponent::~EnemyAnimationComponent() {
+	if(!ent_->isAlive())static_cast<PlayState*>(stateMachine().currentState())->eraseEnemy(posInList, roomNum);
+}
 
 void EnemyAnimationComponent::initComponent() {
 	image = ent_->getComponent<FramedImage>();

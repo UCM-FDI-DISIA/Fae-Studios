@@ -68,7 +68,7 @@ void PlayState::handleInput() {
     }
 }
 
-void PlayState::checkCollisions(std::vector<Entity*> entities) {
+void PlayState::checkCollisions(std::list<Entity*> entities) {
 	int aa = 0;
 	for (Entity* e : entities) {
 		auto eTr = e->getComponent<Transform>();

@@ -3,19 +3,22 @@
 #include <SDL_mixer.h>
 #include "../ecs/Entity.h"
 #include "../components/MapComponent.h"
+#include "../components/EnemyAnimationController.h"
+#include <list>
 
 /// Estado de juego
 class PlayState : public GameState {
 private:
     Mix_Music* music;
     
-    void checkCollisions(std::vector<Entity*> entities);
+    void checkCollisions(std::list<Entity*> entities);
     std::vector<Entity*>::const_iterator interactionIt;
 
     Entity* player_;
     Entity* camera_;
     MapComponent* map_;
-    std::vector<std::vector<Entity*>> enemies;
+    std::vector<std::list<Entity*>> enemies;
+    std::vector<std::vector<std::list<Entity*>::iterator>> enemyIt;
 
     float gravityValue = 0.2;
 
@@ -34,7 +37,23 @@ public:
     
     std::pair<bool, bool> checkCollisionWithVine();
     
-    void setEnemies(const std::vector<std::vector<Entity*>>& enemies) { this->enemies = enemies; };
+    inline void addEnemy(Entity* enemy, int room) { 
+        enemies[room].push_front(enemy);
+        enemyIt[room].push_back(enemies[room].begin());
+        enemy->getComponent<EnemyAnimationComponent>()->setPosInList(enemyIt[room].size() - 1, room);
+    };
+
+    inline void initEnemies(int numRooms) {
+        for (int i = 0; i < numRooms; ++i) {
+            enemies.push_back({});
+            enemyIt.push_back({});
+        }
+    }
+
+    void eraseEnemy(int itPos, int numRoom) {
+        int room = map_->getCurrentRoom();
+        enemies[numRoom].erase(enemyIt[numRoom][itPos]);
+    }
 
     void handleInput() override;
 
@@ -46,6 +65,5 @@ public:
     void AddEnredadera();
     void Teleport();
     void Save();
-
 };
 

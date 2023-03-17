@@ -119,7 +119,6 @@ void MapComponent::loadMap(std::string path) {
     if (map.load(path))
     {
         tmx::Object playerPos;
-        std::vector<std::vector<Entity*>> enemies;
         const auto& layers2 = map.getLayers();
         //cout << "Map has " << layers2.size() << " layers" << endl;
         for (const auto& layer : layers2)
@@ -131,9 +130,7 @@ void MapComponent::loadMap(std::string path) {
                 const auto& objects = layer->getLayerAs<ObjectGroup>().getObjects();
                 if (name == "Salas") {
                     vectorObjects[ROOM_VECTOR_POS] = objects;
-                    for (auto it : objects) {
-                        enemies.push_back({});
-                    }
+                    game->initEnemies(objects.size());
                 }
                 else if (name == "Objetos interactuables") {
                     vectorObjects[I_OBJECTS_VECTOR_POS] = objects;
@@ -302,15 +299,15 @@ void MapComponent::loadMap(std::string path) {
 
             if (it.getClass() == "Mushroom") {
                 Entity* enemie = constructors::eRanged(mngr_, path + "Mushroom", x_* scale * roomScale, y_* scale * roomScale, roomScale, elem);
-                enemies[roomNum].push_back(enemie);
+                game->addEnemy(enemie, roomNum);
             }
             else if (it.getClass() == "Melee") {
                 Entity* enemie = constructors::eMelee(mngr_, path + "Bug", x_ * scale * roomScale, y_ * scale * roomScale, roomScale, elem);
-                enemies[roomNum].push_back(enemie);
+                game->addEnemy(enemie, roomNum);
             }
             else if (it.getClass() == "Slime") {
                 Entity* enemie = constructors::eSlime(mngr_, path + "Slime", x_ * scale * roomScale, y_ * scale * roomScale, roomScale, elem);
-                enemies[roomNum].push_back(enemie);
+                game->addEnemy(enemie,roomNum);
             }
         }
 
@@ -321,7 +318,6 @@ void MapComponent::loadMap(std::string path) {
         playerRect.y *= playerRoomScale;
         player_->getComponent<Transform>()->setPosition(Vector2D(playerRect.x, playerRect.y));
         player_->getComponent<Transform>()->setScale(playerRoomScale);
-        game->setEnemies(enemies);
         currentRoom = playerRoom;
         cam->setBounds(getCamBounds());
     }
@@ -329,9 +325,6 @@ void MapComponent::loadMap(std::string path) {
     {
         std::cout << "Failed loading map" << std::endl;
     }
-
-
-
 }
 
 std::vector<std::pair<SDL_Rect, SDL_Rect>> MapComponent::checkCollisions(const SDL_Rect& playerRect) {
