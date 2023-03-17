@@ -121,6 +121,7 @@ void MapComponent::loadMap(std::string path) {
     {
         tmx::Object playerPos;
         const auto& layers2 = map.getLayers();
+        std::unordered_map<std::string, std::pair<Vector2D,int>> lamps;
         //cout << "Map has " << layers2.size() << " layers" << endl;
         for (const auto& layer : layers2)
         {
@@ -246,27 +247,38 @@ void MapComponent::loadMap(std::string path) {
             else if (ot.getName() == "3") { elem = elementsInfo::Fire; path = "fire"; }
             else if (ot.getName() == "4") { elem = elementsInfo::Dark; path = "dark"; }
             */
+            auto classSplit = strSplit(ot.getClass(), '_');
             if (ot.getClass() == "Grass") {
                 constructors::grass(mngr_, Vector2D(x_ * scale, (y_ * scale - sdlutils().images().at("grass").height()) + h_ * scale),
                     w_ * scale, h_ * scale, Vector2D(x_ * scale,
                         (y_ * scale - sdlutils().images().at("grass").height()) + h_ * scale + 100),
                     Vector2D(x_ * scale, (y_ * scale - sdlutils().images().at("grass").height())));
             }
-            else if (ot.getClass() == "Lamp") {
+            else if (classSplit[0] == "Lamp") {
                 //createLamp(Vector2D(x_ * scale, y_ * scale - game->getTexture("lamp", PLAY_STATE)->getH() * 2));
-                /*TP_Lamp* l1 = new TP_Lamp(Vector2D(x_ * scale, y_ * scale - app->getTexture("lamp", PLAY_STATE)->getH() * 2), app->getTexture("lamp", PLAY_STATE), this, Scale(2, 2), LAMP);
 
-                string lampName = ot.getName();
+                std::string lampName = ot.getName();
+                int roomNum = std::stoi(classSplit[1]);
+                float roomScale2 = vectorTiles[roomNum].first;
+
                 auto at = lamps.find(lampName);
                 if (at != lamps.end()) {
-                    l1->SetLamp((*at).second);
-                    (*at).second->SetLamp(l1);
+                    auto pos = (*at).second.first;
+                    auto t_ = &sdlutils().images().at("lamp");
+                    auto fw = t_->getFrameWidth() * 2.5;
+                    auto fh = t_->getFrameHeight() * 2.5;
+                    float roomScale1 = vectorTiles[(*at).second.second].first;
+                    auto hOffset = 15;
+                    int w1 = fw * roomScale1;
+                    int h1 = fh * roomScale1;
+                    int w2 = fw * roomScale2;
+                    int h2 = fh * roomScale2;
+                    constructors::lamp(mngr_, pos.getX(), pos.getY() + hOffset * roomScale1, w1, h1, (*at).second.second,
+                        x_* scale* roomScale2, y_* scale* roomScale2 + hOffset * roomScale2, w2, h2, roomNum);
                 }
                 else {
-                    lamps.insert({ ot.getName(), l1 });
+                    lamps.insert({ lampName, std::make_pair(Vector2D(x_*scale*roomScale2,y_*scale*roomScale2), roomNum)});
                 }
-
-                gameObjects.push_back(l1);*/
             }
             else if (ot.getClass() == "Sanctuary") {
                 constructors::sanctuary(mngr_, Vector2D(x_ * scale - (&sdlutils().images().at("sanctuary"))->width() * 1.5, y_ * scale - (&sdlutils().images().at("sanctuary"))->height() * 3.5));

@@ -277,7 +277,11 @@ void PlayState::Teleport() {
     Entity* aux = *interactionIt;
     Entity* tpLamp = aux->getComponent<LampComponent>()->getConnectedLamp();
     Vector2D newPos = tpLamp->getComponent<Transform>()->getPosition();
-    player_->getComponent<PlayerAnimationComponent>()->startTP(newPos);
+	auto newRoom = tpLamp->getComponent<LampComponent>()->getRoom();
+	if (aux->getComponent<LampComponent>()->getRoom() != newRoom) {
+		map_->changeRoom(std::to_string(newRoom), newPos);
+	}
+	player_->getComponent<PlayerAnimationComponent>()->startTP(newPos);
 }
 
 void PlayState::Save() {
