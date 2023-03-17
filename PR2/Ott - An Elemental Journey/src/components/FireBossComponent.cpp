@@ -16,6 +16,12 @@ void FireBossComponent::initComponent()
 
 void FireBossComponent::update()
 {
+	if (stunned) {
+		if (SDL_GetTicks() - stunTimer > timeStunned * 1000) {
+			stunned = false;
+		}
+		else return;
+	}
 	if (SDL_GetTicks() - specialAttackTimer >= timeSpecialAttack * 1000) {
 		std::cout << "Ataque especial" << std::endl;
 		specialAttackTimer = SDL_GetTicks();

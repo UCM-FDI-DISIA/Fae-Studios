@@ -9,9 +9,10 @@ void Image::render() {
 		auto camera = cam->camera;
 		rect.x -= camera.x;
 		rect.y -= camera.y;
+		
 	}
 
-	texture->render(rect);
+	texture->render(rect, transform->getRotation());
 }
 
 void Image::initComponent() {

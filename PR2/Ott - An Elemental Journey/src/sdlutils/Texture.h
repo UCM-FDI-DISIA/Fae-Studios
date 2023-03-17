@@ -107,9 +107,9 @@ public:
 	}
 
 	// renders the complete texture at a destination rectangle (dest)
-	inline void render(const SDL_Rect &dest) {
+	inline void render(const SDL_Rect &dest, int angle = 0) {
 		SDL_Rect src = { 0, 0, (int)width_, (int)height_ };
-		render(src, dest);
+		render(src, dest, angle);
 	}
 
 	// renders the complete texture at a destination rectangle (dest),

@@ -47,6 +47,8 @@
     <ClCompile Include="src\components\EnemyContactDamage.cpp" />
     <ClCompile Include="src\components\FirePillarComponent.cpp" />
     <ClCompile Include="src\components\FireBossComponent.cpp" />
+    <ClCompile Include="src\components\WaterContainerComponent.cpp" />
+    <ClCompile Include="src\components\WaterVineComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\components\Image.h" />
@@ -117,5 +119,7 @@
     <ClInclude Include="src\components\EnemyContactDamage.h" />
     <ClInclude Include="src\components\FirePillarComponent.h" />
     <ClInclude Include="src\components\FireBossComponent.h" />
+    <ClInclude Include="src\components\WaterContainerComponent.h" />
+    <ClInclude Include="src\components\WaterVineComponent.h" />
   </ItemGroup>
 </Project>

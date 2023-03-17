@@ -31,6 +31,8 @@
 #include "../components/FirePillarComponent.h"
 #include "../components/FireBossComponent.h"
 #include "../components/Bullet.h"
+#include "../components/WaterContainerComponent.h"
+#include "../components/WaterVineComponent.h"
 #include <string>
 #include <iostream>
 #include <functional>
@@ -114,6 +116,17 @@ namespace constructors {
 		enemy->addComponent<SlimeStates>();
 		enemy->addComponent<EnemyContactDamage>();
 		eAttack_->SetRefs(eAnim_, nullptr, meleeAttack_);
+	}
+	static inline void waterContainer(Manager* mngr_, std::string imageKey, int x, int y, float scale, Entity* fireBossRef) {
+		auto waterC = mngr_->addEntity(ecs::_grp_MAP);
+		waterC->addComponent<Transform>(Vector2D(x,y), 250*scale, 300*scale);
+		waterC->addComponent<Image>(&sdlutils().images().at(imageKey));
+		waterC->addComponent<WaterContainerComponent>(fireBossRef);
+
+		auto waterVine = mngr_->addEntity(ecs::_grp_MAP);
+		waterVine->addComponent<Transform>(Vector2D(0, 0), 30 * scale, 100 * scale);
+		waterVine->addComponent<Image>(&sdlutils().images().at("enredadera"));
+		waterVine->addComponent<WaterVineComponent>(waterC);
 	}
 
 	static inline void eSlime(Manager* mngr_, Texture* tex, int x, int y, float scale, int gens, int lives) {

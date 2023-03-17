@@ -45,6 +45,8 @@
     <ClCompile Include="src\components\SlimeAttack.cpp" />
     <ClCompile Include="src\components\SlimeStates.cpp" />
     <ClCompile Include="src\components\TestEnemyInput.cpp" />
+    <ClCompile Include="src\components\WaterContainerComponent.cpp" />
+    <ClCompile Include="src\components\WaterVineComponent.cpp" />
     <ClCompile Include="src\ecs\anims.cpp" />
     <ClCompile Include="src\states\menus\MainMenuState.cpp" />
     <ClCompile Include="src\components\Image.cpp" />
@@ -95,6 +97,8 @@
     <ClInclude Include="src\components\SlimeAttack.h" />
     <ClInclude Include="src\components\SlimeStates.h" />
     <ClInclude Include="src\components\TestEnemyInput.h" />
+    <ClInclude Include="src\components\WaterContainerComponent.h" />
+    <ClInclude Include="src\components\WaterVineComponent.h" />
     <ClInclude Include="src\ecs\anims.h" />
     <ClInclude Include="src\game\Constructors.h" />
     <ClInclude Include="src\components\FramedImage.h" />
