@@ -113,13 +113,13 @@ void MapComponent::update() {
 void MapComponent::changeRoom(std::string newRoom, Vector2D newPos) {
     // std::stoi -> String TO Int
     anim_->startFadeOut(newPos, std::stoi(newRoom));
+
 }
 
 void MapComponent::loadMap(std::string path) {
     if (map.load(path))
     {
         tmx::Object playerPos;
-        std::vector<std::vector<Entity*>> enemies;
         const auto& layers2 = map.getLayers();
         //cout << "Map has " << layers2.size() << " layers" << endl;
         for (const auto& layer : layers2)
@@ -131,9 +131,7 @@ void MapComponent::loadMap(std::string path) {
                 const auto& objects = layer->getLayerAs<ObjectGroup>().getObjects();
                 if (name == "Salas") {
                     vectorObjects[ROOM_VECTOR_POS] = objects;
-                    for (auto it : objects) {
-                        enemies.push_back({});
-                    }
+                    game->initEnemies(objects.size());
                 }
                 else if (name == "Objetos interactuables") {
                     vectorObjects[I_OBJECTS_VECTOR_POS] = objects;
@@ -169,9 +167,9 @@ void MapComponent::loadMap(std::string path) {
                 for (auto salas : vectorObjects[ROOM_VECTOR_POS]) {
                     int o = 0;
                     auto rect = salas.getAABB();
-                    SDL_Rect sala = { rect.left * tileScale(), rect.top* tileScale(), rect.width * tileScale(), rect.height * tileScale() };
+                    SDL_Rect sala = { (int)(rect.left * tileScale()), (int)(rect.top* tileScale()), (int)(rect.width * tileScale()), (int)(rect.height * tileScale()) };
                     for (auto tile : tiles) {
-                        SDL_Rect tileRect = { (float)(o % cols) * usedTileSize, ((float)(o / cols) * usedTileSize), usedTileSize, usedTileSize };
+                        SDL_Rect tileRect = { (int)(o % cols) * usedTileSize, ((int)(o / cols) * usedTileSize), usedTileSize, usedTileSize };
                         /*std::cout << tileRect.x << " "
                             << tileRect.y << " "
                             << tileRect.w << " "
@@ -302,15 +300,15 @@ void MapComponent::loadMap(std::string path) {
 
             if (it.getClass() == "Mushroom") {
                 Entity* enemie = constructors::eRanged(mngr_, path + "Mushroom", x_* scale * roomScale, y_* scale * roomScale, roomScale, elem);
-                enemies[roomNum].push_back(enemie);
+                game->addEnemy(enemie, roomNum);
             }
             else if (it.getClass() == "Melee") {
                 Entity* enemie = constructors::eMelee(mngr_, path + "Bug", x_ * scale * roomScale, y_ * scale * roomScale, roomScale, elem);
-                enemies[roomNum].push_back(enemie);
+                game->addEnemy(enemie, roomNum);
             }
             else if (it.getClass() == "Slime") {
                 Entity* enemie = constructors::eSlime(mngr_, path + "Slime", x_ * scale * roomScale, y_ * scale * roomScale, roomScale, elem);
-                enemies[roomNum].push_back(enemie);
+                game->addEnemy(enemie,roomNum);
             }
         }
 
@@ -321,7 +319,6 @@ void MapComponent::loadMap(std::string path) {
         playerRect.y *= playerRoomScale;
         player_->getComponent<Transform>()->setPosition(Vector2D(playerRect.x, playerRect.y));
         player_->getComponent<Transform>()->setScale(playerRoomScale);
-        game->setEnemies(enemies);
         currentRoom = playerRoom;
         cam->setBounds(getCamBounds());
     }
@@ -329,9 +326,6 @@ void MapComponent::loadMap(std::string path) {
     {
         std::cout << "Failed loading map" << std::endl;
     }
-
-
-
 }
 
 std::vector<std::pair<SDL_Rect, SDL_Rect>> MapComponent::checkCollisions(const SDL_Rect& playerRect) {

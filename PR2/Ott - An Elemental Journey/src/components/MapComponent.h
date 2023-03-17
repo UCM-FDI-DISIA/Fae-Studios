@@ -28,7 +28,7 @@ private:
 	Map map;
 	int mapSize;
 
-	// Se guarda un vector por cada habitación que hay. En este vector se guarda su ID y su posición
+	// Se guarda un vector por cada habitaciï¿½n que hay. En este vector se guarda su ID y su posiciï¿½n
 	// El float indica la escala del mapa
 	std::vector<std::pair<float, std::vector<std::pair<int, SDL_Rect>>>> vectorTiles;
 
@@ -38,11 +38,11 @@ private:
 	std::unordered_map<std::string, std::vector<SDL_Rect>> ground;
 
 	// En este mapa se guarda:
-	// string -> número de sala
+	// string -> nï¿½mero de sala
 	// vector -> todos los triggers que hay en esa sala
 	// pair<string, SDL_Rect> -> 
 		// string: la sala a la que lleva ese trigger; 
-		// SDL_Rect: su colisión
+		// SDL_Rect: su colisiï¿½n
 	std::unordered_map<std::string, std::vector<std::pair<std::string, std::pair<SDL_Rect,SDL_Rect>>>> triggers;
 
 	Texture* tilemap = nullptr;
@@ -89,7 +89,7 @@ public:
 	std::vector<std::vector<Object>> getObjects() { return vectorObjects; }
 	inline float tileScale() { return (float)usedTileSize / (float)realTileSize; }
 
-	// Límites de la cámara en X sala
+	// Lï¿½mites de la cï¿½mara en X sala
 	inline SDL_Rect getCamBounds() { 
 		SDL_Rect rect = getSDLRect(vectorObjects[ROOM_VECTOR_POS][currentRoom].getAABB());
 		rect.x *= vectorTiles[currentRoom].first;
@@ -99,10 +99,10 @@ public:
 		return rect;
 	}
 
-	// recibe un FloatRecy se convierte a SDL_Rect, multiplicándolo también por la escala de las Tiles
+	// recibe un FloatRecy se convierte a SDL_Rect, multiplicï¿½ndolo tambiï¿½n por la escala de las Tiles
 	inline SDL_Rect getSDLRect(FloatRect rect) {
-		SDL_Rect sdlRect = { rect.left * tileScale(), rect.top * tileScale(),
-		rect.width * tileScale(), rect.height * tileScale() };
+		SDL_Rect sdlRect = { (int)(rect.left * tileScale()), (int)(rect.top * tileScale()),
+                             (int)(rect.width * tileScale()), (int)(rect.height * tileScale()) };
 		return sdlRect;
 	}
 };
