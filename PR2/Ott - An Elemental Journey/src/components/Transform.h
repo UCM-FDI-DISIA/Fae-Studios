@@ -61,6 +61,6 @@ public:
 	virtual void initComponent() {
 		physics_ = ent_->getComponent<PhysicsComponent>();
 	}
-	virtual void update() { if (physics_ != nullptr) position = position + physics_->getVelocity(); }
+	virtual void update() { if (physics_ != nullptr) position = position + (physics_->getVelocity() * scale); }
 };
 
