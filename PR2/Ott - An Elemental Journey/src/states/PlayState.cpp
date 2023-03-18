@@ -75,6 +75,7 @@ void PlayState::checkCollisions(std::list<Entity*> entities) {
 		auto physics = e->getComponent<PhysicsComponent>();
 		auto health = e->getComponent<Health>();
 		SDL_Rect r1 = physics->getCollider();
+		// std::cout << r1.x << " " << r1.y << std::endl;
 		Vector2D& colVector = physics->getVelocity();
 
 		auto mov = e->getComponent<EnemyMovement>();

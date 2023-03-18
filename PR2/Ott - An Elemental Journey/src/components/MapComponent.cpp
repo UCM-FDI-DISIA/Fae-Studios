@@ -84,8 +84,13 @@ void MapComponent::update() {
 
                 Vector2D newPos;
                 SDL_Rect newRect = trigger.second.second;
-                if (newRect.w > newRect.h) { // TRIGGER VERTICAL
-                    if (result.y < newRect.y) { // por arriba
+                float oldScale = playerTr_->getScale();
+                float newScale = vectorTiles[std::stoi(trigger.first)].first;
+                playerRect.w = (playerRect.w / oldScale) * newScale;
+                playerRect.h = (playerRect.h / oldScale) * newScale;
+
+               if (rect.w > rect.h) { // TRIGGER VERTICAL
+                    if (result.y < rect.y) { // por arriba
                         newPos = Vector2D(playerRect.x,
                             newRect.y + newRect.h - playerRect.h);
                     }
@@ -95,11 +100,11 @@ void MapComponent::update() {
                     }
                 }
                 else { // TRIGGER HORIZONTAL
-                    if (result.x > newRect.x + newRect.w / 2) {
+                    if (result.x > rect.x + rect.w / 2) { // CHOCAS DESDE LA DERECHA
                         newPos = Vector2D(newRect.x - newRect.w - playerRect.w,
                             newRect.y + newRect.h - playerRect.h);
                     }
-                    else {
+                    else { // CHOCAS DESDE LA IZQUIERDA
                         newPos = Vector2D(newRect.x + newRect.w + playerRect.w,
                             newRect.y + newRect.h - playerRect.h);
                     }
@@ -209,7 +214,30 @@ void MapComponent::loadMap(std::string path) {
             ground[obj.getName()].push_back(rect);
         }
 
+        std::unordered_map<std::string, std::pair<SDL_Rect, std::string>> triggerInfo;
         for (auto trigger : vectorObjects[TRIGGERS_VECTOR_POS]) {
+
+            auto nameSplit = strSplit(trigger.getName(), '_');
+            std::string roomNum = nameSplit[0];
+            float roomScale = vectorTiles[std::stoi(roomNum)].first;
+            SDL_Rect trRect = getSDLRect(trigger.getAABB());
+            trRect.x *= roomScale;
+            trRect.y *= roomScale;
+            trRect.w *= roomScale;
+            trRect.h *= roomScale;
+            std::string triggerClass = trigger.getClass();
+            auto at = triggerInfo.find(triggerClass);
+
+            if (at != triggerInfo.end()) {
+                std::string room1 = (*at).second.second;
+                std::string room2 = roomNum;
+                triggers[room1].push_back(std::make_pair(room2, std::make_pair((*at).second.first, trRect)));
+                triggers[room2].push_back(std::make_pair(room1, std::make_pair(trRect, (*at).second.first)));
+            }
+            else {
+                triggerInfo.insert({triggerClass, std::make_pair(trRect, roomNum)});
+            }
+            /*
             SDL_Rect rect1 = getSDLRect(trigger.getAABB());
             SDL_Rect rect2 = getSDLRect(trigger.getAABB());
 
@@ -230,6 +258,7 @@ void MapComponent::loadMap(std::string path) {
             // guardamos los triggers en las dos salas, ya que son bidireccionales
             triggers[trigger.getName()].push_back(std::make_pair(trigger.getClass(),std::make_pair(rect1,rect2)));
             triggers[trigger.getClass()].push_back(std::make_pair(trigger.getName(),std::make_pair(rect2,rect1)));
+            */
         }
 
         float scale = tileScale();

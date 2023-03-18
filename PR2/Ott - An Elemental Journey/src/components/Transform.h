@@ -12,6 +12,7 @@ private:
 	float width;
 	float height;
 	float initWidth, initHeight;
+	float scale = 1.0f;
 	PhysicsComponent* physics_;
 
 public:
@@ -45,7 +46,8 @@ public:
 	inline void setPosition(Vector2D newPos) { position = newPos; };
 	inline void setWidth(float w) { width = w; }
 	inline void setHeight(float h) { height = h; }
-	inline void setScale(float scale) { width = initWidth * scale; height = initHeight * scale; }
+	inline void setScale(float scale) { width = initWidth * scale; height = initHeight * scale; this->scale = scale; }
+	inline float getScale() { return scale; }
 	inline float getWidth() const { return width; };
 	inline float getHeight() const { return height; };
 	inline SDL_Rect& getRect() {
