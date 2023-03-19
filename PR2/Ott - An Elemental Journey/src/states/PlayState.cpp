@@ -75,6 +75,7 @@ void PlayState::checkCollisions(std::list<Entity*> entities) {
 		auto physics = e->getComponent<PhysicsComponent>();
 		auto health = e->getComponent<Health>();
 		SDL_Rect r1 = physics->getCollider();
+		// std::cout << r1.x << " " << r1.y << std::endl;
 		Vector2D& colVector = physics->getVelocity();
 
 		auto mov = e->getComponent<EnemyMovement>();
@@ -277,7 +278,11 @@ void PlayState::Teleport() {
     Entity* aux = *interactionIt;
     Entity* tpLamp = aux->getComponent<LampComponent>()->getConnectedLamp();
     Vector2D newPos = tpLamp->getComponent<Transform>()->getPosition();
-    player_->getComponent<PlayerAnimationComponent>()->startTP(newPos);
+	auto newRoom = tpLamp->getComponent<LampComponent>()->getRoom();
+	if (aux->getComponent<LampComponent>()->getRoom() != newRoom) {
+		map_->changeRoom(std::to_string(newRoom), newPos);
+	}
+	player_->getComponent<PlayerAnimationComponent>()->startTP(newPos);
 }
 
 void PlayState::Save() {

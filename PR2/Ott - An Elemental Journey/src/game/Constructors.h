@@ -239,20 +239,21 @@ namespace constructors {
 
 	}
 
-	static inline void lamp(Manager* mngr_, int x1, int y1, int x2, int y2) {
+	static inline void lamp(Manager* mngr_, int x1, int y1, int w1, int h1, int room1, int x2, int y2, int w2, int h2, int room2) {
 		auto lamp = mngr_->addEntity(ecs::_grp_INTERACTION);
 		auto lamp2 = mngr_->addEntity(ecs::_grp_INTERACTION);
 
-		lamp->addComponent<Transform>(Vector2D(x1, y1), 50, 130);
-		lamp->addComponent<Image>(&sdlutils().images().at("lamp"));
-		lamp->addComponent<LampComponent>(lamp2);
+		Texture* t_ = &sdlutils().images().at("lamp");
+		lamp->addComponent<Transform>(Vector2D(x1, y1 - h1), w1, h1);
+		lamp->addComponent<Image>(t_);
+		lamp->addComponent<LampComponent>(lamp2, room1);
 		auto cb = []() {
 			static_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->Teleport();
 		};
 		lamp->addComponent<InteractionComponent>(cb);
-		lamp2->addComponent<Transform>(Vector2D(x2, y2), 50, 130);
-		lamp2->addComponent<Image>(&sdlutils().images().at("lamp"));
-		lamp2->addComponent<LampComponent>(lamp);
+		lamp2->addComponent<Transform>(Vector2D(x2, y2 - h2), w2, h2);
+		lamp2->addComponent<Image>(t_);
+		lamp2->addComponent<LampComponent>(lamp, room2);
 		lamp2->addComponent<InteractionComponent>(cb);
 	}
 
@@ -276,7 +277,6 @@ namespace constructors {
 		e->addComponent<MapComponent>(fadeOut, game);
 		auto scale = e->getComponent<MapComponent>()->tileScale();
 		//bgrd->addComponent<BackgroundImage>(Vector2D(0, 0), &sdlutils().images().at("level1bg"), scale, scale);
-		lamp(mngr_, 550, 1370, 750, 1370);
 		//bgrd->addComponent<BackgroundImage>(Vector2D(0, 0), game->getTexture("level1bg", PLAY_STATE), scale, scale);
 		auto a = e->getComponent<MapComponent>()->getObjects();
 		return e;
