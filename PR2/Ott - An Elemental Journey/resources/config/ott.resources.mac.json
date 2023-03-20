@@ -311,26 +311,32 @@
 		},
 		{
 			"id": "animationWorm",
-			"file": "../resources/images/tests/AnimationWorm.png",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/AnimationWorm.png",
 			"rows": 1,
 			"cols": 8
 		},
 		{
+			"id": "fallingWorm",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/WormFallingAttack.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
 			"id": "vine",
-			"file": "../resources/images/tests/EarthBossVine.png",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/EarthBossVine.png",
 			"rows": 1,
 			"cols": 1
 		},
 		{
 			"id": "vineBoss",
-			"file": "../resources/images/tests/EarthBossVineAttack.png",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/EarthBossVineAttack.png",
 			"rows": 1,
 			"cols": 1
 		},
 
 		{
 			"id": "warning",
-			"file": "../resources/images/tests/EarthBossWarning.png",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/EarthBossWarning.png",
 			"rows": 1,
 			"cols": 28
 		}
