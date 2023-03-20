@@ -37,8 +37,7 @@ MainMenuState::MainMenuState() : MenuState() {
 
     pos = Vector2D(sdlutils().width() / 2, 3 * sdlutils().height() / 7);
     constructors::button(mngr_, pos, "Jugar", sdlutils().fonts().at("vcr_osd48"), [this]() {
-        fade->getComponent<FadeTransitionComponent>()->setFunction([]() { GameStateMachine::instance()->pushState(new PlayState()); });
-        fade->getComponent<FadeTransitionComponent>()->revert();
+        GameStateMachine::instance()->changeState(new PlayState());
     });
 
     pos = Vector2D(sdlutils().width() / 2, 4 * sdlutils().height() / 7);
