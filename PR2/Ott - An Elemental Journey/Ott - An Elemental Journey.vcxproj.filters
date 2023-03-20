@@ -49,6 +49,7 @@
     <ClCompile Include="src\components\FadeOutAnimationComponent.cpp" />
     <ClCompile Include="src\components\earthAnimationController.cpp" />
     <ClCompile Include="src\components\WaterAnimationController.cpp" />
+    <ClCompile Include="src\components\FadeTransitionComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\components\Image.h" />
@@ -121,5 +122,6 @@
     <ClInclude Include="src\components\FadeOutAnimationComponent.h" />
     <ClInclude Include="src\components\earthAnimationController.h" />
     <ClInclude Include="src\components\WaterAnimationController.h" />
+    <ClInclude Include="src\components\FadeTransitionComponent.h" />
   </ItemGroup>
 </Project>

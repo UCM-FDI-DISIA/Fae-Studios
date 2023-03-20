@@ -2,6 +2,7 @@
 #include "SDL_events.h"
 #include "../ecs/Entity.h"
 #include "../ecs/Manager.h"
+#include "../components/FadeTransitionComponent.h"
 
 class Game; // Declaramos una clase Game para romper las dependencias circulares
 
@@ -11,11 +12,16 @@ protected:
     ecs::stateId_type stateID; ///< Identificador de nuestro estado
     Manager* mngr_; ///< Puntero a un manager
     bool doNotDetectKeyboardInput; ///< Booleano que indica si se permite o no la lectura de teclado (para evitar problemas al abrir menús, etc...)
+    Entity* fade;
 
     /// Constructora de la clase GameState
     /// \param stateID Identificador de nuestro estado
     /// \param g Puntero a la clase Game
-    GameState(ecs::stateId_type stateID) : stateID(stateID) { mngr_ = new Manager(); doNotDetectKeyboardInput = true;  };
+    GameState(ecs::stateId_type stateID) : stateID(stateID) { 
+        mngr_ = new Manager(); 
+        doNotDetectKeyboardInput = true; 
+       
+    };
     //Creamos un manager nuevo para cada estado e interrumpimos la lectura de teclado
 
 public:
