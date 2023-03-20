@@ -50,10 +50,11 @@ void EarthBossAnimationController::endAnim() {
 		emngr_->setChangeState(true);
 	}
 	else if (state == anims::WARNINGEARTH) {
-		image1->setCol(0);
-		image2->setCol(0);
 		std::cout << "Animacion de warning acabada, pasar a la siguiente" << std::endl;
 		emngr_->setChangeState(true);
+		thereIsAnimation = false;
+		image1->setCol(0);
+		image2->setCol(0);
 	}
 	timer_ = 0;
 }
