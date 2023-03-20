@@ -28,6 +28,7 @@ public:
     inline void setState(int newState);
     void update() override;
     void initComponent() override;
+    void setChangeState(bool c) { changeState = c; }
 private:
     //Dimensiones de la sala del boss de tierra
     SDL_Rect roomDimensions;
@@ -42,10 +43,11 @@ private:
 
     //Player referencia
     Entity* player;
+    int vine1 = -1;
+    int vine2 = -1;
 
     //Referencias
     EarthBossAnimationController* animController;
-    int state;
 
     //Variables numéricas
     int NUM_VINES = 6;
@@ -57,6 +59,14 @@ private:
 
     //Métodos
     void verticalAttackPosition();
+    void stateManagment();
+    void horizontalAttack();
+    void choosingVine();
+    //Vector de estados
+    int actualState = 0;
+    bool changeState = false;
+    std::vector<EarthBossStates> states = { PAUSE, WARNING, ATTACKHORIZONTAL, PAUSE, WARNING, ATTACKHORIZONTAL,PAUSE, WARNING, ATTACKVERTICAL, };
+
     
 
 };

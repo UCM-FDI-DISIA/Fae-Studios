@@ -20,6 +20,7 @@ private:
 	bool reached = false;
 	int speed;
 	int dir;
+	bool grow = true;
 public:
 	GrowVine(Vector2D posT, int s, int d, std::string o, bool back) : posFinalT(posT), speed(s), dir(d), orientation(o), goesBack(back), tr_(nullptr) {
 	}
@@ -27,4 +28,5 @@ public:
 	constexpr static ecs::cmpId_type id = ecs::_GROWVINE;
 	void initComponent() override;
 	void update() override;
+	void isGrowing(bool g) { grow = g; }
 };

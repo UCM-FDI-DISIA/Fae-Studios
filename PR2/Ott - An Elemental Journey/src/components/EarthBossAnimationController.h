@@ -25,20 +25,17 @@ public:
     inline int getNFrames(anims::Entities eAnims) { return anims::animations[eAnims][0].numFrames; }
     inline int getRowNum(anims::Entities eAnims) { return anims::animations[eAnims][0].rowNum; }
     inline int getColNum(anims::Entities eAnims) { return anims::animations[eAnims][0].colNum; }
-    inline bool isDamaged() { return damaged; }
-    inline void damage() { damaged = true; }
+    inline void setAnimation(bool a) { thereIsAnimation = a; }
 
 private:
-    bool damaged = false;
+    bool thereIsAnimation = false;
     anims::Entities state;
     FramedImage* image1;
     FramedImage* image2;
     EarthBossManager* emngr_;
     float timer;
 
-    int actualState = 0;
-    std::vector<EarthBossStates> states = { PAUSE, WARNING, ATTACKHORIZONTAL, PAUSE, WARNING, ATTACKHORIZONTAL,PAUSE, WARNING, ATTACKVERTICAL, };
-
+    int warningRepetition = 0;
     int damageTimer_, damageStartTime_, timer_ = 0;
     const int maxDamagedTimer_ = 500, FRAME_ANIMATION_TIME = 6;
 };
