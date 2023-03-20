@@ -3,6 +3,7 @@
 #include "FramedImage.h"
 #include "Transform.h"
 #include "EarthBossManager.h"
+#include "PhysicsComponent.h"
 
 void EnterBossRoom::initComponent() {
 	camera = mngr_->getCamera();
@@ -23,7 +24,7 @@ void EnterBossRoom::update() {
 	if (aux <= 1000) {
 		if (camera != nullptr && player != nullptr) {
 			camera->getComponent<CameraComponent>()->cameraShake(true);
-			//player->getComponent<PlayerInput>()->setActive(false);
+			player->getComponent<PhysicsComponent>()->Stop();
 			start = true;
 		}
 		if (col == 7) col = 0;
@@ -36,7 +37,7 @@ void EnterBossRoom::update() {
 	}
 	if (aux > 2000 && aux <= 5000 && start) {
 		startFight();
-		//player->getComponent<PlayerInput>()->setActive(true);
+		player->getComponent<PhysicsComponent>()->Resume();
 	}
 	else start = false;
 }
@@ -45,12 +46,7 @@ void EnterBossRoom::startFight() {
 	if (!added) {
 		earthBoss = mngr_->getEarthBoss();
 		earthBoss->getComponent<EarthBossManager>()->initializeEntities();
-		//earthBoss->getComponent<EarthBossManager>()->setState(0);
-		/*earthBoss->getComponent<EarthBossManager>()->isFighting(true);
-		auto ph = earthBoss->addComponent<PhysicsComponent>();
-		earthBoss->addComponent<Health>(5, ecs::Earth, false);
-		earthBoss->getComponent<PhysicsComponent>()->setVelocity(Vector2D(0,0));
-		earthBoss->getComponent<PhysicsComponent>()->lookDirection(true);*/
+		earthBoss->getComponent<EarthBossManager>()->isFighting(true);
 		added = true;
 	}
 }

@@ -13,12 +13,10 @@ void EarthBossManager::initComponent() {
 EarthBossManager::EarthBossManager(SDL_Rect rD) : roomDimensions(rD) {
 }
 void EarthBossManager::setState(int newState) {
-	state = newState;
 	switch (newState) {
 		case PRESENTATION:animController->setState(anims::EARTHBOSSPRESENT, presentBoss, nullptr); break;
 		case ATTACKVERTICAL:animController->setState(anims::EARTHBOSSATTACK, boss, nullptr); break;
 		case PAUSE:animController->setState(anims::PAUSE_ANIM, pause, nullptr); break;
-		//case WARNING:animController->setState(anims::WARNINGEARTH, presentBoss); break;
 	}
 }
 void EarthBossManager::initializeEntities() {
@@ -28,15 +26,15 @@ void EarthBossManager::initializeEntities() {
 	vine_Rect.x = roomDimensions.x + roomDimensions.w + offSet;
 	vine_Rect.w = roomDimensions.w;
 	vine_Rect.h = roomDimensions.h/3;
-	Vector2D finPosVine = Vector2D(roomDimensions.x, roomDimensions.y);
 	for (int i = 0; i < NUM_VINES; ++i) {
 		//COLISIONAR Y DAÑAR AL JUGADOR
+		Vector2D finPosVine = Vector2D(roomDimensions.x, roomDimensions.y + (roomDimensions.h / 3)*i);
 		Entity* vine = mngr_->addEntity(ecs::_grp_MINIBOSS);
 		vine_Rect.y = roomDimensions.y + (vine_Rect.h * i);
 		vine->addComponent<Transform>(vine_Rect);
 		vine->addComponent<ImageVine>(&sdlutils().images().at("vineBoss"), sdlutils().images().at("vineBoss").getNumRows(), sdlutils().images().at("vineBoss").getNumCols());
-		finPosVine.setX(vine_Rect.y + (vine_Rect.h * i));
 		vine->addComponent<GrowVine>(finPosVine, 2, -1, "horizontal");
+		vine->getComponent<GrowVine>()->isGrowing(false);
 		vineVector.push_back(vine);
 	}
 
@@ -44,26 +42,28 @@ void EarthBossManager::initializeEntities() {
 	SDL_Rect warning_Rect;
 	warning_Rect.x = roomDimensions.x;
 	warning_Rect.y = roomDimensions.y + offSet;
-	warning_Rect.w = roomDimensions.w / 5;
-	warning_Rect.h = sdlutils().images().at("warning").height();
+	warning_Rect.w = (sdlutils().images().at("warning").width() / 28) * 2;
+	warning_Rect.h = sdlutils().images().at("warning").height() * 2;
 	for (int j = 0; j < 5; ++j) {
+		float offsetAux = ((roomDimensions.w / 5) - ((sdlutils().images().at("warning").width() / 28) * 2)) / 2;
 		Entity* warning = mngr_->addEntity(ecs::_grp_MINIBOSS);
+		warning_Rect.x = roomDimensions.x + +offsetAux + ((roomDimensions.w/5) * j);
 		warning->addComponent<Transform>(warning_Rect);
 		warning->addComponent<FramedImage>(&sdlutils().images().at("warning"), sdlutils().images().at("warning").getNumRows(), sdlutils().images().at("warning").getNumCols());
-		warning_Rect.x = roomDimensions.x + (warning_Rect.w * j);
 		warningVector.push_back({ warning, j });
 	}
 
 	//CREACIÓN DE LOS 3 WARNINGS LATERALES
 	warning_Rect.x -= offSet;
-	warning_Rect.y = roomDimensions.y;
-	warning_Rect.w = sdlutils().images().at("warning").width();
-	warning_Rect.h = roomDimensions.h/3;
+	warning_Rect.y = roomDimensions.y;;
+	warning_Rect.w = (sdlutils().images().at("warning").width()/28)*2;
+	warning_Rect.h = sdlutils().images().at("warning").height()*2;
 	for (int j = 0; j < 3; ++j) {
+		float offsetAux = ((roomDimensions.h / 3) - (sdlutils().images().at("warning").height() * 2)) / 2;
 		Entity* warning = mngr_->addEntity(ecs::_grp_MINIBOSS);
+		warning_Rect.y = roomDimensions.y + +offsetAux+ ((roomDimensions.h / 3) * j);
 		warning->addComponent<Transform>(warning_Rect);
 		warning->addComponent<FramedImage>(&sdlutils().images().at("warning"), sdlutils().images().at("warning").getNumRows(), sdlutils().images().at("warning").getNumCols());
-		warning_Rect.y = roomDimensions.y + (warning_Rect.h * j);
 		warningVector.push_back({ warning, j+5 });
 	}
 
@@ -73,11 +73,13 @@ void EarthBossManager::initializeEntities() {
 	boss_Rect.y = roomDimensions.y - offSet;
 	boss_Rect.h = roomDimensions.h;
 	boss_Rect.w = roomDimensions.w / 5;
-	Vector2D finPosBoss = Vector2D{ (float)boss_Rect.x , (float)boss_Rect.y + (float)boss_Rect.h };
+	Vector2D finPosBoss = Vector2D{ (float)roomDimensions.x , (float)roomDimensions.y + (float)roomDimensions.h };
 	boss = mngr_->addEntity(ecs::_grp_MINIBOSS);
 	boss->addComponent<Transform>(boss_Rect);
 	boss->addComponent<FramedImage>(&sdlutils().images().at("animationWorm"), sdlutils().images().at("animationWorm").getNumRows(), sdlutils().images().at("animationWorm").getNumCols());
 	boss->addComponent<GrowVine>(finPosBoss, 2, 1, "vertical");
+	boss->getComponent<GrowVine>()->isGrowing(false);
+
 	//HEALTH, INTERSECCIONAR Y DAÑAR AL JUGADOR
 
 	//CREACIÓN DEL PAUSA
@@ -111,6 +113,7 @@ void EarthBossManager::initializeEntities() {
 		//platform->addComponent<FramedImage>(); // rellenar
 	}
 
+	animController->setAnimation(true);
 	setState(PRESENTATION);
 }
 
@@ -126,11 +129,52 @@ void EarthBossManager::verticalAttackPosition() {
 	else tr_->setPosition(Vector2D(roomDimensions.x + (4 * (roomDimensions.w / 5)), roomDimensions.y - offSet));
 
 }
+
+void EarthBossManager::horizontalAttack() {
+	if (vine1 != -1 && vine2 != -1) {
+		vineVector[vine1]->getComponent<GrowVine>()->isGrowing(true);
+		vineVector[vine2]->getComponent<GrowVine>()->isGrowing(true);
+	}
+}
+
+void EarthBossManager::choosingVine() {
+	int aux = rand() % 3;
+	
+	for (int i = 0; i < NUM_VINES; ++i) {
+		if (i != aux) {
+			if (vine1 == -1) vine1 = i;
+			else vine2 = i;
+		}
+	}
+}
+
 void EarthBossManager::update() {
 	if (isFight) {
-		if(state == WARNING){}
-		else if(state == ATTACKVERTICAL){}
-		else if(state == ATTACKHORIZONTAL){}
+		stateManagment();
+	}
+}
 
+void EarthBossManager::stateManagment() {
+	if (changeState) {
+		if (actualState != ATTACKHORIZONTAL) {
+			std::cout << "Realizando " << actualState << std::endl;
+			animController->setAnimation(true);
+			if(actualState == WARNING) {
+				choosingVine();
+				animController->setState(anims::WARNINGEARTH, warningVector[5+ vine1].warning, warningVector[5+ vine2].warning);
+			}
+			else if (actualState != WARNING) {
+				setState(states[actualState]);
+			}
+			
+			if (actualState < states.size() - 1)  ++actualState;
+			else actualState = 0;
+		}
+		else{
+			horizontalAttack();
+			std::cout << "Realizando ataque horizontal" << std::endl;
+			animController->setAnimation(false);
+		}
+		changeState = false;
 	}
 }

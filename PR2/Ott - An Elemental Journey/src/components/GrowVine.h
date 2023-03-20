@@ -17,11 +17,13 @@ private:
 	std::string orientation;
 	int speed;
 	int dir;
+	bool grow = true;
 public:
-	GrowVine(Vector2D posT, int s, int d, std::string o) : posFinalT(posT), speed(s), dir(d), orientation(o), tr_(nullptr) {
+	GrowVine(Vector2D posT, int s, int d, std::string o) : posFinalT(posT), speed(s), dir(d), orientation(o), tr_(nullptr){
 	}
 	virtual ~GrowVine() {}
 	constexpr static ecs::cmpId_type id = ecs::_GROWVINE;
 	void initComponent() override;
 	void update() override;
+	void isGrowing(bool g) { grow = g; }
 };
