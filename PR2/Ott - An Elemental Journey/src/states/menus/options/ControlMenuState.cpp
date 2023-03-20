@@ -23,6 +23,7 @@ ControlMenuState::ControlMenuState() : MenuState() {
     
     pos = Vector2D(sdlutils().width() / 2, 6 * sdlutils().height() / 7);
     constructors::button(mngr_, pos, "Volver", sdlutils().fonts().at("vcr_osd48"), [this]() {
+        sdlutils().soundEffects().at("button_back").play(0, ecs::_channel_UI);
         fade->getComponent<FadeTransitionComponent>()->setFunction([]() { GameStateMachine::instance()->popState(); });
         fade->getComponent<FadeTransitionComponent>()->revert();
     });

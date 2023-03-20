@@ -22,23 +22,27 @@ OptionsMenuState::OptionsMenuState() : MenuState() {
 
 	pos = Vector2D(sdlutils().width() / 2, 3 * sdlutils().height() / 7);
 	constructors::button(mngr_, pos, "Gráficos", sdlutils().fonts().at("vcr_osd24"), []() {
-			std::cout << "opciones graficas" << std::endl;
+		sdlutils().soundEffects().at("button").play(0, ecs::_channel_UI);
+		std::cout << "opciones graficas" << std::endl;
 	});
 
 	pos = Vector2D(sdlutils().width() / 2, 4 * sdlutils().height() / 7);
 	constructors::button(mngr_, pos, "Música y sonidos", sdlutils().fonts().at("vcr_osd16"), [this]() {
+		sdlutils().soundEffects().at("button").play(0, ecs::_channel_UI);
 		fade->getComponent<FadeTransitionComponent>()->setFunction([]() { GameStateMachine::instance()->pushState(new MusicOptionsMenuState()); });
 		fade->getComponent<FadeTransitionComponent>()->revert();
 	});
 
 	pos = Vector2D(sdlutils().width() / 2, 5 * sdlutils().height() / 7);
 	constructors::button(mngr_, pos, "Controles", sdlutils().fonts().at("vcr_osd24"), [this]() {
+		sdlutils().soundEffects().at("button").play(0, ecs::_channel_UI);
 		fade->getComponent<FadeTransitionComponent>()->setFunction([]() { GameStateMachine::instance()->pushState(new ControlMenuState()); });
 		fade->getComponent<FadeTransitionComponent>()->revert();
 	});
 
 	pos = Vector2D(sdlutils().width() / 2, 6 * sdlutils().height() / 7);
 	constructors::button(mngr_, pos, "Volver", sdlutils().fonts().at("vcr_osd48"), [this]() {
+		sdlutils().soundEffects().at("button_back").play(0, ecs::_channel_UI);
 		fade->getComponent<FadeTransitionComponent>()->setFunction([]() { GameStateMachine::instance()->popState(); });
 		fade->getComponent<FadeTransitionComponent>()->revert();
 	});
