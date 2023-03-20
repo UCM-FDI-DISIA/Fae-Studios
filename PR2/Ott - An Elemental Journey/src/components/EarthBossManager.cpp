@@ -130,23 +130,25 @@ void EarthBossManager::verticalAttackPosition() {
 
 void EarthBossManager::horizontalAttack() {
 	if (vine1 != -1 && vine2 != -1) {
-		vineVector[vine1]->getComponent<GrowVine>()->isGrowing(true);
-		vineVector[vine2]->getComponent<GrowVine>()->isGrowing(true);
-	}
-}
-
-void EarthBossManager::update() {
-	if (isFight) {
-		if(state == WARNING){}
-		else if(state == ATTACKVERTICAL){}
-		else if(state == ATTACKHORIZONTAL){}
+		if (vine1 == 0 || vine2 == 0) {
+			vineVector[0]->getComponent<GrowVine>()->isGrowing(true);
+			vineVector[1]->getComponent<GrowVine>()->isGrowing(true);
+		}
+		if (vine1 == 1 || vine2 == 1) {
+			vineVector[2]->getComponent<GrowVine>()->isGrowing(true);
+			vineVector[3]->getComponent<GrowVine>()->isGrowing(true);
+		}
+		if (vine1 == 2 || vine2 == 2) {
+			vineVector[4]->getComponent<GrowVine>()->isGrowing(true);
+			vineVector[5]->getComponent<GrowVine>()->isGrowing(true);
+		}
 	}
 }
 
 void EarthBossManager::choosingVine() {
 	int aux = rand() % 3;
 	
-	for (int i = 0; i < NUM_VINES; ++i) {
+	for (int i = 0; i < 3; ++i) {
 		if (i != aux) {
 			if (vine1 == -1) vine1 = i;
 			else vine2 = i;
