@@ -2,16 +2,21 @@
 #include "../ecs/Component.h"
 #include <SDL.h>
 #include "../sdlutils/SDLUtils.h"
+#include <functional>
 
 class FadeTransitionComponent : public Component {
 private:
 	bool opaqueToTransparent;
 	int alpha;
 	bool active;
+	bool inProgress;
+	bool execute;
+	bool executed;
+	std::function<void()> callback;
 
 public:
 	constexpr static ecs::cmpId_type id = ecs::_FADEOUTANIM;
-	FadeTransitionComponent(bool opaqueToTransparent) : opaqueToTransparent(opaqueToTransparent), active(false) {
+	FadeTransitionComponent(bool opaqueToTransparent) : opaqueToTransparent(opaqueToTransparent), active(false), inProgress(false), execute(true), executed(false), callback(nullptr) {
 		sdlutils().images().at("blackbackground").setAlpha(255);
 		
 		if (this->opaqueToTransparent) alpha = 255;
@@ -19,9 +24,12 @@ public:
 	}
 	void render() override;
 	void update() override;
-	inline void revert() { opaqueToTransparent = !opaqueToTransparent; }
-	inline void activate() { active = true; }
+	inline void revert() { inProgress = true; opaqueToTransparent = !opaqueToTransparent; execute = true; executed = false; }
+	inline void revertWithoutExecute() { inProgress = true; opaqueToTransparent = !opaqueToTransparent; execute = false; };
+	inline void activate() { active = true; execute = true; }
 	inline void deactivate() { active = false; }
+	inline void activateWithoutExecute() { active = true; execute = false; };
+	inline void setFunction(std::function<void()> const& c) { callback = c; }
 	inline bool hasEndedAnimation() { return (alpha == 0 || alpha == 255); }
 };
 

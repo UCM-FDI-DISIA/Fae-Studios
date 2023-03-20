@@ -16,7 +16,6 @@
 MainMenuState::MainMenuState() : MenuState() {    
     SDL_Color yellow{ 255,217,102 };
 	Vector2D pos;
-    SDL_Color tmp{ 100,0,0 };
     
     constructors::background(mngr_, &sdlutils().images().at("mainmenubackground"));
 
@@ -37,27 +36,32 @@ MainMenuState::MainMenuState() : MenuState() {
     littleOtt->addComponent<FramedImage>(&sdlutils().images().at("ott_luz"), 9, 8);
 
     pos = Vector2D(sdlutils().width() / 2, 3 * sdlutils().height() / 7);
-    constructors::button(mngr_, pos, "Jugar", sdlutils().fonts().at("vcr_osd48"), []() {
-            GameStateMachine::instance()->changeState(new PlayState());
+    constructors::button(mngr_, pos, "Jugar", sdlutils().fonts().at("vcr_osd48"), [this]() {
+        sdlutils().soundEffects().at("play_button").play(0, ecs::_channel_UI);
+        GameStateMachine::instance()->changeState(new PlayState());
     });
 
     pos = Vector2D(sdlutils().width() / 2, 4 * sdlutils().height() / 7);
-    constructors::button(mngr_, pos, "Cargar", sdlutils().fonts().at("vcr_osd48"), []() {
-        GameStateMachine::instance()->pushState(new OptionsMenuState());
+    constructors::button(mngr_, pos, "Cargar", sdlutils().fonts().at("vcr_osd48"), [this]() {
+        sdlutils().soundEffects().at("button").play(0, ecs::_channel_UI);
+        fade->getComponent<FadeTransitionComponent>()->setFunction([]() { GameStateMachine::instance()->pushState(new OptionsMenuState()); });
+        fade->getComponent<FadeTransitionComponent>()->revert();
     });
 
     pos = Vector2D(sdlutils().width() / 2, 5 * sdlutils().height() / 7);
     constructors::button(mngr_, pos, "Opciones", sdlutils().fonts().at("vcr_osd24"), [this]() {
+        sdlutils().soundEffects().at("button").play(0, ecs::_channel_UI);
+        fade->getComponent<FadeTransitionComponent>()->setFunction([](){ GameStateMachine::instance()->pushState(new OptionsMenuState()); });
         fade->getComponent<FadeTransitionComponent>()->revert();
-        GameStateMachine::instance()->pushState(new OptionsMenuState());
     });
 
     pos = Vector2D(sdlutils().width() / 2, 6 * sdlutils().height() / 7);
     constructors::exitButton(mngr_, pos, []() {
-            game().exitGame();
+        sdlutils().soundEffects().at("button").play(0, ecs::_channel_UI);
+        game().exitGame();
     });
 
-    fade->getComponent<FadeTransitionComponent>()->activate();
+    fade->getComponent<FadeTransitionComponent>()->activateWithoutExecute();
 }
 
 void MainMenuState::update() {
