@@ -128,7 +128,7 @@ void PlayerInput::update()
 		auto vineCol = static_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->checkCollisionWithVine();
 		int speed = 1;
 		if (vineCol.first) {
-			std::cout << "tocando enredadera!" << std::endl;
+			//std::cout << "tocando enredadera!" << std::endl;
 			if (input->isKeyDown(SDLK_UP) && vineCol.second) {
 				physics_->setClimbing(true, -speed);
 			}

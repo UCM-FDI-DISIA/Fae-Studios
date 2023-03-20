@@ -6,9 +6,9 @@
 #include "FramedImage.h"
 
 void EarthBossManager::initComponent() {
-	//INICIALIZACION DEL PLAYER Y TRANSFORM
+	//INICIALIZACION DEL PLAYER
 	player = mngr_->getPlayer();
-	//tr_ = ent_->getComponent<Transform>();
+	animController = ent_->addComponent<EarthBossAnimationController>(this);
 }
 EarthBossManager::EarthBossManager(SDL_Rect rD) : roomDimensions(rD) {
 }
@@ -22,8 +22,8 @@ void EarthBossManager::setState(int newState) {
 	}
 }
 void EarthBossManager::initializeEntities() {
-	animController = ent_->addComponent<EarthBossAnimationController>(this);
-	//CREACIÓN DE LAS 3 ENREDADERAS LATERALES
+	//animController = ent_->addComponent<EarthBossAnimationController>(this);
+	//CREACIÓN DE LAS 6 ENREDADERAS LATERALES
 	SDL_Rect vine_Rect;
 	vine_Rect.x = roomDimensions.x + roomDimensions.w + offSet;
 	vine_Rect.w = roomDimensions.w;
@@ -32,39 +32,41 @@ void EarthBossManager::initializeEntities() {
 	for (int i = 0; i < NUM_VINES; ++i) {
 		//COLISIONAR Y DAÑAR AL JUGADOR
 		Entity* vine = mngr_->addEntity(ecs::_grp_MINIBOSS);
-		vine_Rect.y = roomDimensions.y + (vine_Rect.h * i);
+		if (i % 2 == 0)vine_Rect.y = roomDimensions.y + (vine_Rect.h * ((i + 1) / 2) + (vine_Rect.h / 5));
+		else vine_Rect.y = ((vineVector[i - 1]->getComponent<Transform>()->getPosition().getY()) + (vine_Rect.h / 2.5));
 		vine->addComponent<Transform>(vine_Rect);
 		vine->addComponent<ImageVine>(&sdlutils().images().at("vineBoss"), sdlutils().images().at("vineBoss").getNumRows(), sdlutils().images().at("vineBoss").getNumCols());
-		finPosVine.setX(vine_Rect.y + (vine_Rect.h * i));
 		vine->addComponent<GrowVine>(finPosVine, 2, -1, "horizontal");
 		vineVector.push_back(vine);
 	}
 
-	//CREACIÓN DE LOS 5 WARNINGS SUPERIORES
+	// CREACION DE LOS 5 WARNINGS SUPERIORES
 	SDL_Rect warning_Rect;
 	warning_Rect.x = roomDimensions.x;
 	warning_Rect.y = roomDimensions.y + offSet;
-	warning_Rect.w = roomDimensions.w / 5;
-	warning_Rect.h = sdlutils().images().at("warning").height();
+	warning_Rect.w = (sdlutils().images().at("warning").width() / 28) * 2;
+	warning_Rect.h = sdlutils().images().at("warning").height() * 2;
 	for (int j = 0; j < 5; ++j) {
+		float offsetAux = ((roomDimensions.w / 5) - ((sdlutils().images().at("warning").width() / 28) * 2)) / 2;
 		Entity* warning = mngr_->addEntity(ecs::_grp_MINIBOSS);
+		warning_Rect.x = roomDimensions.x + +offsetAux + ((roomDimensions.w / 5) * j);
 		warning->addComponent<Transform>(warning_Rect);
 		warning->addComponent<FramedImage>(&sdlutils().images().at("warning"), sdlutils().images().at("warning").getNumRows(), sdlutils().images().at("warning").getNumCols());
-		warning_Rect.x = roomDimensions.x + (warning_Rect.w * j);
 		warningVector.push_back({ warning, j });
 	}
 
 	//CREACIÓN DE LOS 3 WARNINGS LATERALES
 	warning_Rect.x -= offSet;
 	warning_Rect.y = roomDimensions.y;
-	warning_Rect.w = sdlutils().images().at("warning").width();
-	warning_Rect.h = roomDimensions.h/3;
+	warning_Rect.w = (sdlutils().images().at("warning").width() / 28) * 2;
+	warning_Rect.h = sdlutils().images().at("warning").height() * 2;
 	for (int j = 0; j < 3; ++j) {
+		float offsetAux = ((roomDimensions.h / 3) - (sdlutils().images().at("warning").height() * 2)) / 2;
 		Entity* warning = mngr_->addEntity(ecs::_grp_MINIBOSS);
+		warning_Rect.y = roomDimensions.y + +offsetAux + ((roomDimensions.h / 3) * j);
 		warning->addComponent<Transform>(warning_Rect);
 		warning->addComponent<FramedImage>(&sdlutils().images().at("warning"), sdlutils().images().at("warning").getNumRows(), sdlutils().images().at("warning").getNumCols());
-		warning_Rect.y = roomDimensions.y + (warning_Rect.h * j);
-		warningVector.push_back({ warning, j+5 });
+		warningVector.push_back({ warning, j + 5 });
 	}
 
 	//CREACIÓN DEL BOSS
@@ -131,6 +133,5 @@ void EarthBossManager::update() {
 		if(state == WARNING){}
 		else if(state == ATTACKVERTICAL){}
 		else if(state == ATTACKHORIZONTAL){}
-
 	}
 }

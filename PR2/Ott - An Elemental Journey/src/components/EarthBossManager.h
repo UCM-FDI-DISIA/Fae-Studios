@@ -48,7 +48,7 @@ private:
     int state;
 
     //Variables numéricas
-    int NUM_VINES = 3;
+    int NUM_VINES = 6;
     int NUM_WARNINGS = 8;
     float offSet = 30;
 
