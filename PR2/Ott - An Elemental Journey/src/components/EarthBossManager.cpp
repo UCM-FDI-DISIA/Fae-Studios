@@ -6,9 +6,9 @@
 #include "FramedImage.h"
 
 void EarthBossManager::initComponent() {
-	//INICIALIZACION DEL PLAYER Y TRANSFORM
+	//INICIALIZACION DEL PLAYER
 	player = mngr_->getPlayer();
-	//tr_ = ent_->getComponent<Transform>();
+	animController = ent_->addComponent<EarthBossAnimationController>(this);
 }
 EarthBossManager::EarthBossManager(SDL_Rect rD) : roomDimensions(rD) {
 }
@@ -20,8 +20,8 @@ void EarthBossManager::setState(int newState) {
 	}
 }
 void EarthBossManager::initializeEntities() {
-	animController = ent_->addComponent<EarthBossAnimationController>(this);
-	//CREACIÓN DE LAS 3 ENREDADERAS LATERALES
+	//animController = ent_->addComponent<EarthBossAnimationController>(this);
+	//CREACIÓN DE LAS 6 ENREDADERAS LATERALES
 	SDL_Rect vine_Rect;
 	vine_Rect.x = roomDimensions.x + roomDimensions.w + offSet;
 	vine_Rect.w = roomDimensions.w;
@@ -30,7 +30,8 @@ void EarthBossManager::initializeEntities() {
 		//COLISIONAR Y DAÑAR AL JUGADOR
 		Vector2D finPosVine = Vector2D(roomDimensions.x, roomDimensions.y + (roomDimensions.h / 3)*i);
 		Entity* vine = mngr_->addEntity(ecs::_grp_MINIBOSS);
-		vine_Rect.y = roomDimensions.y + (vine_Rect.h * i);
+		if (i % 2 == 0)vine_Rect.y = roomDimensions.y + (vine_Rect.h * ((i + 1) / 2) + (vine_Rect.h / 5));
+		else vine_Rect.y = ((vineVector[i - 1]->getComponent<Transform>()->getPosition().getY()) + (vine_Rect.h / 2.5));
 		vine->addComponent<Transform>(vine_Rect);
 		vine->addComponent<ImageVine>(&sdlutils().images().at("vineBoss"), sdlutils().images().at("vineBoss").getNumRows(), sdlutils().images().at("vineBoss").getNumCols());
 		vine->addComponent<GrowVine>(finPosVine, 2, -1, "horizontal");
@@ -38,7 +39,7 @@ void EarthBossManager::initializeEntities() {
 		vineVector.push_back(vine);
 	}
 
-	//CREACIÓN DE LOS 5 WARNINGS SUPERIORES
+	// CREACION DE LOS 5 WARNINGS SUPERIORES
 	SDL_Rect warning_Rect;
 	warning_Rect.x = roomDimensions.x;
 	warning_Rect.y = roomDimensions.y + offSet;
@@ -134,6 +135,14 @@ void EarthBossManager::horizontalAttack() {
 	if (vine1 != -1 && vine2 != -1) {
 		vineVector[vine1]->getComponent<GrowVine>()->isGrowing(true);
 		vineVector[vine2]->getComponent<GrowVine>()->isGrowing(true);
+	}
+}
+
+void EarthBossManager::update() {
+	if (isFight) {
+		if(state == WARNING){}
+		else if(state == ATTACKVERTICAL){}
+		else if(state == ATTACKHORIZONTAL){}
 	}
 }
 
