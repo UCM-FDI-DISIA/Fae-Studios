@@ -3,10 +3,14 @@
 #include "../../GameStateMachine.h"
 #include "../../../sdlutils/SDLUtils.h"
 #include "../../../game/Constructors.h"
+#include "../../../components/FadeTransitionComponent.h"
 
 MusicOptionsMenuState::MusicOptionsMenuState() : MenuState() {
 	Vector2D pos;
 	constructors::background(mngr_, &sdlutils().images().at("playbackground"));
+
+	fade = mngr_->addEntity(ecs::_grp_FADEOUT);
+	fade->addComponent<FadeTransitionComponent>(true);
 		
 	pos = Vector2D(sdlutils().width() / 2, 2 * sdlutils().height() / 9);
 	constructors::slider(mngr_, pos, "Volumen general", 0.0f, 100.0f, 100.0f, [this](int v) {
@@ -24,10 +28,12 @@ MusicOptionsMenuState::MusicOptionsMenuState() : MenuState() {
 	});
 
 	pos = Vector2D(sdlutils().width() / 2, 6 * sdlutils().height() / 7);
-	constructors::button(mngr_, pos, "Volver", sdlutils().fonts().at("vcr_osd48"), []() {
-		GameStateMachine::instance()->popState();
+	constructors::button(mngr_, pos, "Volver", sdlutils().fonts().at("vcr_osd48"), [this]() {
+		fade->getComponent<FadeTransitionComponent>()->setFunction([]() { GameStateMachine::instance()->popState(); });
+		fade->getComponent<FadeTransitionComponent>()->revert();
 	});
 
+	fade->getComponent<FadeTransitionComponent>()->activateWithoutExecute();
 }
 
 

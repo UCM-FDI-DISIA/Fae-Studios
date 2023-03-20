@@ -31,7 +31,6 @@ void Button::handleInput() {
         currentButtonFrame = MOUSE_OVER; //Indica que el ratón está sobre el botón
     }
 
-
     if (SDL_PointInRect(&mousePosition, &buttonRect) && InputHandler::instance()->getMouseButtonState(InputHandler::LEFT)) { //Indica que se ha pulsado el bot�n
         currentButtonFrame = CLICKED;
         textPosition = Vector2D(transform->getPosition().getX() + (transform->getWidth() - text->getWidth())/2, transform->getPosition().getY() + (transform->getHeight() - text->getHeight())/2);

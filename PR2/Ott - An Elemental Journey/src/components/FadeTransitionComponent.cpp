@@ -8,7 +8,17 @@ void FadeTransitionComponent::render() {
 
 void FadeTransitionComponent::update() {
 	if (active) {
+		inProgress = true;
 		if (opaqueToTransparent && alpha > 0) alpha--;
 		else if (!opaqueToTransparent && alpha < 255) alpha++;
 	}
+
+	if (hasEndedAnimation() && inProgress) {
+		inProgress = false;
+		if (execute && !executed) {
+			executed = true;
+			callback();
+		}
+	}
+
 }
