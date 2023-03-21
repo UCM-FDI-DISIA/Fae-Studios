@@ -16,17 +16,17 @@
 #include "../components/ImageVine.h"
 #include "../components/GrowVine.h"
 #include "../game/ecs.h"
+#include "../components/FadeTransitionComponent.h"
 
 PlayState::PlayState() : GameState(ecs::_state_PLAY) {
-	Mix_Init(MIX_INIT_FLAC | MIX_INIT_MOD | MIX_INIT_MP3 | MIX_INIT_OGG | MIX_INIT_MID);
-	Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 2048);
-	music = Mix_LoadMUS("../../sounds/musics/Ambient 4.wav"); 
-		Mix_PlayMusic(music, -1);
-
 	mngr_->setPlayer(constructors::player(mngr_, 0, 0, 100, 120));
 	mngr_->setCamera(constructors::camera(mngr_, 700, 2000, sdlutils().width(), sdlutils().height()));
 	player_ = mngr_->getPlayer();
 	camera_ = mngr_->getCamera();
+
+	fade = mngr_->addEntity(ecs::_grp_FADEOUT);
+	fade->addComponent<FadeTransitionComponent>(true, 1);
+	fade->getComponent<FadeTransitionComponent>()->activateWithoutExecute();
 
 	// se reinicializan los componentes del jugador porque muchos tienen referencias entre ellos y con la cámara 
 	// y no se podrían coger de otra forma más que forzando el initComponent()

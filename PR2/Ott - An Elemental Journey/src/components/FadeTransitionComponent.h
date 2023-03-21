@@ -13,10 +13,11 @@ private:
 	bool execute;
 	bool executed;
 	std::function<void()> callback;
+	int speed;
 
 public:
 	constexpr static ecs::cmpId_type id = ecs::_FADEOUTANIM;
-	FadeTransitionComponent(bool opaqueToTransparent) : opaqueToTransparent(opaqueToTransparent), active(false), inProgress(false), execute(true), executed(false), callback(nullptr) {
+	FadeTransitionComponent(bool opaqueToTransparent, int speed = 5) : opaqueToTransparent(opaqueToTransparent), active(false), inProgress(false), execute(true), executed(false), callback(nullptr), speed(speed) {
 		sdlutils().images().at("blackbackground").setAlpha(255);
 		
 		if (this->opaqueToTransparent) alpha = 255;

@@ -38,7 +38,9 @@ MainMenuState::MainMenuState() : MenuState() {
     pos = Vector2D(sdlutils().width() / 2, 3 * sdlutils().height() / 7);
     constructors::button(mngr_, pos, "Jugar", sdlutils().fonts().at("vcr_osd48"), [this]() {
         sdlutils().soundEffects().at("play_button").play(0, ecs::_channel_UI);
-        GameStateMachine::instance()->changeState(new PlayState());
+        fade->getComponent<FadeTransitionComponent>()->setFunction([]() { GameStateMachine::instance()->changeState(new PlayState()); });
+        fade->getComponent<FadeTransitionComponent>()->revert();
+        playStateInit = true;
     });
 
     pos = Vector2D(sdlutils().width() / 2, 4 * sdlutils().height() / 7);
@@ -62,13 +64,14 @@ MainMenuState::MainMenuState() : MenuState() {
     });
 
     fade->getComponent<FadeTransitionComponent>()->activateWithoutExecute();
+    playStateInit = false;
 }
 
 void MainMenuState::update() {
     GameState::update();
 	if (SDL_GetTicks() >= animTime) { //Se cambia la animaci�n de ca�da
 		animFrame = (animFrame + 1) % 2;
-        littleOtt->getComponent<FramedImage>()->setCol(animFrame);
+        if(!playStateInit) littleOtt->getComponent<FramedImage>()->setCol(animFrame);
 		animTime = SDL_GetTicks() + MAIN_MENU_OTT_ANIM_TIME;
 	}
 }

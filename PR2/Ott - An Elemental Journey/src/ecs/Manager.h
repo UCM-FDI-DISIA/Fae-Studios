@@ -52,13 +52,15 @@ public:
     /// Llama al handleInput de todas las entidades asociadas al manager
     void handleInput();
 
-    Entity* getPlayer() { return player_; } // handler para el player
-    void setPlayer(Entity* p) { player_ = p; } // handler para el player
+    inline Entity* getPlayer() { return player_; } // handler para el player
+    inline void setPlayer(Entity* p) { player_ = p; } // handler para el player
 
-    Entity* getCamera() { return camera_; } // handler para el player
-    void setCamera(Entity* c) { camera_ = c; } // handler para el player
+    inline Entity* getCamera() { return camera_; } // handler para el player
+    inline void setCamera(Entity* c) { camera_ = c; } // handler para el player
 
-    void setDelete() { deleted = true; }
+    inline void setDelete() { deleted = true; }
+
+    inline bool isDeleted() { return deleted; }
 };
 
 #endif //TPV2_MANAGER_H
