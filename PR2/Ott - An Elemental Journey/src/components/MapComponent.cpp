@@ -7,6 +7,7 @@
 #include "../states/GameStateMachine.h"
 #include "../game/Constructors.h"
 
+const std::string currentLevel = "level1";
 
 std::vector<std::string> strSplit(std::string s, char c) {
 
@@ -54,7 +55,7 @@ MapComponent::MapComponent(Entity* fadeOut, PlayState* game) : fadeOut(fadeOut),
         vectorTiles.push_back({});
     }
 
-    tilemap = &sdlutils().images().at(sdlutils().levels().at("waterMap").tileset);
+    tilemap = &sdlutils().images().at(sdlutils().levels().at(currentLevel).tileset);
 }
 
 void MapComponent::initComponent() {
@@ -62,7 +63,7 @@ void MapComponent::initComponent() {
     player_ = mngr_->getPlayer();
     anim_ = fadeOut->getComponent<FadeOutAnimationComponent>();
     anim_->setMap(ent_);
-    loadMap(sdlutils().levels().at("waterMap").route);
+    loadMap(sdlutils().levels().at(currentLevel).route);
 }
 
 void MapComponent::update() {
@@ -160,7 +161,7 @@ void MapComponent::loadMap(std::string path) {
                 const auto& tiles = layer->getLayerAs<tmx::TileLayer>().getTiles();
                 //Guardamos tiles en un vector
                 SDL_Rect camPos = cam->camera;
-                int cols = sdlutils().levels().at("waterMap").cols;
+                int cols = sdlutils().levels().at(currentLevel).cols;
                 int offsetX = camPos.x;
                 int offsetY = camPos.y;
                 int i = 0;
@@ -170,19 +171,6 @@ void MapComponent::loadMap(std::string path) {
                     SDL_Rect sala = { (int)(rect.left * tileScale()), (int)(rect.top* tileScale()), (int)(rect.width * tileScale()), (int)(rect.height * tileScale()) };
                     for (auto tile : tiles) {
                         SDL_Rect tileRect = { (int)(o % cols) * usedTileSize, ((int)(o / cols) * usedTileSize), usedTileSize, usedTileSize };
-                        /*std::cout << tileRect.x << " "
-                            << tileRect.y << " "
-                            << tileRect.w << " "
-                            << tileRect.h << " "
-                            << std::endl;
-                            
-
-                        std::cout << sala.x << " "
-                            << sala.y << " "
-                            << sala.w << " "
-                            << sala.h << " "
-                            << std::endl;*/
-
                         if (SDL_HasIntersection(&sala, &tileRect)) {
                             vectorTiles[i].first = std::stof(salas.getClass());
                             vectorTiles[i].second.push_back(std::make_pair(tile.ID, tileRect));
@@ -346,7 +334,7 @@ std::vector<std::pair<SDL_Rect, SDL_Rect>> MapComponent::checkCollisions(const S
 
 void MapComponent::render() {
     SDL_Rect camPos = cam->camera;
-    int cols = sdlutils().levels().at("waterMap").cols;
+    int cols = sdlutils().levels().at(currentLevel).cols;
     int offsetX = camPos.x;
     int offsetY = camPos.y;
     int room = currentRoom;

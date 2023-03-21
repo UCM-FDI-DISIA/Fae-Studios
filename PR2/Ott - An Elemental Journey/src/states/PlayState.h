@@ -17,7 +17,7 @@ private:
     Entity* player_;
     Entity* camera_;
     MapComponent* map_;
-    std::vector<std::list<Entity*>> enemies;
+    std::vector<std::list<Entity*>> enemies, initialEnemies;
     std::vector<std::vector<std::list<Entity*>::iterator>> enemyIt;
 
     float gravityValue = 0.2;
@@ -54,7 +54,7 @@ public:
         int room = map_->getCurrentRoom();
         enemies[numRoom].erase(enemyIt[numRoom][itPos]);
     }
-
+    void resetEnemies() { enemies = initialEnemies; }
     void handleInput() override;
 
     inline Entity* getPlayer() { return player_; }

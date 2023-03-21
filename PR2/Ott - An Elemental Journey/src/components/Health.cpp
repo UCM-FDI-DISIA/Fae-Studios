@@ -31,6 +31,7 @@ void Health::recall()
 		ent_->getComponent<Transform>()->setPosition(newPos);
 		actualLife = maxLife;
 		dead = false;
+		static_cast<PlayState*>(GameStateMachine::instance()->currentState())->resetEnemies();
 		std::cout << "vuelvo a santuario" << std::endl;
 	}
 	else 
