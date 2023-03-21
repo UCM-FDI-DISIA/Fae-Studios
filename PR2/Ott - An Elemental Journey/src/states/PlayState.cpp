@@ -32,12 +32,13 @@ PlayState::PlayState() : GameState(ecs::_state_PLAY) {
 	// y no se podrían coger de otra forma más que forzando el initComponent()
 	player_->reinitCmpts();
 
+	/*
 	//prueba para movimiento de agua
 	auto waterM = mngr_->addEntity(ecs::_grp_WATER);
 	//500, 2000, 100, 120
 	waterM->addComponent<Transform>(3500, 600, 300, 420);
 	waterM->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
-	
+	*/
 	// COMENTO A LOS ENEMIGOS PORQUE ME ESTÁN DANDO POR CULO UN RATO CHAU BESOS
 
 	constructors::eSlime(mngr_, "fireSlime", 800, 2100, 1.0f, ecs::Fire);

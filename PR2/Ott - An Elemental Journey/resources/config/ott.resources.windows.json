@@ -40,6 +40,7 @@
 		{ "id" : "sanctuary", "file" : "../resources/images/tests/sanctuary.png", "rows" : 1, "cols" : 1},
 		{ "id" : "level1bg", "file" : "../resources/images/levels/fondo.png", "rows" : 1, "cols" : 1},
 		{ "id" : "level1tileset", "file" : "../resources/images/levels/tilesetlevel1.png", "rows" : 34, "cols" : 20},
+		{ "id" : "waterTileset", "file" : "../resources/images/levels/Tiles_Agua_Bosque.png", "rows" : 34, "cols" : 20},
 		{ "id" : "shield", "file" : "../resources/images/levels/Shield.png", "rows" : 1, "cols" : 1},
 		{ "id" : "whip", "file" : "../resources/images/levels/whip.png", "rows" : 1, "cols" : 1},
 		{ "id" : "waterShield", "file" : "../resources/images/levels/waterShield.png", "rows" : 1, "cols" : 1},
@@ -78,7 +79,8 @@
   
   "maps": [
 		{ "id" : "level1", "file" : "../resources/levels/EarthMap2.tmx", "cols" : 192, "tileset" : "level1tileset", "background" : "level1bg" },
-		{ "id" : "demo", "file" : "../resources/levels/DEMO.tmx", "cols" : 100, "tileset" : "level1tileset", "background" : "level1bg" }
+		{ "id" : "demo", "file" : "../resources/levels/DEMO.tmx", "cols" : 100, "tileset" : "level1tileset", "background" : "level1bg" },
+		{ "id" : "waterMap", "file" : "../resources/levels/WaterMap.tmx", "cols" : 180, "tileset" : "waterTileset", "background" : "level1bg" }
 	]
 
 }

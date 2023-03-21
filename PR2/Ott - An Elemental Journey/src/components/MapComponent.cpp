@@ -54,7 +54,7 @@ MapComponent::MapComponent(Entity* fadeOut, PlayState* game) : fadeOut(fadeOut),
         vectorTiles.push_back({});
     }
 
-    tilemap = &sdlutils().images().at(sdlutils().levels().at("level1").tileset);
+    tilemap = &sdlutils().images().at(sdlutils().levels().at("waterMap").tileset);
 }
 
 void MapComponent::initComponent() {
@@ -62,7 +62,7 @@ void MapComponent::initComponent() {
     player_ = mngr_->getPlayer();
     anim_ = fadeOut->getComponent<FadeOutAnimationComponent>();
     anim_->setMap(ent_);
-    loadMap(sdlutils().levels().at("level1").route);
+    loadMap(sdlutils().levels().at("waterMap").route);
 }
 
 void MapComponent::update() {
@@ -80,7 +80,7 @@ void MapComponent::update() {
                 float newScale = vectorTiles[std::stoi(trigger.first)].first;
                 playerRect.w = (playerRect.w / oldScale) * newScale;
                 playerRect.h = (playerRect.h / oldScale) * newScale;
-
+                bool verticalTrigger = false;
                 if (rect.w > rect.h) { // TRIGGER VERTICAL
                     if (result.y < rect.y) { // por arriba
                         newPos = Vector2D(playerRect.x,
@@ -90,6 +90,7 @@ void MapComponent::update() {
                         newPos = Vector2D(newRect.x,
                             newRect.y - newRect.h - playerRect.h);
                     }
+                    verticalTrigger = true;
                 }
                 else { // TRIGGER HORIZONTAL
                     if (result.x > rect.x + rect.w / 2) { // CHOCAS DESDE LA DERECHA
@@ -101,15 +102,16 @@ void MapComponent::update() {
                             newRect.y + newRect.h - playerRect.h);
                     }
                 }
-                changeRoom(trigger.first, newPos);
+                changeRoom(trigger.first, newPos, verticalTrigger);
+                break;
             }
         }
     }
 }
 
-void MapComponent::changeRoom(std::string newRoom, Vector2D newPos) {
+void MapComponent::changeRoom(std::string newRoom, Vector2D newPos, bool verticalTrigger) {
     // std::stoi -> String TO Int
-    anim_->startFadeOut(newPos, std::stoi(newRoom));
+    anim_->startFadeOut(newPos, std::stoi(newRoom), verticalTrigger);
 
 }
 
@@ -158,7 +160,7 @@ void MapComponent::loadMap(std::string path) {
                 const auto& tiles = layer->getLayerAs<tmx::TileLayer>().getTiles();
                 //Guardamos tiles en un vector
                 SDL_Rect camPos = cam->camera;
-                int cols = sdlutils().levels().at("level1").cols;
+                int cols = sdlutils().levels().at("waterMap").cols;
                 int offsetX = camPos.x;
                 int offsetY = camPos.y;
                 int i = 0;
@@ -229,28 +231,7 @@ void MapComponent::loadMap(std::string path) {
             else {
                 triggerInfo.insert({triggerClass, std::make_pair(trRect, roomNum)});
             }
-            /*
-            SDL_Rect rect1 = getSDLRect(trigger.getAABB());
-            SDL_Rect rect2 = getSDLRect(trigger.getAABB());
 
-            auto roomScale = vectorTiles[std::stoi(trigger.getName())].first;
-
-            rect1.x *= roomScale;
-            rect1.y *= roomScale;
-            rect1.w *= roomScale;
-            rect1.h *= roomScale;
-
-            roomScale = vectorTiles[std::stoi(trigger.getClass())].first;
-
-            rect2.x *= roomScale;
-            rect2.y *= roomScale;
-            rect2.w *= roomScale;
-            rect2.h *= roomScale;
-
-            // guardamos los triggers en las dos salas, ya que son bidireccionales
-            triggers[trigger.getName()].push_back(std::make_pair(trigger.getClass(),std::make_pair(rect1,rect2)));
-            triggers[trigger.getClass()].push_back(std::make_pair(trigger.getName(),std::make_pair(rect2,rect1)));
-            */
         }
 
         float scale = tileScale();
@@ -297,10 +278,6 @@ void MapComponent::loadMap(std::string path) {
             else if (ot.getClass() == "Sanctuary") {
                 constructors::sanctuary(mngr_, Vector2D(x_ * scale - (&sdlutils().images().at("sanctuary"))->width() * 1.5, y_ * scale - (&sdlutils().images().at("sanctuary"))->height() * 3.5));
             }
-            else if (ot.getClass() == "Ott") {
-
-            }
-
         }
         for (auto it : vectorObjects[ENEMIES_VECTOR_POS]) {
             float x_ = it.getAABB().left;
@@ -341,10 +318,11 @@ void MapComponent::loadMap(std::string path) {
         SDL_Rect playerRect = getSDLRect(playerPos.getAABB());
         auto playerRoom = std::stoi(playerPos.getClass());
         float playerRoomScale = vectorTiles[playerRoom].first;
+        auto playerTr_ = player_->getComponent<Transform>();
         playerRect.x *= playerRoomScale;
-        playerRect.y *= playerRoomScale;
-        player_->getComponent<Transform>()->setPosition(Vector2D(playerRect.x, playerRect.y));
-        player_->getComponent<Transform>()->setScale(playerRoomScale);
+        playerRect.y = playerRect.y * playerRoomScale - playerTr_->getHeight();
+        playerTr_->setPosition(Vector2D(playerRect.x, playerRect.y));
+        playerTr_->setScale(playerRoomScale);
         currentRoom = playerRoom;
         cam->setBounds(getCamBounds());
     }
@@ -368,7 +346,7 @@ std::vector<std::pair<SDL_Rect, SDL_Rect>> MapComponent::checkCollisions(const S
 
 void MapComponent::render() {
     SDL_Rect camPos = cam->camera;
-    int cols = sdlutils().levels().at("level1").cols;
+    int cols = sdlutils().levels().at("waterMap").cols;
     int offsetX = camPos.x;
     int offsetY = camPos.y;
     int room = currentRoom;

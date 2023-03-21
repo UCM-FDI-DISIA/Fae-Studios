@@ -84,7 +84,7 @@ public:
 	inline void setCurrentRoom(int newRoom) { currentRoom = newRoom; }
 	inline float getCurrentRoomScale() { return vectorTiles[currentRoom].first; }
 
-	void changeRoom(std::string newRoom, Vector2D newPos);
+	void changeRoom(std::string newRoom, Vector2D newPos, bool verticalTrigger = false);
 
 	std::vector<std::vector<Object>> getObjects() { return vectorObjects; }
 	inline float tileScale() { return (float)usedTileSize / (float)realTileSize; }
@@ -92,10 +92,11 @@ public:
 	// L�mites de la c�mara en X sala
 	inline SDL_Rect getCamBounds() { 
 		SDL_Rect rect = getSDLRect(vectorObjects[ROOM_VECTOR_POS][currentRoom].getAABB());
-		rect.x *= vectorTiles[currentRoom].first;
-		rect.y *= vectorTiles[currentRoom].first;
-		rect.w *= vectorTiles[currentRoom].first;
-		rect.h *= vectorTiles[currentRoom].first;
+		auto scale = vectorTiles[currentRoom].first;
+		rect.x *= scale;
+		rect.y *= scale;
+		rect.w *= scale;
+		rect.h *= scale;
 		return rect;
 	}
 
