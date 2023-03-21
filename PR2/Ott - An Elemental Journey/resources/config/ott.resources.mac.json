@@ -39,6 +39,7 @@
 	{ "id" : "sanctuary", "file" : "../Ott - An Elemental Journey/resources/images/tests/sanctuary.png", "rows" : 1, "cols" : 1},
 	{ "id" : "level1bg", "file" : "../Ott - An Elemental Journey/resources/images/levels/fondo.png", "rows" : 1, "cols" : 1},
 	{ "id" : "level1tileset", "file" : "../Ott - An Elemental Journey/resources/images/levels/tilesetlevel1.png", "rows" : 34, "cols" : 20},
+	{ "id" : "waterTileset", "file" : "../Ott - An Elemental Journey/resources/images/levels/Tiles_Agua_Bosque.png", "rows" : 34, "cols" : 20},
 	{ "id" : "shield", "file" : "../Ott - An Elemental Journey/resources/images/levels/Shield.png", "rows" : 1, "cols" : 1},
 	{ "id" : "whip", "file" : "../Ott - An Elemental Journey/resources/images/levels/whip.png", "rows" : 1, "cols" : 1},
 	{ "id" : "waterShield", "file" : "../Ott - An Elemental Journey/resources/images/levels/waterShield.png", "rows" : 1, "cols" : 1},
@@ -93,6 +94,7 @@
 			"tileset": "level1tileset",
 			"background": "level1bg"
 		},
+		{ "id" : "watermap", "file" : "../Ott - An Elemental Journey/resources/levels/WaterMap.tmx", "cols" : 180, "tileset" : "waterTileset", "background" : "level1bg" },
 		{
 			"id": "level2",
 			"file": "../Ott - An Elemental Journey/resources/levels/WaterMap.tmx",
