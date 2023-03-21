@@ -17,6 +17,7 @@
 #include "../components/GrowVine.h"
 #include "../components/VineManager.h"
 #include "../game/ecs.h"
+#include "../components/FadeTransitionComponent.h"
 
 PlayState::PlayState() : GameState(ecs::_state_PLAY) {
 	/*Mix_Init(MIX_INIT_FLAC | MIX_INIT_MOD | MIX_INIT_MP3 | MIX_INIT_OGG | MIX_INIT_MID);
@@ -37,21 +38,29 @@ PlayState::PlayState() : GameState(ecs::_state_PLAY) {
 	player_->getComponent<PlayerInput>()->initComponent();
 	player_->getComponent<PlayerAttack>()->initComponent();
 	player_->getComponent<Health>()->initComponent();
+	fade = mngr_->addEntity(ecs::_grp_FADEOUT);
+	fade->addComponent<FadeTransitionComponent>(true, 1);
+	fade->getComponent<FadeTransitionComponent>()->activateWithoutExecute();
 
+	// se reinicializan los componentes del jugador porque muchos tienen referencias entre ellos y con la cámara 
+	// y no se podrían coger de otra forma más que forzando el initComponent()
+	player_->reinitCmpts();
+
+	/*
 	//prueba para movimiento de agua
 	auto waterM = mngr_->addEntity(ecs::_grp_WATER);
 	//500, 2000, 100, 120
 	waterM->addComponent<Transform>(3500, 600, 300, 420);
 	waterM->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
-	
+	*/
 	// COMENTO A LOS ENEMIGOS PORQUE ME ESTÁN DANDO POR CULO UN RATO CHAU BESOS
 
 	constructors::eSlime(mngr_, "fireSlime", 800, 2100, 1.0f, ecs::Fire);
 	// constructors::eMelee(mngr_, "waterBug", 2400, 2000, 1.0f, ecs::Water);
 	// constructors::eRanged(mngr_, "earthMushroom", 1700, 2000, 1.0f, ecs::Earth);
-	map_ = constructors::map(mngr_)->getComponent<MapComponent>();
+	map_ = constructors::map(mngr_, this)->getComponent<MapComponent>();
+	initialEnemies = enemies;
 }
-
 
 PlayState::~PlayState() {
 	/*Mix_HaltMusic();
@@ -72,17 +81,18 @@ void PlayState::handleInput() {
             //GameStateMachine::instance()->pushState(new PauseMenuState());
         }
     }
-   
 }
 
-void PlayState::checkCollisions() {
-	std::vector<Entity*> characters = mngr_->getEntities(ecs::_grp_CHARACTERS);
-	std::vector<Entity*> ground = mngr_->getEntities(ecs::_grp_GROUND);
-	for (Entity* e : characters) {
+void PlayState::checkCollisions(std::list<Entity*> entities) {
+	int aa = 0;
+	for (Entity* e : entities) {
 		auto eTr = e->getComponent<Transform>();
 		auto physics = e->getComponent<PhysicsComponent>();
 		auto health = e->getComponent<Health>();
 		SDL_Rect r1 = physics->getCollider();
+		r1.x += physics->getVelocity().getX();
+		r1.y += physics->getVelocity().getY();
+		// std::cout << r1.x << " " << r1.y << std::endl;
 		Vector2D& colVector = physics->getVelocity();
 
 		auto mov = e->getComponent<EnemyMovement>();
@@ -142,6 +152,7 @@ void PlayState::checkCollisions() {
 		}
 		
 		if(i == 0) physics->setGrounded(false);
+
 		/*
  		int i = 0;
 		for (Entity* g : ground) { // GROUND COLLISION
@@ -199,6 +210,7 @@ void PlayState::checkCollisions() {
 
 		}
 		if (j == 0) { physics->setWater(false); physics->setFloating(false); }
+		aa++;
 	}
 }
 
@@ -247,9 +259,19 @@ void PlayState::checkInteraction() {
     }
 }
 
-
 void PlayState::update() {
-	checkCollisions();
+	checkCollisions({ player_ });
+	checkCollisions(enemies[map_->getCurrentRoom()]);
+	for (auto it : enemies) {
+		for (auto ot : it) {
+			if (it != enemies[map_->getCurrentRoom()]) {
+				ot->getComponent<PhysicsComponent>()->Stop();
+			}
+			else {
+				ot->getComponent<PhysicsComponent>()->Resume();
+			}
+		}
+	}
 	GameState::update();
 }
 
@@ -264,7 +286,11 @@ void PlayState::Teleport() {
     Entity* aux = *interactionIt;
     Entity* tpLamp = aux->getComponent<LampComponent>()->getConnectedLamp();
     Vector2D newPos = tpLamp->getComponent<Transform>()->getPosition();
-    player_->getComponent<PlayerAnimationComponent>()->startTP(newPos);
+	auto newRoom = tpLamp->getComponent<LampComponent>()->getRoom();
+	if (aux->getComponent<LampComponent>()->getRoom() != newRoom) {
+		map_->changeRoom(std::to_string(newRoom), newPos);
+	}
+	player_->getComponent<PlayerAnimationComponent>()->startTP(newPos);
 }
 
 void PlayState::Save() {

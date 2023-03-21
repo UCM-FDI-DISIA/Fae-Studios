@@ -13,10 +13,11 @@ public:
 	FadeOutAnimationComponent() = default;
 	virtual ~FadeOutAnimationComponent() = default;
 	void initComponent();
-	inline void startFadeOut(Vector2D newPos, int newRoom) 
+	inline void startFadeOut(Vector2D newPos, int newRoom, bool verticalTrigger = false)
 	{
 		fadeOut = true; playerPs_->Stop(); fadeIn = false; col = 0; newPlayerPos = newPos; 
 		newMapRoom = newRoom;
+		resumeSpeed = verticalTrigger;
 	};
 	virtual void update();
 	inline bool onAnim() { return onAnimPlaying; }
@@ -35,4 +36,5 @@ private:
 	int timer_ = 0;
 	const int MAX_COL = 10;
 	bool fadeIn = false, fadeOut = false, onAnimPlaying = false;
+	bool resumeSpeed = false;
 };

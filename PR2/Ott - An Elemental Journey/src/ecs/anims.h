@@ -15,7 +15,7 @@ public:
 		int rowNum;
 		int colNum = 0;
 	};
-	static enum Entities { OTT_ANIM, MELEE_ANIM, RANGE_ANIM, SLIME_ANIM, EARTH_ATTACK, EARTHBOSSPRESENT, EARTHBOSSATTACK, WARNINGEARTH, PAUSE_ANIM };
+	static enum Entities { OTT_ANIM, MELEE_ANIM, RANGE_ANIM, SLIME_ANIM, EARTH_ATTACK, EARTHBOSSPRESENT, EARTHBOSSATTACK, WARNINGEARTH, PAUSE_ANIM, WATER_ATTACK};
 	static std::vector<std::vector<animDescription>> animations;
 
 	class offsetPhysics {
@@ -38,6 +38,8 @@ private:
 	static std::vector<animDescription> earthBoss_anims;
 	static std::vector<animDescription> warning_anims;
 	static std::vector<animDescription> pause_anims;
+	//ATAQUE AGUA
+	static std::vector<animDescription> water_attack;
 
 	static offsetPhysics ott_collider;
 	static offsetPhysics melee_collider;

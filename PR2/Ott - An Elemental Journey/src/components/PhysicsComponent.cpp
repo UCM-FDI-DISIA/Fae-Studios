@@ -122,7 +122,8 @@ SDL_Rect PhysicsComponent::getCollider() const {
 	if (ent_->hasComponent<Transform>()) {
 		Transform* t = ent_->getComponent<Transform>();
 		SDL_Rect collider = { (int)(t->getPosition().getX() + colliderOffset.getX()), (int)(t->getPosition().getY() + colliderOffset.getY()),
-                              (int)colliderWH.getX(), (int)colliderWH.getY() };
+                              (int)(colliders::collider[typeofCollider].width / (float)colliders::collider[typeofCollider].totalHorPixels * t->getWidth()),
+			(int)(colliders::collider[typeofCollider].height / (float)colliders::collider[typeofCollider].totalVertPixels * t->getHeight()) };
 		return collider;
 	}
 }

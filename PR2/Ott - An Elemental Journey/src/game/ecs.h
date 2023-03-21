@@ -43,6 +43,7 @@ namespace ecs {
         _FADEOUTANIM,
         _EARTH_ATTACK_ANIM,
         _EARTHMNGR,
+        _WATER_ATTACK_ANIM,
 
         _LAST_CMP_ID
     };
@@ -81,6 +82,18 @@ namespace ecs {
         _LAST_STATE_ID
     };
     constexpr stateId_type maxStateId = _LAST_STATE_ID;
+#pragma endregion
+
+#pragma region AudioChannels
+    using channelId_type = int8_t;
+    enum channelId : channelId_type {
+        _channel_UI = -1,
+
+
+        _LAST_CHANNEL_ID
+    };
+
+    constexpr channelId_type maxChannelId = _LAST_CHANNEL_ID;
 #pragma endregion
 
     static enum elements { Light, Earth, Water, Fire, Dark };

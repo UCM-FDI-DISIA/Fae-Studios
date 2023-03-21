@@ -11,6 +11,8 @@ private:
 	float rotation = 0.0f;
 	float width;
 	float height;
+	float initWidth, initHeight;
+	float scale = 1.0f;
 	PhysicsComponent* physics_;
 
 public:
@@ -23,6 +25,8 @@ public:
 		rotation = 0.0f;
 		width = w;
 		height = h;
+		initWidth = w;
+		initHeight = h;
 	};
 	Transform(float x, float y, float w, float h) : Component() {
 		position = Vector2D(x, y);
@@ -47,6 +51,8 @@ public:
 	inline void setPosition(Vector2D newPos) { position = newPos; };
 	inline void setWidth(float w) { width = w; }
 	inline void setHeight(float h) { height = h; }
+	inline void setScale(float scale) { width = initWidth * scale; height = initHeight * scale; this->scale = scale; }
+	inline float getScale() { return scale; }
 	inline float getWidth() const { return width; };
 	inline float getHeight() const { return height; };
 	inline SDL_Rect& getRect() {
@@ -60,6 +66,6 @@ public:
 	virtual void initComponent() {
 		physics_ = ent_->getComponent<PhysicsComponent>();
 	}
-	virtual void update() { if (physics_ != nullptr) position = position + physics_->getVelocity(); }
+	virtual void update() { if (physics_ != nullptr) position = position + (physics_->getVelocity() * scale); }
 };
 

@@ -23,6 +23,7 @@
     <ClCompile Include="src\components\EnterBossRoom.cpp" />
     <ClCompile Include="src\components\EarthBossAttack.cpp" />
     <ClCompile Include="src\components\EarthBossAnimationController.cpp" />
+    <ClCompile Include="src\components\FadeTransitionComponent.cpp" />
     <ClCompile Include="src\components\earthAnimationController.cpp" />
     <ClCompile Include="src\components\FadeOutAnimationComponent.cpp" />
     <ClCompile Include="src\ecs\colliders.cpp" />
@@ -79,6 +80,10 @@
     <ClInclude Include="src\components\EnterBossRoom.h" />
     <ClInclude Include="src\components\EarthBossAttack.h" />
     <ClInclude Include="src\components\EarthBossAnimationController.h" />
+    <ClCompile Include="src\components\WaterAnimationController.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\components\FadeTransitionComponent.h" />
     <ClInclude Include="src\components\earthAnimationController.h" />
     <ClInclude Include="src\components\FadeOutAnimationComponent.h" />
     <ClInclude Include="src\ecs\colliders.h" />
@@ -154,6 +159,7 @@
   <ItemGroup>
     <None Include="resources\config\ott.resources.mac.json" />
     <None Include="resources\config\ott.resources.windows.json" />
+    <ClInclude Include="src\components\WaterAnimationController.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
