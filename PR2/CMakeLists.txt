@@ -45,6 +45,14 @@ add_executable(Ott
         "Ott - An Elemental Journey/src/components/EnemyContactDamage.cpp"
         "Ott - An Elemental Journey/src/components/FadeOutAnimationComponent.cpp"
         "Ott - An Elemental Journey/src/components/WaterAnimationController.cpp"
+        "Ott - An Elemental Journey/src/components/EarthBossAnimationController.cpp"
+        "Ott - An Elemental Journey/src/components/EarthBossAttack.cpp"
+        "Ott - An Elemental Journey/src/components/EarthBossManager.cpp"
+        "Ott - An Elemental Journey/src/components/EnterBossRoom.cpp"
+        "Ott - An Elemental Journey/src/components/FadeTransitionComponent.cpp"
+        "Ott - An Elemental Journey/src/components/Trigger.cpp"
+        "Ott - An Elemental Journey/src/components/VineManager.cpp"
+        "Ott - An Elemental Journey/src/components/ColliderVine.cpp"
 
 
         #ECS
