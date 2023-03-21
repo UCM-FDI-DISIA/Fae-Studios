@@ -67,7 +67,8 @@ void CameraComponent::update() {
 		else if (camera.y < bounds.y) {
 			camera.y = bounds.y;
 		}
-	
+
 		camera = { camera.x,camera.y,sdlutils().width(), sdlutils().height() };
 
+	}
 }
