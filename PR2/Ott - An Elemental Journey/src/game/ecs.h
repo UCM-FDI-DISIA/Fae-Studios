@@ -38,8 +38,11 @@ namespace ecs {
         _GROWVINE,
         _PLAYERATTACK,
         _ENEMYSTATES,
+        _VINEMANAGER,
+        _ENTERBOSS,
         _FADEOUTANIM,
         _EARTH_ATTACK_ANIM,
+        _EARTHMNGR,
         _WATER_ATTACK_ANIM,
 
         _LAST_CMP_ID
@@ -53,13 +56,15 @@ namespace ecs {
     enum grpId : grpId_type {
         _grp_GENERAL, ///< General
         _grp_UI, ///< Elementos de la interfaz gráfica
+        _grp_MINIBOSS,
         _grp_GROUND,
         _grp_VINE,
         _grp_MAP,
         _grp_INTERACTION,
-        _grp_WATER,
+        _grp_TRIGGER,
         _grp_CHARACTERS,
         _grp_PROYECTILES,
+        _grp_WATER,
         _grp_FADEOUT,
 
         _LAST_GRP_ID

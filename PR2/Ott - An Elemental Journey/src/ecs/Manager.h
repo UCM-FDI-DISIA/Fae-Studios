@@ -5,8 +5,8 @@
 #include "../game/ecs.h"
 #include "../utils/Vector2D.h"
 
-const int LEVEL_WIDTH = 8000;
-const int LEVEL_HEIGHT = 8000;
+const int LEVEL_WIDTH = 80000;
+const int LEVEL_HEIGHT = 80000;
 const auto CAM_OFFSET_HEIGHT = 0.6;
 const int CAM_DEAD_ZONE = 250;
 
@@ -20,6 +20,7 @@ private:
     bool deleted;
     Entity* player_ = nullptr;
     Entity* camera_ = nullptr;
+    Entity* earthBoss_ = nullptr;
 
 public:
     /// Constructora de la clase Manager
@@ -57,6 +58,9 @@ public:
 
     inline Entity* getCamera() { return camera_; } // handler para el player
     inline void setCamera(Entity* c) { camera_ = c; } // handler para el player
+
+    Entity* getEarthBoss() { return earthBoss_; }
+    void setEarthBoss(Entity* e) { earthBoss_ = e; }
 
     inline void setDelete() { deleted = true; }
 

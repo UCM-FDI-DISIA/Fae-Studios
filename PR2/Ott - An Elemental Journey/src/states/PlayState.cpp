@@ -15,16 +15,30 @@
 #include "../components/ColliderVine.h"	
 #include "../components/ImageVine.h"
 #include "../components/GrowVine.h"
+#include "../components/VineManager.h"
 #include "../game/ecs.h"
 #include "../components/FadeTransitionComponent.h"
 #include "menus/PauseMenuState.h"
 
 PlayState::PlayState() : GameState(ecs::_state_PLAY) {
-	mngr_->setPlayer(constructors::player(mngr_, 0, 0, 100, 120));
+	/*Mix_Init(MIX_INIT_FLAC | MIX_INIT_MOD | MIX_INIT_MP3 | MIX_INIT_OGG | MIX_INIT_MID);
+	Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 2048);
+	//music = Mix_LoadMUS("../../sounds/musics/Ambient 4.	wav"); la m�sica va a ser cambiada a un json
+	Mix_PlayMusic(music, -1);*/
+
+
+	mngr_->setPlayer(constructors::player(mngr_, 700, 1500, 100, 120));
 	mngr_->setCamera(constructors::camera(mngr_, 700, 2000, sdlutils().width(), sdlutils().height()));
 	player_ = mngr_->getPlayer();
 	camera_ = mngr_->getCamera();
 
+	std::cout << "prueba" << std::endl;
+	player_->getComponent<FramedImageOtt>()->initComponent();
+	player_->getComponent<Transform>()->initComponent();
+	player_->getComponent<PhysicsComponent>()->initComponent();
+	player_->getComponent<PlayerInput>()->initComponent();
+	player_->getComponent<PlayerAttack>()->initComponent();
+	player_->getComponent<Health>()->initComponent();
 	fade = mngr_->addEntity(ecs::_grp_FADEOUT);
 	fade->addComponent<FadeTransitionComponent>(true, 1);
 	fade->getComponent<FadeTransitionComponent>()->activateWithoutExecute();
@@ -212,7 +226,7 @@ std::pair<bool, bool> PlayState::checkCollisionWithVine() {
 	SDL_Rect tr_ = player_->getComponent<PhysicsComponent>()->getCollider();
 	while (!interact && interactionIt != mngr_->getEntities(ecs::_grp_VINE).end()) {
 		Entity* ents = *interactionIt;
-		if (ents->hasComponent<ColliderVine>()) {
+		if (ents->hasComponent<ColliderVine>() && ents->getComponent<ImageVine>()->canClimb()) {
 			SDL_Rect r1;
 			r1.x = tr_.x + tr_.w / 3;
 			r1.y = tr_.y + tr_.h - 30;
@@ -268,16 +282,7 @@ void PlayState::update() {
 
 void PlayState::AddEnredadera() {
     Entity* aux = (*interactionIt);
-    if (!(aux->getComponent<AddVine>()->doesntHaveVine())) {
-        aux->getComponent<AddVine>()->setVine();
-        aux->getComponent<AddVine>()->getVine()->addComponent<ImageVine>(&sdlutils().images().at("enredadera"));
-        SDL_Rect dest;
-        dest = aux->getComponent<AddVine>()->getVine()->getComponent<Transform>()->getRect();
-        dest.h -= player_->getComponent<Transform>()->getRect().h / 2.5;
-        aux->getComponent<AddVine>()->getVine()->addComponent<ColliderVine>(dest);
-        aux->getComponent<AddVine>()->getVine()->addComponent<GrowVine>(aux->getComponent<AddVine>()->getPosFin(),
-            Vector2D(aux->getComponent<AddVine>()->getPosFin().getX(), aux->getComponent<AddVine>()->getPosFin().getY() + player_->getComponent<Transform>()->getRect().h / 2));
-    }
+	aux->getComponent<VineManager>()->addVine();
 }
 
 void PlayState::Teleport() {
