@@ -78,6 +78,10 @@ public:
 	// cambio de mapa
 	void changeMap();
 
+	void playFadeOutAnimation() { anim_->startFadeOut(); }
+
+	void generateEnemies();
+
 	std::vector<std::pair<SDL_Rect, SDL_Rect>> checkCollisions(const SDL_Rect& playerRect);
 
 	inline int getCurrentRoom() { return currentRoom; }

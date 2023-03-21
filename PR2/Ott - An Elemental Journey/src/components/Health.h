@@ -23,7 +23,7 @@ public:
 	void die();
 	virtual void initComponent();
 	//Este te lleva al santuario
-	void recall();
+	void recall(bool rest = false);
 	inline bool isDead() { return dead; }
 	bool recieveDamage(ecs::elements el);
 	inline int getHealth() { return actualLife; }
@@ -39,6 +39,6 @@ public:
 		default: break;
 		}
 	}
-	void saveSactuary();
+	void saveSactuary(Entity* sanct);
 };
 

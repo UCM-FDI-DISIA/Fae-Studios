@@ -299,5 +299,10 @@ void PlayState::Teleport() {
 }
 
 void PlayState::Save() {
-    player_->getComponent<Health>()->saveSactuary();
+	map_->playFadeOutAnimation();
+	lastSanctuary = getCurrentInteraction();
+}
+
+void PlayState::endRest() {
+    player_->getComponent<Health>()->saveSactuary(lastSanctuary);
 }
