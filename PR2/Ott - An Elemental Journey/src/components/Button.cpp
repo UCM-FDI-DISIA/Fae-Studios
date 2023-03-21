@@ -23,15 +23,24 @@ void Button::handleInput() {
         text->setPosition(textPosition);
         currentButtonFrame = MOUSE_OUT; //Indica que el ratón ha salido de la posición del botón
     }
-    if (SDL_PointInRect(&mousePosition, &buttonRect)) {
+
+    if (SDL_PointInRect(&mousePosition, &buttonRect) && (currentButtonFrame == MOUSE_OUT || currentButtonFrame == MOUSE_OVER)) {
         textPosition = Vector2D(transform->getPosition().getX() + (transform->getWidth() - text->getWidth())/2, transform->getPosition().getY() + (transform->getHeight() - text->getHeight())/2 - 10);
         texture->setCol(currentButtonFrame);
         text->setPosition(textPosition);
         currentButtonFrame = MOUSE_OVER; //Indica que el ratón está sobre el botón
     }
+
     if (SDL_PointInRect(&mousePosition, &buttonRect) && InputHandler::instance()->getMouseButtonState(InputHandler::LEFT)) { //Indica que se ha pulsado el bot�n
         currentButtonFrame = CLICKED;
         textPosition = Vector2D(transform->getPosition().getX() + (transform->getWidth() - text->getWidth())/2, transform->getPosition().getY() + (transform->getHeight() - text->getHeight())/2);
+        texture->setCol(currentButtonFrame);
+        text->setPosition(textPosition);
+    }
+
+    if (SDL_PointInRect(&mousePosition, &buttonRect) && currentButtonFrame == CLICKED && !InputHandler::instance()->getMouseButtonState(InputHandler::LEFT)) {
+        currentButtonFrame = MOUSE_OVER;
+        textPosition = Vector2D(transform->getPosition().getX() + (transform->getWidth() - text->getWidth()) / 2, transform->getPosition().getY() + (transform->getHeight() - text->getHeight()) / 2 - 10);
         texture->setCol(currentButtonFrame);
         text->setPosition(textPosition);
         onClick(); //Si clicamos, llamamos a la funci�n asociada al bot�n

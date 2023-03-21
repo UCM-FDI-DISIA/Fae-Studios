@@ -35,11 +35,13 @@ void FadeOutAnimationComponent::update() {
 }
 
 void FadeOutAnimationComponent::startFadeIn() {
-	mngr_->getPlayer()->getComponent<Transform>()->setPosition(newPlayerPos);
 	map_->setCurrentRoom(newMapRoom);
 	cam_->setBounds(map_->getCamBounds());
-	playerPs_->Resume();
+	mngr_->getPlayer()->getComponent<Transform>()->setPosition(newPlayerPos);
+	mngr_->getPlayer()->getComponent<Transform>()->setScale(map_->getCurrentRoomScale());
+	playerPs_->Resume(resumeSpeed);
 	fadeOut = false;
 	fadeIn = true;
 	col = MAX_COL;
+	cam_->setPos(newPlayerPos);
 }

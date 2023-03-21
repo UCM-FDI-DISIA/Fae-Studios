@@ -1,9 +1,9 @@
 {
 
   "fonts" : [
-    { "id" : "ARIAL16", "file" : "../resources/fonts/ARIAL.ttf", "size": 16 },
-    { "id" : "ARIAL24", "file" : "../resources/fonts/ARIAL.ttf", "size": 24 },
-    { "id" : "ARIAL48", "file" : "../resources/fonts/ARIAL.ttf", "size": 48 },
+		{ "id" : "ARIAL16", "file" : "../resources/fonts/ARIAL.ttf", "size": 16 },
+		{ "id" : "ARIAL24", "file" : "../resources/fonts/ARIAL.ttf", "size": 24 },
+		{ "id" : "ARIAL48", "file" : "../resources/fonts/ARIAL.ttf", "size": 48 },
 		{ "id" : "vcr_osd16", "file" : "../resources/fonts/vcr_osd_mono.ttf", "size": 16 },
 		{ "id" : "vcr_osd24", "file" : "../resources/fonts/vcr_osd_mono.ttf", "size": 24 },
 		{ "id" : "vcr_osd48", "file" : "../resources/fonts/vcr_osd_mono.ttf", "size": 48 },
@@ -40,6 +40,7 @@
 		{ "id" : "sanctuary", "file" : "../resources/images/tests/sanctuary.png", "rows" : 1, "cols" : 1},
 		{ "id" : "level1bg", "file" : "../resources/images/levels/fondo.png", "rows" : 1, "cols" : 1},
 		{ "id" : "level1tileset", "file" : "../resources/images/levels/tilesetlevel1.png", "rows" : 34, "cols" : 20},
+		{ "id" : "waterTileset", "file" : "../resources/images/levels/Tiles_Agua_Bosque.png", "rows" : 34, "cols" : 20},
 		{ "id" : "shield", "file" : "../resources/images/levels/Shield.png", "rows" : 1, "cols" : 1},
 		{ "id" : "whip", "file" : "../resources/images/levels/whip.png", "rows" : 1, "cols" : 1},
 		{ "id" : "waterShield", "file" : "../resources/images/levels/waterShield.png", "rows" : 1, "cols" : 1},
@@ -66,28 +67,25 @@
 		{ "id" : "vine", "file" : "../resources/images/tests/EarthBossVine.png", "rows" : 1, "cols" : 1},
 		{ "id" : "vineBoss", "file" : "../resources/images/tests/EarthBossVineAttack.png", "rows" : 1, "cols" : 1},
 		{ "id" : "warning", "file" : "../resources/images/tests/EarthBossWarning.png", "rows" : 1, "cols" : 28},
-		{ "id" : "water_attack", "file" : "../resources/images/tests/water_Attack.png", "rows" : 1, "cols" : 1},
-		{ "id" : "earth_attack", "file" : "../resources/images/tests/earth_Attack.png", "rows" : 1, "cols" : 10}
+		{ "id" : "water_chargedAttack", "file" : "../resources/images/tests/water_Attack.png", "rows" : 1, "cols" : 1},
+		{ "id" : "earth_attack", "file" : "../resources/images/tests/earth_Attack.png", "rows" : 1, "cols" : 10},
+		{ "id" : "water_attack", "file" : "../resources/images/tests/water_Attack_PlaceHolder.png", "rows" : 2, "cols" : 9}
   ],
 
   "messages" : [],
 
   "sounds" : [
-    { "id" : "bang_large", "file" : "../resources/sound/bangLarge.wav" },
-    { "id" : "bang_small", "file" : "../resources/sound/bangSmall.wav" },
-    { "id" : "explosion", "file" : "../resources/sound/explosion.wav" },
-    { "id" : "explosion1", "file" : "../resources/sound/explosion1.wav" },
-    { "id" : "fire", "file" : "../resources/sound/fire.wav" },
-    { "id" : "gunshot", "file" : "../resources/sound/gunshot.wav" },
-    { "id" : "thrust", "file" : "../resources/sound/thrust.wav" },
-    { "id" : "thrust1", "file" : "../resources/sound/thrust1.wav" }
-  ],
+    { "id" : "play_button", "file" : "../resources/sound/playbutton.wav" },
+	{ "id" : "button", "file" : "../resources/sound/button.wav" },
+	{ "id" : "button_back", "file" : "../resources/sound/buttonback.wav" }
+	],
 
   "musics" : [],
   
   "maps": [
 		{ "id" : "level1", "file" : "../resources/levels/EarthMap2.tmx", "cols" : 192, "tileset" : "level1tileset", "background" : "level1bg" },
-		{ "id" : "demo", "file" : "../resources/levels/DEMO.tmx", "cols" : 100, "tileset" : "level1tileset", "background" : "level1bg" }
+		{ "id" : "demo", "file" : "../resources/levels/DEMO.tmx", "cols" : 100, "tileset" : "level1tileset", "background" : "level1bg" },
+		{ "id" : "waterMap", "file" : "../resources/levels/WaterMap.tmx", "cols" : 180, "tileset" : "waterTileset", "background" : "level1bg" }
 	]
 
 }

@@ -3,6 +3,7 @@
 #include "../utils/Vector2D.h"
 #include "PlayerAnimationComponent.h"
 #include "earthAnimationController.h"
+#include "WaterAnimationController.h"
 
 class Health;
 class Transform;
@@ -10,11 +11,11 @@ class PlayerAnimationComponent;
 class PhysicsComponent;
 
 // Ancho y Alto ataque de agua
-const int WATER_ATACK_WIDTH =  300;
-const int WATER_ATACK_HEIGHT =  50;
+const int WATER_ATTACK_WIDTH =  300;
+const int WATER_ATTACK_HEIGHT =  50;
 
-const int WATER_ATACK_TICK_TIME = 2000; // Cada cuantos ms tick de agua
-const int WATER_ATACK_DURATION = 6000; // Duracion del ataque de agua en ms
+const int WATER_ATTACK_TICK_TIME = 2000; // Cada cuantos ms tick de agua
+const int WATER_ATTACK_DURATION = 6000; // Duracion del ataque de agua en ms
 
 const int EARTH_ATTACK_WIDTH = 300;
 const int EARTH_ATTACK_HEIGHT = 50;
@@ -31,6 +32,13 @@ public:
 		earthAttackActive = false;
 		tAttack->setAlive(false);
 	}
+
+	inline void deleteWaterAttack()
+	{
+		waterAttackActive = false;
+		wAttack->setAlive(false);
+	}
+
 	inline void startAttack(bool charged) {
 		startAttackingTime = SDL_GetTicks();
 		canAttack = true;
@@ -42,13 +50,12 @@ private:
 	void MoveTrigger(Vector2D attackWH);
 	bool attackEnemy(SDL_Rect& attackZone);
 	void spawnFireball();
-	void waterAttack(SDL_Rect &trigger);
-	void deleteWaterAttack();
+	void moveAttack(Transform* tr);
+	void waterChargedAttack(SDL_Rect &trigger);
 
 	// Variables
-	Vector2D triggerPos;
 	//Vector2D triggerWH;
-	Vector2D watAtackTriggWH; // tamaño ataque de agua
+	Vector2D watAtackTriggWH; // tamaï¿½o ataque de agua
 	Transform* tr_;
 	Health* health_;
 	PlayerAnimationComponent* anim_;
@@ -66,8 +73,8 @@ private:
 	int earthDurationTimer;
 	int earthTickTimer= 0;
 	bool earthAttackActive;
-	int colEarthtrigger;
+	int colTrigger;
 	Entity* wAttack = nullptr; // Entidad ataque de agua
-	Entity* tAttack = nullptr; // Entidad ataque de agua
+	Entity* tAttack = nullptr; // Entidad ataque de tierra
 };
 

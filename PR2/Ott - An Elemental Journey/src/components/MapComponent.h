@@ -19,6 +19,8 @@
 
 using namespace tmx;
 
+class PlayState;
+
 class MapComponent : public Component {
 private:
 	//unordered_map<ListaNiveles, list<infoTexture>> infoLevel;
@@ -26,7 +28,8 @@ private:
 	Map map;
 	int mapSize;
 
-	// Se guarda un vector por cada tileset que hay. En estas tiles se guarda su ID y su posición
+	// Se guarda un vector por cada habitaciï¿½n que hay. En este vector se guarda su ID y su posiciï¿½n
+	// El float indica la escala del mapa
 	std::vector<std::pair<float, std::vector<std::pair<int, SDL_Rect>>>> vectorTiles;
 
 	// Se guarda un vector con cada tipo de objetos que tiene el mapa (Colisiones, Objetos Interactuables, Salas, Triggers
@@ -35,11 +38,11 @@ private:
 	std::unordered_map<std::string, std::vector<SDL_Rect>> ground;
 
 	// En este mapa se guarda:
-	// string -> número de sala
+	// string -> nï¿½mero de sala
 	// vector -> todos los triggers que hay en esa sala
 	// pair<string, SDL_Rect> -> 
 		// string: la sala a la que lleva ese trigger; 
-		// SDL_Rect: su colisión
+		// SDL_Rect: su colisiï¿½n
 	std::unordered_map<std::string, std::vector<std::pair<std::string, std::pair<SDL_Rect,SDL_Rect>>>> triggers;
 
 	Texture* tilemap = nullptr;
@@ -47,6 +50,7 @@ private:
 	FadeOutAnimationComponent* anim_;
 	Entity* player_;
 	Entity* fadeOut;
+	PlayState* game;
 	
 	// std::vector<Texture*> textures;
 
@@ -54,6 +58,7 @@ private:
 	const int I_OBJECTS_VECTOR_POS = 1;
 	const int COLLISIONS_VECTOR_POS = 2;
 	const int TRIGGERS_VECTOR_POS = 3;
+	const int ENEMIES_VECTOR_POS = 4;
 
 	int realTileSize = 32;
 	int usedTileSize = 50;
@@ -64,7 +69,7 @@ private:
 public:
 	constexpr static ecs::cmpId_type id = ecs::_MAP;
 	
-	MapComponent(Entity* fadeOut);
+	MapComponent(Entity* fadeOut, PlayState* game);
 	void initComponent();
 	virtual void render();
 
@@ -75,27 +80,30 @@ public:
 
 	std::vector<std::pair<SDL_Rect, SDL_Rect>> checkCollisions(const SDL_Rect& playerRect);
 
+	inline int getCurrentRoom() { return currentRoom; }
 	inline void setCurrentRoom(int newRoom) { currentRoom = newRoom; }
+	inline float getCurrentRoomScale() { return vectorTiles[currentRoom].first; }
 
-	void changeRoom(std::string newRoom, Vector2D newPos);
+	void changeRoom(std::string newRoom, Vector2D newPos, bool verticalTrigger = false);
 
 	std::vector<std::vector<Object>> getObjects() { return vectorObjects; }
 	inline float tileScale() { return (float)usedTileSize / (float)realTileSize; }
 
-	// Límites de la cámara en X sala
+	// Lï¿½mites de la cï¿½mara en X sala
 	inline SDL_Rect getCamBounds() { 
 		SDL_Rect rect = getSDLRect(vectorObjects[ROOM_VECTOR_POS][currentRoom].getAABB());
-		rect.x *= vectorTiles[currentRoom].first;
-		rect.y *= vectorTiles[currentRoom].first;
-		rect.w *= vectorTiles[currentRoom].first;
-		rect.h *= vectorTiles[currentRoom].first;
+		auto scale = vectorTiles[currentRoom].first;
+		rect.x *= scale;
+		rect.y *= scale;
+		rect.w *= scale;
+		rect.h *= scale;
 		return rect;
 	}
 
-	// recibe un FloatRecy se convierte a SDL_Rect, multiplicándolo también por la escala de las Tiles
+	// recibe un FloatRecy se convierte a SDL_Rect, multiplicï¿½ndolo tambiï¿½n por la escala de las Tiles
 	inline SDL_Rect getSDLRect(FloatRect rect) {
-		SDL_Rect sdlRect = { rect.left * tileScale(), rect.top * tileScale(),
-		rect.width * tileScale(), rect.height * tileScale() };
+		SDL_Rect sdlRect = { (int)(rect.left * tileScale()), (int)(rect.top * tileScale()),
+                             (int)(rect.width * tileScale()), (int)(rect.height * tileScale()) };
 		return sdlRect;
 	}
 };

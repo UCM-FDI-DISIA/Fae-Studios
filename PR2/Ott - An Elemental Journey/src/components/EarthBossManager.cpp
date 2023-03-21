@@ -77,8 +77,9 @@ void EarthBossManager::initializeEntities() {
 	Vector2D finPosBoss = Vector2D{ (float)roomDimensions.x , (float)roomDimensions.y + (float)roomDimensions.h };
 	boss = mngr_->addEntity(ecs::_grp_MINIBOSS);
 	boss->addComponent<Transform>(boss_Rect);
-	boss->addComponent<FramedImage>(&sdlutils().images().at("animationWorm"), sdlutils().images().at("animationWorm").getNumRows(), sdlutils().images().at("animationWorm").getNumCols());
+	boss->addComponent<FramedImage>(&sdlutils().images().at("fallingWorm"), sdlutils().images().at("fallingWorm").getNumRows(), sdlutils().images().at("fallingWorm").getNumCols());
 	boss->addComponent<GrowVine>(finPosBoss, 2, 1, "vertical", false);
+	boss->getComponent<GrowVine>()->isGrowing(false);
 	//HEALTH, INTERSECCIONAR Y DAÑAR AL JUGADOR
 
 	//CREACIÓN DEL PAUSA
@@ -88,10 +89,10 @@ void EarthBossManager::initializeEntities() {
 
 	//CREACIÓN DE LA PRESENTACIÓN
 	SDL_Rect presentation_Rect;
-	presentation_Rect.x = roomDimensions.x;
-	presentation_Rect.y = roomDimensions.y;
-	presentation_Rect.h = roomDimensions.h;
-	presentation_Rect.w = roomDimensions.w;
+	presentation_Rect.x = roomDimensions.x + (roomDimensions.w/4);
+	presentation_Rect.y = roomDimensions.y + (roomDimensions.h - (roomDimensions.h / 2.5) +10);
+	presentation_Rect.h = roomDimensions.h / 2;
+	presentation_Rect.w = roomDimensions.w / 2;
 	presentBoss = mngr_->addEntity(ecs::_grp_MINIBOSS);
 	presentBoss->addComponent<Transform>(presentation_Rect);
 	presentBoss->addComponent<FramedImage>(&sdlutils().images().at("animationWorm"), sdlutils().images().at("animationWorm").getNumRows(), sdlutils().images().at("animationWorm").getNumCols());

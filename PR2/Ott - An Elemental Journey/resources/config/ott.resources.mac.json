@@ -12,8 +12,6 @@
 	{ "id" : "press_start48", "file" : "../Ott - An Elemental Journey/resources/fonts/PressStart2P-Regular.ttf", "size": 48 }
   ],
 
-
-
 	"images": [
 		{
 			"id": "playbackground",
@@ -303,12 +301,21 @@
 			"rows": 1,
 			"cols": 1
 		},
+
 		{
-			"id": "water_attack",
+			"id": "water_chargedAttack",
 			"file": "../Ott - An Elemental Journey/resources/images/tests/water_Attack.png",
 			"rows": 1,
 			"cols": 1
 		},
+
+		{
+			"id": "water_attack",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/water_Attack_PlaceHolder.png",
+			"rows": 2,
+			"cols": 9
+		},
+
 		{
 			"id": "animationWorm",
 			"file": "../Ott - An Elemental Journey/resources/images/tests/AnimationWorm.png",
@@ -340,26 +347,25 @@
 			"rows": 1,
 			"cols": 28
 		}
+
 	],
+
   
   "messages" : [],
   
   "sounds" : [
-    { "id" : "bang_large", "file" : "../Ott - An Elemental Journey/resources/sound/bangLarge.wav" },
-    { "id" : "bang_small", "file" : "../Ott - An Elemental Journey/resources/sound/bangSmall.wav" },
-    { "id" : "explosion", "file" : "../Ott - An Elemental Journey/resources/sound/explosion.wav" },
-    { "id" : "explosion1", "file" : "../Ott - An Elemental Journey/resources/sound/explosion1.wav" },
-    { "id" : "fire", "file" : "../Ott - An Elemental Journey/resources/sound/fire.wav" },
-    { "id" : "gunshot", "file" : "../Ott - An Elemental Journey/resources/sound/gunshot.wav" },
-    { "id" : "thrust", "file" : "../Ott - An Elemental Journey/resources/sound/thrust.wav" },
-    { "id" : "thrust1", "file" : "../Ott - An Elemental Journey/resources/sound/thrust1.wav" }
+    { "id" : "play_button", "file" : "../Ott - An Elemental Journey/resources/sound/playbutton.wav" },
+	{ "id" : "button", "file" : "../Ott - An Elemental Journey/resources/sound/button.wav" },
+	{ "id" : "button_back", "file" : "../Ott - An Elemental Journey/resources/sound/buttonback.wav" }
   ],
 
 	"musics": [],
 
 	"maps": [
-		{ "id" : "level1", "file" : "../Ott - An Elemental Journey/resources/levels/EarthMap.tmx", "cols" : 192, "tileset" : "level1tileset", "background" : "level1bg" },
-		{ "id" : "demo", "file" : "../Ott - An Elemental Journey/resources/levels/DEMO.tmx", "cols" : 100, "tileset" : "level1tileset", "background" : "level1bg" }
+		{ "id" : "level1", "file" : "../Ott - An Elemental Journey/resources/levels/EarthMap2.tmx", "cols" : 192, "tileset" : "level1tileset", "background" : "level1bg" },
+		{ "id" : "demo", "file" : "../Ott - An Elemental Journey/resources/levels/DEMO.tmx", "cols" : 100, "tileset" : "level1tileset", "background" : "level1bg" },
+		{ "id" : "waterMap", "file" : "../Ott - An Elemental Journey/resources/levels/WaterMap.tmx", "cols" : 180, "tileset" : "waterTileset", "background" : "level1bg" }
+
 	]
 
 }
