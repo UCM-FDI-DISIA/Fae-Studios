@@ -10,7 +10,6 @@ Game::Game() {
     //Creamos la ventana de SDL con el nombre, la altura y la anchura, y la ruta de assets correspondiente
     SDLUtils::init(WINDOW_NAME, WINDOW_WIDTH, WINDOW_HEIGHT, jsonRoute);
     sdlutils().showCursor(); //Mostramos el cursor
-    //SoundEffect::setChannelVolume(10, -1); //Bajamos el volumen total del juego
 }
 
 void Game::run() {

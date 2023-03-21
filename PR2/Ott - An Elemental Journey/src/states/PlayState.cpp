@@ -17,6 +17,7 @@
 #include "../components/GrowVine.h"
 #include "../game/ecs.h"
 #include "../components/FadeTransitionComponent.h"
+#include "menus/PauseMenuState.h"
 
 PlayState::PlayState() : GameState(ecs::_state_PLAY) {
 	mngr_->setPlayer(constructors::player(mngr_, 0, 0, 100, 120));
@@ -60,13 +61,17 @@ void PlayState::blockKeyboardInputAfterUnfreeze() {
 
 void PlayState::handleInput() {
     GameState::handleInput();
-
-    if (doNotDetectKeyboardInput && InputHandler::instance()->allKeysUp()) doNotDetectKeyboardInput = false;
-    if (!doNotDetectKeyboardInput) {
-        if (InputHandler::instance()->isKeyJustDown(SDLK_ESCAPE)) {
-            //GameStateMachine::instance()->pushState(new PauseMenuState());
-        }
-    }
+	
+	if (doNotDetectKeyboardInput && InputHandler::instance()->allKeysUp() && fade->getComponent<FadeTransitionComponent>()->hasEndedAnimation()) doNotDetectKeyboardInput = false;
+	
+	if (!doNotDetectKeyboardInput) {
+		if (InputHandler::instance()->isKeyJustDown(SDLK_ESCAPE)) {
+			fade->getComponent<FadeTransitionComponent>()->setFunction([]() { GameStateMachine::instance()->pushState(new PauseMenuState()); });
+			fade->getComponent<FadeTransitionComponent>()->changeSpeed(5);
+			fade->getComponent<FadeTransitionComponent>()->revert();
+			doNotDetectKeyboardInput = true;
+		}
+	}
 }
 
 void PlayState::checkCollisions(std::list<Entity*> entities) {
