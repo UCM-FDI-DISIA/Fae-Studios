@@ -8,9 +8,7 @@
 
 /// Estado de juego
 class PlayState : public GameState {
-private:
-    Mix_Music* music;
-    
+private:    
     void checkCollisions(std::list<Entity*> entities);
     std::vector<Entity*>::const_iterator interactionIt;
 
