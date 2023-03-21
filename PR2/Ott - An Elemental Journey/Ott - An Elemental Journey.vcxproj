@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\components\FadeTransitionComponent.cpp" />
     <ClCompile Include="src\components\earthAnimationController.cpp" />
     <ClCompile Include="src\components\FadeOutAnimationComponent.cpp" />
     <ClCompile Include="src\ecs\colliders.cpp" />
@@ -69,6 +70,7 @@
     <ClCompile Include="src\components\WaterAnimationController.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\components\FadeTransitionComponent.h" />
     <ClInclude Include="src\components\earthAnimationController.h" />
     <ClInclude Include="src\components\FadeOutAnimationComponent.h" />
     <ClInclude Include="src\ecs\colliders.h" />

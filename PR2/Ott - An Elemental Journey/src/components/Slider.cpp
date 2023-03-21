@@ -67,28 +67,29 @@ void Slider::initComponent() {
 
 void Slider::handleInput() {
     SDL_Point mousePosition;
-    SDL_Rect sliderRect = { (int)transform->getPosition().getX(), (int)transform->getPosition().getY(), (int)transform->getWidth(), (int)transform->getHeight() };
+    SDL_Rect sliderRect = { (int)transform->getPosition().getX() - 20, (int)transform->getPosition().getY(), (int)transform->getWidth() + 20, (int)transform->getHeight() };
     SDL_GetMouseState(&mousePosition.x, &mousePosition.y); //Nos guardamos la posición del ratón
     SliderNeedle* n = needle->getComponent<SliderNeedle>();
     //Si clicamos y arrastramos en el slider, llamamos a su onChange
+    
     if (!SDL_PointInRect(&mousePosition, &sliderRect)) {
         currentSliderFrame = MOUSE_OUT; //Indica que el rat�n ha salido de la posici�n del bot�n
         n->currentSliderNeedleFrame = MOUSE_OUT;
+        clicked = false;
     }
-    if (SDL_PointInRect(&mousePosition, &sliderRect)) {
+
+    if (SDL_PointInRect(&mousePosition, &sliderRect) && !InputHandler::instance()->getMouseButtonState(InputHandler::LEFT)) {
         currentSliderFrame = MOUSE_OVER; //Indica que el rat�n est� sobre el bot�n
         n->currentSliderNeedleFrame = MOUSE_OVER;
+        clicked = false;
     }
+
     if (SDL_PointInRect(&mousePosition, &sliderRect) && InputHandler::instance()->getMouseButtonState(InputHandler::LEFT)) { //Indica que se ha pulsado el bot�n
         currentSliderFrame = CLICKED;
         clicked = true;
         n->currentSliderNeedleFrame = CLICKED;
     }
-    else if (!InputHandler::instance()->getMouseButtonState(InputHandler::LEFT)) {
-        clicked = false;
-        currentSliderFrame = MOUSE_OVER;
-        n->currentSliderNeedleFrame = MOUSE_OVER;
-    }
+
     if (clicked && InputHandler::instance()->mouseMotionEvent()) {
         n->currentSliderNeedleFrame = CLICKED;
         currentValue = n->move();
