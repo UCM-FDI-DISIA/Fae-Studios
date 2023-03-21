@@ -18,10 +18,10 @@
 #include "../game/ecs.h"
 
 PlayState::PlayState() : GameState(ecs::_state_PLAY) {
-	/*Mix_Init(MIX_INIT_FLAC | MIX_INIT_MOD | MIX_INIT_MP3 | MIX_INIT_OGG | MIX_INIT_MID);
+	Mix_Init(MIX_INIT_FLAC | MIX_INIT_MOD | MIX_INIT_MP3 | MIX_INIT_OGG | MIX_INIT_MID);
 	Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 2048);
-	//music = Mix_LoadMUS("../../sounds/musics/Ambient 4.	wav"); la m�sica va a ser cambiada a un json
-	Mix_PlayMusic(music, -1);*/
+	music = Mix_LoadMUS("../../sounds/musics/Ambient 4.wav"); 
+		Mix_PlayMusic(music, -1);
 
 	mngr_->setPlayer(constructors::player(mngr_, 0, 0, 100, 120));
 	mngr_->setCamera(constructors::camera(mngr_, 700, 2000, sdlutils().width(), sdlutils().height()));
@@ -75,6 +75,8 @@ void PlayState::checkCollisions(std::list<Entity*> entities) {
 		auto physics = e->getComponent<PhysicsComponent>();
 		auto health = e->getComponent<Health>();
 		SDL_Rect r1 = physics->getCollider();
+		r1.x += physics->getVelocity().getX();
+		r1.y += physics->getVelocity().getY();
 		// std::cout << r1.x << " " << r1.y << std::endl;
 		Vector2D& colVector = physics->getVelocity();
 

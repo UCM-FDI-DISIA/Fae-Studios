@@ -46,21 +46,13 @@ MapComponent::MapComponent(Entity* fadeOut, PlayState* game) : fadeOut(fadeOut),
     //{
     //    //cout << "Failed loading map" << std::endl;
     //}
-    vectorObjects.reserve(5);
-    vectorObjects.push_back({});
-    vectorObjects.push_back({});
-    vectorObjects.push_back({});
-    vectorObjects.push_back({});
-    vectorObjects.push_back({});
-
+    int n = 20;
+    vectorObjects.reserve(n);
     vectorTiles.reserve(6);
-    vectorTiles.push_back({});
-    vectorTiles.push_back({});
-    vectorTiles.push_back({});
-    vectorTiles.push_back({});
-    vectorTiles.push_back({});
-    vectorTiles.push_back({});
-    vectorTiles.push_back({});
+    for (int i = 0; i < n; ++i) {
+        vectorObjects.push_back({});
+        vectorTiles.push_back({});
+    }
 
     tilemap = &sdlutils().images().at(sdlutils().levels().at("level1").tileset);
 }
@@ -89,14 +81,14 @@ void MapComponent::update() {
                 playerRect.w = (playerRect.w / oldScale) * newScale;
                 playerRect.h = (playerRect.h / oldScale) * newScale;
 
-               if (rect.w > rect.h) { // TRIGGER VERTICAL
+                if (rect.w > rect.h) { // TRIGGER VERTICAL
                     if (result.y < rect.y) { // por arriba
                         newPos = Vector2D(playerRect.x,
                             newRect.y + newRect.h - playerRect.h);
                     }
                     else { // por abajo
-                        newPos = Vector2D(newRect.x + newRect.w + playerRect.w,
-                            newRect.y - newRect.h - playerRect.h*1.5);
+                        newPos = Vector2D(newRect.x,
+                            newRect.y - newRect.h - playerRect.h);
                     }
                 }
                 else { // TRIGGER HORIZONTAL
@@ -268,14 +260,7 @@ void MapComponent::loadMap(std::string path) {
             float y_ = ot.getAABB().top;
             float w_ = ot.getAABB().width;
             float h_ = ot.getAABB().height;
-            /*
-            elementsInfo::elements elem;
-            std::string path = "";
-            if (ot.getName() == "1") { elem = elementsInfo::Earth; path = "earth"; }
-            else if (ot.getName() == "2") { elem = elementsInfo::Water; path = "water"; }
-            else if (ot.getName() == "3") { elem = elementsInfo::Fire; path = "fire"; }
-            else if (ot.getName() == "4") { elem = elementsInfo::Dark; path = "dark"; }
-            */
+
             auto classSplit = strSplit(ot.getClass(), '_');
             if (ot.getClass() == "Grass") {
                 constructors::grass(mngr_, Vector2D(x_ * scale, (y_ * scale - sdlutils().images().at("grass").height()) + h_ * scale),

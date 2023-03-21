@@ -36,13 +36,13 @@ public:
     inline bool getWater() { return inWater; }
     inline void setFloating(bool value) { floating = value; }
     inline bool getFloating() { return floating; }
-    inline void Stop() { stopped = true; }
-    inline void Resume() { stopped = false; }
+    inline void Stop() { stopped = true; lastSpeed = velocity_; }
+    inline void Resume() { stopped = false; velocity_ = lastSpeed; }
     inline bool isStopped()  { return stopped; }
     //virtual void render();
 private:
     SDL_Rect collider;
-    Vector2D colliderOffset, colliderWH;
+    Vector2D colliderOffset, colliderWH, lastSpeed;
     const int MAX_VERTICAL_SPEED = 8;
     const double X_KNOCKBACK_FORCE = 5;
     double knockbackTimer = 0;
