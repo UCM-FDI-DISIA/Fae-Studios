@@ -38,9 +38,8 @@ MainMenuState::MainMenuState() : MenuState() {
     pos = Vector2D(sdlutils().width() / 2, 3 * sdlutils().height() / 7);
     constructors::button(mngr_, pos, "Jugar", sdlutils().fonts().at("vcr_osd48"), [this]() {
         sdlutils().soundEffects().at("play_button").play(0, ecs::_channel_UI);
-        fade->getComponent<FadeTransitionComponent>()->setFunction([]() { GameStateMachine::instance()->changeState(new PlayState()); });
+        fade->getComponent<FadeTransitionComponent>()->setFunction([this]() { GameStateMachine::instance()->changeState(new PlayState());  playStateInit = true; });
         fade->getComponent<FadeTransitionComponent>()->revert();
-        playStateInit = true;
     });
 
     pos = Vector2D(sdlutils().width() / 2, 4 * sdlutils().height() / 7);
