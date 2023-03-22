@@ -22,41 +22,41 @@ MainMenuState::MainMenuState() : MenuState() {
     fade = mngr_->addEntity(ecs::_grp_FADEOUT);
     fade->addComponent<FadeTransitionComponent>(true);
 
-    pos = Vector2D(sdlutils().width() / 2, 100);
+    pos = Vector2D(sdlutils().getWindowDimensions().getX() / 2, 100);
     constructors::boldText(mngr_, "Ott: an Elemental Journey", pos, sdlutils().fonts().at("press_start48"), 5, yellow);
 
-    pos = Vector2D(sdlutils().width() / 9, sdlutils().height() - 30);
+    pos = Vector2D(sdlutils().getWindowDimensions().getX() / 9, sdlutils().getWindowDimensions().getY() - 30);
     constructors::boldText(mngr_, "Fae Studios - 2023", pos, sdlutils().fonts().at("press_start16"), 1, yellow);
 
-    pos = Vector2D(8 * sdlutils().width() / 9, sdlutils().height() - 30);
+    pos = Vector2D(8 * sdlutils().getWindowDimensions().getX() / 9, sdlutils().getWindowDimensions().getY() - 30);
     constructors::boldText(mngr_, "InDev 0.02", pos, sdlutils().fonts().at("press_start16"), 1, yellow);
     
     littleOtt = mngr_->addEntity(ecs::_grp_UI);
     littleOtt->addComponent<Transform>(Vector2D(320, 415), 100, 100);
     littleOtt->addComponent<FramedImage>(&sdlutils().images().at("ott_luz"), 9, 8);
 
-    pos = Vector2D(sdlutils().width() / 2, 3 * sdlutils().height() / 7);
+    pos = Vector2D(sdlutils().getWindowDimensions().getX() / 2, 3 * sdlutils().getWindowDimensions().getY() / 7);
     constructors::button(mngr_, pos, "Jugar", sdlutils().fonts().at("vcr_osd48"), [this]() {
         sdlutils().soundEffects().at("play_button").play(0, ecs::_channel_UI);
         fade->getComponent<FadeTransitionComponent>()->setFunction([this]() { GameStateMachine::instance()->changeState(new PlayState());  playStateInit = true; });
         fade->getComponent<FadeTransitionComponent>()->revert();
     });
 
-    pos = Vector2D(sdlutils().width() / 2, 4 * sdlutils().height() / 7);
+    pos = Vector2D(sdlutils().getWindowDimensions().getX() / 2, 4 * sdlutils().getWindowDimensions().getY() / 7);
     constructors::button(mngr_, pos, "Cargar", sdlutils().fonts().at("vcr_osd48"), [this]() {
         sdlutils().soundEffects().at("button").play(0, ecs::_channel_UI);
         fade->getComponent<FadeTransitionComponent>()->setFunction([]() { GameStateMachine::instance()->pushState(new OptionsMenuState()); });
         fade->getComponent<FadeTransitionComponent>()->revert();
     });
 
-    pos = Vector2D(sdlutils().width() / 2, 5 * sdlutils().height() / 7);
+    pos = Vector2D(sdlutils().getWindowDimensions().getX() / 2, 5 * sdlutils().getWindowDimensions().getY() / 7);
     constructors::button(mngr_, pos, "Opciones", sdlutils().fonts().at("vcr_osd24"), [this]() {
         sdlutils().soundEffects().at("button").play(0, ecs::_channel_UI);
         fade->getComponent<FadeTransitionComponent>()->setFunction([](){ GameStateMachine::instance()->pushState(new OptionsMenuState()); });
         fade->getComponent<FadeTransitionComponent>()->revert();
     });
 
-    pos = Vector2D(sdlutils().width() / 2, 6 * sdlutils().height() / 7);
+    pos = Vector2D(sdlutils().getWindowDimensions().getX() / 2, 6 * sdlutils().getWindowDimensions().getY() / 7);
     constructors::exitButton(mngr_, pos, []() {
         sdlutils().soundEffects().at("button").play(0, ecs::_channel_UI);
         game().exitGame();

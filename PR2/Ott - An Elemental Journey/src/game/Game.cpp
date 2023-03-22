@@ -10,6 +10,7 @@ Game::Game() {
     //Creamos la ventana de SDL con el nombre, la altura y la anchura, y la ruta de assets correspondiente
     SDLUtils::init(WINDOW_NAME, WINDOW_WIDTH, WINDOW_HEIGHT, jsonRoute);
     sdlutils().showCursor(); //Mostramos el cursor
+    sdlutils().toggleFullScreen();
 }
 
 void Game::run() {

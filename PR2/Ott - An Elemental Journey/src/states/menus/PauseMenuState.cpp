@@ -19,31 +19,31 @@ PauseMenuState::PauseMenuState() : MenuState() {
 	fade->addComponent<FadeTransitionComponent>(true);
 	fade->getComponent<FadeTransitionComponent>()->activateWithoutExecute();
 
-	pos = Vector2D(sdlutils().width() / 2, 100);
+	pos = Vector2D(sdlutils().getWindowDimensions().getX() / 2, 100);
 	constructors::boldText(mngr_, "Pausa", pos, sdlutils().fonts().at("press_start48"), 5, yellow);
 
-	pos = Vector2D(sdlutils().width() / 2, 3 * sdlutils().height() / 7);
+	pos = Vector2D(sdlutils().getWindowDimensions().getX() / 2, 3 * sdlutils().getWindowDimensions().getY() / 7);
 	constructors::button(mngr_, pos, "Continuar", sdlutils().fonts().at("vcr_osd24"), [this]() {
 		sdlutils().soundEffects().at("button").play(0, ecs::_channel_UI);
 		fade->getComponent<FadeTransitionComponent>()->setFunction([]() { GameStateMachine::instance()->popState(); });
 		fade->getComponent<FadeTransitionComponent>()->revert();
 	});
 
-	pos = Vector2D(sdlutils().width() / 2, 4 * sdlutils().height() / 7);
-	constructors::button(mngr_, pos, "Menú principal", sdlutils().fonts().at("vcr_osd16"), [this]() {
+	pos = Vector2D(sdlutils().getWindowDimensions().getX() / 2, 4 * sdlutils().getWindowDimensions().getY() / 7);
+	constructors::button(mngr_, pos, "Menï¿½ principal", sdlutils().fonts().at("vcr_osd16"), [this]() {
 		sdlutils().soundEffects().at("button").play(0, ecs::_channel_UI);
 		//fade->getComponent<FadeTransitionComponent>()->setFunction([]() { GameStateMachine::instance()->changeAllStatesFor(new MainMenuState()); });
 		//fade->getComponent<FadeTransitionComponent>()->revert();
 	});
 
-	pos = Vector2D(sdlutils().width() / 2, 5 * sdlutils().height() / 7);
+	pos = Vector2D(sdlutils().getWindowDimensions().getX() / 2, 5 * sdlutils().getWindowDimensions().getY() / 7);
 	constructors::button(mngr_, pos, "Opciones", sdlutils().fonts().at("vcr_osd24"), [this]() {
 		sdlutils().soundEffects().at("button").play(0, ecs::_channel_UI);
 		fade->getComponent<FadeTransitionComponent>()->setFunction([]() { GameStateMachine::instance()->pushState(new OptionsMenuState()); });
 		fade->getComponent<FadeTransitionComponent>()->revert();
 	});
 
-	pos = Vector2D(sdlutils().width() / 2, 6 * sdlutils().height() / 7);
+	pos = Vector2D(sdlutils().getWindowDimensions().getX() / 2, 6 * sdlutils().getWindowDimensions().getY() / 7);
 	constructors::exitButton(mngr_, pos, []() {
 		sdlutils().soundEffects().at("button").play(0, ecs::_channel_UI);
 		game().exitGame();
