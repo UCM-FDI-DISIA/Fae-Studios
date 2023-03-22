@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="192" height="105" tilewidth="32" tileheight="32" infinite="0" nextlayerid="10" nextobjectid="207">
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="192" height="105" tilewidth="32" tileheight="32" infinite="0" nextlayerid="10" nextobjectid="212">
  <tileset firstgid="1" name="EarthMapTileset" tilewidth="32" tileheight="32" tilecount="680" columns="20">
   <image source="../images/levels/tilesetlevel1.png" width="640" height="1088"/>
  </tileset>
@@ -115,7 +115,7 @@
 48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup id="2" name="Colisiones" visible="0">
+ <objectgroup id="2" name="Colisiones">
   <object id="1" name="0" class="Ground" x="2" y="992" width="1061.33" height="235"/>
   <object id="2" name="1" class="Ground" x="1792.67" y="543.333" width="266" height="447.333"/>
   <object id="3" name="1" class="Ground" x="2058.67" y="544" width="519.333" height="244"/>
@@ -169,39 +169,44 @@
   <object id="145" name="4" class="Ground" x="1491" y="2112" width="37" height="459"/>
   <object id="146" name="5" class="Ground" x="1492" y="2816" width="43" height="45"/>
   <object id="148" name="4" class="Ground" x="1492" y="1824" width="44" height="139"/>
-  <object id="155" name="2" class="Ground" x="3733.34" y="1381.67" width="872.663" height="48.6667"/>
+  <object id="155" name="2" class="Ground" x="3737.34" y="1369.67" width="872.663" height="48.6667"/>
   <object id="174" name="5" class="Ground" x="1154.33" y="2454.17" width="272.664" height="11.6663"/>
-  <object id="177" name="6" x="4268.8" y="1384.73" width="1438.03" height="196.061"/>
-  <object id="178" name="6" x="4737.07" y="897.392" width="119.333" height="16"/>
-  <object id="179" name="6" x="4928.74" y="1122.06" width="119.333" height="16"/>
-  <object id="180" name="6" x="5122.07" y="897.392" width="119.333" height="16"/>
-  <object id="181" name="6" x="5315.41" y="1121.39" width="119.333" height="16"/>
-  <object id="182" name="6" x="5506.74" y="897.392" width="119.333" height="16"/>
+  <object id="177" name="6" x="4272.8" y="1372.73" width="1438.03" height="196.061"/>
+  <object id="178" name="6" x="4737.07" y="892.059" width="119.333" height="16"/>
+  <object id="179" name="6" x="4928.74" y="1116.73" width="119.333" height="16"/>
+  <object id="180" name="6" x="5122.07" y="892.059" width="119.333" height="16"/>
+  <object id="181" name="6" x="5315.41" y="1116.06" width="119.333" height="16"/>
+  <object id="182" name="6" x="5506.74" y="892.059" width="119.333" height="16"/>
+  <object id="207" name="6" x="4640.98" y="575.969" width="1438.03" height="142.061"/>
+  <object id="208" name="6" x="4598.98" y="683.969" width="88.03" height="566.061"/>
+  <object id="209" name="6" x="5686.98" y="795.969" width="278.03" height="724.061"/>
+  <object id="210" name="2" class="Ground" x="2701.67" y="863.667" width="1036.66" height="74.6667"/>
+  <object id="211" name="2" class="Ground" x="3731.67" y="761.667" width="872.663" height="458.667"/>
  </objectgroup>
  <objectgroup id="3" name="Objetos interactuables">
   <object id="27" name="lamp1" class="Lamp_0" x="640" y="1523.75" width="32"/>
   <object id="54" name="1" class="Sanctuary" x="1318" y="1439.5" width="88.5"/>
   <object id="55" class="Ott" x="416" y="1536" width="32"/>
   <object id="176" name="lamp1" class="Lamp_3" x="1772" y="2106.66" width="32" height="6.66667"/>
-  <object id="183" name="6" class="Grass" x="4870.56" y="774.734" width="42.3333" height="613"/>
-  <object id="184" name="6" class="Grass" x="5088.06" y="773.568" width="41.6667" height="614.333"/>
-  <object id="185" name="6" class="Grass" x="5255.4" y="777.568" width="43.6667" height="610"/>
-  <object id="186" name="6" class="Grass" x="5474.06" y="774.901" width="40.3333" height="612.667"/>
-  <object id="187" name="6" class="DoorTrigger" x="4838.06" y="773.235" width="31" height="609"/>
+  <object id="183" name="6" class="Grass" x="4862.56" y="757.401" width="45" height="613"/>
+  <object id="184" name="6" class="Grass" x="5074.73" y="758.901" width="48.3334" height="614.333"/>
+  <object id="185" name="6" class="Grass" x="5246.07" y="761.568" width="47.6667" height="610"/>
+  <object id="186" name="6" class="Grass" x="5460.73" y="757.568" width="47" height="612.667"/>
+  <object id="187" name="6" class="DoorTrigger" x="4827.39" y="758.568" width="36.3333" height="609"/>
   <object id="189" name="BossRoom" class="BossRoom" x="4699.64" y="736.023" width="987.879" height="648.242"/>
   <object id="196" name="lamp2" class="Lamp_2" x="4469.33" y="1367" width="32"/>
   <object id="199" name="lamp2" class="Lamp_1" x="1217.58" y="1430.92" width="32"/>
  </objectgroup>
- <objectgroup id="6" name="Salas" visible="0">
+ <objectgroup id="6" name="Salas">
   <object id="61" name="0" class="1.6" x="0" y="913.939" width="1037.33" height="778.061"/>
   <object id="63" name="1" class="0.7" x="1052" y="598.788" width="1549.45" height="1100.24"/>
   <object id="73" name="2" class="1" x="2660.76" y="881.88" width="1941.22" height="1332.24"/>
   <object id="74" name="3" class="1" x="1559.85" y="1791.88" width="1054.97" height="1048.24"/>
   <object id="75" name="4" class="1" x="1031.18" y="1880.55" width="471.64" height="425.57"/>
   <object id="175" name="5" class="1" x="1048.18" y="2336.88" width="471.64" height="665.237"/>
-  <object id="200" name="6" class="0.8" x="4635.64" y="672" width="1282.61" height="753.939"/>
+  <object id="200" name="6" class="1" x="4635.64" y="672" width="1282.61" height="753.939"/>
  </objectgroup>
- <objectgroup id="8" name="Enemigos" visible="0">
+ <objectgroup id="8" name="Enemigos">
   <object id="150" name="0_1" class="Mushroom" x="352.667" y="1369.67" width="31.3333" height="155.333"/>
   <object id="151" name="1_2" class="Melee" x="1566.33" y="1312.17" width="31.3333" height="86.6667"/>
   <object id="152" name="2_1" class="Slime" x="3147.97" y="1922.98" width="31.3333" height="173.333"/>
@@ -217,8 +222,8 @@
   <object id="171" name="3_4" class="34" x="1542.44" y="1966.58" width="28.6106" height="149.72"/>
   <object id="172" name="4_5" class="45" x="1237.11" y="2286.92" width="87.9439" height="27.053"/>
   <object id="173" name="5_4" class="45" x="1235.44" y="2321.47" width="89.2773" height="25.72"/>
-  <object id="192" name="2_6" class="26" x="4582.67" y="1225.33" width="32" height="160"/>
-  <object id="193" name="6_2" class="26" x="4622.42" y="1225.58" width="32" height="160"/>
+  <object id="192" name="2_6" class="26" x="4582.67" y="1210.66" width="32" height="160"/>
+  <object id="193" name="6_2" class="26" x="4622.42" y="1210.91" width="32" height="160"/>
  </objectgroup>
  <objectgroup id="9" name="Ott">
   <object id="153" name="Ott" class="0" x="555" y="1304.67" width="37" height="87"/>
