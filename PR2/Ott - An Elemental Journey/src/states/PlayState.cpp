@@ -19,6 +19,7 @@
 #include "../game/ecs.h"
 #include "../components/FadeTransitionComponent.h"
 #include "menus/PauseMenuState.h"
+#include "../components/ElementObject.h"
 
 PlayState::PlayState() : GameState(ecs::_state_PLAY) {
 	mngr_->setPlayer(constructors::player(mngr_, 700, 1500, 100, 120));
@@ -33,6 +34,10 @@ PlayState::PlayState() : GameState(ecs::_state_PLAY) {
 	player_->getComponent<PlayerInput>()->initComponent();
 	player_->getComponent<PlayerAttack>()->initComponent();
 	player_->getComponent<Health>()->initComponent();
+	auto a = mngr_->addEntity(ecs::_grp_INTERACTION);
+	a->addComponent<Transform>(player_->getComponent<Transform>()->getPosition().getX() + 100, player_->getComponent<Transform>()->getPosition().getY(), 300, 300);
+	a->addComponent<Image>(&sdlutils().images().at("lamp"));
+	a->addComponent<ElementObject>(ecs::Earth);
 	fade = mngr_->addEntity(ecs::_grp_FADEOUT);
 	fade->addComponent<FadeTransitionComponent>(true, 1);
 	fade->getComponent<FadeTransitionComponent>()->activateWithoutExecute();
@@ -251,7 +256,12 @@ void PlayState::checkInteraction() {
         Entity* ents = *interactionIt;
         SDL_Rect r2 = ents->getComponent<Transform>()->getRect();
         if (SDL_HasIntersection(&r1, &r2)) {
-            ents->getComponent<InteractionComponent>()->interact();
+			if (ents->hasComponent<ElementObject>()) {
+				mngr_->getPlayer()->getComponent<PlayerInput>()->unlockElement(ents->getComponent<ElementObject>()->getElement());
+				ents->setAlive(false);
+			}
+			else
+				ents->getComponent<InteractionComponent>()->interact();
             interact = true;
         }
         interactionIt++;
