@@ -29,7 +29,7 @@ private:
 	static std::vector<animDescription> melee_anims;
 	static std::vector<animDescription> range_anims;
 	static std::vector<animDescription> slime_anims;
-	static std::vector<animDescription> boss_anims;
+	static std::vector<animDescription> waterBoss_anims;
 
 	static offsetPhysics ott_collider;
 	static offsetPhysics melee_collider;

@@ -21,6 +21,7 @@
 #include "../components/Health.h"
 #include "../components/EnemyContactDamage.h"
 #include "../components/Destruction.h"
+#include "../components/WaterBossAnimationComponent.h"
 
 
 PlayState::PlayState() : GameState(ecs::_state_PLAY) {
@@ -61,7 +62,7 @@ PlayState::PlayState() : GameState(ecs::_state_PLAY) {
 	waterBoss->addComponent<Acceleration>();
 	waterBoss->addComponent<Health>(5, ecs::Fire, false);
 	waterBoss->addComponent<EnemyContactDamage>();
-	//waterBoss->addComponent<EnemyAnimationComponent>(anims::WATERBOSS_ANIM);
+	waterBoss->addComponent<WaterBossAnimationComponent>(anims::WATERBOSS_ANIM);
 
 	// OBJETOS QUE DESTRUYE BOSS AGUA
 	x = 600;
