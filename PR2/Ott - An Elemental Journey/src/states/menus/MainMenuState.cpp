@@ -39,12 +39,12 @@ MainMenuState::MainMenuState() : MenuState() {
     constructors::button(mngr_, pos, "Jugar", sdlutils().fonts().at("vcr_osd48"), [this]() {
 #ifdef __APPLE__
         sdlutils().soundEffects().at("play_button").play(0, ecs::_channel_UI);
-        fade->getComponent<FadeTransitionComponent>()->setFunction([this]() { GameStateMachine::instance()->changeState(new PlayState());  playStateInit = true; });
+        fade->getComponent<FadeTransitionComponent>()->setFunction([this]() { GameStateMachine::instance()->changeState(new PlayState());  playStateInit = true; sdlutils().musics().at("main_menu_music").haltMusic();});
         fade->getComponent<FadeTransitionComponent>()->revert();
 #endif
 #ifdef __WINDOWS__
         sdlutils().soundEffects().at("play_button").play(0, ecs::_channel_UI);
-        fade->getComponent<FadeTransitionComponent>()->setFunction([]() { GameStateMachine::instance()->changeState(new PlayState()); });
+        fade->getComponent<FadeTransitionComponent>()->setFunction([]() { GameStateMachine::instance()->changeState(new PlayState()); sdlutils().musics().at("main_menu_music").haltMusic();});
         fade->getComponent<FadeTransitionComponent>()->revert();
         playStateInit = true;
 #endif
@@ -53,25 +53,28 @@ MainMenuState::MainMenuState() : MenuState() {
     pos = Vector2D(sdlutils().getWindowDimensions().getX() / 2, 4 * sdlutils().getWindowDimensions().getY() / 7);
     constructors::button(mngr_, pos, "Cargar", sdlutils().fonts().at("vcr_osd48"), [this]() {
         sdlutils().soundEffects().at("button").play(0, ecs::_channel_UI);
-        fade->getComponent<FadeTransitionComponent>()->setFunction([]() { GameStateMachine::instance()->pushState(new OptionsMenuState()); });
+        fade->getComponent<FadeTransitionComponent>()->setFunction([]() { GameStateMachine::instance()->pushState(new OptionsMenuState()); sdlutils().musics().at("main_menu_music").haltMusic(); });
         fade->getComponent<FadeTransitionComponent>()->revert();
     });
 
     pos = Vector2D(sdlutils().getWindowDimensions().getX() / 2, 5 * sdlutils().getWindowDimensions().getY() / 7);
     constructors::button(mngr_, pos, "Opciones", sdlutils().fonts().at("vcr_osd24"), [this]() {
         sdlutils().soundEffects().at("button").play(0, ecs::_channel_UI);
-        fade->getComponent<FadeTransitionComponent>()->setFunction([](){ GameStateMachine::instance()->pushState(new OptionsMenuState()); });
+        fade->getComponent<FadeTransitionComponent>()->setFunction([](){ GameStateMachine::instance()->pushState(new OptionsMenuState()); sdlutils().musics().at("main_menu_music").haltMusic();});
         fade->getComponent<FadeTransitionComponent>()->revert();
     });
 
     pos = Vector2D(sdlutils().getWindowDimensions().getX() / 2, 6 * sdlutils().getWindowDimensions().getY() / 7);
     constructors::exitButton(mngr_, pos, []() {
         sdlutils().soundEffects().at("button").play(0, ecs::_channel_UI);
+        sdlutils().musics().at("main_menu_music").haltMusic();
         game().exitGame();
     });
 
     fade->getComponent<FadeTransitionComponent>()->activateWithoutExecute();
     playStateInit = false;
+
+    sdlutils().musics().at("main_menu_music").play();
 }
 
 void MainMenuState::update() {

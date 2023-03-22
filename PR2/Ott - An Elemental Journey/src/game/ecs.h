@@ -87,7 +87,8 @@ namespace ecs {
 #pragma region AudioChannels
     using channelId_type = int8_t;
     enum channelId : channelId_type {
-        _channel_UI = -1,
+        _channel_UI = 0,
+        _channel_PLAYER = 1,
 
 
         _LAST_CHANNEL_ID

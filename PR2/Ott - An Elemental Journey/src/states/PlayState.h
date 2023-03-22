@@ -32,9 +32,11 @@ public:
     /// Actualiza variables del estado y de sus entidades
     void update() override;
 
+    void resetFade() override;
+
     /// Bloquea el uso del teclado después de volver del menú de pausa
     void blockKeyboardInputAfterUnfreeze();
-    
+
     std::pair<bool, bool> checkCollisionWithVine();
     
     inline void addEnemy(Entity* enemy, int room) { 

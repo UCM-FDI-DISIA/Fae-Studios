@@ -76,6 +76,11 @@ public:
 		return Mix_Volume(channel, v);
 	}
 
+    inline static bool isSoundBeingPlayed(int channel = -1) {
+        _CHECK_CHANNEL_(channel);
+        return Mix_Playing(channel);
+    }
+
 	inline static float getChannelVolume(int channel = -1) {
 		_CHECK_CHANNEL_(channel);
 		return convertSDLMixerValueToVolume(volumesOfChannels[channel]);
