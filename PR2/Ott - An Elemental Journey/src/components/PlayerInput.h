@@ -17,6 +17,22 @@ public:
 	virtual void initComponent();
 	virtual void update();
 	constexpr static ecs::cmpId_type id = ecs::_CTRL;
+	inline void unlockElement(ecs::elements elem) {
+		switch (elem)
+		{
+		case ecs::Earth:
+			earth = true;
+			break;
+		case ecs::Water:
+			water = true;
+			break;
+		case ecs::Fire:
+			fire = true;
+			break;
+		default:
+			break;
+		}
+	};
 
 private:
 	Transform* tr_;
@@ -28,6 +44,7 @@ private:
 	float horizontalSpeed = 0;
 	int attackTimer, chargedAttackTime = 1;
 	bool attack = false;
+	bool earth = false, water = false, fire = false;
 };
 
 
