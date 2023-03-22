@@ -65,25 +65,6 @@ void MapComponent::generateEnemies() {
             Entity* enemie = constructors::eSlime(mngr_, path + "Slime", x_ * scale * roomScale, y_ * scale * roomScale, roomScale, elem);
             game->addEnemy(enemie, roomNum);
         }
-        else if (it.getClass() == "BossRoom") {
-            SDL_Rect roomDimensions;
-            roomDimensions.x = x_ * scale;
-            roomDimensions.y = y_ * scale;
-            roomDimensions.w = w_ * scale;
-            roomDimensions.h = h_ * scale;
-            Entity* earthBoss = mngr_->addEntity(ecs::_grp_GENERAL);
-            earthBoss->addComponent<EarthBossManager>(roomDimensions);
-            mngr_->setEarthBoss(earthBoss);
-            //earthBoss->getComponent<EarthBossManager>()->initializeEntities();
-        }
-        else if (it.getClass() == "DoorTrigger") {
-            Entity* trigger = mngr_->addEntity(ecs::_grp_TRIGGER);
-            trigger->addComponent<Transform>(Vector2D(x_ * scale, y_ * scale), w_ * scale, h_ * scale);
-            trigger->addComponent<VineManager>(EVIL, Vector2D((x_ * scale) - 260, ((y_ * scale) + h_ * scale) - 100), Vector2D((x_ * scale) - 170, y_ * scale - 100), -1, 0, w_ * scale, h_ * scale, 3);
-            trigger->getComponent<VineManager>()->createVine();
-            trigger->addComponent<EnterBossRoom>(&sdlutils().images().at("animationWorm"));
-            trigger->addComponent<Trigger>();
-        }
     }
 }
 
@@ -270,13 +251,14 @@ void MapComponent::loadMap(std::string path) {
             float y_ = ot.getAABB().top;
             float w_ = ot.getAABB().width;
             float h_ = ot.getAABB().height;
-
+            
             auto classSplit = strSplit(ot.getClass(), '_');
             if (ot.getClass() == "Grass") {
-                constructors::grass(mngr_, Vector2D(x_ * scale, (y_ * scale - sdlutils().images().at("grass").height()) + h_ * scale),
-                    w_ * scale, h_ * scale, Vector2D(x_ * scale,
-                        (y_ * scale - sdlutils().images().at("grass").height()) + h_ * scale + 100),
-                    Vector2D(x_ * scale, (y_ * scale - sdlutils().images().at("grass").height())));
+                auto roomScale = vectorTiles[std::stoi(ot.getName())].first;
+                constructors::grass(mngr_, Vector2D((x_ * scale) * roomScale , ((y_ * scale - sdlutils().images().at("grass").height()) + h_ * scale)* roomScale),
+                    w_ * scale* roomScale, h_ * scale* roomScale, Vector2D(x_ * scale * roomScale,
+                        (y_ * scale - sdlutils().images().at("grass").height()) + h_ * scale + 100) * roomScale,
+                    Vector2D(x_ * scale * roomScale, (y_ * scale - sdlutils().images().at("grass").height()) * roomScale));
             }
             else if (classSplit[0] == "Lamp") {
                 //createLamp(Vector2D(x_ * scale, y_ * scale - game->getTexture("lamp", PLAY_STATE)->getH() * 2));
@@ -309,6 +291,25 @@ void MapComponent::loadMap(std::string path) {
                 Vector2D pos = Vector2D(x_ * scale * roomScale, (y_ * scale) * roomScale);
                 constructors::sanctuary(mngr_, pos - Vector2D(0, 250 * roomScale), 250 * roomScale, 250 * roomScale);
                 std::cout << pos << std::endl;
+            }
+            else if (ot.getClass() == "BossRoom") {
+                SDL_Rect roomDimensions;
+                roomDimensions.x = x_ * scale;
+                roomDimensions.y = y_ * scale;
+                roomDimensions.w = w_ * scale;
+                roomDimensions.h = h_ * scale;
+                Entity* earthBoss = mngr_->addEntity(ecs::_grp_GENERAL);
+                earthBoss->addComponent<EarthBossManager>(roomDimensions);
+                mngr_->setEarthBoss(earthBoss);
+                //earthBoss->getComponent<EarthBossManager>()->initializeEntities();
+            }
+            else if (ot.getClass() == "DoorTrigger") {
+                Entity* trigger = mngr_->addEntity(ecs::_grp_TRIGGER);
+                trigger->addComponent<Transform>(Vector2D(x_ * scale, y_ * scale), w_ * scale, h_ * scale);
+                trigger->addComponent<VineManager>(EVIL, Vector2D((x_ * scale) - 260, ((y_ * scale) + h_ * scale) - 100), Vector2D((x_ * scale) - 170, y_ * scale - 100), -1, 0, w_ * scale, h_ * scale, 3);
+                trigger->getComponent<VineManager>()->createVine();
+                trigger->addComponent<EnterBossRoom>(&sdlutils().images().at("animationWorm"));
+                trigger->addComponent<Trigger>();
             }
         }
         generateEnemies();

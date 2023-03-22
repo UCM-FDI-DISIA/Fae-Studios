@@ -180,15 +180,14 @@
  </objectgroup>
  <objectgroup id="3" name="Objetos interactuables">
   <object id="27" name="lamp1" class="Lamp_0" x="640" y="1523.75" width="32"/>
-  <object id="34" class="Grass" x="1893" y="1621"/>
   <object id="54" name="1" class="Sanctuary" x="1318" y="1439.5" width="88.5"/>
   <object id="55" class="Ott" x="416" y="1536" width="32"/>
   <object id="176" name="lamp1" class="Lamp_3" x="1772" y="2106.66" width="32" height="6.66667"/>
-  <object id="183" name="Grass" class="Grass" x="4870.56" y="774.734" width="42.3333" height="613"/>
-  <object id="184" name="Grass" class="Grass" x="5088.06" y="773.568" width="41.6667" height="614.333"/>
-  <object id="185" name="Grass" class="Grass" x="5255.4" y="777.568" width="43.6667" height="610"/>
-  <object id="186" name="Grass" class="Grass" x="5474.06" y="774.901" width="40.3333" height="612.667"/>
-  <object id="187" name="DoorTrigger" class="DoorTrigger" x="4838.06" y="773.235" width="31" height="609"/>
+  <object id="183" name="6" class="Grass" x="4870.56" y="774.734" width="42.3333" height="613"/>
+  <object id="184" name="6" class="Grass" x="5088.06" y="773.568" width="41.6667" height="614.333"/>
+  <object id="185" name="6" class="Grass" x="5255.4" y="777.568" width="43.6667" height="610"/>
+  <object id="186" name="6" class="Grass" x="5474.06" y="774.901" width="40.3333" height="612.667"/>
+  <object id="187" name="6" class="DoorTrigger" x="4838.06" y="773.235" width="31" height="609"/>
   <object id="188" name="EarthBoss" class="EarthBoss" x="4688.23" y="841.068" width="684" height="732"/>
   <object id="189" name="BossRoom" class="BossRoom" x="4699.64" y="736.023" width="987.879" height="648.242"/>
   <object id="196" name="lamp2" class="Lamp_2" x="4469.33" y="1367" width="32"/>
