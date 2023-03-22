@@ -64,16 +64,16 @@ void PlayerInput::update()
 					attackTimer = SDL_GetTicks();
 
 				}
-				if (input->isKeyDown(SDLK_a)) {
+				if (input->isKeyDown(SDLK_a) && earth) {
 					//Cambio elemento
 					anim_->changeElem(ecs::Earth);
 					anim_->setState(VANISH);
 				}
-				if (input->isKeyDown(SDLK_d)) {
+				if (input->isKeyDown(SDLK_d) && water) {
 					anim_->changeElem(ecs::Water);
 					anim_->setState(VANISH);
 				}
-				if (input->isKeyDown(SDLK_w)) {
+				if (input->isKeyDown(SDLK_w) && fire) {
 					anim_->changeElem(ecs::Fire);
 					anim_->setState(VANISH);
 				}

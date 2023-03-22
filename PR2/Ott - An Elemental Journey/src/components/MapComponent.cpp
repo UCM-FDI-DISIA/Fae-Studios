@@ -251,13 +251,14 @@ void MapComponent::loadMap(std::string path) {
             float y_ = ot.getAABB().top;
             float w_ = ot.getAABB().width;
             float h_ = ot.getAABB().height;
-
+            
             auto classSplit = strSplit(ot.getClass(), '_');
             if (ot.getClass() == "Grass") {
-                constructors::grass(mngr_, Vector2D(x_ * scale, (y_ * scale - sdlutils().images().at("grass").height()) + h_ * scale),
-                    w_ * scale, h_ * scale, Vector2D(x_ * scale,
-                        (y_ * scale - sdlutils().images().at("grass").height()) + h_ * scale + 100),
-                    Vector2D(x_ * scale, (y_ * scale - sdlutils().images().at("grass").height())));
+                auto roomScale = vectorTiles[std::stoi(ot.getName())].first;
+                constructors::grass(mngr_, Vector2D((x_ * scale) * roomScale , ((y_ * scale - sdlutils().images().at("grass").height()) + h_ * scale)* roomScale),
+                    w_ * scale* roomScale, h_ * scale* roomScale, Vector2D(x_ * scale * roomScale,
+                        (y_ * scale - sdlutils().images().at("grass").height()) + h_ * scale + 100) * roomScale,
+                    Vector2D(x_ * scale * roomScale, (y_ * scale - sdlutils().images().at("grass").height()) * roomScale));
             }
             else if (classSplit[0] == "Lamp") {
                 //createLamp(Vector2D(x_ * scale, y_ * scale - game->getTexture("lamp", PLAY_STATE)->getH() * 2));
