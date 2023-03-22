@@ -58,85 +58,85 @@ PlayState::PlayState() : GameState(ecs::_state_PLAY) {
 	// COMENTO A LOS ENEMIGOS PORQUE ME ESTÁN DANDO POR CULO UN RATO CHAU BESOS
 
 	auto waterBoss = mngr_->addEntity(ecs::_grp_CHARACTERS);
-	int x = 100;
-	int y = 1000;
+	int x = mngr_->getPlayer()->getComponent<Transform>()->getPosition().getX();
+	int y = mngr_->getPlayer()->getComponent<Transform>()->getPosition().getY()+300;
 	float scale = 2.5f;
-	auto waterPh= waterBoss->addComponent<PhysicsComponent>(anims::SLIME);
-	waterPh->setVelocity(Vector2D(-1,0));
+	waterBoss->addComponent<Transform>(x, y, 110 * scale, 110 * scale);
+	auto waterPh= waterBoss->addComponent<PhysicsComponent>(colliders::MELEE);
+	waterPh->setVelocity(Vector2D(0,0));
 	waterPh->setGravity(false);
 	waterPh->lookDirection(false);
-	waterBoss->addComponent<Transform>(x, y, 110 * scale, 110 * scale);
 	waterPh->createCollider();
 	waterBoss->addComponent<FramedImage>(&sdlutils().images().at("water_boss"), 4, 8);
-	waterBoss->addComponent<Acceleration>();
+	//waterBoss->addComponent<Acceleration>();
 	waterBoss->addComponent<Health>(5, ecs::Fire, false);
 	waterBoss->addComponent<EnemyContactDamage>();
 	waterBoss->addComponent<WaterBossAnimationComponent>(anims::WATERBOSS_ANIM);
 
-	// OBJETOS QUE DESTRUYE BOSS AGUA
-	x = 600;
-	y = 1300;
-	scale = 1.0f;
-	auto waterObj = mngr_->addEntity(ecs::_grp_GROUND);
-	auto watObjPh = waterObj->addComponent<PhysicsComponent>();
-	watObjPh->setGravity(false);
-	waterObj->addComponent<Transform>(x, y, 100 * scale, 100 * scale);
-	waterObj->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
-	waterObj->addComponent<Destruction>(waterBoss);
+	//// OBJETOS QUE DESTRUYE BOSS AGUA
+	//x = 600;
+	//y = 1300;
+	//scale = 1.0f;
+	//auto waterObj = mngr_->addEntity(ecs::_grp_GROUND);
+	//auto watObjPh = waterObj->addComponent<PhysicsComponent>();
+	//watObjPh->setGravity(false);
+	//waterObj->addComponent<Transform>(x, y, 100 * scale, 100 * scale);
+	//waterObj->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
+	//waterObj->addComponent<Destruction>(waterBoss);
 
-	// OBJETO DESTRUCTIBLE 2
-	x =1200;
-	y = 1300;
-	scale = 1.0f;
-	auto waterObj2 = mngr_->addEntity(ecs::_grp_GROUND);
-	auto watObjPh2 = waterObj2->addComponent<PhysicsComponent>();
-	watObjPh2->setGravity(false);
-	waterObj2->addComponent<Transform>(x, y, 100 * scale, 100 * scale);
-	waterObj2->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
-	waterObj2->addComponent<Destruction>(waterBoss);
+	//// OBJETO DESTRUCTIBLE 2
+	//x =1200;
+	//y = 1300;
+	//scale = 1.0f;
+	//auto waterObj2 = mngr_->addEntity(ecs::_grp_GROUND);
+	//auto watObjPh2 = waterObj2->addComponent<PhysicsComponent>();
+	//watObjPh2->setGravity(false);
+	//waterObj2->addComponent<Transform>(x, y, 100 * scale, 100 * scale);
+	//waterObj2->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
+	//waterObj2->addComponent<Destruction>(waterBoss);
 
 
 
-	auto box0 = mngr_->addEntity(ecs::_grp_CHARACTERS);
-	 x = 100;
-	 y = 1000;
-	 scale = 1.0f;
-	auto boxPh0 = box0->addComponent<PhysicsComponent>();
-	boxPh0->setGravity(false);
-	box0->addComponent<Transform>(x, y, 110 * scale, 110 * scale);
-	box0->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
-	box0->addComponent<Pivot>(waterBoss,0);
+	//auto box0 = mngr_->addEntity(ecs::_grp_CHARACTERS);
+	// x = 100;
+	// y = 1000;
+	// scale = 1.0f;
+	//auto boxPh0 = box0->addComponent<PhysicsComponent>();
+	//boxPh0->setGravity(false);
+	//box0->addComponent<Transform>(x, y, 110 * scale, 110 * scale);
+	//box0->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
+	//box0->addComponent<Pivot>(waterBoss,0);
 
-	auto box1 = mngr_->addEntity(ecs::_grp_CHARACTERS);
-	x = 100;
-	y = 1200;
-	scale = 1.0f;
-	auto boxPh1 = box1->addComponent<PhysicsComponent>();
-	boxPh1->setGravity(false);
-	box1->addComponent<Transform>(x, y, 110 * scale, 110 * scale);
-	box1->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
-	box1->addComponent<Pivot>(waterBoss, 1);
+	//auto box1 = mngr_->addEntity(ecs::_grp_CHARACTERS);
+	//x = 100;
+	//y = 1200;
+	//scale = 1.0f;
+	//auto boxPh1 = box1->addComponent<PhysicsComponent>();
+	//boxPh1->setGravity(false);
+	//box1->addComponent<Transform>(x, y, 110 * scale, 110 * scale);
+	//box1->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
+	//box1->addComponent<Pivot>(waterBoss, 1);
 
-	auto box2 = mngr_->addEntity(ecs::_grp_CHARACTERS);
-	x = 800;
-	y = 1200;
-	scale = 1.0f;
-	auto boxPh2 = box2->addComponent<PhysicsComponent>();
-	boxPh2->setGravity(false);
-	box2->addComponent<Transform>(x, y, 110 * scale, 110 * scale);
-	box2->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
-	box2->addComponent<Pivot>(waterBoss, 2);
+	//auto box2 = mngr_->addEntity(ecs::_grp_CHARACTERS);
+	//x = 800;
+	//y = 1200;
+	//scale = 1.0f;
+	//auto boxPh2 = box2->addComponent<PhysicsComponent>();
+	//boxPh2->setGravity(false);
+	//box2->addComponent<Transform>(x, y, 110 * scale, 110 * scale);
+	//box2->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
+	//box2->addComponent<Pivot>(waterBoss, 2);
 
-	auto box3 = mngr_->addEntity(ecs::_grp_CHARACTERS);
-	x = 800;
-	y = 1000;
-	scale = 1.0f;
-	auto boxPh3 = box3->addComponent<PhysicsComponent>();
-	boxPh3->setGravity(false);
-	box3->addComponent<Transform>(x, y, 110 * scale, 110 * scale);
-	box3->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
-	box3->addComponent<Pivot>(waterBoss, 3);
-	
+	//auto box3 = mngr_->addEntity(ecs::_grp_CHARACTERS);
+	//x = 800;
+	//y = 1000;
+	//scale = 1.0f;
+	//auto boxPh3 = box3->addComponent<PhysicsComponent>();
+	//boxPh3->setGravity(false);
+	//box3->addComponent<Transform>(x, y, 110 * scale, 110 * scale);
+	//box3->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
+	//box3->addComponent<Pivot>(waterBoss, 3);
+	//
 
 
 	//constructors::eSlime(mngr_, "fireSlime", 600, 1100, 1.0f);
