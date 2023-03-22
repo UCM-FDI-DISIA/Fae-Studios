@@ -23,12 +23,16 @@ void Health::initComponent() {
 	image = ent_->getComponent<HealthImage>();
 }
 
-void Health::recall()
+void Health::recall(bool rest)
 {
 	if (lastSanctuary != nullptr) {
-		Vector2D newPos = lastSanctuary->getComponent<Transform>()->getPosition();
+		auto sancTr_ = lastSanctuary->getComponent<Transform>();
+		auto tr_ = ent_->getComponent<Transform>();
 		image->reset();
-		ent_->getComponent<Transform>()->setPosition(newPos);
+		if (!rest) {
+			Vector2D newPos = sancTr_->getPosition() + Vector2D(0, sancTr_->getHeight() - tr_->getHeight());
+			tr_->setPosition(newPos);
+		}
 		actualLife = maxLife;
 		dead = false;
 		static_cast<PlayState*>(GameStateMachine::instance()->currentState())->resetEnemies();
@@ -75,8 +79,9 @@ bool Health::recieveDamage(ecs::elements el)
 	else return false;
 }
 
-void Health::saveSactuary()
+void Health::saveSactuary(Entity* sanct)
 {
-	lastSanctuary = static_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->getCurrentInteraction();
-	// die();
+	lastSanctuary = sanct;
+	recall(true);
+	// aquí no estaría mal poner una animación de Ott sentaditto de pana
 }

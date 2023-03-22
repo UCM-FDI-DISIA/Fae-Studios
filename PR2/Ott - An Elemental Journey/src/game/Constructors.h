@@ -38,6 +38,7 @@
 #include <string>
 #include <iostream>
 #include <functional>
+#include <SDL.h>
 
 
 const SDL_Color transparente{ 255,255,255,1 };
@@ -180,7 +181,7 @@ namespace constructors {
 
 	static inline void background(Manager* mngr_, Texture* t) {
 		auto b = mngr_->addEntity(ecs::_grp_UI);
-		b->addComponent<Transform>(Vector2D(0, 0), sdlutils().width(), sdlutils().height());
+		b->addComponent<Transform>(Vector2D(0, 0), sdlutils().getWindowDimensions().getX(), sdlutils().getWindowDimensions().getY());
 		b->addComponent<Image>(t);
 	}
 

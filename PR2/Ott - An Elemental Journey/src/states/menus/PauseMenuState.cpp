@@ -1,72 +1,68 @@
 #include "../../utils/checkML.h"
 #include "PauseMenuState.h"
 #include "../GameStateMachine.h"
-//#include "../../ui/Button.h"
+#include "../../components/Button.h"
 #include "MainMenuState.h"
 #include "options/OptionsMenuState.h"
 #include "../../sdlutils/InputHandler.h"
 #include "../../sdlutils/SDLUtils.h"
+#include "../../game/Constructors.h"
+#include "../../game/Game.h"
 
 PauseMenuState::PauseMenuState() : MenuState() {
-	/*
-	//Resume
-	gameObjects.push_back(new Button(ButtonParams(
-		Vector2D(WINDOW_WIDTH / 2 - (app->getTexture("button", this->getStateID())->getW() / 3) / 2, 3 * WINDOW_HEIGHT / 7 - (app->getTexture("button", this->getStateID())->getH() / 2)),
-		"Continuar",
-		app->getTexture("button", this->getStateID()),
-		app,
-		resume,
-		Scale(1.0f, 1.0f),
-		Scale(1.7f,1.7f))));
-	//Main menu
-	gameObjects.push_back(new Button(ButtonParams(
-		Vector2D(WINDOW_WIDTH / 2 - (app->getTexture("button", this->getStateID())->getW() / 3) / 2, 4 * WINDOW_HEIGHT / 7 - (app->getTexture("button", this->getStateID())->getH() / 2)),
-		"Menú principal",
-		app->getTexture("button", this->getStateID()),
-		app,
-		mainMenu,
-		Scale(1.0f, 1.0f),
-		Scale(1.0f, 1.0f))));
-	//Options
-	gameObjects.push_back(new Button(ButtonParams(
-		Vector2D(WINDOW_WIDTH / 2 - (app->getTexture("button", this->getStateID())->getW() / 3) / 2, 5 * WINDOW_HEIGHT / 7 - (app->getTexture("button", this->getStateID())->getH() / 2)),
-		"Opciones",
-		app->getTexture("button", this->getStateID()),
-		app,
-		settings,
-		Scale(1.0f, 1.0f),
-		Scale(1.7f, 1.7f))));
-	//Quit
-	gameObjects.push_back(new Button(ButtonParams(
-		Vector2D(WINDOW_WIDTH / 2 - (app->getTexture("quitbutton", this->getStateID())->getW() / 3) / 2, 6 * WINDOW_HEIGHT / 7 - (app->getTexture("quitbutton", this->getStateID())->getH() / 2)),
-		"X",
-		app->getTexture("quitbutton", this->getStateID()),
-		app,
-		exit)));
-		*/
-}
+	SDL_Color yellow{ 255,217,102 };
+	Vector2D pos;
 
-void PauseMenuState::resume() {
-	GameStateMachine::instance()->popState();
-}
+	constructors::background(mngr_, &sdlutils().images().at("playbackground"));
 
-void PauseMenuState::mainMenu() {
-	/*app->nextState = new MainMenuState();
-	app->change = true;*/
-}
+	fade = mngr_->addEntity(ecs::_grp_FADEOUT);
+	fade->addComponent<FadeTransitionComponent>(true);
+	fade->getComponent<FadeTransitionComponent>()->activateWithoutExecute();
 
-void PauseMenuState::settings() {
-	GameStateMachine::instance()->pushState(new OptionsMenuState());
-}
+	pos = Vector2D(sdlutils().getWindowDimensions().getX() / 2, 100);
+	constructors::boldText(mngr_, "Pausa", pos, sdlutils().fonts().at("press_start48"), 5, yellow);
 
-void PauseMenuState::exit() {
-	sdlutils().close();
+	pos = Vector2D(sdlutils().getWindowDimensions().getX() / 2, 3 * sdlutils().getWindowDimensions().getY() / 7);
+	constructors::button(mngr_, pos, "Continuar", sdlutils().fonts().at("vcr_osd24"), [this]() {
+		sdlutils().soundEffects().at("button").play(0, ecs::_channel_UI);
+		fade->getComponent<FadeTransitionComponent>()->setFunction([]() { GameStateMachine::instance()->popState(); });
+		fade->getComponent<FadeTransitionComponent>()->revert();
+	});
+
+	pos = Vector2D(sdlutils().getWindowDimensions().getX() / 2, 4 * sdlutils().getWindowDimensions().getY() / 7);
+	constructors::button(mngr_, pos, "Menï¿½ principal", sdlutils().fonts().at("vcr_osd16"), [this]() {
+		sdlutils().soundEffects().at("button").play(0, ecs::_channel_UI);
+		//fade->getComponent<FadeTransitionComponent>()->setFunction([]() { GameStateMachine::instance()->changeAllStatesFor(new MainMenuState()); });
+		//fade->getComponent<FadeTransitionComponent>()->revert();
+	});
+
+	pos = Vector2D(sdlutils().getWindowDimensions().getX() / 2, 5 * sdlutils().getWindowDimensions().getY() / 7);
+	constructors::button(mngr_, pos, "Opciones", sdlutils().fonts().at("vcr_osd24"), [this]() {
+		sdlutils().soundEffects().at("button").play(0, ecs::_channel_UI);
+		fade->getComponent<FadeTransitionComponent>()->setFunction([]() { GameStateMachine::instance()->pushState(new OptionsMenuState()); });
+		fade->getComponent<FadeTransitionComponent>()->revert();
+	});
+
+	pos = Vector2D(sdlutils().getWindowDimensions().getX() / 2, 6 * sdlutils().getWindowDimensions().getY() / 7);
+	constructors::exitButton(mngr_, pos, []() {
+		sdlutils().soundEffects().at("button").play(0, ecs::_channel_UI);
+		game().exitGame();
+	});
 }
 
 void PauseMenuState::handleInput() {
 	MenuState::handleInput();
-	/*if (InputHandler::instance()->isKeyJustDown(SDLK_ESCAPE)) {
-		InputHandler::instance()->clearState();
-		app->getStateMachine()->popState();
-	}*/
+	
+	//Bloqueamos la entrada de teclado hasta que se dejen de pulsar todas las teclas
+	if (doNotDetectKeyboardInput && InputHandler::instance()->allKeysUp()) doNotDetectKeyboardInput = false;
+
+	//Si presionamos el espacio, volvemos al juego
+	if (!doNotDetectKeyboardInput) {
+		if (InputHandler::instance()->isKeyJustDown(SDLK_ESCAPE)) {
+			dynamic_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->blockKeyboardInputAfterUnfreeze();
+			fade->getComponent<FadeTransitionComponent>()->setFunction([]() { GameStateMachine::instance()->popState(); });
+			fade->getComponent<FadeTransitionComponent>()->revert();
+			doNotDetectKeyboardInput = true;
+		}
+	}
 }

@@ -6,15 +6,15 @@
 #include "../ecs/Entity.h"
 #include <SDL.h>
 
-class ColliderVine : public Component
-{
+class ColliderVine : public Component {
 private:
     SDL_Rect my_rect;
     Vector2D posFinalC;
 
 public:
     constexpr static ecs::cmpId_type id = ecs::_COLLIDERVINE;
-    ColliderVine(SDL_Rect d, Vector2D posC) :my_rect(d), posFinalC(posC) {};
+
+    ColliderVine(SDL_Rect d, Vector2D posC) : my_rect(d), posFinalC(posC) {};
     virtual ~ColliderVine() {};
     SDL_Rect getRect() { return my_rect; }
     inline Vector2D getPos() { return Vector2D(my_rect.x, my_rect.y); }

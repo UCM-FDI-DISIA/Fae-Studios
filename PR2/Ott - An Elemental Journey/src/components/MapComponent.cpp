@@ -28,25 +28,66 @@ std::vector<std::string> strSplit(std::string s, char c) {
     return split;
 }
 
-MapComponent::MapComponent(Entity* fadeOut, PlayState* game) : fadeOut(fadeOut), game(game) {
-    //textures = std::vector<Texture*>(NUMBER_OF_TYPES);
-    //auto it = infoLevel.find(l);
-    //if (it != infoLevel.end()) {
-    //    auto ot = it->second.begin();
-    //    for (ot; ot != it->second.end(); ++ot) {
-    //        tilemap = &sdlutils().images().at(ot->name);
+void MapComponent::generateEnemies() {
+    auto scale = tileScale();
+    game->initEnemies(vectorObjects[ROOM_VECTOR_POS].size());
+    for (auto it : vectorObjects[ENEMIES_VECTOR_POS]) {
+        float x_ = it.getAABB().left;
+        float y_ = it.getAABB().top;
+        float w_ = it.getAABB().width;
+        float h_ = it.getAABB().height;
 
-    //    }
-    //    auto ut = levelPath.find(l);
-    //    if (ut != levelPath.end()) {
-    //        mapSize = ut->second.size;
-    //        loadMap(ut->second.route);
-    //    }
-    //}
-    //else
-    //{
-    //    //cout << "Failed loading map" << std::endl;
-    //}
+        auto split = strSplit(it.getName(), '_');
+        auto elem = (ecs::elements)std::stoi(split[1]);
+        std::string path;
+        if (elem == ecs::Earth) {
+            path = "earth";
+        }
+        else if (elem == ecs::Water) {
+            path = "water";
+        }
+        else if (elem == ecs::Fire) {
+            path = "fire";
+        }
+        int roomNum = std::stoi(split[0]);
+        float roomScale = vectorTiles[roomNum].first;
+        std::cout << roomNum << std::endl;
+
+        if (it.getClass() == "Mushroom") {
+            Entity* enemie = constructors::eRanged(mngr_, path + "Mushroom", x_ * scale * roomScale, y_ * scale * roomScale, roomScale, elem);
+            game->addEnemy(enemie, roomNum);
+        }
+        else if (it.getClass() == "Melee") {
+            Entity* enemie = constructors::eMelee(mngr_, path + "Bug", x_ * scale * roomScale, y_ * scale * roomScale, roomScale, elem);
+            game->addEnemy(enemie, roomNum);
+        }
+        else if (it.getClass() == "Slime") {
+            Entity* enemie = constructors::eSlime(mngr_, path + "Slime", x_ * scale * roomScale, y_ * scale * roomScale, roomScale, elem);
+            game->addEnemy(enemie, roomNum);
+        }
+        else if (it.getClass() == "BossRoom") {
+            SDL_Rect roomDimensions;
+            roomDimensions.x = x_ * scale;
+            roomDimensions.y = y_ * scale;
+            roomDimensions.w = w_ * scale;
+            roomDimensions.h = h_ * scale;
+            Entity* earthBoss = mngr_->addEntity(ecs::_grp_GENERAL);
+            earthBoss->addComponent<EarthBossManager>(roomDimensions);
+            mngr_->setEarthBoss(earthBoss);
+            //earthBoss->getComponent<EarthBossManager>()->initializeEntities();
+        }
+        else if (it.getClass() == "DoorTrigger") {
+            Entity* trigger = mngr_->addEntity(ecs::_grp_TRIGGER);
+            trigger->addComponent<Transform>(Vector2D(x_ * scale, y_ * scale), w_ * scale, h_ * scale);
+            trigger->addComponent<VineManager>(EVIL, Vector2D((x_ * scale) - 260, ((y_ * scale) + h_ * scale) - 100), Vector2D((x_ * scale) - 170, y_ * scale - 100), -1, 0, w_ * scale, h_ * scale, 3);
+            trigger->getComponent<VineManager>()->createVine();
+            trigger->addComponent<EnterBossRoom>(&sdlutils().images().at("animationWorm"));
+            trigger->addComponent<Trigger>();
+        }
+    }
+}
+
+MapComponent::MapComponent(Entity* fadeOut, PlayState* game) : fadeOut(fadeOut), game(game) {
     int n = 20;
     vectorObjects.reserve(n);
     vectorTiles.reserve(6);
@@ -264,9 +305,14 @@ void MapComponent::loadMap(std::string path) {
                 }
             }
             else if (ot.getClass() == "Sanctuary") {
-                constructors::sanctuary(mngr_, Vector2D(x_ * scale - (&sdlutils().images().at("sanctuary"))->width() * 1.5, y_ * scale - (&sdlutils().images().at("sanctuary"))->height() * 3.5));
+                auto roomScale = vectorTiles[std::stoi(ot.getName())].first;
+                Vector2D pos = Vector2D(x_ * scale * roomScale, (y_ * scale) * roomScale);
+                constructors::sanctuary(mngr_, pos - Vector2D(0, 250 * roomScale), 250 * roomScale, 250 * roomScale);
+                std::cout << pos << std::endl;
             }
         }
+        generateEnemies();
+        /*
         for (auto it : vectorObjects[ENEMIES_VECTOR_POS]) {
             float x_ = it.getAABB().left;
             float y_ = it.getAABB().top;
@@ -301,7 +347,7 @@ void MapComponent::loadMap(std::string path) {
                 Entity* enemie = constructors::eSlime(mngr_, path + "Slime", x_ * scale * roomScale, y_ * scale * roomScale, roomScale, elem);
                 game->addEnemy(enemie,roomNum);
             }
-            else if (ot.getClass() == "BossRoom") {
+            else if (it.getClass() == "BossRoom") {
                 SDL_Rect roomDimensions;
                 roomDimensions.x = x_ * scale;
                 roomDimensions.y = y_ * scale;
@@ -312,7 +358,7 @@ void MapComponent::loadMap(std::string path) {
                 mngr_->setEarthBoss(earthBoss);
                 //earthBoss->getComponent<EarthBossManager>()->initializeEntities();
             }
-            else if (ot.getClass() == "DoorTrigger") {
+            else if (it.getClass() == "DoorTrigger") {
                 Entity* trigger = mngr_->addEntity(ecs::_grp_TRIGGER);
                 trigger->addComponent<Transform>(Vector2D(x_ * scale, y_ * scale), w_ * scale, h_ * scale);
                 trigger->addComponent<VineManager>(EVIL, Vector2D((x_ * scale) - 260, ((y_ * scale) + h_ * scale) - 100), Vector2D((x_ * scale) - 170, y_ * scale - 100), -1, 0, w_ * scale, h_ * scale, 3);
@@ -321,7 +367,7 @@ void MapComponent::loadMap(std::string path) {
                 trigger->addComponent<Trigger>();
             }
         }
-
+        */
         SDL_Rect playerRect = getSDLRect(playerPos.getAABB());
         auto playerRoom = std::stoi(playerPos.getClass());
         float playerRoomScale = vectorTiles[playerRoom].first;
