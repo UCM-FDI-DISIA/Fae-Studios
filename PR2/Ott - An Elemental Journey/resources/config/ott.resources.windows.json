@@ -76,8 +76,8 @@
 
   "sounds" : [
     { "id" : "play_button", "file" : "../resources/sound/playbutton.wav" },
-	{ "id" : "button", "file" : "../resources/sound/button.wav" },
-	{ "id" : "button_back", "file" : "../resources/sound/buttonback.wav" }
+	  { "id" : "button", "file" : "../resources/sound/button.wav" },
+	  { "id" : "button_back", "file" : "../resources/sound/buttonback.wav" }
 	],
 
   "musics" : [],
