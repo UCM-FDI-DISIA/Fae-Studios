@@ -27,7 +27,9 @@ void WaterVineComponent::update()
 			auto containerComp = waterTankRef->getComponent<WaterContainerComponent>();
 			SDL_Rect r1 = tr->getRect(); SDL_Rect r2 = e->getComponent<Transform>()->getRect();
 			bool col = SDL_HasIntersection(&r1, &r2);
-			if (elem == ecs::Fire && inst == mngr_->getPlayer() && containerComp->getCurrentFill()>= 100 && col) containerComp->dropWater();
+			if (elem == ecs::Fire && inst == mngr_->getPlayer() && containerComp->getCurrentFill() >= 100 && col) {
+				containerComp->dropWater();
+			}
 		}
 	}
 }

@@ -11,7 +11,8 @@
 void Health::die()
 {
 	if (ent_->hasComponent<PlayerAnimationComponent>()) ent_->getComponent<PlayerAnimationComponent>()->setState(DIE);
-	else ent_->getComponent<EnemyAnimationComponent>()->setState(DIE_ENEMY);
+	else if ((ent_->hasComponent<EnemyAnimationComponent>())) ent_->getComponent<EnemyAnimationComponent>()->setState(DIE_ENEMY);
+	else ent_->setAlive(false);
 	auto gen = ent_->getComponent<Generations>();
 	// si la entidad muerta es un slime y no esta en su ultima gen manda a que se divida
 	if (gen != nullptr && gen->getGeneration() > 1) ent_->getComponent<Generations>()->Divide();
@@ -61,7 +62,7 @@ bool Health::recieveDamage(ecs::elements el)
 	else {
 		if (!dead) {
 			actualLife -= ecs::matrix[el][elem];
-			ent_->getComponent<EnemyAnimationComponent>()->damage();
+			if(ent_->hasComponent<EnemyAnimationComponent>()) ent_->getComponent<EnemyAnimationComponent>()->damage();
 		}
 	}
 	std::cout << "LIFE (HEALTH): " << actualLife << std::endl;

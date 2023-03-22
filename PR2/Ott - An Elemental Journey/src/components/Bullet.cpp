@@ -23,7 +23,8 @@ void Bullet::update()
         SDL_Rect trigger = tr->getRect();
         auto enemiesGrp = mngr_->getEntities(ecs::_grp_CHARACTERS);
         for (auto e : enemiesGrp) {
-            SDL_Rect rect = e->getComponent<PhysicsComponent>()->getCollider();
+            //SDL_Rect rect = e->getComponent<PhysicsComponent>()->getCollider();
+            SDL_Rect rect = e->getComponent<Transform>()->getRect();
             if (e != instigator && SDL_HasIntersection(&rect, &trigger)) {
                 e->getComponent<Health>()->recieveDamage(elem);
                 ent_->setAlive(false);
