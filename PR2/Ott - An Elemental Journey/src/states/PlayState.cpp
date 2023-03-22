@@ -42,7 +42,8 @@ PlayState::PlayState() : GameState(ecs::_state_PLAY) {
 	waterM->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
 
 	//constructors::eSlime(mngr_, "fireSlime", 600, 1100, 1.0f);
-	Entity* fBoss = constructors::FireBoss(mngr_, 550, 1370);
+	Entity* fBoss = constructors::FireBoss(mngr_, 500, 1360);
+	
 	constructors::eMelee(mngr_, "waterBug", 2400, 1000, 1.0f);
 	constructors::eRanged(mngr_, "earthMushroom", 1700, 1000, 1.0f);
 	constructors::firePillar(mngr_, "lamp", 600, 1500, 1.0f);

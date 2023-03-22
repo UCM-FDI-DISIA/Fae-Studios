@@ -13,7 +13,7 @@ public:
 		int rowNum;
 		int colNum = 0;
 	};
-	static enum Entities { OTT_ANIM, MELEE_ANIM, RANGE_ANIM, SLIME_ANIM };
+	static enum Entities { OTT_ANIM, MELEE_ANIM, RANGE_ANIM, SLIME_ANIM, FIREBOSS_ANIM };
 	static std::vector<std::vector<animDescription>> animations;
 
 	class offsetPhysics {
@@ -29,6 +29,7 @@ private:
 	static std::vector<animDescription> melee_anims;
 	static std::vector<animDescription> range_anims;
 	static std::vector<animDescription> slime_anims;
+	static std::vector<animDescription> fireboss_anims;
 
 	static offsetPhysics ott_collider;
 	static offsetPhysics melee_collider;

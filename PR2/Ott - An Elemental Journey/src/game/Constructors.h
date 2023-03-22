@@ -33,6 +33,7 @@
 #include "../components/Bullet.h"
 #include "../components/WaterContainerComponent.h"
 #include "../components/WaterVineComponent.h"
+#include "../components/FireBossAnimation.h"
 #include <string>
 #include <iostream>
 #include <functional>
@@ -282,11 +283,13 @@ namespace constructors {
 	}
 	static inline Entity* FireBoss(Manager* mngr_, int x, int y) {
 		auto boss = mngr_->addEntity(ecs::_grp_CHARACTERS);
-		boss->addComponent<Transform>(Vector2D(x, y), 50, 130);
-		boss->addComponent<Image>(&sdlutils().images().at("lamp"));
+		boss->addComponent<Transform>(Vector2D(x, y), 150, 150);
+		//boss->addComponent<Image>(&sdlutils().images().at("lamp"));
 		boss->addComponent<FireBossComponent>();
 		boss->addComponent<Health>(10, ecs::Fire);
 		boss->addComponent<PhysicsComponent>(false);
+		boss->addComponent<FramedImage>(&sdlutils().images().at("bug"), 2, 21);
+		boss->addComponent<FireBossAnimation>(anims::FIREBOSS_ANIM);
 		return boss;
 	}
 	static inline void sanctuary(Manager* mngr_, Vector2D position, int width = 100, int height = 130) {

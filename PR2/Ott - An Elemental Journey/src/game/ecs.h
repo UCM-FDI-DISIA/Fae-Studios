@@ -39,6 +39,7 @@ namespace ecs {
         _PLAYERATTACK,
         _ENEMYSTATES,
         _BOSS,
+        _FIREBOSS_ANIM,
         _LAST_CMP_ID
     };
     constexpr cmpId_type maxComponentId = _LAST_CMP_ID;
