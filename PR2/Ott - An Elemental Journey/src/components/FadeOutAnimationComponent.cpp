@@ -1,5 +1,7 @@
 #include "FadeOutAnimationComponent.h"
 #include "MapComponent.h"
+#include "../states/GameStateMachine.h"
+#include "../states/PlayState.h"
 
 void FadeOutAnimationComponent::initComponent() {
 	playerPs_ = mngr_->getPlayer()->getComponent<PhysicsComponent>();
@@ -35,13 +37,18 @@ void FadeOutAnimationComponent::update() {
 }
 
 void FadeOutAnimationComponent::startFadeIn() {
-	map_->setCurrentRoom(newMapRoom);
-	cam_->setBounds(map_->getCamBounds());
-	mngr_->getPlayer()->getComponent<Transform>()->setPosition(newPlayerPos);
-	mngr_->getPlayer()->getComponent<Transform>()->setScale(map_->getCurrentRoomScale());
+	if (roomChange) {
+		map_->setCurrentRoom(newMapRoom);
+		cam_->setBounds(map_->getCamBounds());
+		mngr_->getPlayer()->getComponent<Transform>()->setPosition(newPlayerPos);
+		mngr_->getPlayer()->getComponent<Transform>()->setScale(map_->getCurrentRoomScale());
+		cam_->setPos(newPlayerPos);
+	}
+	else {
+		static_cast<PlayState*>(stateMachine().currentState())->endRest();
+	}
 	playerPs_->Resume(resumeSpeed);
 	fadeOut = false;
 	fadeIn = true;
 	col = MAX_COL;
-	cam_->setPos(newPlayerPos);
 }

@@ -11,17 +11,17 @@ void HealthImage::die() {
 
 void HealthImage::damage(int num) { // dañar X puntos
 	int i = lastFullHeart; 
-	if (i - num < 0) { // si se queda a menos que 0, eso significa que ott ha muerto
-		die();
-	}
-	else if (heartState[i] == WEAK_HEART) { // settear a WEAK el nuevo último corazón no dañado
-		heartState[i - num] = WEAK_HEART;
-	}
+	if (i - num >= 0) { // si se queda a menos que 0, eso significa que ott ha muerto
+		if (heartState[i] == WEAK_HEART) { // settear a WEAK el nuevo último corazón no dañado
+			heartState[i - num] = WEAK_HEART;
+		}
 	
-	for (int o = i - num + 1; o <= i; ++o) { // vaciar los corazones dañados
-		heartState[o] = EMPTY_HEART;
+		for (int o = i - num + 1; o <= i; ++o) { // vaciar los corazones dañados
+			heartState[o] = EMPTY_HEART;
+		}
+		lastFullHeart = i - num; // actualizar último corazón lleno
 	}
-	lastFullHeart = i - num; // actualizar último corazón lleno
+	else die();
 }
 
 bool HealthImage::setWeak() { // poner a débil último corazón

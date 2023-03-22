@@ -32,5 +32,6 @@ public:
 	inline void activateWithoutExecute() { active = true; execute = false; };
 	inline void setFunction(std::function<void()> const& c) { callback = c; }
 	inline bool hasEndedAnimation() { return (alpha == 0 || alpha == 255); }
+	inline void changeSpeed(int speed) { this->speed = speed; }
 };
 

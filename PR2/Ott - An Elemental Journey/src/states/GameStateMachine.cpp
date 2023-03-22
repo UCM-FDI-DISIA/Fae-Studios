@@ -18,6 +18,14 @@ void GameStateMachine::changeState(GameState* state) {
     stateStack.push_front(state);
 }
 
+void GameStateMachine::changeAllStatesFor(GameState* state) {
+    if (stateStack.front()->getStateID() == state->getStateID()) return;
+    else {
+        emptyStack();
+        stateStack.push_front(state);
+    }
+}
+
 void GameStateMachine::popState() {
     if(!stateStack.empty()) {
         stateStack.front()->setDelete();

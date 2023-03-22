@@ -16,6 +16,7 @@ private:
     Entity* camera_;
     Entity* earthBoss_;
     MapComponent* map_;
+    Entity* lastSanctuary;
     std::vector<std::list<Entity*>> enemies, initialEnemies;
     std::vector<std::vector<std::list<Entity*>::iterator>> enemyIt;
 
@@ -53,7 +54,18 @@ public:
         int room = map_->getCurrentRoom();
         enemies[numRoom].erase(enemyIt[numRoom][itPos]);
     }
-    void resetEnemies() { enemies = initialEnemies; }
+    void resetEnemies() 
+    { 
+        for (int i = 0; i < enemies.size(); ++i) {
+            for (auto it : enemies[i]) {
+                it->setAlive(false);
+            }
+        }
+        mngr_->refresh();
+        enemies.clear();
+        enemyIt.clear();
+        map_->generateEnemies();
+    }
     void handleInput() override;
 
     inline Entity* getPlayer() { return player_; }
@@ -65,5 +77,6 @@ public:
     void AddEnredadera();
     void Teleport();
     void Save();
+    void endRest();
 };
 

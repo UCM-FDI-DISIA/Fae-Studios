@@ -18,14 +18,9 @@
 #include "../components/VineManager.h"
 #include "../game/ecs.h"
 #include "../components/FadeTransitionComponent.h"
+#include "menus/PauseMenuState.h"
 
 PlayState::PlayState() : GameState(ecs::_state_PLAY) {
-	/*Mix_Init(MIX_INIT_FLAC | MIX_INIT_MOD | MIX_INIT_MP3 | MIX_INIT_OGG | MIX_INIT_MID);
-	Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 2048);
-	//music = Mix_LoadMUS("../../sounds/musics/Ambient 4.	wav"); la m�sica va a ser cambiada a un json
-	Mix_PlayMusic(music, -1);*/
-
-
 	mngr_->setPlayer(constructors::player(mngr_, 700, 1500, 100, 120));
 	mngr_->setCamera(constructors::camera(mngr_, 700, 2000, sdlutils().width(), sdlutils().height()));
 	player_ = mngr_->getPlayer();
@@ -74,13 +69,17 @@ void PlayState::blockKeyboardInputAfterUnfreeze() {
 
 void PlayState::handleInput() {
     GameState::handleInput();
-
-    if (doNotDetectKeyboardInput && InputHandler::instance()->allKeysUp()) doNotDetectKeyboardInput = false;
-    if (!doNotDetectKeyboardInput) {
-        if (InputHandler::instance()->isKeyJustDown(SDLK_ESCAPE)) {
-            //GameStateMachine::instance()->pushState(new PauseMenuState());
-        }
-    }
+	
+	if (doNotDetectKeyboardInput && InputHandler::instance()->allKeysUp() && fade->getComponent<FadeTransitionComponent>()->hasEndedAnimation()) doNotDetectKeyboardInput = false;
+	
+	if (!doNotDetectKeyboardInput) {
+		if (InputHandler::instance()->isKeyJustDown(SDLK_ESCAPE)) {
+			fade->getComponent<FadeTransitionComponent>()->setFunction([]() { GameStateMachine::instance()->pushState(new PauseMenuState()); });
+			fade->getComponent<FadeTransitionComponent>()->changeSpeed(5);
+			fade->getComponent<FadeTransitionComponent>()->revert();
+			doNotDetectKeyboardInput = true;
+		}
+	}
 }
 
 void PlayState::checkCollisions(std::list<Entity*> entities) {
@@ -294,5 +293,10 @@ void PlayState::Teleport() {
 }
 
 void PlayState::Save() {
-    player_->getComponent<Health>()->saveSactuary();
+	map_->playFadeOutAnimation();
+	lastSanctuary = getCurrentInteraction();
+}
+
+void PlayState::endRest() {
+    player_->getComponent<Health>()->saveSactuary(lastSanctuary);
 }

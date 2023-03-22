@@ -1,7 +1,7 @@
 #include "FadeTransitionComponent.h"
 
 void FadeTransitionComponent::render() {
-	SDL_Rect scr = { 0,0, sdlutils().width(), sdlutils().height() };
+	SDL_Rect scr = { 0,0, (int)sdlutils().getWindowDimensions().getX(), (int)sdlutils().getWindowDimensions().getY() };
 	sdlutils().images().at("blackbackground").setAlpha(alpha);
 	sdlutils().images().at("blackbackground").render(scr);
 }
