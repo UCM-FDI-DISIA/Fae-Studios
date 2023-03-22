@@ -253,6 +253,7 @@ void PlayState::checkInteraction() {
         if (SDL_HasIntersection(&r1, &r2)) {
             ents->getComponent<InteractionComponent>()->interact();
             interact = true;
+			std::cout << "interacción" << std::endl;
         }
         interactionIt++;
     }

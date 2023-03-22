@@ -115,7 +115,7 @@
 48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup id="2" name="Colisiones" visible="0">
+ <objectgroup id="2" name="Colisiones">
   <object id="1" name="0" class="Ground" x="2" y="992" width="1061.33" height="235"/>
   <object id="2" name="1" class="Ground" x="1792.67" y="543.333" width="266" height="447.333"/>
   <object id="3" name="1" class="Ground" x="2058.67" y="544" width="519.333" height="244"/>
@@ -188,7 +188,7 @@
   <object id="185" name="6" class="Grass" x="5255.4" y="777.568" width="43.6667" height="610"/>
   <object id="186" name="6" class="Grass" x="5474.06" y="774.901" width="40.3333" height="612.667"/>
   <object id="187" name="6" class="DoorTrigger" x="4838.06" y="773.235" width="31" height="609"/>
-  <object id="189" name="BossRoom" class="BossRoom" x="4699.64" y="736.023" width="987.879" height="648.242"/>
+  <object id="189" name="6" class="BossRoom" x="4699.64" y="736.023" width="987.879" height="648.242"/>
   <object id="196" name="lamp2" class="Lamp_2" x="4469.33" y="1367" width="32"/>
   <object id="199" name="lamp2" class="Lamp_1" x="1217.58" y="1430.92" width="32"/>
  </objectgroup>
@@ -201,7 +201,7 @@
   <object id="175" name="5" class="1" x="1048.18" y="2336.88" width="471.64" height="665.237"/>
   <object id="200" name="6" class="0.8" x="4635.64" y="672" width="1282.61" height="753.939"/>
  </objectgroup>
- <objectgroup id="8" name="Enemigos" visible="0">
+ <objectgroup id="8" name="Enemigos">
   <object id="150" name="0_1" class="Mushroom" x="352.667" y="1369.67" width="31.3333" height="155.333"/>
   <object id="151" name="1_2" class="Melee" x="1566.33" y="1312.17" width="31.3333" height="86.6667"/>
   <object id="152" name="2_1" class="Slime" x="3147.97" y="1922.98" width="31.3333" height="173.333"/>
