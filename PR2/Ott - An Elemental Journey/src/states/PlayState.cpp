@@ -15,6 +15,7 @@
 #include "../components/ColliderVine.h"	
 #include "../components/ImageVine.h"
 #include "../components/GrowVine.h"
+#include "../components/VineManager.h"
 #include "../game/ecs.h"
 #include "../components/Acceleration.h"
 #include "../components/Pivot.h"
@@ -23,30 +24,38 @@
 #include "../components/Destruction.h"
 #include "../components/WaterBossAnimationComponent.h"
 
+#include "../components/FadeTransitionComponent.h"
+#include "menus/PauseMenuState.h"
 
 PlayState::PlayState() : GameState(ecs::_state_PLAY) {
-	/*Mix_Init(MIX_INIT_FLAC | MIX_INIT_MOD | MIX_INIT_MP3 | MIX_INIT_OGG | MIX_INIT_MID);
-	Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 2048);
-	//music = Mix_LoadMUS("../../sounds/musics/Ambient 4.	wav"); la m�sica va a ser cambiada a un json
-	Mix_PlayMusic(music, -1);*/
-
-	mngr_->setPlayer(constructors::player(mngr_, 500, 1000, 100, 120));
-	mngr_->setCamera(constructors::camera(mngr_, 700, 1000, sdlutils().width(), sdlutils().height()));
+	mngr_->setPlayer(constructors::player(mngr_, 700, 1500, 100, 120));
+	mngr_->setCamera(constructors::camera(mngr_, 700, 2000, sdlutils().width(), sdlutils().height()));
 	player_ = mngr_->getPlayer();
 	camera_ = mngr_->getCamera();
 
+	std::cout << "prueba" << std::endl;
 	player_->getComponent<FramedImageOtt>()->initComponent();
 	player_->getComponent<Transform>()->initComponent();
 	player_->getComponent<PhysicsComponent>()->initComponent();
 	player_->getComponent<PlayerInput>()->initComponent();
 	player_->getComponent<PlayerAttack>()->initComponent();
 	player_->getComponent<Health>()->initComponent();
+	fade = mngr_->addEntity(ecs::_grp_FADEOUT);
+	fade->addComponent<FadeTransitionComponent>(true, 1);
+	fade->getComponent<FadeTransitionComponent>()->activateWithoutExecute();
 
+	// se reinicializan los componentes del jugador porque muchos tienen referencias entre ellos y con la cámara 
+	// y no se podrían coger de otra forma más que forzando el initComponent()
+	player_->reinitCmpts();
+
+	/*
 	//prueba para movimiento de agua
 	auto waterM = mngr_->addEntity(ecs::_grp_WATER);
 	//500, 2000, 100, 120
 	waterM->addComponent<Transform>(3500, 600, 300, 420);
 	waterM->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
+	*/
+	// COMENTO A LOS ENEMIGOS PORQUE ME ESTÁN DANDO POR CULO UN RATO CHAU BESOS
 
 	auto waterBoss = mngr_->addEntity(ecs::_grp_CHARACTERS);
 	int x = 100;
@@ -131,11 +140,15 @@ PlayState::PlayState() : GameState(ecs::_state_PLAY) {
 
 
 	//constructors::eSlime(mngr_, "fireSlime", 600, 1100, 1.0f);
-	constructors::eMelee(mngr_, "waterBug", 2400, 1000, 1.0f);
-	constructors::eRanged(mngr_, "earthMushroom", 1700, 1000, 1.0f);
-	constructors::map(mngr_);
+	//constructors::eMelee(mngr_, "waterBug", 2400, 1000, 1.0f);
+	//constructors::eRanged(mngr_, "earthMushroom", 1700, 1000, 1.0f);
+	//constructors::map(mngr_);
+	//constructors::eSlime(mngr_, "fireSlime", 800, 2100, 1.0f, ecs::Fire);
+	// constructors::eMelee(mngr_, "waterBug", 2400, 2000, 1.0f, ecs::Water);
+	// constructors::eRanged(mngr_, "earthMushroom", 1700, 2000, 1.0f, ecs::Earth);
+	map_ = constructors::map(mngr_, this)->getComponent<MapComponent>();
+	initialEnemies = enemies;
 }
-
 
 PlayState::~PlayState() {
 	/*Mix_HaltMusic();
@@ -149,27 +162,45 @@ void PlayState::blockKeyboardInputAfterUnfreeze() {
 
 void PlayState::handleInput() {
     GameState::handleInput();
-
-    if (doNotDetectKeyboardInput && InputHandler::instance()->allKeysUp()) doNotDetectKeyboardInput = false;
-    if (!doNotDetectKeyboardInput) {
-        if (InputHandler::instance()->isKeyJustDown(SDLK_ESCAPE)) {
-            //GameStateMachine::instance()->pushState(new PauseMenuState());
-        }
-    }
-   
+	
+	if (doNotDetectKeyboardInput && InputHandler::instance()->allKeysUp() && fade->getComponent<FadeTransitionComponent>()->hasEndedAnimation()) doNotDetectKeyboardInput = false;
+	
+	if (!doNotDetectKeyboardInput) {
+		if (InputHandler::instance()->isKeyJustDown(SDLK_ESCAPE)) {
+			fade->getComponent<FadeTransitionComponent>()->setFunction([]() { GameStateMachine::instance()->pushState(new PauseMenuState()); });
+			fade->getComponent<FadeTransitionComponent>()->changeSpeed(5);
+			fade->getComponent<FadeTransitionComponent>()->revert();
+			doNotDetectKeyboardInput = true;
+		}
+	}
 }
 
-void PlayState::checkCollisions() {
-	std::vector<Entity*> characters = mngr_->getEntities(ecs::_grp_CHARACTERS);
-	std::vector<Entity*> ground = mngr_->getEntities(ecs::_grp_GROUND);
-	for (Entity* e : characters) {
+void PlayState::checkCollisions(std::list<Entity*> entities) {
+	int aa = 0;
+	for (Entity* e : entities) {
 		auto eTr = e->getComponent<Transform>();
 		auto physics = e->getComponent<PhysicsComponent>();
 		auto health = e->getComponent<Health>();
 		SDL_Rect r1 = physics->getCollider();
+		r1.x += physics->getVelocity().getX();
+		r1.y += physics->getVelocity().getY();
+		// std::cout << r1.x << " " << r1.y << std::endl;
 		Vector2D& colVector = physics->getVelocity();
 
 		auto mov = e->getComponent<EnemyMovement>();
+
+		auto grounds = map_->checkCollisions(r1);
+
+		for (std::pair<SDL_Rect, SDL_Rect> gr : grounds) { // WALL COLLISION
+			if (gr.first.w < gr.first.h && ((gr.first.x <= gr.second.x + (gr.second.w / 2) && physics->getLookDirection()) ||
+				(gr.first.x > gr.second.x + (gr.second.w / 2) && !physics->getLookDirection()))) {
+				colVector = Vector2D(0, colVector.getY());
+				if (mov != nullptr) {
+					mov->ChangeDirection(false, gr.first);
+				}
+			}
+		}
+		/*
 		for (Entity* g : ground) { // WALL COLLISION
 
 			SDL_Rect r2 = g->getComponent<Transform>()->getRect();
@@ -182,9 +213,40 @@ void PlayState::checkCollisions() {
 					mov->ChangeDirection(false, areaColision);
 				}
 			}
-		}
-
+		}*/
 		int i = 0;
+		for (std::pair<SDL_Rect, SDL_Rect> gr : grounds) {
+			auto areaColision = gr.first;
+
+			if (areaColision.w >= areaColision.h) {
+
+				if (!physics->isGrounded() && areaColision.y > r1.y + r1.w / 2) {
+					//cout << "ground touched" << endl;
+					if (!(physics->getWater()) || (physics->getWater() && health->getElement() == ecs::Water))
+					{
+						colVector = Vector2D(colVector.getX(), 0);
+					}
+					physics->setGrounded(true);
+				}
+				else if (!physics->isGrounded()) {
+					//cout << "ceiling touched" << endl;
+					if (!(physics->getWater()) || (physics->getWater() && health->getElement() == ecs::Water))
+					{
+						colVector = Vector2D(colVector.getX(), 1);
+						physics->setVerticalSpeed(1);
+					}
+				}
+				if (mov != nullptr) mov->ChangeDirection(true, areaColision);
+
+				++i;
+				break;
+			}
+		}
+		
+		if(i == 0) physics->setGrounded(false);
+
+		/*
+ 		int i = 0;
 		for (Entity* g : ground) { // GROUND COLLISION
 			SDL_Rect r2 = g->getComponent<Transform>()->getRect();
 			SDL_Rect areaColision; // area de colision 	
@@ -217,6 +279,7 @@ void PlayState::checkCollisions() {
 			else if (i == ground.size() - 1) physics->setGrounded(false);
 			++i;
 		}
+		*/
 		//colisiones con el material de agua 
 		int j = 0;
 		std::vector <Entity*> water = mngr_->getEntities(ecs::_grp_WATER);
@@ -239,6 +302,7 @@ void PlayState::checkCollisions() {
 
 		}
 		if (j == 0) { physics->setWater(false); physics->setFloating(false); }
+		aa++;
 	}
 }
 
@@ -249,7 +313,7 @@ std::pair<bool, bool> PlayState::checkCollisionWithVine() {
 	SDL_Rect tr_ = player_->getComponent<PhysicsComponent>()->getCollider();
 	while (!interact && interactionIt != mngr_->getEntities(ecs::_grp_VINE).end()) {
 		Entity* ents = *interactionIt;
-		if (ents->hasComponent<ColliderVine>()) {
+		if (ents->hasComponent<ColliderVine>() && ents->getComponent<ImageVine>()->canClimb()) {
 			SDL_Rect r1;
 			r1.x = tr_.x + tr_.w / 3;
 			r1.y = tr_.y + tr_.h - 30;
@@ -287,24 +351,25 @@ void PlayState::checkInteraction() {
     }
 }
 
-
 void PlayState::update() {
-	checkCollisions();
+	checkCollisions({ player_ });
+	checkCollisions(enemies[map_->getCurrentRoom()]);
+	for (auto it : enemies) {
+		for (auto ot : it) {
+			if (it != enemies[map_->getCurrentRoom()]) {
+				ot->getComponent<PhysicsComponent>()->Stop();
+			}
+			else {
+				ot->getComponent<PhysicsComponent>()->Resume();
+			}
+		}
+	}
 	GameState::update();
 }
 
 void PlayState::AddEnredadera() {
     Entity* aux = (*interactionIt);
-    if (!(aux->getComponent<AddVine>()->doesntHaveVine())) {
-        aux->getComponent<AddVine>()->setVine();
-        aux->getComponent<AddVine>()->getVine()->addComponent<ImageVine>(&sdlutils().images().at("enredadera"));
-        SDL_Rect dest;
-        dest = aux->getComponent<AddVine>()->getVine()->getComponent<Transform>()->getRect();
-        dest.h -= player_->getComponent<Transform>()->getRect().h / 2.5;
-        aux->getComponent<AddVine>()->getVine()->addComponent<ColliderVine>(dest);
-        aux->getComponent<AddVine>()->getVine()->addComponent<GrowVine>(aux->getComponent<AddVine>()->getPosFin(),
-            Vector2D(aux->getComponent<AddVine>()->getPosFin().getX(), aux->getComponent<AddVine>()->getPosFin().getY() + player_->getComponent<Transform>()->getRect().h / 2));
-    }
+	aux->getComponent<VineManager>()->addVine();
 }
 
 void PlayState::Teleport() {
@@ -313,9 +378,18 @@ void PlayState::Teleport() {
     Entity* aux = *interactionIt;
     Entity* tpLamp = aux->getComponent<LampComponent>()->getConnectedLamp();
     Vector2D newPos = tpLamp->getComponent<Transform>()->getPosition();
-    player_->getComponent<PlayerAnimationComponent>()->startTP(newPos);
+	auto newRoom = tpLamp->getComponent<LampComponent>()->getRoom();
+	if (aux->getComponent<LampComponent>()->getRoom() != newRoom) {
+		map_->changeRoom(std::to_string(newRoom), newPos);
+	}
+	player_->getComponent<PlayerAnimationComponent>()->startTP(newPos);
 }
 
 void PlayState::Save() {
-    player_->getComponent<Health>()->saveSactuary();
+	map_->playFadeOutAnimation();
+	lastSanctuary = getCurrentInteraction();
+}
+
+void PlayState::endRest() {
+    player_->getComponent<Health>()->saveSactuary(lastSanctuary);
 }

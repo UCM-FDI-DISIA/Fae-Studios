@@ -13,17 +13,20 @@ class FramedImage : public Component {
 private:
     Texture* texture;
     Transform* transform;
+    
     int totalRows, totalCols; //Columnas y filas totales de la imagen
     int currentRow, currentCol; //Fila y columna que actualmente se renderiza
     SDL_Rect getRect() const;
     CameraComponent* cam;
     PhysicsComponent* physics;
+    SDL_RendererFlip flip;
 public:
     constexpr static ecs::cmpId_type id = ecs::_IMAGE;
     FramedImage(Texture* texture, int rows, int cols) : Component(), texture(texture), totalRows(rows), totalCols(cols) {
         transform = nullptr;
         currentRow = 0;
         currentCol = 0;
+        flip = SDL_FLIP_NONE;
     }
     virtual ~FramedImage() = default;
     void initComponent() override;
@@ -37,6 +40,11 @@ public:
     int getFrameWidth() const {return texture->width() / totalCols;}
     int getFrameHeight() const {return texture->height() / totalRows;}
     inline Texture* getTexture() { return texture; }
+    inline void flipTexture(bool horizontalFlip)
+    {
+        if (horizontalFlip) flip = SDL_FLIP_HORIZONTAL;
+        else flip = SDL_FLIP_NONE;
+    }
 };
 
 class FramedImageOtt : public Component
@@ -60,6 +68,7 @@ private:
     CameraComponent* cam;
     PhysicsComponent* physics;
     Texture* shieldTex_;
+    PlayerAnimationComponent* pAnim;
     int numRows_, numCols_;
     int row = 0, col = 0;
     int tPerFrame;

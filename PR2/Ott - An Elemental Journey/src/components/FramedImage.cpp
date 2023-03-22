@@ -27,8 +27,6 @@ void FramedImage::render() {
 		rect.y -= camera.y;
 	}
 
-	SDL_RendererFlip flip = SDL_FLIP_NONE;
-	if (physics != nullptr && !physics->getLookDirection()) flip = SDL_FLIP_HORIZONTAL;
 	texture->renderFrame(rect, currentRow, currentCol, transform->getRotation(), flip);
 }
 
@@ -50,6 +48,7 @@ void FramedImage::initComponent() {
 void FramedImageOtt::initComponent()
 {
 	tr_ = ent_->getComponent<Transform>();
+	pAnim = ent_->getComponent<PlayerAnimationComponent>();
 	shieldTex_ = &sdlutils().images().at("shield");
 	auto camera = mngr_->getCamera();
 	if (camera != nullptr) {
@@ -69,7 +68,7 @@ void FramedImageOtt::render()
 	auto camCmpt = cam->camera;
 	dest.x -= camCmpt.x;
 	dest.y -= camCmpt.y;
-	//if (pAnim_->isInvincible() && SDL_GetTicks() % 2 == 0) return;
+	if (pAnim->isInvincible() && SDL_GetTicks() % 2 == 0) return;
 	bool lookRight = true;
 	SDL_RendererFlip flip = SDL_FLIP_NONE;
 	if (physics != nullptr) {

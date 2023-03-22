@@ -44,10 +44,22 @@
     <ClCompile Include="src\components\PlayerAttack.cpp" />
     <ClCompile Include="src\components\SlimeStates.cpp" />
     <ClCompile Include="src\components\Generations.cpp" />
+    <ClCompile Include="src\components\VineManager.cpp" />
+    <ClCompile Include="src\components\ColliderVine.cpp" />
+    <ClCompile Include="src\components\EarthBossAnimationController.cpp" />
+    <ClCompile Include="src\components\EarthBossAttack.cpp" />
+    <ClCompile Include="src\components\EnterBossRoom.cpp" />
+    <ClCompile Include="src\components\Trigger.cpp" />
     <ClCompile Include="src\components\EnemyContactDamage.cpp" />
     <ClCompile Include="src\components\Pivot.cpp" />
     <ClCompile Include="src\components\Acceleration.cpp" />
     <ClCompile Include="src\components\Destruction.cpp" />
+    <ClCompile Include="src\ecs\colliders.cpp" />
+    <ClCompile Include="src\components\FadeOutAnimationComponent.cpp" />
+    <ClCompile Include="src\components\earthAnimationController.cpp" />
+    <ClCompile Include="src\components\EarthBossManager.cpp" />
+    <ClCompile Include="src\components\WaterAnimationController.cpp" />
+    <ClCompile Include="src\components\FadeTransitionComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\components\Image.h" />
@@ -115,9 +127,24 @@
     <ClInclude Include="src\components\HealthImage.h" />
     <ClInclude Include="src\components\PlayerAttack.h" />
     <ClInclude Include="src\components\SlimeStates.h" />
+    <ClInclude Include="src\components\VineManager.h" />
+    <ClInclude Include="src\components\EarthBossAnimationController.h" />
+    <ClInclude Include="src\components\EarthBossAttack.h" />
+    <ClInclude Include="src\components\EnterBossRoom.h" />
+    <ClInclude Include="src\components\Trigger.h" />
     <ClInclude Include="src\components\EnemyContactDamage.h" />
     <ClInclude Include="src\components\Pivot.h" />
     <ClInclude Include="src\components\Acceleration.h" />
     <ClInclude Include="src\components\Destruction.h" />
+    <ClInclude Include="src\ecs\colliders.h" />
+    <ClInclude Include="src\components\FadeOutAnimationComponent.h" />
+    <ClInclude Include="src\components\earthAnimationController.h" />
+    <ClInclude Include="src\components\EarthBossManager.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\config\ott.resources.mac.json" />
+    <None Include="resources\config\ott.resources.windows.json" />
+    <ClInclude Include="src\components\WaterAnimationController.h" />
+    <ClInclude Include="src\components\FadeTransitionComponent.h" />
   </ItemGroup>
 </Project>

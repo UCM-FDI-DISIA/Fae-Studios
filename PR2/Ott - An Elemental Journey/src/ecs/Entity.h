@@ -110,6 +110,13 @@ public:
             currCmps_[i]->render();
     }
 
+    /// reinicializa todos los componentes de una entidad
+    inline void reinitCmpts() {
+        auto n = currCmps_.size();
+        for (auto i = 0u; i < n; i++)
+            currCmps_[i]->initComponent();
+    }
+
     /// Llama al handleInput de todos los componentes de una entidad
     inline void handleInput() {
         auto n = currCmps_.size();

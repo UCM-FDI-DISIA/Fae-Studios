@@ -4,12 +4,13 @@
 #include <iostream>
 #include <SDL.h>
 #include "../ecs/anims.h"
+#include "../ecs/colliders.h"
 
 class PhysicsComponent : public Component
 {
 public:
     PhysicsComponent();
-    PhysicsComponent(anims::Colliders c);
+    PhysicsComponent(colliders::Colliders c);
     PhysicsComponent(Vector2D vel) : velocity_(vel) {}
     virtual ~PhysicsComponent();
     virtual void initComponent();
@@ -35,21 +36,25 @@ public:
     inline bool getWater() { return inWater; }
     inline void setFloating(bool value) { floating = value; }
     inline bool getFloating() { return floating; }
+    inline void Stop() { stopped = true; lastSpeed = velocity_; }
+    inline void Resume(bool verticalTrigger = false) { stopped = false; if(verticalTrigger) velocity_ = lastSpeed; }
+    inline bool isStopped()  { return stopped; }
     //virtual void render();
 private:
     SDL_Rect collider;
-    Vector2D colliderOffset, colliderWH;
+    Vector2D colliderOffset, colliderWH, lastSpeed;
     const int MAX_VERTICAL_SPEED = 8;
-    const double X_KNOCKBACK_FORCE = 6;
+    const double X_KNOCKBACK_FORCE = 5;
     double knockbackTimer = 0;
     double knockbackTime = 15;
     bool isKnockback = false, lookingRight = true, grounded = false, climbing = false, gravity = true;
+    bool stopped = false;
     float verticalSpeed = 0;
     const float horizontalSpeed = 1.8f;
     Vector2D velocity_;
     float dirClimbing = 0;
 
-    anims::Colliders typeofCollider;
+    colliders::Colliders typeofCollider;
 
     //jumpforces
     int jumpForce;

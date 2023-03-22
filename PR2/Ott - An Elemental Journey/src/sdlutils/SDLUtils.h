@@ -13,6 +13,7 @@
 #include "SoundEffect.h"
 #include "Texture.h"
 #include "VirtualTimer.h"
+#include "../utils/Vector2D.h"
 
 struct Mapa {
 	std::string route;
@@ -105,6 +106,12 @@ public:
 	inline int height() {
 		return height_;
 	}
+
+    inline Vector2D getWindowDimensions() const {
+        int w, h;
+        SDL_GetRendererOutputSize(renderer_, &w, &h);
+        return Vector2D(w, h);
+    }
 
 // toggle to full-screen/window mode
 	inline void toggleFullScreen() {
