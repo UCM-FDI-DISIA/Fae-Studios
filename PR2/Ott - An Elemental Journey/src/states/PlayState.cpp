@@ -263,6 +263,7 @@ void PlayState::checkInteraction() {
 			else
 				ents->getComponent<InteractionComponent>()->interact();
             interact = true;
+			std::cout << "interacción" << std::endl;
         }
         interactionIt++;
     }

@@ -2,26 +2,33 @@
 
 void GrowVine::update() {
     if (grow) {
+        auto posX = tr_->getPosition().getX(); auto posY = tr_->getPosition().getY();
         if (orientation == "vertical") {
-            if (!reached && dir < 0 && tr_->getPosition().getY() > posFinalT.getY() || !reached && dir > 0 && tr_->getPosition().getY() < posFinalT.getY()) {
-                tr_->setPosition(Vector2D(tr_->getPosition().getX(), tr_->getPosition().getY() + (dir * speed)));
+            if (!reached && dir < 0 && posY > posFinalT.getY() || !reached && dir > 0 && posY < posFinalT.getY()) {
+                tr_->setPosition(Vector2D(posX, posY + (dir * speed)));
             }
-            else if (!reached && dir < 0 && tr_->getPosition().getY() <= posFinalT.getY() || !reached && dir > 0 && tr_->getPosition().getY() >= posFinalT.getY()) {
+            else if (!reached && dir < 0 && posY <= posFinalT.getY() || !reached && dir > 0 && posY >= posFinalT.getY()) {
                 reached = true;
             }
-            else if (reached && goesBack && tr_->getPosition().getY() != posIni.getY()) {
-                tr_->setPosition(Vector2D(tr_->getPosition().getX(), tr_->getPosition().getY() + ((-1*dir) * speed)));
+            else if (reached && goesBack && posY != posIni.getY()) {
+                tr_->setPosition(Vector2D(posX, posY + ((-1*dir) * speed)));
+            }
+            else if (reached && posY == posIni.getY()) {
+                reached = false; grow = false;
             }
         }
         else {
-            if (!reached && dir < 0 && tr_->getPosition().getX() > posFinalT.getX() || !reached && dir > 0 && tr_->getPosition().getX() < posFinalT.getX()) {
-                tr_->setPosition(Vector2D(tr_->getPosition().getX() + (dir * speed), tr_->getPosition().getY()));
+            if (!reached && dir < 0 && posX > posFinalT.getX() || !reached && dir > 0 && posX < posFinalT.getX()) {
+                tr_->setPosition(Vector2D(posX + (dir * speed), posY));
             }
-            else if (!reached && dir < 0 && tr_->getPosition().getX() <= posFinalT.getX() || !reached && dir > 0 && tr_->getPosition().getX() >= posFinalT.getX()) {
+            else if (!reached && dir < 0 && posX <= posFinalT.getX() || !reached && dir > 0 && posX >= posFinalT.getX()) {
                 reached = true;
             }
-            else if (reached && goesBack && tr_->getPosition().getX() != posIni.getX()) {
-                tr_->setPosition(Vector2D(tr_->getPosition().getX() + ((-1*dir) * speed), tr_->getPosition().getY()));
+            else if (reached && goesBack && posX != posIni.getX()) {
+                tr_->setPosition(Vector2D(posX + ((-1*dir) * speed), posY));
+            }
+            else if (reached && posX == posIni.getX()) {
+                reached = false; grow = false;
             }
         }
     }
