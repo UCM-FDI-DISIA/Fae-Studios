@@ -80,5 +80,6 @@ public:
     void Teleport();
     void Save();
     void endRest();
+    inline std::vector<std::list<Entity*>> getEnemies() { return enemies; }
 };
 

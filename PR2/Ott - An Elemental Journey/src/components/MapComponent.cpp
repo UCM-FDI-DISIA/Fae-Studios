@@ -66,6 +66,17 @@ void MapComponent::generateEnemies() {
             game->addEnemy(enemie, roomNum);
         }
     }
+
+    auto enemies_ = game->getEnemies();
+    for (auto it : enemies_) {
+        for (auto ot : it) {
+            ot->setActive(false);
+        }
+    }
+    for (auto it : enemies_[currentRoom]) {
+        it->setActive(true);
+    }
+
 }
 
 MapComponent::MapComponent(Entity* fadeOut, PlayState* game) : fadeOut(fadeOut), game(game) {
@@ -75,6 +86,7 @@ MapComponent::MapComponent(Entity* fadeOut, PlayState* game) : fadeOut(fadeOut),
     for (int i = 0; i < n; ++i) {
         vectorObjects.push_back({});
         vectorTiles.push_back({});
+        interact.push_back({});
     }
 
     tilemap = &sdlutils().images().at(sdlutils().levels().at(currentLevel).tileset);
@@ -135,7 +147,7 @@ void MapComponent::update() {
 void MapComponent::changeRoom(std::string newRoom, Vector2D newPos, bool verticalTrigger) {
     // std::stoi -> String TO Int
     anim_->startFadeOut(newPos, std::stoi(newRoom), verticalTrigger);
-
+    std::cout << "ANIM ACTIVO? " << fadeOut->isActive() << std::endl;
 }
 
 void MapComponent::loadMap(std::string path) {
@@ -154,7 +166,6 @@ void MapComponent::loadMap(std::string path) {
                 const auto& objects = layer->getLayerAs<ObjectGroup>().getObjects();
                 if (name == "Salas") {
                     vectorObjects[ROOM_VECTOR_POS] = objects;
-                    game->initEnemies(objects.size());
                 }
                 else if (name == "Objetos interactuables") {
                     vectorObjects[I_OBJECTS_VECTOR_POS] = objects;
@@ -255,12 +266,12 @@ void MapComponent::loadMap(std::string path) {
             auto classSplit = strSplit(ot.getClass(), '_');
             if (ot.getClass() == "Grass") {
                 auto roomScale = vectorTiles[std::stoi(ot.getName())].first;
-                constructors::grass(mngr_, 
+                interact[std::stoi(ot.getName())].push_back(constructors::grass(mngr_,
                     Vector2D((x_ * scale) * roomScale , ((y_ * scale - sdlutils().images().at("grass").height()) + h_ * scale)* roomScale),
                     w_ * scale* roomScale, 
                     h_ * scale* roomScale, 
                     Vector2D(x_ * scale * roomScale, ((y_ * scale - sdlutils().images().at("grass").height()) + h_ * scale + 100) * roomScale),
-                    Vector2D(x_ * scale * roomScale, (y_ * scale - sdlutils().images().at("grass").height()) * roomScale));
+                    Vector2D(x_ * scale * roomScale, (y_ * scale - sdlutils().images().at("grass").height()) * roomScale)));
             }
             else if (classSplit[0] == "Lamp") {
                 //createLamp(Vector2D(x_ * scale, y_ * scale - game->getTexture("lamp", PLAY_STATE)->getH() * 2));
@@ -281,8 +292,11 @@ void MapComponent::loadMap(std::string path) {
                     int h1 = fh * roomScale1;
                     int w2 = fw * roomScale2;
                     int h2 = fh * roomScale2;
-                    constructors::lamp(mngr_, pos.getX(), pos.getY() + hOffset * roomScale1, w1, h1, (*at).second.second,
+                    auto lampPair = constructors::lamp(mngr_, pos.getX(), pos.getY() + hOffset * roomScale1, w1, h1, (*at).second.second,
                         x_* scale* roomScale2, y_* scale* roomScale2 + hOffset * roomScale2, w2, h2, roomNum);
+
+                    interact[roomNum].push_back(lampPair.second);
+                    interact[(*at).second.second].push_back(lampPair.first);
                 }
                 else {
                     lamps.insert({ lampName, std::make_pair(Vector2D(x_*scale*roomScale2,y_*scale*roomScale2), roomNum)});
@@ -291,7 +305,7 @@ void MapComponent::loadMap(std::string path) {
             else if (ot.getClass() == "Sanctuary") {
                 auto roomScale = vectorTiles[std::stoi(ot.getName())].first;
                 Vector2D pos = Vector2D(x_ * scale * roomScale, (y_ * scale) * roomScale);
-                constructors::sanctuary(mngr_, pos - Vector2D(0, 250 * roomScale), 250 * roomScale, 250 * roomScale);
+                interact[std::stoi(ot.getName())].push_back(constructors::sanctuary(mngr_, pos - Vector2D(0, 250 * roomScale), 250 * roomScale, 250 * roomScale));
                 std::cout << pos << std::endl;
             }
             else if (ot.getClass() == "BossRoom") {
@@ -317,9 +331,11 @@ void MapComponent::loadMap(std::string path) {
                 trigger->getComponent<VineManager>()->createVine();
                 trigger->addComponent<EnterBossRoom>(&sdlutils().images().at("animationWorm"));
                 trigger->addComponent<Trigger>();
+                interact[std::stoi(ot.getName())].push_back(trigger);
             }
         }
-        generateEnemies();
+
+
         SDL_Rect playerRect = getSDLRect(playerPos.getAABB());
         auto playerRoom = std::stoi(playerPos.getClass());
         float playerRoomScale = vectorTiles[playerRoom].first;
@@ -330,6 +346,8 @@ void MapComponent::loadMap(std::string path) {
         playerTr_->setScale(playerRoomScale);
         currentRoom = playerRoom;
         cam->setBounds(getCamBounds());
+        generateEnemies();
+
     }
     else
     {

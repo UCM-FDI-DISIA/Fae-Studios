@@ -167,41 +167,6 @@ void PlayState::checkCollisions(std::list<Entity*> entities) {
 		
 		if(i == 0) physics->setGrounded(false);
 
-		/*
- 		int i = 0;
-		for (Entity* g : ground) { // GROUND COLLISION
-			SDL_Rect r2 = g->getComponent<Transform>()->getRect();
-			SDL_Rect areaColision; // area de colision 	
-			bool interseccion = SDL_IntersectRect(&r1, &r2, &areaColision);
-			if (interseccion)
-			{
-				if (areaColision.w >= areaColision.h) {
-
-					if (!physics->isGrounded() && areaColision.y > r1.y + r1.w / 2) {
-						//cout << "ground touched" << endl;
-						if (!(physics->getWater()) || (physics->getWater() && health->getElement() == ecs::Water))
-						{
-							colVector = Vector2D(colVector.getX(), 0);
-						}
-						physics->setGrounded(true);
-					}
-					else if (!physics->isGrounded()) {
-						//cout << "ceiling touched" << endl;
-						if (!(physics->getWater()) || (physics->getWater() && health->getElement() == ecs::Water))
-						{
-							colVector = Vector2D(colVector.getX(), 1);
-							physics->setVerticalSpeed(1);
-						}
-					}
-					if (mov != nullptr) mov->ChangeDirection(true, areaColision);
-
-					break;
-				}
-			}
-			else if (i == ground.size() - 1) physics->setGrounded(false);
-			++i;
-		}
-		*/
 		//colisiones con el material de agua 
 		int j = 0;
 		std::vector <Entity*> water = mngr_->getEntities(ecs::_grp_WATER);
@@ -282,16 +247,17 @@ void PlayState::checkInteraction() {
 void PlayState::update() {
 	checkCollisions({ player_ });
 	checkCollisions(enemies[map_->getCurrentRoom()]);
-	for (auto it : enemies) {
+	/*for (auto it : enemies) {
 		for (auto ot : it) {
 			if (it != enemies[map_->getCurrentRoom()]) {
 				ot->getComponent<PhysicsComponent>()->Stop();
 			}
 			else {
 				ot->getComponent<PhysicsComponent>()->Resume();
+				ot->setActive(true);
 			}
 		}
-	}
+	}*/
 	GameState::update();
 }
 

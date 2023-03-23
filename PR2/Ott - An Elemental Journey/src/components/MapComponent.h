@@ -37,6 +37,8 @@ private:
 
 	std::unordered_map<std::string, std::vector<SDL_Rect>> ground;
 
+	std::vector<std::vector<Entity*>> interact;
+
 	// En este mapa se guarda:
 	// string -> n�mero de sala
 	// vector -> todos los triggers que hay en esa sala
@@ -83,7 +85,8 @@ public:
 	void generateEnemies();
 
 	std::vector<std::pair<SDL_Rect, SDL_Rect>> checkCollisions(const SDL_Rect& playerRect);
-
+	
+	inline std::vector<std::vector<Entity*>> getInteract() { return interact; };
 	inline int getCurrentRoom() { return currentRoom; }
 	inline void setCurrentRoom(int newRoom) { currentRoom = newRoom; }
 	inline float getCurrentRoomScale() { return vectorTiles[currentRoom].first; }
