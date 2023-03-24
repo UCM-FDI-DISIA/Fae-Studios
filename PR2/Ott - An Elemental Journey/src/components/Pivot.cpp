@@ -18,7 +18,7 @@ void Pivot::update()
 			if (num == 0)
 			{
 				bossPhysics->setVelocity({ 0,0.3 });
-				playerTransform->setRotation(-90);
+				playerTransform->setRotation(90);
 			}
 			else if (num == 1)
 			{

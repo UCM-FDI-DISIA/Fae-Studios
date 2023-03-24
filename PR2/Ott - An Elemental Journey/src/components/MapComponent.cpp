@@ -7,7 +7,7 @@
 #include "../states/GameStateMachine.h"
 #include "../game/Constructors.h"
 
-const std::string currentLevel = "level1";
+const std::string currentLevel = "waterBossMap";
 
 std::vector<std::string> strSplit(std::string s, char c) {
 
