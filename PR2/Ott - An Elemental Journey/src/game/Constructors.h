@@ -5,6 +5,7 @@
 #include "../components/Transform.h"
 #include "../components/FramedImage.h"
 #include "../components/TextComponent.h"
+#include "../components/ElementObject.h"
 #include "../components/Slider.h"
 #include "../sdlutils/SDLUtils.h"
 #include "../components/Image.h";
@@ -24,6 +25,7 @@
 #include "../components/EnemyMeleeAttack.h"
 #include "../components/EnemyShootingAttack.h"
 #include "../components/EnemyAnimationController.h"
+#include "../components/LifeAnimationComponent.h"
 #include "../components/Generations.h"
 #include "../components/SlimeStates.h"
 #include "../components/EnterBossRoom.h"
@@ -247,6 +249,28 @@ namespace constructors {
 		};
 		grass->addComponent<InteractionComponent>(cb);
 		return grass;
+	}
+
+	static inline Entity* LifeShard(Manager* mngr_, int x, int y, int w, int h) {
+		auto shard = mngr_->addEntity(ecs::_grp_INTERACTION);
+		shard->addComponent<Transform>(Vector2D(x, y), w, h);
+		shard->addComponent<FramedImage>(&sdlutils().images().at("lifeshard"), 1, 10);
+		shard->addComponent<LifeAnimationComponent>();
+		auto cb = []() {
+			static_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->AddLifeShard();
+		};
+		shard->addComponent<InteractionComponent>(cb);
+
+		return shard;
+	}
+
+	static inline Entity* ElementEntity(Manager* mngr_, int x, int y, int w, int h, ecs::elements elem) {
+		auto element = mngr_->addEntity(ecs::_grp_INTERACTION);
+		element->addComponent<Transform>(Vector2D(x, y), w, h);
+		element->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
+		element->addComponent<ElementObject>(elem);
+
+		return element;
 	}
 
 	static inline std::pair<Entity*, Entity*> lamp(Manager* mngr_, int x1, int y1, int w1, int h1, int room1, int x2, int y2, int w2, int h2, int room2) {

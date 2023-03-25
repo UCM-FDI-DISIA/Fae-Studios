@@ -16,6 +16,7 @@ std::vector<anims::animDescription> anims::ott_anims{
 	{ 200 ,8,7,0 }, { 100,5,8,3 } }; // DIE, ATTACK
 // ENEMIGO MELEE
 std::vector<anims::animDescription> anims::melee_anims{ {150,4,0,0}, {150,9,0,12}, {200,4,0,8}, {450,1,0,7}, {100,3,0,4} };
+std::vector<anims::animDescription> anims::lifeshard_anims{ {10,10,0,0} };
 // ENEMIGO A RANGO
 std::vector<anims::animDescription> anims::range_anims{ {150,3,0,0}, {150,12,0,10}, {150,3,0,7}, {250,4,0,3} };
 // ENEMIGO SLIME
@@ -32,7 +33,7 @@ std::vector<anims::animDescription> anims::pause_anims{ {10000, 1,0,0} };
 //ATAQUE AGUA
 std::vector<anims::animDescription> anims::water_attack{ {100,10,0,0}, {100,10,1,9} };
 // vector con todas las animaciones definidas. se accede a �l por un enum llamado Entities
-std::vector<std::vector<anims::animDescription>> anims::animations{ott_anims, melee_anims, range_anims, slime_anims, earth_attack, earthBossPresent_anims,earthBoss_anims, warning_anims,pause_anims, water_attack, waterBoss_anims };
+std::vector<std::vector<anims::animDescription>> anims::animations{ott_anims, melee_anims, range_anims, slime_anims, earth_attack, earthBossPresent_anims,earthBoss_anims, warning_anims,pause_anims, water_attack, waterBoss_anims, lifeshard_anims };
 
 
 // int izqPixels, totalHorPixels, upPixels, totalVertPixels, width, height;

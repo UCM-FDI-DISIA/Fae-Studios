@@ -107,22 +107,16 @@ void PlayState::blockKeyboardInputAfterUnfreeze() {
 }
 
 void PlayState::resetFade() {
-    if (fade != nullptr && fade->hasComponent<FadeTransitionComponent>()) {
-        if (fade->getComponent<FadeTransitionComponent>()->hasEndedAnimation()) {
-            fade->getComponent<FadeTransitionComponent>()->setFunction([this](){doNotDetectKeyboardInput = false;});
-            fade->getComponent<FadeTransitionComponent>()->revert();
-        }
-    }
 }
 
 void PlayState::handleInput() {
     GameState::handleInput();
-	//if (doNotDetectKeyboardInput && InputHandler::instance()->allKeysUp()) doNotDetectKeyboardInput = false;
+	if (doNotDetectKeyboardInput && InputHandler::instance()->allKeysUp()) doNotDetectKeyboardInput = false;
 	
 	if (!doNotDetectKeyboardInput) {
 		if (InputHandler::instance()->isKeyJustDown(SDLK_ESCAPE)) {
-			fade->getComponent<FadeTransitionComponent>()->setFunction([this]() { GameStateMachine::instance()->pushState(new PauseMenuState());});
-			fade->getComponent<FadeTransitionComponent>()->changeSpeed(5);
+			fade->getComponent<FadeTransitionComponent>()->setFunction([]() { GameStateMachine::instance()->pushState(new PauseMenuState()); });
+			fade->getComponent<FadeTransitionComponent>()->changeSpeed(2);
 			fade->getComponent<FadeTransitionComponent>()->revert();
 		}
 	}
@@ -313,6 +307,10 @@ void PlayState::Teleport() {
 void PlayState::Save() {
 	map_->playFadeOutAnimation();
 	lastSanctuary = getCurrentInteraction();
+}
+
+void PlayState::AddLifeShard() {
+	player_->getComponent<Health>()->addLifeShard();
 }
 
 void PlayState::endRest() {

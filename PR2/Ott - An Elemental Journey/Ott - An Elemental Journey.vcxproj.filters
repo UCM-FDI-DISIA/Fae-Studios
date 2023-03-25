@@ -63,6 +63,8 @@
     <ClCompile Include="src\components\ElementObject.cpp" />
     <ClCompile Include="src\components\WaterBossAnimationComponent.cpp" />
     <ClCompile Include="src\states\MapState.cpp" />
+    <ClCompile Include="src\components\WaterBossAnimationComponent.cpp" />
+    <ClCompile Include="src\components\LifeAnimationComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\components\Image.h" />
@@ -146,6 +148,7 @@
     <ClInclude Include="src\components\ElementObject.h" />
     <ClInclude Include="src\components\WaterBossAnimationComponent.h" />
     <ClInclude Include="src\states\MapState.h" />
+    <ClInclude Include="src\components\LifeAnimationComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="resources\config\ott.resources.mac.json" />
