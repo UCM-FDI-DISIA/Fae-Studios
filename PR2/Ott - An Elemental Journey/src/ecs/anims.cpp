@@ -21,7 +21,7 @@ std::vector<anims::animDescription> anims::range_anims{ {150,3,0,0}, {150,12,0,1
 // ENEMIGO SLIME
 std::vector<anims::animDescription> anims::slime_anims{ {300,4,0,0}, {150,4,0,17}, {1000,1,0,10}, {150,6,0,4}, {300,4,0,0}, {200,7,0,10} };
 // WATER BOSS
-std::vector<anims::animDescription> anims::waterBoss_anims{ {300,6,0,0}, {300,6,0,0}, {300,6,0,0}, {300,6,0,0}, {300,6,0,0}, {300,6,0,0} };
+std::vector<anims::animDescription> anims::waterBoss_anims{ {100,6,0,0}, {300,6,0,0}, {300,6,0,0}, {300,6,0,0}, {300,6,0,0}, {300,6,0,0} };
 // ATAQUE TIERRA
 std::vector<anims::animDescription> anims::earth_attack{ {100,10,0,0}, {100,10,0,9} };
 //MINI BOSS TIERRA
