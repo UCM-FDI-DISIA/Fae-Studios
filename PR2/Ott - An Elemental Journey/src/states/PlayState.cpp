@@ -309,6 +309,10 @@ void PlayState::Save() {
 	lastSanctuary = getCurrentInteraction();
 }
 
+void PlayState::AddLifeShard() {
+	player_->getComponent<Health>()->addLifeShard();
+}
+
 void PlayState::endRest() {
     player_->getComponent<Health>()->saveSactuary(lastSanctuary);
 }

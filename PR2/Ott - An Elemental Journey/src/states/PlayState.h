@@ -77,6 +77,7 @@ public:
     inline float getGravityValue() const { return gravityValue; }
     void checkInteraction();
     void AddEnredadera();
+    void AddLifeShard();
     void Teleport();
     void Save();
     void endRest();

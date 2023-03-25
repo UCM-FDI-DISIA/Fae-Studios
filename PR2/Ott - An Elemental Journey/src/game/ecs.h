@@ -48,6 +48,7 @@ namespace ecs {
         _EARTHMNGR,
         _WATER_ATTACK_ANIM,
         _GET_ELEMENT,
+        _LIFESHARDANIM,
 
         _LAST_CMP_ID
     };

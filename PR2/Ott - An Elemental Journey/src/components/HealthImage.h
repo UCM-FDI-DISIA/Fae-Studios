@@ -26,6 +26,7 @@ public:
 	void reset(); // resettea la barra de vida
 	void die(); // muerte y destrucción
 	void damage(int num); // dañar X puntos
+	inline void increaseLife() { numHearts++; heartState.push_back(FULL_HEART); reset(); }
 	constexpr static ecs::cmpId_type id = ecs::_HEALTH_IMAGE; // ID
 private:
 	Texture* tex_; // textura usada
