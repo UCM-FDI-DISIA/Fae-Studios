@@ -18,6 +18,7 @@
 		{"id": "blackbackground", "file": "../Ott - An Elemental Journey/resources/images/backgrounds/mainbg.png", "rows": 1, "cols": 1},
 		{"id": "whitebackground", "file": "../Ott - An Elemental Journey/resources/images/backgrounds/playbg.png", "rows": 1, "cols": 1},
 		{"id": "button", "file": "../Ott - An Elemental Journey/resources/images/ui/button.png", "rows": 1, "cols": 3},
+		{"id": "lifeshard", "file": "../Ott - An Elemental Journey/resources/images/tests/lifeshard.png", "rows": 1, "cols": 10},
 		{
 			"id": "largebutton",
 			"file": "../Ott - An Elemental Journey/resources/images/ui/largebutton.png",

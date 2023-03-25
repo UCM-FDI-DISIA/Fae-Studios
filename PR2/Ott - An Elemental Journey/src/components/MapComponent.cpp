@@ -7,7 +7,7 @@
 #include "../states/GameStateMachine.h"
 #include "../game/Constructors.h"
 
-const std::string currentLevel = "waterBossMap";
+const std::string currentLevel = "level1";
 
 std::vector<std::string> strSplit(std::string s, char c) {
 
@@ -287,6 +287,11 @@ void MapComponent::loadMap(std::string path) {
                     Vector2D(x_ * scale * roomScale, ((y_ * scale - sdlutils().images().at("grass").height()) + h_ * scale + 100) * roomScale),
                     Vector2D(x_ * scale * roomScale, (y_ * scale - sdlutils().images().at("grass").height()) * roomScale)));
             }
+            else if (classSplit[0] == "Element") {
+                auto roomScale = vectorTiles[std::stoi(classSplit[1])].first;
+                auto elem = constructors::ElementEntity(mngr_, (x_* scale)* roomScale, (y_* scale)* roomScale, (w_* scale)* roomScale, (h_* scale)* roomScale, (ecs::elements)std::stoi(ot.getName()));
+                interact[std::stoi(classSplit[1])].push_back(elem);
+            }
             else if (classSplit[0] == "Lamp") {
                 //createLamp(Vector2D(x_ * scale, y_ * scale - game->getTexture("lamp", PLAY_STATE)->getH() * 2));
 
@@ -347,8 +352,13 @@ void MapComponent::loadMap(std::string path) {
                 trigger->addComponent<Trigger>();
                 interact[std::stoi(ot.getName())].push_back(trigger);
             }
-        }
+            else if (ot.getClass() == "Life") {
+                auto roomScale = vectorTiles[std::stoi(ot.getName())].first;
+                auto life = constructors::LifeShard(mngr_, x_*scale*roomScale,y_* scale* roomScale, w_* scale* roomScale, h_*scale*roomScale);
+                interact[std::stoi(ot.getName())].push_back(life);
 
+            }
+        }
 
         SDL_Rect playerRect = getSDLRect(playerPos.getAABB());
         auto playerRoom = std::stoi(playerPos.getClass());

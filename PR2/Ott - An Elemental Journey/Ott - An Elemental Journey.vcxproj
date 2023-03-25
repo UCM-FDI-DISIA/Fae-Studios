@@ -20,10 +20,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\components\Destruction.cpp" />
+    <ClCompile Include="src\components\LifeAnimationComponent.cpp" />
     <ClCompile Include="src\components\Pivot.cpp" />
     <ClCompile Include="src\components\Acceleration.cpp" />
     <ClCompile Include="src\components\EarthBossManager.cpp" />
-    <ClCompile Include="src\components\ElementObject.cpp" />
     <ClCompile Include="src\components\EnterBossRoom.cpp" />
     <ClCompile Include="src\components\EarthBossAttack.cpp" />
     <ClCompile Include="src\components\EarthBossAnimationController.cpp" />
@@ -79,6 +79,7 @@
     <ClCompile Include="src\components\WaterBossAnimationComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\components\LifeAnimationComponent.h" />
     <ClInclude Include="src\components\Destruction.h" />
     <ClInclude Include="src\components\Pivot.h" />
     <ClInclude Include="src\components\Acceleration.h" />
