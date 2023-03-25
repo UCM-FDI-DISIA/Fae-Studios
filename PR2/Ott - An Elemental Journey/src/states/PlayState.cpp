@@ -107,23 +107,16 @@ void PlayState::blockKeyboardInputAfterUnfreeze() {
 }
 
 void PlayState::resetFade() {
-    doNotDetectKeyboardInput = true;
-    if (fade != nullptr && fade->hasComponent<FadeTransitionComponent>()) {
-        if (fade->getComponent<FadeTransitionComponent>()->hasEndedAnimation()) {
-            fade->getComponent<FadeTransitionComponent>()->setFunction([this](){doNotDetectKeyboardInput = false;});
-            fade->getComponent<FadeTransitionComponent>()->revert();
-        }
-    }
 }
 
 void PlayState::handleInput() {
-    //GameState::handleInput();
-	//if (doNotDetectKeyboardInput && InputHandler::instance()->allKeysUp()) doNotDetectKeyboardInput = false;
+    GameState::handleInput();
+	if (doNotDetectKeyboardInput && InputHandler::instance()->allKeysUp()) doNotDetectKeyboardInput = false;
 	
 	if (!doNotDetectKeyboardInput) {
 		if (InputHandler::instance()->isKeyJustDown(SDLK_ESCAPE)) {
 			fade->getComponent<FadeTransitionComponent>()->setFunction([]() { GameStateMachine::instance()->pushState(new PauseMenuState()); });
-			fade->getComponent<FadeTransitionComponent>()->changeSpeed(3);
+			fade->getComponent<FadeTransitionComponent>()->changeSpeed(2);
 			fade->getComponent<FadeTransitionComponent>()->revert();
 		}
 	}

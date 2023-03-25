@@ -39,7 +39,7 @@ public:
         execute = false;
 
     };
-	inline void activate() { active = true; execute = true; }
+	inline void activate() { active = true; execute = true; executed = false;}
 	inline void deactivate() { active = false; }
 	inline void activateWithoutExecute() { active = true; execute = false; };
 	inline void setFunction(std::function<void()> const& c) { callback = c; }
