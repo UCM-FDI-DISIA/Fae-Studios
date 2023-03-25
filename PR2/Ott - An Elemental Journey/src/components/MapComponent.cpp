@@ -38,6 +38,8 @@ void MapComponent::generateEnemies() {
         float h_ = it.getAABB().height;
 
         auto split = strSplit(it.getName(), '_');
+        bool lookingRight = true;
+        if (split[2] == "left") lookingRight = false;
         auto elem = (ecs::elements)std::stoi(split[1]);
         std::string path;
         if (elem == ecs::Earth) {
@@ -54,15 +56,15 @@ void MapComponent::generateEnemies() {
         std::cout << roomNum << std::endl;
 
         if (it.getClass() == "Mushroom") {
-            Entity* enemie = constructors::eRanged(mngr_, path + "Mushroom", x_ * scale * roomScale, y_ * scale * roomScale, roomScale, elem);
+            Entity* enemie = constructors::eRanged(mngr_, path + "Mushroom", x_ * scale * roomScale, y_ * scale * roomScale, roomScale, elem, lookingRight);
             game->addEnemy(enemie, roomNum);
         }
         else if (it.getClass() == "Melee") {
-            Entity* enemie = constructors::eMelee(mngr_, path + "Bug", x_ * scale * roomScale, y_ * scale * roomScale, roomScale, elem);
+            Entity* enemie = constructors::eMelee(mngr_, path + "Bug", x_ * scale * roomScale, y_ * scale * roomScale, roomScale, elem, lookingRight);
             game->addEnemy(enemie, roomNum);
         }
         else if (it.getClass() == "Slime") {
-            Entity* enemie = constructors::eSlime(mngr_, path + "Slime", x_ * scale * roomScale, y_ * scale * roomScale, roomScale, elem);
+            Entity* enemie = constructors::eSlime(mngr_, path + "Slime", x_ * scale * roomScale, y_ * scale * roomScale, roomScale, elem, lookingRight);
             game->addEnemy(enemie, roomNum);
         }
         else if (it.getClass() == "WaterBoss") {

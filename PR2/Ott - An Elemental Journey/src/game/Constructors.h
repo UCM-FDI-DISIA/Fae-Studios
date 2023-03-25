@@ -36,6 +36,7 @@
 #include "../states/GameStateMachine.h"
 #include "../components/AttackCharger.h"
 #include "../components/FadeOutAnimationComponent.h"
+#include "../components/DamageArea.h"
 #include "../components/EarthBossManager.h"
 #include "../components/Destruction.h"
 #include "../components/Pivot.h"
@@ -51,18 +52,28 @@ const SDL_Color transparente{ 255,255,255,1 };
 const SDL_Color blanco{ 255,255,255 };
 
 namespace constructors {
+	//static inline Entity* damageArea(Manager* mngr_, std::string imageKey, ecs::elements el, int x, int y, int w, int h)
+	//{
+	//	auto a = mngr_->addEntity(ecs::_grp_GENERAL); //crear grupo
+	//	a->addComponent<Transform>(x, y, w, h);
+	//	a->addComponent<Image>(&sdlutils().images().at(imageKey));
+	//	a->addComponent<DamageArea>(el);
 
-	static inline Entity* eRanged(Manager* mngr_, std::string imageKey, int x, int y, float scale, ecs::elements el) {
+	//	return a;
+	//}
+	//static inline Entity* eRanged(Manager* mngr_, std::string imageKey, int x, int y, float scale, ecs::elements el) {
+	static inline Entity* eRanged(Manager* mngr_, std::string imageKey, int x, int y, float scale, ecs::elements el, bool lookingRight) {
 
 		// Asi se a�ade enemigo rango
 		auto enemy2 = mngr_->addEntity(ecs::_grp_CHARACTERS);
 		auto ph2 = enemy2->addComponent<PhysicsComponent>(colliders::RANGE);
 		enemy2->addComponent<Transform>(x, y, 110 * scale, 110 * scale); // 1700 1800 pos para pruebas
 		ph2->createCollider();
-		enemy2->addComponent<FramedImage>(&sdlutils().images().at(imageKey), 2, 22);
+		auto fi = enemy2->addComponent<FramedImage>(&sdlutils().images().at(imageKey), 2, 22);
+		fi->flipTexture(!lookingRight);
 		enemy2->addComponent<Health>(5, el, false);
 		ph2->setVelocity({ 0,0 });
-		ph2->lookDirection(false);
+		ph2->lookDirection(lookingRight);
 		auto eAttack_2 = enemy2->addComponent<EnemyAttack>(1200, 400);
 		auto eAnim_2 = enemy2->addComponent<EnemyAnimationComponent>(anims::RANGE_ANIM);
 		auto attack_2 = enemy2->addComponent<EnemyShootingAttack>();
@@ -72,7 +83,7 @@ namespace constructors {
 		return enemy2;
 	}
 
-	static inline Entity* eMelee(Manager* mngr_, std::string imageKey, int x, int y, float scale, ecs::elements el) {
+	static inline Entity* eMelee(Manager* mngr_, std::string imageKey, int x, int y, float scale, ecs::elements el, bool lookingRight) {
 
 
 		// Asi se a�ade enemigo melee
@@ -81,10 +92,14 @@ namespace constructors {
 		auto ph3 = enemy3->addComponent<PhysicsComponent>(colliders::MELEE);
 		enemy3->addComponent<Transform>(x, y, 230 * scale, 130 * scale);  // 2400 1800 pos para pruebas
 		ph3->createCollider();
-		enemy3->addComponent<FramedImage>(&sdlutils().images().at(imageKey), 2, 21);
+		auto fi = enemy3->addComponent<FramedImage>(&sdlutils().images().at(imageKey), 2, 21);
+		fi->flipTexture(!lookingRight);
 		enemy3->addComponent<Health>(5, el, false);
-		ph3->setVelocity({ 1,0 });
-		ph3->lookDirection(true);
+		float dir = 0;
+		if (lookingRight) dir = 1;
+		else dir = -1;
+		ph3->setVelocity({ dir,0 });
+		ph3->lookDirection(lookingRight);
 		auto eAttack_3 = enemy3->addComponent<EnemyAttack>(1200);
 		enemy3->addComponent<EnemyMovement>();
 		auto eAnim_3 = enemy3->addComponent<EnemyAnimationComponent>(anims::MELEE_ANIM);
@@ -95,17 +110,21 @@ namespace constructors {
 		return enemy3;
 	}
 
-	static inline Entity* eSlime(Manager* mngr_, std::string imageKey, int x, int y, float scale, ecs::elements el) {
+	static inline Entity* eSlime(Manager* mngr_, std::string imageKey, int x, int y, float scale, ecs::elements el, bool lookingRight) {
 		// Asi se a�ade enemigo slime
 
 		auto enemy = mngr_->addEntity(ecs::_grp_CHARACTERS);
 		auto ph = enemy->addComponent<PhysicsComponent>(colliders::SLIME);
 		auto tr = enemy->addComponent<Transform>(Vector2D(x, y), 360 * scale, 210 * scale); // 600 950 pos para pruebas
 		ph->createCollider();
-		enemy->addComponent<FramedImage>(&sdlutils().images().at(imageKey), 2, 21);
+		auto fi = enemy->addComponent<FramedImage>(&sdlutils().images().at(imageKey), 2, 21);
+		fi->flipTexture(!lookingRight);
 		enemy->addComponent<Health>(5, el, false);
-		ph->setVelocity({ -1,0 });
-		ph->lookDirection(false);
+		float dir = 0;
+		if (lookingRight) dir = 1;
+		else dir = -1;
+		ph->setVelocity({ dir,0 });
+		ph->lookDirection(lookingRight);
 		auto eAttack_ = enemy->addComponent<EnemyAttack>(1200);
 		enemy->addComponent<EnemyMovement>();
 		auto eAnim_ = enemy->addComponent<EnemyAnimationComponent>(anims::SLIME_ANIM);
@@ -118,17 +137,21 @@ namespace constructors {
 		return enemy;
 	}
 
-	static inline Entity* eSlime(Manager* mngr_, Texture* tex, int x, int y, float scale, int gens, int lives, ecs::elements el) {
+	static inline Entity* eSlime(Manager* mngr_, Texture* tex, int x, int y, float scale, int gens, int lives, ecs::elements el, bool lookingRight) {
 		// Asi se a�ade enemigo slime
 
 		auto enemy = mngr_->addEntity(ecs::_grp_CHARACTERS);
 		auto ph = enemy->addComponent<PhysicsComponent>(colliders::SLIME);
 		auto tr = enemy->addComponent<Transform>(Vector2D(x, y), 360 * scale, 210 * scale); // 600 950 pos para pruebas
 		ph->createCollider();
-		enemy->addComponent<FramedImage>(tex, 2, 21);
+		auto fi = enemy->addComponent<FramedImage>(tex, 2, 21);
+		fi->flipTexture(!lookingRight);
 		enemy->addComponent<Health>(lives, el, false);
-		ph->setVelocity({ 1,0 });
-		ph->lookDirection(true);
+		float dir = 0;
+		if (lookingRight) dir = 1;
+		else dir = -1;
+		ph->setVelocity({ dir,0 });
+		ph->lookDirection(lookingRight);
 		auto eAttack_ = enemy->addComponent<EnemyAttack>(1200);
 		enemy->addComponent<EnemyMovement>();
 		auto eAnim_ = enemy->addComponent<EnemyAnimationComponent>(anims::SLIME_ANIM);

@@ -191,7 +191,7 @@
   <object id="196" name="lamp2" type="Lamp_2" x="4469.33" y="1367" width="32"/>
   <object id="199" name="lamp2" type="Lamp_1" x="1217.58" y="1430.92" width="32"/>
  </objectgroup>
- <objectgroup id="6" name="Salas">
+ <objectgroup id="6" name="Salas" visible="0">
   <object id="61" name="0_earth_room" type="1.6" x="0" y="913.939" width="1037.33" height="778.061"/>
   <object id="63" name="1_earth_room" type="0.7" x="1052" y="598.788" width="1549.45" height="1100.24"/>
   <object id="73" name="2_earth_room" type="1" x="2660.76" y="881.88" width="1941.22" height="1332.24"/>
@@ -200,10 +200,10 @@
   <object id="175" name="5_earth_room" type="1" x="1048.18" y="2336.88" width="471.64" height="665.237"/>
   <object id="200" name="6_earth_room" type="0.8" x="4635.64" y="672" width="1282.61" height="753.939"/>
  </objectgroup>
- <objectgroup id="8" name="Enemigos" visible="0">
-  <object id="150" name="0_1" type="Mushroom" x="352.667" y="1369.67" width="31.3333" height="155.333"/>
-  <object id="151" name="1_2" type="Melee" x="1566.33" y="1312.17" width="31.3333" height="86.6667"/>
-  <object id="152" name="2_1" type="Slime" x="3147.97" y="1922.98" width="31.3333" height="173.333"/>
+ <objectgroup id="8" name="Enemigos">
+  <object id="150" name="0_1_right" type="Mushroom" x="352.667" y="1369.67" width="31.3333" height="155.333"/>
+  <object id="151" name="1_2_left" type="Melee" x="1566.33" y="1312.17" width="31.3333" height="86.6667"/>
+  <object id="152" name="2_1_right" type="Slime" x="3147.97" y="1922.98" width="31.3333" height="173.333"/>
  </objectgroup>
  <objectgroup id="7" name="Triggers" visible="0">
   <object id="163" name="0_1" type="01" x="992" y="1248" width="32" height="160"/>

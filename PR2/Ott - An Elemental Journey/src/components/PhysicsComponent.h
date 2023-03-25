@@ -39,6 +39,20 @@ public:
     inline void Stop() { stopped = true; lastSpeed = velocity_; }
     inline void Resume(bool verticalTrigger = false) { stopped = false; if(verticalTrigger) velocity_ = lastSpeed; }
     inline bool isStopped()  { return stopped; }
+    /*inline void saveLastPos(const SDL_Rect& col)
+    {
+        int wPlayerRect = getCollider().w;
+        auto tr = ent_->getComponent<Transform>();
+        if (wPlayerRect * offset < col.w)
+        {
+            lastPos = tr->getPosition();
+        }
+    }*/
+    /*inline void setLastPos()
+    {
+        auto tr = ent_->getComponent<Transform>();
+        tr->setPosition(lastPos);
+    }*/
     //virtual void render();
 private:
     SDL_Rect collider;
@@ -53,14 +67,13 @@ private:
     const float horizontalSpeed = 1.8f;
     Vector2D velocity_;
     float dirClimbing = 0;
-
+    Vector2D lastPos;
     colliders::Colliders typeofCollider;
-
     //jumpforces
     int jumpForce;
     const int earthJumpForce = -10;
     const int waterJumpForce = -5;
-
+    const float offset = 0.9;
     //booleanos de agua
     bool inWater = false, floating = false;
 
