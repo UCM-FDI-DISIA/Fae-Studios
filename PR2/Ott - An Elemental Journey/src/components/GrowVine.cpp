@@ -25,12 +25,15 @@ void GrowVine::update() {
         else {
             if (!reached && dir < 0 && posX > posFinalT.getX() || !reached && dir > 0 && posX < posFinalT.getX()) {
                 tr_->setPosition(Vector2D(posX + (dir * speed), posY));
+                if (!SoundEffect::isSoundBeingPlayed(ecs::_channel_AMBIENTAL)) sdlutils().soundEffects().at("grow_vine").play(0, ecs::_channel_AMBIENTAL);
             }
             else if (!reached && dir < 0 && posX <= posFinalT.getX() || !reached && dir > 0 && posX >= posFinalT.getX()) {
                 reached = true;
+                SoundEffect::fadeOutChannel(250, ecs::_channel_AMBIENTAL);
             }
             else if (reached && goesBack && posX != posIni.getX()) {
                 tr_->setPosition(Vector2D(posX + ((-1*dir) * speed), posY));
+                if (!SoundEffect::isSoundBeingPlayed(ecs::_channel_AMBIENTAL)) sdlutils().soundEffects().at("grow_vine").play(0, ecs::_channel_AMBIENTAL);
             }
             else if (reached && posX == posIni.getX()) {
                 reached = false; grow = false;
