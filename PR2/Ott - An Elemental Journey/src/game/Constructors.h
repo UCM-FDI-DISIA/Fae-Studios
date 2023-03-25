@@ -239,8 +239,9 @@ namespace constructors {
 		auto player = mngr_->addEntity(ecs::_grp_CHARACTERS);
 		auto ph = player->addComponent<PhysicsComponent>(colliders::OTT);
 		player->addComponent<Transform>(Vector2D(x, y), w, h);
-		SDL_Rect rect = { 20,20,50,50 };
-		player->addComponent<HealthImage>(&sdlutils().images().at("hearts"), 5, rect);
+		auto lamp_w = 150;
+		SDL_Rect rect = { 20,20,(int)(0.56*lamp_w),lamp_w };
+		player->addComponent<HealthImage>(&sdlutils().images().at("lamps"), 5, rect);
 		player->addComponent<FramedImageOtt>(&sdlutils().images().at("ott_luz"));
 		auto pAnim = player->addComponent<PlayerAnimationComponent>(anims::OTT_ANIM);
 		auto health = player->addComponent<Health>(5, ecs::Light, true);

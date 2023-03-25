@@ -24,18 +24,18 @@ void GameStateMachine::resetStack() {
     changeState(new MainMenuState());
 }
 
-void GameStateMachine::popState() {
+void GameStateMachine::popState(bool deleting) {
     if(!stateStack.empty()) {
         stateStack.front()->setDelete();
         delete stateStack.front();
         stateStack.pop_front();
     }
 
-    if(!stateStack.empty()) stateStack.front()->resetFade();
+    if(!stateStack.empty() && !deleting) stateStack.front()->resetFade();
 }
 
 void GameStateMachine::emptyStack() {
-    while (!empty()) popState();
+    while (!empty()) popState(true);
 }
 
 bool GameStateMachine::empty() {

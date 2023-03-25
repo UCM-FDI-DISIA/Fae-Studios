@@ -63,6 +63,15 @@ public:
 		Mix_ResumeMusic();
 	}
 
+	inline static void fadeOutMusic(int miliseconds) {
+		Mix_FadeOutMusic(miliseconds);
+	}
+
+	inline void fadeInMusic(int miliseconds, int loops = -1) {
+		assert(loops >= -1 && music_ != nullptr);
+		Mix_FadeInMusic(music_, loops, miliseconds);
+	}
+
 	inline static float convertVolumeToSDLMixerValue(int volume) {
 		return ((SDL_MIX_MAXVOLUME * volume) / 100);
 	}

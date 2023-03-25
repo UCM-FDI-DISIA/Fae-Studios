@@ -7,7 +7,7 @@
 #include "../states/GameStateMachine.h"
 #include "../game/Constructors.h"
 
-const std::string currentLevel = "level1";
+const std::string currentLevel = "level1_0";
 
 std::vector<std::string> strSplit(std::string s, char c) {
 
@@ -86,7 +86,6 @@ void MapComponent::generateEnemies() {
     for (auto it : enemies_[currentRoom]) {
         it->setActive(true);
     }
-
 }
 
 MapComponent::MapComponent(Entity* fadeOut, PlayState* game) : fadeOut(fadeOut), game(game) {
@@ -296,6 +295,7 @@ void MapComponent::loadMap(std::string path) {
                     Vector2D(x_ * scale * roomScale, (y_ * scale - sdlutils().images().at("grass").height()) * roomScale)));
             }
             else if (classSplit[0] == "Element") {
+                std::cout << "READING ELEM FROM MAP" << std::endl;
                 auto roomScale = vectorTiles[std::stoi(classSplit[1])].first;
                 auto elem = constructors::ElementEntity(mngr_, (x_* scale)* roomScale, (y_* scale)* roomScale, (w_* scale)* roomScale, (h_* scale)* roomScale, (ecs::elements)std::stoi(ot.getName()));
                 interact[std::stoi(classSplit[1])].push_back(elem);
