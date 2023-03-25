@@ -45,6 +45,12 @@ public:
 		return Mix_PlayChannel(channel, chunk_, loops);
 	}
 
+	inline int playFor(int miliseconds, int loops = 0, int channel = -1) const {
+		_CHECK_CHANNEL_(channel);
+		assert(loops >= -1);
+		return Mix_PlayChannelTimed(channel, chunk_, loops, miliseconds);
+	}
+
 	inline int setVolume(int volume) {
 		assert(volume >= 0 && volume <= 128);
 		return Mix_VolumeChunk(chunk_, volume);
@@ -65,6 +71,11 @@ public:
 	inline static void haltChannel(int channel = -1) {
 		_CHECK_CHANNEL_(channel);
 		Mix_HaltChannel(channel);
+	}
+
+	inline static void fadeOutChannel(int miliseconds, int channel = -1) {
+		_CHECK_CHANNEL_(channel);
+		Mix_FadeOutChannel(channel, miliseconds);
 	}
 
 	inline static int setChannelVolume(int volume, int channel = -1) {
