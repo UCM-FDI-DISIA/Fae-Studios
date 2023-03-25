@@ -56,8 +56,11 @@ void PlayerInput::update()
 				health_->recieveDamage(ecs::Earth);
 			}
 			if (input->isKeyDown(SDLK_TAB)) {
-				if(anim_->getState() != OPEN_MAP && anim_->getState() != CLOSE_MAP && physics_->isGrounded())
-				anim_->setState(OPEN_MAP);
+				if (anim_->getState() != OPEN_MAP && anim_->getState() != CLOSE_MAP && physics_->isGrounded()) {
+					anim_->setState(OPEN_MAP);
+					if (!SoundEffect::isSoundBeingPlayed(ecs::_channel_PLAYER_ATTACK)) sdlutils().soundEffects().at("map").play (0, ecs::_channel_PLAYER_ATTACK);
+				}
+					
 				openingMap = true;
 				physics_->setVelocity(Vector2D(0, physics_->getVelocity().getY()));
 			}
