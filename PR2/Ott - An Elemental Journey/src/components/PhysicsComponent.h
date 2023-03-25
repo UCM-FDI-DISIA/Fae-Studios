@@ -39,7 +39,7 @@ public:
     inline void Stop() { stopped = true; lastSpeed = velocity_; }
     inline void Resume() { stopped = false; velocity_ = lastSpeed; }
     inline bool isStopped()  { return stopped; }
-    inline void saveLastPos(const SDL_Rect& col)
+    /*inline void saveLastPos(const SDL_Rect& col)
     {
         int wPlayerRect = getCollider().w;
         auto tr = ent_->getComponent<Transform>();
@@ -47,12 +47,12 @@ public:
         {
             lastPos = tr->getPosition();
         }
-    }
-    inline void setLastPos()
+    }*/
+    /*inline void setLastPos()
     {
         auto tr = ent_->getComponent<Transform>();
         tr->setPosition(lastPos);
-    }
+    }*/
     //virtual void render();
 private:
     SDL_Rect collider;

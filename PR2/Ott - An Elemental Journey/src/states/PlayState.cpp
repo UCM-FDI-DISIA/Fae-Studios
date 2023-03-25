@@ -130,10 +130,10 @@ void PlayState::checkCollisions(std::list<Entity*> entities) {
 					}
 				}
 				if (mov != nullptr) mov->ChangeDirection(true, areaColision);
-				else if (pAttack != nullptr)
+				/*else if (pAttack != nullptr)
 				{
 					physics->saveLastPos(areaColision);
-				}
+				}*/
 				++i;
 				break;
 			}
