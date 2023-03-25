@@ -79,7 +79,7 @@ MainMenuState::MainMenuState() : MenuState() {
 
 void MainMenuState::update() {
     GameState::update();
-	if (SDL_GetTicks() >= animTime) { //Se cambia la animaci�n de ca�da
+	if (SDL_GetTicks() >= animTime) {
 		animFrame = (animFrame + 1) % 2;
         if(!playStateInit) littleOtt->getComponent<FramedImage>()->setCol(animFrame);
 		animTime = SDL_GetTicks() + MAIN_MENU_OTT_ANIM_TIME;
