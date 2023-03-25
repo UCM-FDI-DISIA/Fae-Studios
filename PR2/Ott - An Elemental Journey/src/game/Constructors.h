@@ -259,7 +259,7 @@ namespace constructors {
 		auto cb = []() {
 			static_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->AddLifeShard();
 		};
-		shard->addComponent<InteractionComponent>(cb);
+		shard->addComponent<InteractionComponent>(cb, true);
 
 		return shard;
 	}
@@ -267,7 +267,20 @@ namespace constructors {
 	static inline Entity* ElementEntity(Manager* mngr_, int x, int y, int w, int h, ecs::elements elem) {
 		auto element = mngr_->addEntity(ecs::_grp_INTERACTION);
 		element->addComponent<Transform>(Vector2D(x, y), w, h);
-		element->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
+		std::string key;
+		switch (elem) {
+		case ecs::Earth:
+			key = "earth_elem";
+			break;
+		case ecs::Water:
+			key = "water_elem";
+			break;
+		case ecs::Fire:
+			key = "fire_elem";
+			break;
+		}
+		element->addComponent<FramedImage>(&sdlutils().images().at(key), 1, 10);
+		element->addComponent<LifeAnimationComponent>();
 		element->addComponent<ElementObject>(elem);
 
 		return element;

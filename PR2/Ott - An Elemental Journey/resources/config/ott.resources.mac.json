@@ -18,6 +18,9 @@
 		{"id": "blackbackground", "file": "../Ott - An Elemental Journey/resources/images/backgrounds/mainbg.png", "rows": 1, "cols": 1},
 		{"id": "whitebackground", "file": "../Ott - An Elemental Journey/resources/images/backgrounds/playbg.png", "rows": 1, "cols": 1},
 		{"id": "button", "file": "../Ott - An Elemental Journey/resources/images/ui/button.png", "rows": 1, "cols": 3},
+		{"id": "earth_elem", "file": "../Ott - An Elemental Journey/resources/images/tests/EarthElement.png", "rows": 1, "cols": 10},
+		{"id": "water_elem", "file": "../Ott - An Elemental Journey/resources/images/tests/WaterElement.png", "rows": 1, "cols": 10},
+		{"id": "fire_elem", "file": "../Ott - An Elemental Journey/resources/images/tests/FireElement.png", "rows": 1, "cols": 10},
 		{"id": "lifeshard", "file": "../Ott - An Elemental Journey/resources/images/tests/lifeshard.png", "rows": 1, "cols": 10},
 		{
 			"id": "largebutton",
