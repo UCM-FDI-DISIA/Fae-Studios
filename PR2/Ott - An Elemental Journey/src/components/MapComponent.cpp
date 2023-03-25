@@ -97,6 +97,7 @@ MapComponent::MapComponent(Entity* fadeOut, PlayState* game) : fadeOut(fadeOut),
         interact.push_back({});
     }
 
+
     tilemap = &sdlutils().images().at(sdlutils().levels().at(currentLevel).tileset);
 }
 
@@ -156,6 +157,7 @@ void MapComponent::changeRoom(std::string newRoom, Vector2D newPos, bool vertica
     // std::stoi -> String TO Int
     anim_->startFadeOut(newPos, std::stoi(newRoom), verticalTrigger);
     std::cout << "ANIM ACTIVO? " << fadeOut->isActive() << std::endl;
+    game->setVisited(std::stoi(newRoom));
 }
 
 void MapComponent::loadMap(std::string path) {
@@ -174,6 +176,11 @@ void MapComponent::loadMap(std::string path) {
                 const auto& objects = layer->getLayerAs<ObjectGroup>().getObjects();
                 if (name == "Salas") {
                     vectorObjects[ROOM_VECTOR_POS] = objects;
+                    numRooms = objects.size();
+                    game->initEnemies(numRooms);
+                    std::vector<std::string> aux(numRooms);
+                    mapKeys = aux;
+                    game->initVisitedRooms(numRooms);
                 }
                 else if (name == "Objetos interactuables") {
                     vectorObjects[I_OBJECTS_VECTOR_POS] = objects;
@@ -193,7 +200,6 @@ void MapComponent::loadMap(std::string path) {
             }
             #pragma endregion
         }
-
         for (const auto& layer : layers2)
         {
             #pragma region Tiles
@@ -208,6 +214,7 @@ void MapComponent::loadMap(std::string path) {
                 int i = 0;
                 for (auto salas : vectorObjects[ROOM_VECTOR_POS]) {
                     int o = 0;
+                    mapKeys[i] = salas.getName();
                     auto rect = salas.getAABB();
                     SDL_Rect sala = { (int)(rect.left * tileScale()), (int)(rect.top* tileScale()), (int)(rect.width * tileScale()), (int)(rect.height * tileScale()) };
                     for (auto tile : tiles) {
@@ -220,7 +227,6 @@ void MapComponent::loadMap(std::string path) {
                     }
                     ++i;
                 }
-
                 // vectorTiles = tiles;
             }
             #pragma endregion

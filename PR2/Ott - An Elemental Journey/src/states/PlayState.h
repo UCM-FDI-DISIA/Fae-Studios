@@ -5,12 +5,15 @@
 #include "../components/MapComponent.h"
 #include "../components/EnemyAnimationController.h"
 #include <list>
+#include <vector>
+
 
 /// Estado de juego
 class PlayState : public GameState {
 private:    
     void checkCollisions(std::list<Entity*> entities);
     std::vector<Entity*>::const_iterator interactionIt;
+    std::vector<bool> visitedRooms;
 
     Entity* player_;
     Entity* camera_;
@@ -51,6 +54,23 @@ public:
             enemyIt.push_back({});
         }
     }
+
+    inline void initVisitedRooms(int numRooms) {
+        std::vector<bool> rooms(numRooms);
+        visitedRooms = rooms;
+        visitedRooms[0] = true;
+        for (int i = 1; i < visitedRooms.size(); ++i) {
+            visitedRooms[i] = false;
+        }
+    }
+
+    inline void setVisited(int room) {
+        visitedRooms[room] = true;
+    }
+
+    inline bool isVisited(int room) { return visitedRooms[room]; }
+
+    inline MapComponent* getMap() { return map_; }
 
     void eraseEnemy(int itPos, int numRoom) {
         int room = map_->getCurrentRoom();

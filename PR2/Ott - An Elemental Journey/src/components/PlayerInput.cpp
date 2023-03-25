@@ -55,6 +55,9 @@ void PlayerInput::update()
 				//Recuperar vidas
 				health_->recieveDamage(ecs::Earth);
 			}
+			if (input->isKeyDown(SDLK_TAB)) {
+				GameStateMachine::instance()->pushState(new MapState(static_cast<PlayState*> (GameStateMachine::instance()->getPlayState())));
+			}
 			if (state != VANISH) {
 				if (input->isKeyDown(SDLK_z))
 				{

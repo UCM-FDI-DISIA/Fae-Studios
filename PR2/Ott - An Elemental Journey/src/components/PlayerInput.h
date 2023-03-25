@@ -10,6 +10,8 @@
 #include "FramedImage.h"
 #include "PlayerAttack.h"
 #include "AttackCharger.h"
+#include "../states/MapState.h"
+
 class PlayerInput : public Component {
 public:
 	PlayerInput();

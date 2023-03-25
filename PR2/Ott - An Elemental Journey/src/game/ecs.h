@@ -83,6 +83,7 @@ namespace ecs {
     enum stateId : stateId_type {
         _state_MENU, ///< Menú
         _state_PLAY, ///< Estado de juego
+        _state_MAP, ///< Estado de juego
 
         _LAST_STATE_ID
     };
