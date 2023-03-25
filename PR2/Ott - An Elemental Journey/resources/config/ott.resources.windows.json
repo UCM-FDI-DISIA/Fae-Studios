@@ -69,7 +69,9 @@
 		{ "id" : "warning", "file" : "../resources/images/tests/EarthBossWarning.png", "rows" : 1, "cols" : 28},
 		{ "id" : "water_chargedAttack", "file" : "../resources/images/tests/water_Attack.png", "rows" : 1, "cols" : 1},
 		{ "id" : "earth_attack", "file" : "../resources/images/tests/earth_Attack.png", "rows" : 1, "cols" : 10},
-		{ "id" : "water_attack", "file" : "../resources/images/tests/water_Attack_PlaceHolder.png", "rows" : 2, "cols" : 9}
+		{ "id" : "water_attack", "file" : "../resources/images/tests/water_Attack_PlaceHolder.png", "rows" : 2, "cols" : 9},
+		{ "id" :  "bossHealthBar", "file" : "../resources/images/tests/BossHealthBar.png", "rows" : 1, "cols" :  1},
+		{ "id" :  "bossLife", "file" : "../resources/images/tests/BossLife.png", "rows" : 1, "cols" :  1}
   ],
 
   "messages" : [],

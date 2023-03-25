@@ -346,8 +346,21 @@
 			"file": "../Ott - An Elemental Journey/resources/images/tests/EarthBossWarning.png",
 			"rows": 1,
 			"cols": 28
-		}
+		},
 
+		{
+			"id": "bossHealthBar",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/BossHealthBar.png",
+			"rows": 1,
+			"cols": 1
+		},
+
+		{
+			"id": "bossLife",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/BossLife.png",
+			"rows": 1,
+			"cols": 1
+		}
 	],
 
   
