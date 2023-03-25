@@ -97,6 +97,7 @@ namespace ecs {
         _channel_PLAYER_MOVEMENT = 1,
         _channel_PLAYER_ATTACK = 2,
         _channel_AMBIENTAL = 3,
+        _channel_ALERTS = 4,
 
 
         _LAST_CHANNEL_ID

@@ -351,7 +351,8 @@
   	{ "id" :  "ott_step", "file" :  "../Ott - An Elemental Journey/resources/sound/ott_paso.wav"},
 	{ "id" :  "ott_attack", "file" :  "../Ott - An Elemental Journey/resources/sound/ataque_ott.wav"},
 	{ "id" : "grow_vine", "file" : "../Ott - An Elemental Journey/resources/sound/vine_growing.wav"},
-	{ "id" : "map", "file" : "../Ott - An Elemental Journey/resources/sound/map.wav"}
+	{ "id" : "map", "file" : "../Ott - An Elemental Journey/resources/sound/map.wav"},
+	{ "id" : "warning", "file" : "../Ott - An Elemental Journey/resources/sound/warning_gusano.wav"}
   ],
 
 	"musics": [
