@@ -40,6 +40,10 @@ private:
 
 	std::vector<std::vector<Entity*>> interact;
 
+	// Vector con las keys de la imagen asociada a cada habitacion
+	std::vector<std::string> mapKeys;
+
+
 	// En este mapa se guarda:
 	// string -> n�mero de sala
 	// vector -> todos los triggers que hay en esa sala
@@ -66,6 +70,7 @@ private:
 	int realTileSize = 32;
 	int usedTileSize = 50;
 	int currentRoom = 0;
+	int numRooms = 0;
 
 	void loadMap(std::string path);
 
@@ -91,6 +96,7 @@ public:
 	inline int getCurrentRoom() { return currentRoom; }
 	inline void setCurrentRoom(int newRoom) { currentRoom = newRoom; }
 	inline float getCurrentRoomScale() { return vectorTiles[currentRoom].first; }
+	inline std::string getMapKey(int i) { if (i < mapKeys.size()) return mapKeys[i]; else return " "; }
 
 	inline void destroyTile(std::string room, int index) { destructible[room][index].first = false; }
 
