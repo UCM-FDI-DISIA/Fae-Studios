@@ -94,7 +94,8 @@ namespace ecs {
     using channelId_type = int8_t;
     enum channelId : channelId_type {
         _channel_UI = 0,
-        _channel_PLAYER = 1,
+        _channel_PLAYER_MOVEMENT = 1,
+        _channel_PLAYER_ATTACK = 2,
 
 
         _LAST_CHANNEL_ID

@@ -348,7 +348,8 @@
     { "id" : "play_button", "file" : "../Ott - An Elemental Journey/resources/sound/playbutton.wav" },
 	{ "id" : "button", "file" : "../Ott - An Elemental Journey/resources/sound/button.wav" },
 	{ "id" : "button_back", "file" : "../Ott - An Elemental Journey/resources/sound/buttonback.wav" },
-  	{ "id" :  "ott_step", "file" :  "../Ott - An Elemental Journey/resources/sound/ott_paso.wav"}
+  	{ "id" :  "ott_step", "file" :  "../Ott - An Elemental Journey/resources/sound/ott_paso.wav"},
+		{ "id" :  "ott_attack", "file" :  "../Ott - An Elemental Journey/resources/sound/ataque_ott.wav"}
   ],
 
 	"musics": [

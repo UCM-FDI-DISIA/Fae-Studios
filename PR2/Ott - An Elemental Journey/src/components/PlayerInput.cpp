@@ -30,14 +30,14 @@ void PlayerInput::update()
 				//Moviento Izquierda 
 				playerV = Vector2D(-horizontalSpeed, playerV.getY());
 				physics_->lookDirection(false);
-                if(!SoundEffect::isSoundBeingPlayed(ecs::_channel_PLAYER)) sdlutils().soundEffects().at("ott_step").play(0, ecs::_channel_PLAYER);
+                if(!SoundEffect::isSoundBeingPlayed(ecs::_channel_PLAYER_MOVEMENT)) sdlutils().soundEffects().at("ott_step").play(0, ecs::_channel_PLAYER_MOVEMENT);
 			}
 			if (input->isKeyDown(SDLK_RIGHT))
 			{
 				//Movimiento derecha
 				playerV = Vector2D(horizontalSpeed, playerV.getY());
 				physics_->lookDirection(true);
-                if(!SoundEffect::isSoundBeingPlayed(ecs::_channel_PLAYER)) sdlutils().soundEffects().at("ott_step").play(0, ecs::_channel_PLAYER);
+                if(!SoundEffect::isSoundBeingPlayed(ecs::_channel_PLAYER_MOVEMENT)) sdlutils().soundEffects().at("ott_step").play(0, ecs::_channel_PLAYER_MOVEMENT);
 			}
 
 			if (input->isKeyDown(SDLK_SPACE)) {

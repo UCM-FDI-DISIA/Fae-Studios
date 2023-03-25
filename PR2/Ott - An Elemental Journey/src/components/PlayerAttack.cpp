@@ -7,7 +7,8 @@
 #include "Image.h"
 #include "Bullet.h"
 #include "../sdlutils/SDLUtils.h"
-#include "FramedImage.h" 
+#include "FramedImage.h"
+#include "../sdlutils/SoundEffect.h"
 
 PlayerAttack::PlayerAttack(int width, int height) : tr_(nullptr), health_(nullptr), anim_(nullptr), physics(nullptr) {
 	triggerHeight = height;
@@ -37,6 +38,7 @@ void PlayerAttack::update() {
 				MoveTrigger(Vector2D(triggerWidth, triggerHeight)); // Se mueven los triggers a la posici�n actual
 				trigger = { trigger.x, trigger.y, triggerWidth, triggerHeight };
 				attackEnemy(trigger);
+				sdlutils().soundEffects().at("ott_attack").play(0, ecs::_channel_PLAYER_ATTACK);
 				break;
 			}
 			case ecs::Earth:

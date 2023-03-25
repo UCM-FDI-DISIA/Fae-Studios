@@ -89,10 +89,11 @@
 
   "sounds" : [
     { "id" : "play_button", "file" : "../resources/sound/playbutton.wav" },
-	{ "id" : "button", "file" : "../resources/sound/button.wav" },
-	{ "id" : "button_back", "file" : "../resources/sound/buttonback.wav" },
-  	{ "id" :  "ott_step", "file" :  "../resources/sound/ott_paso.wav"}
-	],
+		{ "id" : "button", "file" : "../resources/sound/button.wav" },
+		{ "id" : "button_back", "file" : "../resources/sound/buttonback.wav" },
+  	{ "id" :  "ott_step", "file" :  "../resources/sound/ott_paso.wav"},
+		{ "id" :  "ott_attack", "file" :  "../resources/sound/ataque_ott.wav"}
+  ],
 
   "musics" : [
 	  {"id" :  "main_menu_music", "file" :  "../resources/music/Ambient 4.wav"}
