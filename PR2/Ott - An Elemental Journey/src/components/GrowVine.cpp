@@ -20,6 +20,7 @@ void GrowVine::update() {
             }
             else if (reached && posY == posIni.getY()) {
                 reached = false; grow = false;
+                SoundEffect::fadeOutChannel(250, ecs::_channel_AMBIENTAL);
             }
         }
         else {
@@ -37,6 +38,7 @@ void GrowVine::update() {
             }
             else if (reached && posX == posIni.getX()) {
                 reached = false; grow = false;
+                SoundEffect::fadeOutChannel(250, ecs::_channel_AMBIENTAL);
             }
         }
     }

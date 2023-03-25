@@ -23,7 +23,7 @@ void PlayerAnimationComponent::initComponent() {
 
 void PlayerAnimationComponent::setState(int newState)
 {
-	if (state_ != newState) { state_ = newState; image->setCol(getColNum(state_)); timer_ = 0; }
+	if (state_ != newState) { state_ = newState; image->setCol(getColNum(state_)); timer_ = 0;}
 }
 
 void PlayerAnimationComponent::update()

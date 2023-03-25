@@ -172,6 +172,7 @@ void EarthBossManager::stateManagment() {
 			if(actualState == WARNING) {
 				choosingVine();
 				animController->setState(anims::WARNINGEARTH, warningVector[5+ vine1].warning, warningVector[5+ vine2].warning);
+				sdlutils().soundEffects().at("warning").play(0, ecs::_channel_ALERTS);
 			}
 			else if (actualState != WARNING) {
 				setState(states[actualState]);

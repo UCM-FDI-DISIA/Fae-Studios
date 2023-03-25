@@ -94,7 +94,8 @@
 		{ "id" :  "ott_step", "file" :  "../resources/sound/ott_paso.wav"},
 		{ "id" :  "ott_attack", "file" :  "../resources/sound/ataque_ott.wav"},
 		{ "id" : "grow_vine", "file" : "../resources/sound/vine_growing.wav"},
-		{ "id" : "map", "file" : "../resources/sound/map.wav"}
+		{ "id" : "map", "file" : "../resources/sound/map.wav"},
+		{ "id" : "warning", "file" : "../resources/sound/warning_gusano.wav"}
   ],
 
   "musics" : [
