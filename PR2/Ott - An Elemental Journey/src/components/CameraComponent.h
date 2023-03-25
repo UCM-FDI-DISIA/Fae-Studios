@@ -13,6 +13,10 @@ class CameraComponent : public Component {
 private:
 	Transform* playerTrnf_;
 	Transform* tr_;
+	bool camerashake = false;
+	int timer;
+	bool left = false;
+	bool right = true;
 	SDL_Rect bounds;
 
 public:
@@ -28,6 +32,9 @@ public:
 	}
 	virtual void initComponent();
 	virtual void update();
+	inline void cameraShake(bool n) {
+		camerashake = n;
+	}
 	inline void setBounds(const SDL_Rect& b) { bounds = b; }
 
 };

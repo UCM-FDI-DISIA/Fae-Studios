@@ -1,4 +1,5 @@
 #include "GameStateMachine.h"
+#include "menus/MainMenuState.h"
 
 GameState* GameStateMachine::currentState() const {
 	return stateStack.front();
@@ -16,6 +17,11 @@ void GameStateMachine::changeState(GameState* state) {
         stateStack.pop_front();
     }
     stateStack.push_front(state);
+}
+
+void GameStateMachine::resetStack() {
+    popState();
+    changeState(new MainMenuState());
 }
 
 void GameStateMachine::popState() {

@@ -19,7 +19,7 @@ void Generations::Divide() {
 		for (int i = 2; i >= getGeneration() - 1; --i) {
 			scale *= 2 / 3.0f;
 		}
-		constructors::eSlime(mngr_, ent_->getComponent<FramedImage>()->getTexture(), (int)pos.getX(), (int)pos.getY(), scale, getGeneration() - 1, health_->getMaxHealth() / 2 - 1, health_->getElement());
+		constructors::eSlime(mngr_, ent_->getComponent<FramedImage>()->getTexture(), (int)pos.getX(), (int)pos.getY(), scale, getGeneration() - 1, health_->getMaxHealth() / 2 - 1, health_->getElement(), ent_->getComponent<PhysicsComponent>()->getLookDirection());
 		pos = Vector2D(pos.getX() + 50, pos.getY());
 	}
 }

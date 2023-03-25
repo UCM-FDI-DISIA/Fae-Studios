@@ -13,6 +13,9 @@ private:
 	HealthImage* image;
 	PlayerAnimationComponent* pAnim_;
 	bool dead = false;
+	int numShards = 0;
+	inline void increaseMaxLife() { maxLife++; actualLife = maxLife; image->increaseLife(); };
+
 public:
 	constexpr static ecs::cmpId_type id = ecs::_HEALTH;
 	Health(int h, ecs::elements e, bool player = false) : Component(), elem(e) {
@@ -23,7 +26,7 @@ public:
 	void die();
 	virtual void initComponent();
 	//Este te lleva al santuario
-	void recall();
+	void recall(bool rest = false);
 	inline bool isDead() { return dead; }
 	bool recieveDamage(ecs::elements el);
 	inline int getHealth() { return actualLife; }
@@ -39,6 +42,7 @@ public:
 		default: break;
 		}
 	}
-	void saveSactuary();
+	void saveSactuary(Entity* sanct);
+	inline void addLifeShard() { numShards++; if (numShards > 1 && numShards % 2 == 0) increaseMaxLife(); }
 };
 

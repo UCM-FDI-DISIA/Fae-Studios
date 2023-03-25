@@ -11,8 +11,8 @@
 
 using namespace std;
 
-const uint32_t WINDOW_WIDTH = 1600; ///< Anchura de la ventana
-const uint32_t WINDOW_HEIGHT = 900; ///< Altura de la ventana
+const uint32_t WINDOW_WIDTH = 1600;//1600; ///< Anchura de la ventana
+const uint32_t WINDOW_HEIGHT = 900;//900; ///< Altura de la ventana
 const string WINDOW_NAME = "Ott - An Elemental Journey"; ///< Nombre de la ventana
 
 //Rutas de los archivos en JSON. Para evitar problemas de compatibilidad entre Visual Studio (Windows) y CLion (Mac),

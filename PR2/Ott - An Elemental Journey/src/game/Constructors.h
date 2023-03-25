@@ -5,6 +5,7 @@
 #include "../components/Transform.h"
 #include "../components/FramedImage.h"
 #include "../components/TextComponent.h"
+#include "../components/ElementObject.h"
 #include "../components/Slider.h"
 #include "../sdlutils/SDLUtils.h"
 #include "../components/Image.h";
@@ -24,16 +25,27 @@
 #include "../components/EnemyMeleeAttack.h"
 #include "../components/EnemyShootingAttack.h"
 #include "../components/EnemyAnimationController.h"
+#include "../components/LifeAnimationComponent.h"
 #include "../components/Generations.h"
 #include "../components/SlimeStates.h"
+#include "../components/EnterBossRoom.h"
+#include "../components/Trigger.h"
+#include "../states/GameStateMachine.h"
+#include "../components/VineManager.h"
 #include "../components/EnemyContactDamage.h"
 #include "../states/GameStateMachine.h"
 #include "../components/AttackCharger.h"
 #include "../components/FadeOutAnimationComponent.h"
 #include "../components/DamageArea.h"
+#include "../components/EarthBossManager.h"
+#include "../components/Destruction.h"
+#include "../components/Pivot.h"
+#include "../components/Acceleration.h"
+#include "../components/WaterBossAnimationComponent.h"
 #include <string>
 #include <iostream>
 #include <functional>
+#include <SDL.h>
 
 
 const SDL_Color transparente{ 255,255,255,1 };
@@ -49,17 +61,19 @@ namespace constructors {
 
 	//	return a;
 	//}
-	static inline Entity* eRanged(Manager* mngr_, std::string imageKey, int x, int y, float scale, ecs::elements el) {
+	//static inline Entity* eRanged(Manager* mngr_, std::string imageKey, int x, int y, float scale, ecs::elements el) {
+	static inline Entity* eRanged(Manager* mngr_, std::string imageKey, int x, int y, float scale, ecs::elements el, bool lookingRight) {
 
 		// Asi se a�ade enemigo rango
 		auto enemy2 = mngr_->addEntity(ecs::_grp_CHARACTERS);
 		auto ph2 = enemy2->addComponent<PhysicsComponent>(colliders::RANGE);
 		enemy2->addComponent<Transform>(x, y, 110 * scale, 110 * scale); // 1700 1800 pos para pruebas
 		ph2->createCollider();
-		enemy2->addComponent<FramedImage>(&sdlutils().images().at(imageKey), 2, 22);
+		auto fi = enemy2->addComponent<FramedImage>(&sdlutils().images().at(imageKey), 2, 22);
+		fi->flipTexture(!lookingRight);
 		enemy2->addComponent<Health>(5, el, false);
 		ph2->setVelocity({ 0,0 });
-		ph2->lookDirection(false);
+		ph2->lookDirection(lookingRight);
 		auto eAttack_2 = enemy2->addComponent<EnemyAttack>(1200, 400);
 		auto eAnim_2 = enemy2->addComponent<EnemyAnimationComponent>(anims::RANGE_ANIM);
 		auto attack_2 = enemy2->addComponent<EnemyShootingAttack>();
@@ -69,7 +83,7 @@ namespace constructors {
 		return enemy2;
 	}
 
-	static inline Entity* eMelee(Manager* mngr_, std::string imageKey, int x, int y, float scale, ecs::elements el) {
+	static inline Entity* eMelee(Manager* mngr_, std::string imageKey, int x, int y, float scale, ecs::elements el, bool lookingRight) {
 
 
 		// Asi se a�ade enemigo melee
@@ -78,10 +92,14 @@ namespace constructors {
 		auto ph3 = enemy3->addComponent<PhysicsComponent>(colliders::MELEE);
 		enemy3->addComponent<Transform>(x, y, 230 * scale, 130 * scale);  // 2400 1800 pos para pruebas
 		ph3->createCollider();
-		enemy3->addComponent<FramedImage>(&sdlutils().images().at(imageKey), 2, 21);
+		auto fi = enemy3->addComponent<FramedImage>(&sdlutils().images().at(imageKey), 2, 21);
+		fi->flipTexture(!lookingRight);
 		enemy3->addComponent<Health>(5, el, false);
-		ph3->setVelocity({ 1,0 });
-		ph3->lookDirection(true);
+		float dir = 0;
+		if (lookingRight) dir = 1;
+		else dir = -1;
+		ph3->setVelocity({ dir,0 });
+		ph3->lookDirection(lookingRight);
 		auto eAttack_3 = enemy3->addComponent<EnemyAttack>(1200);
 		enemy3->addComponent<EnemyMovement>();
 		auto eAnim_3 = enemy3->addComponent<EnemyAnimationComponent>(anims::MELEE_ANIM);
@@ -92,17 +110,21 @@ namespace constructors {
 		return enemy3;
 	}
 
-	static inline Entity* eSlime(Manager* mngr_, std::string imageKey, int x, int y, float scale, ecs::elements el) {
+	static inline Entity* eSlime(Manager* mngr_, std::string imageKey, int x, int y, float scale, ecs::elements el, bool lookingRight) {
 		// Asi se a�ade enemigo slime
 
 		auto enemy = mngr_->addEntity(ecs::_grp_CHARACTERS);
 		auto ph = enemy->addComponent<PhysicsComponent>(colliders::SLIME);
 		auto tr = enemy->addComponent<Transform>(Vector2D(x, y), 360 * scale, 210 * scale); // 600 950 pos para pruebas
 		ph->createCollider();
-		enemy->addComponent<FramedImage>(&sdlutils().images().at(imageKey), 2, 21);
+		auto fi = enemy->addComponent<FramedImage>(&sdlutils().images().at(imageKey), 2, 21);
+		fi->flipTexture(!lookingRight);
 		enemy->addComponent<Health>(5, el, false);
-		ph->setVelocity({ -1,0 });
-		ph->lookDirection(false);
+		float dir = 0;
+		if (lookingRight) dir = 1;
+		else dir = -1;
+		ph->setVelocity({ dir,0 });
+		ph->lookDirection(lookingRight);
 		auto eAttack_ = enemy->addComponent<EnemyAttack>(1200);
 		enemy->addComponent<EnemyMovement>();
 		auto eAnim_ = enemy->addComponent<EnemyAnimationComponent>(anims::SLIME_ANIM);
@@ -115,17 +137,21 @@ namespace constructors {
 		return enemy;
 	}
 
-	static inline Entity* eSlime(Manager* mngr_, Texture* tex, int x, int y, float scale, int gens, int lives, ecs::elements el) {
+	static inline Entity* eSlime(Manager* mngr_, Texture* tex, int x, int y, float scale, int gens, int lives, ecs::elements el, bool lookingRight) {
 		// Asi se a�ade enemigo slime
 
 		auto enemy = mngr_->addEntity(ecs::_grp_CHARACTERS);
 		auto ph = enemy->addComponent<PhysicsComponent>(colliders::SLIME);
 		auto tr = enemy->addComponent<Transform>(Vector2D(x, y), 360 * scale, 210 * scale); // 600 950 pos para pruebas
 		ph->createCollider();
-		enemy->addComponent<FramedImage>(tex, 2, 21);
+		auto fi = enemy->addComponent<FramedImage>(tex, 2, 21);
+		fi->flipTexture(!lookingRight);
 		enemy->addComponent<Health>(lives, el, false);
-		ph->setVelocity({ 1,0 });
-		ph->lookDirection(true);
+		float dir = 0;
+		if (lookingRight) dir = 1;
+		else dir = -1;
+		ph->setVelocity({ dir,0 });
+		ph->lookDirection(lookingRight);
 		auto eAttack_ = enemy->addComponent<EnemyAttack>(1200);
 		enemy->addComponent<EnemyMovement>();
 		auto eAnim_ = enemy->addComponent<EnemyAnimationComponent>(anims::SLIME_ANIM);
@@ -184,7 +210,7 @@ namespace constructors {
 
 	static inline void background(Manager* mngr_, Texture* t) {
 		auto b = mngr_->addEntity(ecs::_grp_UI);
-		b->addComponent<Transform>(Vector2D(0, 0), sdlutils().width(), sdlutils().height());
+		b->addComponent<Transform>(Vector2D(0, 0), sdlutils().getWindowDimensions().getX(), sdlutils().getWindowDimensions().getY());
 		b->addComponent<Image>(t);
 	}
 
@@ -221,7 +247,9 @@ namespace constructors {
 		player->addComponent<PlayerAttack>();
 		player->addComponent<AttackCharger>(5);
 		player->addComponent<PlayerInput>();
-		ph->createCollider();
+		pAnim->initComponent();
+		health->initComponent();
+		ph->createCollider();	
 		return player;
 	}
 
@@ -233,22 +261,55 @@ namespace constructors {
 		return camera;
 	}
 
-	static inline void grass(Manager* mngr_, Vector2D position, int widthVine, int heightVine, Vector2D posiniVine, Vector2D posfinVine, int width = 60, int height = 60) {
+	static inline Entity* grass(Manager* mngr_, Vector2D position, int widthVine, int heightVine, Vector2D posiniVine, Vector2D posfinVine, int width = 60, int height = 60) {
 		auto grass = mngr_->addEntity(ecs::_grp_INTERACTION);
 		grass->addComponent<Transform>(position, width, height);
 		grass->addComponent<Image>(&sdlutils().images().at("grass"));
+		grass->addComponent<VineManager>(NORMAL, posiniVine, posfinVine, -1, 0, widthVine, heightVine, 2);
+		grass->getComponent<VineManager>()->createVine();
 		auto cb = []() {
 			static_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->AddEnredadera();
 		};
 		grass->addComponent<InteractionComponent>(cb);
-
-		auto vine = mngr_->addEntity(ecs::_grp_VINE);
-		vine->addComponent<Transform>(posiniVine, widthVine, heightVine);
-		grass->addComponent<AddVine>(false, vine, posfinVine);
-
+		return grass;
 	}
 
-	static inline void lamp(Manager* mngr_, int x1, int y1, int w1, int h1, int room1, int x2, int y2, int w2, int h2, int room2) {
+	static inline Entity* LifeShard(Manager* mngr_, int x, int y, int w, int h) {
+		auto shard = mngr_->addEntity(ecs::_grp_INTERACTION);
+		shard->addComponent<Transform>(Vector2D(x, y), w, h);
+		shard->addComponent<FramedImage>(&sdlutils().images().at("lifeshard"), 1, 10);
+		shard->addComponent<LifeAnimationComponent>();
+		auto cb = []() {
+			static_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->AddLifeShard();
+		};
+		shard->addComponent<InteractionComponent>(cb, true);
+
+		return shard;
+	}
+
+	static inline Entity* ElementEntity(Manager* mngr_, int x, int y, int w, int h, ecs::elements elem) {
+		auto element = mngr_->addEntity(ecs::_grp_INTERACTION);
+		element->addComponent<Transform>(Vector2D(x, y), w, h);
+		std::string key;
+		switch (elem) {
+		case ecs::Earth:
+			key = "earth_elem";
+			break;
+		case ecs::Water:
+			key = "water_elem";
+			break;
+		case ecs::Fire:
+			key = "fire_elem";
+			break;
+		}
+		element->addComponent<FramedImage>(&sdlutils().images().at(key), 1, 10);
+		element->addComponent<LifeAnimationComponent>();
+		element->addComponent<ElementObject>(elem);
+
+		return element;
+	}
+
+	static inline std::pair<Entity*, Entity*> lamp(Manager* mngr_, int x1, int y1, int w1, int h1, int room1, int x2, int y2, int w2, int h2, int room2) {
 		auto lamp = mngr_->addEntity(ecs::_grp_INTERACTION);
 		auto lamp2 = mngr_->addEntity(ecs::_grp_INTERACTION);
 
@@ -264,9 +325,10 @@ namespace constructors {
 		lamp2->addComponent<Image>(t_);
 		lamp2->addComponent<LampComponent>(lamp, room2);
 		lamp2->addComponent<InteractionComponent>(cb);
+		return std::make_pair(lamp, lamp2);
 	}
 
-	static inline void sanctuary(Manager* mngr_, Vector2D position, int width = 100, int height = 130) {
+	static inline Entity* sanctuary(Manager* mngr_, Vector2D position, int width = 100, int height = 130) {
 		auto sanc = mngr_->addEntity(ecs::_grp_INTERACTION);
 		sanc->addComponent<Transform>(position, width, height);
 		sanc->addComponent<Image>(&sdlutils().images().at("sanctuary"));
@@ -274,6 +336,38 @@ namespace constructors {
 			static_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->Save();
 		};
 		sanc->addComponent<InteractionComponent>(cb);
+		return sanc;
+	}
+
+	static inline void DestructibleTile(Manager* mngr_, int x, int y, int w, std::string room, int index, MapComponent* map) {
+		auto waterObj = mngr_->addEntity(ecs::_grp_GROUND);
+		waterObj->addComponent<Transform>(Vector2D(x,y), w, w);
+		waterObj->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
+		waterObj->addComponent<Destruction>(room, index, map);
+	}
+
+	static inline Entity* WaterBoss(Manager* mngr_, int x, int y, int w, int h) {
+		auto waterBoss = mngr_->addEntity(ecs::_grp_CHARACTERS);
+		auto WbTransform = waterBoss->addComponent<Transform>(x, y, w, h);
+		auto waterPh = waterBoss->addComponent<PhysicsComponent>(colliders::SLIME);
+		waterPh->setVelocity(Vector2D(1, 0));
+		waterPh->setGravity(false);
+		waterPh->lookDirection(false);
+		waterPh->createCollider();
+		waterBoss->addComponent<FramedImage>(&sdlutils().images().at("water_boss"), 4, 8);
+		waterBoss->addComponent<Acceleration>();
+		waterBoss->addComponent<Health>(6, ecs::Dark, false);
+		waterBoss->addComponent<EnemyContactDamage>();
+		waterBoss->addComponent<WaterBossAnimationComponent>(anims::WATERBOSS_ANIM);
+		waterBoss->reinitCmpts();
+
+		auto box0 = mngr_->addEntity(ecs::_grp_CHARACTERS);
+		x += 2150;
+		box0->addComponent<Transform>(x, y, w, h);
+		box0->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
+		box0->addComponent<Pivot>(waterBoss, 0);
+
+		return waterBoss;
 	}
 
 	static inline Entity* map(Manager* mngr_, PlayState* game) {
@@ -283,6 +377,7 @@ namespace constructors {
 		fadeOut->addComponent<Transform>(0,0,sdlutils().width()*1.5, sdlutils().height()*1.5);
 		fadeOut->addComponent<FramedImage>(&sdlutils().images().at("fadeOut"), 5, 5);
 		fadeOut->addComponent<FadeOutAnimationComponent>();
+		fadeOut->setActive(true);
 		e->addComponent<MapComponent>(fadeOut, game);
 		auto scale = e->getComponent<MapComponent>()->tileScale();
 		//bgrd->addComponent<BackgroundImage>(Vector2D(0, 0), &sdlutils().images().at("level1bg"), scale, scale);
@@ -292,10 +387,10 @@ namespace constructors {
 		//bgrd->addComponent<Image>(game->getTexture("level1bg", PLAY_STATE));
 	}
 
-	static inline void vine(Manager* mngr_, Vector2D position, int width, int height) {
+	/*static inline void vine(Manager* mngr_, Vector2D position, int width, int height, Texture* t) {
 		auto vine = mngr_->addEntity(ecs::_grp_VINE);
 		vine->addComponent<Transform>(position.getX(), position.getY(), width, height);
 		vine->addComponent<Image>(&sdlutils().images().at("enredadera"));
-	}
+	}*/
 }
 

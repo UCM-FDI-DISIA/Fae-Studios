@@ -36,6 +36,13 @@ private:
 	std::vector<std::vector<Object>> vectorObjects;
 
 	std::unordered_map<std::string, std::vector<SDL_Rect>> ground;
+	std::unordered_map<std::string, std::vector<std::pair<bool, SDL_Rect>>> destructible;
+
+	std::vector<std::vector<Entity*>> interact;
+
+	// Vector con las keys de la imagen asociada a cada habitacion
+	std::vector<std::string> mapKeys;
+
 
 	// En este mapa se guarda:
 	// string -> n�mero de sala
@@ -63,6 +70,7 @@ private:
 	int realTileSize = 32;
 	int usedTileSize = 50;
 	int currentRoom = 0;
+	int numRooms = 0;
 
 	void loadMap(std::string path);
 
@@ -78,13 +86,21 @@ public:
 	// cambio de mapa
 	void changeMap();
 
-	std::vector<std::pair<SDL_Rect, SDL_Rect>> checkCollisions(const SDL_Rect& playerRect);
+	void playFadeOutAnimation() { anim_->startFadeOut(); }
 
+	void generateEnemies();
+
+	std::vector<std::pair<SDL_Rect, SDL_Rect>> checkCollisions(const SDL_Rect& playerRect);
+	
+	inline std::vector<std::vector<Entity*>> getInteract() { return interact; };
 	inline int getCurrentRoom() { return currentRoom; }
 	inline void setCurrentRoom(int newRoom) { currentRoom = newRoom; }
 	inline float getCurrentRoomScale() { return vectorTiles[currentRoom].first; }
+	inline std::string getMapKey(int i) { if (i < mapKeys.size()) return mapKeys[i]; else return " "; }
 
-	void changeRoom(std::string newRoom, Vector2D newPos);
+	inline void destroyTile(std::string room, int index) { destructible[room][index].first = false; }
+
+	void changeRoom(std::string newRoom, Vector2D newPos, bool verticalTrigger = false);
 
 	std::vector<std::vector<Object>> getObjects() { return vectorObjects; }
 	inline float tileScale() { return (float)usedTileSize / (float)realTileSize; }
@@ -92,10 +108,11 @@ public:
 	// L�mites de la c�mara en X sala
 	inline SDL_Rect getCamBounds() { 
 		SDL_Rect rect = getSDLRect(vectorObjects[ROOM_VECTOR_POS][currentRoom].getAABB());
-		rect.x *= vectorTiles[currentRoom].first;
-		rect.y *= vectorTiles[currentRoom].first;
-		rect.w *= vectorTiles[currentRoom].first;
-		rect.h *= vectorTiles[currentRoom].first;
+		auto scale = vectorTiles[currentRoom].first;
+		rect.x *= scale;
+		rect.y *= scale;
+		rect.w *= scale;
+		rect.h *= scale;
 		return rect;
 	}
 

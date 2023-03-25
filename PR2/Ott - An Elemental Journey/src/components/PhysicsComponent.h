@@ -37,7 +37,7 @@ public:
     inline void setFloating(bool value) { floating = value; }
     inline bool getFloating() { return floating; }
     inline void Stop() { stopped = true; lastSpeed = velocity_; }
-    inline void Resume() { stopped = false; velocity_ = lastSpeed; }
+    inline void Resume(bool verticalTrigger = false) { stopped = false; if(verticalTrigger) velocity_ = lastSpeed; }
     inline bool isStopped()  { return stopped; }
     /*inline void saveLastPos(const SDL_Rect& col)
     {
@@ -71,7 +71,7 @@ private:
     colliders::Colliders typeofCollider;
     //jumpforces
     int jumpForce;
-    const int earthJumpForce = -8;
+    const int earthJumpForce = -10;
     const int waterJumpForce = -5;
     const float offset = 0.9;
     //booleanos de agua

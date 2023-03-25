@@ -7,6 +7,7 @@
 #include "../states/GameStateMachine.h"
 #include "../game/Constructors.h"
 
+const std::string currentLevel = "level1";
 
 std::vector<std::string> strSplit(std::string s, char c) {
 
@@ -27,34 +28,79 @@ std::vector<std::string> strSplit(std::string s, char c) {
     return split;
 }
 
-MapComponent::MapComponent(Entity* fadeOut, PlayState* game) : fadeOut(fadeOut), game(game) {
-    //textures = std::vector<Texture*>(NUMBER_OF_TYPES);
-    //auto it = infoLevel.find(l);
-    //if (it != infoLevel.end()) {
-    //    auto ot = it->second.begin();
-    //    for (ot; ot != it->second.end(); ++ot) {
-    //        tilemap = &sdlutils().images().at(ot->name);
+void MapComponent::generateEnemies() {
+    auto scale = tileScale();
+    game->initEnemies(vectorObjects[ROOM_VECTOR_POS].size());
+    for (auto it : vectorObjects[ENEMIES_VECTOR_POS]) {
+        float x_ = it.getAABB().left;
+        float y_ = it.getAABB().top;
+        float w_ = it.getAABB().width;
+        float h_ = it.getAABB().height;
 
-    //    }
-    //    auto ut = levelPath.find(l);
-    //    if (ut != levelPath.end()) {
-    //        mapSize = ut->second.size;
-    //        loadMap(ut->second.route);
-    //    }
-    //}
-    //else
-    //{
-    //    //cout << "Failed loading map" << std::endl;
-    //}
+        auto split = strSplit(it.getName(), '_');
+        bool lookingRight = true;
+        if (split[2] == "left") lookingRight = false;
+        auto elem = (ecs::elements)std::stoi(split[1]);
+        std::string path;
+        if (elem == ecs::Earth) {
+            path = "earth";
+        }
+        else if (elem == ecs::Water) {
+            path = "water";
+        }
+        else if (elem == ecs::Fire) {
+            path = "fire";
+        }
+        int roomNum = std::stoi(split[0]);
+        float roomScale = vectorTiles[roomNum].first;
+        std::cout << roomNum << std::endl;
+
+        if (it.getClass() == "Mushroom") {
+            Entity* enemie = constructors::eRanged(mngr_, path + "Mushroom", x_ * scale * roomScale, y_ * scale * roomScale, roomScale, elem, lookingRight);
+            game->addEnemy(enemie, roomNum);
+        }
+        else if (it.getClass() == "Melee") {
+            Entity* enemie = constructors::eMelee(mngr_, path + "Bug", x_ * scale * roomScale, y_ * scale * roomScale, roomScale, elem, lookingRight);
+            game->addEnemy(enemie, roomNum);
+        }
+        else if (it.getClass() == "Slime") {
+            Entity* enemie = constructors::eSlime(mngr_, path + "Slime", x_ * scale * roomScale, y_ * scale * roomScale, roomScale, elem, lookingRight);
+            game->addEnemy(enemie, roomNum);
+        }
+        else if (it.getClass() == "WaterBoss") {
+            
+            auto waterBoss = constructors::WaterBoss(mngr_, x_ * scale * roomScale, y_ * scale * roomScale, 300 * scale * roomScale, 300 * scale * roomScale);
+
+            for (auto it : mngr_->getEntities(ecs::_grp_GROUND)) {
+                it->getComponent<Destruction>()->setBoss(waterBoss);
+            }
+        }
+    }
+
+    auto enemies_ = game->getEnemies();
+    for (auto it : enemies_) {
+        for (auto ot : it) {
+            ot->setActive(false);
+        }
+    }
+    for (auto it : enemies_[currentRoom]) {
+        it->setActive(true);
+    }
+
+}
+
+MapComponent::MapComponent(Entity* fadeOut, PlayState* game) : fadeOut(fadeOut), game(game) {
     int n = 20;
     vectorObjects.reserve(n);
     vectorTiles.reserve(6);
     for (int i = 0; i < n; ++i) {
         vectorObjects.push_back({});
         vectorTiles.push_back({});
+        interact.push_back({});
     }
 
-    tilemap = &sdlutils().images().at(sdlutils().levels().at("level1").tileset);
+
+    tilemap = &sdlutils().images().at(sdlutils().levels().at(currentLevel).tileset);
 }
 
 void MapComponent::initComponent() {
@@ -62,7 +108,7 @@ void MapComponent::initComponent() {
     player_ = mngr_->getPlayer();
     anim_ = fadeOut->getComponent<FadeOutAnimationComponent>();
     anim_->setMap(ent_);
-    loadMap(sdlutils().levels().at("level1").route);
+    loadMap(sdlutils().levels().at(currentLevel).route);
 }
 
 void MapComponent::update() {
@@ -80,7 +126,7 @@ void MapComponent::update() {
                 float newScale = vectorTiles[std::stoi(trigger.first)].first;
                 playerRect.w = (playerRect.w / oldScale) * newScale;
                 playerRect.h = (playerRect.h / oldScale) * newScale;
-
+                bool verticalTrigger = false;
                 if (rect.w > rect.h) { // TRIGGER VERTICAL
                     if (result.y < rect.y) { // por arriba
                         newPos = Vector2D(playerRect.x,
@@ -90,6 +136,7 @@ void MapComponent::update() {
                         newPos = Vector2D(newRect.x,
                             newRect.y - newRect.h - playerRect.h);
                     }
+                    verticalTrigger = true;
                 }
                 else { // TRIGGER HORIZONTAL
                     if (result.x > rect.x + rect.w / 2) { // CHOCAS DESDE LA DERECHA
@@ -101,16 +148,18 @@ void MapComponent::update() {
                             newRect.y + newRect.h - playerRect.h);
                     }
                 }
-                changeRoom(trigger.first, newPos);
+                changeRoom(trigger.first, newPos, verticalTrigger);
+                break;
             }
         }
     }
 }
 
-void MapComponent::changeRoom(std::string newRoom, Vector2D newPos) {
+void MapComponent::changeRoom(std::string newRoom, Vector2D newPos, bool verticalTrigger) {
     // std::stoi -> String TO Int
-    anim_->startFadeOut(newPos, std::stoi(newRoom));
-
+    anim_->startFadeOut(newPos, std::stoi(newRoom), verticalTrigger);
+    std::cout << "ANIM ACTIVO? " << fadeOut->isActive() << std::endl;
+    game->setVisited(std::stoi(newRoom));
 }
 
 void MapComponent::loadMap(std::string path) {
@@ -129,7 +178,11 @@ void MapComponent::loadMap(std::string path) {
                 const auto& objects = layer->getLayerAs<ObjectGroup>().getObjects();
                 if (name == "Salas") {
                     vectorObjects[ROOM_VECTOR_POS] = objects;
-                    game->initEnemies(objects.size());
+                    numRooms = objects.size();
+                    game->initEnemies(numRooms);
+                    std::vector<std::string> aux(numRooms);
+                    mapKeys = aux;
+                    game->initVisitedRooms(numRooms);
                 }
                 else if (name == "Objetos interactuables") {
                     vectorObjects[I_OBJECTS_VECTOR_POS] = objects;
@@ -149,7 +202,6 @@ void MapComponent::loadMap(std::string path) {
             }
             #pragma endregion
         }
-
         for (const auto& layer : layers2)
         {
             #pragma region Tiles
@@ -158,29 +210,17 @@ void MapComponent::loadMap(std::string path) {
                 const auto& tiles = layer->getLayerAs<tmx::TileLayer>().getTiles();
                 //Guardamos tiles en un vector
                 SDL_Rect camPos = cam->camera;
-                int cols = sdlutils().levels().at("level1").cols;
+                int cols = sdlutils().levels().at(currentLevel).cols;
                 int offsetX = camPos.x;
                 int offsetY = camPos.y;
                 int i = 0;
                 for (auto salas : vectorObjects[ROOM_VECTOR_POS]) {
                     int o = 0;
+                    mapKeys[i] = salas.getName();
                     auto rect = salas.getAABB();
                     SDL_Rect sala = { (int)(rect.left * tileScale()), (int)(rect.top* tileScale()), (int)(rect.width * tileScale()), (int)(rect.height * tileScale()) };
                     for (auto tile : tiles) {
                         SDL_Rect tileRect = { (int)(o % cols) * usedTileSize, ((int)(o / cols) * usedTileSize), usedTileSize, usedTileSize };
-                        /*std::cout << tileRect.x << " "
-                            << tileRect.y << " "
-                            << tileRect.w << " "
-                            << tileRect.h << " "
-                            << std::endl;
-                            
-
-                        std::cout << sala.x << " "
-                            << sala.y << " "
-                            << sala.w << " "
-                            << sala.h << " "
-                            << std::endl;*/
-
                         if (SDL_HasIntersection(&sala, &tileRect)) {
                             vectorTiles[i].first = std::stof(salas.getClass());
                             vectorTiles[i].second.push_back(std::make_pair(tile.ID, tileRect));
@@ -189,12 +229,12 @@ void MapComponent::loadMap(std::string path) {
                     }
                     ++i;
                 }
-
                 // vectorTiles = tiles;
             }
             #pragma endregion
         }
 
+        // COLISIONES
         for (auto obj : vectorObjects[COLLISIONS_VECTOR_POS]) {
             SDL_Rect rect = getSDLRect(obj.getAABB());
 
@@ -203,7 +243,12 @@ void MapComponent::loadMap(std::string path) {
             rect.y *= roomScale;
             rect.w *= roomScale;
             rect.h *= roomScale;
-            ground[obj.getName()].push_back(rect);
+            if (obj.getClass() == "Destructible") {
+                destructible[obj.getName()].push_back(std::make_pair(true, rect));
+                int index = destructible[obj.getName()].size() - 1;
+                constructors::DestructibleTile(mngr_, rect.x, rect.y, rect.w, obj.getName(), index, this);
+            }
+            else ground[obj.getName()].push_back(rect);
         }
 
         std::unordered_map<std::string, std::pair<SDL_Rect, std::string>> triggerInfo;
@@ -229,28 +274,7 @@ void MapComponent::loadMap(std::string path) {
             else {
                 triggerInfo.insert({triggerClass, std::make_pair(trRect, roomNum)});
             }
-            /*
-            SDL_Rect rect1 = getSDLRect(trigger.getAABB());
-            SDL_Rect rect2 = getSDLRect(trigger.getAABB());
 
-            auto roomScale = vectorTiles[std::stoi(trigger.getName())].first;
-
-            rect1.x *= roomScale;
-            rect1.y *= roomScale;
-            rect1.w *= roomScale;
-            rect1.h *= roomScale;
-
-            roomScale = vectorTiles[std::stoi(trigger.getClass())].first;
-
-            rect2.x *= roomScale;
-            rect2.y *= roomScale;
-            rect2.w *= roomScale;
-            rect2.h *= roomScale;
-
-            // guardamos los triggers en las dos salas, ya que son bidireccionales
-            triggers[trigger.getName()].push_back(std::make_pair(trigger.getClass(),std::make_pair(rect1,rect2)));
-            triggers[trigger.getClass()].push_back(std::make_pair(trigger.getName(),std::make_pair(rect2,rect1)));
-            */
         }
 
         float scale = tileScale();
@@ -260,13 +284,21 @@ void MapComponent::loadMap(std::string path) {
             float y_ = ot.getAABB().top;
             float w_ = ot.getAABB().width;
             float h_ = ot.getAABB().height;
-
+            
             auto classSplit = strSplit(ot.getClass(), '_');
             if (ot.getClass() == "Grass") {
-                constructors::grass(mngr_, Vector2D(x_ * scale, (y_ * scale - sdlutils().images().at("grass").height()) + h_ * scale),
-                    w_ * scale, h_ * scale, Vector2D(x_ * scale,
-                        (y_ * scale - sdlutils().images().at("grass").height()) + h_ * scale + 100),
-                    Vector2D(x_ * scale, (y_ * scale - sdlutils().images().at("grass").height())));
+                auto roomScale = vectorTiles[std::stoi(ot.getName())].first;
+                interact[std::stoi(ot.getName())].push_back(constructors::grass(mngr_,
+                    Vector2D((x_ * scale) * roomScale , ((y_ * scale - sdlutils().images().at("grass").height()) + h_ * scale)* roomScale),
+                    w_ * scale* roomScale, 
+                    h_ * scale* roomScale, 
+                    Vector2D(x_ * scale * roomScale, ((y_ * scale - sdlutils().images().at("grass").height()) + h_ * scale + 100) * roomScale),
+                    Vector2D(x_ * scale * roomScale, (y_ * scale - sdlutils().images().at("grass").height()) * roomScale)));
+            }
+            else if (classSplit[0] == "Element") {
+                auto roomScale = vectorTiles[std::stoi(classSplit[1])].first;
+                auto elem = constructors::ElementEntity(mngr_, (x_* scale)* roomScale, (y_* scale)* roomScale, (w_* scale)* roomScale, (h_* scale)* roomScale, (ecs::elements)std::stoi(ot.getName()));
+                interact[std::stoi(classSplit[1])].push_back(elem);
             }
             else if (classSplit[0] == "Lamp") {
                 //createLamp(Vector2D(x_ * scale, y_ * scale - game->getTexture("lamp", PLAY_STATE)->getH() * 2));
@@ -287,66 +319,67 @@ void MapComponent::loadMap(std::string path) {
                     int h1 = fh * roomScale1;
                     int w2 = fw * roomScale2;
                     int h2 = fh * roomScale2;
-                    constructors::lamp(mngr_, pos.getX(), pos.getY() + hOffset * roomScale1, w1, h1, (*at).second.second,
+                    auto lampPair = constructors::lamp(mngr_, pos.getX(), pos.getY() + hOffset * roomScale1, w1, h1, (*at).second.second,
                         x_* scale* roomScale2, y_* scale* roomScale2 + hOffset * roomScale2, w2, h2, roomNum);
+
+                    interact[roomNum].push_back(lampPair.second);
+                    interact[(*at).second.second].push_back(lampPair.first);
                 }
                 else {
                     lamps.insert({ lampName, std::make_pair(Vector2D(x_*scale*roomScale2,y_*scale*roomScale2), roomNum)});
                 }
             }
             else if (ot.getClass() == "Sanctuary") {
-                constructors::sanctuary(mngr_, Vector2D(x_ * scale - (&sdlutils().images().at("sanctuary"))->width() * 1.5, y_ * scale - (&sdlutils().images().at("sanctuary"))->height() * 3.5));
+                auto roomScale = vectorTiles[std::stoi(ot.getName())].first;
+                Vector2D pos = Vector2D(x_ * scale * roomScale, (y_ * scale) * roomScale);
+                interact[std::stoi(ot.getName())].push_back(constructors::sanctuary(mngr_, pos - Vector2D(0, 250 * roomScale), 250 * roomScale, 250 * roomScale));
+                std::cout << pos << std::endl;
             }
-            else if (ot.getClass() == "Ott") {
+            else if (ot.getClass() == "BossRoom") {
+                auto roomScale = vectorTiles[std::stoi(ot.getName())].first;
+                SDL_Rect roomDimensions;
+                roomDimensions.x = x_ * scale * roomScale;
+                roomDimensions.y = y_ * scale * roomScale;
+                roomDimensions.w = w_ * scale * roomScale;
+                roomDimensions.h = h_ * scale * roomScale;
+                Entity* earthBoss = mngr_->addEntity(ecs::_grp_GENERAL);
+                earthBoss->addComponent<EarthBossManager>(roomDimensions);
+                mngr_->setEarthBoss(earthBoss);
+                //earthBoss->getComponent<EarthBossManager>()->initializeEntities();
+            }
+            else if (ot.getClass() == "DoorTrigger") {
+                auto roomScale = vectorTiles[std::stoi(ot.getName())].first;
+                Entity* trigger = mngr_->addEntity(ecs::_grp_TRIGGER);
+                trigger->addComponent<Transform>(Vector2D(x_* scale * roomScale, y_* scale* roomScale), w_* scale* roomScale, h_* scale* roomScale);
+                trigger->addComponent<VineManager>(EVIL, 
+                    Vector2D(((x_ * scale) - 260)* roomScale, (((y_ * scale) + h_ * scale) - 100) * roomScale) ,
+                    Vector2D((x_ * scale* roomScale) - 170 * roomScale, (y_ * scale - 100)* roomScale),
+                    -1, 0, w_ * scale* roomScale, h_ * scale* roomScale, 3);
+                trigger->getComponent<VineManager>()->createVine();
+                trigger->addComponent<EnterBossRoom>(&sdlutils().images().at("animationWorm"));
+                trigger->addComponent<Trigger>();
+                interact[std::stoi(ot.getName())].push_back(trigger);
+            }
+            else if (ot.getClass() == "Life") {
+                auto roomScale = vectorTiles[std::stoi(ot.getName())].first;
+                auto life = constructors::LifeShard(mngr_, x_*scale*roomScale,y_* scale* roomScale, w_* scale* roomScale, h_*scale*roomScale);
+                interact[std::stoi(ot.getName())].push_back(life);
 
-            }
-
-        }
-        for (auto it : vectorObjects[ENEMIES_VECTOR_POS]) {
-            float x_ = it.getAABB().left;
-            float y_ = it.getAABB().top;
-            float w_ = it.getAABB().width;
-            float h_ = it.getAABB().height;
-
-            auto split = strSplit(it.getName(), '_');
-            auto elem = (ecs::elements)std::stoi(split[1]);
-            std::string path;
-            if (elem == ecs::Earth) {
-                path = "earth";
-            }
-            else if (elem == ecs::Water) {
-                path = "water";
-            }
-            else if (elem == ecs::Fire) {
-                path = "fire";
-            }
-            int roomNum = std::stoi(split[0]);
-            float roomScale = vectorTiles[roomNum].first;
-            std::cout << roomNum << std::endl;
-
-            if (it.getClass() == "Mushroom") {
-                Entity* enemie = constructors::eRanged(mngr_, path + "Mushroom", x_* scale * roomScale, y_* scale * roomScale, roomScale, elem);
-                game->addEnemy(enemie, roomNum);
-            }
-            else if (it.getClass() == "Melee") {
-                Entity* enemie = constructors::eMelee(mngr_, path + "Bug", x_ * scale * roomScale, y_ * scale * roomScale, roomScale, elem);
-                game->addEnemy(enemie, roomNum);
-            }
-            else if (it.getClass() == "Slime") {
-                Entity* enemie = constructors::eSlime(mngr_, path + "Slime", x_ * scale * roomScale, y_ * scale * roomScale, roomScale, elem);
-                game->addEnemy(enemie,roomNum);
             }
         }
 
         SDL_Rect playerRect = getSDLRect(playerPos.getAABB());
         auto playerRoom = std::stoi(playerPos.getClass());
         float playerRoomScale = vectorTiles[playerRoom].first;
+        auto playerTr_ = player_->getComponent<Transform>();
         playerRect.x *= playerRoomScale;
-        playerRect.y *= playerRoomScale;
-        player_->getComponent<Transform>()->setPosition(Vector2D(playerRect.x, playerRect.y));
-        player_->getComponent<Transform>()->setScale(playerRoomScale);
+        playerRect.y = playerRect.y * playerRoomScale - playerTr_->getHeight();
+        playerTr_->setPosition(Vector2D(playerRect.x, playerRect.y));
+        playerTr_->setScale(playerRoomScale);
         currentRoom = playerRoom;
         cam->setBounds(getCamBounds());
+        generateEnemies();
+
     }
     else
     {
@@ -362,13 +395,21 @@ std::vector<std::pair<SDL_Rect, SDL_Rect>> MapComponent::checkCollisions(const S
             rects.push_back(std::make_pair(result, it));
         }
     }
+    for (auto it : destructible[std::to_string(currentRoom)]) {
+        if (it.first) {
+            SDL_Rect result;
+            if (SDL_IntersectRect(&playerRect, &it.second, &result)) {
+                rects.push_back(std::make_pair(result, it.second));
+            }
+        }
+    }
 
     return rects;
 }
 
 void MapComponent::render() {
     SDL_Rect camPos = cam->camera;
-    int cols = sdlutils().levels().at("level1").cols;
+    int cols = sdlutils().levels().at(currentLevel).cols;
     int offsetX = camPos.x;
     int offsetY = camPos.y;
     int room = currentRoom;

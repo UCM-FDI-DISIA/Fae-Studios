@@ -1,6 +1,8 @@
 #include "PlayerInput.h"
 #include "../states/PlayState.h"
 #include "../states/GameStateMachine.h"
+#include "../sdlutils/SDLUtils.h"
+#include "../game/ecs.h"
 
 PlayerInput::PlayerInput()
 {
@@ -28,12 +30,14 @@ void PlayerInput::update()
 				//Moviento Izquierda 
 				playerV = Vector2D(-horizontalSpeed, playerV.getY());
 				physics_->lookDirection(false);
+                if(!SoundEffect::isSoundBeingPlayed(ecs::_channel_PLAYER)) sdlutils().soundEffects().at("ott_step").play(0, ecs::_channel_PLAYER);
 			}
 			if (input->isKeyDown(SDLK_RIGHT))
 			{
 				//Movimiento derecha
 				playerV = Vector2D(horizontalSpeed, playerV.getY());
 				physics_->lookDirection(true);
+                if(!SoundEffect::isSoundBeingPlayed(ecs::_channel_PLAYER)) sdlutils().soundEffects().at("ott_step").play(0, ecs::_channel_PLAYER);
 			}
 
 			if (input->isKeyDown(SDLK_SPACE)) {
@@ -51,6 +55,9 @@ void PlayerInput::update()
 				//Recuperar vidas
 				health_->recieveDamage(ecs::Earth);
 			}
+			if (input->isKeyDown(SDLK_TAB)) {
+				GameStateMachine::instance()->pushState(new MapState(static_cast<PlayState*> (GameStateMachine::instance()->getPlayState())));
+			}
 			if (state != VANISH) {
 				if (input->isKeyDown(SDLK_z))
 				{
@@ -64,16 +71,16 @@ void PlayerInput::update()
 					attackTimer = SDL_GetTicks();
 
 				}
-				if (input->isKeyDown(SDLK_a)) {
+				if (input->isKeyDown(SDLK_a) && earth) {
 					//Cambio elemento
 					anim_->changeElem(ecs::Earth);
 					anim_->setState(VANISH);
 				}
-				if (input->isKeyDown(SDLK_d)) {
+				if (input->isKeyDown(SDLK_d) && water) {
 					anim_->changeElem(ecs::Water);
 					anim_->setState(VANISH);
 				}
-				if (input->isKeyDown(SDLK_w)) {
+				if (input->isKeyDown(SDLK_w) && fire) {
 					anim_->changeElem(ecs::Fire);
 					anim_->setState(VANISH);
 				}
@@ -124,11 +131,10 @@ void PlayerInput::update()
 			}
 		}
 
-		//Interacción con una enredadera
+		//Interacciï¿½n con una enredadera
 		auto vineCol = static_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->checkCollisionWithVine();
 		int speed = 1;
 		if (vineCol.first) {
-			std::cout << "tocando enredadera!" << std::endl;
 			if (input->isKeyDown(SDLK_UP) && vineCol.second) {
 				physics_->setClimbing(true, -speed);
 			}

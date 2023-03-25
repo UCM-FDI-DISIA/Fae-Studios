@@ -133,7 +133,17 @@ void PlayerAttack::update() {
 			auto trAttack = wAttack->getComponent<Transform>();
 			moveAttack(trAttack);
 			auto waterAnimation = wAttack->getComponent<FramedImage>();
-			auto waterStateAnimation = wAttack->getComponent<WaterAnimationController>();
+
+			WaterAnimationController* waterStateAnimation;
+			if (!wAttack->hasComponent<WaterAnimationController>()) {
+				wAttack->addComponent<WaterAnimationController>(anims::WATER_ATTACK);
+				wAttack->getComponent<FramedImage>()->changeTexture(&sdlutils().images().at("water_attack"));
+			}
+
+
+			waterStateAnimation = wAttack->getComponent<WaterAnimationController>();
+
+
 
 			auto colAnim = waterAnimation->getCurrentCol();
 			if (!physics->getLookDirection()) waterAnimation->flipTexture(true);
