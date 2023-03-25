@@ -25,8 +25,20 @@ public:
 	}
 	void render() override;
 	void update() override;
-	inline void revert() {inProgress = true; opaqueToTransparent = !opaqueToTransparent; execute = true; executed = false;}
-	inline void revertWithoutExecute() { inProgress = true; opaqueToTransparent = !opaqueToTransparent; execute = false; };
+	inline void revert() {
+        inProgress = true;
+        opaqueToTransparent = !opaqueToTransparent;
+        execute = true;
+        executed = false;
+
+
+    }
+	inline void revertWithoutExecute() {
+        inProgress = true;
+        opaqueToTransparent = !opaqueToTransparent;
+        execute = false;
+
+    };
 	inline void activate() { active = true; execute = true; }
 	inline void deactivate() { active = false; }
 	inline void activateWithoutExecute() { active = true; execute = false; };

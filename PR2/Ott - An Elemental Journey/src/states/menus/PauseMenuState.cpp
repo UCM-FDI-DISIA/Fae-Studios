@@ -59,7 +59,7 @@ void PauseMenuState::handleInput() {
 	//Si presionamos el espacio, volvemos al juego
 	if (!doNotDetectKeyboardInput) {
 		if (InputHandler::instance()->isKeyJustDown(SDLK_ESCAPE)) {
-			dynamic_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->blockKeyboardInputAfterUnfreeze();
+			//dynamic_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->blockKeyboardInputAfterUnfreeze();
 			fade->getComponent<FadeTransitionComponent>()->setFunction([]() { GameStateMachine::instance()->popState(); });
 			fade->getComponent<FadeTransitionComponent>()->revert();
 			doNotDetectKeyboardInput = true;
