@@ -1,6 +1,8 @@
 #include "PlayerInput.h"
 #include "../states/PlayState.h"
 #include "../states/GameStateMachine.h"
+#include "../sdlutils/SDLUtils.h"
+#include "../game/ecs.h"
 
 PlayerInput::PlayerInput()
 {
@@ -28,12 +30,14 @@ void PlayerInput::update()
 				//Moviento Izquierda 
 				playerV = Vector2D(-horizontalSpeed, playerV.getY());
 				physics_->lookDirection(false);
+                if(!SoundEffect::isSoundBeingPlayed(ecs::_channel_PLAYER)) sdlutils().soundEffects().at("ott_step").play(0, ecs::_channel_PLAYER);
 			}
 			if (input->isKeyDown(SDLK_RIGHT))
 			{
 				//Movimiento derecha
 				playerV = Vector2D(horizontalSpeed, playerV.getY());
 				physics_->lookDirection(true);
+                if(!SoundEffect::isSoundBeingPlayed(ecs::_channel_PLAYER)) sdlutils().soundEffects().at("ott_step").play(0, ecs::_channel_PLAYER);
 			}
 
 			if (input->isKeyDown(SDLK_SPACE)) {
@@ -124,7 +128,7 @@ void PlayerInput::update()
 			}
 		}
 
-		//Interacción con una enredadera
+		//Interacciï¿½n con una enredadera
 		auto vineCol = static_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->checkCollisionWithVine();
 		int speed = 1;
 		if (vineCol.first) {

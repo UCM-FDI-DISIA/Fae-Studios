@@ -13,36 +13,11 @@
   ],
 
 	"images": [
-		{
-			"id": "playbackground",
-			"file": "../Ott - An Elemental Journey/resources/images/backgrounds/defaultmenubg.png",
-			"rows": 1,
-			"cols": 1
-		},
-		{
-			"id": "mainmenubackground",
-			"file": "../Ott - An Elemental Journey/resources/images/backgrounds/mainmenubg.png",
-			"rows": 1,
-			"cols": 1
-		},
-		{
-			"id": "blackbackground",
-			"file": "../Ott - An Elemental Journey/resources/images/backgrounds/mainbg.png",
-			"rows": 1,
-			"cols": 1
-		},
-		{
-			"id": "whitebackground",
-			"file": "../Ott - An Elemental Journey/resources/images/backgrounds/playbg.png",
-			"rows": 1,
-			"cols": 1
-		},
-		{
-			"id": "button",
-			"file": "../Ott - An Elemental Journey/resources/images/ui/button.png",
-			"rows": 1,
-			"cols": 3
-		},
+		{"id": "playbackground", "file": "../Ott - An Elemental Journey/resources/images/backgrounds/defaultmenubg.png", "rows": 1, "cols": 1},
+		{"id": "mainmenubackground", "file": "../Ott - An Elemental Journey/resources/images/backgrounds/mainmenubg.png", "rows": 1, "cols": 1},
+		{"id": "blackbackground", "file": "../Ott - An Elemental Journey/resources/images/backgrounds/mainbg.png", "rows": 1, "cols": 1},
+		{"id": "whitebackground", "file": "../Ott - An Elemental Journey/resources/images/backgrounds/playbg.png", "rows": 1, "cols": 1},
+		{"id": "button", "file": "../Ott - An Elemental Journey/resources/images/ui/button.png", "rows": 1, "cols": 3},
 		{
 			"id": "largebutton",
 			"file": "../Ott - An Elemental Journey/resources/images/ui/largebutton.png",
@@ -362,10 +337,13 @@
   "sounds" : [
     { "id" : "play_button", "file" : "../Ott - An Elemental Journey/resources/sound/playbutton.wav" },
 	{ "id" : "button", "file" : "../Ott - An Elemental Journey/resources/sound/button.wav" },
-	{ "id" : "button_back", "file" : "../Ott - An Elemental Journey/resources/sound/buttonback.wav" }
+	{ "id" : "button_back", "file" : "../Ott - An Elemental Journey/resources/sound/buttonback.wav" },
+  	{ "id" :  "ott_step", "file" :  "../Ott - An Elemental Journey/resources/sound/ott_paso.wav"}
   ],
 
-	"musics": [],
+	"musics": [
+		{"id" :  "main_menu_music", "file" :  "../Ott - An Elemental Journey/resources/music/Ambient 4.wav"}
+	],
 
 	"maps": [
 		{ "id" : "level1", "file" : "../Ott - An Elemental Journey/resources/levels/EarthMap2.tmx", "cols" : 192, "tileset" : "level1tileset", "background" : "level1bg" },

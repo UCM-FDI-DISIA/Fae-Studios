@@ -23,6 +23,7 @@
     <ClCompile Include="src\components\Pivot.cpp" />
     <ClCompile Include="src\components\Acceleration.cpp" />
     <ClCompile Include="src\components\EarthBossManager.cpp" />
+    <ClCompile Include="src\components\ElementObject.cpp" />
     <ClCompile Include="src\components\EnterBossRoom.cpp" />
     <ClCompile Include="src\components\EarthBossAttack.cpp" />
     <ClCompile Include="src\components\EarthBossAnimationController.cpp" />
@@ -86,6 +87,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\components\EarthBossManager.h" />
+    <ClInclude Include="src\components\ElementObject.h" />
     <ClInclude Include="src\components\EnterBossRoom.h" />
     <ClInclude Include="src\components\EarthBossAttack.h" />
     <ClInclude Include="src\components\EarthBossAnimationController.h" />

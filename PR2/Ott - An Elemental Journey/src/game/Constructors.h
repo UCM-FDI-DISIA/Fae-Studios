@@ -232,7 +232,7 @@ namespace constructors {
 		return camera;
 	}
 
-	static inline void grass(Manager* mngr_, Vector2D position, int widthVine, int heightVine, Vector2D posiniVine, Vector2D posfinVine, int width = 60, int height = 60) {
+	static inline Entity* grass(Manager* mngr_, Vector2D position, int widthVine, int heightVine, Vector2D posiniVine, Vector2D posfinVine, int width = 60, int height = 60) {
 		auto grass = mngr_->addEntity(ecs::_grp_INTERACTION);
 		grass->addComponent<Transform>(position, width, height);
 		grass->addComponent<Image>(&sdlutils().images().at("grass"));
@@ -242,10 +242,10 @@ namespace constructors {
 			static_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->AddEnredadera();
 		};
 		grass->addComponent<InteractionComponent>(cb);
-
+		return grass;
 	}
 
-	static inline void lamp(Manager* mngr_, int x1, int y1, int w1, int h1, int room1, int x2, int y2, int w2, int h2, int room2) {
+	static inline std::pair<Entity*, Entity*> lamp(Manager* mngr_, int x1, int y1, int w1, int h1, int room1, int x2, int y2, int w2, int h2, int room2) {
 		auto lamp = mngr_->addEntity(ecs::_grp_INTERACTION);
 		auto lamp2 = mngr_->addEntity(ecs::_grp_INTERACTION);
 
@@ -261,9 +261,10 @@ namespace constructors {
 		lamp2->addComponent<Image>(t_);
 		lamp2->addComponent<LampComponent>(lamp, room2);
 		lamp2->addComponent<InteractionComponent>(cb);
+		return std::make_pair(lamp, lamp2);
 	}
 
-	static inline void sanctuary(Manager* mngr_, Vector2D position, int width = 100, int height = 130) {
+	static inline Entity* sanctuary(Manager* mngr_, Vector2D position, int width = 100, int height = 130) {
 		auto sanc = mngr_->addEntity(ecs::_grp_INTERACTION);
 		sanc->addComponent<Transform>(position, width, height);
 		sanc->addComponent<Image>(&sdlutils().images().at("sanctuary"));
@@ -271,6 +272,7 @@ namespace constructors {
 			static_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->Save();
 		};
 		sanc->addComponent<InteractionComponent>(cb);
+		return sanc;
 	}
 
 	static inline Entity* map(Manager* mngr_, PlayState* game) {
@@ -280,93 +282,12 @@ namespace constructors {
 		fadeOut->addComponent<Transform>(0,0,sdlutils().width()*1.5, sdlutils().height()*1.5);
 		fadeOut->addComponent<FramedImage>(&sdlutils().images().at("fadeOut"), 5, 5);
 		fadeOut->addComponent<FadeOutAnimationComponent>();
+		fadeOut->setActive(true);
 		e->addComponent<MapComponent>(fadeOut, game);
 		auto scale = e->getComponent<MapComponent>()->tileScale();
 		//bgrd->addComponent<BackgroundImage>(Vector2D(0, 0), &sdlutils().images().at("level1bg"), scale, scale);
 		//bgrd->addComponent<BackgroundImage>(Vector2D(0, 0), game->getTexture("level1bg", PLAY_STATE), scale, scale);
 		auto a = e->getComponent<MapComponent>()->getObjects();
-		for (auto it : a) {
-			//unordered_map<string, TP_Lamp*> lamps;
-			for (auto ot : it) {
-				float x_ = ot.getAABB().left;
-				float y_ = ot.getAABB().top;
-				float w_ = ot.getAABB().width;
-				float h_ = ot.getAABB().height;
-				elementsInfo::elements elem;
-				std::string path = "";
-				if (ot.getName() == "1") { elem = elementsInfo::Earth; path = "earth"; }
-				else if (ot.getName() == "2") { elem = elementsInfo::Water; path = "water"; }
-				else if (ot.getName() == "3") { elem = elementsInfo::Fire; path = "fire"; }
-				else if (ot.getName() == "4") { elem = elementsInfo::Dark; path = "dark"; }
-				if (ot.getClass() == "Ground") {
-					//Ground* grT = new Ground(Vector2D(x_ * scale, y_ * scale), app->getTexture("pixel", PLAY_STATE), Scale(w_ * scale, h_ * scale));
-					//gameObjects.push_back(grT);
-					auto e = mngr_->addEntity(ecs::_grp_GROUND);
-					//int width = game->getTexture("pixel", PLAY_STATE)->getW() / game->getTexture("pixel", PLAY_STATE)->getNumCols() * (w_*scale);
-					//int height = game->getTexture("pixel", PLAY_STATE)->getH() / game->getTexture("pixel", PLAY_STATE)->getNumRows() * (h_*scale);
-					std::cout << "Ground detected " << x_ * scale << " " << y_ * scale << std::endl;
-					e->addComponent<Transform>(Vector2D(x_ * scale, y_ * scale), &sdlutils().images().at("pixel"), Vector2D(w_ * scale, h_ * scale));
-					e->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
-				}
-				else if (ot.getClass() == "Grass") {
-					grass(mngr_, Vector2D(x_ * scale, (y_ * scale - sdlutils().images().at("grass").height()) + h_ * scale), w_ * scale, h_ * scale, Vector2D(x_ * scale, (y_ * scale - sdlutils().images().at("grass").height()) + h_ * scale + 100), Vector2D(x_ * scale, (y_ * scale - sdlutils().images().at("grass").height())));
-				}
-				else if (ot.getClass() == "Lamp") {
-					//lamp(Vector2D(x_ * scale, y_ * scale - game->getTexture("lamp", PLAY_STATE)->getH() * 2));
-					/*TP_Lamp* l1 = new TP_Lamp(Vector2D(x_ * scale, y_ * scale - app->getTexture("lamp", PLAY_STATE)->getH() * 2), app->getTexture("lamp", PLAY_STATE), this, Scale(2, 2), LAMP);
-
-					string lampName = ot.getName();
-					auto at = lamps.find(lampName);
-					if (at != lamps.end()) {
-						l1->SetLamp((*at).second);
-						(*at).second->SetLamp(l1);
-					}
-					else {
-						lamps.insert({ ot.getName(), l1 });
-					}
-
-					gameObjects.push_back(l1);*/
-				}
-				/*else if (ot.getClass() == "DoorTrigger") {
-					Entity* trigger = mngr_->addEntity(ecs::_grp_TRIGGER);
-					trigger->addComponent<Transform>(Vector2D(x_ * scale, y_ * scale), w_ * scale, h_ * scale);
-					trigger->addComponent<VineManager>(EVIL, Vector2D((x_ * scale) - 260, ((y_ * scale) + h_ * scale) - 100), Vector2D((x_ * scale) - 170, y_ * scale - 100), -1, 0, w_ * scale, h_ * scale, 3);
-					trigger->getComponent<VineManager>()->createVine();
-					trigger->addComponent<EnterBossRoom>(& sdlutils().images().at("animationWorm"));
-					trigger->addComponent<Trigger>();
-				}*/
-				else if (ot.getClass() == "Sanctuary") {
-					sanctuary(mngr_, Vector2D(x_ * scale - (&sdlutils().images().at("sanctuary"))->width() * 1.5, y_ * scale - (&sdlutils().images().at("sanctuary"))->height() * 3.5));
-				}
-				else if (ot.getClass() == "Ott") {
-				}
-				else if (ot.getClass() == "Mushroom") {
-
-				}
-				else if (ot.getClass() == "Melee") {
-				}
-				else if (ot.getClass() == "Slime") {
-
-				}
-				else if (ot.getClass() == "EarthBoss") {
-					/*Entity* earthBoss = mngr_->addEntity(ecs::_grp_CHARACTERS);
-					earthBoss->addComponent<Transform>(Vector2D(x_ * scale, y_ * scale), w_ * scale, h_ * scale);
-					earthBoss->addComponent<PhysicsComponent>();
-					mngr_->setEarthBoss(earthBoss);*/
-				}
-				/*else if (ot.getClass() == "BossRoom") {
-					SDL_Rect roomDimensions;
-					roomDimensions.x = x_ * scale;
-					roomDimensions.y = y_ * scale;
-					roomDimensions.w = w_ * scale;
-					roomDimensions.h = h_ * scale;
-					Entity* earthBoss = mngr_->addEntity(ecs::_grp_GENERAL);
-					earthBoss->addComponent<EarthBossManager>(roomDimensions, earthBoss);
-
-				}*/
-			}
-		}
-
 		return e;
 		//bgrd->addComponent<Image>(game->getTexture("level1bg", PLAY_STATE));
 	}

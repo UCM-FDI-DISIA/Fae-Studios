@@ -26,6 +26,7 @@
 
 #include "../components/FadeTransitionComponent.h"
 #include "menus/PauseMenuState.h"
+#include "../components/ElementObject.h"
 
 PlayState::PlayState() : GameState(ecs::_state_PLAY) {
 	mngr_->setPlayer(constructors::player(mngr_, 700, 1500, 100, 120));
@@ -40,9 +41,16 @@ PlayState::PlayState() : GameState(ecs::_state_PLAY) {
 	player_->getComponent<PlayerInput>()->initComponent();
 	player_->getComponent<PlayerAttack>()->initComponent();
 	player_->getComponent<Health>()->initComponent();
-	fade = mngr_->addEntity(ecs::_grp_FADEOUT);
+
+    auto a = mngr_->addEntity(ecs::_grp_INTERACTION);
+	a->addComponent<Transform>(player_->getComponent<Transform>()->getPosition().getX() + 100, player_->getComponent<Transform>()->getPosition().getY(), 300, 300);
+	a->addComponent<Image>(&sdlutils().images().at("lamp"));
+	a->addComponent<ElementObject>(ecs::Earth);
+
+    fade = mngr_->addEntity(ecs::_grp_FADEOUT);
 	fade->addComponent<FadeTransitionComponent>(true, 1);
-	fade->getComponent<FadeTransitionComponent>()->activateWithoutExecute();
+    fade->getComponent<FadeTransitionComponent>()->setFunction([this](){doNotDetectKeyboardInput = false;});
+	fade->getComponent<FadeTransitionComponent>()->activate();
 
 	// se reinicializan los componentes del jugador porque muchos tienen referencias entre ellos y con la cámara 
 	// y no se podrían coger de otra forma más que forzando el initComponent()
@@ -141,17 +149,24 @@ void PlayState::blockKeyboardInputAfterUnfreeze() {
     doNotDetectKeyboardInput = true;
 }
 
+void PlayState::resetFade() {
+    if (fade != nullptr && fade->hasComponent<FadeTransitionComponent>()) {
+        if (fade->getComponent<FadeTransitionComponent>()->hasEndedAnimation()) {
+            fade->getComponent<FadeTransitionComponent>()->setFunction([this](){doNotDetectKeyboardInput = false;});
+            fade->getComponent<FadeTransitionComponent>()->revert();
+        }
+    }
+}
+
 void PlayState::handleInput() {
     GameState::handleInput();
-	
-	if (doNotDetectKeyboardInput && InputHandler::instance()->allKeysUp() && fade->getComponent<FadeTransitionComponent>()->hasEndedAnimation()) doNotDetectKeyboardInput = false;
+	//if (doNotDetectKeyboardInput && InputHandler::instance()->allKeysUp()) doNotDetectKeyboardInput = false;
 	
 	if (!doNotDetectKeyboardInput) {
 		if (InputHandler::instance()->isKeyJustDown(SDLK_ESCAPE)) {
-			fade->getComponent<FadeTransitionComponent>()->setFunction([]() { GameStateMachine::instance()->pushState(new PauseMenuState()); });
+			fade->getComponent<FadeTransitionComponent>()->setFunction([this]() { GameStateMachine::instance()->pushState(new PauseMenuState());});
 			fade->getComponent<FadeTransitionComponent>()->changeSpeed(5);
 			fade->getComponent<FadeTransitionComponent>()->revert();
-			doNotDetectKeyboardInput = true;
 		}
 	}
 }
@@ -226,41 +241,6 @@ void PlayState::checkCollisions(std::list<Entity*> entities) {
 		
 		if(i == 0) physics->setGrounded(false);
 
-		/*
- 		int i = 0;
-		for (Entity* g : ground) { // GROUND COLLISION
-			SDL_Rect r2 = g->getComponent<Transform>()->getRect();
-			SDL_Rect areaColision; // area de colision 	
-			bool interseccion = SDL_IntersectRect(&r1, &r2, &areaColision);
-			if (interseccion)
-			{
-				if (areaColision.w >= areaColision.h) {
-
-					if (!physics->isGrounded() && areaColision.y > r1.y + r1.w / 2) {
-						//cout << "ground touched" << endl;
-						if (!(physics->getWater()) || (physics->getWater() && health->getElement() == ecs::Water))
-						{
-							colVector = Vector2D(colVector.getX(), 0);
-						}
-						physics->setGrounded(true);
-					}
-					else if (!physics->isGrounded()) {
-						//cout << "ceiling touched" << endl;
-						if (!(physics->getWater()) || (physics->getWater() && health->getElement() == ecs::Water))
-						{
-							colVector = Vector2D(colVector.getX(), 1);
-							physics->setVerticalSpeed(1);
-						}
-					}
-					if (mov != nullptr) mov->ChangeDirection(true, areaColision);
-
-					break;
-				}
-			}
-			else if (i == ground.size() - 1) physics->setGrounded(false);
-			++i;
-		}
-		*/
 		//colisiones con el material de agua 
 		int j = 0;
 		std::vector <Entity*> water = mngr_->getEntities(ecs::_grp_WATER);
@@ -325,8 +305,14 @@ void PlayState::checkInteraction() {
         Entity* ents = *interactionIt;
         SDL_Rect r2 = ents->getComponent<Transform>()->getRect();
         if (SDL_HasIntersection(&r1, &r2)) {
-            ents->getComponent<InteractionComponent>()->interact();
+			if (ents->hasComponent<ElementObject>()) {
+				mngr_->getPlayer()->getComponent<PlayerInput>()->unlockElement(ents->getComponent<ElementObject>()->getElement());
+				ents->setAlive(false);
+			}
+			else
+				ents->getComponent<InteractionComponent>()->interact();
             interact = true;
+			std::cout << "interacción" << std::endl;
         }
         interactionIt++;
     }
@@ -335,16 +321,17 @@ void PlayState::checkInteraction() {
 void PlayState::update() {
 	checkCollisions({ player_ });
 	checkCollisions(enemies[map_->getCurrentRoom()]);
-	for (auto it : enemies) {
+	/*for (auto it : enemies) {
 		for (auto ot : it) {
 			if (it != enemies[map_->getCurrentRoom()]) {
 				ot->getComponent<PhysicsComponent>()->Stop();
 			}
 			else {
 				ot->getComponent<PhysicsComponent>()->Resume();
+				ot->setActive(true);
 			}
 		}
-	}
+	}*/
 	GameState::update();
 }
 
