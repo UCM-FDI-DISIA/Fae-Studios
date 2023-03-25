@@ -35,12 +35,6 @@ PlayState::PlayState() : GameState(ecs::_state_PLAY) {
 	camera_ = mngr_->getCamera();
 
 	std::cout << "prueba" << std::endl;
-	player_->getComponent<FramedImageOtt>()->initComponent();
-	player_->getComponent<Transform>()->initComponent();
-	player_->getComponent<PhysicsComponent>()->initComponent();
-	player_->getComponent<PlayerInput>()->initComponent();
-	player_->getComponent<PlayerAttack>()->initComponent();
-	player_->getComponent<Health>()->initComponent();
 
     auto a = mngr_->addEntity(ecs::_grp_INTERACTION);
 	a->addComponent<Transform>(player_->getComponent<Transform>()->getPosition().getX() + 100, player_->getComponent<Transform>()->getPosition().getY(), 300, 300);
@@ -56,44 +50,8 @@ PlayState::PlayState() : GameState(ecs::_state_PLAY) {
 	// y no se podrían coger de otra forma más que forzando el initComponent()
 	player_->reinitCmpts();
 
-	/*
-	//prueba para movimiento de agua
-	auto waterM = mngr_->addEntity(ecs::_grp_WATER);
-	//500, 2000, 100, 120
-	waterM->addComponent<Transform>(3500, 600, 300, 420);
-	waterM->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
-	*/
-	// COMENTO A LOS ENEMIGOS PORQUE ME ESTÁN DANDO POR CULO UN RATO CHAU BESOS
-
-
-	//// OBJETOS QUE DESTRUYE BOSS AGUA
-	//x = 600;
-	//y = 1300;
-	//scale = 1.0f;
-	//auto waterObj = mngr_->addEntity(ecs::_grp_GROUND);
-	//auto watObjPh = waterObj->addComponent<PhysicsComponent>();
-	//watObjPh->setGravity(false);
-	//waterObj->addComponent<Transform>(x, y, 100 * scale, 100 * scale);
-	//waterObj->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
-	//waterObj->addComponent<Destruction>(waterBoss);
-
-	//constructors::eSlime(mngr_, "fireSlime", 600, 1100, 1.0f);
-	//constructors::eMelee(mngr_, "waterBug", 2400, 1000, 1.0f);
-	//constructors::eRanged(mngr_, "earthMushroom", 1700, 1000, 1.0f);
-	//constructors::map(mngr_);
-	//constructors::eSlime(mngr_, "fireSlime", 800, 2100, 1.0f, ecs::Fire);
-	// constructors::eMelee(mngr_, "waterBug", 2400, 2000, 1.0f, ecs::Water);
-	// constructors::eRanged(mngr_, "earthMushroom", 1700, 2000, 1.0f, ecs::Earth);
 	map_ = constructors::map(mngr_, this)->getComponent<MapComponent>();
 	initialEnemies = enemies;
-
-	/*
-	scale = 1.0f;
-	auto waterObj = mngr_->addEntity(ecs::_grp_GROUND);
-	waterObj->addComponent<Transform>(x-1000, y+200, 100 * scale*3, 100 * scale);
-	waterObj->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
-	waterObj->addComponent<Destruction>(waterBoss);
-	*/
 }
 
 PlayState::~PlayState() {
@@ -144,20 +102,6 @@ void PlayState::checkCollisions(std::list<Entity*> entities) {
 				}
 			}
 		}
-		/*
-		for (Entity* g : ground) { // WALL COLLISION
-
-			SDL_Rect r2 = g->getComponent<Transform>()->getRect();
-			SDL_Rect areaColision; // area de colision 	
-			bool interseccion = SDL_IntersectRect(&r1, &r2, &areaColision);
-			if (interseccion && (areaColision.w < areaColision.h) && ((areaColision.x <= r2.x + (r2.w / 2) && physics->getLookDirection()) ||
-				(areaColision.x > r2.x + (r2.w / 2) && !physics->getLookDirection()))) {
-				colVector = Vector2D(0, colVector.getY());
-				if (mov != nullptr) {
-					mov->ChangeDirection(false, areaColision);
-				}
-			}
-		}*/
 		int i = 0;
 		for (std::pair<SDL_Rect, SDL_Rect> gr : grounds) {
 			auto areaColision = gr.first;
@@ -181,10 +125,6 @@ void PlayState::checkCollisions(std::list<Entity*> entities) {
 					}
 				}
 				if (mov != nullptr) mov->ChangeDirection(true, areaColision);
-				/*else if (pAttack != nullptr)
-				{
-					physics->saveLastPos(areaColision);
-				}*/
 				++i;
 				break;
 			}
