@@ -86,7 +86,6 @@ void MapComponent::generateEnemies() {
     for (auto it : enemies_[currentRoom]) {
         it->setActive(true);
     }
-
 }
 
 MapComponent::MapComponent(Entity* fadeOut, PlayState* game) : fadeOut(fadeOut), game(game) {

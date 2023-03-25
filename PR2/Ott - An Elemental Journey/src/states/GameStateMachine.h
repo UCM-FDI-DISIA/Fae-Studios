@@ -36,7 +36,7 @@ public:
     GameState* getPlayState() const {return stateStack.back();}
 
     /// Quita el último estado que ha entrado a la pila
-	void popState();
+	void popState(bool deleting = false);
 
     /// Comprueba si la pila está vacía
 	bool empty();

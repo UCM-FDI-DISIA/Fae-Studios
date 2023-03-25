@@ -292,7 +292,7 @@
 			"id": "water_attack",
 			"file": "../Ott - An Elemental Journey/resources/images/tests/water_Attack_PlaceHolder.png",
 			"rows": 2,
-			"cols": 9
+			"cols": 7
 		},
 
 		{
@@ -349,7 +349,8 @@
 	{ "id" : "button", "file" : "../Ott - An Elemental Journey/resources/sound/button.wav" },
 	{ "id" : "button_back", "file" : "../Ott - An Elemental Journey/resources/sound/buttonback.wav" },
   	{ "id" :  "ott_step", "file" :  "../Ott - An Elemental Journey/resources/sound/ott_paso.wav"},
-		{ "id" :  "ott_attack", "file" :  "../Ott - An Elemental Journey/resources/sound/ataque_ott.wav"}
+	{ "id" :  "ott_attack", "file" :  "../Ott - An Elemental Journey/resources/sound/ataque_ott.wav"},
+	{ "id" : "grow_vine", "file" : "../Ott - An Elemental Journey/resources/sound/vine_growing.wav"}
   ],
 
 	"musics": [
@@ -361,7 +362,7 @@
 		{ "id" : "level1_1", "file" : "../Ott - An Elemental Journey/resources/levels/EarthMap2.tmx", "cols" : 192, "tileset" : "level1tileset", "background" : "level1bg" },
 		{ "id" : "demo", "file" : "../Ott - An Elemental Journey/resources/levels/DEMO.tmx", "cols" : 100, "tileset" : "level1tileset", "background" : "level1bg" },
 		{ "id" : "waterMap", "file" : "../Ott - An Elemental Journey/resources/levels/WaterMap.tmx", "cols" : 180, "tileset" : "waterTileset", "background" : "level1bg" },
-		{ "id" : "waterBossMap", "file" : "../Ott - An Elemental Journey/esources/levels/WaterBossMap.tmx", "cols" : 211, "tileset" : "waterTileset", "background" : "level1bg" }
+		{ "id" : "waterBossMap", "file" : "../Ott - An Elemental Journey/resources/levels/WaterBossMap.tmx", "cols" : 211, "tileset" : "waterTileset", "background" : "level1bg" }
 
 	]
 }
