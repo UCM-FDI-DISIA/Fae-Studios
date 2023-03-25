@@ -13,7 +13,8 @@ std::vector<anims::animDescription> anims::ott_anims{
 	{ 100,8,3,0 }, { 300,1,5,2 }, // RUN, JUMP_UP
 	{ 300,2,5,3 }, { 300,1,5,5 }, // PEAK, FALL
 	{ 75,2,5,6 }, { 75,4,6,0 }, // LAND, VANISH
-	{ 200 ,8,7,0 }, { 100,5,8,3 } }; // DIE, ATTACK
+	{ 200,8,7,0 }, { 100,5,8,3 },// DIE, ATTACK
+	{ 100,7,9,0}, { 100,7,9,6} }; // MAP
 // ENEMIGO MELEE
 std::vector<anims::animDescription> anims::melee_anims{ {150,4,0,0}, {150,9,0,12}, {200,4,0,8}, {450,1,0,7}, {100,3,0,4} };
 std::vector<anims::animDescription> anims::lifeshard_anims{ {10,10,0,0} };

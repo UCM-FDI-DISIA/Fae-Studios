@@ -10,7 +10,6 @@
 #include "FramedImage.h"
 #include "PlayerAttack.h"
 #include "AttackCharger.h"
-#include "../states/MapState.h"
 
 class PlayerInput : public Component {
 public:
@@ -47,6 +46,7 @@ private:
 	int attackTimer, chargedAttackTime = 1;
 	bool attack = false;
 	bool earth = false, water = false, fire = false;
+	bool openingMap = false;
 };
 
 

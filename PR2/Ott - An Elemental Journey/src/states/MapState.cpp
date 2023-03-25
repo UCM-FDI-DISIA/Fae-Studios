@@ -1,5 +1,6 @@
 #include "MapState.h"
 #include "PlayState.h"
+#include "../components/PlayerAnimationComponent.h"
 
 /// Constructora del estado de juego
 MapState::MapState(PlayState* ps) : GameState(ecs::_state_MAP) {
@@ -34,5 +35,6 @@ void MapState::update() {
 	}
 	else if (InputHandler::instance()->isKeyUp(SDLK_ESCAPE) && exit) {
 		GameStateMachine::instance()->popState();
+		static_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->getPlayer()->getComponent<PlayerAnimationComponent>()->setState(CLOSE_MAP);
 	}
 }

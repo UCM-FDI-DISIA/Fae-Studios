@@ -28,7 +28,7 @@
 		{ "id" : "screendarkentop", "file" : "../resources/images/ui/screendarken-top.png", "rows" : 1, "cols" : 1},
 		{ "id" : "screendarkenside", "file" : "../resources/images/ui/screendarken-side.png", "rows" : 1, "cols" : 1},
 		{ "id" : "whiteBox", "file" : "../resources/images/tests/whiteBox.png", "rows" : 1, "cols" : 1},
-		{ "id" : "ott_luz", "file" : "../resources/images/tests/Ott_Luz.png", "rows" : 9, "cols" : 8},
+		{ "id" : "ott_luz", "file" : "../resources/images/tests/Ott_Luz.png", "rows" : 10, "cols" : 8},
 		{ "id" : "ott_tree", "file" : "../resources/images/tests/Ott_Tree.png", "rows" : 9, "cols" : 8},
 		{ "id" : "ott_water", "file" : "../resources/images/tests/Ott_Water.png", "rows" : 9, "cols" : 8},
 		{ "id" : "ott_fire", "file" : "../resources/images/tests/Ott_Fire.png", "rows" : 9, "cols" : 8},

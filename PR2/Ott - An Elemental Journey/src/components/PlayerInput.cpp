@@ -25,7 +25,7 @@ void PlayerInput::update()
 		Vector2D& playerV = physics_->getVelocity();
 		auto input = InputHandler::instance();
 		auto state = anim_->getState();
-		if (input->keyDownEvent() && state != DIE) {
+		if (input->keyDownEvent() && state != DIE && !openingMap) {
 			if (input->isKeyDown(SDLK_LEFT)) {
 				//Moviento Izquierda 
 				playerV = Vector2D(-horizontalSpeed, playerV.getY());
@@ -56,7 +56,10 @@ void PlayerInput::update()
 				health_->recieveDamage(ecs::Earth);
 			}
 			if (input->isKeyDown(SDLK_TAB)) {
-				GameStateMachine::instance()->pushState(new MapState(static_cast<PlayState*> (GameStateMachine::instance()->getPlayState())));
+				if(anim_->getState() != OPEN_MAP && anim_->getState() != CLOSE_MAP && physics_->isGrounded())
+				anim_->setState(OPEN_MAP);
+				openingMap = true;
+				physics_->setVelocity(Vector2D(0, physics_->getVelocity().getY()));
 			}
 			if (state != VANISH) {
 				if (input->isKeyDown(SDLK_z))
@@ -97,7 +100,10 @@ void PlayerInput::update()
 			}
 		}
 		else if (state == DIE) playerV = Vector2D(0, playerV.getY());
-		if (input->keyUpEvent()) {
+		else if (openingMap && state != OPEN_MAP && state != CLOSE_MAP) {
+			openingMap = false;
+		}
+		if (input->keyUpEvent() && !openingMap) {
 			if (state != DIE) {
 				if (input->isKeyUp(SDLK_LEFT) && input->isKeyUp(SDLK_RIGHT)) {
 					playerV = Vector2D(0, playerV.getY());

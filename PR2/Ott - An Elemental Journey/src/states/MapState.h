@@ -8,7 +8,6 @@
 #include <vector>
 #include "GameState.h"
 #include "../game/ecs.h"
-#include "../components/MapComponent.h"
 #include "../components/Transform.h"
 #include "../components/Image.h"
 #include "../sdlutils/SDLUtils.h"
