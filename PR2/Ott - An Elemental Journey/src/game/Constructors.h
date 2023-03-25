@@ -35,6 +35,10 @@
 #include "../components/AttackCharger.h"
 #include "../components/FadeOutAnimationComponent.h"
 #include "../components/EarthBossManager.h"
+#include "../components/Destruction.h"
+#include "../components/Pivot.h"
+#include "../components/Acceleration.h"
+#include "../components/WaterBossAnimationComponent.h"
 #include <string>
 #include <iostream>
 #include <functional>
@@ -273,6 +277,37 @@ namespace constructors {
 		};
 		sanc->addComponent<InteractionComponent>(cb);
 		return sanc;
+	}
+
+	static inline void DestructibleTile(Manager* mngr_, int x, int y, int w, std::string room, int index, MapComponent* map) {
+		auto waterObj = mngr_->addEntity(ecs::_grp_GROUND);
+		waterObj->addComponent<Transform>(Vector2D(x,y), w, w);
+		waterObj->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
+		waterObj->addComponent<Destruction>(room, index, map);
+	}
+
+	static inline Entity* WaterBoss(Manager* mngr_, int x, int y, int w, int h) {
+		auto waterBoss = mngr_->addEntity(ecs::_grp_CHARACTERS);
+		auto WbTransform = waterBoss->addComponent<Transform>(x, y, w, h);
+		auto waterPh = waterBoss->addComponent<PhysicsComponent>(colliders::SLIME);
+		waterPh->setVelocity(Vector2D(1, 0));
+		waterPh->setGravity(false);
+		waterPh->lookDirection(false);
+		waterPh->createCollider();
+		waterBoss->addComponent<FramedImage>(&sdlutils().images().at("water_boss"), 4, 8);
+		waterBoss->addComponent<Acceleration>();
+		waterBoss->addComponent<Health>(6, ecs::Dark, false);
+		waterBoss->addComponent<EnemyContactDamage>();
+		waterBoss->addComponent<WaterBossAnimationComponent>(anims::WATERBOSS_ANIM);
+		waterBoss->reinitCmpts();
+
+		auto box0 = mngr_->addEntity(ecs::_grp_CHARACTERS);
+		x += 2150;
+		box0->addComponent<Transform>(x, y, w, h);
+		box0->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
+		box0->addComponent<Pivot>(waterBoss, 0);
+
+		return waterBoss;
 	}
 
 	static inline Entity* map(Manager* mngr_, PlayState* game) {

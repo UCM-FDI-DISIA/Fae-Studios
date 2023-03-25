@@ -77,17 +77,6 @@ PlayState::PlayState() : GameState(ecs::_state_PLAY) {
 	//waterObj->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
 	//waterObj->addComponent<Destruction>(waterBoss);
 
-	
-
-
-
-	
-
-	
-
-
-
-
 	//constructors::eSlime(mngr_, "fireSlime", 600, 1100, 1.0f);
 	//constructors::eMelee(mngr_, "waterBug", 2400, 1000, 1.0f);
 	//constructors::eRanged(mngr_, "earthMushroom", 1700, 1000, 1.0f);
@@ -98,45 +87,13 @@ PlayState::PlayState() : GameState(ecs::_state_PLAY) {
 	map_ = constructors::map(mngr_, this)->getComponent<MapComponent>();
 	initialEnemies = enemies;
 
-	auto waterBoss = mngr_->addEntity(ecs::_grp_CHARACTERS);
-	int x = mngr_->getPlayer()->getComponent<Transform>()->getPosition().getX()-200;
-	int y = mngr_->getPlayer()->getComponent<Transform>()->getPosition().getY()+200;
-	float scale = 4.0f;
-	auto WbTransform= waterBoss->addComponent<Transform>(x, y, 110 * scale, 110 * scale);
-	auto waterPh= waterBoss->addComponent<PhysicsComponent>(colliders::SLIME);
-	waterPh->setVelocity(Vector2D(1,0));
-	waterPh->setGravity(false);
-	waterPh->lookDirection(false);
-	waterPh->createCollider();
-	waterBoss->addComponent<FramedImage>(&sdlutils().images().at("water_boss"), 4, 8);
-	waterBoss->addComponent<Acceleration>();
-	waterBoss->addComponent<Health>(6, ecs::Dark, false);
-	waterBoss->addComponent<EnemyContactDamage>();
-	waterBoss->addComponent<WaterBossAnimationComponent>(anims::WATERBOSS_ANIM);
-	waterBoss->reinitCmpts();
-
-	auto box0 = mngr_->addEntity(ecs::_grp_CHARACTERS);
-	 x = WbTransform->getPosition().getX()+2150;
-	 y = WbTransform->getPosition().getY();
-	 scale = 1.0f;
-	auto boxPh0 = box0->addComponent<PhysicsComponent>();
-	boxPh0->setGravity(false);
-	box0->addComponent<Transform>(x, y, 110 * scale, 110 * scale);
-	box0->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
-	box0->addComponent<Pivot>(waterBoss,0);
-
-	
+	/*
 	scale = 1.0f;
 	auto waterObj = mngr_->addEntity(ecs::_grp_GROUND);
-	auto watObjPh = waterObj->addComponent<PhysicsComponent>();
-	watObjPh->setGravity(false);
 	waterObj->addComponent<Transform>(x-1000, y+200, 100 * scale*3, 100 * scale);
 	waterObj->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
 	waterObj->addComponent<Destruction>(waterBoss);
-
-
-
-
+	*/
 }
 
 PlayState::~PlayState() {

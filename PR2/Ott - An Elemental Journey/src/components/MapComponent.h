@@ -36,6 +36,7 @@ private:
 	std::vector<std::vector<Object>> vectorObjects;
 
 	std::unordered_map<std::string, std::vector<SDL_Rect>> ground;
+	std::unordered_map<std::string, std::vector<std::pair<bool, SDL_Rect>>> destructible;
 
 	std::vector<std::vector<Entity*>> interact;
 
@@ -90,6 +91,8 @@ public:
 	inline int getCurrentRoom() { return currentRoom; }
 	inline void setCurrentRoom(int newRoom) { currentRoom = newRoom; }
 	inline float getCurrentRoomScale() { return vectorTiles[currentRoom].first; }
+
+	inline void destroyTile(std::string room, int index) { destructible[room][index].first = false; }
 
 	void changeRoom(std::string newRoom, Vector2D newPos, bool verticalTrigger = false);
 

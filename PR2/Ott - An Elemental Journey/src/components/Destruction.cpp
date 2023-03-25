@@ -10,6 +10,7 @@ void Destruction::update() {
 	
 	SDL_Rect intersection;
 	if (SDL_IntersectRect(&colliderBoss, &colliderObject, &intersection)) {
+		map->destroyTile(room, index);
 		ent_->setAlive(false);
 	}
 }
