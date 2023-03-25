@@ -44,7 +44,7 @@ private:
 	float horizontalSpeed = 0;
 	int attackTimer, chargedAttackTime = 1;
 	bool attack = false;
-	bool earth = false, water = false, fire = false;
+	bool earth = false, water = true, fire = false;
 };
 
 

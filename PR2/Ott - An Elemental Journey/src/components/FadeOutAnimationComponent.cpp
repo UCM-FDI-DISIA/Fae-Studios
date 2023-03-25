@@ -42,6 +42,7 @@ void FadeOutAnimationComponent::startFadeIn() {
 		for (auto it : enemies_[map_->getCurrentRoom()]) {
 			it->setActive(false);
 		}
+		map_->WaterSetActive(false);
 		auto interact = map_->getInteract();
 		for (int i = 0; i < interact.size(); ++i) {
 			for (auto ot : interact[i]) {
@@ -57,6 +58,7 @@ void FadeOutAnimationComponent::startFadeIn() {
 		for (auto it : enemies_[newMapRoom]) {
 			it->setActive(true);
 		}
+		map_->WaterSetActive(true);
 	}
 	else {
 		static_cast<PlayState*>(stateMachine().currentState())->endRest();

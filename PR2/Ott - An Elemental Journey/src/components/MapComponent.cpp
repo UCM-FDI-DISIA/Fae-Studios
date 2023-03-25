@@ -95,6 +95,7 @@ MapComponent::MapComponent(Entity* fadeOut, PlayState* game) : fadeOut(fadeOut),
         vectorObjects.push_back({});
         vectorTiles.push_back({});
         interact.push_back({});
+        waterObjects.push_back({});
     }
 
     tilemap = &sdlutils().images().at(sdlutils().levels().at(currentLevel).tileset);
@@ -152,6 +153,13 @@ void MapComponent::update() {
     }
 }
 
+void MapComponent::WaterSetActive(bool c)
+{
+    for (auto ent : waterObjects[currentRoom]) {
+        ent->setActive(true);
+    }
+}
+
 void MapComponent::changeRoom(std::string newRoom, Vector2D newPos, bool verticalTrigger) {
     // std::stoi -> String TO Int
     anim_->startFadeOut(newPos, std::stoi(newRoom), verticalTrigger);
@@ -189,6 +197,10 @@ void MapComponent::loadMap(std::string path) {
                 }
                 else if (name == "Ott") {
                     playerPos = objects[0];
+                }
+                else if (name == "Agua")
+                {
+                    vectorObjects[WATER_VECTOR_POS]=objects;
                 }
             }
             #pragma endregion
@@ -241,6 +253,14 @@ void MapComponent::loadMap(std::string path) {
                 constructors::DestructibleTile(mngr_, rect.x, rect.y, rect.w, obj.getName(), index, this);
             }
             else ground[obj.getName()].push_back(rect);
+        }
+        for (auto obj : vectorObjects[WATER_VECTOR_POS]) {
+            SDL_Rect rect = getSDLRect(obj.getAABB());
+
+            Entity* waterW= constructors::Water(mngr_, rect.x, rect.y, rect.w, rect.h);
+            std::cout << obj.getUID() << std::endl;
+            waterObjects[std::stoi(obj.getName())].push_back(waterW);
+            WaterSetActive(true);
         }
 
         std::unordered_map<std::string, std::pair<SDL_Rect, std::string>> triggerInfo;

@@ -183,7 +183,8 @@ void PlayState::checkCollisions(std::list<Entity*> entities) {
 				}
 				else if (!physics->isGrounded()) {
 					//cout << "ceiling touched" << endl;
-					if (!(physics->getWater()) || (physics->getWater() && health->getElement() == ecs::Water))
+					//en principio ahora que está bien parametrizado, podemos conservar el rebote con el techo en todos los casos
+					//if (!(physics->getWater()) || (physics->getWater() && health->getElement() == ecs::Water))
 					{
 						colVector = Vector2D(colVector.getX(), 1);
 						physics->setVerticalSpeed(1);

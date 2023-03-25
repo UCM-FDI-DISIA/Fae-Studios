@@ -39,6 +39,8 @@ private:
 	std::unordered_map<std::string, std::vector<std::pair<bool, SDL_Rect>>> destructible;
 
 	std::vector<std::vector<Entity*>> interact;
+	//agua
+	std::vector<std::vector<Entity*>> waterObjects;
 
 	// En este mapa se guarda:
 	// string -> n�mero de sala
@@ -62,6 +64,7 @@ private:
 	const int COLLISIONS_VECTOR_POS = 2;
 	const int TRIGGERS_VECTOR_POS = 3;
 	const int ENEMIES_VECTOR_POS = 4;
+	const int WATER_VECTOR_POS = 5;
 
 	int realTileSize = 32;
 	int usedTileSize = 50;
@@ -80,6 +83,7 @@ public:
 
 	// cambio de mapa
 	void changeMap();
+	void WaterSetActive(bool c);
 
 	void playFadeOutAnimation() { anim_->startFadeOut(); }
 

@@ -356,6 +356,12 @@ namespace constructors {
 		return e;
 		//bgrd->addComponent<Image>(game->getTexture("level1bg", PLAY_STATE));
 	}
+	static inline Entity* Water(Manager* mngr_, int x, int y, int w, int h)
+	{
+		Entity* wObject = mngr_->addEntity(ecs::_grp_WATER);
+		wObject->addComponent<Transform>(x, y, w, h);
+		return wObject;
+	}
 
 	/*static inline void vine(Manager* mngr_, Vector2D position, int width, int height, Texture* t) {
 		auto vine = mngr_->addEntity(ecs::_grp_VINE);
