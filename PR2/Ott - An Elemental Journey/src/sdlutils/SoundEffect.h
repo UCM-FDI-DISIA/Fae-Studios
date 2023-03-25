@@ -69,7 +69,7 @@ public:
 
 	inline static int setChannelVolume(int volume, int channel = -1) {
 		_CHECK_CHANNEL_(channel);
-		int v = (int)convertVolumeToSDLMixerValue(volume);
+		float v = convertVolumeToSDLMixerValue(volume);
 		assert(v >= 0 && v <= 128);
 
 		volumesOfChannels[channel] = v;

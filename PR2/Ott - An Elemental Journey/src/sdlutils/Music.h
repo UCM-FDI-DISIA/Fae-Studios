@@ -4,6 +4,7 @@
 
 #include <string>
 #include <SDL_mixer.h>
+#include <assert.h>
 
 class Music {
 public:
@@ -40,8 +41,14 @@ public:
 	}
 
 	inline static int setMusicVolume(int volume) {
-		assert(volume >= 0 && volume <= 128);
-		return Mix_VolumeMusic(volume);
+		float v = convertVolumeToSDLMixerValue(volume);
+		assert(v >= 0 && v <= 128);
+		vol = v;
+		return Mix_VolumeMusic(v);
+	}
+
+	inline static int getMusicVolume() {
+		return convertSDLMixerValueToVolume(vol);
 	}
 
 	inline static void haltMusic() {
@@ -56,8 +63,17 @@ public:
 		Mix_ResumeMusic();
 	}
 
+	inline static float convertVolumeToSDLMixerValue(int volume) {
+		return ((SDL_MIX_MAXVOLUME * volume) / 100);
+	}
+
+	inline static float convertSDLMixerValueToVolume(int SDLVolume) {
+		return ((SDLVolume * 100) / SDL_MIX_MAXVOLUME);
+	}
+
 
 private:
+	static int vol;
 	Mix_Music *music_;
 };
 
