@@ -214,7 +214,7 @@ void MapComponent::loadMap(std::string path) {
                 int i = 0;
                 for (auto salas : vectorObjects[ROOM_VECTOR_POS]) {
                     int o = 0;
-                    mapKeys[i] = salas.getName()[0];
+                    mapKeys[i] = salas.getName();
                     auto rect = salas.getAABB();
                     SDL_Rect sala = { (int)(rect.left * tileScale()), (int)(rect.top* tileScale()), (int)(rect.width * tileScale()), (int)(rect.height * tileScale()) };
                     for (auto tile : tiles) {

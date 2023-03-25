@@ -20,7 +20,7 @@ class PlayState;
 class MapState : public GameState
 {
 private:
-    
+    bool exit = false;
 public:
     /// Constructora del estado de juego
     MapState(PlayState* ps);
