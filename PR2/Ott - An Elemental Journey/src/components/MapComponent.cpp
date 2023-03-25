@@ -7,7 +7,7 @@
 #include "../states/GameStateMachine.h"
 #include "../game/Constructors.h"
 
-const std::string currentLevel = "level1_1";
+const std::string currentLevel = "level1_0";
 
 std::vector<std::string> strSplit(std::string s, char c) {
 
@@ -86,7 +86,6 @@ void MapComponent::generateEnemies() {
     for (auto it : enemies_[currentRoom]) {
         it->setActive(true);
     }
-
 }
 
 MapComponent::MapComponent(Entity* fadeOut, PlayState* game) : fadeOut(fadeOut), game(game) {
