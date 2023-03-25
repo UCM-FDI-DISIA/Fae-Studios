@@ -19,6 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\components\Destruction.cpp" />
+    <ClCompile Include="src\components\Pivot.cpp" />
+    <ClCompile Include="src\components\Acceleration.cpp" />
     <ClCompile Include="src\components\EarthBossManager.cpp" />
     <ClCompile Include="src\components\ElementObject.cpp" />
     <ClCompile Include="src\components\EnterBossRoom.cpp" />
@@ -73,6 +76,12 @@
     <ClCompile Include="src\states\PlayState.cpp" />
     <ClCompile Include="src\utils\Collisions.cpp" />
     <ClCompile Include="src\utils\Vector2D.cpp" />
+    <ClCompile Include="src\components\WaterBossAnimationComponent.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\components\Destruction.h" />
+    <ClInclude Include="src\components\Pivot.h" />
+    <ClInclude Include="src\components\Acceleration.h" />
     <ClCompile Include="src\components\VineManager.cpp" />
     <ClCompile Include="src\components\Trigger.cpp" />
   </ItemGroup>
@@ -155,6 +164,7 @@
     <ClInclude Include="src\utils\mpl.h" />
     <ClInclude Include="src\utils\Singleton.h" />
     <ClInclude Include="src\utils\Vector2D.h" />
+    <ClInclude Include="src\components\WaterBossAnimationComponent.h" />
     <ClInclude Include="src\components\VineManager.h" />
     <ClInclude Include="src\components\Trigger.h" />
   </ItemGroup>

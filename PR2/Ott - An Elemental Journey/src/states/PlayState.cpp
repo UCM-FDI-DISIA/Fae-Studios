@@ -17,6 +17,13 @@
 #include "../components/GrowVine.h"
 #include "../components/VineManager.h"
 #include "../game/ecs.h"
+#include "../components/Acceleration.h"
+#include "../components/Pivot.h"
+#include "../components/Health.h"
+#include "../components/EnemyContactDamage.h"
+#include "../components/Destruction.h"
+#include "../components/WaterBossAnimationComponent.h"
+
 #include "../components/FadeTransitionComponent.h"
 #include "menus/PauseMenuState.h"
 #include "../components/ElementObject.h"
@@ -58,11 +65,35 @@ PlayState::PlayState() : GameState(ecs::_state_PLAY) {
 	*/
 	// COMENTO A LOS ENEMIGOS PORQUE ME ESTÁN DANDO POR CULO UN RATO CHAU BESOS
 
-	constructors::eSlime(mngr_, "fireSlime", 800, 2100, 1.0f, ecs::Fire);
+
+	//// OBJETOS QUE DESTRUYE BOSS AGUA
+	//x = 600;
+	//y = 1300;
+	//scale = 1.0f;
+	//auto waterObj = mngr_->addEntity(ecs::_grp_GROUND);
+	//auto watObjPh = waterObj->addComponent<PhysicsComponent>();
+	//watObjPh->setGravity(false);
+	//waterObj->addComponent<Transform>(x, y, 100 * scale, 100 * scale);
+	//waterObj->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
+	//waterObj->addComponent<Destruction>(waterBoss);
+
+	//constructors::eSlime(mngr_, "fireSlime", 600, 1100, 1.0f);
+	//constructors::eMelee(mngr_, "waterBug", 2400, 1000, 1.0f);
+	//constructors::eRanged(mngr_, "earthMushroom", 1700, 1000, 1.0f);
+	//constructors::map(mngr_);
+	//constructors::eSlime(mngr_, "fireSlime", 800, 2100, 1.0f, ecs::Fire);
 	// constructors::eMelee(mngr_, "waterBug", 2400, 2000, 1.0f, ecs::Water);
 	// constructors::eRanged(mngr_, "earthMushroom", 1700, 2000, 1.0f, ecs::Earth);
 	map_ = constructors::map(mngr_, this)->getComponent<MapComponent>();
 	initialEnemies = enemies;
+
+	/*
+	scale = 1.0f;
+	auto waterObj = mngr_->addEntity(ecs::_grp_GROUND);
+	waterObj->addComponent<Transform>(x-1000, y+200, 100 * scale*3, 100 * scale);
+	waterObj->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
+	waterObj->addComponent<Destruction>(waterBoss);
+	*/
 }
 
 PlayState::~PlayState() {

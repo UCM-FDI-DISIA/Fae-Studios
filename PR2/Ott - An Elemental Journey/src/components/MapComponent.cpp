@@ -7,7 +7,7 @@
 #include "../states/GameStateMachine.h"
 #include "../game/Constructors.h"
 
-const std::string currentLevel = "level1";
+const std::string currentLevel = "waterBossMap";
 
 std::vector<std::string> strSplit(std::string s, char c) {
 
@@ -64,6 +64,14 @@ void MapComponent::generateEnemies() {
         else if (it.getClass() == "Slime") {
             Entity* enemie = constructors::eSlime(mngr_, path + "Slime", x_ * scale * roomScale, y_ * scale * roomScale, roomScale, elem);
             game->addEnemy(enemie, roomNum);
+        }
+        else if (it.getClass() == "WaterBoss") {
+            
+            auto waterBoss = constructors::WaterBoss(mngr_, x_ * scale * roomScale, y_ * scale * roomScale, 300 * scale * roomScale, 300 * scale * roomScale);
+
+            for (auto it : mngr_->getEntities(ecs::_grp_GROUND)) {
+                it->getComponent<Destruction>()->setBoss(waterBoss);
+            }
         }
     }
 
@@ -218,6 +226,7 @@ void MapComponent::loadMap(std::string path) {
             #pragma endregion
         }
 
+        // COLISIONES
         for (auto obj : vectorObjects[COLLISIONS_VECTOR_POS]) {
             SDL_Rect rect = getSDLRect(obj.getAABB());
 
@@ -226,7 +235,12 @@ void MapComponent::loadMap(std::string path) {
             rect.y *= roomScale;
             rect.w *= roomScale;
             rect.h *= roomScale;
-            ground[obj.getName()].push_back(rect);
+            if (obj.getClass() == "Destructible") {
+                destructible[obj.getName()].push_back(std::make_pair(true, rect));
+                int index = destructible[obj.getName()].size() - 1;
+                constructors::DestructibleTile(mngr_, rect.x, rect.y, rect.w, obj.getName(), index, this);
+            }
+            else ground[obj.getName()].push_back(rect);
         }
 
         std::unordered_map<std::string, std::pair<SDL_Rect, std::string>> triggerInfo;
@@ -361,6 +375,14 @@ std::vector<std::pair<SDL_Rect, SDL_Rect>> MapComponent::checkCollisions(const S
         SDL_Rect result;
         if (SDL_IntersectRect(&playerRect, &it, &result)) {
             rects.push_back(std::make_pair(result, it));
+        }
+    }
+    for (auto it : destructible[std::to_string(currentRoom)]) {
+        if (it.first) {
+            SDL_Rect result;
+            if (SDL_IntersectRect(&playerRect, &it.second, &result)) {
+                rects.push_back(std::make_pair(result, it.second));
+            }
         }
     }
 

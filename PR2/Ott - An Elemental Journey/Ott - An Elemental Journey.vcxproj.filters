@@ -51,6 +51,9 @@
     <ClCompile Include="src\components\EnterBossRoom.cpp" />
     <ClCompile Include="src\components\Trigger.cpp" />
     <ClCompile Include="src\components\EnemyContactDamage.cpp" />
+    <ClCompile Include="src\components\Pivot.cpp" />
+    <ClCompile Include="src\components\Acceleration.cpp" />
+    <ClCompile Include="src\components\Destruction.cpp" />
     <ClCompile Include="src\ecs\colliders.cpp" />
     <ClCompile Include="src\components\FadeOutAnimationComponent.cpp" />
     <ClCompile Include="src\components\earthAnimationController.cpp" />
@@ -131,6 +134,9 @@
     <ClInclude Include="src\components\EnterBossRoom.h" />
     <ClInclude Include="src\components\Trigger.h" />
     <ClInclude Include="src\components\EnemyContactDamage.h" />
+    <ClInclude Include="src\components\Pivot.h" />
+    <ClInclude Include="src\components\Acceleration.h" />
+    <ClInclude Include="src\components\Destruction.h" />
     <ClInclude Include="src\ecs\colliders.h" />
     <ClInclude Include="src\components\FadeOutAnimationComponent.h" />
     <ClInclude Include="src\components\earthAnimationController.h" />
