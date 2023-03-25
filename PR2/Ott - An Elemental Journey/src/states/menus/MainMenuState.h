@@ -14,6 +14,7 @@ private:
 
 public:
 	MainMenuState();
+	void resetFade() override;
 	void update() final;
 };
 

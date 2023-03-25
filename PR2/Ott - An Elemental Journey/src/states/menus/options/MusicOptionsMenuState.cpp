@@ -5,6 +5,7 @@
 #include "../../../game/Constructors.h"
 #include "../../../components/FadeTransitionComponent.h"
 #include "../../../sdlutils/SoundEffect.h"
+#include "../../../sdlutils/Music.h"
 
 MusicOptionsMenuState::MusicOptionsMenuState() : MenuState() {
 	Vector2D pos;
@@ -19,7 +20,7 @@ MusicOptionsMenuState::MusicOptionsMenuState() : MenuState() {
 	});
 
 	pos = Vector2D(sdlutils().getWindowDimensions().getX() / 4, 4 * sdlutils().getWindowDimensions().getY() / 9);
-	constructors::slider(mngr_, pos, "Música", 0.0f, 100.0f, 100.0f, [this](int v) {
+	constructors::slider(mngr_, pos, "Música", 0.0f, 100.0f, Music::getMusicVolume(), [this](int v) {
 		musicVolume(v);
 	});
 
@@ -48,7 +49,7 @@ void MusicOptionsMenuState::generalVolume(int value) {
 	//app->changeVolume(0, value);
 }
 void MusicOptionsMenuState::musicVolume(int value) {
-	//app->changeVolume(1, value);
+	Music::setMusicVolume(value);
 }
 void MusicOptionsMenuState::soundsVolume(int value) {
 	//app->changeVolume(2, value);

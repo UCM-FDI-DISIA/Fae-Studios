@@ -39,7 +39,7 @@ MainMenuState::MainMenuState() : MenuState() {
     constructors::button(mngr_, pos, "Jugar", sdlutils().fonts().at("vcr_osd48"), [this]() {
 #ifdef __APPLE__
         sdlutils().soundEffects().at("play_button").play(0, ecs::_channel_UI);
-        fade->getComponent<FadeTransitionComponent>()->setFunction([this]() { GameStateMachine::instance()->changeState(new PlayState());  playStateInit = true; sdlutils().musics().at("main_menu_music").haltMusic();});
+        fade->getComponent<FadeTransitionComponent>()->setFunction([this]() { GameStateMachine::instance()->changeState(new PlayState()); playStateInit = true; sdlutils().musics().at("main_menu_music").haltMusic();});
         fade->getComponent<FadeTransitionComponent>()->revert();
 #endif
 #ifdef __WINDOWS__
@@ -84,4 +84,9 @@ void MainMenuState::update() {
         if(!playStateInit) littleOtt->getComponent<FramedImage>()->setCol(animFrame);
 		animTime = SDL_GetTicks() + MAIN_MENU_OTT_ANIM_TIME;
 	}
+}
+
+void MainMenuState::resetFade() {
+    GameState::resetFade();
+    sdlutils().musics().at("main_menu_music").play();
 }
