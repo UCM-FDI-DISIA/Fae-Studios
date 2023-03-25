@@ -32,8 +32,8 @@ PauseMenuState::PauseMenuState() : MenuState() {
 	pos = Vector2D(sdlutils().getWindowDimensions().getX() / 2, 4 * sdlutils().getWindowDimensions().getY() / 7);
 	constructors::button(mngr_, pos, "Menú principal", sdlutils().fonts().at("vcr_osd16"), [this]() {
 		sdlutils().soundEffects().at("button").play(0, ecs::_channel_UI);
-		//fade->getComponent<FadeTransitionComponent>()->setFunction([]() { GameStateMachine::instance()->changeAllStatesFor(new MainMenuState()); });
-		//fade->getComponent<FadeTransitionComponent>()->revert();
+		fade->getComponent<FadeTransitionComponent>()->setFunction([]() { GameStateMachine::instance()->resetStack(); });
+		fade->getComponent<FadeTransitionComponent>()->revert();
 	});
 
 	pos = Vector2D(sdlutils().getWindowDimensions().getX() / 2, 5 * sdlutils().getWindowDimensions().getY() / 7);

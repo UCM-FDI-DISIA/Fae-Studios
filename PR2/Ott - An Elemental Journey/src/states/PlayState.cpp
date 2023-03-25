@@ -106,9 +106,6 @@ void PlayState::blockKeyboardInputAfterUnfreeze() {
     doNotDetectKeyboardInput = true;
 }
 
-void PlayState::resetFade() {
-}
-
 void PlayState::handleInput() {
     GameState::handleInput();
 	if (doNotDetectKeyboardInput && InputHandler::instance()->allKeysUp()) doNotDetectKeyboardInput = false;

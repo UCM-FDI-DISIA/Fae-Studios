@@ -29,7 +29,7 @@ public:
     /// \param state Estado de juego
 	void changeState(GameState* state);
 
-    void changeAllStatesFor(GameState* state);
+    void resetStack();
 
     /// Devuelve el estado de juego, aprovechando que siempre va a estar, y que va a estar al fondo de la pila
     /// \return Puntero al estado de juego
