@@ -39,6 +39,7 @@ public:
 		default: break;
 		}
 	}
+	inline void killHealth() { actualLife = 0; image->die(); die(); }
 	void saveSactuary(Entity* sanct);
 };
 

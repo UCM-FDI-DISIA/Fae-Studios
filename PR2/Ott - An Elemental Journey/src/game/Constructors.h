@@ -39,6 +39,7 @@
 #include "../components/Pivot.h"
 #include "../components/Acceleration.h"
 #include "../components/WaterBossAnimationComponent.h"
+#include "../components/WaterBossAttack.h"
 #include <string>
 #include <iostream>
 #include <functional>
@@ -296,8 +297,8 @@ namespace constructors {
 		waterBoss->addComponent<FramedImage>(&sdlutils().images().at("water_boss"), 4, 8);
 		waterBoss->addComponent<Acceleration>();
 		waterBoss->addComponent<Health>(6, ecs::Dark, false);
-		waterBoss->addComponent<EnemyContactDamage>();
 		waterBoss->addComponent<WaterBossAnimationComponent>(anims::WATERBOSS_ANIM);
+		waterBoss->addComponent<WaterBossAttack>();
 		waterBoss->reinitCmpts();
 
 		auto box0 = mngr_->addEntity(ecs::_grp_CHARACTERS);

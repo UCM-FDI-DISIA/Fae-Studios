@@ -77,6 +77,7 @@
     <ClCompile Include="src\utils\Collisions.cpp" />
     <ClCompile Include="src\utils\Vector2D.cpp" />
     <ClCompile Include="src\components\WaterBossAnimationComponent.cpp" />
+    <ClCompile Include="src\components\WaterBossAttack.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\components\Destruction.h" />
@@ -84,6 +85,7 @@
     <ClInclude Include="src\components\Acceleration.h" />
     <ClCompile Include="src\components\VineManager.cpp" />
     <ClCompile Include="src\components\Trigger.cpp" />
+    <ClInclude Include="src\components\WaterBossAttack.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\components\EarthBossManager.h" />
