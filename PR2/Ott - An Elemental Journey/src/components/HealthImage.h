@@ -5,9 +5,9 @@
 #pragma once
 
 // COLUMNAS DE LA TEXTURA
-const int FULL_HEART = 1; // corazón lleno
-const int WEAK_HEART = 12; // corazón débil
-const int EMPTY_HEART = 4; // corazón vacío
+const int FULL_HEART = 0; // corazón lleno
+const int WEAK_HEART = 2; // corazón débil
+const int EMPTY_HEART = 1; // corazón vacío
 
 class HealthImage : public Component
 {
@@ -28,10 +28,16 @@ public:
 	void damage(int num); // dañar X puntos
 	inline void increaseLife() { numHearts++; heartState.push_back(FULL_HEART); reset(); }
 	constexpr static ecs::cmpId_type id = ecs::_HEALTH_IMAGE; // ID
+	void changeElement(ecs::elements newElem) {
+		if (newElem == ecs::Light) row = 0;
+		else if (newElem == ecs::Earth) row = 1;
+		else if (newElem == ecs::Water) row = 2;
+		else if (newElem == ecs::Fire) row = 3;
+	};
 private:
 	Texture* tex_; // textura usada
 	int col = 0; // columna
-	const int row = 0; // fila constante porque nunca será distinta de 0 (al menos con esta texture)
+	int row = 0; 
 	const float OFFSET_X = 1.25f; // offset de separación entre corazones
 	int numHearts, lastFullHeart; // número de corazones y posición del último corazón no vacío
 	std::vector<int> heartState; // vector con el estado de cada corazón
