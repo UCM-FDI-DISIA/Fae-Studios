@@ -329,6 +329,12 @@
 			"file": "../Ott - An Elemental Journey/resources/images/tests/Boss_Agua.png",
 			"rows": 4,
 			"cols": 8
+		},
+		{
+			"id": "lamps",
+			"file": "../Ott - An Elemental Journey/resources/images/ui/lamps.png",
+			"rows": 4,
+			"cols": 3
 		}
 	],
 
