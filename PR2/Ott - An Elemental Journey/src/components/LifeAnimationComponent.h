@@ -8,6 +8,7 @@ private:
 	void endAnim();
 	bool forward = true;
 	int timer_ = 0;
+	int col = 0;
 	FramedImage* image_;
 	inline int getTPerFrame() { return anims::animations[currentAnimation][0].tPerFrame; }
 	inline int getNFrames() { return anims::animations[currentAnimation][0].numFrames; }
