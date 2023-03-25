@@ -46,21 +46,13 @@ MapComponent::MapComponent(Entity* fadeOut, PlayState* game) : fadeOut(fadeOut),
     //{
     //    //cout << "Failed loading map" << std::endl;
     //}
-    vectorObjects.reserve(5);
-    vectorObjects.push_back({});
-    vectorObjects.push_back({});
-    vectorObjects.push_back({});
-    vectorObjects.push_back({});
-    vectorObjects.push_back({});
-
+    int n = 20;
+    vectorObjects.reserve(n);
     vectorTiles.reserve(6);
-    vectorTiles.push_back({});
-    vectorTiles.push_back({});
-    vectorTiles.push_back({});
-    vectorTiles.push_back({});
-    vectorTiles.push_back({});
-    vectorTiles.push_back({});
-    vectorTiles.push_back({});
+    for (int i = 0; i < n; ++i) {
+        vectorObjects.push_back({});
+        vectorTiles.push_back({});
+    }
 
     tilemap = &sdlutils().images().at(sdlutils().levels().at("level1").tileset);
 }
@@ -84,22 +76,27 @@ void MapComponent::update() {
 
                 Vector2D newPos;
                 SDL_Rect newRect = trigger.second.second;
-                if (newRect.w > newRect.h) { // TRIGGER VERTICAL
-                    if (result.y < newRect.y) { // por arriba
+                float oldScale = playerTr_->getScale();
+                float newScale = vectorTiles[std::stoi(trigger.first)].first;
+                playerRect.w = (playerRect.w / oldScale) * newScale;
+                playerRect.h = (playerRect.h / oldScale) * newScale;
+
+                if (rect.w > rect.h) { // TRIGGER VERTICAL
+                    if (result.y < rect.y) { // por arriba
                         newPos = Vector2D(playerRect.x,
                             newRect.y + newRect.h - playerRect.h);
                     }
                     else { // por abajo
-                        newPos = Vector2D(newRect.x + newRect.w + playerRect.w,
-                            newRect.y - newRect.h - playerRect.h*1.5);
+                        newPos = Vector2D(newRect.x,
+                            newRect.y - newRect.h - playerRect.h);
                     }
                 }
                 else { // TRIGGER HORIZONTAL
-                    if (result.x > newRect.x + newRect.w / 2) {
+                    if (result.x > rect.x + rect.w / 2) { // CHOCAS DESDE LA DERECHA
                         newPos = Vector2D(newRect.x - newRect.w - playerRect.w,
                             newRect.y + newRect.h - playerRect.h);
                     }
-                    else {
+                    else { // CHOCAS DESDE LA IZQUIERDA
                         newPos = Vector2D(newRect.x + newRect.w + playerRect.w,
                             newRect.y + newRect.h - playerRect.h);
                     }
@@ -121,6 +118,7 @@ void MapComponent::loadMap(std::string path) {
     {
         tmx::Object playerPos;
         const auto& layers2 = map.getLayers();
+        std::unordered_map<std::string, std::pair<Vector2D,int>> lamps;
         //cout << "Map has " << layers2.size() << " layers" << endl;
         for (const auto& layer : layers2)
         {
@@ -208,7 +206,30 @@ void MapComponent::loadMap(std::string path) {
             ground[obj.getName()].push_back(rect);
         }
 
+        std::unordered_map<std::string, std::pair<SDL_Rect, std::string>> triggerInfo;
         for (auto trigger : vectorObjects[TRIGGERS_VECTOR_POS]) {
+
+            auto nameSplit = strSplit(trigger.getName(), '_');
+            std::string roomNum = nameSplit[0];
+            float roomScale = vectorTiles[std::stoi(roomNum)].first;
+            SDL_Rect trRect = getSDLRect(trigger.getAABB());
+            trRect.x *= roomScale;
+            trRect.y *= roomScale;
+            trRect.w *= roomScale;
+            trRect.h *= roomScale;
+            std::string triggerClass = trigger.getClass();
+            auto at = triggerInfo.find(triggerClass);
+
+            if (at != triggerInfo.end()) {
+                std::string room1 = (*at).second.second;
+                std::string room2 = roomNum;
+                triggers[room1].push_back(std::make_pair(room2, std::make_pair((*at).second.first, trRect)));
+                triggers[room2].push_back(std::make_pair(room1, std::make_pair(trRect, (*at).second.first)));
+            }
+            else {
+                triggerInfo.insert({triggerClass, std::make_pair(trRect, roomNum)});
+            }
+            /*
             SDL_Rect rect1 = getSDLRect(trigger.getAABB());
             SDL_Rect rect2 = getSDLRect(trigger.getAABB());
 
@@ -229,6 +250,7 @@ void MapComponent::loadMap(std::string path) {
             // guardamos los triggers en las dos salas, ya que son bidireccionales
             triggers[trigger.getName()].push_back(std::make_pair(trigger.getClass(),std::make_pair(rect1,rect2)));
             triggers[trigger.getClass()].push_back(std::make_pair(trigger.getName(),std::make_pair(rect2,rect1)));
+            */
         }
 
         float scale = tileScale();
@@ -238,35 +260,39 @@ void MapComponent::loadMap(std::string path) {
             float y_ = ot.getAABB().top;
             float w_ = ot.getAABB().width;
             float h_ = ot.getAABB().height;
-            /*
-            elementsInfo::elements elem;
-            std::string path = "";
-            if (ot.getName() == "1") { elem = elementsInfo::Earth; path = "earth"; }
-            else if (ot.getName() == "2") { elem = elementsInfo::Water; path = "water"; }
-            else if (ot.getName() == "3") { elem = elementsInfo::Fire; path = "fire"; }
-            else if (ot.getName() == "4") { elem = elementsInfo::Dark; path = "dark"; }
-            */
+
+            auto classSplit = strSplit(ot.getClass(), '_');
             if (ot.getClass() == "Grass") {
                 constructors::grass(mngr_, Vector2D(x_ * scale, (y_ * scale - sdlutils().images().at("grass").height()) + h_ * scale),
                     w_ * scale, h_ * scale, Vector2D(x_ * scale,
                         (y_ * scale - sdlutils().images().at("grass").height()) + h_ * scale + 100),
                     Vector2D(x_ * scale, (y_ * scale - sdlutils().images().at("grass").height())));
             }
-            else if (ot.getClass() == "Lamp") {
+            else if (classSplit[0] == "Lamp") {
                 //createLamp(Vector2D(x_ * scale, y_ * scale - game->getTexture("lamp", PLAY_STATE)->getH() * 2));
-                /*TP_Lamp* l1 = new TP_Lamp(Vector2D(x_ * scale, y_ * scale - app->getTexture("lamp", PLAY_STATE)->getH() * 2), app->getTexture("lamp", PLAY_STATE), this, Scale(2, 2), LAMP);
 
-                string lampName = ot.getName();
+                std::string lampName = ot.getName();
+                int roomNum = std::stoi(classSplit[1]);
+                float roomScale2 = vectorTiles[roomNum].first;
+
                 auto at = lamps.find(lampName);
                 if (at != lamps.end()) {
-                    l1->SetLamp((*at).second);
-                    (*at).second->SetLamp(l1);
+                    auto pos = (*at).second.first;
+                    auto t_ = &sdlutils().images().at("lamp");
+                    auto fw = t_->getFrameWidth() * 2.5;
+                    auto fh = t_->getFrameHeight() * 2.5;
+                    float roomScale1 = vectorTiles[(*at).second.second].first;
+                    auto hOffset = 15;
+                    int w1 = fw * roomScale1;
+                    int h1 = fh * roomScale1;
+                    int w2 = fw * roomScale2;
+                    int h2 = fh * roomScale2;
+                    constructors::lamp(mngr_, pos.getX(), pos.getY() + hOffset * roomScale1, w1, h1, (*at).second.second,
+                        x_* scale* roomScale2, y_* scale* roomScale2 + hOffset * roomScale2, w2, h2, roomNum);
                 }
                 else {
-                    lamps.insert({ ot.getName(), l1 });
+                    lamps.insert({ lampName, std::make_pair(Vector2D(x_*scale*roomScale2,y_*scale*roomScale2), roomNum)});
                 }
-
-                gameObjects.push_back(l1);*/
             }
             else if (ot.getClass() == "Sanctuary") {
                 constructors::sanctuary(mngr_, Vector2D(x_ * scale - (&sdlutils().images().at("sanctuary"))->width() * 1.5, y_ * scale - (&sdlutils().images().at("sanctuary"))->height() * 3.5));

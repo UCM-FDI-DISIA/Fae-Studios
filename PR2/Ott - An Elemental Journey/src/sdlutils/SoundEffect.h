@@ -5,6 +5,7 @@
 #include <string>
 #include <SDL_mixer.h>
 #include <cassert>
+#include <unordered_map>
 
 #define _CHECK_CHANNEL_(channel) \
 	assert(channel >= -1 && channel < static_cast<int>(channels_));
@@ -68,13 +69,29 @@ public:
 
 	inline static int setChannelVolume(int volume, int channel = -1) {
 		_CHECK_CHANNEL_(channel);
-		assert(volume >= 0 && volume <= 128);
-		return Mix_Volume(channel, volume);
+		int v = (int)convertVolumeToSDLMixerValue(volume);
+		assert(v >= 0 && v <= 128);
+
+		volumesOfChannels[channel] = v;
+		return Mix_Volume(channel, v);
+	}
+
+	inline static float getChannelVolume(int channel = -1) {
+		_CHECK_CHANNEL_(channel);
+		return convertSDLMixerValueToVolume(volumesOfChannels[channel]);
 	}
 
 	inline static int setNumberofChannels(int n) {
 		assert(n > 0);
 		return channels_ = Mix_AllocateChannels(n);
+	}
+
+	inline static float convertVolumeToSDLMixerValue(int volume) {
+		return ((SDL_MIX_MAXVOLUME * volume) / 100);
+	}
+
+	inline static float convertSDLMixerValueToVolume(int SDLVolume) {
+		return ((SDLVolume * 100) / SDL_MIX_MAXVOLUME);
 	}
 
 private:
@@ -85,5 +102,7 @@ private:
 
 	Mix_Chunk *chunk_;
 	static int channels_; // initialized in cpp
+
+	static std::unordered_map<int, int> volumesOfChannels;
 };
 

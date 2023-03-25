@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="192" height="105" tilewidth="32" tileheight="32" infinite="0" nextlayerid="10" nextobjectid="154">
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="192" height="105" tilewidth="32" tileheight="32" infinite="0" nextlayerid="10" nextobjectid="177">
  <tileset firstgid="1" name="EarthMapTileset" tilewidth="32" tileheight="32" tilecount="680" columns="20">
   <image source="../images/levels/tilesetlevel1.png" width="640" height="1088"/>
  </tileset>
@@ -125,7 +125,7 @@
   <object id="4" name="1" class="Ground" x="2578" y="542.667" width="124" height="691.333"/>
   <object id="5" name="0" class="Ground" x="1" y="1229" width="254" height="303"/>
   <object id="6" name="0" class="Ground" x="1" y="1534" width="850" height="223"/>
-  <object id="8" name="0" class="Ground" x="848" y="1408" width="211.667" height="397"/>
+  <object id="8" name="0" class="Ground" x="848" y="1408" width="301.667" height="397"/>
   <object id="9" name="0" class="Ground" x="705.5" y="1472.5" width="91.5" height="10"/>
   <object id="10" name="1" class="Ground" x="1191.5" y="1438" width="306" height="212"/>
   <object id="12" name="1" class="Ground" x="1494" y="1408" width="466" height="370"/>
@@ -156,47 +156,55 @@
   <object id="96" name="3" class="Ground" x="1747" y="2684.33" width="32.4973" height="179.333"/>
   <object id="97" name="3" class="Ground" x="1713.25" y="2715.83" width="32.4973" height="146.833"/>
   <object id="98" name="3" class="Ground" x="1681.25" y="2747.58" width="32.4973" height="115.833"/>
-  <object id="99" name="4" class="Ground" x="1314.42" y="2844.91" width="59.3303" height="11.6663"/>
+  <object id="99" name="5" class="Ground" x="1314.42" y="2844.91" width="59.3303" height="11.6663"/>
   <object id="100" name="3" class="Ground" x="1648.25" y="2783.58" width="32.4973" height="79.833"/>
   <object id="117" name="4" class="Ground" x="1062.67" y="2276.67" width="164.664" height="72.6663"/>
   <object id="118" name="4" class="Ground" x="1329" y="2275.67" width="164.664" height="72.6663"/>
   <object id="119" name="4" class="Ground" x="1022.67" y="1897.33" width="46.664" height="1085.33"/>
   <object id="126" name="3" class="Ground" x="1538.5" y="2498.5" width="201.333" height="68.5"/>
   <object id="136" name="3" class="Ground" x="1537" y="1794" width="137" height="166"/>
-  <object id="137" name="4" class="Ground" x="1054.67" y="2976" width="993.333" height="96"/>
+  <object id="137" name="5" class="Ground" x="1054.67" y="2976" width="993.333" height="96"/>
   <object id="139" name="4" class="Ground" x="1065.33" y="1841.33" width="425.333" height="64"/>
   <object id="141" name="3" class="Ground" x="1743.75" y="2495.7" width="31.189" height="41.4189" rotation="0.947117"/>
   <object id="142" name="3" class="Ground" x="1539" y="2810.83" width="114.997" height="50.333"/>
   <object id="143" name="1" class="Ground" x="1056" y="992" width="1006.78" height="235"/>
-  <object id="144" name="1" class="Ground" x="1056" y="1408" width="131.667" height="397"/>
+  <object id="144" name="1" class="Ground" x="717.333" y="1408" width="470.334" height="333.667"/>
   <object id="145" name="4" class="Ground" x="1491" y="2112" width="37" height="459"/>
-  <object id="146" name="4" class="Ground" x="1492" y="2816" width="43" height="45"/>
+  <object id="146" name="5" class="Ground" x="1492" y="2816" width="43" height="45"/>
   <object id="148" name="4" class="Ground" x="1492" y="1824" width="44" height="139"/>
+  <object id="155" name="2" class="Ground" x="3733.34" y="1381.67" width="872.663" height="48.6667"/>
+  <object id="174" name="5" class="Ground" x="1154.33" y="2454.17" width="272.664" height="11.6663"/>
  </objectgroup>
- <objectgroup id="3" name="Objetos interactuables" visible="0">
-  <object id="27" name="lamp1" class="Lamp" x="992" y="1408" width="32"/>
-  <object id="29" name="lamp1" class="Lamp" x="1760" y="1408" width="32"/>
+ <objectgroup id="3" name="Objetos interactuables">
+  <object id="27" name="lamp1" class="Lamp_0" x="640" y="1523.75" width="32"/>
   <object id="34" class="Grass" x="1893" y="1621"/>
   <object id="54" class="Sanctuary" x="1318" y="1439.5" width="88.5"/>
   <object id="55" class="Ott" x="416" y="1536" width="32"/>
+  <object id="176" name="lamp1" class="Lamp_3" x="1772" y="2044" width="32" height="69.3333"/>
  </objectgroup>
- <objectgroup id="6" name="Salas" visible="0">
-  <object id="61" name="0" class="0.7" x="0" y="913.939" width="1037.33" height="778.061"/>
-  <object id="63" name="1" class="1.2" x="1098" y="598.788" width="1503.45" height="1100.24"/>
-  <object id="73" name="2" class="1.5" x="2660.76" y="881.88" width="1099.64" height="1332.24"/>
-  <object id="74" name="3" class="1" x="1559.85" y="1731.88" width="1054.97" height="1108.24"/>
-  <object id="75" name="4" class="1" x="1031.18" y="1880.55" width="471.64" height="1141.57"/>
+ <objectgroup id="6" name="Salas">
+  <object id="61" name="0" class="1.6" x="0" y="913.939" width="1037.33" height="778.061"/>
+  <object id="63" name="1" class="0.7" x="1052" y="598.788" width="1549.45" height="1100.24"/>
+  <object id="73" name="2" class="1" x="2660.76" y="881.88" width="1841.22" height="1332.24"/>
+  <object id="74" name="3" class="1" x="1559.85" y="1791.88" width="1054.97" height="1048.24"/>
+  <object id="75" name="4" class="1" x="1031.18" y="1880.55" width="471.64" height="425.57"/>
+  <object id="175" name="5" class="1" x="1048.18" y="2336.88" width="471.64" height="665.237"/>
  </objectgroup>
- <objectgroup id="8" name="Enemigos" visible="0">
+ <objectgroup id="8" name="Enemigos">
   <object id="150" name="0_1" class="Mushroom" x="352.667" y="1369.67" width="31.3333" height="155.333"/>
   <object id="151" name="1_2" class="Melee" x="1566.33" y="1312.17" width="31.3333" height="86.6667"/>
   <object id="152" name="2_1" class="Slime" x="3147.97" y="1922.98" width="31.3333" height="173.333"/>
  </objectgroup>
- <objectgroup id="7" name="Triggers" visible="0">
-  <object id="70" name="1" class="0" x="1050" y="1218" width="34" height="190"/>
-  <object id="77" name="2" class="1" x="2615.33" y="1210.3" width="34" height="235"/>
-  <object id="78" name="3" class="2" x="2624.33" y="1805.84" width="27.3333" height="276.334"/>
-  <object id="79" name="4" class="3" x="1517" y="1949.17" width="27.3333" height="175.667"/>
-  <object id="81" name="4" class="3" x="1511.66" y="2574.83" width="27.3333" height="227"/>
+ <objectgroup id="7" name="Triggers">
+  <object id="163" name="0_1" class="01" x="992" y="1248" width="32" height="160"/>
+  <object id="165" name="1_0" class="01" x="1056" y="1248" width="32" height="160"/>
+  <object id="166" name="1_2" class="12" x="2587.17" y="1244.67" width="32" height="160"/>
+  <object id="167" name="2_1" class="12" x="2643.17" y="1276.67" width="32" height="160"/>
+  <object id="168" name="3_2" class="23" x="2592.5" y="1944" width="32" height="160"/>
+  <object id="169" name="2_3" class="23" x="2646" y="1943.5" width="32" height="160"/>
+  <object id="170" name="4_3" class="34" x="1494.61" y="1967.03" width="28.6106" height="143.053"/>
+  <object id="171" name="3_4" class="34" x="1542.44" y="1966.58" width="28.6106" height="149.72"/>
+  <object id="172" name="4_5" class="45" x="1237.11" y="2286.92" width="87.9439" height="27.053"/>
+  <object id="173" name="5_4" class="45" x="1235.44" y="2321.47" width="89.2773" height="25.72"/>
  </objectgroup>
 </map>

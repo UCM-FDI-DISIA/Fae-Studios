@@ -68,14 +68,9 @@
   "messages" : [],
   
   "sounds" : [
-    { "id" : "bang_large", "file" : "../Ott - An Elemental Journey/resources/sound/bangLarge.wav" },
-    { "id" : "bang_small", "file" : "../Ott - An Elemental Journey/resources/sound/bangSmall.wav" },
-    { "id" : "explosion", "file" : "../Ott - An Elemental Journey/resources/sound/explosion.wav" },
-    { "id" : "explosion1", "file" : "../Ott - An Elemental Journey/resources/sound/explosion1.wav" },
-    { "id" : "fire", "file" : "../Ott - An Elemental Journey/resources/sound/fire.wav" },
-    { "id" : "gunshot", "file" : "../Ott - An Elemental Journey/resources/sound/gunshot.wav" },
-    { "id" : "thrust", "file" : "../Ott - An Elemental Journey/resources/sound/thrust.wav" },
-    { "id" : "thrust1", "file" : "../Ott - An Elemental Journey/resources/sound/thrust1.wav" }
+    { "id" : "play_button", "file" : "../Ott - An Elemental Journey/resources/sound/playbutton.wav" },
+	{ "id" : "button", "file" : "../Ott - An Elemental Journey/resources/sound/button.wav" },
+	{ "id" : "button_back", "file" : "../Ott - An Elemental Journey/resources/sound/buttonback.wav" }
   ],
 
 	"musics": [],

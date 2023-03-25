@@ -36,8 +36,8 @@ public:
     inline bool getWater() { return inWater; }
     inline void setFloating(bool value) { floating = value; }
     inline bool getFloating() { return floating; }
-    inline void Stop() { stopped = true; }
-    inline void Resume() { stopped = false; }
+    inline void Stop() { stopped = true; lastSpeed = velocity_; }
+    inline void Resume() { stopped = false; velocity_ = lastSpeed; }
     inline bool isStopped()  { return stopped; }
     inline void saveLastPos(const SDL_Rect& col)
     {
@@ -56,7 +56,7 @@ public:
     //virtual void render();
 private:
     SDL_Rect collider;
-    Vector2D colliderOffset, colliderWH;
+    Vector2D colliderOffset, colliderWH, lastSpeed;
     const int MAX_VERTICAL_SPEED = 8;
     const double X_KNOCKBACK_FORCE = 5;
     double knockbackTimer = 0;
@@ -71,7 +71,7 @@ private:
     colliders::Colliders typeofCollider;
     //jumpforces
     int jumpForce;
-    const int earthJumpForce = -10;
+    const int earthJumpForce = -8;
     const int waterJumpForce = -5;
     const float offset = 0.9;
     //booleanos de agua

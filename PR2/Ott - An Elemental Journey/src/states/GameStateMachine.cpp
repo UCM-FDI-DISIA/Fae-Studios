@@ -24,6 +24,8 @@ void GameStateMachine::popState() {
         delete stateStack.front();
         stateStack.pop_front();
     }
+
+    if(!stateStack.empty()) stateStack.front()->resetFade();
 }
 
 void GameStateMachine::emptyStack() {
