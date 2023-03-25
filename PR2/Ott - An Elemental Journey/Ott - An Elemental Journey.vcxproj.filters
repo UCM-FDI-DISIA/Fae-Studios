@@ -59,6 +59,7 @@
     <ClCompile Include="src\components\earthAnimationController.cpp" />
     <ClCompile Include="src\components\EarthBossManager.cpp" />
     <ClCompile Include="src\components\WaterAnimationController.cpp" />
+    <ClCompile Include="src\components\DamageArea.cpp" />
     <ClCompile Include="src\components\FadeTransitionComponent.cpp" />
     <ClCompile Include="src\components\ElementObject.cpp" />
     <ClCompile Include="src\components\WaterBossAnimationComponent.cpp" />
@@ -154,6 +155,7 @@
     <None Include="resources\config\ott.resources.mac.json" />
     <None Include="resources\config\ott.resources.windows.json" />
     <ClInclude Include="src\components\WaterAnimationController.h" />
+    <ClInclude Include="src\components\DamageArea.h" />
     <ClInclude Include="src\components\FadeTransitionComponent.h" />
   </ItemGroup>
 </Project>

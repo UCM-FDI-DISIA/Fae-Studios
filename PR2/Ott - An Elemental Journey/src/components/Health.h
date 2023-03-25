@@ -41,6 +41,7 @@ public:
 		case 3: elem = ecs::Fire; break;
 		default: break;
 		}
+		image->changeElement(elem);
 	}
 	void saveSactuary(Entity* sanct);
 	inline void addLifeShard() { numShards++; if (numShards > 1 && numShards % 2 == 0) increaseMaxLife(); }

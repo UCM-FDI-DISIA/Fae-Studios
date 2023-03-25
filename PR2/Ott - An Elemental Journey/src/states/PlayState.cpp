@@ -132,7 +132,7 @@ void PlayState::checkCollisions(std::list<Entity*> entities) {
 		Vector2D& colVector = physics->getVelocity();
 
 		auto mov = e->getComponent<EnemyMovement>();
-
+		auto pAttack = e->getComponent<PlayerAttack>();
 		auto grounds = map_->checkCollisions(r1);
 
 		for (std::pair<SDL_Rect, SDL_Rect> gr : grounds) { // WALL COLLISION
@@ -181,7 +181,10 @@ void PlayState::checkCollisions(std::list<Entity*> entities) {
 					}
 				}
 				if (mov != nullptr) mov->ChangeDirection(true, areaColision);
-
+				/*else if (pAttack != nullptr)
+				{
+					physics->saveLastPos(areaColision);
+				}*/
 				++i;
 				break;
 			}

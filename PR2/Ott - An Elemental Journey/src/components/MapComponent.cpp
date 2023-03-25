@@ -7,7 +7,7 @@
 #include "../states/GameStateMachine.h"
 #include "../game/Constructors.h"
 
-const std::string currentLevel = "level1";
+const std::string currentLevel = "level1_1";
 
 std::vector<std::string> strSplit(std::string s, char c) {
 
@@ -38,6 +38,8 @@ void MapComponent::generateEnemies() {
         float h_ = it.getAABB().height;
 
         auto split = strSplit(it.getName(), '_');
+        bool lookingRight = true;
+        if (split[2] == "left") lookingRight = false;
         auto elem = (ecs::elements)std::stoi(split[1]);
         std::string path;
         if (elem == ecs::Earth) {
@@ -54,15 +56,15 @@ void MapComponent::generateEnemies() {
         std::cout << roomNum << std::endl;
 
         if (it.getClass() == "Mushroom") {
-            Entity* enemie = constructors::eRanged(mngr_, path + "Mushroom", x_ * scale * roomScale, y_ * scale * roomScale, roomScale, elem);
+            Entity* enemie = constructors::eRanged(mngr_, path + "Mushroom", x_ * scale * roomScale, y_ * scale * roomScale, roomScale, elem, lookingRight);
             game->addEnemy(enemie, roomNum);
         }
         else if (it.getClass() == "Melee") {
-            Entity* enemie = constructors::eMelee(mngr_, path + "Bug", x_ * scale * roomScale, y_ * scale * roomScale, roomScale, elem);
+            Entity* enemie = constructors::eMelee(mngr_, path + "Bug", x_ * scale * roomScale, y_ * scale * roomScale, roomScale, elem, lookingRight);
             game->addEnemy(enemie, roomNum);
         }
         else if (it.getClass() == "Slime") {
-            Entity* enemie = constructors::eSlime(mngr_, path + "Slime", x_ * scale * roomScale, y_ * scale * roomScale, roomScale, elem);
+            Entity* enemie = constructors::eSlime(mngr_, path + "Slime", x_ * scale * roomScale, y_ * scale * roomScale, roomScale, elem, lookingRight);
             game->addEnemy(enemie, roomNum);
         }
         else if (it.getClass() == "WaterBoss") {
@@ -294,6 +296,7 @@ void MapComponent::loadMap(std::string path) {
                     Vector2D(x_ * scale * roomScale, (y_ * scale - sdlutils().images().at("grass").height()) * roomScale)));
             }
             else if (classSplit[0] == "Element") {
+                std::cout << "READING ELEM FROM MAP" << std::endl;
                 auto roomScale = vectorTiles[std::stoi(classSplit[1])].first;
                 auto elem = constructors::ElementEntity(mngr_, (x_* scale)* roomScale, (y_* scale)* roomScale, (w_* scale)* roomScale, (h_* scale)* roomScale, (ecs::elements)std::stoi(ot.getName()));
                 interact[std::stoi(classSplit[1])].push_back(elem);
