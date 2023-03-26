@@ -86,7 +86,7 @@ void PlayerAttack::update() {
 					sdlutils().soundEffects().at("ott_attack_earth").play(0, ecs::_channel_PLAYER_ATTACK);
 				}
 				break;
-			case ecs::Fire: 
+			case ecs::Fire:
 				if (chargedAttack) {
 					remainingAttacks = 3;
 					lastFireBallTime = SDL_GetTicks() - timeBetweenFireBalls;
@@ -117,7 +117,7 @@ void PlayerAttack::update() {
 					}
 				}
 				sdlutils().soundEffects().at("ott_attack_water").play(0, ecs::_channel_PLAYER_ATTACK);
-				break; 
+				break;
 			}
 			default: {
 				break;
@@ -206,9 +206,9 @@ void PlayerAttack::update() {
 		// Transform
 		auto trAttack = tAttack->getComponent<Transform>();
 
-			moveAttack(trAttack);
-			earthAnimation = tAttack->getComponent<FramedImage>();
-			earthStateAnimation = tAttack->getComponent<earthAnimationController>();
+		moveAttack(trAttack);
+		earthAnimation = tAttack->getComponent<FramedImage>();
+		earthStateAnimation = tAttack->getComponent<earthAnimationController>();
 
 		if (!chargedAttack) {
 			if (!physics->getLookDirection()) earthAnimation->flipTexture(true);
@@ -244,8 +244,10 @@ void PlayerAttack::update() {
 				earthAnimation->setCol(colTrigger - 1);
 				earthStateAnimation->setState(BACK, colTrigger - 1);
 
-				tAttack2->getComponent<FramedImage>()->setCol(colTrigger - 1);
-				tAttack2->getComponent<earthAnimationController>()->setState(BACK, colTrigger - 1);
+				if (chargedAttack) {
+					tAttack2->getComponent<FramedImage>()->setCol(colTrigger - 1);
+					tAttack2->getComponent<earthAnimationController>()->setState(BACK, colTrigger - 1);
+				}
 			}
 
 		}
