@@ -12,11 +12,12 @@ void EnterBossRoom::initComponent() {
 	camera = mngr_->getCamera();
 	player = mngr_->getPlayer();
 	earthBoss = mngr_->getEarthBoss();
-	auto state = static_cast<PlayState*>(stateMachine().currentState());
-	map = state->getMap();
 }
 
 void EnterBossRoom::blockDoors() {
+	auto state = static_cast<PlayState*>(stateMachine().currentState());
+	map = state->getMap();
+
 	// hacer que crezcan dos vines con collider
 	SDL_Rect vine_Rect1 = { bossRoom.x + 30*3, bossRoom.y + bossRoom.h, 30, bossRoom.h };
 	Vector2D finPosVine1 = Vector2D(bossRoom.x +30*3, bossRoom.y);
@@ -26,7 +27,8 @@ void EnterBossRoom::blockDoors() {
 	blockEnter->addComponent<GrowVine>(finPosVine1, 2, -1, "vertical", false);
 	blockEnter->addComponent<EarthBossAttack>();
 	blockEnter->getComponent<GrowVine>()->isGrowing(true);
-	//map->addCollision("6", vine_Rect1);
+	SDL_Rect collision1 = { (bossRoom.x + 30 * 3) - 10, bossRoom.y, 5, bossRoom.h };
+	map->addCollision("6", collision1);
 
 	SDL_Rect vine_Rect2 = { bossRoom.x + (bossRoom.w/2)*1.65, bossRoom.y + bossRoom.h, 30, bossRoom.h };
 	Vector2D finPosVine2 = Vector2D(bossRoom.x + (bossRoom.w / 2) * 1.65, bossRoom.y);
@@ -36,7 +38,8 @@ void EnterBossRoom::blockDoors() {
 	blockExit->addComponent<GrowVine>(finPosVine2, 2, -1, "vertical", false);
 	blockExit->addComponent<EarthBossAttack>();
 	blockExit->getComponent<GrowVine>()->isGrowing(true);
-	//map->addCollision("6", vine_Rect2);
+	SDL_Rect collision2 = { (bossRoom.x + (bossRoom.w / 2) * 1.65)+10, bossRoom.y, 5, bossRoom.h };
+	map->addCollision("6", collision2);
 }
 
 void EnterBossRoom::enterRoom() {
