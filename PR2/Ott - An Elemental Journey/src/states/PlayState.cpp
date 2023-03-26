@@ -85,8 +85,8 @@ PlayState::PlayState(std::string fileName) : GameState(ecs::_state_PLAY) {
 	}
 	map_ = constructors::map(mngr_, this, (int)ecs::EARTH_MAP, file)->getComponent<MapComponent>();
 
-	currentMap = (ecs::maps)map_->getCurrentMap();
-	initialEnemies = enemies;
+	currentMap = (ecs::maps) map_->getCurrentMap();
+	initialEnemies = enemies;	
 	std::string aux;
 	file >> aux >> aux;
 	while (aux != "_") {

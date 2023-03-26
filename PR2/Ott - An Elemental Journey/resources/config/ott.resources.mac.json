@@ -300,7 +300,12 @@
 			"rows": 2,
 			"cols": 7
 		},
-
+		{
+			"id": "earth_attack",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/earth_Attack.png",
+			"rows": 2,
+			"cols": 7
+		},
 		{
 			"id": "animationWorm",
 			"file": "../Ott - An Elemental Journey/resources/images/tests/AnimationWorm.png",
