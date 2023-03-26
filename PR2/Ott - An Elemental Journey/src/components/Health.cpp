@@ -26,26 +26,23 @@ void Health::initComponent() {
 
 void Health::recall(bool rest)
 {
-	if (lastSanctuary != nullptr) {
+	Vector2D newPos;
+	if (lastSanctuary != nullptr && !rest) {
 		auto sancTr_ = lastSanctuary->getComponent<Transform>();
 		auto tr_ = ent_->getComponent<Transform>();
-		image->reset();
-		if (!rest) {
-			Vector2D newPos = sancTr_->getPosition() + Vector2D(0, sancTr_->getHeight() - tr_->getHeight());
-			static_cast<PlayState*>(GameStateMachine::instance()->currentState())->getMap()
-				->changeRoom(std::to_string(lastSanctuary->getComponent<InteractionComponent>()->getRoom()), newPos);
-		}
-		actualLife = maxLife;
-		static_cast<PlayState*>(GameStateMachine::instance()->currentState())->resetEnemies();
+		newPos = sancTr_->getPosition() + Vector2D(0, sancTr_->getHeight() - tr_->getHeight());
+		static_cast<PlayState*>(GameStateMachine::instance()->currentState())->getMap()
+			->changeRoom(std::to_string(lastSanctuary->getComponent<InteractionComponent>()->getRoom()), newPos);
 	}
 	else 
 	{ 
-		Vector2D newPos = ent_->getComponent<Transform>()->getInitialPosition();
-		image->reset();
-		ent_->getComponent<Transform>()->setPosition(newPos);
-		actualLife = maxLife;
-		dead = false;
+		newPos = ent_->getComponent<Transform>()->getInitialPosition();
+		static_cast<PlayState*>(GameStateMachine::instance()->currentState())->getMap()
+			->changeRoom("0", newPos);
 	}
+	image->reset();
+	actualLife = maxLife;
+	static_cast<PlayState*>(GameStateMachine::instance()->currentState())->resetEnemies();
 }
 
 bool Health::recieveDamage(ecs::elements el, bool dir)

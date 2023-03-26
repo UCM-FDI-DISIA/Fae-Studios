@@ -518,6 +518,7 @@ void MapComponent::loadMap(std::string path, int nextPos) {
                 playerRect.y = playerRect.y * playerRoomScale - playerTr_->getHeight();
             }
             playerTr_->setPosition(Vector2D(playerRect.x, playerRect.y));
+            playerTr_->setInitialPosition(Vector2D(playerRect.x, playerRect.y));
         }
         else {
             auto newPos = playerSanctuary->getComponent<Transform>()->getPosition() + Vector2D(0, playerSanctuary->getComponent<Transform>()->getHeight() - playerTr_->getHeight());
