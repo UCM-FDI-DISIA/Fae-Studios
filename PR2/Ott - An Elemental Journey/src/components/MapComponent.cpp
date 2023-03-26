@@ -86,7 +86,7 @@ void MapComponent::generateEnemies() {
     }
 }
 
-MapComponent::MapComponent(Entity* fadeOut, PlayState* game) : fadeOut(fadeOut), game(game) {
+MapComponent::MapComponent(Entity* fadeOut, PlayState* game, int currentMap) : fadeOut(fadeOut), game(game), currentMap(currentMap) {
     int n = 20;
     vectorObjects.reserve(n);
     vectorTiles.reserve(6);
@@ -96,6 +96,10 @@ MapComponent::MapComponent(Entity* fadeOut, PlayState* game) : fadeOut(fadeOut),
         interact.push_back({});
     }
 
+    mapKeys.reserve(ecs::LAST_MAP_ID);
+    for (int i = 0; i < ecs::LAST_MAP_ID; ++i) {
+        mapKeys.push_back({});
+    }
 
     tilemap = &sdlutils().images().at(sdlutils().levels().at(currentLevel).tileset);
 }
@@ -177,8 +181,10 @@ void MapComponent::loadMap(std::string path) {
                     vectorObjects[ROOM_VECTOR_POS] = objects;
                     numRooms = objects.size();
                     game->initEnemies(numRooms);
-                    std::vector<std::string> aux(numRooms);
-                    mapKeys = aux;
+                    mapKeys[currentMap].reserve(numRooms);
+                    for (int i = 0; i < numRooms; ++i) {
+                        mapKeys[currentMap].push_back({});
+                    }
                     game->initVisitedRooms(numRooms);
                 }
                 else if (name == "Objetos interactuables") {
@@ -213,7 +219,7 @@ void MapComponent::loadMap(std::string path) {
                 int i = 0;
                 for (auto salas : vectorObjects[ROOM_VECTOR_POS]) {
                     int o = 0;
-                    mapKeys[i] = salas.getName();
+                    mapKeys[currentMap][i] = salas.getName();
                     auto rect = salas.getAABB();
                     SDL_Rect sala = { (int)(rect.left * tileScale()), (int)(rect.top* tileScale()), (int)(rect.width * tileScale()), (int)(rect.height * tileScale()) };
                     for (auto tile : tiles) {

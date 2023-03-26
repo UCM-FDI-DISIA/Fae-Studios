@@ -41,7 +41,7 @@ private:
 	std::vector<std::vector<Entity*>> interact;
 
 	// Vector con las keys de la imagen asociada a cada habitacion
-	std::vector<std::string> mapKeys;
+	std::vector<std::vector<std::string>> mapKeys;
 
 
 	// En este mapa se guarda:
@@ -73,13 +73,14 @@ private:
 	int usedTileSize = 50;
 	int currentRoom = 0;
 	int numRooms = 0;
+	int currentMap = 0;
 
 	void loadMap(std::string path);
 
 public:
 	constexpr static ecs::cmpId_type id = ecs::_MAP;
 	
-	MapComponent(Entity* fadeOut, PlayState* game);
+	MapComponent(Entity* fadeOut, PlayState* game, int currentMap);
 	void initComponent();
 	virtual void render();
 
@@ -91,6 +92,7 @@ public:
 	void playFadeOutAnimation() { anim_->startFadeOut(); }
 
 	void generateEnemies();
+	inline void changeMap(int map) { currentMap = map; };
 
 	std::vector<std::pair<SDL_Rect, SDL_Rect>> checkCollisions(const SDL_Rect& playerRect);
 	
@@ -99,7 +101,7 @@ public:
 	inline int getCurrentRoom() { return currentRoom; }
 	inline void setCurrentRoom(int newRoom) { currentRoom = newRoom; }
 	inline float getCurrentRoomScale() { return vectorTiles[currentRoom].first; }
-	inline std::string getMapKey(int i) { if (i < mapKeys.size()) return mapKeys[i]; else return " "; }
+	inline std::string getMapKey(int map, int i) { if (i < mapKeys[currentMap].size()) return mapKeys[map][i]; else return " "; }
 
 	inline void destroyTile(std::string room, int index) { destructible[room][index].first = false; }
 
