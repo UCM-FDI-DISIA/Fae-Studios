@@ -324,7 +324,7 @@ void PlayerAttack::MoveTrigger(Vector2D attackWH) {
 	else {
 		trigger.x = playerPos.getX() - attackWH.getX();
 	}
-	trigger.y = playerPos.getY() + playerW / 2;
+	trigger.y = playerPos.getY();
 }
 
 void PlayerAttack::MoveChargedEarthTrigger(Vector2D attackWH2) {
@@ -336,7 +336,7 @@ void PlayerAttack::MoveChargedEarthTrigger(Vector2D attackWH2) {
 	trigger2.x = playerPos.getX() - attackWH2.getX();
 
 
-	trigger.y = playerPos.getY() + playerW / 2;
+	trigger.y = playerPos.getY();
 	trigger2.y = trigger.y;
 }
 
@@ -346,7 +346,7 @@ void PlayerAttack::moveAttack(Transform* tr)
 	int playerH = tr_->getHeight();
 	Vector2D playerPos = tr_->getPosition();
 	if (physics->getLookDirection()) {
-		tr->setPosition(Vector2D(playerPos.getX() + playerW, playerPos.getY() + playerW / 2));
+		tr->setPosition(Vector2D(playerPos.getX() + playerW, playerPos.getY()));
 	}
 	else {
 		int attackWidth = 0;
@@ -356,7 +356,7 @@ void PlayerAttack::moveAttack(Transform* tr)
 		else if (earthAttackActive)
 			attackWidth = EARTH_ATTACK_WIDTH * tr_->getScale();
 
-		tr->setPosition(Vector2D(playerPos.getX() - attackWidth, playerPos.getY() + playerW / 2));
+		tr->setPosition(Vector2D(playerPos.getX() - attackWidth, playerPos.getY()));
 	}
 }
 
