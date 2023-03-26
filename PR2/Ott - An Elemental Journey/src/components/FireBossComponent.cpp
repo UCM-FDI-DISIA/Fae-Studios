@@ -19,7 +19,6 @@ void FireBossComponent::initComponent()
 void FireBossComponent::update()
 {
 	if (fAnim_->getState() == DIE_FIREBOSS) return;
-	//Esto aqui esta feisimo pero es que no entiendo ahora mateix porque no lo coge
 	p = ent_->getComponent<PhysicsComponent>();
 	speed = 0;
 	if (stunned) {
@@ -34,7 +33,7 @@ void FireBossComponent::update()
 		//normalAttackTimer = SDL_GetTicks();
 		startSpecialAttack();
 	}
-	else if (!retirada && !ambushing) {
+	else if (!retirada && !ambushing && SDL_GetTicks() - normalAttackTimer >= timeNormalAttack * 1000) {
 		std::cout << "Ataque normal" << std::endl;
 		//normalAttackTimer = SDL_GetTicks();
 		startNormalAttack();
@@ -64,9 +63,9 @@ void FireBossComponent::startSpecialAttack()
 {
 	Vector2D pPos = player->getComponent<Transform>()->getPosition();
 	if (abs(pPos.getY() - ent_->getComponent<Transform>()->getPosition().getY()) > ent_->getComponent<Transform>()->getHeight()) {
-		//shootAtPlayer();
+		spawnPillars();
 	}
-	else spawnPillars();
+	else { ambushing = true; combo = true; currentCombo = comboN; comboTimer = SDL_GetTicks(); }
 	
 }
 void FireBossComponent::startNormalAttack()
@@ -78,7 +77,7 @@ void FireBossComponent::startNormalAttack()
 		
 	}
 	else if(!ambushing && (SDL_GetTicks() - normalAttackTimer >= timeNormalAttack * 1000)){
-		ambushing = true;
+		ambushing = true; 
 	}
 }
 void FireBossComponent::spawnPillars()
@@ -116,15 +115,24 @@ void FireBossComponent::ambush()
 	//direccion en que hacer la emboscada
 	if (tr_->getPosition().getX() - playerTr->getPosition().getX() > 0) { speed = -ambushSpeed; p->lookDirection(false); }
 	else { speed = ambushSpeed; p->lookDirection(true); }
-	tr_->setPosition(Vector2D(tr_->getPosition().getX() + speed, tr_->getPosition().getY()));
+	if (combo && abs(tr_->getPosition().getX() - playerTr->getPosition().getX()) < 50)
+	{
+		fAnim_->setState(ATTACK_FIREBOSS);  collider.w = collider.w * 2;
+		
+	}
+	else
+	{
+		tr_->setPosition(Vector2D(tr_->getPosition().getX() + speed, tr_->getPosition().getY()));
+	}
 
 	//colisiones con ott, paredes como condicion de paro de la emboscada
 	//ott
 	bool interseccion = SDL_IntersectRect(&collider, &playerCollider, &collision);
 	if (interseccion)
 	{
-		ambushing = false; playerH->recieveDamage(ecs::Fire); retirada = true;
-		fAnim_->setState(ATTACK_FIREBOSS);
+		collided = true;
+		playerH->recieveDamage(ecs::Fire); 
+		//fAnim_->setState(ATTACK_FIREBOSS);
 	}
 	//wall
 	else
@@ -134,9 +142,17 @@ void FireBossComponent::ambush()
 			bool interseccion = SDL_IntersectRect(&collider, &r2, &collision);
 			if (interseccion && (collision.w < collision.h)) 
 			{ 
-				ambushing = false; retirada = true;
+				collided = true;
 			}
 		}
+	}
+	//condicion de fin (timer en caso de combo, chocarse en caso de embestida)
+	if (collided || (combo && currentCombo <= 0))
+	{
+		retirada = true; ambushing = false; combo = false; fAnim_->setState(AMBUSH_FIREBOSS);
+		normalAttackTimer = SDL_GetTicks(); 
+		if (combo) { specialAttackTimer = SDL_GetTicks(); }
+		//std::cout << currentCombo << std::endl;
 	}
 }
 
@@ -145,9 +161,6 @@ void FireBossComponent::stunBoss()
 	stunned = true; 
 	stunTimer = SDL_GetTicks();
 }
-void FireBossComponent::combo()
-{
-	
-}
+
 
 

@@ -10,8 +10,6 @@ void FireBossAnimation::initComponent()
 }
 void FireBossAnimation::update()
 {
-	
-	
 	int c = getColNum(currentAnimation);
 	
 	int state = currentAnimation;
@@ -33,9 +31,21 @@ void FireBossAnimation::endAnim()
 	}
 	if (currentAnimation == ATTACK_FIREBOSS) {
 		auto fComp = ent_->getComponent<FireBossComponent>();
-		if(fComp->isMoving()) currentAnimation = AMBUSH_FIREBOSS;
-		else currentAnimation = IDLE_FIREBOSS;
+		if (fComp->getCurrentCombo() > 0) 
+		{
+			fComp->minusCombo();
+			std::cout << fComp->getCurrentCombo() << std::endl;
+			timer_ = 0;
+			//currentAnimation = IDLE_FIREBOSS;
+			//currentAnimation = ATTACK_FIREBOSS;
+		}
+		else 
+		{
+			if (fComp->isMoving()) currentAnimation = AMBUSH_FIREBOSS;
+			else currentAnimation = IDLE_FIREBOSS;
+		}
 	}
+	
 	
 }
 
