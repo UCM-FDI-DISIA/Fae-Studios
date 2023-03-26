@@ -224,14 +224,36 @@ void PlayerAttack::waterChargedAttack(SDL_Rect& trigger) {
 
 void PlayerAttack::spawnFireball()
 {
-	//MoveTrigger(triggerWH); // Se mueven los triggers a la posici�n actual
+	// Transform de jugador
 	auto pTransf = ent_->getComponent<Transform>();
+	// Entidad ataque
 	Entity* attack = mngr_->addEntity(ecs::_grp_PROYECTILES);
-	Vector2D shootPos = Vector2D(pTransf->getPosition().getX(), pTransf->getPosition().getY() + pTransf->getHeight() / 2);
-	if (ent_->getComponent<PhysicsComponent>()->getLookDirection()) attack->addComponent<PhysicsComponent>(Vector2D(1, 0));
-	else attack->addComponent<PhysicsComponent>(Vector2D(-1, 0));
-	attack->addComponent<Transform>(shootPos, 50, 50);
-	attack->addComponent<Image>(&sdlutils().images().at("ott_luz"));
+
+	bool lookDir = ent_->getComponent<PhysicsComponent>()->getLookDirection();
+	Vector2D shootPos;
+
+	// Mueve pos y dir de ataque
+	if (lookDir) {
+		attack->addComponent<PhysicsComponent>(Vector2D(2, 0));
+		shootPos = Vector2D(pTransf->getPosition().getX() + pTransf->getWidth()/2, pTransf->getPosition().getY() + pTransf->getHeight() / 4);
+	}
+	else { 
+		attack->addComponent<PhysicsComponent>(Vector2D(-2, 0));
+		shootPos = Vector2D(pTransf->getPosition().getX(), pTransf->getPosition().getY() + pTransf->getHeight() / 4);
+	}
+
+	// Transform ataque
+	attack->addComponent<Transform>(shootPos, 100, 100);
+	// FramedImage ataque
+	auto frImage = attack->addComponent<FramedImage>(&sdlutils().images().at("fire_attack"), 1, 1);
+
+	// Girar imagen
+	if (!lookDir)
+		frImage->flipTexture(true);
+	else
+		frImage->flipTexture(false);
+
+	// Bullet de ataque
 	attack->addComponent<Bullet>(health_->getElement(), ent_);
 }
 
