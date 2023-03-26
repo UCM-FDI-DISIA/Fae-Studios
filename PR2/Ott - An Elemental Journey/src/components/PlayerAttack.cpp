@@ -217,6 +217,7 @@ void PlayerAttack::update() {
 		else {
 			auto trAttack2 = tAttack2->getComponent<Transform>();
 			moveChargedEarthAttack(trAttack, trAttack2);
+			tAttack2->getComponent<FramedImage>()->flipTexture(true);
 		}
 
 
