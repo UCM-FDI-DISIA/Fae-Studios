@@ -1,12 +1,17 @@
 #pragma once
 #include "../ecs/Component.h"
+#include "Transform.h"
+class FireBossAnimation;
 
 class FireBossComponent:public Component
 { 
 private:
-	class Transform* tr_;
+	Transform* tr_;
 	Entity* player;
-	int specialAttackTimer = 0, timeSpecialAttack = 15, normalAttackTimer = 0, timeNormalAttack = 4, ambushSpeed = 1, stunTimer = 0, timeStunned = 5;
+	FireBossAnimation* fAnim_;
+	PhysicsComponent* p;
+	//SDL_Rect collider;
+	int specialAttackTimer = 0, timeSpecialAttack = 15, normalAttackTimer = 0, timeNormalAttack = 4, ambushSpeed = 1, speed=0, rSpeed=1,stunTimer = 0, timeStunned = 5;
 	bool ambushing = false, retirada = false, stunned = false;
 	void startSpecialAttack();
 	void spawnPillars();
@@ -17,6 +22,8 @@ public:
 	virtual void update();
 	void ambush();
 	void stunBoss();
+	void combo();
+	inline void setAnimComponent(FireBossAnimation* a) { fAnim_ = a; }
 	constexpr static ecs::cmpId_type id = ecs::_BOSS;
 };
 

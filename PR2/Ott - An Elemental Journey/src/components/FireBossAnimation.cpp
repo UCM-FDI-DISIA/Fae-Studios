@@ -6,14 +6,14 @@ void FireBossAnimation::initComponent()
 	eFireBossComponent_ = ent_->getComponent<FireBossComponent>();
 	timer_ = 0;
 	setState(IDLE_FIREBOSS);
-
+	image->setCol(0); image->setRow(0);
 }
 void FireBossAnimation::update()
 {
-	image->setCol(0); image->setRow(0);
+	
 	
 	int c = getColNum(currentAnimation);
-
+	int r = getColNum(currentAnimation);
 	
 	int state = currentAnimation;
 	timer_++;

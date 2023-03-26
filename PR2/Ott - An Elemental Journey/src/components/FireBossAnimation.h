@@ -2,7 +2,7 @@
 #include "../ecs/Component.h"
 #include "../ecs/anims.h"
 #include "FireBossComponent.h"
-enum FireAnims { IDLE_FIREBOSS, DIE_FIREBOSS, ATTACK_FIREBOSS,EMBUSH_FIREBOSS };
+enum FireAnims { IDLE_FIREBOSS,AMBUSH_FIREBOSS,ATTACK_FIREBOSS, DIE_FIREBOSS };
 
 //class Health;
 class FramedImage;
@@ -18,6 +18,7 @@ public:
 	inline int getNFrames(int i) { return anims::animations[eAnims][i].numFrames; }
 	inline int getRowNum(int i) { return anims::animations[eAnims][i].rowNum; }
 	inline int getColNum(int i) { return anims::animations[eAnims][i].colNum; }
+
 	void setState(int newState);
 private:
 	bool damaged = false;

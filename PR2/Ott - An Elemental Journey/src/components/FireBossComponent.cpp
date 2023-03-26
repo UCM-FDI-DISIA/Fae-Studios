@@ -1,6 +1,8 @@
 ﻿#include "FireBossComponent.h"
 #include "Bullet.h"
 #include "FirePillarComponent.h"
+#include "PhysicsComponent.h"
+#include"FireBossAnimation.h"
 #include "Transform.h"
 #include "../game/Constructors.h"
 FireBossComponent::FireBossComponent()
@@ -16,6 +18,9 @@ void FireBossComponent::initComponent()
 
 void FireBossComponent::update()
 {
+	//Esto aqui esta feisimo pero es que no entiendo ahora mateix porque no lo coge
+	p = ent_->getComponent<PhysicsComponent>();
+	speed = 0;
 	if (stunned) {
 		if (SDL_GetTicks() - stunTimer > timeStunned * 1000) {
 			stunned = false;
@@ -28,18 +33,29 @@ void FireBossComponent::update()
 		normalAttackTimer = SDL_GetTicks();
 		startSpecialAttack();
 	}
-	else if (SDL_GetTicks() - normalAttackTimer >= timeNormalAttack * 1000) {
+	else if (!retirada&&!ambushing&&SDL_GetTicks() - normalAttackTimer >= timeNormalAttack * 1000) {
 		std::cout << "Ataque normal" << std::endl;
-		normalAttackTimer = SDL_GetTicks();
+		//normalAttackTimer = SDL_GetTicks();
 		ambushing = true;
 	}
-	if (ambushing) { ambush(); }
+	if (ambushing) 
+	{ 
+		ambush(); 
+		fAnim_->setState(AMBUSH_FIREBOSS); 
+	}
 	else if (retirada)
 	{
-		float speed = 1;
-		if (tr_->getPosition().getX() - tr_->getInitialPosition().getX() > 0) { speed = -speed; }
+		//direccion
+		if (tr_->getPosition().getX() - tr_->getInitialPosition().getX() > 0) { speed = -rSpeed; p->lookDirection(false); }
+		else{ speed = rSpeed; p->lookDirection(true); }
+		//movimiento hacia su posicion incial
 		tr_->setPosition(Vector2D(tr_->getPosition().getX() + speed, tr_->getPosition().getY()));
-		if (tr_->getPosition().getX() == tr_->getInitialPosition().getX()) { retirada = false; }
+		//si ha llegado
+		if (tr_->getPosition().getX() == tr_->getInitialPosition().getX()) 
+		{ 
+			retirada = false; fAnim_->setState(IDLE_FIREBOSS);
+			normalAttackTimer = SDL_GetTicks();
+		}
 	}
 }
 void FireBossComponent::startSpecialAttack()
@@ -72,8 +88,10 @@ void FireBossComponent::ambush()
 	Health* playerH = player->getComponent<Health>();
 	std::vector<Entity*> ground = mngr_->getEntities(ecs::_grp_GROUND);
 
+	
 	//colliders jugador, boss
-	SDL_Rect collider = tr_->getRect();
+	SDL_Rect collider = tr_->getRect(); collider.x = collider.x + collider.w / 4;
+	collider.w = collider.w / 2;
 	SDL_Rect playerCollider = playerTr->getRect();
 	SDL_Rect collision;
 
@@ -81,8 +99,8 @@ void FireBossComponent::ambush()
 	int speed;
 
 	//direccion en que hacer la emboscada
-	if (tr_->getPosition().getX() - playerTr->getPosition().getX() > 0) { speed = -ambushSpeed; }
-	else { speed = ambushSpeed; }
+	if (tr_->getPosition().getX() - playerTr->getPosition().getX() > 0) { speed = -ambushSpeed; p->lookDirection(false); }
+	else { speed = ambushSpeed; p->lookDirection(true); }
 	tr_->setPosition(Vector2D(tr_->getPosition().getX() + speed, tr_->getPosition().getY()));
 
 	//colisiones con ott, paredes como condicion de paro de la emboscada
@@ -98,7 +116,10 @@ void FireBossComponent::ambush()
 		for (Entity* g : ground) {
 			SDL_Rect r2 = g->getComponent<Transform>()->getRect();
 			bool interseccion = SDL_IntersectRect(&collider, &r2, &collision);
-			if (interseccion && (collision.w < collision.h)) { ambushing = false; retirada = true; }
+			if (interseccion && (collision.w < collision.h)) 
+			{ 
+				ambushing = false; retirada = true;
+			}
 		}
 	}
 }
@@ -107,6 +128,10 @@ void FireBossComponent::stunBoss()
 {
 	stunned = true; 
 	stunTimer = SDL_GetTicks();
+}
+void FireBossComponent::combo()
+{
+	
 }
 
 
