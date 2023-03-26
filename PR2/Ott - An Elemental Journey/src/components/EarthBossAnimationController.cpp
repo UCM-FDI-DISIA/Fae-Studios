@@ -42,19 +42,11 @@ void EarthBossAnimationController::update() {
 
 void EarthBossAnimationController::endAnim() {
 	if (animPresentacion < 3 && state == anims::EARTHBOSSPRESENT) {
-		std::cout << "Animacion de presentacion acabada, pasar al de pausa" << std::endl;
 		++animPresentacion;
 		image1->setCol(0);
 	}
 	else{
-		if(state == anims::PAUSE_ANIM) {
-			std::cout << "Animacion de pausa acabada, pasar a la siguiente" << std::endl;
-		}
-		else if (state == anims::MINIPAUSE_ANIM) {
-			std::cout << "Animacion de mini pausa acabada, pasar a la siguiente" << std::endl;
-		}
-		else if (state == anims::WARNINGEARTH) {
-			std::cout << "Animacion de warning acabada, pasar a la siguiente" << std::endl;
+		if (state == anims::WARNINGEARTH) {
 			thereIsAnimation = false;
 			image1->setCol(0);
 			image2->setCol(0);

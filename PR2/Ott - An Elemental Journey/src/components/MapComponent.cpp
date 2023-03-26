@@ -144,6 +144,7 @@ void MapComponent::loadMap(std::string path) {
         tmx::Object playerPos;
         const auto& layers2 = map.getLayers();
         std::unordered_map<std::string, std::pair<Vector2D,int>> lamps;
+        std::vector<Entity*> platformEarthBoss;
         //cout << "Map has " << layers2.size() << " layers" << endl;
         for (const auto& layer : layers2)
         {
@@ -305,13 +306,18 @@ void MapComponent::loadMap(std::string path) {
                 earthBoss->addComponent<EarthBossManager>(roomDimensions);
                 mngr_->setEarthBoss(earthBoss);
             }
-           /* else if (ot.getClass() == "DoorTrigger") {
+            else if (ot.getClass() == "EarthBossPlatforms") {
                 auto roomScale = vectorTiles[std::stoi(ot.getName())].first;
-                Entity* trigger = mngr_->addEntity(ecs::_grp_TRIGGER);
-                trigger->addComponent<Transform>(Vector2D(x_* scale * roomScale, y_* scale* roomScale), w_* scale* roomScale, h_* scale* roomScale);
-                trigger->addComponent<EnterBossRoom>();
-                trigger->addComponent<Trigger>();
-            }*/
+                SDL_Rect platformDimensions;
+                platformDimensions.x = x_ * scale * roomScale;
+                platformDimensions.y = y_ * scale * roomScale;
+                platformDimensions.w = w_ * scale * roomScale;
+                platformDimensions.h = h_ * scale * roomScale;
+                Entity* earthBossPlatforms = mngr_->addEntity(ecs::_grp_GENERAL);
+                earthBossPlatforms->addComponent<Transform>(platformDimensions);
+                platformEarthBoss.push_back(earthBossPlatforms);
+               
+            }
         }
         generateEnemies();
         SDL_Rect playerRect = getSDLRect(playerPos.getAABB());
@@ -324,6 +330,10 @@ void MapComponent::loadMap(std::string path) {
         playerTr_->setScale(playerRoomScale);
         currentRoom = playerRoom;
         cam->setBounds(getCamBounds());
+
+        mngr_->getEarthBoss()->getComponent<EarthBossManager>()->addPlatforms(platformEarthBoss);
+
+
     }
     else
     {
@@ -375,6 +385,6 @@ void MapComponent::render() {
     for (auto it : ground[std::to_string(room)]) {
         it.x -= cam->camera.x;
         it.y -= cam->camera.y;
-        sdlutils().images().at("pixelWhite").render(it);
+        sdlutils().images().at("pixel").render(it);
     }
 }
