@@ -200,6 +200,8 @@ void PlayState::checkInteraction() {
         if (SDL_HasIntersection(&r1, &r2)) {
 			if (ents->hasComponent<ElementObject>()) {
 				mngr_->getPlayer()->getComponent<PlayerInput>()->unlockElement(ents->getComponent<ElementObject>()->getElement());
+				mngr_->getPlayer()->getComponent<PlayerAnimationComponent>()->changeElem(ents->getComponent<ElementObject>()->getElement());
+				mngr_->getPlayer()->getComponent<PlayerAnimationComponent>()->setState(VANISH);
 				ents->setAlive(false);
 			}
 			else
