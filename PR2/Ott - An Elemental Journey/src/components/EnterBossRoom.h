@@ -30,6 +30,7 @@ public:
 	constexpr static ecs::cmpId_type id = ecs::_ENTERBOSS;
 	void enterRoom();
 	void blockDoors();
+	void unlockDoors();
 	void startFight();
 	int timer = 2000;
 	bool resetTime = true;

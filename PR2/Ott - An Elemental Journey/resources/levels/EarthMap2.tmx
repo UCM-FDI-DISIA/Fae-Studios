@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="192" height="105" tilewidth="32" tileheight="32" infinite="0" nextlayerid="11" nextobjectid="266">
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="192" height="105" tilewidth="32" tileheight="32" infinite="0" nextlayerid="11" nextobjectid="267">
  <tileset firstgid="1" name="EarthMapTileset" tilewidth="32" tileheight="32" tilecount="680" columns="20">
   <image source="../images/levels/tilesetlevel1.png" width="640" height="1088"/>
  </tileset>
@@ -272,9 +272,9 @@
   <object id="212" name="10" class="Ground" x="4740.33" y="892" width="119.333" height="16"/>
   <object id="213" name="0" class="Ground" x="1810.67" y="1484" width="25.3333" height="161.333"/>
   <object id="214" name="0" class="Ground" x="1837.33" y="1625.33" width="128" height="36"/>
-  <object id="238" name="10" class="Ground" x="4116" y="1369.33" width="121.333" height="449.333"/>
+  <object id="238" name="10" class="Ground" x="3951.33" y="1369.33" width="494" height="449.333"/>
   <object id="240" name="10" class="Ground" x="4242.67" y="1462.67" width="130.667" height="74.6667"/>
-  <object id="241" name="10" class="Ground" x="3733.33" y="1370.67" width="282.667" height="586.667"/>
+  <object id="241" name="10" class="Ground" x="3802.33" y="1370.67" width="213.667" height="586.667"/>
   <object id="243" name="10" class="Ground" x="3732" y="1048" width="745.333" height="110.667"/>
   <object id="245" name="10" class="Ground" x="4474.67" y="693.333" width="208" height="500"/>
   <object id="246" name="10" class="Ground" x="5689.33" y="800" width="265.333" height="569.333"/>
@@ -294,8 +294,9 @@
   <object id="262" name="9" class="Ground" x="3820" y="2243" width="444.5" height="70"/>
   <object id="263" name="9" class="Ground" x="3810" y="1969.5" width="579.5" height="27.5"/>
   <object id="264" name="9" class="Ground" x="4375.33" y="1997.33" width="44.6667" height="265.333"/>
+  <object id="266" name="1" class="Ground" x="3734.67" y="1367.67" width="96.667" height="623.667"/>
  </objectgroup>
- <objectgroup id="3" name="Objetos interactuables" visible="0">
+ <objectgroup id="3" name="Objetos interactuables">
   <object id="27" name="lamp1" class="Lamp_0" x="640" y="1523.75" width="32"/>
   <object id="54" name="0" class="Sanctuary" x="1318" y="1439.5" width="88.5"/>
   <object id="55" class="Ott" x="416" y="1536" width="32"/>
@@ -306,7 +307,7 @@
   <object id="186" name="10" class="Grass" x="5467.39" y="760.234" width="40.3333" height="612.667"/>
   <object id="187" name="10" class="DoorTrigger" x="4830.06" y="765.235" width="31" height="609"/>
   <object id="189" name="10" class="BossRoom" x="4699.64" y="736.023" width="987.879" height="648.242"/>
-  <object id="196" name="lamp2" class="Lamp_1" x="3726.66" y="1371.67" width="32"/>
+  <object id="196" name="lamp2" class="Lamp_1" x="3735.33" y="1335.67" width="32" height="22"/>
   <object id="199" name="lamp2" class="Lamp_0" x="1217.58" y="1430.92" width="32"/>
   <object id="207" name="10" class="EarthBossPlatforms" x="4738" y="889" width="118" height="23"/>
   <object id="208" name="10" class="EarthBossPlatforms" x="4932" y="1113.5" width="118" height="23"/>
@@ -332,7 +333,7 @@
   <object id="151" name="0_2" class="Melee" x="1566.33" y="1312.17" width="31.3333" height="86.6667"/>
   <object id="152" name="2_1" class="Slime" x="3147.97" y="1922.98" width="31.3333" height="173.333"/>
  </objectgroup>
- <objectgroup id="7" name="Triggers">
+ <objectgroup id="7" name="Triggers" visible="0">
   <object id="166" name="0_1" class="01" x="2587.17" y="1244.67" width="32" height="160"/>
   <object id="167" name="1_0" class="01" x="2643.17" y="1276.67" width="32" height="160"/>
   <object id="168" name="2_1" class="12" x="2592.5" y="1944" width="32" height="160"/>

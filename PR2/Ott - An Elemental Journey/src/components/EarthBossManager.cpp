@@ -308,4 +308,5 @@ void EarthBossManager::stateManagment() {
 void EarthBossManager::die() {
 	boss->getComponent<Transform>()->setPosition(Vector2D(boss->getComponent<Transform>()->getPosition().getX(), roomDimensions.y - roomDimensions.h));
 	isFight = false;
+	trigger->getComponent<EnterBossRoom>()->unlockDoors();
 }
