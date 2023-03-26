@@ -11,10 +11,6 @@
 
 class EarthBossManager : public Component
 {
-    struct Platforms {
-        Entity* platform;
-        int num;
-    };
 public:
     constexpr static ecs::cmpId_type id = ecs::_EARTHMNGR;
     EarthBossManager(SDL_Rect rD);
@@ -26,6 +22,7 @@ public:
     void initComponent() override;
     void setChangeState(bool c) { changeState = c; }
     Entity* getHealthBar() { return healthBar; }
+    void addPlatforms(std::vector<Entity*> pV) { platformVector = pV; }
 private:
     //Dimensiones de la sala del boss de tierra
     SDL_Rect roomDimensions;
@@ -33,7 +30,7 @@ private:
     //Entidades de juego 
     std::vector<Entity*> warningVector;
     std::vector<Entity*> vineVector;
-    std::vector<Platforms> platformVector;
+    std::vector<Entity*> platformVector;
     Entity* healthBar;
     Entity* boss;
     Entity* presentBoss;
@@ -61,6 +58,7 @@ private:
     int NUM_VINES = 6;
     int NUM_WARNINGS = 8;
     float offSet = 30;
+    int verticalSpeed = 3;
 
     //Booleanos de juego
     bool isFight = false; // para empezar o acabar la partida
@@ -77,7 +75,7 @@ private:
     //Vector de estados
     int actualState = 0;
     bool changeState = false;
-    std::vector<EarthBossStates> states = { PRESENTATION, PAUSE, WARNING,MINIPAUSE, ATTACKHORIZONTAL, PAUSE, WARNING, MINIPAUSE, ATTACKHORIZONTAL, PAUSE, WARNING,MINIPAUSE, ATTACKVERTICAL };
+    std::vector<EarthBossStates> states = { PRESENTATION, MINIPAUSE, WARNING,MINIPAUSE, ATTACKHORIZONTAL, PAUSE, WARNING, MINIPAUSE, ATTACKHORIZONTAL, PAUSE, WARNING,MINIPAUSE, ATTACKVERTICAL };
 
     
 

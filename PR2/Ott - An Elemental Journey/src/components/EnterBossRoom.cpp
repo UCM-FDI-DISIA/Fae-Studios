@@ -21,7 +21,6 @@ void EnterBossRoom::blockDoors() {
 	blockEnter->addComponent<ImageVine>(&sdlutils().images().at("vine"), 0, false);
 	blockEnter->addComponent<GrowVine>(finPosVine1, 2, -1, "vertical", false);
 	blockEnter->addComponent<EarthBossAttack>();
-	blockEnter->addComponent<PhysicsComponent>(vine_Rect1);
 	blockEnter->getComponent<GrowVine>()->isGrowing(true);
 	
 

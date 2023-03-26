@@ -42,15 +42,16 @@ void EarthBossManager::initializeEntities() {
 	SDL_Rect vine_Rect;
 	vine_Rect.x = roomDimensions.x + roomDimensions.w + offSet;
 	vine_Rect.w = roomDimensions.w;
-	vine_Rect.h = roomDimensions.h/3;
+	//vine_Rect.h = sdlutils().images().at("vineBoss").height();
+	vine_Rect.h = roomDimensions.h / 6 + offSet;
 	for (int i = 0; i < NUM_VINES; ++i) {
 		//COLISIONAR Y DAÑAR AL JUGADOR
-		Vector2D finPosVine = Vector2D(roomDimensions.x, roomDimensions.y + (roomDimensions.h / 3)*i);
+		Vector2D finPosVine = Vector2D(roomDimensions.x + offSet*2, roomDimensions.y + (roomDimensions.h / 6)*i);
 		Entity* vine = mngr_->addEntity(ecs::_grp_MINIBOSS);
-		if (i % 2 == 0)vine_Rect.y = roomDimensions.y + (vine_Rect.h * ((i + 1) / 2) + (vine_Rect.h / 5));
+		if (i % 2 == 0)vine_Rect.y = roomDimensions.y + (roomDimensions.h / 6 )*i + vine_Rect.h - offSet*2;
 		else vine_Rect.y = ((vineVector[i - 1]->getComponent<Transform>()->getPosition().getY()) + (vine_Rect.h / 2.5));
 		vine->addComponent<Transform>(vine_Rect);
-		vine->addComponent<ImageVine>(&sdlutils().images().at("vineBoss"), sdlutils().images().at("vineBoss").getNumRows(), sdlutils().images().at("vineBoss").getNumCols());
+		vine->addComponent<ImageVine>(&sdlutils().images().at("vineBoss"), 1, false);
 		vine->addComponent<GrowVine>(finPosVine, 7, -1, "horizontal", true);
 		vine->addComponent<EarthBossAttack>();
 		vine->getComponent<GrowVine>()->isGrowing(false);
@@ -101,9 +102,6 @@ void EarthBossManager::initializeEntities() {
 	healthBar->addComponent<BossHealthBar>(&sdlutils().images().at("bossHealthBar"), &sdlutils().images().at("bossLife"));
 	boss->addComponent<Health>(healthBar->getComponent<BossHealthBar>(), 10, ecs::Earth, false);
 	boss->addComponent<EarthBossAttack>();
-	boss->addComponent<GrowVine>(finPosBoss, 2, 1, "vertical", false);
-	boss->getComponent<GrowVine>()->isGrowing(false);
-	//HEALTH, INTERSECCIONAR Y DAÑAR AL JUGADOR
 
 	//CREACIÓN DEL PAUSA
 	pause = mngr_->addEntity(ecs::_grp_MINIBOSS);
@@ -120,32 +118,18 @@ void EarthBossManager::initializeEntities() {
 	presentBoss->addComponent<Transform>(presentation_Rect);
 	presentBoss->addComponent<FramedImage>(&sdlutils().images().at("animationWorm"), sdlutils().images().at("animationWorm").getNumRows(), sdlutils().images().at("animationWorm").getNumCols());
 
-	//CREACION DE LAS PLATAFORMAS
-	SDL_Rect platform_Rect;
-	platform_Rect.w = roomDimensions.x - (2 * offSet);
-	platform_Rect.h = roomDimensions.h / 20;
-	platform_Rect.x = roomDimensions.x + offSet;
-	platform_Rect.y = vineVector[2]->getComponent<Transform>()->getRect().y + platform_Rect.h;
-	for (int k = 0; k < 5; ++k) {
-		Entity* platform = mngr_->addEntity(ecs::_grp_MINIBOSS);
-		platform->addComponent<Transform>(platform_Rect.x, platform_Rect.y, platform_Rect.w, platform_Rect.h);
-		platform_Rect.x = roomDimensions.x + offSet + ((roomDimensions.x / 5) * k);
-		if (k % 2 == 0) platform_Rect.y = vineVector[2]->getComponent<Transform>()->getRect().y + platform_Rect.h;
-		else platform_Rect.y = vineVector[1]->getComponent<Transform>()->getRect().y + platform_Rect.h;
-		platformVector.push_back({ platform, k });
-		//platform->addComponent<FramedImage>(); // rellenar
-	}
-
 	//CREACION DE LA PLATAFORMA CON LA ENREDADERA
 	SDL_Rect platformVine_Rect;
-	platformVine_Rect.w = sdlutils().images().at("vinePlatform").width();
-	platformVine_Rect.h = sdlutils().images().at("vinePlatform").height();
-	platformVine_Rect.x = platformVector[0].platform->getComponent<Transform>()->getPosition().getX();
-	platformVine_Rect.y = platformVector[0].platform->getComponent<Transform>()->getPosition().getY();
+	platformVine_Rect.w = sdlutils().images().at("vinePlatform").width()*2;
+	platformVine_Rect.h = sdlutils().images().at("vinePlatform").height()*2;
+	platformVine_Rect.x = platformVector[0]->getComponent<Transform>()->getPosition().getX() - 15;
+	platformVine_Rect.y = platformVector[0]->getComponent<Transform>()->getPosition().getY() + platformVine_Rect.h* 2;
 	vinePlatform = mngr_->addEntity(ecs::_grp_INTERACTION);
 	vinePlatform->addComponent<Transform>(platformVine_Rect);
 	vinePlatform->addComponent<FramedImage>(&sdlutils().images().at("vinePlatform"), sdlutils().images().at("vinePlatform").getNumRows(), sdlutils().images().at("vinePlatform").getNumCols());
-	
+	vinePlatform->addComponent<EarthBossAttack>();
+	createVinePlatform();
+
 	animController->setAnimation(true);
 	setState(PRESENTATION);
 }
@@ -180,15 +164,15 @@ void EarthBossManager::verticalAttackPosition() {
 void EarthBossManager::horizontalAttack() {
 	switch (vine1)
 	{
-		case 0:
+		case 1:
 			refvine1 = vineVector[0];
 			refvine2 = vineVector[1]; 
 			break;
-		case 1:
+		case 2:
 			refvine1 = vineVector[2];
 			refvine2 = vineVector[3]; 
 			break;
-		case 2:
+		case 3:
 			refvine1 = vineVector[4];
 			refvine2 = vineVector[5]; 
 			break;
@@ -196,15 +180,15 @@ void EarthBossManager::horizontalAttack() {
 
 	switch (vine2)
 	{
-		case 0:
+		case 1:
 			refvine3 = vineVector[0];
 			refvine4 = vineVector[1];
 			break;
-		case 1:
+		case 2:
 			refvine3 = vineVector[2];
 			refvine4 = vineVector[3];
 			break;
-		case 2:
+		case 3:
 			refvine3 = vineVector[4];
 			refvine4 = vineVector[5];
 			break;
@@ -218,11 +202,11 @@ void EarthBossManager::horizontalAttack() {
 
 void EarthBossManager::choosingVine() {
 	srand(time(NULL) * _getpid() * rand());
-	int aux = rand() % 3;
-	while (aux == numRandVine) {
-		aux = rand() % 3;
+	int aux = rand() % 4;
+	while (aux == numRandVine || aux == 0) {
+		aux = rand() % 4;
 	};
-	for (int i = 0; i < 3; ++i) {
+	for (int i = 1; i < 4; ++i) {
 		if (i != aux) {
 			if (vine1 == -1) vine1 = i;
 			else vine2 = i;
@@ -237,34 +221,42 @@ void EarthBossManager::update() {
 		if (attackingHorizontally) {
 			if (!refvine1->getComponent<GrowVine>()->getGrow()) {
 				attackingHorizontally = false;
+				vine1 = -1;
+				vine2 = -1;
 				if (actualState < states.size() - 1)  ++actualState;
 				else actualState = 1;
 				changeState = true;
-				std::cout << "Se acabo ataque horizontal" << std::endl;
 			}
 		}
 		else if (attackingVertically) {
 			auto bossPos = boss->getComponent<Transform>();
 			if (bossPos->getPosition().getY() < finPosBoss.getY()) {
-				bossPos->setPosition(Vector2D(bossPos->getPosition().getX(), bossPos->getPosition().getY() + 3));
-				std::cout << "Realizando ataque vertical" << std::endl;
+				if (bossPos->getPosition().getX() <= vinePlatform->getComponent<Transform>()->getPosition().getX() &&
+					(bossPos->getPosition().getX() + bossPos->getWidth()) >= vinePlatform->getComponent<Transform>()->getPosition().getX()) {
+					verticalSpeed = 1;
+				}
+				bossPos->setPosition(Vector2D(bossPos->getPosition().getX(), bossPos->getPosition().getY() + verticalSpeed));
 			}
 			else {
 				if (actualState < states.size() - 1)  ++actualState;
 				else actualState = 1;
-				std::cout << "Se acabo ataque vertical" << std::endl;
 				bossPos->setPosition(Vector2D(bossPos->getPosition().getX(), roomDimensions.y - roomDimensions.h));
+
 				attackingVertically = false;
 				changeState = true;
+				createVinePlatform();
+				verticalSpeed = 3;
 			}
 		}
 	}
 }
 void EarthBossManager::createVinePlatform() {
 	srand(time(NULL) * _getpid() * rand());
-	int aux = rand() % 6;
-	vinePlatform->getComponent<Transform>()->setPosition(Vector2D(platformVector[aux].platform->getComponent<Transform>()->getPosition().getX(),
-	platformVector[aux].platform->getComponent<Transform>()->getPosition().getY()));
+	int aux = rand() % 5;
+	SDL_Rect platformVine_Rect = vinePlatform->getComponent<Transform>()->getRect();
+	platformVine_Rect.x = platformVector[aux]->getComponent<Transform>()->getPosition().getX() - 15;
+	platformVine_Rect.y = platformVector[aux]->getComponent<Transform>()->getPosition().getY() - 5;
+	vinePlatform->getComponent<Transform>()->setPosition(Vector2D(platformVine_Rect.x, platformVine_Rect.y));
 }
 
 void EarthBossManager::stateManagment() {
@@ -280,7 +272,6 @@ void EarthBossManager::stateManagment() {
 		}
 		else {
 			if (states[actualState] != ATTACKHORIZONTAL && states[actualState] != ATTACKVERTICAL) {
-				std::cout << "Realizando " << actualState << std::endl;
 				animController->setAnimation(true);
 				if(states[actualState] == WARNING) {
 					if (states[actualState +2] == ATTACKHORIZONTAL) choosingVine();
@@ -290,7 +281,7 @@ void EarthBossManager::stateManagment() {
 						animController->setState(anims::WARNINGEARTH, warningVector[bossWarning], warningVector[bossWarning]);
 						bossWarning = -1;
 					}
-					else animController->setState(anims::WARNINGEARTH, warningVector[5+ vine1], warningVector[5+ vine2]);
+					else animController->setState(anims::WARNINGEARTH, warningVector[4+ vine1], warningVector[4+ vine2]);
 					
 				}
 				else if (states[actualState] != WARNING) {
@@ -303,19 +294,13 @@ void EarthBossManager::stateManagment() {
 			else if(states[actualState] == ATTACKHORIZONTAL) {
 				horizontalAttack();
 				attackingHorizontally = true;
-				std::cout << "Realizando ataque horizontal" << std::endl;
 				animController->setAnimation(false);
 			}
 			else if(states[actualState] == ATTACKVERTICAL) {
 				attackingVertically = true;
-				std::cout << "Realizando ataque vertical" << std::endl;
 				animController->setAnimation(false);
 			}
-
 		}
-		/*if (actualState == 1) {
-			createVinePlatform();
-		}*/
 		changeState = false;
 	}
 }
