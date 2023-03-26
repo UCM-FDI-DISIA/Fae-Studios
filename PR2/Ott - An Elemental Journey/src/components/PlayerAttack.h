@@ -20,6 +20,9 @@ const int WATER_ATTACK_DURATION = 6000; // Duracion del ataque de agua en ms
 const int EARTH_ATTACK_WIDTH = 300;
 const int EARTH_ATTACK_HEIGHT = 50;
 
+const int FIRE_ATTACK_WIDTH = 100;
+const int FIRE_ATTACK_HEIGHT = 100;
+
 class PlayerAttack : public Component
 {
 public:
