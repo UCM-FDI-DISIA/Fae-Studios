@@ -36,6 +36,6 @@ void MapState::update() {
 	else if (exit && (InputHandler::instance()->isKeyUp(SDLK_ESCAPE) || InputHandler::instance()->isKeyUp(SDLK_TAB))) {
 		GameStateMachine::instance()->popState();
 		static_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->getPlayer()->getComponent<PlayerAnimationComponent>()->setState(CLOSE_MAP);
-		sdlutils().soundEffects().at("map").play(0, ecs::_channel_PLAYER_ATTACK);
+		sdlutils().soundEffects().at("map").play(0, ecs::_channel_PLAYER);
 	}
 }
