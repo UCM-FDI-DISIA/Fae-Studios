@@ -260,6 +260,7 @@ void PlayState::checkInteraction() {
 				mngr_->getPlayer()->getComponent<PlayerInput>()->unlockElement(ents->getComponent<ElementObject>()->getElement());
 				mngr_->getPlayer()->getComponent<PlayerAnimationComponent>()->changeElem(ents->getComponent<ElementObject>()->getElement());
 				mngr_->getPlayer()->getComponent<PlayerAnimationComponent>()->setState(VANISH);
+				map_->unlockElement(ents->getComponent<ElementObject>()->getElement());
 				ents->setAlive(false);
 			}
 			else
@@ -308,6 +309,7 @@ void PlayState::Save() {
 
 void PlayState::AddLifeShard(int id) {
 	player_->getComponent<Health>()->addLifeShard(id);
+	map_->addShard(id);
 }
 
 // AQUÍ SE GUARDA PARTIDA
