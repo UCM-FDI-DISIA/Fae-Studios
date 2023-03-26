@@ -29,6 +29,7 @@ private:
 public:
     /// Constructora del estado de juego
     PlayState();
+    PlayState(std::string fileName);
 
     /// Destructora del estado de juego
     ~PlayState() override;
@@ -97,7 +98,7 @@ public:
     inline float getGravityValue() const { return gravityValue; }
     void checkInteraction();
     void AddEnredadera();
-    void AddLifeShard();
+    void AddLifeShard(int id);
     void Teleport();
     void Save();
     void endRest();

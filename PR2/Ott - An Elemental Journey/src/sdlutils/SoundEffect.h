@@ -97,6 +97,16 @@ public:
 		return convertSDLMixerValueToVolume(volumesOfChannels[channel]);
 	}
 
+	inline static float getGeneralSoundsVolume() {
+		return convertSDLMixerValueToVolume(generalSoundsVolume);
+	}
+
+	inline static void setGeneralSoundsVolume(int volume) {
+		float v = convertVolumeToSDLMixerValue(volume);
+		assert(v >= 0 && v <= 128);
+		generalSoundsVolume = v;
+	}
+
 	inline static int setNumberofChannels(int n) {
 		assert(n > 0);
 		return channels_ = Mix_AllocateChannels(n);
@@ -120,5 +130,6 @@ private:
 	static int channels_; // initialized in cpp
 
 	static std::unordered_map<int, int> volumesOfChannels;
+	static int generalSoundsVolume;
 };
 

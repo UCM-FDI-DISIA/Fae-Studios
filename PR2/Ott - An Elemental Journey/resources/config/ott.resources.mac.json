@@ -300,7 +300,12 @@
 			"rows": 2,
 			"cols": 7
 		},
-
+		{
+			"id": "earth_attack",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/earth_Attack.png",
+			"rows": 2,
+			"cols": 7
+		},
 		{
 			"id": "animationWorm",
 			"file": "../Ott - An Elemental Journey/resources/images/tests/AnimationWorm.png",
@@ -405,7 +410,12 @@
 	{ "id" : "roar", "file" : "../Ott - An Elemental Journey/resources/sound/gusanoroar.mp3"},
 	{ "id" : "teleport", "file" : "../Ott - An Elemental Journey/resources/sound/teleport.wav"},
 	{ "id" : "pick_elem", "file" : "../Ott - An Elemental Journey/resources/sound/pick_elem.wav"},
-	{ "id" : "elem_changed", "file" : "../Ott - An Elemental Journey/resources/sound/elem_change.wav"}
+	{ "id" : "elem_changed", "file" : "../Ott - An Elemental Journey/resources/sound/elem_change.wav"},
+	{ "id" : "vine_climb", "file" : "../Ott - An Elemental Journey/resources/sound/vine_climb.wav"},
+	{ "id" : "ott_water_step", "file" : "../Ott - An Elemental Journey/resources/sound/ott_paso_agua.wav"},
+	{ "id" : "fireball", "file" : "../Ott - An Elemental Journey/resources/sound/fireball.wav"},
+	{ "id" : "ott_attack_water", "file" : "../Ott - An Elemental Journey/resources/sound/attack_water.wav"},
+	{ "id" : "ott_attack_earth", "file" : "../Ott - An Elemental Journey/resources/sound/attack_earth.wav"}
   ],
 
 	"musics": [

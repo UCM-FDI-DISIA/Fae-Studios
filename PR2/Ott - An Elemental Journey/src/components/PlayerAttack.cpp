@@ -83,20 +83,20 @@ void PlayerAttack::update() {
 					colTrigger = 0;
 
 					earthAttackActive = true;
+					sdlutils().soundEffects().at("ott_attack_earth").play(0, ecs::_channel_PLAYER_ATTACK);
 				}
 				break;
-			case ecs::Fire: {
+			case ecs::Fire: 
 				if (chargedAttack) {
 					remainingAttacks = 3;
 					lastFireBallTime = SDL_GetTicks() - timeBetweenFireBalls;
 					chargedAttack = false;
 				}
 				else spawnFireball();
+				sdlutils().soundEffects().at("fireball").play(0, ecs::_channel_PLAYER_ATTACK);
 				break;
-			}
+
 			case ecs::Water: {
-
-
 				// Si no hay ya uno activo
 				if (!waterAttackActive) {
 
@@ -116,7 +116,8 @@ void PlayerAttack::update() {
 						colTrigger = 0;
 					}
 				}
-				break;
+				sdlutils().soundEffects().at("ott_attack_water").play(0, ecs::_channel_PLAYER_ATTACK);
+				break; 
 			}
 			default: {
 				break;
@@ -305,6 +306,7 @@ void PlayerAttack::spawnFireball()
 
 	// Bullet de ataque
 	attack->addComponent<Bullet>(health_->getElement(), ent_);
+
 }
 
 void PlayerAttack::MoveTrigger(Vector2D attackWH) {

@@ -45,6 +45,7 @@
 #include <string>
 #include <iostream>
 #include <functional>
+#include <cstdlib>s
 #include <SDL.h>
 
 
@@ -267,7 +268,7 @@ namespace constructors {
 		return camera;
 	}
 
-	static inline Entity* grass(Manager* mngr_, Vector2D position, int widthVine, int heightVine, Vector2D posiniVine, Vector2D posfinVine, int width = 60, int height = 60) {
+	static inline Entity* grass(Manager* mngr_, Vector2D position, int widthVine, int heightVine, Vector2D posiniVine, Vector2D posfinVine, int ID, int width = 60, int height = 60) {
 		auto grass = mngr_->addEntity(ecs::_grp_INTERACTION);
 		grass->addComponent<Transform>(position, width, height);
 		grass->addComponent<Image>(&sdlutils().images().at("grass"));
@@ -276,19 +277,19 @@ namespace constructors {
 		auto cb = []() {
 			static_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->AddEnredadera();
 		};
-		grass->addComponent<InteractionComponent>(cb);
+		grass->addComponent<InteractionComponent>(cb, GRASS_IT, ID);
 		return grass;
 	}
 
-	static inline Entity* LifeShard(Manager* mngr_, int x, int y, int w, int h) {
+	static inline Entity* LifeShard(Manager* mngr_, int x, int y, int w, int h, int ID) {
 		auto shard = mngr_->addEntity(ecs::_grp_INTERACTION);
 		shard->addComponent<Transform>(Vector2D(x, y), w, h);
 		shard->addComponent<FramedImage>(&sdlutils().images().at("lifeshard"), 1, 10);
 		shard->addComponent<LifeAnimationComponent>();
-		auto cb = []() {
-			static_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->AddLifeShard();
+		auto cb = [ID]() {
+			static_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->AddLifeShard(ID);
 		};
-		shard->addComponent<InteractionComponent>(cb, true);
+		shard->addComponent<InteractionComponent>(cb, LIFESHARD_IT, ID, true);
 
 		return shard;
 	}
@@ -315,7 +316,7 @@ namespace constructors {
 		return element;
 	}
 
-	static inline std::pair<Entity*, Entity*> lamp(Manager* mngr_, int x1, int y1, int w1, int h1, int room1, int x2, int y2, int w2, int h2, int room2) {
+	static inline std::pair<Entity*, Entity*> lamp(Manager* mngr_, int x1, int y1, int w1, int h1, int room1, int x2, int y2, int w2, int h2, int room2, int ID1, int ID2) {
 		auto lamp = mngr_->addEntity(ecs::_grp_INTERACTION);
 		auto lamp2 = mngr_->addEntity(ecs::_grp_INTERACTION);
 
@@ -326,22 +327,22 @@ namespace constructors {
 		auto cb = []() {
 			static_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->Teleport();
 		};
-		lamp->addComponent<InteractionComponent>(cb);
+		lamp->addComponent<InteractionComponent>(cb, LAMP_IT, ID1);
 		lamp2->addComponent<Transform>(Vector2D(x2, y2 - h2), w2, h2);
 		lamp2->addComponent<Image>(t_);
 		lamp2->addComponent<LampComponent>(lamp, room2);
-		lamp2->addComponent<InteractionComponent>(cb);
+		lamp2->addComponent<InteractionComponent>(cb, LAMP_IT, ID2);
 		return std::make_pair(lamp, lamp2);
 	}
 
-	static inline Entity* sanctuary(Manager* mngr_, Vector2D position, int width = 100, int height = 130) {
+	static inline Entity* sanctuary(Manager* mngr_, Vector2D position, int ID, int width = 100, int height = 130) {
 		auto sanc = mngr_->addEntity(ecs::_grp_INTERACTION);
 		sanc->addComponent<Transform>(position, width, height);
 		sanc->addComponent<Image>(&sdlutils().images().at("sanctuary"));
 		auto cb = []() {
 			static_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->Save();
 		};
-		sanc->addComponent<InteractionComponent>(cb);
+		sanc->addComponent<InteractionComponent>(cb, SANCTUARY_IT, ID);
 		return sanc;
 	}
 
@@ -380,11 +381,28 @@ namespace constructors {
 		// auto bgrd = mngr_->addEntity(ecs::_grp_MAP);
 		auto e = mngr_->addEntity(ecs::_grp_MAP);
 		auto fadeOut = mngr_->addEntity(ecs::_grp_FADEOUT);
-		fadeOut->addComponent<Transform>(0,0,sdlutils().width()*1.5, sdlutils().height()*1.5);
+		fadeOut->addComponent<Transform>(0, 0, sdlutils().width() * 1.5, sdlutils().height() * 1.5);
 		fadeOut->addComponent<FramedImage>(&sdlutils().images().at("fadeOut"), 5, 5);
 		fadeOut->addComponent<FadeOutAnimationComponent>();
 		fadeOut->setActive(true);
 		e->addComponent<MapComponent>(fadeOut, game, currentMap);
+		auto scale = e->getComponent<MapComponent>()->tileScale();
+		//bgrd->addComponent<BackgroundImage>(Vector2D(0, 0), &sdlutils().images().at("level1bg"), scale, scale);
+		//bgrd->addComponent<BackgroundImage>(Vector2D(0, 0), game->getTexture("level1bg", PLAY_STATE), scale, scale);
+		auto a = e->getComponent<MapComponent>()->getObjects();
+		return e;
+		//bgrd->addComponent<Image>(game->getTexture("level1bg", PLAY_STATE));
+	}
+
+	static inline Entity* map(Manager* mngr_, PlayState* game, int level, std::ifstream& fileName) {
+		// auto bgrd = mngr_->addEntity(ecs::_grp_MAP);
+		auto e = mngr_->addEntity(ecs::_grp_MAP);
+		auto fadeOut = mngr_->addEntity(ecs::_grp_FADEOUT);
+		fadeOut->addComponent<Transform>(0,0,sdlutils().width()*1.5, sdlutils().height()*1.5);
+		fadeOut->addComponent<FramedImage>(&sdlutils().images().at("fadeOut"), 5, 5);
+		fadeOut->addComponent<FadeOutAnimationComponent>();
+		fadeOut->setActive(true);
+		e->addComponent<MapComponent>(fadeOut, game, level, fileName);
 		auto scale = e->getComponent<MapComponent>()->tileScale();
 		//bgrd->addComponent<BackgroundImage>(Vector2D(0, 0), &sdlutils().images().at("level1bg"), scale, scale);
 		//bgrd->addComponent<BackgroundImage>(Vector2D(0, 0), game->getTexture("level1bg", PLAY_STATE), scale, scale);

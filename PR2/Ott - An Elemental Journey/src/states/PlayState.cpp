@@ -25,8 +25,10 @@
 #include "../components/WaterBossAnimationComponent.h"
 
 #include "../components/FadeTransitionComponent.h"
+#include <fstream>
 #include "menus/PauseMenuState.h"
 #include "../components/ElementObject.h"
+#include <iostream>
 
 PlayState::PlayState() : GameState(ecs::_state_PLAY) {
 	currentMap = ecs::EARTH_MAP;
@@ -36,16 +38,9 @@ PlayState::PlayState() : GameState(ecs::_state_PLAY) {
 	player_ = mngr_->getPlayer();
 	camera_ = mngr_->getCamera();
 
-	std::cout << "prueba" << std::endl;
-
-    auto a = mngr_->addEntity(ecs::_grp_INTERACTION);
-	a->addComponent<Transform>(player_->getComponent<Transform>()->getPosition().getX() + 100, player_->getComponent<Transform>()->getPosition().getY(), 300, 300);
-	a->addComponent<Image>(&sdlutils().images().at("lamp"));
-	a->addComponent<ElementObject>(ecs::Earth);
-
     fade = mngr_->addEntity(ecs::_grp_FADEOUT);
 	fade->addComponent<FadeTransitionComponent>(true, 1);
-    fade->getComponent<FadeTransitionComponent>()->setFunction([this](){doNotDetectKeyboardInput = false; sdlutils().musics().at(sdlutils().levels().at(map_->getCurrentLevel()).bgsong).play(); });
+	fade->getComponent<FadeTransitionComponent>()->setFunction([this]() {doNotDetectKeyboardInput = false; sdlutils().musics().at(sdlutils().levels().at(map_->getCurrentLevel()).bgsong).play(); });
 	fade->getComponent<FadeTransitionComponent>()->activate();
 
 	// se reinicializan los componentes del jugador porque muchos tienen referencias entre ellos y con la cámara 
@@ -61,6 +56,61 @@ PlayState::PlayState() : GameState(ecs::_state_PLAY) {
 	map_ = constructors::map(mngr_, this, (int)(currentMap))->getComponent<MapComponent>();
 	initialEnemies = enemies;
 }
+
+PlayState::PlayState(std::string fileName) : GameState(ecs::_state_PLAY) {
+	currentMap = ecs::EARTH_MAP;
+
+	mngr_->setPlayer(constructors::player(mngr_, 700, 1500, 100, 120));
+	mngr_->setCamera(constructors::camera(mngr_, 700, 2000, sdlutils().width(), sdlutils().height()));
+	player_ = mngr_->getPlayer();
+	camera_ = mngr_->getCamera();
+
+	std::ifstream file(fileName);
+
+	player_->getComponent<Health>()->loadFromFile(file);
+	player_->getComponent<PlayerInput>()->loadFromFile(file);
+
+	fade = mngr_->addEntity(ecs::_grp_FADEOUT);
+	fade->addComponent<FadeTransitionComponent>(true, 1);
+	fade->getComponent<FadeTransitionComponent>()->setFunction([this]() {doNotDetectKeyboardInput = false; sdlutils().musics().at(sdlutils().levels().at(map_->getCurrentLevel()).bgsong).play(); });
+	fade->getComponent<FadeTransitionComponent>()->activate();
+
+	// se reinicializan los componentes del jugador porque muchos tienen referencias entre ellos y con la cámara 
+	// y no se podrían coger de otra forma más que forzando el initComponent()
+	player_->reinitCmpts();
+
+	visitedRooms.reserve(ecs::LAST_MAP_ID);
+	for (int i = 0; i < ecs::LAST_MAP_ID; ++i) {
+		visitedRooms.push_back({});
+	}
+	map_ = constructors::map(mngr_, this, (int)ecs::EARTH_MAP, file)->getComponent<MapComponent>();
+
+	currentMap = (ecs::maps) map_->getCurrentMap();
+	initialEnemies = enemies;	
+	std::string aux;
+	file >> aux >> aux;
+	while (aux != "_") {
+		bool visited;
+		file >> visited;
+		visitedRooms[ecs::EARTH_MAP][std::stoi(aux)] = visited;
+		file >> aux;
+	}
+	file >> aux >> aux;
+	while (aux != "_") {
+		bool visited;
+		file >> visited;
+		visitedRooms[ecs::WATER_MAP][std::stoi(aux)] = visited;
+		file >> aux;
+	}
+	file >> aux >> aux;
+	while (aux != "_") {
+		bool visited;
+		file >> visited;
+		visitedRooms[ecs::FIRE_MAP][std::stoi(aux)] = visited;
+		file >> aux;
+	}
+}
+
 
 PlayState::~PlayState() {
 	/*Mix_HaltMusic();
@@ -80,7 +130,7 @@ void PlayState::handleInput() {
 	
 	if (!doNotDetectKeyboardInput) {
 		if (InputHandler::instance()->isKeyJustDown(SDLK_ESCAPE)) {
-			fade->getComponent<FadeTransitionComponent>()->setFunction([this]() { sdlutils().musics().at(sdlutils().levels().at(map_->getCurrentLevel()).bgsong).pauseMusic(); GameStateMachine::instance()->pushState(new PauseMenuState()); });
+			fade->getComponent<FadeTransitionComponent>()->setFunction([this]() { sdlutils().musics().at(sdlutils().levels().at(map_->getCurrentLevel()).bgsong).pauseMusic(); SoundEffect::haltChannel(); GameStateMachine::instance()->pushState(new PauseMenuState()); });
 			fade->getComponent<FadeTransitionComponent>()->changeSpeed(2);
 			fade->getComponent<FadeTransitionComponent>()->revert();
 		}
@@ -224,17 +274,7 @@ void PlayState::checkInteraction() {
 void PlayState::update() {
 	checkCollisions({ player_ });
 	checkCollisions(enemies[map_->getCurrentRoom()]);
-	/*for (auto it : enemies) {
-		for (auto ot : it) {
-			if (it != enemies[map_->getCurrentRoom()]) {
-				ot->getComponent<PhysicsComponent>()->Stop();
-			}
-			else {
-				ot->getComponent<PhysicsComponent>()->Resume();
-				ot->setActive(true);
-			}
-		}
-	}*/
+	
 	GameState::update();
 }
 
@@ -266,10 +306,39 @@ void PlayState::Save() {
 	lastSanctuary = getCurrentInteraction();
 }
 
-void PlayState::AddLifeShard() {
-	player_->getComponent<Health>()->addLifeShard();
+void PlayState::AddLifeShard(int id) {
+	player_->getComponent<Health>()->addLifeShard(id);
 }
 
+// AQUÍ SE GUARDA PARTIDA
 void PlayState::endRest() {
     player_->getComponent<Health>()->saveSactuary(lastSanctuary);
+	// Guardar datos en archivo
+	std::string hola = "../resources/saves/temporalUniqueSave.sv";
+	std::ofstream saveFile(hola);
+
+	player_->getComponent<Health>()->saveToFile(saveFile);
+	player_->getComponent<PlayerInput>()->saveToFile(saveFile);
+	map_->saveToFile(saveFile);
+	std::string rooms = "";
+	for (int i = 0; i < visitedRooms[ecs::EARTH_MAP].size(); ++i) {
+		if (visitedRooms[ecs::EARTH_MAP][i]) rooms += (std::to_string(i) + " 1 ");
+		else rooms += (std::to_string(i) + " 0 ");
+	}
+	saveFile << "earth_map_rooms " << rooms << "_" << std::endl;
+
+	rooms = "";
+	for (int i = 0; i < visitedRooms[ecs::WATER_MAP].size(); ++i) {
+		if (visitedRooms[ecs::WATER_MAP][i]) rooms += (std::to_string(i) + " 1 ");
+		else rooms += (std::to_string(i) + " 0 ");
+	}
+	saveFile << "water_map_rooms " << rooms << "_" << std::endl;
+
+	rooms = "";
+	for (int i = 0; i < visitedRooms[ecs::FIRE_MAP].size(); ++i) {
+		if (visitedRooms[ecs::FIRE_MAP][i]) rooms += (std::to_string(i) + " 1 ");
+		else rooms += (std::to_string(i) + " 0 ");
+	}
+	saveFile << "fire_map_rooms " << rooms << "_" << std::endl;
+	if (saveFile.fail()) std::cout << "FALLÉ GENTE" << std::endl;
 }
