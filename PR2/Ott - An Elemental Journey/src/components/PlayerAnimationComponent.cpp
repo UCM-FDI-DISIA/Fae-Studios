@@ -54,7 +54,7 @@ void PlayerAnimationComponent::update()
 	if (health->getElement() != elemToChange) {
 		setState(VANISH);
 	}
-	else {
+	else if(!health->isDead()) {
 		if (state_ == ATTACK || state_ == VANISH || state_ == DIE || state_ == LAND || state_ == OPEN_MAP || state_ == CLOSE_MAP) return; // estas animaciones se superponen a todas las demás
 		auto physics = ent_->getComponent<PhysicsComponent>();
 		Vector2D vel = physics->getVelocity(); // velocidad
@@ -92,7 +92,7 @@ void PlayerAnimationComponent::endAnim()
 			GameStateMachine::instance()->pushState(new MapState(static_cast<PlayState*> (GameStateMachine::instance()->getPlayState())));
 		}
 		else setState(IDLE); // poner estado idle 
-		timer_ = 0; // reiniciar el timer
+		if(state_ != DIE) timer_ = 0; // reiniciar el timer
 	}
 }
 

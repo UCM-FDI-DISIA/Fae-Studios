@@ -43,7 +43,6 @@ private:
 	// Vector con las keys de la imagen asociada a cada habitacion
 	std::vector<std::vector<std::string>> mapKeys;
 
-
 	// En este mapa se guarda:
 	// string -> n�mero de sala
 	// vector -> todos los triggers que hay en esa sala
