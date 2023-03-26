@@ -62,3 +62,7 @@ void GraphicOptionsMenuState::update() {
 		fwNeedChange = false;
 	}
 }
+
+void GraphicOptionsMenuState::changeResolution() {
+
+}

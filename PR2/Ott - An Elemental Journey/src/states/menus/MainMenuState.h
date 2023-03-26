@@ -16,5 +16,6 @@ public:
 	MainMenuState();
 	void resetFade() override;
 	void update() final;
+	void changeResolution() override;
 };
 

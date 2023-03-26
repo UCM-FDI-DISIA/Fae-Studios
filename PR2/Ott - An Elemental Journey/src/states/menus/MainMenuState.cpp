@@ -91,3 +91,7 @@ void MainMenuState::resetFade() {
     GameState::resetFade();
     sdlutils().musics().at("main_menu_music").play();
 }
+
+void MainMenuState::changeResolution() {
+
+}

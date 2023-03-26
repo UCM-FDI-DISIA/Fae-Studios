@@ -16,5 +16,6 @@ private:
 public:
 	GraphicOptionsMenuState();
 	void update() override;
+	void changeResolution() override;
 };
 
