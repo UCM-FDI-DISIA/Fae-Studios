@@ -28,6 +28,7 @@
 #include "../components/FadeTransitionComponent.h"
 #include "menus/PauseMenuState.h"
 #include "../components/ElementObject.h"
+#include "../components/ActiveWater.h"
 
 PlayState::PlayState() : GameState(ecs::_state_PLAY) {
 	mngr_->setPlayer(constructors::player(mngr_, 700, 1500, 100, 120));
@@ -43,10 +44,10 @@ PlayState::PlayState() : GameState(ecs::_state_PLAY) {
 	player_->getComponent<PlayerAttack>()->initComponent();
 	player_->getComponent<Health>()->initComponent();
 
-    auto a = mngr_->addEntity(ecs::_grp_INTERACTION);
-	a->addComponent<Transform>(player_->getComponent<Transform>()->getPosition().getX() + 100, player_->getComponent<Transform>()->getPosition().getY(), 300, 300);
-	a->addComponent<Image>(&sdlutils().images().at("lamp"));
-	a->addComponent<ElementObject>(ecs::Earth);
+ //   auto a = mngr_->addEntity(ecs::_grp_INTERACTION);
+	//a->addComponent<Transform>(player_->getComponent<Transform>()->getPosition().getX() + 100, player_->getComponent<Transform>()->getPosition().getY(), 300, 300);
+	//a->addComponent<Image>(&sdlutils().images().at("lamp"));
+	//a->addComponent<ElementObject>(ecs::Earth);
 
     fade = mngr_->addEntity(ecs::_grp_FADEOUT);
 	fade->addComponent<FadeTransitionComponent>(true, 1);
@@ -206,19 +207,21 @@ void PlayState::checkCollisions(std::list<Entity*> entities) {
 		int j = 0;
 		std::vector <Entity*> water = mngr_->getEntities(ecs::_grp_WATER);
 		for (Entity* w : water) {
-			SDL_Rect r3 = w->getComponent<Transform>()->getRect();
-			SDL_Rect areaColision; // area de colision 	
-			bool interseccion = SDL_IntersectRect(&r1, &r3, &areaColision);
-			if (interseccion)
-			{
-				physics->setWater(true); ++j;
-				if (health->getElement() != ecs::Water) { physics->setGrounded(false); }
-				//comprobación de si esta en la zona de flote, de momento sin variable de ancho de zona de flote 
-				if (areaColision.y <= r3.y + 5) {
-					physics->setFloating(true);
-				}
-				else {
-					physics->setFloating(false);
+			if (w->getComponent<ActiveWater>()->getActive()) {
+				SDL_Rect r3 = w->getComponent<Transform>()->getRect();
+				SDL_Rect areaColision; // area de colision 	
+				bool interseccion = SDL_IntersectRect(&r1, &r3, &areaColision);
+				if (interseccion)
+				{
+					physics->setWater(true); ++j;
+					if (health->getElement() != ecs::Water) { physics->setGrounded(false); }
+					//comprobación de si esta en la zona de flote, de momento sin variable de ancho de zona de flote 
+					if (areaColision.y <= r3.y + 5) {
+						physics->setFloating(true);
+					}
+					else {
+						physics->setFloating(false);
+					}
 				}
 			}
 

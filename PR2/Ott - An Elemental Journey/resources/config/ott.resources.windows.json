@@ -105,6 +105,12 @@
 			"file": "../resources/images/tests/BossDoor_Fire.png",
 			"rows": 1,
 			"cols": 1
+		},
+		{
+			"id": "water",
+			"file": "../resources/images/tests/Water.png",
+			"rows": 1,
+			"cols": 1
 		}
   ],
 

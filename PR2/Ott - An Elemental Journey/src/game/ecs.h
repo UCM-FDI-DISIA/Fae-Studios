@@ -48,11 +48,12 @@ namespace ecs {
         _EARTHMNGR,
         _WATER_ATTACK_ANIM,
         _GET_ELEMENT,
-<<<<<<< Updated upstream
+
         _WATER_BOSS_ATTACK,
-=======
+
         _BOSS_DOOR,
->>>>>>> Stashed changes
+        _ACTIVE_WATER,
+
 
         _LAST_CMP_ID
     };

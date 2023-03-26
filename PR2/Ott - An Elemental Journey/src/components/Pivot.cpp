@@ -26,13 +26,11 @@ void Pivot::update()
 				bossPhysics->setVelocity({ 0.3,0 });
 				if (playerTransform->getRotation() == 90)
 				{
-					player->getComponent<Acceleration>()->setWaiting(false);
 					playerTransform->setRotation(-90);
 				}
-				else if(!player->getComponent<Acceleration>()->getWaiting()){
+				else{
 
 					playerTransform->setRotation(+90);
-					player->getComponent<Acceleration>()->setWaiting(true);
 				}
 
 				bossPhysics->lookDirection(true);
@@ -42,13 +40,19 @@ void Pivot::update()
 			{
 				bossPhysics->setVelocity({ 0,-0.3 });
 				playerTransform->setRotation(-90);
-				player->getComponent<Acceleration>()->setWaiting(true);
+				//player->getComponent<Acceleration>()->setWaiting(true,1);
 			}
 			else if (num == 3)
 			{
 				bossPhysics->setVelocity({ 0,-0.3 });
 				playerTransform->setRotation(-90);
-				player->getComponent<Acceleration>()->setWaiting(false);
+
+			}
+			else if (num == 4)
+			{
+				bossPhysics->setVelocity({ 0.3,0 });
+				playerTransform->setRotation(+90);
+				//player->getComponent<Acceleration>()->setWaiting(true,2);
 
 			}
 			active = true;

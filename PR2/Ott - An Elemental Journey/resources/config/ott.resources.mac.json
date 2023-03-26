@@ -358,6 +358,12 @@
 			"file": "../Ott - An Elemental Journey/resources/images/tests/BossDoor_Fire.png",
 			"rows": 1,
 			"cols": 1
+		},
+		{
+			"id": "water",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/Water.png",
+			"rows": 1,
+			"cols": 1
 		}
 	],
 

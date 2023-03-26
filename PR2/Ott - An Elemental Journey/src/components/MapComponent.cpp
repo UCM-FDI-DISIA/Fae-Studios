@@ -250,17 +250,19 @@ void MapComponent::loadMap(std::string path) {
             if (obj.getClass() == "Destructible") {
                 destructible[obj.getName()].push_back(std::make_pair(true, rect));
                 int index = destructible[obj.getName()].size() - 1;
-                constructors::DestructibleTile(mngr_, rect.x, rect.y, rect.w, obj.getName(), index, this);
+                constructors::DestructibleTile(mngr_, rect.x, rect.y, rect.w,rect.h, obj.getName(), index, this);
             }
             else ground[obj.getName()].push_back(rect);
         }
         for (auto obj : vectorObjects[WATER_VECTOR_POS]) {
             SDL_Rect rect = getSDLRect(obj.getAABB());
 
-            Entity* waterW= constructors::Water(mngr_, rect.x, rect.y, rect.w, rect.h);
+            Entity* waterW= constructors::Water(mngr_, rect.x, rect.y, rect.w, rect.h, obj.getClass());
             std::cout << obj.getUID() << std::endl;
             waterObjects[std::stoi(obj.getName())].push_back(waterW);
-            WaterSetActive(true);
+            //WaterSetActive(true);
+
+            waterW->setActive(waterW->getComponent<ActiveWater>()->getActive());
         }
 
         std::unordered_map<std::string, std::pair<SDL_Rect, std::string>> triggerInfo;

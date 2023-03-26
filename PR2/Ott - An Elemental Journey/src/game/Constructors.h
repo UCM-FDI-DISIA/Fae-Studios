@@ -40,6 +40,7 @@
 #include "../components/Acceleration.h"
 #include "../components/WaterBossAnimationComponent.h"
 #include "../components/WaterBossAttack.h"
+#include "../components/ActiveWater.h"
 #include <string>
 #include <iostream>
 #include <functional>
@@ -280,9 +281,9 @@ namespace constructors {
 		return sanc;
 	}
 
-	static inline void DestructibleTile(Manager* mngr_, int x, int y, int w, std::string room, int index, MapComponent* map) {
+	static inline void DestructibleTile(Manager* mngr_, int x, int y, int w,int h, std::string room, int index, MapComponent* map) {
 		auto waterObj = mngr_->addEntity(ecs::_grp_GROUND);
-		waterObj->addComponent<Transform>(Vector2D(x,y), w, w);
+		waterObj->addComponent<Transform>(Vector2D(x,y), w, h);
 		waterObj->addComponent<Image>(&sdlutils().images().at("box"));
 		waterObj->addComponent<Destruction>(room, index, map);
 	}
@@ -337,7 +338,7 @@ namespace constructors {
 		y -= 550;
 		box0->addComponent<Transform>(x, y, 100, 100);
 		//box0->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
-		box0->addComponent<Pivot>(waterBoss, 1);
+		box0->addComponent<Pivot>(waterBoss, 4);
 
 		return waterBoss;
 	}
@@ -358,10 +359,14 @@ namespace constructors {
 		return e;
 		//bgrd->addComponent<Image>(game->getTexture("level1bg", PLAY_STATE));
 	}
-	static inline Entity* Water(Manager* mngr_, int x, int y, int w, int h)
+	static inline Entity* Water(Manager* mngr_, int x, int y, int w, int h,std::string clase)
 	{
 		Entity* wObject = mngr_->addEntity(ecs::_grp_WATER);
 		wObject->addComponent<Transform>(x, y, w, h);
+		wObject->addComponent<Image>(&sdlutils().images().at("water"));
+		bool active = (clase == "Activo");
+		wObject->addComponent<ActiveWater>(active);
+		
 		return wObject;
 	}
 

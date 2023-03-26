@@ -11,7 +11,7 @@ void Acceleration::update()
 {
 	if (!start)
 	{
-		if (transform->getPosition().getY() - playerTransform->getPosition().getY() <= 10) {
+		if (transform->getPosition().getY() - playerTransform->getPosition().getY() <= -10) {
 			start = true;
 			physics->setVelocity({ 1, 0 });
 			speed = { 1,0 };
@@ -30,13 +30,13 @@ void Acceleration::update()
 		if (!waiting) {
 			Vector2D vecAux;
 			//derecha
-			if (physics->getVelocity().getX() > 0.0f )vecAux = { aux / 400,0 };
+			if (physics->getVelocity().getX() > 0.0f )vecAux = { aux / 750,0 };
 			//izquierda
-			else if (physics->getVelocity().getX() < 0.0f )vecAux = { -aux / 400,0 };
+			else if (physics->getVelocity().getX() < 0.0f )vecAux = { -aux / 750,0 };
 			//arriba
-			else if (physics->getVelocity().getY() < 0.0f )vecAux = { 0,-aux / 400 };
+			else if (physics->getVelocity().getY() < 0.0f )vecAux = { 0,-aux / 750 };
 			//abajo
-			else if (physics->getVelocity().getY() > 0.0f) vecAux = { 0,aux / 400 };
+			else if (physics->getVelocity().getY() > 0.0f) vecAux = { 0,aux / 750 };
 			physics->setVelocity(vecAux);
 		}
 		else {
