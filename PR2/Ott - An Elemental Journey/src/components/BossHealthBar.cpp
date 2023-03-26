@@ -1,4 +1,5 @@
 #include "BossHealthBar.h"
+#include "EarthBossManager.h"
 #include "Health.h"
 
 void BossHealthBar::initComponent() {
@@ -8,7 +9,7 @@ void BossHealthBar::initComponent() {
 }
 
 void BossHealthBar::damage(int n) {
-	int hit = maxWidth / 10;
+	int hit = maxWidth / BossLife;
 	/*for(int i = 0; i < n; ++i)*/ posLife.w -= hit; // yo me rindo ya 
 }
 
@@ -16,7 +17,14 @@ void BossHealthBar::reset() {
 	posLife.w = posBar.w;
 }
 
+void BossHealthBar::die() {
+	isDead = true;
+	if (actualBoss == Earth) bossManager->getComponent<EarthBossManager>()->die();
+}
+
 void BossHealthBar::render() {
-	barTx->render(posBar);
-	lifeTx->render(posLife);
+	if (!isDead) {
+		barTx->render(posBar);
+		lifeTx->render(posLife);
+	}
 }

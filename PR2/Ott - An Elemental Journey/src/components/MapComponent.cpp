@@ -331,6 +331,15 @@ void MapComponent::loadMap(std::string path) {
     }
 }
 
+void MapComponent::addCollision(std::string sala, SDL_Rect newCol) {
+    ground[sala].push_back(newCol);
+}
+
+void MapComponent::deleteCollision(std::string sala) {
+    auto pos = ground.find(sala);
+    if (pos != ground.end()) (*pos).second.erase(--(*pos).second.end());
+}
+
 std::vector<std::pair<SDL_Rect, SDL_Rect>> MapComponent::checkCollisions(const SDL_Rect& playerRect) {
     std::vector<std::pair<SDL_Rect, SDL_Rect>> rects;
     for (SDL_Rect it : ground[std::to_string(currentRoom)]) {

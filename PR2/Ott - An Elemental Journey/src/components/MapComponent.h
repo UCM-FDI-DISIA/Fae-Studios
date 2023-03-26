@@ -78,6 +78,10 @@ public:
 	// cambio de mapa
 	void changeMap();
 
+	void addCollision(std::string sala, SDL_Rect newCol);
+
+	void deleteCollision(std::string sala);
+	
 	void playFadeOutAnimation() { anim_->startFadeOut(); }
 
 	void generateEnemies();
