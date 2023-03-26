@@ -67,6 +67,7 @@ private:
 	int triggerHeight;
 	SDL_Rect trigger;
 
+	bool chargedLight = false;
 	int waterDurationTimer; // timer duracion ataque de agua
 	int waterTickTimer = 0; // timer tick de agua
 	bool waterAttackActive;
