@@ -20,6 +20,7 @@ void EarthBossManager::setState(int newState) {
 	}
 }
 void EarthBossManager::initializeEntities() {
+	sdlutils().soundEffects().at("roar").play(0, ecs::_channel_ALERTS);
 	//animController = ent_->addComponent<EarthBossAnimationController>(this);
 	//CREACIÓN DE LAS 6 ENREDADERAS LATERALES
 	SDL_Rect vine_Rect;
