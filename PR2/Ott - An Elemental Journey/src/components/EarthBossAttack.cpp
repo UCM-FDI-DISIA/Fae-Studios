@@ -22,7 +22,7 @@ void EarthBossAttack::initComponent() {
 void EarthBossAttack::attack() {
 	auto playerHealth = player->getComponent<Health>();
 	if (playerHealth->getHealth() > 0) {
-		playerHealth->recieveDamage(playerHealth->getElement());
+		playerHealth->recieveDamage(playerHealth->getElement(), true);
 	}
 }
 

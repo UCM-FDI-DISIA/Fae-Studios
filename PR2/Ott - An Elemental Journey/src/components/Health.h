@@ -31,7 +31,7 @@ public:
 	void recall(bool rest = false);
 	inline bool isDead() { return dead; }
 	inline void setDead(bool dead) { this->dead = dead; }
-	bool recieveDamage(ecs::elements el);
+	bool recieveDamage(ecs::elements el, bool dir);
 	inline int getHealth() { return actualLife; }
 	inline int getMaxHealth() { return maxLife; }
 	inline std::string getLifeShardIDs() { return lifeShardIDs; }

@@ -385,11 +385,11 @@ bool PlayerAttack::attackEnemy(SDL_Rect& attackZone) {
 
 			attack = true;
 			// Hace da�o a enemigo dependiendo del elemento
-			e->getComponent<Health>()->recieveDamage(health_->getElement());
+			e->getComponent<Health>()->recieveDamage(health_->getElement(), true);
 
 			// Doble dano ataque luz cargado
 			if (chargedLight)
-				e->getComponent<Health>()->recieveDamage(health_->getElement());
+				e->getComponent<Health>()->recieveDamage(health_->getElement(), true);
 
 		}
 	}

@@ -51,10 +51,6 @@ void PlayerInput::update()
 				//Recuperar vidas
 				static_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->checkInteraction();
 			}
-			if (input->isKeyDown(SDLK_x)) {
-				//Recuperar vidas
-				health_->recieveDamage(ecs::Earth);
-			}
 			if (input->isKeyDown(SDLK_TAB)) {
 				if (anim_->getState() != OPEN_MAP && anim_->getState() != CLOSE_MAP && physics_->isGrounded()) {
 					anim_->setState(OPEN_MAP);
@@ -126,8 +122,7 @@ void PlayerInput::update()
 		else if (openingMap && state != OPEN_MAP && state != CLOSE_MAP) {
 			openingMap = false;
 		}
-		if (input->isKeyUp(SDLK_LEFT) && input->isKeyUp(SDLK_RIGHT)) {
-			std::cout << "quitar velocidad horizontal" << std::endl;
+		if (input->isKeyUp(SDLK_LEFT) && input->isKeyUp(SDLK_RIGHT) && !physics_->inKnocback()) {
 			playerV = Vector2D(0, playerV.getY());
 		}
 		if (input->keyUpEvent() && !openingMap) {

@@ -59,13 +59,13 @@ void CameraComponent::update() {
 		if (camera.x > bounds.x + bounds.w - tr_->getWidth()) {
 			camera.x = bounds.x + bounds.w - tr_->getWidth();
 		}
-		else if (camera.x < bounds.x) {
+		if (camera.x < bounds.x) {
 			camera.x = bounds.x;
 		}
 		if (camera.y > bounds.y + bounds.h - tr_->getHeight()) {
 			camera.y = bounds.y + bounds.h - tr_->getHeight();
 		}
-		else if (camera.y < bounds.y) {
+		if (camera.y < bounds.y) {
 			camera.y = bounds.y;
 		}
 

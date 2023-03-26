@@ -15,7 +15,7 @@ public:
     virtual ~PhysicsComponent();
     virtual void initComponent();
     virtual void update();
-    void knockback();
+    void knockback(bool dir);
     constexpr static ecs::cmpId_type id = ecs::_PHYSICS;
     Vector2D& getVelocity();
     SDL_Rect getCollider() const;
@@ -38,7 +38,8 @@ public:
     inline bool getFloating() { return floating; }
     inline void Stop() { stopped = true; lastSpeed = velocity_; }
     inline void Resume(bool verticalTrigger = false) { stopped = false; if(verticalTrigger) velocity_ = lastSpeed; }
-    inline bool isStopped()  { return stopped; }
+    inline bool isStopped() { return stopped; }
+    inline bool inKnocback()  { return isKnockback; }
     /*inline void saveLastPos(const SDL_Rect& col)
     {
         int wPlayerRect = getCollider().w;
