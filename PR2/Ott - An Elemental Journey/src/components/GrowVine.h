@@ -29,4 +29,5 @@ public:
 	void initComponent() override;
 	void update() override;
 	void isGrowing(bool g) { grow = g; }
+	bool getGrow() { return grow; }
 };

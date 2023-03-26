@@ -13,13 +13,14 @@ private:
 	Entity* player = nullptr;
 	Entity* earthBoss = nullptr;
 	Entity* blockDoor = nullptr;
-	Texture* anim = nullptr;
 	int col = 0;
 	bool start = false;
 	bool added = false;
+	bool startShaking = false;
+	SDL_Rect bossRoom;
 
 public:
-	EnterBossRoom(Texture* a) : anim(a) {}
+	EnterBossRoom(SDL_Rect bR): bossRoom(bR) {}
 	void initComponent();
 	virtual ~EnterBossRoom() {}
 	constexpr static ecs::cmpId_type id = ecs::_ENTERBOSS;

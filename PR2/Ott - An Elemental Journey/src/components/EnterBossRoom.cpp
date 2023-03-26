@@ -15,31 +15,38 @@ void EnterBossRoom::enterRoom() {
 	if (resetTime) {
 		timer = SDL_GetTicks();
 		resetTime = false;
+		startShaking = true;
+	    bossRoom.w = sdlutils().width() + 1;
+		bossRoom.x -= 150;
+		bossRoom.y -= 100;
+		bossRoom.h += 150;
+		camera->getComponent<CameraComponent>()->setBounds(bossRoom);
 	}
-	ent_->getComponent<VineManager>()->addVine();
 }
 
 void EnterBossRoom::update() {
-	int aux = SDL_GetTicks() - timer;
-	if (aux <= 1000) {
-		if (camera != nullptr && player != nullptr) {
-			camera->getComponent<CameraComponent>()->cameraShake(true);
-			player->getComponent<PhysicsComponent>()->Stop();
-			start = true;
+	if (startShaking) {
+		int aux = SDL_GetTicks() - timer;
+		if (aux <= 1000) {
+			if (camera != nullptr && player != nullptr) {
+				camera->getComponent<CameraComponent>()->cameraShake(true);
+				player->getComponent<PhysicsComponent>()->Stop();
+				start = true;
+			}
+			if (col == 7) col = 0;
+			else ++col;
 		}
-		if (col == 7) col = 0;
-		else ++col;
-	}
-	else {
-		if (camera != nullptr && player != nullptr) {
-			camera->getComponent<CameraComponent>()->cameraShake(false);
+		else {
+			if (camera != nullptr && player != nullptr) {
+				camera->getComponent<CameraComponent>()->cameraShake(false);
+			}
 		}
+		if (start && aux > 2000 && aux <= 5000) {
+			startFight();
+			startShaking = false;
+		}
+
 	}
-	if (aux > 2000 && aux <= 5000 && start) {
-		startFight();
-		player->getComponent<PhysicsComponent>()->Resume();
-	}
-	else start = false;
 }
 
 void EnterBossRoom::startFight() {
