@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\components\BossDoor.cpp" />
     <ClCompile Include="src\components\Destruction.cpp" />
     <ClCompile Include="src\components\Pivot.cpp" />
     <ClCompile Include="src\components\Acceleration.cpp" />
@@ -80,6 +81,7 @@
     <ClCompile Include="src\components\WaterBossAttack.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\components\BossDoor.h" />
     <ClInclude Include="src\components\Destruction.h" />
     <ClInclude Include="src\components\Pivot.h" />
     <ClInclude Include="src\components\Acceleration.h" />

@@ -301,37 +301,39 @@ namespace constructors {
 		waterBoss->addComponent<WaterBossAttack>();
 		waterBoss->reinitCmpts();
 
-		auto box0 = mngr_->addEntity(ecs::_grp_CHARACTERS);
+		//CAMBIAR A QUE SE LEA DE MAPA CUANDO FUNCIONE TODO
+
+		auto box0 = mngr_->addEntity(ecs::_grp_GENERAL);
 		x += 3000;
 		box0->addComponent<Transform>(x, y+100, 100, 100);
 		//box0->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
 		box0->addComponent<Pivot>(waterBoss, 0);
 
-		box0 = mngr_->addEntity(ecs::_grp_CHARACTERS);
+		box0 = mngr_->addEntity(ecs::_grp_GENERAL);
 		y += 2000;
 		box0->addComponent<Transform>(x, y, 100, 100);
 		//box0->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
 		box0->addComponent<Pivot>(waterBoss, 1);
 
-		box0 = mngr_->addEntity(ecs::_grp_CHARACTERS);
+		box0 = mngr_->addEntity(ecs::_grp_GENERAL);
 		x += 1600;
 		box0->addComponent<Transform>(x, y, 100, 100);
 		//box0->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
 		box0->addComponent<Pivot>(waterBoss, 2);
 
-		box0 = mngr_->addEntity(ecs::_grp_CHARACTERS);
+		box0 = mngr_->addEntity(ecs::_grp_GENERAL);
 		y -= 1600;
 		box0->addComponent<Transform>(x, y, 100, 100);
 		//box0->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
 		box0->addComponent<Pivot>(waterBoss, 1);
 
-		box0 = mngr_->addEntity(ecs::_grp_CHARACTERS);
+		box0 = mngr_->addEntity(ecs::_grp_GENERAL);
 		x += 1000;
 		box0->addComponent<Transform>(x, y, 100, 100);
 		//box0->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
 		box0->addComponent<Pivot>(waterBoss, 3);
 
-		box0 = mngr_->addEntity(ecs::_grp_CHARACTERS);
+		box0 = mngr_->addEntity(ecs::_grp_GENERAL);
 		y -= 550;
 		box0->addComponent<Transform>(x, y, 100, 100);
 		//box0->addComponent<Image>(&sdlutils().images().at("pixelWhite"));

@@ -23,6 +23,7 @@
 #include "../components/EnemyContactDamage.h"
 #include "../components/Destruction.h"
 #include "../components/WaterBossAnimationComponent.h"
+#include "../components/BossDoor.h"
 
 #include "../components/FadeTransitionComponent.h"
 #include "menus/PauseMenuState.h"
@@ -56,26 +57,12 @@ PlayState::PlayState() : GameState(ecs::_state_PLAY) {
 	// y no se podrían coger de otra forma más que forzando el initComponent()
 	player_->reinitCmpts();
 
-	/*
-	//prueba para movimiento de agua
-	auto waterM = mngr_->addEntity(ecs::_grp_WATER);
-	//500, 2000, 100, 120
-	waterM->addComponent<Transform>(3500, 600, 300, 420);
-	waterM->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
-	*/
+
+	
 	// COMENTO A LOS ENEMIGOS PORQUE ME ESTÁN DANDO POR CULO UN RATO CHAU BESOS
 
 
-	//// OBJETOS QUE DESTRUYE BOSS AGUA
-	//x = 600;
-	//y = 1300;
-	//scale = 1.0f;
-	//auto waterObj = mngr_->addEntity(ecs::_grp_GROUND);
-	//auto watObjPh = waterObj->addComponent<PhysicsComponent>();
-	//watObjPh->setGravity(false);
-	//waterObj->addComponent<Transform>(x, y, 100 * scale, 100 * scale);
-	//waterObj->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
-	//waterObj->addComponent<Destruction>(waterBoss);
+
 
 	//constructors::eSlime(mngr_, "fireSlime", 600, 1100, 1.0f);
 	//constructors::eMelee(mngr_, "waterBug", 2400, 1000, 1.0f);
@@ -87,13 +74,29 @@ PlayState::PlayState() : GameState(ecs::_state_PLAY) {
 	map_ = constructors::map(mngr_, this)->getComponent<MapComponent>();
 	initialEnemies = enemies;
 
-	/*
-	scale = 1.0f;
-	auto waterObj = mngr_->addEntity(ecs::_grp_GROUND);
-	waterObj->addComponent<Transform>(x-1000, y+200, 100 * scale*3, 100 * scale);
-	waterObj->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
-	waterObj->addComponent<Destruction>(waterBoss);
-	*/
+	/*float x = mngr_->getPlayer()->getComponent<Transform>()->getPosition().getX();
+	float y = mngr_->getPlayer()->getComponent<Transform>()->getPosition().getY();
+
+	auto waterObj = mngr_->addEntity(ecs::_grp_FINAL_BOSS_DOOR);
+	waterObj->addComponent<Transform>(x, y+350, 200, 250);
+	waterObj->addComponent<Image>(&sdlutils().images().at("BossDoor"));
+	waterObj->addComponent<BossDoor>();
+
+	auto earth = mngr_->addEntity(ecs::_grp_INTERACTION);
+	earth->addComponent<Transform>(x + 300, y + 500, 100, 100);
+	earth->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
+	earth->addComponent<ElementObject>(ecs::Earth);
+
+	earth = mngr_->addEntity(ecs::_grp_INTERACTION);
+	earth->addComponent<Transform>(x + 500, y + 500, 100, 100);
+	earth->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
+	earth->addComponent<ElementObject>(ecs::Water);
+
+	earth = mngr_->addEntity(ecs::_grp_INTERACTION);
+	earth->addComponent<Transform>(x + 700, y + 500, 100, 100);
+	earth->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
+	earth->addComponent<ElementObject>(ecs::Fire);*/
+	
 }
 
 PlayState::~PlayState() {

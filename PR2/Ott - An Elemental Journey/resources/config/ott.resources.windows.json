@@ -81,6 +81,30 @@
 			"file": "../resources/images/tests/box.png",
 			"rows": 1,
 			"cols": 1
+		},
+		{
+			"id": "BossDoor",
+			"file": "../resources/images/tests/BossDoor.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "BossDoor_Earth",
+			"file": "../resources/images/tests/BossDoor_Earth.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "BossDoor_Water",
+			"file": "../resources/images/tests/BossDoor_Water.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "BossDoor_Fire",
+			"file": "../resources/images/tests/BossDoor_Fire.png",
+			"rows": 1,
+			"cols": 1
 		}
   ],
 
