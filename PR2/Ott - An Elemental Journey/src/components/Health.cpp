@@ -48,12 +48,12 @@ void Health::recall(bool rest)
 	}
 }
 
-bool Health::recieveDamage(ecs::elements el)
+bool Health::recieveDamage(ecs::elements el, bool dir)
 {
 	if (ent_->hasComponent<PlayerAnimationComponent>()) {
 		if (pAnim_->isInvincible()) return false;
 		pAnim_->playerDamaged();
-		ent_->getComponent<PhysicsComponent>()->knockback();
+		ent_->getComponent<PhysicsComponent>()->knockback(dir);
 		//if() Añadir daño dependiendo de la entidad
 		int damage = elementsInfo::ottMatrix[el][elem];
 		actualLife -= damage;

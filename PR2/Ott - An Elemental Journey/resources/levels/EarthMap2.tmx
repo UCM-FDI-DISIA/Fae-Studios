@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="192" height="105" tilewidth="32" tileheight="32" infinite="0" nextlayerid="10" nextobjectid="212">
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="192" height="105" tilewidth="32" tileheight="32" infinite="0" nextlayerid="10" nextobjectid="215">
  <tileset firstgid="1" name="EarthMapTileset" tilewidth="32" tileheight="32" tilecount="680" columns="20">
   <image source="../images/levels/tilesetlevel1.png" width="640" height="1088"/>
  </tileset>
@@ -206,8 +206,8 @@
   <object id="200" name="6" class="0.8" x="4635.64" y="672" width="1282.61" height="753.939"/>
  </objectgroup>
  <objectgroup id="8" name="Enemigos">
-  <object id="150" name="0_1" class="Mushroom" x="1112.67" y="1331.67" width="31.3333" height="61.333"/>
-  <object id="151" name="1_2" class="Melee" x="1566.33" y="1312.17" width="31.3333" height="86.6667"/>
+  <object id="150" name="1_1" class="Mushroom" x="1120" y="1344" width="31.3333" height="61.333"/>
+  <object id="151" name="1_2" class="Melee" x="1568" y="1312" width="31.3333" height="86.6667"/>
   <object id="152" name="2_1" class="Slime" x="3147.97" y="1922.98" width="31.3333" height="173.333"/>
  </objectgroup>
  <objectgroup id="7" name="Triggers" visible="0">
@@ -224,7 +224,7 @@
   <object id="192" name="2_6" class="26" x="4582.67" y="1225.33" width="32" height="160"/>
   <object id="193" name="6_2" class="26" x="4622.42" y="1225.58" width="32" height="160"/>
  </objectgroup>
- <objectgroup id="9" name="Ott">
+ <objectgroup id="9" name="Ott" visible="0">
   <object id="153" name="Ott" class="0" x="598.333" y="1350" width="37" height="87"/>
  </objectgroup>
 </map>
