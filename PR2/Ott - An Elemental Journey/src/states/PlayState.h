@@ -104,5 +104,6 @@ public:
     void endRest();
     inline std::vector<std::list<Entity*>> getEnemies() { return enemies; }
     inline ecs::maps getCurrentMap() { return currentMap; }
+    inline void changeMap(int map) { currentMap = (ecs::maps)map; enemies.clear(); initialEnemies.clear(); enemyIt.clear(); };
 };
 

@@ -114,7 +114,7 @@
   ],
   
   "maps": [
-		{ "id" : "level1_0", "file" : "../resources/levels/EarthMap3.tmx", "cols" : 192, "tileset" : "level1tileset", "background" : "level1bg", "music" : "earth_level" },
+		{ "id" : "earthMap", "file" : "../resources/levels/EarthMap3.tmx", "cols" : 192, "tileset" : "level1tileset", "background" : "level1bg", "music" : "earth_level" },
 		{ "id" : "level1_1", "file" : "../resources/levels/EarthMap2.tmx", "cols" : 192, "tileset" : "level1tileset", "background" : "level1bg", "music" : "earth_level" },
 		{ "id" : "demo", "file" : "../resources/levels/DEMO.tmx", "cols" : 100, "tileset" : "level1tileset", "background" : "level1bg", "music" : "earth_level" },
 		{ "id" : "waterMap", "file" : "../resources/levels/WaterMap.tmx", "cols" : 180, "tileset" : "waterTileset", "background" : "level1bg", "music" : "earth_level" },
