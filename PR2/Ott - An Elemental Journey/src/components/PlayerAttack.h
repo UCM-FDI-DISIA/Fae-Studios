@@ -31,6 +31,9 @@ public:
 	{
 		earthAttackActive = false;
 		tAttack->setAlive(false);
+
+		if (chargedAttack)
+			tAttack2->setAlive(false);
 	}
 
 	inline void deleteWaterAttack()
@@ -48,9 +51,11 @@ public:
 private:
 	// Metodos
 	void MoveTrigger(Vector2D attackWH);
+	void MoveChargedEarthTrigger(Vector2D attackWH2);
 	bool attackEnemy(SDL_Rect& attackZone);
 	void spawnFireball();
 	void moveAttack(Transform* tr);
+	void moveChargedEarthAttack(Transform* tr, Transform* tr2);
 	void waterChargedAttack(SDL_Rect &trigger);
 
 	// Variables
@@ -66,6 +71,7 @@ private:
 	int triggerWidth;
 	int triggerHeight;
 	SDL_Rect trigger;
+	SDL_Rect trigger2;
 
 	bool chargedLight = false;
 	int waterDurationTimer; // timer duracion ataque de agua
@@ -77,5 +83,6 @@ private:
 	int colTrigger;
 	Entity* wAttack = nullptr; // Entidad ataque de agua
 	Entity* tAttack = nullptr; // Entidad ataque de tierra
+	Entity* tAttack2 = nullptr; // Entidad ataque tierra cargado
 };
 

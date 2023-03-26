@@ -93,7 +93,7 @@
 		{ "id" : "play_button", "file" : "../resources/sound/playbutton.wav" },
 		{ "id" : "button", "file" : "../resources/sound/button.wav" },
 		{ "id" : "button_back", "file" : "../resources/sound/buttonback.wav" },
-		{ "id" : "ott_step", "file" :  "../resources/sound/ott_paso.wav"},
+		{ "id" : "ott_step", "file" :  "../resources/sound/ott_paso_2.wav"},
 		{ "id" : "ott_attack", "file" :  "../resources/sound/ataque_ott.wav"},
 		{ "id" : "grow_vine", "file" : "../resources/sound/vine_growing.wav"},
 		{ "id" : "map", "file" : "../resources/sound/map.wav"},
@@ -105,12 +105,20 @@
 		{ "id" : "vine_climb", "file" : "../resources/sound/vine_climb.wav"},
 		{ "id" : "ott_water_step", "file" : "../resources/sound/ott_paso_agua.wav"},
 		{ "id" : "fireball", "file" : "../resources/sound/fireball.wav"},
-		{ "id" : "ott_attack_water", "file" : "../resources/sound/attack_water.wav"}
+		{ "id" : "ott_attack_water", "file" : "../resources/sound/attack_water.wav"},
+		{ "id" : "ott_attack_earth", "file" : "../resources/sound/attack_earth.wav"},
+		{ "id" : "slime_movement", "file" : "../resources/sound/slime_movement.wav"},
+		{ "id" : "slime_attack", "file" : "../resources/sound/slime_attack.wav"},
+		{ "id" : "slime_get_up", "file" : "../resources/sound/slime_getting_up.wav"},
+		{ "id" : "menemy_step", "file" : "../resources/sound/bicho_paso.wav"}
   ],
 
   "musics" : [
 	  {"id" :  "main_menu_music", "file" :  "../resources/music/Ambient 4.wav"},
-	  {"id" :  "earth_level", "file" :  "../resources/music/Ambient 1.wav"}
+	  {"id" :  "earth_level", "file" :  "../resources/music/Ambient 1.wav"},
+	  {"id" :  "fire_boss_fight", "file" :  "../resources/music/minotaur.wav"},
+	  {"id" :  "water_boss_fight", "file" :  "../resources/music/boss_agua.wav"},
+	  {"id" :  "earth_boss_fight", "file" :  "../resources/music/gusano.wav"}
   ],
   
   "maps": [

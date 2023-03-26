@@ -111,7 +111,7 @@ namespace constructors {
 		return enemy3;
 	}
 
-	static inline Entity* eSlime(Manager* mngr_, std::string imageKey, int x, int y, float scale, ecs::elements el, bool lookingRight) {
+	static inline Entity* eSlime(Manager* mngr_, std::string imageKey, int x, int y, float scale, ecs::elements el, bool lookingRight, int room) {
 		// Asi se a�ade enemigo slime
 
 		auto enemy = mngr_->addEntity(ecs::_grp_CHARACTERS);
@@ -130,7 +130,7 @@ namespace constructors {
 		enemy->addComponent<EnemyMovement>();
 		auto eAnim_ = enemy->addComponent<EnemyAnimationComponent>(anims::SLIME_ANIM);
 		auto meleeAttack_ = enemy->addComponent<EnemyMeleeAttack>();
-		enemy->addComponent<Generations>(Generations::getMaxGeneration());
+		enemy->addComponent<Generations>(Generations::getMaxGeneration(), room);
 		enemy->addComponent<SlimeStates>();
 		enemy->addComponent<EnemyContactDamage>();
 		eAttack_->SetRefs(eAnim_, nullptr, meleeAttack_);
@@ -138,7 +138,7 @@ namespace constructors {
 		return enemy;
 	}
 
-	static inline Entity* eSlime(Manager* mngr_, Texture* tex, int x, int y, float scale, int gens, int lives, ecs::elements el, bool lookingRight) {
+	static inline Entity* eSlime(Manager* mngr_, Texture* tex, int x, int y, float scale, int gens, int lives, ecs::elements el, bool lookingRight, int room) {
 		// Asi se a�ade enemigo slime
 
 		auto enemy = mngr_->addEntity(ecs::_grp_CHARACTERS);
@@ -157,7 +157,7 @@ namespace constructors {
 		enemy->addComponent<EnemyMovement>();
 		auto eAnim_ = enemy->addComponent<EnemyAnimationComponent>(anims::SLIME_ANIM);
 		auto meleeAttack_ = enemy->addComponent<EnemyMeleeAttack>();
-		enemy->addComponent<Generations>(gens);
+		enemy->addComponent<Generations>(gens, room);
 		enemy->addComponent<SlimeStates>();
 		enemy->addComponent<EnemyContactDamage>();
 		eAttack_->SetRefs(eAnim_, nullptr, meleeAttack_);
@@ -268,7 +268,7 @@ namespace constructors {
 		return camera;
 	}
 
-	static inline Entity* grass(Manager* mngr_, Vector2D position, int widthVine, int heightVine, Vector2D posiniVine, Vector2D posfinVine, int ID, int width = 60, int height = 60) {
+	static inline Entity* grass(Manager* mngr_, Vector2D position, int widthVine, int heightVine, Vector2D posiniVine, Vector2D posfinVine, int ID, int room, int width = 60, int height = 60) {
 		auto grass = mngr_->addEntity(ecs::_grp_INTERACTION);
 		grass->addComponent<Transform>(position, width, height);
 		grass->addComponent<Image>(&sdlutils().images().at("grass"));
@@ -277,11 +277,11 @@ namespace constructors {
 		auto cb = []() {
 			static_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->AddEnredadera();
 		};
-		grass->addComponent<InteractionComponent>(cb, GRASS_IT, ID);
+		grass->addComponent<InteractionComponent>(cb, GRASS_IT, ID, room);
 		return grass;
 	}
 
-	static inline Entity* LifeShard(Manager* mngr_, int x, int y, int w, int h, int ID) {
+	static inline Entity* LifeShard(Manager* mngr_, int x, int y, int w, int h, int ID, int room) {
 		auto shard = mngr_->addEntity(ecs::_grp_INTERACTION);
 		shard->addComponent<Transform>(Vector2D(x, y), w, h);
 		shard->addComponent<FramedImage>(&sdlutils().images().at("lifeshard"), 1, 10);
@@ -289,7 +289,7 @@ namespace constructors {
 		auto cb = [ID]() {
 			static_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->AddLifeShard(ID);
 		};
-		shard->addComponent<InteractionComponent>(cb, LIFESHARD_IT, ID, true);
+		shard->addComponent<InteractionComponent>(cb, LIFESHARD_IT, ID, room, true);
 
 		return shard;
 	}
@@ -327,22 +327,22 @@ namespace constructors {
 		auto cb = []() {
 			static_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->Teleport();
 		};
-		lamp->addComponent<InteractionComponent>(cb, LAMP_IT, ID1);
+		lamp->addComponent<InteractionComponent>(cb, LAMP_IT, ID1, room1);
 		lamp2->addComponent<Transform>(Vector2D(x2, y2 - h2), w2, h2);
 		lamp2->addComponent<Image>(t_);
 		lamp2->addComponent<LampComponent>(lamp, room2);
-		lamp2->addComponent<InteractionComponent>(cb, LAMP_IT, ID2);
+		lamp2->addComponent<InteractionComponent>(cb, LAMP_IT, ID2, room2);
 		return std::make_pair(lamp, lamp2);
 	}
 
-	static inline Entity* sanctuary(Manager* mngr_, Vector2D position, int ID, int width = 100, int height = 130) {
+	static inline Entity* sanctuary(Manager* mngr_, Vector2D position, int ID, int room, int width = 100, int height = 130) {
 		auto sanc = mngr_->addEntity(ecs::_grp_INTERACTION);
 		sanc->addComponent<Transform>(position, width, height);
 		sanc->addComponent<Image>(&sdlutils().images().at("sanctuary"));
 		auto cb = []() {
 			static_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->Save();
 		};
-		sanc->addComponent<InteractionComponent>(cb, SANCTUARY_IT, ID);
+		sanc->addComponent<InteractionComponent>(cb, SANCTUARY_IT, ID, room);
 		return sanc;
 	}
 

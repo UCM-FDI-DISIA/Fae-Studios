@@ -57,18 +57,36 @@ void PlayerAttack::update() {
 				//MoveTrigger(Vector2D(EARTH_ATTACK_WIDTH, EARTH_ATTACK_HEIGHT)); // Se mueven los triggers a la posici�n actual
 				if (!earthAttackActive)
 				{
+					/*		auto ottTransform = ent_->getComponent<Transform>();
+							Vector2D ottPos = ottTransform->getPosition();
+
+							trigger = { (int)(ottPos.getX() + ottTransform->getWidth()) , (int)(ottPos.getY() + ottTransform->getHeight() / 2), 0,EARTH_ATTACK_HEIGHT};*/
+
+					if (chargedAttack) {
+						// IZQUIERDA
+						trigger2 = { trigger.x, trigger.y, 0,EARTH_ATTACK_HEIGHT }; //cambiar altura 
+						tAttack2 = mngr_->addEntity(ecs::_grp_PROYECTILES);
+						tAttack2->addComponent<Transform>(Vector2D(trigger2.x, trigger2.y), EARTH_ATTACK_WIDTH, EARTH_ATTACK_HEIGHT);
+						tAttack2->addComponent<FramedImage>(&sdlutils().images().at("earth_attack"), 1, 10);
+						tAttack2->addComponent<earthAnimationController>(anims::EARTH_ATTACK);
+
+					}
+
+					// DERECHA
 					trigger = { trigger.x, trigger.y, 0,EARTH_ATTACK_HEIGHT }; //cambiar altura 
 					tAttack = mngr_->addEntity(ecs::_grp_PROYECTILES);
 					tAttack->addComponent<Transform>(Vector2D(trigger.x, trigger.y), EARTH_ATTACK_WIDTH, EARTH_ATTACK_HEIGHT);
 					tAttack->addComponent<FramedImage>(&sdlutils().images().at("earth_attack"), 1, 10);
 					tAttack->addComponent<earthAnimationController>(anims::EARTH_ATTACK);
 
+
 					colTrigger = 0;
+
 					earthAttackActive = true;
-					sdlutils().soundEffects().at("grow_vine").playFor(2000,0, ecs::_channel_PLAYER_ATTACK);
+					sdlutils().soundEffects().at("ott_attack_earth").play(0, ecs::_channel_PLAYER_ATTACK);
 				}
 				break;
-			case ecs::Fire: 
+			case ecs::Fire:
 				if (chargedAttack) {
 					remainingAttacks = 3;
 					lastFireBallTime = SDL_GetTicks() - timeBetweenFireBalls;
@@ -155,10 +173,7 @@ void PlayerAttack::update() {
 				wAttack->getComponent<FramedImage>()->changeTexture(&sdlutils().images().at("water_attack"));
 			}
 
-
 			waterStateAnimation = wAttack->getComponent<WaterAnimationController>();
-
-
 
 			auto colAnim = waterAnimation->getCurrentCol();
 			if (!physics->getLookDirection()) waterAnimation->flipTexture(true);
@@ -185,28 +200,55 @@ void PlayerAttack::update() {
 	}
 	else if (earthAttackActive)
 	{
+		earthAnimationController* earthStateAnimation = nullptr;
+		FramedImage* earthAnimation = nullptr;
+
 		// Transform
 		auto trAttack = tAttack->getComponent<Transform>();
+
 		moveAttack(trAttack);
-		auto earthAnimation = tAttack->getComponent<FramedImage>();
-		auto earthStateAnimation = tAttack->getComponent<earthAnimationController>();
+		earthAnimation = tAttack->getComponent<FramedImage>();
+		earthStateAnimation = tAttack->getComponent<earthAnimationController>();
+
+		if (!chargedAttack) {
+			if (!physics->getLookDirection()) earthAnimation->flipTexture(true);
+			else earthAnimation->flipTexture(false);
+		}
+		else {
+			auto trAttack2 = tAttack2->getComponent<Transform>();
+			moveChargedEarthAttack(trAttack, trAttack2);
+			tAttack2->getComponent<FramedImage>()->flipTexture(true);
+		}
+
 
 		auto colAnim = earthAnimation->getCurrentCol();
-		if (!physics->getLookDirection()) earthAnimation->flipTexture(true);
-		else earthAnimation->flipTexture(false);
+
+
+
 		if (colTrigger != colAnim + 1)
 		{
 			colTrigger = colAnim + 1;
 			trigger.w = colTrigger * (trAttack->getWidth() / earthAnimation->getTexture()->getNumCols());
+			trigger2.w = trigger.w;
 		}
-		MoveTrigger(Vector2D(trigger.w, EARTH_ATTACK_HEIGHT));
+
+		if (chargedAttack)
+			MoveChargedEarthTrigger(Vector2D(trigger2.w, EARTH_ATTACK_HEIGHT));
+		else
+			MoveTrigger(Vector2D(trigger.w, EARTH_ATTACK_HEIGHT));
 
 		if (earthStateAnimation->getState() == ADVANCE)
 		{
-			if (attackEnemy(trigger))
+			bool atacado = attackEnemy(trigger2);
+			if (attackEnemy(trigger) || atacado)
 			{
 				earthAnimation->setCol(colTrigger - 1);
 				earthStateAnimation->setState(BACK, colTrigger - 1);
+
+				if (chargedAttack) {
+					tAttack2->getComponent<FramedImage>()->setCol(colTrigger - 1);
+					tAttack2->getComponent<earthAnimationController>()->setState(BACK, colTrigger - 1);
+				}
 			}
 
 		}
@@ -284,6 +326,20 @@ void PlayerAttack::MoveTrigger(Vector2D attackWH) {
 	}
 	trigger.y = playerPos.getY() + playerW / 2;
 }
+
+void PlayerAttack::MoveChargedEarthTrigger(Vector2D attackWH2) {
+	int playerW = tr_->getWidth();
+	int playerH = tr_->getHeight();
+	Vector2D playerPos = tr_->getPosition();
+
+	trigger.x = playerPos.getX() + playerW;
+	trigger2.x = playerPos.getX() - attackWH2.getX();
+
+
+	trigger.y = playerPos.getY() + playerW / 2;
+	trigger2.y = trigger.y;
+}
+
 void PlayerAttack::moveAttack(Transform* tr)
 {
 	int playerW = tr_->getWidth();
@@ -302,6 +358,17 @@ void PlayerAttack::moveAttack(Transform* tr)
 
 		tr->setPosition(Vector2D(playerPos.getX() - attackWidth, playerPos.getY() + playerW / 2));
 	}
+}
+
+void PlayerAttack::moveChargedEarthAttack(Transform* tr1, Transform* tr2) {
+	int playerW = tr_->getWidth();
+	int playerH = tr_->getHeight();
+	Vector2D playerPos = tr_->getPosition();
+
+	tr1->setPosition(Vector2D(playerPos.getX() + playerW, playerPos.getY() + playerW / 2));
+
+	tr2->setPosition(Vector2D(playerPos.getX() - EARTH_ATTACK_WIDTH, playerPos.getY() + playerW / 2));
+
 }
 
 // Ataca enemigo si esta en la zona de ataque

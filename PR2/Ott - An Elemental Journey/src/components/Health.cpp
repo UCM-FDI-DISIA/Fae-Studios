@@ -32,23 +32,19 @@ void Health::recall(bool rest)
 		image->reset();
 		if (!rest) {
 			Vector2D newPos = sancTr_->getPosition() + Vector2D(0, sancTr_->getHeight() - tr_->getHeight());
-			tr_->setPosition(newPos);
+			static_cast<PlayState*>(GameStateMachine::instance()->currentState())->getMap()
+				->changeRoom(std::to_string(lastSanctuary->getComponent<InteractionComponent>()->getRoom()), newPos);
 		}
 		actualLife = maxLife;
-		dead = false;
 		static_cast<PlayState*>(GameStateMachine::instance()->currentState())->resetEnemies();
-		
-		std::cout << "vuelvo a santuario" << std::endl;
 	}
 	else 
 	{ 
-		std::cout << "me muero para siempre" << std::endl; 
 		Vector2D newPos = ent_->getComponent<Transform>()->getInitialPosition();
 		image->reset();
 		ent_->getComponent<Transform>()->setPosition(newPos);
 		actualLife = maxLife;
 		dead = false;
-
 	}
 }
 

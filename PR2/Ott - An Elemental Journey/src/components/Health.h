@@ -30,6 +30,7 @@ public:
 	//Este te lleva al santuario
 	void recall(bool rest = false);
 	inline bool isDead() { return dead; }
+	inline void setDead(bool dead) { this->dead = dead; }
 	bool recieveDamage(ecs::elements el);
 	inline int getHealth() { return actualLife; }
 	inline int getMaxHealth() { return maxLife; }
@@ -48,6 +49,7 @@ public:
 	}
 	void saveSactuary(Entity* sanct);
 	inline int getSanctuaryID() { return sanctuaryID; }
+	inline void setSanctuary(Entity* lastS) { lastSanctuary = lastS; }
 	inline void addLifeShard(int id) { numShards++; if (numShards > 1 && numShards % 2 == 0) increaseMaxLife(); 
 	lifeShardIDs += (std::to_string(id) + " "); }
 

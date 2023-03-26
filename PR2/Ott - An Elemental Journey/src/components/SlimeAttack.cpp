@@ -24,7 +24,7 @@ void SlimeAttack::divide()
 	auto slime = mngr_->addEntity(ecs::_grp_CHARACTERS);
 	slime->addComponent<Transform>(transform->getPosition(), ent_->getComponent<Generations>()->getGeneration() - 1, ent_->getComponent<Generations>()->getGeneration() - 1);
 	slime->addComponent<PhysicsComponent>(); //Calcular offset
-	slime->addComponent<Generations>(ent_->getComponent<Generations>()->getGeneration() - 1);
+	slime->addComponent<Generations>(ent_->getComponent<Generations>()->getGeneration() - 1, ent_->getComponent<Generations>()->getRoom());
 	slime->addComponent<EnemyMovement>(); //Calcular trigger
 	slime->addComponent<EnemyAttack>(1500); //Calcular trigger
 	slime->addComponent<SlimeAttack>();

@@ -45,6 +45,7 @@ private:
 
 	std::vector<Entity*> eraseEntities;
 
+
 	// En este mapa se guarda:
 	// string -> n�mero de sala
 	// vector -> todos los triggers que hay en esa sala
