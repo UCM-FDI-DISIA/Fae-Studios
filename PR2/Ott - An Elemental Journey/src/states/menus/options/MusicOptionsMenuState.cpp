@@ -25,8 +25,8 @@ MusicOptionsMenuState::MusicOptionsMenuState() : MenuState() {
 	});
 
 	pos = Vector2D(sdlutils().getWindowDimensions().getX() / 4, 6 * sdlutils().getWindowDimensions().getY() / 9);
-	constructors::slider(mngr_, pos, "Sonido general", 0.0f, 100.0f, 100.0f, [this](int v) {
-		soundsVolume(v);
+	constructors::slider(mngr_, pos, "Sonido general", 0.0f, 100.0f, SoundEffect::getGeneralSoundsVolume(), [this](int v) {
+		//soundsVolume(v);
 	});
 
 	pos = Vector2D(3 * sdlutils().getWindowDimensions().getX() / 4, 2 * sdlutils().getWindowDimensions().getY() / 9);
@@ -52,7 +52,15 @@ void MusicOptionsMenuState::musicVolume(int value) {
 	Music::setMusicVolume(value);
 }
 void MusicOptionsMenuState::soundsVolume(int value) {
-	//app->changeVolume(2, value);
+	SoundEffect::setGeneralSoundsVolume(value);
+	int vol = (int)((float)(SoundEffect::getChannelVolume(ecs::_channel_UI)) * (float)((float)(value) / 100));
+	SoundEffect::setChannelVolume(vol, ecs::_channel_UI);
+	SoundEffect::setChannelVolume((int)((float)(SoundEffect::getChannelVolume(ecs::_channel_PLAYER_ATTACK)) * (float)((float)(value) / 100)), ecs::_channel_PLAYER_ATTACK);
+	SoundEffect::setChannelVolume((int)((float)(SoundEffect::getChannelVolume(ecs::_channel_PLAYER_MOVEMENT)) * (float)((float)(value) / 100)), ecs::_channel_PLAYER_MOVEMENT);
+	SoundEffect::setChannelVolume((int)((float)(SoundEffect::getChannelVolume(ecs::_channel_AMBIENTAL)) * (float)((float)(value) / 100)), ecs::_channel_AMBIENTAL);
+	SoundEffect::setChannelVolume((int)((float)(SoundEffect::getChannelVolume(ecs::_channel_ALERTS)) * (float)((float)(value) / 100)), ecs::_channel_ALERTS);
+	SoundEffect::setChannelVolume((int)((float)(SoundEffect::getChannelVolume(ecs::_channel_ENEMY_ATTACK)) * (float)((float)(value) / 100)), ecs::_channel_ENEMY_ATTACK);
+	SoundEffect::setChannelVolume((int)((float)(SoundEffect::getChannelVolume(ecs::_channel_ENEMY_MOVEMENT)) * (float)((float)(value) / 100)), ecs::_channel_ENEMY_MOVEMENT);
 }
 void MusicOptionsMenuState::uiVolume(int value) {
 	SoundEffect::setChannelVolume(value, ecs::_channel_UI);

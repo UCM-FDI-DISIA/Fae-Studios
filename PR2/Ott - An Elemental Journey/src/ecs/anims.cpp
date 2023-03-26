@@ -25,7 +25,7 @@ std::vector<anims::animDescription> anims::slime_anims{ {300,4,0,0}, {150,4,0,17
 // WATER BOSS
 std::vector<anims::animDescription> anims::waterBoss_anims{ {300,6,0,0}, {300,6,0,0}, {300,6,0,0}, {300,6,0,0}, {300,6,0,0}, {300,6,0,0} };
 // ATAQUE TIERRA
-std::vector<anims::animDescription> anims::earth_attack{ {100,7,0,0}, {100,7,0,6} };
+std::vector<anims::animDescription> anims::earth_attack{ {50,7,0,0}, {50,7,0,6} };
 //MINI BOSS TIERRA
 std::vector<anims::animDescription> anims::earthBossPresent_anims{ {100, 8, 0, 0} };
 std::vector<anims::animDescription> anims::earthBoss_anims{ {100, 1,0,0} };

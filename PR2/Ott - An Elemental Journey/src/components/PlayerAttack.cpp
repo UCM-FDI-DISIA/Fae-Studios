@@ -65,7 +65,7 @@ void PlayerAttack::update() {
 
 					colTrigger = 0;
 					earthAttackActive = true;
-					sdlutils().soundEffects().at("grow_vine").playFor(2000,0, ecs::_channel_PLAYER_ATTACK);
+					sdlutils().soundEffects().at("ott_attack_earth").play(0, ecs::_channel_PLAYER_ATTACK);
 				}
 				break;
 			case ecs::Fire: 
@@ -99,7 +99,7 @@ void PlayerAttack::update() {
 					}
 				}
 				sdlutils().soundEffects().at("ott_attack_water").play(0, ecs::_channel_PLAYER_ATTACK);
-				break;
+				break; 
 			}
 			default: {
 				break;
