@@ -183,3 +183,16 @@ PlayerInput::~PlayerInput()
 {
 
 }
+
+void PlayerInput::loadFromFile(std::ifstream& file) {
+	std::string aux;
+	file >> aux >> earth >> aux >> water >> aux >> fire;
+}
+
+
+void PlayerInput::saveToFile(std::ofstream& file) {
+	file << "earth " << (int)earth << std::endl;
+	file << "water " << (int)water << std::endl;
+	file << "fire " << (int)fire << std::endl;
+}
+

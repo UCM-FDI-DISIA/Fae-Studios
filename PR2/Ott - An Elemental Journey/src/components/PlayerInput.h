@@ -17,7 +17,11 @@ public:
 	virtual ~PlayerInput();
 	virtual void initComponent();
 	virtual void update();
+
+	virtual void saveToFile(std::ofstream& file);
+	virtual void loadFromFile(std::ifstream& file);
 	constexpr static ecs::cmpId_type id = ecs::_CTRL;
+	
 	inline void unlockElement(ecs::elements elem) {
 		switch (elem)
 		{
@@ -47,6 +51,22 @@ public:
 		}
 		sdlutils().soundEffects().at("pick_elem").play(0, ecs::_channel_ALERTS);
 	};
+	inline bool hasElement(ecs::elements elem) {
+		switch (elem)
+		{
+		case ecs::Earth:
+			return earth;
+			break;
+		case ecs::Water:
+			return water;
+			break;
+		case ecs::Fire:
+			return fire;
+			break;
+		default:
+			break;
+		}
+	}
 
 private:
 	Transform* tr_;

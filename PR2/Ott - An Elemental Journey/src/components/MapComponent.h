@@ -67,7 +67,7 @@ private:
 	const int TRIGGERS_VECTOR_POS = 3;
 	const int ENEMIES_VECTOR_POS = 4;
 	
-	const std::string currentLevel = "level1_0";
+	std::string currentMapKey = "level1_0";
 
 	int realTileSize = 32;
 	int usedTileSize = 50;
@@ -76,10 +76,14 @@ private:
 	int currentMap = 0;
 
 	void loadMap(std::string path);
+	std::string pickedLifeShards;
+	bool loadEarthBoss = true, loadWaterBoss = true, loadFireBoss = true;
+	bool loadEarthElem = true, loadWaterElem = true, loadFireElem = true;
 
 public:
 	constexpr static ecs::cmpId_type id = ecs::_MAP;
 	
+	MapComponent(Entity* fadeOut, PlayState* game, int currentMap, std::ifstream & file);
 	MapComponent(Entity* fadeOut, PlayState* game, int currentMap);
 	void initComponent();
 	virtual void render();
@@ -90,14 +94,16 @@ public:
 	void changeMap();
 
 	void playFadeOutAnimation() { anim_->startFadeOut(); }
+	
+	inline std::string getCurrentLevel() { return currentMapKey; }
 
 	void generateEnemies();
 	inline void changeMap(int map) { currentMap = map; };
+	inline int getCurrentMap() { return currentMap; }
 
 	std::vector<std::pair<SDL_Rect, SDL_Rect>> checkCollisions(const SDL_Rect& playerRect);
 	
 	inline std::vector<std::vector<Entity*>> getInteract() { return interact; };
-	inline std::string getCurrentLevel() { return currentLevel; }
 	inline int getCurrentRoom() { return currentRoom; }
 	inline void setCurrentRoom(int newRoom) { currentRoom = newRoom; }
 	inline float getCurrentRoomScale() { return vectorTiles[currentRoom].first; }
@@ -127,5 +133,8 @@ public:
                              (int)(rect.width * tileScale()), (int)(rect.height * tileScale()) };
 		return sdlRect;
 	}
+
+	virtual void saveToFile(std::ofstream& file);
+	virtual void loadFromFile(std::ifstream& file);
 };
 
