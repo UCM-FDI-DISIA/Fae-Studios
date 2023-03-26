@@ -5,6 +5,7 @@
 #include "../utils/Vector2D.h"
 #include "FramedImage.h"
 #include "EarthBossAttack.h"
+#include "Health.h"
 
 void EarthBossManager::initComponent() {
 	//INICIALIZACION DEL PLAYER
@@ -80,7 +81,9 @@ void EarthBossManager::initializeEntities() {
 	boss = mngr_->addEntity(ecs::_grp_MINIBOSS);
 	boss->addComponent<Transform>(boss_Rect);
 	boss->addComponent<FramedImage>(&sdlutils().images().at("fallingWorm"), sdlutils().images().at("fallingWorm").getNumRows(), sdlutils().images().at("fallingWorm").getNumCols());
-	boss->addComponent<Health>(ecs::Earth, false);
+	healthBar = mngr_->addEntity(ecs::_grp_UI);
+	healthBar->addComponent<BossHealthBar>(&sdlutils().images().at("bossHealthBar"), &sdlutils().images().at("bossLife"));
+	boss->addComponent<Health>(healthBar->getComponent<BossHealthBar>(), 10, ecs::Earth, false);
 	boss->addComponent<EarthBossAttack>();
 	boss->addComponent<GrowVine>(finPosBoss, 2, 1, "vertical", false);
 	boss->getComponent<GrowVine>()->isGrowing(false);

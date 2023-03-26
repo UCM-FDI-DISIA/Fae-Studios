@@ -29,6 +29,7 @@ public:
     void update() override;
     void initComponent() override;
     void setChangeState(bool c) { changeState = c; }
+    Entity* getHealthBar() { return healthBar; }
 private:
     //Dimensiones de la sala del boss de tierra
     SDL_Rect roomDimensions;
@@ -37,6 +38,7 @@ private:
     std::vector<Warnings> warningVector;
     std::vector<Entity*> vineVector;
     std::vector<Platforms> platformVector;
+    Entity* healthBar;
     Entity* boss;
     Entity* presentBoss;
     Entity* pause;

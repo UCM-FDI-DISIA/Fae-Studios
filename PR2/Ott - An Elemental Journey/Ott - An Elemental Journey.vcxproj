@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\components\BossHealthBar.cpp" />
     <ClCompile Include="src\components\EarthBossManager.cpp" />
     <ClCompile Include="src\components\EnterBossRoom.cpp" />
     <ClCompile Include="src\components\EarthBossAttack.cpp" />
@@ -76,6 +77,7 @@
     <ClCompile Include="src\components\Trigger.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\components\BossHealthBar.h" />
     <ClInclude Include="src\components\EarthBossManager.h" />
     <ClInclude Include="src\components\EnterBossRoom.h" />
     <ClInclude Include="src\components\EarthBossAttack.h" />

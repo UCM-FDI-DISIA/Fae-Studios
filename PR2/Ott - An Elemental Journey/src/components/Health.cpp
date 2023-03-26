@@ -7,6 +7,8 @@
 #include "../game/Elements.h"
 #include "../states/PlayState.h"
 #include "../states/GameStateMachine.h"
+#include "EarthBossManager.h"
+#include "EarthBossAttack.h"
 
 void Health::die()
 {
@@ -63,6 +65,11 @@ bool Health::recieveDamage(ecs::elements el)
 			if (image->setWeak()) damage = 1;
 		}
 		image->damage(damage);
+	}
+	else if (ent_->hasComponent<EarthBossAttack>() && bar != nullptr) {
+		int damage = elementsInfo::ottMatrix[el][elem];
+		actualLife -= damage;
+		bar->damage(damage);
 	}
 	else {
 		if (!dead) {
