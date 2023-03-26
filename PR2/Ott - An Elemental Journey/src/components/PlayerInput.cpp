@@ -85,6 +85,7 @@ void PlayerInput::update()
 					selectedWater = false;
 					selectedFire = false;
 					selectedLight = false;
+					sdlutils().soundEffects().at("elem_changed").play(0, ecs::_channel_ALERTS);
 				}
 				if (input->isKeyDown(SDLK_d) && water && !selectedWater) {
 					anim_->changeElem(ecs::Water);
@@ -93,6 +94,7 @@ void PlayerInput::update()
 					selectedWater = true;
 					selectedFire = false;
 					selectedLight = false;
+					sdlutils().soundEffects().at("elem_changed").play(0, ecs::_channel_ALERTS);
 				}
 				if (input->isKeyDown(SDLK_w) && fire && !selectedFire) {
 					anim_->changeElem(ecs::Fire);
@@ -101,6 +103,7 @@ void PlayerInput::update()
 					selectedWater = false;
 					selectedFire = true;
 					selectedLight = false;
+					sdlutils().soundEffects().at("elem_changed").play(0, ecs::_channel_ALERTS);
 				}
 				if (input->isKeyDown(SDLK_s) && !selectedLight) {
 					anim_->changeElem(ecs::Light);
@@ -109,6 +112,7 @@ void PlayerInput::update()
 					selectedWater = false;
 					selectedFire = false;
 					selectedLight = true;
+					sdlutils().soundEffects().at("elem_changed").play(0, ecs::_channel_ALERTS);
 				}
 			}
 			if (input->isKeyDown(SDLK_UP)) {

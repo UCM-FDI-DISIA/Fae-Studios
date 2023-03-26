@@ -100,7 +100,8 @@
 		{ "id" : "warning", "file" : "../resources/sound/warning_gusano.wav"},
 		{ "id" : "roar", "file" : "../resources/sound/gusanoroar.mp3"},
 		{ "id" : "teleport", "file" : "../resources/sound/teleport.wav"},
-		{ "id" : "pick_elem", "file" : "../resources/sound/pick_elem.wav"}
+		{ "id" : "pick_elem", "file" : "../resources/sound/pick_elem.wav"},
+		{ "id" : "elem_changed", "file" : "../resources/sound/elem_change.wav"}
   ],
 
   "musics" : [
