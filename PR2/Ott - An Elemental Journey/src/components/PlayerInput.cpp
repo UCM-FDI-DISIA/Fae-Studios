@@ -166,9 +166,11 @@ void PlayerInput::update()
 		if (vineCol.first) {
 			if (input->isKeyDown(SDLK_UP) && vineCol.second) {
 				physics_->setClimbing(true, -speed);
+				if(!SoundEffect::isSoundBeingPlayed(ecs::_channel_AMBIENTAL)) sdlutils().soundEffects().at("vine_climb").play(0, ecs::_channel_AMBIENTAL);
 			}
 			else if (input->isKeyDown(SDLK_DOWN)) {
 				physics_->setClimbing(true, speed);
+				if(!SoundEffect::isSoundBeingPlayed(ecs::_channel_AMBIENTAL)) sdlutils().soundEffects().at("vine_climb").play(0, ecs::_channel_AMBIENTAL);
 			}
 			else physics_->setClimbing(true, 0);
 		}
