@@ -12,6 +12,6 @@ std::unordered_map<int, int> SoundEffect::volumesOfChannels = {
 	{ecs::_channel_PLAYER_MOVEMENT, SDL_MIX_MAXVOLUME},
 	{ecs::_channel_AMBIENTAL, SDL_MIX_MAXVOLUME},
 	{ecs::_channel_ALERTS, SDL_MIX_MAXVOLUME},
-	{ecs::_channel_ENEMY_ATTACK, SDL_MIX_MAXVOLUME},
-	{ecs::_channel_ENEMY_MOVEMENT, SDL_MIX_MAXVOLUME}
+	{ecs::_channel_ENEMY_SLIME_ATTACK, SDL_MIX_MAXVOLUME},
+	{ecs::_channel_ENEMY_SLIME_MOVEMENT, SDL_MIX_MAXVOLUME}
 };

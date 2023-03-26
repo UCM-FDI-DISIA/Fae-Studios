@@ -98,8 +98,8 @@ namespace ecs {
         _channel_PLAYER_ATTACK = 2,
         _channel_AMBIENTAL = 3,
         _channel_ALERTS = 4,
-        _channel_ENEMY_MOVEMENT = 5,
-        _channel_ENEMY_ATTACK = 6,
+        _channel_ENEMY_SLIME_MOVEMENT = 5,
+        _channel_ENEMY_SLIME_ATTACK = 6,
 
 
         _LAST_CHANNEL_ID

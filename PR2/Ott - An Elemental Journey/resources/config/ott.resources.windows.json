@@ -106,7 +106,10 @@
 		{ "id" : "ott_water_step", "file" : "../resources/sound/ott_paso_agua.wav"},
 		{ "id" : "fireball", "file" : "../resources/sound/fireball.wav"},
 		{ "id" : "ott_attack_water", "file" : "../resources/sound/attack_water.wav"},
-		{ "id" : "ott_attack_earth", "file" : "../resources/sound/attack_earth.wav"}
+		{ "id" : "ott_attack_earth", "file" : "../resources/sound/attack_earth.wav"},
+		{ "id" : "slime_movement", "file" : "../resources/sound/slime_movement.wav"},
+		{ "id" : "slime_attack", "file" : "../resources/sound/slime_attack.wav"},
+		{ "id" : "slime_get_up", "file" : "../resources/sound/slime_getting_up.wav"}
   ],
 
   "musics" : [
