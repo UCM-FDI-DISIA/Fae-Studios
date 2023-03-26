@@ -100,7 +100,8 @@ namespace ecs {
         _channel_ALERTS = 4,
         _channel_ENEMY_SLIME_MOVEMENT = 5,
         _channel_ENEMY_SLIME_ATTACK = 6,
-
+        _channel_ENEMY_MELEE_MOVEMENT = 7,
+        _channel_ENEMY_MELEE_ATTACK = 8,
 
         _LAST_CHANNEL_ID
     };

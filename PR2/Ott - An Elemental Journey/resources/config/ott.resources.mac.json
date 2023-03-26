@@ -418,12 +418,16 @@
 	{ "id" : "ott_attack_earth", "file" : "../Ott - An Elemental Journey/resources/sound/attack_earth.wav"},
 	{ "id" : "slime_movement", "file" : "../Ott - An Elemental Journey/resources/sound/slime_movement.wav"},
 	{ "id" : "slime_attack", "file" : "../Ott - An Elemental Journey/resources/sound/slime_attack.wav"},
-	{ "id" : "slime_get_up", "file" : "../Ott - An Elemental Journey/resources/sound/slime_getting_up.wav"}
+	{ "id" : "slime_get_up", "file" : "../Ott - An Elemental Journey/resources/sound/slime_getting_up.wav"},
+	{ "id" : "menemy_step", "file" : "../Ott - An Elemental Journey/resources/sound/bicho_paso.wav"}
   ],
 
 	"musics": [
 		{"id" :  "main_menu_music", "file" :  "../Ott - An Elemental Journey/resources/music/Ambient 4.wav"},
-		{"id" :  "earth_level", "file" :  "../Ott - An Elemental Journey/resources/music/Ambient 1.wav"}
+		{"id" :  "earth_level", "file" :  "../Ott - An Elemental Journey/resources/music/Ambient 1.wav"},
+		{"id" :  "fire_boss_fight", "file" :  "../Ott - An Elemental Journey/resources/music/minotaur.wav},
+		{"id" :  "water_boss_fight", "file" :  "../Ott - An Elemental Journey/resources/music/boss_agua.wav},
+		{"id" :  "earth_boss_fight", "file" :  "../Ott - An Elemental Journey/resources/music/gusano.wav}
 	],
 
 	"maps": [
