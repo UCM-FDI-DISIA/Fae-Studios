@@ -85,8 +85,8 @@ namespace constructors {
 	static inline void firePillar(Manager* mngr_, std::string imageKey, int x, int y, float scale) {
 		// Asi se a�ade pilar de fuego
 		auto pilar = mngr_->addEntity(ecs::_grp_VINE);
-		pilar->addComponent<Transform>(x, y, 30 * scale, 130 * scale);  // 2400 1800 pos para pruebas
-		pilar->addComponent<Image>(&sdlutils().images().at(imageKey));
+		pilar->addComponent<Transform>(x, y, 200 * scale, 80 * scale, 90);  // 2400 1800 pos para pruebas
+		pilar->addComponent<FramedImage>(&sdlutils().images().at(imageKey), 1, 60);
 		pilar->addComponent<FirePillarComponent>();
 		
 	}

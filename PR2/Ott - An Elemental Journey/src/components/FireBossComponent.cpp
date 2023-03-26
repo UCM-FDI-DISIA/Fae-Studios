@@ -18,6 +18,7 @@ void FireBossComponent::initComponent()
 
 void FireBossComponent::update()
 {
+	if (fAnim_->getState() == DIE_FIREBOSS) return;
 	//Esto aqui esta feisimo pero es que no entiendo ahora mateix porque no lo coge
 	p = ent_->getComponent<PhysicsComponent>();
 	speed = 0;
@@ -30,20 +31,20 @@ void FireBossComponent::update()
 	if (SDL_GetTicks() - specialAttackTimer >= timeSpecialAttack * 1000) {
 		std::cout << "Ataque especial" << std::endl;
 		specialAttackTimer = SDL_GetTicks();
-		normalAttackTimer = SDL_GetTicks();
+		//normalAttackTimer = SDL_GetTicks();
 		startSpecialAttack();
 	}
-	else if (!retirada&&!ambushing&&SDL_GetTicks() - normalAttackTimer >= timeNormalAttack * 1000) {
+	else if (!retirada && !ambushing) {
 		std::cout << "Ataque normal" << std::endl;
 		//normalAttackTimer = SDL_GetTicks();
-		ambushing = true;
+		startNormalAttack();
 	}
 	if (ambushing) 
 	{ 
-		ambush(); 
-		fAnim_->setState(AMBUSH_FIREBOSS); 
+		ambush();
+		if(fAnim_->getState() != DIE_FIREBOSS && fAnim_->getState() != ATTACK_FIREBOSS) fAnim_->setState(AMBUSH_FIREBOSS);
 	}
-	else if (retirada)
+	else if (retirada && fAnim_->getState() != ATTACK_FIREBOSS)
 	{
 		//direccion
 		if (tr_->getPosition().getX() - tr_->getInitialPosition().getX() > 0) { speed = -rSpeed; p->lookDirection(false); }
@@ -57,25 +58,39 @@ void FireBossComponent::update()
 			normalAttackTimer = SDL_GetTicks();
 		}
 	}
+	
 }
 void FireBossComponent::startSpecialAttack()
 {
 	Vector2D pPos = player->getComponent<Transform>()->getPosition();
 	if (abs(pPos.getY() - ent_->getComponent<Transform>()->getPosition().getY()) > ent_->getComponent<Transform>()->getHeight()) {
-		shootAtPlayer();
+		//shootAtPlayer();
 	}
 	else spawnPillars();
 	
+}
+void FireBossComponent::startNormalAttack()
+{
+	Vector2D pPos = player->getComponent<Transform>()->getPosition();
+	if ((abs(pPos.getY() - ent_->getComponent<Transform>()->getPosition().getY()) > ent_->getComponent<Transform>()->getHeight() ) && (SDL_GetTicks() - normalAttackTimer >= timeNormalAttack * 1000)) {
+		shootAtPlayer();
+		normalAttackTimer = SDL_GetTicks();
+		
+	}
+	else if(!ambushing && (SDL_GetTicks() - normalAttackTimer >= timeNormalAttack * 1000)){
+		ambushing = true;
+	}
 }
 void FireBossComponent::spawnPillars()
 {
 	Transform* pTr = player->getComponent<Transform>();
 	Vector2D pPos = player->getComponent<Transform>()->getPosition();
-	constructors::firePillar(mngr_, "lamp", pPos.getX() + pTr->getWidth()/2, ent_->getComponent<Transform>()->getPosition().getY() + ent_->getComponent<Transform>()->getHeight(), 1);
+	constructors::firePillar(mngr_, "firePillar", pPos.getX() - pTr->getWidth()/2, ent_->getComponent<Transform>()->getPosition().getY() + ent_->getComponent<Transform>()->getHeight()/2, 1);
 }
 
 void FireBossComponent::shootAtPlayer()
 {
+	if (fAnim_->getState() != DIE_FIREBOSS) fAnim_->setState(ATTACK_FIREBOSS);
 	Vector2D position = tr_->getPosition();
 	Transform* pTr = player->getComponent<Transform>();
 	Vector2D direction = pTr->getPosition() - position; 
@@ -109,6 +124,7 @@ void FireBossComponent::ambush()
 	if (interseccion)
 	{
 		ambushing = false; playerH->recieveDamage(ecs::Fire); retirada = true;
+		fAnim_->setState(ATTACK_FIREBOSS);
 	}
 	//wall
 	else

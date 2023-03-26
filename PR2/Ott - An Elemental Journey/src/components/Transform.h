@@ -15,7 +15,7 @@ private:
 
 public:
 	constexpr static ecs::cmpId_type id = ecs::_TRANSFORM;
-	Transform(Vector2D p, float w, float h) : Component() {
+	Transform(Vector2D p, float w, float h, float r = 0) : Component() {
 		mngr_ = nullptr;
 		ent_ = nullptr;
 		initialPos = p;
@@ -23,16 +23,19 @@ public:
 		rotation = 0.0f;
 		width = w;
 		height = h;
+		rotation = r;
 	};
-	Transform(float x, float y, float w, float h) : Component() {
+	Transform(float x, float y, float w, float h, float r = 0) : Component() {
 		position = Vector2D(x, y);
 		width = w;
 		height = h;
+		rotation = r;
 	}
-	Transform(const Vector2D& position, Texture* texture, const Vector2D& scale = Vector2D(1.0f, 1.0f)) : Component() {
+	Transform(const Vector2D& position, Texture* texture, const Vector2D& scale = Vector2D(1.0f, 1.0f), float r = 0) : Component() {
 		this->position = position;
 		width = texture->width() / texture->getNumCols() * scale.getX();
 		height = texture->height() / texture->getNumRows() * scale.getY();
+		rotation = r;
 	}
 	virtual ~Transform() = default;
 	inline float getRotation() const { return rotation; };

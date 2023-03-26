@@ -1,6 +1,7 @@
 #include "FirePillarComponent.h"
 #include "../ecs/Manager.h"
 #include "../components/Health.h"
+#include "FramedImage.h"
 FirePillarComponent::FirePillarComponent()
 {
 }
@@ -27,4 +28,8 @@ void FirePillarComponent::update()
 	if (SDL_HasIntersection(&r1, &r2)) {
 		p->getComponent<Health>()->recieveDamage(ecs::Fire);
 	}
+	std::cout << ent_->getComponent<FramedImage>()->getCurrentCol() << std::endl;
+	int c = ent_->getComponent<FramedImage>()->getCurrentCol();
+	c++;
+	ent_->getComponent<FramedImage>()->setCol((SDL_GetTicks()/100)&5);
 }

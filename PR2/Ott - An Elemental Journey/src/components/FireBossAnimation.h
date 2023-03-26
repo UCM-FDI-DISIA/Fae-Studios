@@ -18,7 +18,7 @@ public:
 	inline int getNFrames(int i) { return anims::animations[eAnims][i].numFrames; }
 	inline int getRowNum(int i) { return anims::animations[eAnims][i].rowNum; }
 	inline int getColNum(int i) { return anims::animations[eAnims][i].colNum; }
-
+	void endAnim();
 	void setState(int newState);
 private:
 	bool damaged = false;

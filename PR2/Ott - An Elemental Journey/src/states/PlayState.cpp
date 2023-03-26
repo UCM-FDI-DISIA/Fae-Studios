@@ -46,7 +46,7 @@ PlayState::PlayState() : GameState(ecs::_state_PLAY) {
 	
 	constructors::eMelee(mngr_, "waterBug", 2400, 1000, 1.0f);
 	constructors::eRanged(mngr_, "earthMushroom", 1700, 1000, 1.0f);
-	constructors::firePillar(mngr_, "lamp", 600, 1500, 1.0f);
+	//constructors::firePillar(mngr_, "firePillar", 600, 1200, 1.0f);
 	constructors::waterContainer(mngr_, "whiteBox", 600, 1100, 1.0f, fBoss);
 	constructors::map(mngr_);
 }

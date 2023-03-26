@@ -13,26 +13,37 @@ void FireBossAnimation::update()
 	
 	
 	int c = getColNum(currentAnimation);
-	int r = getColNum(currentAnimation);
 	
 	int state = currentAnimation;
 	timer_++;
 	int col = (timer_ / getTPerFrame(state)) % getNFrames(state) + getColNum(state);
 	image->setCol(col);
 	image->setRow(getRowNum(state));
-	//std::cout << col << std::endl;
-	
-	if (timer_ > 150)
-	{
+	//std::cout << currentAnimation << std::endl;
+	if ((timer_ > (getTPerFrame(state) * getNFrames(state)) + 1)) {// si el timer ha superado al tiempo de cada frame * los frames 
+		endAnim();													// que tiene la animación actual, se llama a endAnim();
+	}
 
-	//image->setCol(image->getCurrentCol()+1);
-	timer_ = 0;
+}
+
+void FireBossAnimation::endAnim()
+{
+	if (currentAnimation == DIE_FIREBOSS) {
+		ent_->setAlive(false);
+	}
+	if (currentAnimation == ATTACK_FIREBOSS) {
+		auto fComp = ent_->getComponent<FireBossComponent>();
+		if(fComp->isMoving()) currentAnimation = AMBUSH_FIREBOSS;
+		else currentAnimation = IDLE_FIREBOSS;
 	}
 	
 }
 
 void FireBossAnimation::setState(int newState)
 {
-	currentAnimation = newState;
+	if (currentAnimation != newState) {
+		currentAnimation = newState;
+		timer_ = 0;
+	}
 }
 

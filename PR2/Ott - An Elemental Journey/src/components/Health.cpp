@@ -3,6 +3,7 @@
 #include "Transform.h"
 #include "PlayerAnimationComponent.h"
 #include "EnemyAnimationController.h"
+#include "FireBossAnimation.h"
 #include "Generations.h"
 #include "../game/Elements.h"
 #include "../states/PlayState.h"
@@ -12,6 +13,7 @@ void Health::die()
 {
 	if (ent_->hasComponent<PlayerAnimationComponent>()) ent_->getComponent<PlayerAnimationComponent>()->setState(DIE);
 	else if ((ent_->hasComponent<EnemyAnimationComponent>())) ent_->getComponent<EnemyAnimationComponent>()->setState(DIE_ENEMY);
+	else if ((ent_->hasComponent<FireBossAnimation>())) ent_->getComponent<FireBossAnimation>()->setState(DIE_FIREBOSS);
 	else ent_->setAlive(false);
 	auto gen = ent_->getComponent<Generations>();
 	// si la entidad muerta es un slime y no esta en su ultima gen manda a que se divida

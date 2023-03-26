@@ -61,7 +61,8 @@
 		{ "id" : "mushroom", "file" : "../resources/images/sprites/Mushroom.png", "rows" : 2, "cols" : 21},
 		{ "id" : "spores", "file" : "../resources/images/sprites/spores.png", "rows" : 1, "cols" : 1},
 		{ "id" : "water_attack", "file" : "../resources/images/tests/water_Attack.png", "rows" : 1, "cols" : 1},
-    { "id" : "fireBoss", "file" : "../resources/images/sprites/Skeleton.png", "rows" : 5, "cols" : 13}
+   		{ "id" : "fireBoss", "file" : "../resources/images/sprites/Skeleton.png", "rows" : 5, "cols" : 13},
+		{ "id" : "firePillar", "file" : "../resources/images/tests/firePillar.png", "rows" : 1, "cols" : 6}
   ],
 
   "messages" : [],
