@@ -6,6 +6,8 @@
 #include "../sdlutils/Texture.h"
 #include "VineManager.h"
 #include "PlayerInput.h"
+#include "MapComponent.h"
+
 class EnterBossRoom : public Component
 {
 private:
@@ -14,6 +16,7 @@ private:
 	Entity* earthBoss = nullptr;
 	Entity* blockEnter = nullptr;
 	Entity* blockExit = nullptr;
+	MapComponent* map;
 	int col = 0;
 	bool start = false;
 	bool added = false;

@@ -5,11 +5,15 @@
 #include "EarthBossManager.h"
 #include "PhysicsComponent.h"
 #include "EarthBossAttack.h"
+#include "../states/GameStateMachine.h"
+#include "../states/PlayState.h"
 
 void EnterBossRoom::initComponent() {
 	camera = mngr_->getCamera();
 	player = mngr_->getPlayer();
 	earthBoss = mngr_->getEarthBoss();
+	auto state = static_cast<PlayState*>(stateMachine().currentState());
+	map = state->getMap();
 }
 
 void EnterBossRoom::blockDoors() {
@@ -22,7 +26,7 @@ void EnterBossRoom::blockDoors() {
 	blockEnter->addComponent<GrowVine>(finPosVine1, 2, -1, "vertical", false);
 	blockEnter->addComponent<EarthBossAttack>();
 	blockEnter->getComponent<GrowVine>()->isGrowing(true);
-	
+	//map->addCollision("6", vine_Rect1);
 
 	SDL_Rect vine_Rect2 = { bossRoom.x + (bossRoom.w/2)*1.65, bossRoom.y + bossRoom.h, 30, bossRoom.h };
 	Vector2D finPosVine2 = Vector2D(bossRoom.x + (bossRoom.w / 2) * 1.65, bossRoom.y);
@@ -32,6 +36,7 @@ void EnterBossRoom::blockDoors() {
 	blockExit->addComponent<GrowVine>(finPosVine2, 2, -1, "vertical", false);
 	blockExit->addComponent<EarthBossAttack>();
 	blockExit->getComponent<GrowVine>()->isGrowing(true);
+	//map->addCollision("6", vine_Rect2);
 }
 
 void EnterBossRoom::enterRoom() {

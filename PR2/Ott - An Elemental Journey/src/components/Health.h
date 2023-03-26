@@ -24,6 +24,7 @@ public:
 
 	Health(BossHealthBar* bar_, int h, ecs::elements e, bool player = false) : Component(), elem(e) {
 		bar = bar_;
+		bar->setBossLife(h);
 		if (player) { maxLife = h; actualLife = h; }
 		else { maxLife = 2 * h; actualLife = 2 * h; }// La vida de los enemigos tiene una representación diferente
 	};

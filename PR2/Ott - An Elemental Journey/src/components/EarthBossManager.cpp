@@ -53,7 +53,7 @@ void EarthBossManager::initializeEntities() {
 		vine->addComponent<Transform>(vine_Rect);
 		vine->addComponent<ImageVine>(&sdlutils().images().at("vineBoss"), 1, false);
 		vine->addComponent<GrowVine>(finPosVine, 7, -1, "horizontal", true);
-		vine->addComponent<EarthBossAttack>();
+		//vine->addComponent<EarthBossAttack>();
 		vine->getComponent<GrowVine>()->isGrowing(false);
 		vineVector.push_back(vine);
 	}
@@ -99,8 +99,8 @@ void EarthBossManager::initializeEntities() {
 	boss->addComponent<Transform>(boss_Rect);
 	boss->addComponent<FramedImage>(&sdlutils().images().at("fallingWorm"), sdlutils().images().at("fallingWorm").getNumRows(), sdlutils().images().at("fallingWorm").getNumCols());
 	healthBar = mngr_->addEntity(ecs::_grp_UI);
-	healthBar->addComponent<BossHealthBar>(&sdlutils().images().at("bossHealthBar"), &sdlutils().images().at("bossLife"));
-	boss->addComponent<Health>(healthBar->getComponent<BossHealthBar>(), 10, ecs::Earth, false);
+	healthBar->addComponent<BossHealthBar>(ent_, 1, &sdlutils().images().at("bossHealthBar"), &sdlutils().images().at("bossLife"));
+	boss->addComponent<Health>(healthBar->getComponent<BossHealthBar>(), 2, ecs::Earth, false);
 	boss->addComponent<EarthBossAttack>();
 
 	//CREACIÓN DEL PAUSA
@@ -303,4 +303,9 @@ void EarthBossManager::stateManagment() {
 		}
 		changeState = false;
 	}
+}
+
+void EarthBossManager::die() {
+	boss->getComponent<Transform>()->setPosition(Vector2D(boss->getComponent<Transform>()->getPosition().getX(), roomDimensions.y - roomDimensions.h));
+	isFight = false;
 }

@@ -20,6 +20,7 @@ public:
     inline void setState(int newState);
     void update() override;
     void initComponent() override;
+    void die();
     void setChangeState(bool c) { changeState = c; }
     Entity* getHealthBar() { return healthBar; }
     void addPlatforms(std::vector<Entity*> pV) { platformVector = pV; }
