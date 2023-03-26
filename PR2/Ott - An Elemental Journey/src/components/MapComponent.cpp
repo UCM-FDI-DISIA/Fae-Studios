@@ -207,7 +207,8 @@ void MapComponent::changeMap(int newMap, std::string key, int nextPos) {
     for (int i = 0; i < eraseEntities.size(); ++i) {
         eraseEntities[i]->setAlive(false);
     }
-
+    interact.clear();
+    eraseEntities.clear();
     mngr_->refresh();
     ps->changeMap(newMap);
 
@@ -257,11 +258,13 @@ void MapComponent::loadMap(std::string path, int nextPos) {
                     vectorObjects[ROOM_VECTOR_POS] = objects;
                     numRooms = objects.size();
                     game->initEnemies(numRooms);
-                    mapKeys[currentMap].reserve(numRooms);
-                    for (int i = 0; i < numRooms; ++i) {
-                        mapKeys[currentMap].push_back({});
+                    if (mapKeys[currentMap].size() != numRooms) {
+                        mapKeys[currentMap].reserve(numRooms);
+                        for (int i = 0; i < numRooms; ++i) {
+                            mapKeys[currentMap].push_back({});
+                        }
+                        game->initVisitedRooms(numRooms);
                     }
-                    game->initVisitedRooms(numRooms);
                 }
                 else if (name == "Objetos interactuables") {
                     vectorObjects[I_OBJECTS_VECTOR_POS] = objects;
