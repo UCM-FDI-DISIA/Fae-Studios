@@ -52,7 +52,7 @@ void MusicOptionsMenuState::musicVolume(int value) {
 	Music::setMusicVolume(value);
 }
 void MusicOptionsMenuState::soundsVolume(int value) {
-	SoundEffect::setGeneralSoundsVolume(value);
+	/*SoundEffect::setGeneralSoundsVolume(value);
 	int vol = (int)((float)(SoundEffect::getChannelVolume(ecs::_channel_UI)) * (float)((float)(value) / 100));
 	SoundEffect::setChannelVolume(vol, ecs::_channel_UI);
 	SoundEffect::setChannelVolume((int)((float)(SoundEffect::getChannelVolume(ecs::_channel_PLAYER_ATTACK)) * (float)((float)(value) / 100)), ecs::_channel_PLAYER_ATTACK);
@@ -60,7 +60,7 @@ void MusicOptionsMenuState::soundsVolume(int value) {
 	SoundEffect::setChannelVolume((int)((float)(SoundEffect::getChannelVolume(ecs::_channel_AMBIENTAL)) * (float)((float)(value) / 100)), ecs::_channel_AMBIENTAL);
 	SoundEffect::setChannelVolume((int)((float)(SoundEffect::getChannelVolume(ecs::_channel_ALERTS)) * (float)((float)(value) / 100)), ecs::_channel_ALERTS);
 	SoundEffect::setChannelVolume((int)((float)(SoundEffect::getChannelVolume(ecs::_channel_ENEMY_ATTACK)) * (float)((float)(value) / 100)), ecs::_channel_ENEMY_ATTACK);
-	SoundEffect::setChannelVolume((int)((float)(SoundEffect::getChannelVolume(ecs::_channel_ENEMY_MOVEMENT)) * (float)((float)(value) / 100)), ecs::_channel_ENEMY_MOVEMENT);
+	SoundEffect::setChannelVolume((int)((float)(SoundEffect::getChannelVolume(ecs::_channel_ENEMY_MOVEMENT)) * (float)((float)(value) / 100)), ecs::_channel_ENEMY_MOVEMENT);*/
 }
 void MusicOptionsMenuState::uiVolume(int value) {
 	SoundEffect::setChannelVolume(value, ecs::_channel_UI);
