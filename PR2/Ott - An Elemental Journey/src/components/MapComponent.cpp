@@ -164,7 +164,7 @@ void MapComponent::update() {
                             newRect.y + newRect.h - playerRect.h);
                     }
                 }
-                changeRoom(trigger.first, newPos, verticalTrigger);
+                changeRoom(trigger.first, newPos, true);
                 break;
             }
         }
