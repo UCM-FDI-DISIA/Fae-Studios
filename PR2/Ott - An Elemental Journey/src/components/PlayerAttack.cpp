@@ -35,10 +35,22 @@ void PlayerAttack::update() {
 			switch (health_->getElement())
 			{
 			case ecs::Light: {
-				MoveTrigger(Vector2D(triggerWidth, triggerHeight)); // Se mueven los triggers a la posici�n actual
-				trigger = { trigger.x, trigger.y, triggerWidth, triggerHeight };
+
+				// Ataque cargado doble tamano
+				if (chargedAttack) {
+					chargedLight = true;
+					MoveTrigger(Vector2D(triggerWidth * 2, triggerHeight * 2));
+					trigger = { trigger.x, trigger.y, triggerWidth * 2, triggerHeight * 2 };
+				}
+				// Ataque simple
+				else {
+					MoveTrigger(Vector2D(triggerWidth, triggerHeight));
+					trigger = { trigger.x, trigger.y, triggerWidth, triggerHeight };
+				}
 				attackEnemy(trigger);
+				chargedLight = false;
 				sdlutils().soundEffects().at("ott_attack").play(0, ecs::_channel_PLAYER_ATTACK);
+
 				break;
 			}
 			case ecs::Earth:
@@ -235,9 +247,9 @@ void PlayerAttack::spawnFireball()
 	// Mueve pos y dir de ataque
 	if (lookDir) {
 		attack->addComponent<PhysicsComponent>(Vector2D(2, 0));
-		shootPos = Vector2D(pTransf->getPosition().getX() + pTransf->getWidth()/2, pTransf->getPosition().getY() + pTransf->getHeight() / 4);
+		shootPos = Vector2D(pTransf->getPosition().getX() + pTransf->getWidth() / 2, pTransf->getPosition().getY() + pTransf->getHeight() / 4);
 	}
-	else { 
+	else {
 		attack->addComponent<PhysicsComponent>(Vector2D(-2, 0));
 		shootPos = Vector2D(pTransf->getPosition().getX(), pTransf->getPosition().getY() + pTransf->getHeight() / 4);
 	}
@@ -305,6 +317,11 @@ bool PlayerAttack::attackEnemy(SDL_Rect& attackZone) {
 			attack = true;
 			// Hace da�o a enemigo dependiendo del elemento
 			e->getComponent<Health>()->recieveDamage(health_->getElement());
+
+			// Doble dano ataque luz cargado
+			if (chargedLight)
+				e->getComponent<Health>()->recieveDamage(health_->getElement());
+
 		}
 	}
 	return attack;

@@ -164,7 +164,7 @@ namespace constructors {
 		return enemy;
 	}
 
-	static inline void button(Manager* mngr_, Vector2D& position, std::string text, Font& f, std::function<void()> const& callback) {
+	static inline auto button(Manager* mngr_, Vector2D& position, std::string text, Font& f, std::function<void()> const& callback) {
 		auto b = mngr_->addEntity(ecs::_grp_UI);
 		b->addComponent<Transform>(position, 50, 50);
 		b->addComponent<FramedImage>(&sdlutils().images().at("button"), 1, 3);
@@ -173,9 +173,10 @@ namespace constructors {
 		b->getComponent<Transform>()->setWidth(b->getComponent<FramedImage>()->getFrameWidth());
 		b->getComponent<Transform>()->setHeight(b->getComponent<FramedImage>()->getFrameHeight());
 		b->getComponent<Transform>()->setPosition(b->getComponent<Transform>()->getPosition() - Vector2D(b->getComponent<FramedImage>()->getFrameWidth() / 2, b->getComponent<FramedImage>()->getFrameHeight() / 2));
+		return b;
 	}
 
-	static inline void exitButton(Manager* mngr_, Vector2D& position, std::function<void()> const& callback) {
+	static inline auto exitButton(Manager* mngr_, Vector2D& position, std::function<void()> const& callback) {
 		auto quitButton = mngr_->addEntity(ecs::_grp_UI);
 		quitButton->addComponent<Transform>(position, 50, 50);
 		quitButton->addComponent<FramedImage>(&sdlutils().images().at("quitbutton"), 1, 3);
@@ -184,6 +185,7 @@ namespace constructors {
 		quitButton->getComponent<Transform>()->setWidth(quitButton->getComponent<FramedImage>()->getFrameWidth());
 		quitButton->getComponent<Transform>()->setHeight(quitButton->getComponent<FramedImage>()->getFrameHeight());
 		quitButton->getComponent<Transform>()->setPosition(quitButton->getComponent<Transform>()->getPosition() - Vector2D(quitButton->getComponent<FramedImage>()->getFrameWidth() / 2, quitButton->getComponent<FramedImage>()->getFrameHeight() / 2));
+		return quitButton;
 	}
 
 	static inline void slider(Manager* mngr_, Vector2D& position, std::string title, float minValue, float maxValue, float currentValue, std::function<void(int)> const& callback) {
@@ -208,10 +210,11 @@ namespace constructors {
 		s->getComponent<Slider>()->setNeedle(needle);
 	}
 
-	static inline void background(Manager* mngr_, Texture* t) {
+	static inline auto background(Manager* mngr_, Texture* t) {
 		auto b = mngr_->addEntity(ecs::_grp_UI);
 		b->addComponent<Transform>(Vector2D(0, 0), sdlutils().getWindowDimensions().getX(), sdlutils().getWindowDimensions().getY());
 		b->addComponent<Image>(t);
+		return b;
 	}
 
 	static inline auto image(Manager* mngr_, Vector2D& position, Vector2D& size, Texture* t) {

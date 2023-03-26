@@ -208,6 +208,8 @@ void PlayState::checkInteraction() {
         if (SDL_HasIntersection(&r1, &r2)) {
 			if (ents->hasComponent<ElementObject>()) {
 				mngr_->getPlayer()->getComponent<PlayerInput>()->unlockElement(ents->getComponent<ElementObject>()->getElement());
+				mngr_->getPlayer()->getComponent<PlayerAnimationComponent>()->changeElem(ents->getComponent<ElementObject>()->getElement());
+				mngr_->getPlayer()->getComponent<PlayerAnimationComponent>()->setState(VANISH);
 				ents->setAlive(false);
 			}
 			else
@@ -237,22 +239,26 @@ void PlayState::update() {
 }
 
 void PlayState::AddEnredadera() {
-    Entity* aux = (*interactionIt);
-	aux->getComponent<VineManager>()->addVine();
+	if (player_->getComponent<Health>()->getElement() == ecs::Earth) {
+		Entity* aux = (*interactionIt);
+		aux->getComponent<VineManager>()->addVine();
+	}
 }
 
 void PlayState::Teleport() {
-    int cAnim = player_->getComponent<PlayerAnimationComponent>()->getState();
-    if (cAnim != IDLE && cAnim != RUN) return;
-    Entity* aux = *interactionIt;
-    Entity* tpLamp = aux->getComponent<LampComponent>()->getConnectedLamp();
-    Vector2D newPos = tpLamp->getComponent<Transform>()->getPosition();
-	auto newRoom = tpLamp->getComponent<LampComponent>()->getRoom();
-	if (aux->getComponent<LampComponent>()->getRoom() != newRoom) {
-		map_->changeRoom(std::to_string(newRoom), newPos);
+	if (player_->getComponent<Health>()->getElement() == ecs::Light) {
+		int cAnim = player_->getComponent<PlayerAnimationComponent>()->getState();
+		if (cAnim != IDLE && cAnim != RUN) return;
+		Entity* aux = *interactionIt;
+		Entity* tpLamp = aux->getComponent<LampComponent>()->getConnectedLamp();
+		Vector2D newPos = tpLamp->getComponent<Transform>()->getPosition();
+		auto newRoom = tpLamp->getComponent<LampComponent>()->getRoom();
+		if (aux->getComponent<LampComponent>()->getRoom() != newRoom) {
+			map_->changeRoom(std::to_string(newRoom), newPos);
+		}
+		player_->getComponent<PlayerAnimationComponent>()->startTP(newPos);
+		sdlutils().soundEffects().at("teleport").play(0, ecs::_channel_ALERTS);
 	}
-	player_->getComponent<PlayerAnimationComponent>()->startTP(newPos);
-	sdlutils().soundEffects().at("teleport").play(0, ecs::_channel_ALERTS);
 }
 
 void PlayState::Save() {

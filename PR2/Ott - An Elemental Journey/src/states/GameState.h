@@ -50,5 +50,7 @@ public:
             if (fade->getComponent<FadeTransitionComponent>()->hasEndedAnimation()) fade->getComponent<FadeTransitionComponent>()->revertWithoutExecute();
         }
     }
+
+    virtual void changeResolution() {};
 };
 

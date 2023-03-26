@@ -77,22 +77,38 @@ void PlayerInput::update()
 					attackTimer = SDL_GetTicks();
 
 				}
-				if (input->isKeyDown(SDLK_a) && earth) {
+				if (input->isKeyDown(SDLK_a) && earth && !selectedEarth) {
 					//Cambio elemento
 					anim_->changeElem(ecs::Earth);
 					anim_->setState(VANISH);
+					selectedEarth = true;
+					selectedWater = false;
+					selectedFire = false;
+					selectedLight = false;
 				}
-				if (input->isKeyDown(SDLK_d) && water) {
+				if (input->isKeyDown(SDLK_d) && water && !selectedWater) {
 					anim_->changeElem(ecs::Water);
 					anim_->setState(VANISH);
+					selectedEarth = false;
+					selectedWater = true;
+					selectedFire = false;
+					selectedLight = false;
 				}
-				if (input->isKeyDown(SDLK_w) && fire) {
+				if (input->isKeyDown(SDLK_w) && fire && !selectedFire) {
 					anim_->changeElem(ecs::Fire);
 					anim_->setState(VANISH);
+					selectedEarth = false;
+					selectedWater = false;
+					selectedFire = true;
+					selectedLight = false;
 				}
-				if (input->isKeyDown(SDLK_s)) {
+				if (input->isKeyDown(SDLK_s) && !selectedLight) {
 					anim_->changeElem(ecs::Light);
 					anim_->setState(VANISH);
+					selectedEarth = false;
+					selectedWater = false;
+					selectedFire = false;
+					selectedLight = true;
 				}
 			}
 			if (input->isKeyDown(SDLK_UP)) {
