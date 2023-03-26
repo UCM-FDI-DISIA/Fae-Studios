@@ -126,21 +126,20 @@ void PlayerInput::update()
 		else if (openingMap && state != OPEN_MAP && state != CLOSE_MAP) {
 			openingMap = false;
 		}
+		if (input->isKeyUp(SDLK_LEFT) && input->isKeyUp(SDLK_RIGHT)) {
+			std::cout << "quitar velocidad horizontal" << std::endl;
+			playerV = Vector2D(0, playerV.getY());
+		}
 		if (input->keyUpEvent() && !openingMap) {
 			if (state != DIE) {
-				if (input->isKeyUp(SDLK_LEFT) && input->isKeyUp(SDLK_RIGHT)) {
-					playerV = Vector2D(0, playerV.getY());
-				}
-				else {
-					if (input->isKeyJustUp(SDLK_RIGHT)) {
-						playerV = playerV - Vector2D(horizontalSpeed, 0);
-						if (playerV.getX() < -horizontalSpeed) playerV = Vector2D(-horizontalSpeed, playerV.getY());
+				if (input->isKeyJustUp(SDLK_RIGHT)) {
+					playerV = playerV - Vector2D(horizontalSpeed, 0);
+					if (playerV.getX() < -horizontalSpeed) playerV = Vector2D(-horizontalSpeed, playerV.getY());
 
-					}
-					if (input->isKeyJustUp(SDLK_LEFT)) {
-						playerV = playerV - Vector2D(-horizontalSpeed, 0);
-						if (playerV.getX() > horizontalSpeed) playerV = Vector2D(horizontalSpeed, playerV.getY());
-					}
+				}
+				if (input->isKeyJustUp(SDLK_LEFT)) {
+					playerV = playerV - Vector2D(-horizontalSpeed, 0);
+					if (playerV.getX() > horizontalSpeed) playerV = Vector2D(horizontalSpeed, playerV.getY());
 				}
 				if (input->isKeyJustUp(SDLK_e) && attack) {
 					attack = false;
