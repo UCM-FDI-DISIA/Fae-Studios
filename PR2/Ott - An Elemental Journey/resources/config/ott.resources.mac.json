@@ -85,25 +85,25 @@
 		{
 			"id": "ott_luz",
 			"file": "../Ott - An Elemental Journey/resources/images/tests/Ott_Luz.png",
-			"rows": 10,
+			"rows": 11,
 			"cols": 8
 		},
 		{
 			"id": "ott_tree",
 			"file": "../Ott - An Elemental Journey/resources/images/tests/Ott_Tree.png",
-			"rows": 10,
+			"rows": 11,
 			"cols": 8
 		},
 		{
 			"id": "ott_water",
 			"file": "../Ott - An Elemental Journey/resources/images/tests/Ott_Water.png",
-			"rows": 10,
+			"rows": 11,
 			"cols": 8
 		},
 		{
 			"id": "ott_fire",
 			"file": "../Ott - An Elemental Journey/resources/images/tests/Ott_Fire.png",
-			"rows": 10,
+			"rows": 11,
 			"cols": 8
 		},
 		{

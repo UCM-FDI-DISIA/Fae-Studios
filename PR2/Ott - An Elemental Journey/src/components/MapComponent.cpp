@@ -51,7 +51,6 @@ void MapComponent::generateEnemies() {
         }
         int roomNum = std::stoi(split[0]);
         float roomScale = vectorTiles[roomNum].first;
-        std::cout << roomNum << std::endl;
 
         if (it.getClass() == "Mushroom") {
             Entity* enemie = constructors::eRanged(mngr_, path + "Mushroom", x_ * scale * roomScale, y_ * scale * roomScale, roomScale, elem, lookingRight);
@@ -129,7 +128,6 @@ void MapComponent::initComponent() {
 }
 
 void MapComponent::update() {
-    std::cout << currentRoom << std::endl;
     if (!anim_->onAnim()) {
         Transform* playerTr_ = player_->getComponent<Transform>();
         SDL_Rect playerRect = playerTr_->getRect();
