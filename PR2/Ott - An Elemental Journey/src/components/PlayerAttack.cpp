@@ -239,7 +239,8 @@ void PlayerAttack::update() {
 
 		if (earthStateAnimation->getState() == ADVANCE)
 		{
-			if (attackEnemy(trigger) || attackEnemy(trigger2))
+			bool atacado = attackEnemy(trigger2);
+			if (attackEnemy(trigger) || atacado)
 			{
 				earthAnimation->setCol(colTrigger - 1);
 				earthStateAnimation->setState(BACK, colTrigger - 1);
