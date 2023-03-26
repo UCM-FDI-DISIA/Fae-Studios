@@ -83,7 +83,8 @@
 		{ "id" : "mapBG", "file" : "../resources/images/map_rooms/mapBg.png", "rows" : 1, "cols" : 1},
 		{ "id" : "earth_elem", "file" : "../resources/images/tests/EarthElement.png", "rows": 1, "cols": 10},
 		{ "id" : "water_elem", "file" : "../resources/images/tests/WaterElement.png", "rows": 1, "cols": 10},
-		{ "id" : "fire_elem", "file" : "../resources/images/tests/FireElement.png", "rows": 1, "cols": 10}
+		{ "id" : "fire_elem", "file" : "../resources/images/tests/FireElement.png", "rows": 1, "cols": 10},
+		{ "id" : "fire_attack", "file" : "../resources/images/tests/fire_attack.png", "rows": 1, "cols": 1}
   ],
 
   "messages" : [],
