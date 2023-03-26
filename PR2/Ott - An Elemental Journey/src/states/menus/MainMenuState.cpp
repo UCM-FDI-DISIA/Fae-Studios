@@ -32,7 +32,7 @@ MainMenuState::MainMenuState() : MenuState() {
     constructors::boldText(mngr_, "Hito 2 - DEMO", pos, sdlutils().fonts().at("press_start16"), 1, yellow);
     
     littleOtt = mngr_->addEntity(ecs::_grp_UI);
-    littleOtt->addComponent<Transform>(Vector2D(320, 415), 100, 100);
+    littleOtt->addComponent<Transform>(Vector2D(2*sdlutils().getWindowDimensions().getX()/10, 5.1*sdlutils().getWindowDimensions().getY()/10), 100, 100);
     littleOtt->addComponent<FramedImage>(&sdlutils().images().at("ott_luz"), 9, 8);
 
     pos = Vector2D(sdlutils().getWindowDimensions().getX() / 2, 3 * sdlutils().getWindowDimensions().getY() / 7);

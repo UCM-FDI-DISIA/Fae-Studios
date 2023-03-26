@@ -115,14 +115,22 @@ public:
     }
 
 // toggle to full-screen/window mode
-	inline void toggleFullScreen() {
+
+	enum SCREEN_MODES {WINDOWED, FULL_DISPLAY, FULLSCREEN};
+
+	inline void toggleFullScreen(SCREEN_MODES s) {
 		auto flags = SDL_GetWindowFlags(window_);
-		if (flags & SDL_WINDOW_FULLSCREEN) {
+		currentScreenMode_ = s;
+		if (flags & SDL_WINDOW_FULLSCREEN && s == WINDOWED) {
 			SDL_SetWindowFullscreen(window_, 0);
-		} else {
-			SDL_SetWindowFullscreen(window_, SDL_WINDOW_FULLSCREEN);
 		}
+		else if (s == FULL_DISPLAY) {
+			SDL_SetWindowFullscreen(window_, SDL_WINDOW_FULLSCREEN_DESKTOP);
+		}
+		else if (s == FULLSCREEN) SDL_SetWindowFullscreen(window_, SDL_WINDOW_FULLSCREEN);
 	}
+
+	inline SCREEN_MODES getCurrentScreenMode() const { return currentScreenMode_; }
 
 // show the cursor when mouse is over the window
 	inline void showCursor() {
@@ -199,6 +207,7 @@ private:
 	std::string windowTitle_; // window title
 	int width_; // window width
 	int height_; // window height
+	SCREEN_MODES currentScreenMode_;
 
 	SDL_Window *window_; // the window
 	SDL_Renderer *renderer_; // the renderer

@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\states\menus\options\GraphicsOptionsMenuState.cpp" />
     <ClCompile Include="src\components\DamageArea.cpp" />
     <ClCompile Include="src\states\MapState.cpp" />
     <ClCompile Include="src\components\Destruction.cpp" />
@@ -82,6 +83,7 @@
     <ClCompile Include="src\components\WaterBossAnimationComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\states\menus\options\GraphicsOptionsMenuState.h" />
     <ClInclude Include="src\states\MapState.h" />
     <ClInclude Include="src\components\LifeAnimationComponent.h" />
     <ClInclude Include="src\components\Destruction.h" />

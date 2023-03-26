@@ -12,7 +12,14 @@ class TextComponent : public Component{
 private:
     Texture* textTexture;
     int x;
-    int y;
+    int y; 
+    Font& f;
+    SDL_Color fontColor;
+    SDL_Color bgColor;
+    std::string text;
+
+    Texture* createTexture(std::string text, Font& f, SDL_Color fontColor, SDL_Color bgColor);
+
 public:
     constexpr static ecs::cmpId_type id = ecs::_TEXT;
     TextComponent(std::string text, Font& f, SDL_Color fontColor, SDL_Color bgColor);
@@ -22,6 +29,8 @@ public:
     int getHeight() const {return textTexture->height();}
     inline void setPosition(Vector2D& v) {x = v.getX(); y = v.getY();}
     inline Vector2D getPosition() const { return Vector2D(x, y); }
+    void changeText(std::string text);
+    void changeColor(SDL_Color fontColor);
 };
 
 

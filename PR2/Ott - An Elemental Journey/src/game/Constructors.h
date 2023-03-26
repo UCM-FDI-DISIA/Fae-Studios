@@ -221,11 +221,12 @@ namespace constructors {
 		i->getComponent<Transform>()->setPosition(i->getComponent<Transform>()->getPosition() - Vector2D(i->getComponent<Image>()->getWidth() / 2, i->getComponent<Image>()->getHeight() / 2));
 	}
 
-	static inline void normalText(Manager* mngr_, std::string text, Vector2D& position, Font& f, SDL_Color textColor = blanco, SDL_Color bgColor = transparente) {
+	static inline auto normalText(Manager* mngr_, std::string text, Vector2D& position, Font& f, SDL_Color textColor = blanco, SDL_Color bgColor = transparente) {
 		auto t = mngr_->addEntity(ecs::_grp_UI);
 		t->addComponent<TextComponent>(text, f, textColor, bgColor);
 		Vector2D textPos = Vector2D(position.getX() - t->getComponent<TextComponent>()->getWidth() / 2, position.getY());
 		t->getComponent<TextComponent>()->setPosition(textPos);
+		return t;
 	}
 
 	static inline void boldText(Manager* mngr_, std::string text, Vector2D& position, Font& f, int displacement, SDL_Color textColor = blanco, SDL_Color bgColor = transparente) {
