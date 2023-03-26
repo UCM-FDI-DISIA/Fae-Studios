@@ -79,25 +79,25 @@
 		{
 			"id": "ott_luz",
 			"file": "../Ott - An Elemental Journey/resources/images/tests/Ott_Luz.png",
-			"rows": 9,
+			"rows": 10,
 			"cols": 8
 		},
 		{
 			"id": "ott_tree",
 			"file": "../Ott - An Elemental Journey/resources/images/tests/Ott_Tree.png",
-			"rows": 9,
+			"rows": 10,
 			"cols": 8
 		},
 		{
 			"id": "ott_water",
 			"file": "../Ott - An Elemental Journey/resources/images/tests/Ott_Water.png",
-			"rows": 9,
+			"rows": 10,
 			"cols": 8
 		},
 		{
 			"id": "ott_fire",
 			"file": "../Ott - An Elemental Journey/resources/images/tests/Ott_Fire.png",
-			"rows": 9,
+			"rows": 10,
 			"cols": 8
 		},
 		{
@@ -332,6 +332,48 @@
 			"file": "../Ott - An Elemental Journey/resources/images/tests/Boss_Agua.png",
 			"rows": 4,
 			"cols": 8
+		},
+                { 
+			"id" : "0_earth_room", 
+			"file" : "../resources/images/map_rooms/0_earth_map.png", 
+			"rows" : 1, 
+			"cols" : 1
+		},
+		{ 
+			"id" : "1_earth_room", 
+			"file" : "../resources/images/map_rooms/1_earth_map.png", 
+			"rows" : 1, 
+			"cols" : 1
+		},
+		{ 
+			"id" : "2_earth_room", 
+			"file" : "../resources/images/map_rooms/2_earth_map.png", 
+			"rows" : 1, 
+			"cols" : 1
+		},
+		{ 
+			"id" : "3_earth_room", 
+			"file" : "../resources/images/map_rooms/3_earth_map.png", 
+			"rows" : 1, 
+			"cols" : 1
+		},
+		{ 
+			"id" : "4_earth_room", 
+			"file" : "../resources/images/map_rooms/4_earth_map.png", 
+			"rows" : 1, 
+			"cols" : 1
+		},
+		{ 
+			"id" : "5_earth_room", 
+			"file" : "../resources/images/map_rooms/5_earth_map.png", 
+			"rows" : 1, 
+			"cols" : 1
+		},
+		{ 
+			"id" : "mapBG", 
+			"file" : "../resources/images/map_rooms/mapBg.png", 
+			"rows" : 1, 
+			"cols" : 1
 		},
 		{
 			"id": "lamps",
