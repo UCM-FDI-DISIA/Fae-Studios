@@ -19,6 +19,7 @@
 		{ "id" : "whitebackground", "file" : "../resources/images/backgrounds/playbg.png", "rows" : 1, "cols" : 1},
 		{ "id" : "button", "file" : "../resources/images/ui/button.png", "rows" : 1, "cols" : 3},
 		{ "id" : "largebutton", "file" : "../resources/images/ui/largebutton.png", "rows" : 1, "cols" : 3},
+		{ "id" : "controls", "file" : "../resources/images/ui/controles.png", "rows" : 1, "cols" : 1},
 		{ "id" : "lifeshard", "file" : "../resources/images/tests/lifeshard.png", "rows": 1, "cols": 10},
 		{ "id" : "quitbutton", "file" : "../resources/images/ui/quitbutton.png", "rows" : 1, "cols" : 3},
 		{ "id" : "slider", "file" : "../resources/images/ui/slider.png", "rows" : 3, "cols" : 1},

@@ -214,11 +214,12 @@ namespace constructors {
 		b->addComponent<Image>(t);
 	}
 
-	static inline void image(Manager* mngr_, Vector2D& position, Vector2D& size, Texture* t) {
+	static inline auto image(Manager* mngr_, Vector2D& position, Vector2D& size, Texture* t) {
 		auto i = mngr_->addEntity(ecs::_grp_UI);
 		i->addComponent<Transform>(position, size.getX(), size.getY());
 		i->addComponent<Image>(t);
 		i->getComponent<Transform>()->setPosition(i->getComponent<Transform>()->getPosition() - Vector2D(i->getComponent<Image>()->getWidth() / 2, i->getComponent<Image>()->getHeight() / 2));
+		return i;
 	}
 
 	static inline auto normalText(Manager* mngr_, std::string text, Vector2D& position, Font& f, SDL_Color textColor = blanco, SDL_Color bgColor = transparente) {

@@ -29,6 +29,12 @@
 			"cols": 3
 		},
 		{
+			"id": "controls",
+			"file": "../Ott - An Elemental Journey/resources/images/ui/controles.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
 			"id": "quitbutton",
 			"file": "../Ott - An Elemental Journey/resources/images/ui/quitbutton.png",
 			"rows": 1,
