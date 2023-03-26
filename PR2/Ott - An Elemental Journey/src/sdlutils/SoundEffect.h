@@ -112,6 +112,10 @@ public:
 		return channels_ = Mix_AllocateChannels(n);
 	}
 
+	inline static int getNumberOfChannels() {
+		return channels_;
+	}
+
 	inline static float convertVolumeToSDLMixerValue(int volume) {
 		return ((SDL_MIX_MAXVOLUME * volume) / 100);
 	}

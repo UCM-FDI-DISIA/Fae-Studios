@@ -4,6 +4,7 @@
 #include "../utils/checkML.h"
 #include "../sdlutils/SDLUtils.h"
 #include "../sdlutils/InputHandler.h"
+#include "../sdlutils/SoundEffect.h"
 
 
 Game::Game() {
@@ -11,6 +12,7 @@ Game::Game() {
     SDLUtils::init(WINDOW_NAME, WINDOW_WIDTH, WINDOW_HEIGHT, jsonRoute);
     sdlutils().showCursor(); //Mostramos el cursor
     sdlutils().toggleFullScreen(SDLUtils::WINDOWED);
+    SoundEffect::setNumberofChannels(32);
 }
 
 void Game::run() {

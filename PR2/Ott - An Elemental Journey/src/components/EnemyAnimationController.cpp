@@ -68,6 +68,8 @@ void EnemyAnimationComponent::update() {
 		if (!SoundEffect::isSoundBeingPlayed(ecs::_channel_ENEMY_SLIME_MOVEMENT) && currentAnimation == WALK_ENEMY) sdlutils().soundEffects().at("slime_movement").play(0, ecs::_channel_ENEMY_SLIME_MOVEMENT);
 		else if(!SoundEffect::isSoundBeingPlayed(ecs::_channel_ENEMY_SLIME_ATTACK) && currentAnimation == ATTACK_ENEMY) sdlutils().soundEffects().at("slime_attack").play(0, ecs::_channel_ENEMY_SLIME_ATTACK);
 		break;
+	case anims::MELEE_ANIM:
+		if (!SoundEffect::isSoundBeingPlayed(ecs::_channel_ENEMY_MELEE_ATTACK) && currentAnimation == WALK_ENEMY) sdlutils().soundEffects().at("menemy_step").play(0, ecs::_channel_ENEMY_MELEE_ATTACK);
 	}
 }
 
