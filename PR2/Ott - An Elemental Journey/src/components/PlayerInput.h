@@ -23,16 +23,29 @@ public:
 		{
 		case ecs::Earth:
 			earth = true;
+			selectedEarth = true;
+			selectedWater = false;
+			selectedFire = false;
+			selectedLight = false;
 			break;
 		case ecs::Water:
 			water = true;
+			selectedEarth = false;
+			selectedWater = true;
+			selectedFire = false;
+			selectedLight = false;
 			break;
 		case ecs::Fire:
 			fire = true;
+			selectedEarth = false;
+			selectedWater = false;
+			selectedFire = true;
+			selectedLight = false;
 			break;
 		default:
 			break;
 		}
+		sdlutils().soundEffects().at("pick_elem").play(0, ecs::_channel_ALERTS);
 	};
 
 private:

@@ -403,7 +403,8 @@
 	{ "id" : "map", "file" : "../Ott - An Elemental Journey/resources/sound/map.wav"},
 	{ "id" : "warning", "file" : "../Ott - An Elemental Journey/resources/sound/warning_gusano.wav"},
 	{ "id" : "roar", "file" : "../Ott - An Elemental Journey/resources/sound/gusanoroar.mp3"},
-	{ "id" : "teleport", "file" : "../Ott - An Elemental Journey/resources/sound/teleport.wav"}
+	{ "id" : "teleport", "file" : "../Ott - An Elemental Journey/resources/sound/teleport.wav"},
+	{ "id" : "pick_elem", "file" : "../Ott - An Elemental Journey/resources/sound/pick_elem.wav"}
   ],
 
 	"musics": [
