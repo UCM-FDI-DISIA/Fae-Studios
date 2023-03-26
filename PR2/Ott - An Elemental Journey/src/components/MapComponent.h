@@ -66,6 +66,8 @@ private:
 	const int COLLISIONS_VECTOR_POS = 2;
 	const int TRIGGERS_VECTOR_POS = 3;
 	const int ENEMIES_VECTOR_POS = 4;
+	
+	const std::string currentLevel = "level1_0";
 
 	int realTileSize = 32;
 	int usedTileSize = 50;
@@ -93,6 +95,7 @@ public:
 	std::vector<std::pair<SDL_Rect, SDL_Rect>> checkCollisions(const SDL_Rect& playerRect);
 	
 	inline std::vector<std::vector<Entity*>> getInteract() { return interact; };
+	inline std::string getCurrentLevel() { return currentLevel; }
 	inline int getCurrentRoom() { return currentRoom; }
 	inline void setCurrentRoom(int newRoom) { currentRoom = newRoom; }
 	inline float getCurrentRoomScale() { return vectorTiles[currentRoom].first; }

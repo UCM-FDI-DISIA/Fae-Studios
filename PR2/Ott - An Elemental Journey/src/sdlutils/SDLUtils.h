@@ -20,8 +20,9 @@ struct Mapa {
 	int cols;
 	std::string tileset;
 	std::string background;
+	std::string bgsong;
 
-	Mapa(std::string r, int cols, std::string tileset, std::string background) : route(r), cols(cols), tileset(tileset), background(background) {}
+	Mapa(std::string r, int cols, std::string tileset, std::string background, std::string bgsong) : route(r), cols(cols), tileset(tileset), background(background), bgsong(bgsong) {}
 };
 
 class SDLUtils: public Singleton<SDLUtils> {

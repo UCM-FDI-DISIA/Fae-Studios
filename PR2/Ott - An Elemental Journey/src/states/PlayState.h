@@ -35,7 +35,7 @@ public:
     /// Actualiza variables del estado y de sus entidades
     void update() override;
 
-    void resetFade() override {}
+    void resetFade() override { sdlutils().musics().at(sdlutils().levels().at(map_->getCurrentLevel()).bgsong).resumeMusic(); }
 
     /// Bloquea el uso del teclado después de volver del menú de pausa
     void blockKeyboardInputAfterUnfreeze();

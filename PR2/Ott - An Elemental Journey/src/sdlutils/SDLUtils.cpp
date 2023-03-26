@@ -282,11 +282,12 @@ void SDLUtils::loadReasources(std::string filename) {
 					int cols = vObj["cols"]->AsNumber();
 					std::string tileset = vObj["tileset"]->AsString();
 					std::string background = vObj["background"]->AsString();
+					std::string song = vObj["music"]->AsString();
 #ifdef _DEBUG
 					std::cout << "Loading level with id: " << id << std::endl;
 #endif
 
-					levels_.emplace(id, Mapa(file, cols, tileset, background));
+					levels_.emplace(id, Mapa(file, cols, tileset, background, song));
 				}
 				else throw "'levels' array in '" + filename + "' includes an invalid value";
 			}

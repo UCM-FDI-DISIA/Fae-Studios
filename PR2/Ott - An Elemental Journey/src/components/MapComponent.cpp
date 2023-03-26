@@ -7,8 +7,6 @@
 #include "../states/GameStateMachine.h"
 #include "../game/Constructors.h"
 
-const std::string currentLevel = "level1_0";
-
 std::vector<std::string> strSplit(std::string s, char c) {
 
     std::vector<std::string> split;
@@ -379,7 +377,6 @@ void MapComponent::loadMap(std::string path) {
         currentRoom = playerRoom;
         cam->setBounds(getCamBounds());
         generateEnemies();
-
     }
     else
     {

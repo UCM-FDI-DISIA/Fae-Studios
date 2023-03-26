@@ -28,8 +28,8 @@ MainMenuState::MainMenuState() : MenuState() {
     pos = Vector2D(sdlutils().getWindowDimensions().getX() / 9, sdlutils().getWindowDimensions().getY() - 30);
     constructors::boldText(mngr_, "Fae Studios - 2023", pos, sdlutils().fonts().at("press_start16"), 1, yellow);
 
-    pos = Vector2D(8 * sdlutils().getWindowDimensions().getX() / 9, sdlutils().getWindowDimensions().getY() - 30);
-    constructors::boldText(mngr_, "InDev 0.02", pos, sdlutils().fonts().at("press_start16"), 1, yellow);
+    pos = Vector2D(8.2 * sdlutils().getWindowDimensions().getX() / 9, sdlutils().getWindowDimensions().getY() - 30);
+    constructors::boldText(mngr_, "Hito 2 - DEMO", pos, sdlutils().fonts().at("press_start16"), 1, yellow);
     
     littleOtt = mngr_->addEntity(ecs::_grp_UI);
     littleOtt->addComponent<Transform>(Vector2D(320, 415), 100, 100);
