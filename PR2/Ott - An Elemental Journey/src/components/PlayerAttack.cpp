@@ -44,8 +44,8 @@ void PlayerAttack::update() {
 				}
 				// Ataque simple
 				else {
-					MoveTrigger(Vector2D(triggerWidth, triggerHeight));
-					trigger = { trigger.x, trigger.y, triggerWidth, triggerHeight };
+					MoveTrigger(Vector2D(triggerWidth * tr_->getScale(), triggerHeight * tr_->getScale()));
+					trigger = { trigger.x, trigger.y, (int)(triggerWidth * tr_->getScale()), (int)(triggerHeight * tr_->getScale()) };
 				}
 				attackEnemy(trigger);
 				chargedLight = false;
@@ -64,18 +64,18 @@ void PlayerAttack::update() {
 
 					if (chargedAttack) {
 						// IZQUIERDA
-						trigger2 = { trigger.x, trigger.y, 0,EARTH_ATTACK_HEIGHT }; //cambiar altura 
+						trigger2 = { trigger.x, trigger.y, 0,(int)(EARTH_ATTACK_HEIGHT * tr_->getScale())}; //cambiar altura 
 						tAttack2 = mngr_->addEntity(ecs::_grp_PROYECTILES);
-						tAttack2->addComponent<Transform>(Vector2D(trigger2.x, trigger2.y), EARTH_ATTACK_WIDTH, EARTH_ATTACK_HEIGHT);
+						tAttack2->addComponent<Transform>(Vector2D(trigger2.x, trigger2.y), EARTH_ATTACK_WIDTH * tr_->getScale(), EARTH_ATTACK_HEIGHT * tr_->getScale());
 						tAttack2->addComponent<FramedImage>(&sdlutils().images().at("earth_attack"), 1, 10);
 						tAttack2->addComponent<earthAnimationController>(anims::EARTH_ATTACK);
 
 					}
 
 					// DERECHA
-					trigger = { trigger.x, trigger.y, 0,EARTH_ATTACK_HEIGHT }; //cambiar altura 
+					trigger = { trigger.x, trigger.y, 0,(int)(EARTH_ATTACK_HEIGHT * tr_->getScale()) }; //cambiar altura 
 					tAttack = mngr_->addEntity(ecs::_grp_PROYECTILES);
-					tAttack->addComponent<Transform>(Vector2D(trigger.x, trigger.y), EARTH_ATTACK_WIDTH, EARTH_ATTACK_HEIGHT);
+					tAttack->addComponent<Transform>(Vector2D(trigger.x, trigger.y), EARTH_ATTACK_WIDTH * tr_->getScale(), EARTH_ATTACK_HEIGHT * tr_->getScale());
 					tAttack->addComponent<FramedImage>(&sdlutils().images().at("earth_attack"), 1, 10);
 					tAttack->addComponent<earthAnimationController>(anims::EARTH_ATTACK);
 
@@ -101,7 +101,7 @@ void PlayerAttack::update() {
 				if (!waterAttackActive) {
 
 					// Trigger de ataque
-					trigger = { trigger.x, trigger.y, (int)watAtackTriggWH.getX(), (int)watAtackTriggWH.getY() };
+					trigger = { trigger.x, trigger.y, (int)(WATER_ATTACK_WIDTH * tr_->getScale()), (int)(WATER_ATTACK_HEIGHT * tr_->getScale()) };
 
 					if (chargedAttack) {
 						waterChargedAttack(trigger);
@@ -109,7 +109,7 @@ void PlayerAttack::update() {
 					else {
 						// ATAQUE AGUA SIMPLE
 						wAttack = mngr_->addEntity(ecs::_grp_PROYECTILES);
-						wAttack->addComponent<Transform>(Vector2D(trigger.x, trigger.y), WATER_ATTACK_WIDTH, WATER_ATTACK_HEIGHT);
+						wAttack->addComponent<Transform>(Vector2D(trigger.x, trigger.y), WATER_ATTACK_WIDTH * tr_->getScale(), WATER_ATTACK_HEIGHT * tr_->getScale());
 						wAttack->addComponent<FramedImage>(&sdlutils().images().at("water_attack"), 1, 10);
 						wAttack->addComponent<WaterAnimationController>(anims::WATER_ATTACK);
 						waterAttackActive = true;
@@ -133,8 +133,8 @@ void PlayerAttack::update() {
 		// ATAQUE CARGADO
 
 		if (chargedAttack) {
-			MoveTrigger(watAtackTriggWH);
-			trigger = { trigger.x, trigger.y, (int)watAtackTriggWH.getX(), (int)watAtackTriggWH.getY() };
+			MoveTrigger(watAtackTriggWH * tr_->getScale());
+			trigger = { trigger.x, trigger.y, (int)(watAtackTriggWH.getX() * tr_->getScale()), (int)(watAtackTriggWH.getY() * tr_->getScale() )};
 
 			// Transform
 			wAttack->getComponent<Transform>()->setPosition(Vector2D(trigger.x, trigger.y));
@@ -185,7 +185,7 @@ void PlayerAttack::update() {
 			}
 
 
-			MoveTrigger(Vector2D(trigger.w, WATER_ATTACK_HEIGHT));
+			MoveTrigger(Vector2D(trigger.w, WATER_ATTACK_HEIGHT* tr_->getScale()));
 
 			if (waterStateAnimation->getState() == WATER_ADVANCE)
 			{
@@ -233,9 +233,9 @@ void PlayerAttack::update() {
 		}
 
 		if (chargedAttack)
-			MoveChargedEarthTrigger(Vector2D(trigger2.w, EARTH_ATTACK_HEIGHT));
+			MoveChargedEarthTrigger(Vector2D(trigger2.w, EARTH_ATTACK_HEIGHT * tr_->getScale()));
 		else
-			MoveTrigger(Vector2D(trigger.w, EARTH_ATTACK_HEIGHT));
+			MoveTrigger(Vector2D(trigger.w, EARTH_ATTACK_HEIGHT* tr_->getScale()));
 
 		if (earthStateAnimation->getState() == ADVANCE)
 		{
@@ -289,16 +289,16 @@ void PlayerAttack::spawnFireball()
 
 	// Mueve pos y dir de ataque
 	if (lookDir) {
-		attack->addComponent<PhysicsComponent>(Vector2D(2, 0));
+		attack->addComponent<PhysicsComponent>(Vector2D(2 * tr_->getScale(), 0));
 		shootPos = Vector2D(pTransf->getPosition().getX() + pTransf->getWidth() / 2, pTransf->getPosition().getY() + pTransf->getHeight() / 4);
 	}
 	else {
-		attack->addComponent<PhysicsComponent>(Vector2D(-2, 0));
+		attack->addComponent<PhysicsComponent>(Vector2D(-2 * tr_->getScale(), 0));
 		shootPos = Vector2D(pTransf->getPosition().getX(), pTransf->getPosition().getY() + pTransf->getHeight() / 4);
 	}
 
 	// Transform ataque
-	attack->addComponent<Transform>(shootPos, 100, 100);
+	attack->addComponent<Transform>(shootPos, FIRE_ATTACK_WIDTH * tr_->getScale(), FIRE_ATTACK_HEIGHT * tr_->getScale());
 	// FramedImage ataque
 	auto frImage = attack->addComponent<FramedImage>(&sdlutils().images().at("fire_attack"), 1, 1);
 
@@ -352,9 +352,9 @@ void PlayerAttack::moveAttack(Transform* tr)
 		int attackWidth = 0;
 
 		if (waterAttackActive)
-			attackWidth = WATER_ATTACK_WIDTH;
+			attackWidth = WATER_ATTACK_WIDTH * tr_->getScale();
 		else if (earthAttackActive)
-			attackWidth = EARTH_ATTACK_WIDTH;
+			attackWidth = EARTH_ATTACK_WIDTH * tr_->getScale();
 
 		tr->setPosition(Vector2D(playerPos.getX() - attackWidth, playerPos.getY() + playerW / 2));
 	}
@@ -367,7 +367,7 @@ void PlayerAttack::moveChargedEarthAttack(Transform* tr1, Transform* tr2) {
 
 	tr1->setPosition(Vector2D(playerPos.getX() + playerW, playerPos.getY() + playerW / 2));
 
-	tr2->setPosition(Vector2D(playerPos.getX() - EARTH_ATTACK_WIDTH, playerPos.getY() + playerW / 2));
+	tr2->setPosition(Vector2D(playerPos.getX() - EARTH_ATTACK_WIDTH * tr_->getScale(), playerPos.getY() + playerW / 2));
 
 }
 
