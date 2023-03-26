@@ -107,7 +107,8 @@ namespace ecs {
 #pragma endregion
 
     static enum elements { Light, Earth, Water, Fire, Dark };
-
+    
+    enum maps { EARTH_MAP, WATER_MAP, FIRE_MAP, LAST_MAP_ID };
 
     static const int numElems = 5;
     // Representación interna doblada

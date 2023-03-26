@@ -10,15 +10,15 @@ MapState::MapState(PlayState* ps) : GameState(ecs::_state_MAP) {
 	auto ent = mngr_->addEntity(ecs::_grp_GENERAL);
 	ent->addComponent<Transform>(0, 0, window.getX(), window.getY());
 	ent->addComponent<Image>(&(sdlutils().images().at("mapBG")));
-	std::string key = map->getMapKey(i);
+	std::string key = map->getMapKey(ps->getCurrentMap(), i);
 	while (key != " ") {
-		if (ps->isVisited(i)) {
+		if (ps->isVisited(ps->getCurrentMap(), i)) {
 			auto ent = mngr_->addEntity(ecs::_grp_GENERAL);
 			ent->addComponent<Transform>(0, 0, window.getX(), window.getY());
 			ent->addComponent<Image>(&(sdlutils().images().at(key)));
 		}
 		++i;
-		key = map->getMapKey(i);
+		key = map->getMapKey(ps->getCurrentMap(), i);
 	}
 }
 

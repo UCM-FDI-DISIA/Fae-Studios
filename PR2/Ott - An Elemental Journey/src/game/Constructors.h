@@ -376,7 +376,7 @@ namespace constructors {
 		return waterBoss;
 	}
 
-	static inline Entity* map(Manager* mngr_, PlayState* game) {
+	static inline Entity* map(Manager* mngr_, PlayState* game, int currentMap) {
 		// auto bgrd = mngr_->addEntity(ecs::_grp_MAP);
 		auto e = mngr_->addEntity(ecs::_grp_MAP);
 		auto fadeOut = mngr_->addEntity(ecs::_grp_FADEOUT);
@@ -384,7 +384,7 @@ namespace constructors {
 		fadeOut->addComponent<FramedImage>(&sdlutils().images().at("fadeOut"), 5, 5);
 		fadeOut->addComponent<FadeOutAnimationComponent>();
 		fadeOut->setActive(true);
-		e->addComponent<MapComponent>(fadeOut, game);
+		e->addComponent<MapComponent>(fadeOut, game, currentMap);
 		auto scale = e->getComponent<MapComponent>()->tileScale();
 		//bgrd->addComponent<BackgroundImage>(Vector2D(0, 0), &sdlutils().images().at("level1bg"), scale, scale);
 		//bgrd->addComponent<BackgroundImage>(Vector2D(0, 0), game->getTexture("level1bg", PLAY_STATE), scale, scale);

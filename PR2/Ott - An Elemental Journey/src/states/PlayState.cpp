@@ -29,6 +29,8 @@
 #include "../components/ElementObject.h"
 
 PlayState::PlayState() : GameState(ecs::_state_PLAY) {
+	currentMap = ecs::EARTH_MAP;
+
 	mngr_->setPlayer(constructors::player(mngr_, 700, 1500, 100, 120));
 	mngr_->setCamera(constructors::camera(mngr_, 700, 2000, sdlutils().width(), sdlutils().height()));
 	player_ = mngr_->getPlayer();
@@ -50,7 +52,13 @@ PlayState::PlayState() : GameState(ecs::_state_PLAY) {
 	// y no se podrían coger de otra forma más que forzando el initComponent()
 	player_->reinitCmpts();
 
-	map_ = constructors::map(mngr_, this)->getComponent<MapComponent>();
+	// Inicializar el array de salas
+	visitedRooms.reserve(ecs::LAST_MAP_ID);
+	for (int i = 0; i < ecs::LAST_MAP_ID; ++i) {
+		visitedRooms.push_back({});
+	}
+
+	map_ = constructors::map(mngr_, this, (int)(currentMap))->getComponent<MapComponent>();
 	initialEnemies = enemies;
 }
 

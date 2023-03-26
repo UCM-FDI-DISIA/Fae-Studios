@@ -6,14 +6,14 @@
 #include "../components/EnemyAnimationController.h"
 #include <list>
 #include <vector>
-
+#include "../game/ecs.h"
 
 /// Estado de juego
 class PlayState : public GameState {
 private:    
     void checkCollisions(std::list<Entity*> entities);
     std::vector<Entity*>::const_iterator interactionIt;
-    std::vector<bool> visitedRooms;
+    std::vector<std::vector<bool>> visitedRooms;
 
     Entity* player_;
     Entity* camera_;
@@ -22,6 +22,7 @@ private:
     Entity* lastSanctuary;
     std::vector<std::list<Entity*>> enemies, initialEnemies;
     std::vector<std::vector<std::list<Entity*>::iterator>> enemyIt;
+    ecs::maps currentMap;
 
     float gravityValue = 0.2;
 
@@ -56,19 +57,18 @@ public:
     }
 
     inline void initVisitedRooms(int numRooms) {
-        std::vector<bool> rooms(numRooms);
-        visitedRooms = rooms;
-        visitedRooms[0] = true;
-        for (int i = 1; i < visitedRooms.size(); ++i) {
-            visitedRooms[i] = false;
+        visitedRooms[currentMap].reserve(numRooms);
+        visitedRooms[currentMap].push_back(true);
+        for (int i = 1; i < numRooms; ++i) {
+            visitedRooms[currentMap].push_back(false);
         }
     }
 
     inline void setVisited(int room) {
-        visitedRooms[room] = true;
+        visitedRooms[currentMap][room] = true;
     }
 
-    inline bool isVisited(int room) { return visitedRooms[room]; }
+    inline bool isVisited(ecs::maps map, int room) { return visitedRooms[map][room]; }
 
     inline MapComponent* getMap() { return map_; }
 
@@ -102,5 +102,6 @@ public:
     void Save();
     void endRest();
     inline std::vector<std::list<Entity*>> getEnemies() { return enemies; }
+    inline ecs::maps getCurrentMap() { return currentMap; }
 };
 
