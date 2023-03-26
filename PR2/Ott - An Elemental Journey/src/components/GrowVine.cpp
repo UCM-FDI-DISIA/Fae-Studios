@@ -14,7 +14,7 @@ void GrowVine::update() {
                 tr_->setPosition(Vector2D(posX, posY + ((-1*dir) * speed)));
             }
             else if (reached && posY == posIni.getY()) {
-                reached = false; grow = false;
+                reached = false; grow = false;   
             }
         }
         else {

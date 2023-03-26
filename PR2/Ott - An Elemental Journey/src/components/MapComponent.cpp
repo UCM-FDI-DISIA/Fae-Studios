@@ -304,20 +304,14 @@ void MapComponent::loadMap(std::string path) {
                 Entity* earthBoss = mngr_->addEntity(ecs::_grp_GENERAL);
                 earthBoss->addComponent<EarthBossManager>(roomDimensions);
                 mngr_->setEarthBoss(earthBoss);
-                //earthBoss->getComponent<EarthBossManager>()->initializeEntities();
             }
-            else if (ot.getClass() == "DoorTrigger") {
+           /* else if (ot.getClass() == "DoorTrigger") {
                 auto roomScale = vectorTiles[std::stoi(ot.getName())].first;
                 Entity* trigger = mngr_->addEntity(ecs::_grp_TRIGGER);
                 trigger->addComponent<Transform>(Vector2D(x_* scale * roomScale, y_* scale* roomScale), w_* scale* roomScale, h_* scale* roomScale);
-                trigger->addComponent<VineManager>(EVIL, 
-                    Vector2D(((x_ * scale) - 260)* roomScale, (((y_ * scale) + h_ * scale) - 100) * roomScale) ,
-                    Vector2D((x_ * scale* roomScale) - 170 * roomScale, (y_ * scale - 100)* roomScale),
-                    -1, 0, w_ * scale* roomScale, h_ * scale* roomScale, 3);
-                trigger->getComponent<VineManager>()->createVine();
-                trigger->addComponent<EnterBossRoom>(&sdlutils().images().at("animationWorm"));
+                trigger->addComponent<EnterBossRoom>();
                 trigger->addComponent<Trigger>();
-            }
+            }*/
         }
         generateEnemies();
         SDL_Rect playerRect = getSDLRect(playerPos.getAABB());

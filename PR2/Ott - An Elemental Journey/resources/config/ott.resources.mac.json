@@ -360,7 +360,14 @@
 			"file": "../Ott - An Elemental Journey/resources/images/tests/BossLife.png",
 			"rows": 1,
 			"cols": 1
+		},
+		{
+			"id": "vinePlatform",
+			"file": "../resources/images/tests/VinePlatform.png",
+			"rows": 1,
+			"cols": 1
 		}
+
 	],
 
   
