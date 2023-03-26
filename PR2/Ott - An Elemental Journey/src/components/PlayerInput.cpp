@@ -30,14 +30,14 @@ void PlayerInput::update()
 				//Moviento Izquierda 
 				playerV = Vector2D(-horizontalSpeed, playerV.getY());
 				physics_->lookDirection(false);
-                if(!SoundEffect::isSoundBeingPlayed(ecs::_channel_PLAYER_MOVEMENT) && physics_->isGrounded() && !physics_->isClimbing() && abs(physics_->getVelocity().getX()) > 0) sdlutils().soundEffects().at("ott_step").playFor(1000,0, ecs::_channel_PLAYER_MOVEMENT);
+                if(physics_->isGrounded() && !physics_->isClimbing() && abs(physics_->getVelocity().getX()) > 0) sdlutils().soundEffects().at("ott_step").playFor(1000,0, ecs::_channel_PLAYER);
 			}
 			if (input->isKeyDown(SDLK_RIGHT))
 			{
 				//Movimiento derecha
 				playerV = Vector2D(horizontalSpeed, playerV.getY());
 				physics_->lookDirection(true);
-                if(!SoundEffect::isSoundBeingPlayed(ecs::_channel_PLAYER_MOVEMENT) && physics_->isGrounded() && !physics_->isClimbing() && abs(physics_->getVelocity().getX()) > 0) sdlutils().soundEffects().at("ott_step").playFor(1000, 0, ecs::_channel_PLAYER_MOVEMENT);
+                if(physics_->isGrounded() && !physics_->isClimbing() && abs(physics_->getVelocity().getX()) > 0) sdlutils().soundEffects().at("ott_step").playFor(1000, 0, ecs::_channel_PLAYER);
 			}
 
 			if (input->isKeyDown(SDLK_SPACE)) {
@@ -58,7 +58,7 @@ void PlayerInput::update()
 			if (input->isKeyDown(SDLK_TAB)) {
 				if (anim_->getState() != OPEN_MAP && anim_->getState() != CLOSE_MAP && physics_->isGrounded()) {
 					anim_->setState(OPEN_MAP);
-					if (!SoundEffect::isSoundBeingPlayed(ecs::_channel_PLAYER_ATTACK)) sdlutils().soundEffects().at("map").play (0, ecs::_channel_PLAYER_ATTACK);
+					sdlutils().soundEffects().at("map").play (0, ecs::_channel_PLAYER);
 				}
 					
 				openingMap = true;

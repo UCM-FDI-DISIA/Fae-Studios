@@ -6,6 +6,7 @@
 #include <SDL_mixer.h>
 #include <cassert>
 #include <unordered_map>
+#include "../game/ecs.h"
 
 #define _CHECK_CHANNEL_(channel) \
 	assert(channel >= -1 && channel < static_cast<int>(channels_));
@@ -39,15 +40,32 @@ public:
 			Mix_FreeChunk(chunk_);
 	}
 
-	inline int play(int loops = 0, int channel = -1) const {
-		_CHECK_CHANNEL_(channel);
-		assert(loops >= -1);
-		return Mix_PlayChannel(channel, chunk_, loops);
+	inline static void groupChannels() {
+		int firstChannel = 0, lastChannel = 31;
+		for (int i = 0; i < ecs::maxChannelId; ++i) {
+			Mix_GroupChannels(firstChannel, lastChannel, i);
+			firstChannel += 32; lastChannel += 32;
+		}
 	}
 
-	inline int playFor(int miliseconds, int loops = 0, int channel = -1) const {
+	inline static int returnFreeChannel(int channelGrp) {
+		assert(channelGrp >= 0 && channelGrp < ecs::maxChannelId);
+		return Mix_GroupAvailable(channelGrp);
+	}
+
+	inline int play(int loops = 0, int group = -1) const {
+		int channel = returnFreeChannel(group);
 		_CHECK_CHANNEL_(channel);
 		assert(loops >= -1);
+		if (Mix_GetChunk(Mix_GroupNewer(group)) == chunk_) return -1;
+		else return Mix_PlayChannel(channel, chunk_, loops);
+	}
+
+	inline int playFor(int miliseconds, int loops = 0, int group = -1) const {
+		int channel = returnFreeChannel(group);
+		_CHECK_CHANNEL_(channel);
+		assert(loops >= -1);
+		if (Mix_GetChunk(Mix_GroupNewer(group)) == chunk_) return -1;
 		return Mix_PlayChannelTimed(channel, chunk_, loops, miliseconds);
 	}
 

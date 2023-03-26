@@ -12,7 +12,8 @@ Game::Game() {
     SDLUtils::init(WINDOW_NAME, WINDOW_WIDTH, WINDOW_HEIGHT, jsonRoute);
     sdlutils().showCursor(); //Mostramos el cursor
     sdlutils().toggleFullScreen(SDLUtils::WINDOWED);
-    SoundEffect::setNumberofChannels(32);
+    SoundEffect::setNumberofChannels(32 * ecs::maxChannelId);
+    SoundEffect::groupChannels();
 }
 
 void Game::run() {

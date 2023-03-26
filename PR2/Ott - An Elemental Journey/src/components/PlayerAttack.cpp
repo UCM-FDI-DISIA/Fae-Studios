@@ -49,7 +49,7 @@ void PlayerAttack::update() {
 				}
 				attackEnemy(trigger);
 				chargedLight = false;
-				sdlutils().soundEffects().at("ott_attack").play(0, ecs::_channel_PLAYER_ATTACK);
+				sdlutils().soundEffects().at("ott_attack").play(0, ecs::_channel_PLAYER);
 
 				break;
 			}
@@ -83,7 +83,7 @@ void PlayerAttack::update() {
 					colTrigger = 0;
 
 					earthAttackActive = true;
-					sdlutils().soundEffects().at("ott_attack_earth").play(0, ecs::_channel_PLAYER_ATTACK);
+					sdlutils().soundEffects().at("ott_attack_earth").play(0, ecs::_channel_PLAYER);
 				}
 				break;
 			case ecs::Fire:
@@ -93,7 +93,7 @@ void PlayerAttack::update() {
 					chargedAttack = false;
 				}
 				else spawnFireball();
-				sdlutils().soundEffects().at("fireball").play(0, ecs::_channel_PLAYER_ATTACK);
+				sdlutils().soundEffects().at("fireball").play(0, ecs::_channel_PLAYER);
 				break;
 
 			case ecs::Water: {
@@ -116,7 +116,7 @@ void PlayerAttack::update() {
 						colTrigger = 0;
 					}
 				}
-				sdlutils().soundEffects().at("ott_attack_water").play(0, ecs::_channel_PLAYER_ATTACK);
+				sdlutils().soundEffects().at("ott_attack_water").play(0, ecs::_channel_PLAYER);
 				break;
 			}
 			default: {
