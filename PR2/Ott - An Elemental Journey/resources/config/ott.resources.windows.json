@@ -101,7 +101,9 @@
 		{ "id" : "roar", "file" : "../resources/sound/gusanoroar.mp3"},
 		{ "id" : "teleport", "file" : "../resources/sound/teleport.wav"},
 		{ "id" : "pick_elem", "file" : "../resources/sound/pick_elem.wav"},
-		{ "id" : "elem_changed", "file" : "../resources/sound/elem_change.wav"}
+		{ "id" : "elem_changed", "file" : "../resources/sound/elem_change.wav"},
+		{ "id" : "vine_climb", "file" : "../resources/sound/vine_climb.wav"},
+		{ "id" : "ott_water_step", "file" : "../resources/sound/ott_paso_agua.wav"}
   ],
 
   "musics" : [
