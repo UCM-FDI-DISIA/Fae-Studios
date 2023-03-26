@@ -50,4 +50,9 @@ void Acceleration::update()
 			physics->setVelocity(speed);
 		}
 	}
+
+	if (transform->getPosition().getX() - playerTransform->getPosition().getX() >= 200)
+	{
+		ent_->setAlive(false);
+	}
 }
