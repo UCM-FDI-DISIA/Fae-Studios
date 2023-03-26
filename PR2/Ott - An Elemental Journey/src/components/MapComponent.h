@@ -43,6 +43,9 @@ private:
 	// Vector con las keys de la imagen asociada a cada habitacion
 	std::vector<std::vector<std::string>> mapKeys;
 
+	std::vector<Entity*> eraseEntities;
+
+
 	// En este mapa se guarda:
 	// string -> n�mero de sala
 	// vector -> todos los triggers que hay en esa sala
@@ -50,6 +53,25 @@ private:
 		// string: la sala a la que lleva ese trigger; 
 		// SDL_Rect: su colisi�n
 	std::unordered_map<std::string, std::vector<std::pair<std::string, std::pair<SDL_Rect,SDL_Rect>>>> triggers;
+
+
+	struct positionsInfo {
+		SDL_Rect rect;
+		int room;
+	};
+	// Posiciones de cambio de mapa
+	std::unordered_map<int, positionsInfo> positions;
+
+
+	struct changeMapTriggerInfo{
+		int map;
+		std::string key;
+		int nextPos;
+		SDL_Rect triggerRect;
+	};
+	// sala, vector de key de nuevo mapa y rectangulo del trigger
+	std::unordered_map<int, std::vector<changeMapTriggerInfo>> changeMapTriggers;
+
 
 	Texture* tilemap = nullptr;
 	CameraComponent* cam;
@@ -65,8 +87,10 @@ private:
 	const int COLLISIONS_VECTOR_POS = 2;
 	const int TRIGGERS_VECTOR_POS = 3;
 	const int ENEMIES_VECTOR_POS = 4;
+	const int CHANGE_MAP_VECTOR_POS = 5;
+	const int POSITIONS_VECTOR_POS = 6;
 	
-	std::string currentMapKey = "level1_0";
+	std::string currentMapKey = "earthMap";
 
 	int realTileSize = 32;
 	int usedTileSize = 50;
@@ -74,7 +98,7 @@ private:
 	int numRooms = 0;
 	int currentMap = 0;
 
-	void loadMap(std::string path);
+	void loadMap(std::string path, int nextPos = -1);
 	std::string pickedLifeShards;
 	bool loadEarthBoss = true, loadWaterBoss = true, loadFireBoss = true;
 	bool loadEarthElem = true, loadWaterElem = true, loadFireElem = true;
@@ -90,7 +114,7 @@ public:
 	virtual void update();
 
 	// cambio de mapa
-	void changeMap();
+	void changeMap(int newMap, std::string key, int nextPos);
 
 	void playFadeOutAnimation() { anim_->startFadeOut(); }
 	
@@ -99,6 +123,7 @@ public:
 	void generateEnemies();
 	inline void changeMap(int map) { currentMap = map; };
 	inline int getCurrentMap() { return currentMap; }
+	inline void changeVisualMap(int map) { currentMap = map; };
 
 	std::vector<std::pair<SDL_Rect, SDL_Rect>> checkCollisions(const SDL_Rect& playerRect);
 	
@@ -106,7 +131,7 @@ public:
 	inline int getCurrentRoom() { return currentRoom; }
 	inline void setCurrentRoom(int newRoom) { currentRoom = newRoom; }
 	inline float getCurrentRoomScale() { return vectorTiles[currentRoom].first; }
-	inline std::string getMapKey(int map, int i) { if (i < mapKeys[currentMap].size()) return mapKeys[map][i]; else return " "; }
+	inline std::string getMapKey(int map, int i) { if (i < mapKeys[map].size()) return mapKeys[map][i]; else return " "; }
 
 	inline void destroyTile(std::string room, int index) { destructible[room][index].first = false; }
 

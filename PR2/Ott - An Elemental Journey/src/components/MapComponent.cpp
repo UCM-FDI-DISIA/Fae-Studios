@@ -116,7 +116,7 @@ MapComponent::MapComponent(Entity* fadeOut, PlayState* game, int currentMap) : f
     for (int i = 0; i < ecs::LAST_MAP_ID; ++i) {
         mapKeys.push_back({});
     }
-    currentMapKey = "level1_0";
+    currentMapKey = "earthMap";
     tilemap = &sdlutils().images().at(sdlutils().levels().at(currentMapKey).tileset);
 }
 
@@ -129,6 +129,7 @@ void MapComponent::initComponent() {
 }
 
 void MapComponent::update() {
+    std::cout << currentRoom << std::endl;
     if (!anim_->onAnim()) {
         Transform* playerTr_ = player_->getComponent<Transform>();
         SDL_Rect playerRect = playerTr_->getRect();
@@ -169,6 +170,16 @@ void MapComponent::update() {
                 break;
             }
         }
+        int i = 0;
+        for (auto trigger : changeMapTriggers[currentRoom]) {
+            SDL_Rect result;
+            SDL_Rect rect = trigger.triggerRect;
+            if (SDL_IntersectRect(&playerRect, &rect, &result)) {
+                changeMap(trigger.map, trigger.key, trigger.nextPos);
+                break;
+            }
+            ++i;
+        }
     }
 }
 
@@ -179,7 +190,54 @@ void MapComponent::changeRoom(std::string newRoom, Vector2D newPos, bool vertica
     game->setVisited(std::stoi(newRoom));
 }
 
-void MapComponent::loadMap(std::string path) {
+void MapComponent::changeMap(int newMap, std::string key, int nextPos) {
+    changeVisualMap(newMap);
+    PlayState* ps = static_cast<PlayState*> (GameStateMachine::instance()->getPlayState());
+    auto enemies = ps->getEnemies();
+    for (int i = 0; i < enemies.size(); ++i) {
+        for (auto it : enemies[i]) {
+            it->setAlive(false);
+        }
+    }
+    for (auto it : interact) {
+        for (auto ot : it) {
+            ot->setAlive(false);
+        }
+    }
+    for (int i = 0; i < eraseEntities.size(); ++i) {
+        eraseEntities[i]->setAlive(false);
+    }
+
+    mngr_->refresh();
+    ps->changeMap(newMap);
+
+    currentMapKey = key;
+    ground = {};
+    destructible = {};
+   
+    eraseEntities = {};
+    changeMapTriggers = {};
+    triggers = {};
+    positions = {};
+
+    vectorObjects = {};
+    vectorTiles = {};
+    
+    int n = 20;
+    vectorObjects.reserve(n);
+    vectorTiles.reserve(6);
+    for (int i = 0; i < n; ++i) {
+        vectorObjects.push_back({});
+        vectorTiles.push_back({});
+        interact.push_back({});
+    }
+
+    tilemap = &sdlutils().images().at(sdlutils().levels().at(currentMapKey).tileset);
+
+    loadMap(sdlutils().levels().at(currentMapKey).route, nextPos);
+}
+
+void MapComponent::loadMap(std::string path, int nextPos) {
     if (map.load(path))
     {
         tmx::Object playerPos;
@@ -219,6 +277,12 @@ void MapComponent::loadMap(std::string path) {
                 }
                 else if (name == "Ott") {
                     playerPos = objects[0];
+                }
+                else if (name == "Trigger de cambio de mapa") {
+                    vectorObjects[CHANGE_MAP_VECTOR_POS] = objects;
+                }
+                else if (name == "Posiciones") {
+                    vectorObjects[POSITIONS_VECTOR_POS] = objects;
                 }
             }
             #pragma endregion
@@ -298,6 +362,32 @@ void MapComponent::loadMap(std::string path) {
 
         }
 
+        for (auto trigger : vectorObjects[CHANGE_MAP_VECTOR_POS]) {
+            std::string roomNum = trigger.getName();
+            float roomScale = vectorTiles[std::stoi(roomNum)].first;
+            SDL_Rect trRect = getSDLRect(trigger.getAABB());
+            auto nameSplit = strSplit(trigger.getClass(), '_');
+            trRect.x *= roomScale;
+            trRect.y *= roomScale;
+            trRect.w *= roomScale;
+            trRect.h *= roomScale;
+
+            changeMapTriggers[std::stoi(roomNum)].push_back({ std::stoi(nameSplit[1]), nameSplit[0], std::stoi(nameSplit[2]), trRect});
+        }
+
+        for (auto trigger : vectorObjects[POSITIONS_VECTOR_POS]) {
+            std::string roomNum = trigger.getName();
+            float roomScale = vectorTiles[std::stoi(roomNum)].first;
+            SDL_Rect trRect = getSDLRect(trigger.getAABB());
+            int numPos = std::stoi(trigger.getClass());
+            trRect.x *= roomScale;
+            trRect.y *= roomScale;
+            trRect.w *= roomScale;
+            trRect.h *= roomScale;
+
+            positions[numPos] = { trRect, std::stoi(roomNum) };
+        }
+
         float scale = tileScale();
         for (auto ot : vectorObjects[I_OBJECTS_VECTOR_POS]) {
             //unordered_map<string, TP_Lamp*> lamps;
@@ -375,6 +465,7 @@ void MapComponent::loadMap(std::string path) {
                 Entity* earthBoss = mngr_->addEntity(ecs::_grp_GENERAL);
                 earthBoss->addComponent<EarthBossManager>(roomDimensions);
                 mngr_->setEarthBoss(earthBoss);
+                eraseEntities.push_back(earthBoss);
                 //earthBoss->getComponent<EarthBossManager>()->initializeEntities();
             }
             else if ((ot.getClass() == "DoorTrigger") && loadEarthBoss) {
@@ -404,15 +495,27 @@ void MapComponent::loadMap(std::string path) {
             }
         }
 
+
         SDL_Rect playerRect = getSDLRect(playerPos.getAABB());
+        
+
         auto playerTr_ = player_->getComponent<Transform>();
         int playerRoom;
         float playerRoomScale;
-        if (playerSanctuary == nullptr) {
-            playerRoom = std::stoi(playerPos.getClass());
-            playerRoomScale = vectorTiles[playerRoom].first;
-            playerRect.x *= playerRoomScale;
-            playerRect.y = playerRect.y * playerRoomScale - playerTr_->getHeight();
+        if (playerSanctuary == nullptr || nextPos != -1) {
+            if (nextPos != -1) {
+                playerRect.x = positions[nextPos].rect.x;
+                playerRect.y = positions[nextPos].rect.y;
+                playerRoom = positions[nextPos].room;
+                playerRoomScale = vectorTiles[playerRoom].first;
+                currentRoom = vectorTiles[playerRoom].first;
+            }
+            else {
+                playerRoom = std::stoi(playerPos.getClass());
+                playerRoomScale = vectorTiles[playerRoom].first;
+                playerRect.x *= playerRoomScale;
+                playerRect.y = playerRect.y * playerRoomScale - playerTr_->getHeight();
+            }
             playerTr_->setPosition(Vector2D(playerRect.x, playerRect.y));
         }
         else {
