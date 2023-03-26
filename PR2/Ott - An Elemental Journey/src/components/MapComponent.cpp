@@ -62,7 +62,7 @@ void MapComponent::generateEnemies() {
             game->addEnemy(enemie, roomNum);
         }
         else if (it.getClass() == "Slime") {
-            Entity* enemie = constructors::eSlime(mngr_, path + "Slime", x_ * scale * roomScale, y_ * scale * roomScale, roomScale, elem, lookingRight);
+            Entity* enemie = constructors::eSlime(mngr_, path + "Slime", x_ * scale * roomScale, y_ * scale * roomScale, roomScale, elem, lookingRight, roomNum);
             game->addEnemy(enemie, roomNum);
         }
         else if (it.getClass() == "WaterBoss") {
@@ -314,7 +314,7 @@ void MapComponent::loadMap(std::string path) {
                     w_ * scale* roomScale, 
                     h_ * scale* roomScale, 
                     Vector2D(x_ * scale * roomScale, ((y_ * scale - sdlutils().images().at("grass").height()) + h_ * scale + 100) * roomScale),
-                    Vector2D(x_ * scale * roomScale, (y_ * scale - sdlutils().images().at("grass").height()) * roomScale), 0));
+                    Vector2D(x_ * scale * roomScale, (y_ * scale - sdlutils().images().at("grass").height()) * roomScale), 0, std::stoi(ot.getName())));
             }
             else if (classSplit[0] == "Element") {
                 if (loadEarthElem && (ecs::elements)std::stoi(ot.getName()) == ecs::Earth ||
@@ -358,7 +358,7 @@ void MapComponent::loadMap(std::string path) {
             else if (classSplit[0] == "Sanctuary") {
                 auto roomScale = vectorTiles[std::stoi(ot.getName())].first;
                 Vector2D pos = Vector2D(x_ * scale * roomScale, (y_ * scale) * roomScale);
-                auto sanct = constructors::sanctuary(mngr_, pos - Vector2D(0, 250 * roomScale), std::stoi(classSplit[1]), 250 * roomScale, 250 * roomScale);
+                auto sanct = constructors::sanctuary(mngr_, pos - Vector2D(0, 250 * roomScale), std::stoi(classSplit[1]), std::stoi(ot.getName()), 250 * roomScale, 250 * roomScale);
                 interact[std::stoi(ot.getName())].push_back(sanct);
                 if (std::stoi(classSplit[1]) == player_->getComponent<Health>()->getSanctuaryID()) {
                     playerSanctuary = sanct;
@@ -398,7 +398,7 @@ void MapComponent::loadMap(std::string path) {
                 }
                 if (!dontCreate) {
                     auto roomScale = vectorTiles[std::stoi(ot.getName())].first;
-                    auto life = constructors::LifeShard(mngr_, x_*scale*roomScale,y_* scale* roomScale, w_* scale* roomScale, h_*scale*roomScale, std::stoi(classSplit[1]));
+                    auto life = constructors::LifeShard(mngr_, x_*scale*roomScale,y_* scale* roomScale, w_* scale* roomScale, h_*scale*roomScale, std::stoi(classSplit[1]), std::stoi(ot.getName()));
                     interact[std::stoi(ot.getName())].push_back(life);
                 }
             }
@@ -420,6 +420,7 @@ void MapComponent::loadMap(std::string path) {
             playerTr_->setPosition(newPos);
             playerRoom = playerSanctuaryRoom;
             playerRoomScale = vectorTiles[playerRoom].first;
+            player_->getComponent<Health>()->setSanctuary(playerSanctuary);
         }
         playerTr_->setScale(playerRoomScale);
         currentRoom = playerRoom;

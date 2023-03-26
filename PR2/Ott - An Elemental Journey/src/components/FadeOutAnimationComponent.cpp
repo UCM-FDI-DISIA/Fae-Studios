@@ -1,5 +1,6 @@
 #include "FadeOutAnimationComponent.h"
 #include "MapComponent.h"
+#include "Health.h"
 #include "../states/GameStateMachine.h"
 #include "../states/PlayState.h"
 
@@ -57,6 +58,7 @@ void FadeOutAnimationComponent::startFadeIn() {
 		for (auto it : enemies_[newMapRoom]) {
 			it->setActive(true);
 		}
+		mngr_->getPlayer()->getComponent<Health>()->setDead(false);
 	}
 	else {
 		static_cast<PlayState*>(stateMachine().currentState())->endRest();

@@ -7,6 +7,7 @@
 #include "Health.h"
 #include "EnemyMeleeAttack.h"
 #include "../game/Constructors.h"
+#include "../states/GameStateMachine.h"
 
 void Generations::Divide() {
 	auto health_ = ent_->getComponent<Health>();
@@ -19,7 +20,8 @@ void Generations::Divide() {
 		for (int i = 2; i >= getGeneration() - 1; --i) {
 			scale *= 2 / 3.0f;
 		}
-		constructors::eSlime(mngr_, ent_->getComponent<FramedImage>()->getTexture(), (int)pos.getX(), (int)pos.getY(), scale, getGeneration() - 1, health_->getMaxHealth() / 2 - 1, health_->getElement(), ent_->getComponent<PhysicsComponent>()->getLookDirection());
+		auto slime = constructors::eSlime(mngr_, ent_->getComponent<FramedImage>()->getTexture(), (int)pos.getX(), (int)pos.getY(), scale, getGeneration() - 1, health_->getMaxHealth() / 2 - 1, health_->getElement(), ent_->getComponent<PhysicsComponent>()->getLookDirection(), room);
+		static_cast<PlayState*>(stateMachine().currentState())->addEnemy(slime, room);
 		pos = Vector2D(pos.getX() + 50, pos.getY());
 	}
 }
