@@ -253,6 +253,7 @@ void EarthBossManager::update() {
 				if (actualState < states.size() - 1)  ++actualState;
 				else actualState = 1;
 				std::cout << "Se acabo ataque vertical" << std::endl;
+				bossPos->setPosition(Vector2D(bossPos->getPosition().getX(), roomDimensions.y - roomDimensions.h));
 				attackingVertically = false;
 				changeState = true;
 			}

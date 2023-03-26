@@ -4,11 +4,35 @@
 #include "Transform.h"
 #include "EarthBossManager.h"
 #include "PhysicsComponent.h"
+#include "EarthBossAttack.h"
 
 void EnterBossRoom::initComponent() {
 	camera = mngr_->getCamera();
 	player = mngr_->getPlayer();
 	earthBoss = mngr_->getEarthBoss();
+}
+
+void EnterBossRoom::blockDoors() {
+	// hacer que crezcan dos vines con collider
+	SDL_Rect vine_Rect1 = { bossRoom.x + 30*3, bossRoom.y + bossRoom.h, 30, bossRoom.h };
+	Vector2D finPosVine1 = Vector2D(bossRoom.x +30*3, bossRoom.y);
+	blockEnter = mngr_->addEntity(ecs::_grp_GROUND);
+	blockEnter->addComponent<Transform>(vine_Rect1);
+	blockEnter->addComponent<ImageVine>(&sdlutils().images().at("vine"), 0, false);
+	blockEnter->addComponent<GrowVine>(finPosVine1, 2, -1, "vertical", false);
+	blockEnter->addComponent<EarthBossAttack>();
+	blockEnter->addComponent<PhysicsComponent>(vine_Rect1);
+	blockEnter->getComponent<GrowVine>()->isGrowing(true);
+	
+
+	SDL_Rect vine_Rect2 = { bossRoom.x + (bossRoom.w/2)*1.65, bossRoom.y + bossRoom.h, 30, bossRoom.h };
+	Vector2D finPosVine2 = Vector2D(bossRoom.x + (bossRoom.w / 2) * 1.65, bossRoom.y);
+	blockExit = mngr_->addEntity(ecs::_grp_GROUND);
+	blockExit->addComponent<Transform>(vine_Rect2);
+	blockExit->addComponent<ImageVine>(&sdlutils().images().at("vine"), 0, false);
+	blockExit->addComponent<GrowVine>(finPosVine2, 2, -1, "vertical", false);
+	blockExit->addComponent<EarthBossAttack>();
+	blockExit->getComponent<GrowVine>()->isGrowing(true);
 }
 
 void EnterBossRoom::enterRoom() {
@@ -21,6 +45,7 @@ void EnterBossRoom::enterRoom() {
 		bossRoom.y -= 100;
 		bossRoom.h += 150;
 		camera->getComponent<CameraComponent>()->setBounds(bossRoom);
+		blockDoors();
 	}
 }
 

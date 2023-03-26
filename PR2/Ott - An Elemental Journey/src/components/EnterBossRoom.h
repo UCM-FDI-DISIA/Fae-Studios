@@ -12,7 +12,8 @@ private:
 	Entity* camera = nullptr;
 	Entity* player = nullptr;
 	Entity* earthBoss = nullptr;
-	Entity* blockDoor = nullptr;
+	Entity* blockEnter = nullptr;
+	Entity* blockExit = nullptr;
 	int col = 0;
 	bool start = false;
 	bool added = false;
@@ -25,6 +26,7 @@ public:
 	virtual ~EnterBossRoom() {}
 	constexpr static ecs::cmpId_type id = ecs::_ENTERBOSS;
 	void enterRoom();
+	void blockDoors();
 	void startFight();
 	int timer = 2000;
 	bool resetTime = true;
