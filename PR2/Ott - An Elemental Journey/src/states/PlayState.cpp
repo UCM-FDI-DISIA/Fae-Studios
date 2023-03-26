@@ -45,7 +45,7 @@ PlayState::PlayState() : GameState(ecs::_state_PLAY) {
 
     fade = mngr_->addEntity(ecs::_grp_FADEOUT);
 	fade->addComponent<FadeTransitionComponent>(true, 1);
-    fade->getComponent<FadeTransitionComponent>()->setFunction([this](){doNotDetectKeyboardInput = false; sdlutils().musics().at(sdlutils().levels().at(map_->getCurrentLevel()).bgsong).play(); });
+	fade->getComponent<FadeTransitionComponent>()->setFunction([this]() {doNotDetectKeyboardInput = false; sdlutils().musics().at(sdlutils().levels().at(map_->getCurrentLevel()).bgsong).play(); });
 	fade->getComponent<FadeTransitionComponent>()->activate();
 
 	// se reinicializan los componentes del jugador porque muchos tienen referencias entre ellos y con la cámara 
@@ -80,7 +80,7 @@ void PlayState::handleInput() {
 	
 	if (!doNotDetectKeyboardInput) {
 		if (InputHandler::instance()->isKeyJustDown(SDLK_ESCAPE)) {
-			fade->getComponent<FadeTransitionComponent>()->setFunction([this]() { sdlutils().musics().at(sdlutils().levels().at(map_->getCurrentLevel()).bgsong).pauseMusic(); GameStateMachine::instance()->pushState(new PauseMenuState()); });
+			fade->getComponent<FadeTransitionComponent>()->setFunction([this]() { sdlutils().musics().at(sdlutils().levels().at(map_->getCurrentLevel()).bgsong).pauseMusic(); SoundEffect::haltChannel(); GameStateMachine::instance()->pushState(new PauseMenuState()); });
 			fade->getComponent<FadeTransitionComponent>()->changeSpeed(2);
 			fade->getComponent<FadeTransitionComponent>()->revert();
 		}

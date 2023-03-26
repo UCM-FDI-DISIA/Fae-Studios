@@ -103,7 +103,9 @@
 		{ "id" : "pick_elem", "file" : "../resources/sound/pick_elem.wav"},
 		{ "id" : "elem_changed", "file" : "../resources/sound/elem_change.wav"},
 		{ "id" : "vine_climb", "file" : "../resources/sound/vine_climb.wav"},
-		{ "id" : "ott_water_step", "file" : "../resources/sound/ott_paso_agua.wav"}
+		{ "id" : "ott_water_step", "file" : "../resources/sound/ott_paso_agua.wav"},
+		{ "id" : "fireball", "file" : "../resources/sound/fireball.wav"},
+		{ "id" : "ott_attack_water", "file" : "../resources/sound/attack_water.wav"}
   ],
 
   "musics" : [

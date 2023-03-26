@@ -407,7 +407,9 @@
 	{ "id" : "pick_elem", "file" : "../Ott - An Elemental Journey/resources/sound/pick_elem.wav"},
 	{ "id" : "elem_changed", "file" : "../Ott - An Elemental Journey/resources/sound/elem_change.wav"},
 	{ "id" : "vine_climb", "file" : "../Ott - An Elemental Journey/resources/sound/vine_climb.wav"},
-	{ "id" : "ott_water_step", "file" : "../Ott - An Elemental Journey/resources/sound/ott_paso_agua.wav"}
+	{ "id" : "ott_water_step", "file" : "../Ott - An Elemental Journey/resources/sound/ott_paso_agua.wav"},
+	{ "id" : "fireball", "file" : "../Ott - An Elemental Journey/resources/sound/fireball.wav"},
+	{ "id" : "ott_attack_water", "file" : "../Ott - An Elemental Journey/resources/sound/attack_water.wav"}
   ],
 
 	"musics": [
