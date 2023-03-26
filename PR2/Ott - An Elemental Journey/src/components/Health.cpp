@@ -7,6 +7,7 @@
 #include "../game/Elements.h"
 #include "../states/PlayState.h"
 #include "../states/GameStateMachine.h"
+#include "InteractionComponent.h"
 
 void Health::die()
 {
@@ -36,6 +37,7 @@ void Health::recall(bool rest)
 		actualLife = maxLife;
 		dead = false;
 		static_cast<PlayState*>(GameStateMachine::instance()->currentState())->resetEnemies();
+		
 		std::cout << "vuelvo a santuario" << std::endl;
 	}
 	else 
@@ -82,6 +84,27 @@ bool Health::recieveDamage(ecs::elements el)
 void Health::saveSactuary(Entity* sanct)
 {
 	lastSanctuary = sanct;
+	sanctuaryID = lastSanctuary->getComponent<InteractionComponent>()->getID();
 	recall(true);
 	// aquí no estaría mal poner una animación de Ott sentaditto de pana
+}
+
+void Health::saveToFile(std::ofstream& file) {
+	file << "sanctuaryID " << lastSanctuary->getComponent<InteractionComponent>()->getID() << std::endl;
+	file << "lifeShards " << numShards << lifeShardIDs << "_" << std::endl;
+}
+
+void Health::loadFromFile(std::ifstream& file) {
+	std::string aux;
+	std::string aux2;
+	file >> aux >> sanctuaryID >> aux >> numShards;
+	file >> aux2;
+	while (aux2 != "_") {
+		lifeShardIDs += aux2 + " ";
+		file >> aux2;
+	}
+	int shards = numShards;
+	for (shards; shards > 1; shards -= 2) {
+		increaseMaxLife();
+	}
 }

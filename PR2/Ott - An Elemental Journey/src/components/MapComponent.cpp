@@ -86,6 +86,23 @@ void MapComponent::generateEnemies() {
     }
 }
 
+MapComponent::MapComponent(Entity* fadeOut, PlayState* game, int currentMap, std::ifstream& file) : fadeOut(fadeOut), game(game), currentMap(currentMap) {
+    int n = 20;
+    vectorObjects.reserve(n);
+    vectorTiles.reserve(6);
+    for (int i = 0; i < n; ++i) {
+        vectorObjects.push_back({});
+        vectorTiles.push_back({});
+        interact.push_back({});
+    }
+    mapKeys.reserve(ecs::LAST_MAP_ID);
+    for (int i = 0; i < ecs::LAST_MAP_ID; ++i) {
+        mapKeys.push_back({});
+    }
+    loadFromFile(file);
+    tilemap = &sdlutils().images().at(sdlutils().levels().at(currentMapKey).tileset);
+}
+
 MapComponent::MapComponent(Entity* fadeOut, PlayState* game, int currentMap) : fadeOut(fadeOut), game(game), currentMap(currentMap) {
     int n = 20;
     vectorObjects.reserve(n);
@@ -95,13 +112,12 @@ MapComponent::MapComponent(Entity* fadeOut, PlayState* game, int currentMap) : f
         vectorTiles.push_back({});
         interact.push_back({});
     }
-
     mapKeys.reserve(ecs::LAST_MAP_ID);
     for (int i = 0; i < ecs::LAST_MAP_ID; ++i) {
         mapKeys.push_back({});
     }
-
-    tilemap = &sdlutils().images().at(sdlutils().levels().at(currentLevel).tileset);
+    currentMapKey = "level1_0";
+    tilemap = &sdlutils().images().at(sdlutils().levels().at(currentMapKey).tileset);
 }
 
 void MapComponent::initComponent() {
@@ -109,7 +125,7 @@ void MapComponent::initComponent() {
     player_ = mngr_->getPlayer();
     anim_ = fadeOut->getComponent<FadeOutAnimationComponent>();
     anim_->setMap(ent_);
-    loadMap(sdlutils().levels().at(currentLevel).route);
+    loadMap(sdlutils().levels().at(currentMapKey).route);
 }
 
 void MapComponent::update() {
@@ -167,6 +183,8 @@ void MapComponent::loadMap(std::string path) {
     if (map.load(path))
     {
         tmx::Object playerPos;
+        Entity* playerSanctuary = nullptr;
+        int playerSanctuaryRoom;
         const auto& layers2 = map.getLayers();
         std::unordered_map<std::string, std::pair<Vector2D,int>> lamps;
         //cout << "Map has " << layers2.size() << " layers" << endl;
@@ -213,7 +231,7 @@ void MapComponent::loadMap(std::string path) {
                 const auto& tiles = layer->getLayerAs<tmx::TileLayer>().getTiles();
                 //Guardamos tiles en un vector
                 SDL_Rect camPos = cam->camera;
-                int cols = sdlutils().levels().at(currentLevel).cols;
+                int cols = sdlutils().levels().at(currentMapKey).cols;
                 int offsetX = camPos.x;
                 int offsetY = camPos.y;
                 int i = 0;
@@ -296,13 +314,17 @@ void MapComponent::loadMap(std::string path) {
                     w_ * scale* roomScale, 
                     h_ * scale* roomScale, 
                     Vector2D(x_ * scale * roomScale, ((y_ * scale - sdlutils().images().at("grass").height()) + h_ * scale + 100) * roomScale),
-                    Vector2D(x_ * scale * roomScale, (y_ * scale - sdlutils().images().at("grass").height()) * roomScale)));
+                    Vector2D(x_ * scale * roomScale, (y_ * scale - sdlutils().images().at("grass").height()) * roomScale), 0));
             }
             else if (classSplit[0] == "Element") {
-                std::cout << "READING ELEM FROM MAP" << std::endl;
-                auto roomScale = vectorTiles[std::stoi(classSplit[1])].first;
-                auto elem = constructors::ElementEntity(mngr_, (x_* scale)* roomScale, (y_* scale)* roomScale, (w_* scale)* roomScale, (h_* scale)* roomScale, (ecs::elements)std::stoi(ot.getName()));
-                interact[std::stoi(classSplit[1])].push_back(elem);
+                if (loadEarthElem && (ecs::elements)std::stoi(ot.getName()) == ecs::Earth ||
+                    loadWaterElem && (ecs::elements)std::stoi(ot.getName()) == ecs::Water ||
+                    loadFireElem && (ecs::elements)std::stoi(ot.getName()) == ecs::Fire) {
+
+                    auto roomScale = vectorTiles[std::stoi(classSplit[1])].first;
+                    auto elem = constructors::ElementEntity(mngr_, (x_* scale)* roomScale, (y_* scale)* roomScale, (w_* scale)* roomScale, (h_* scale)* roomScale, (ecs::elements)std::stoi(ot.getName()));
+                    interact[std::stoi(classSplit[1])].push_back(elem);
+                }
             }
             else if (classSplit[0] == "Lamp") {
                 //createLamp(Vector2D(x_ * scale, y_ * scale - game->getTexture("lamp", PLAY_STATE)->getH() * 2));
@@ -324,7 +346,7 @@ void MapComponent::loadMap(std::string path) {
                     int w2 = fw * roomScale2;
                     int h2 = fh * roomScale2;
                     auto lampPair = constructors::lamp(mngr_, pos.getX(), pos.getY() + hOffset * roomScale1, w1, h1, (*at).second.second,
-                        x_* scale* roomScale2, y_* scale* roomScale2 + hOffset * roomScale2, w2, h2, roomNum);
+                        x_* scale* roomScale2, y_* scale* roomScale2 + hOffset * roomScale2, w2, h2, roomNum, 0, 0);
 
                     interact[roomNum].push_back(lampPair.second);
                     interact[(*at).second.second].push_back(lampPair.first);
@@ -333,13 +355,17 @@ void MapComponent::loadMap(std::string path) {
                     lamps.insert({ lampName, std::make_pair(Vector2D(x_*scale*roomScale2,y_*scale*roomScale2), roomNum)});
                 }
             }
-            else if (ot.getClass() == "Sanctuary") {
+            else if (classSplit[0] == "Sanctuary") {
                 auto roomScale = vectorTiles[std::stoi(ot.getName())].first;
                 Vector2D pos = Vector2D(x_ * scale * roomScale, (y_ * scale) * roomScale);
-                interact[std::stoi(ot.getName())].push_back(constructors::sanctuary(mngr_, pos - Vector2D(0, 250 * roomScale), 250 * roomScale, 250 * roomScale));
-                std::cout << pos << std::endl;
+                auto sanct = constructors::sanctuary(mngr_, pos - Vector2D(0, 250 * roomScale), std::stoi(classSplit[1]), 250 * roomScale, 250 * roomScale);
+                interact[std::stoi(ot.getName())].push_back(sanct);
+                if (std::stoi(classSplit[1]) == player_->getComponent<Health>()->getSanctuaryID()) {
+                    playerSanctuary = sanct;
+                    playerSanctuaryRoom = std::stoi(ot.getName());
+                }
             }
-            else if (ot.getClass() == "BossRoom") {
+            else if ((ot.getClass() == "BossRoom") && loadEarthBoss) {
                 auto roomScale = vectorTiles[std::stoi(ot.getName())].first;
                 SDL_Rect roomDimensions;
                 roomDimensions.x = x_ * scale * roomScale;
@@ -351,7 +377,7 @@ void MapComponent::loadMap(std::string path) {
                 mngr_->setEarthBoss(earthBoss);
                 //earthBoss->getComponent<EarthBossManager>()->initializeEntities();
             }
-            else if (ot.getClass() == "DoorTrigger") {
+            else if ((ot.getClass() == "DoorTrigger") && loadEarthBoss) {
                 auto roomScale = vectorTiles[std::stoi(ot.getName())].first;
                 Entity* trigger = mngr_->addEntity(ecs::_grp_TRIGGER);
                 trigger->addComponent<Transform>(Vector2D(x_* scale * roomScale, y_* scale* roomScale), w_* scale* roomScale, h_* scale* roomScale);
@@ -364,21 +390,37 @@ void MapComponent::loadMap(std::string path) {
                 trigger->addComponent<Trigger>();
                 interact[std::stoi(ot.getName())].push_back(trigger);
             }
-            else if (ot.getClass() == "Life") {
-                auto roomScale = vectorTiles[std::stoi(ot.getName())].first;
-                auto life = constructors::LifeShard(mngr_, x_*scale*roomScale,y_* scale* roomScale, w_* scale* roomScale, h_*scale*roomScale);
-                interact[std::stoi(ot.getName())].push_back(life);
-
+            else if (classSplit[0] == "Life") {
+                auto lifeSharIDSplit = strSplit(pickedLifeShards, ' ');
+                bool dontCreate = false;
+                for (int i = 0; i < lifeSharIDSplit.size() && !dontCreate; ++i) {
+                    dontCreate = lifeSharIDSplit[i] == classSplit[1];
+                }
+                if (!dontCreate) {
+                    auto roomScale = vectorTiles[std::stoi(ot.getName())].first;
+                    auto life = constructors::LifeShard(mngr_, x_*scale*roomScale,y_* scale* roomScale, w_* scale* roomScale, h_*scale*roomScale, std::stoi(classSplit[1]));
+                    interact[std::stoi(ot.getName())].push_back(life);
+                }
             }
         }
 
         SDL_Rect playerRect = getSDLRect(playerPos.getAABB());
-        auto playerRoom = std::stoi(playerPos.getClass());
-        float playerRoomScale = vectorTiles[playerRoom].first;
         auto playerTr_ = player_->getComponent<Transform>();
-        playerRect.x *= playerRoomScale;
-        playerRect.y = playerRect.y * playerRoomScale - playerTr_->getHeight();
-        playerTr_->setPosition(Vector2D(playerRect.x, playerRect.y));
+        int playerRoom;
+        float playerRoomScale;
+        if (playerSanctuary == nullptr) {
+            playerRoom = std::stoi(playerPos.getClass());
+            playerRoomScale = vectorTiles[playerRoom].first;
+            playerRect.x *= playerRoomScale;
+            playerRect.y = playerRect.y * playerRoomScale - playerTr_->getHeight();
+            playerTr_->setPosition(Vector2D(playerRect.x, playerRect.y));
+        }
+        else {
+            auto newPos = playerSanctuary->getComponent<Transform>()->getPosition() + Vector2D(0, playerSanctuary->getComponent<Transform>()->getHeight() - playerTr_->getHeight());
+            playerTr_->setPosition(newPos);
+            playerRoom = playerSanctuaryRoom;
+            playerRoomScale = vectorTiles[playerRoom].first;
+        }
         playerTr_->setScale(playerRoomScale);
         currentRoom = playerRoom;
         cam->setBounds(getCamBounds());
@@ -412,7 +454,7 @@ std::vector<std::pair<SDL_Rect, SDL_Rect>> MapComponent::checkCollisions(const S
 
 void MapComponent::render() {
     SDL_Rect camPos = cam->camera;
-    int cols = sdlutils().levels().at(currentLevel).cols;
+    int cols = sdlutils().levels().at(currentMapKey).cols;
     int offsetX = camPos.x;
     int offsetY = camPos.y;
     int room = currentRoom;
@@ -435,4 +477,21 @@ void MapComponent::render() {
         it.y -= cam->camera.y;
         sdlutils().images().at("pixelWhite").render(it);
     }
+}
+
+void MapComponent::saveToFile(std::ofstream& file) {
+    file << "map_key " << currentMapKey << " " << currentMap << std::endl
+        << "earth_boss " << (int)true << std::endl 
+        << "water_boss " << (int)true << std::endl
+        << "fire_boss " << (int)true << std::endl;
+}
+
+void MapComponent::loadFromFile(std::ifstream& file) {
+    std::string aux;
+    file >> aux >> currentMapKey >> currentMap >> aux >> loadEarthBoss >> aux >> loadWaterBoss >> aux >> loadFireBoss;
+    auto pInput = game->getPlayer()->getComponent<PlayerInput>();
+    loadEarthElem = !pInput->hasElement(ecs::Earth);
+    loadWaterElem = !pInput->hasElement(ecs::Water);
+    loadFireElem = !pInput->hasElement(ecs::Fire);
+    pickedLifeShards = game->getPlayer()->getComponent<Health>()->getLifeShardIDs();
 }

@@ -1,6 +1,8 @@
 #pragma once
 #include "../utils/checkML.h"
 #include "../game/ecs.h"
+#include <fstream>
+#include <iostream>
 #ifndef TPV2_COMPONENT_H
 #define TPV2_COMPONENT_H
 
@@ -40,6 +42,10 @@ public:
 
     /// Maneja la entrada del usuario
     virtual void handleInput() {}
+
+    virtual void saveToFile(std::ofstream& file) {};
+
+    virtual void loadFromFile(std::ifstream& file) {};
 };
 
 #endif //TPV2_COMPONENT_H

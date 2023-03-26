@@ -55,6 +55,7 @@ void CameraComponent::update() {
 		}
 
 		// Limites de la camara dependiendo del tama�o de la sala (mapa)
+
 		if (camera.x > bounds.x + bounds.w - tr_->getWidth()) {
 			camera.x = bounds.x + bounds.w - tr_->getWidth();
 		}
