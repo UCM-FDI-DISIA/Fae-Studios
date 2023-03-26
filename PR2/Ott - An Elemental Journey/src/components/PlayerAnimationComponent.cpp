@@ -7,7 +7,6 @@
 #include "../states/MapState.h"
 #include "../states/GameStateMachine.h"
 
-
 #pragma once
 PlayerAnimationComponent::PlayerAnimationComponent(anims::Entities e)
 {
@@ -63,7 +62,7 @@ void PlayerAnimationComponent::update()
 			else if (vel.getX() != 0) setState(RUN); // estado correr
 			else setState(IDLE); // idle
 		}
-		else if (physics->isClimbing())  state_ = IDLE;
+		else if (physics->isClimbing())  state_ = CLIMB;
 		else if (vel.getY() == 0 && !physics->isGrounded()) { setState(PEAK); } // si no se mueve en la Y y no está en suelo, se pone PEAK
 		else if (vel.getY() < 0) { setState(JUMP_UP); } // salto 
 		else { setState(FALL); } // caída

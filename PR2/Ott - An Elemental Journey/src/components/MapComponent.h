@@ -99,7 +99,7 @@ private:
 	int currentMap = 0;
 
 	void loadMap(std::string path, int nextPos = -1);
-	std::string pickedLifeShards;
+	std::string pickedLifeShards = "";
 	bool loadEarthBoss = true, loadWaterBoss = true, loadFireBoss = true;
 	bool loadEarthElem = true, loadWaterElem = true, loadFireElem = true;
 
@@ -159,6 +159,12 @@ public:
 	}
 
 	virtual void saveToFile(std::ofstream& file);
+	inline void addShard(int id) { pickedLifeShards += std::to_string(id) + " "; };
+	inline void unlockElement(ecs::elements e) { 
+		if (e == ecs::Fire) loadFireElem = false;
+		else if (e == ecs::Water) loadWaterElem = false;
+		else if (e == ecs::Earth) loadEarthElem = false;
+	};
 	virtual void loadFromFile(std::ifstream& file);
 };
 
