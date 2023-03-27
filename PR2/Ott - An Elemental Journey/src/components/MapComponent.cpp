@@ -6,6 +6,7 @@
 #include "../states/PlayState.h"
 #include "../states/GameStateMachine.h"
 #include "../game/Constructors.h"
+#include <algorithm>
 
 std::vector<std::string> strSplit(std::string s, char c) {
 
@@ -115,7 +116,7 @@ MapComponent::MapComponent(Entity* fadeOut, PlayState* game, int currentMap) : f
     for (int i = 0; i < ecs::LAST_MAP_ID; ++i) {
         mapKeys.push_back({});
     }
-    currentMapKey = "earthMap";
+    currentMapKey = "fireMap";
     tilemap = &sdlutils().images().at(sdlutils().levels().at(currentMapKey).tileset);
 }
 
@@ -254,6 +255,10 @@ void MapComponent::loadMap(std::string path, int nextPos) {
                 const auto& objects = layer->getLayerAs<ObjectGroup>().getObjects();
                 if (name == "Salas") {
                     vectorObjects[ROOM_VECTOR_POS] = objects;
+                    std::sort(vectorObjects[ROOM_VECTOR_POS].begin(), vectorObjects[ROOM_VECTOR_POS].end(), 
+                        [](tmx::Object a, tmx::Object b) {
+                            return std::stoi(a.getName()) < std::stoi(b.getName());
+                        });
                     numRooms = objects.size();
                     game->initEnemies(numRooms);
                     if (mapKeys[currentMap].size() != numRooms) {
@@ -400,12 +405,13 @@ void MapComponent::loadMap(std::string path, int nextPos) {
             auto classSplit = strSplit(ot.getClass(), '_');
             if (ot.getClass() == "Grass") {
                 auto roomScale = vectorTiles[std::stoi(ot.getName())].first;
-                interact[std::stoi(ot.getName())].push_back(constructors::grass(mngr_,
-                    Vector2D((x_ * scale) * roomScale , ((y_ * scale - sdlutils().images().at("grass").height()) + h_ * scale)* roomScale),
-                    w_ * scale* roomScale, 
-                    h_ * scale* roomScale, 
-                    Vector2D(x_ * scale * roomScale, ((y_ * scale - sdlutils().images().at("grass").height()) + h_ * scale + 100) * roomScale),
-                    Vector2D(x_ * scale * roomScale, (y_ * scale - sdlutils().images().at("grass").height()) * roomScale), 0, std::stoi(ot.getName())));
+                auto newGrass = constructors::grass(mngr_,
+                    Vector2D((x_* scale)* roomScale, ((y_* scale - sdlutils().images().at("grass").height()) + h_ * scale)* roomScale),
+                    w_* scale* roomScale,
+                    h_* scale* roomScale,
+                    Vector2D(x_* scale* roomScale, ((y_* scale - sdlutils().images().at("grass").height()) + h_ * scale + 100)* roomScale),
+                    Vector2D(x_* scale* roomScale, (y_* scale - sdlutils().images().at("grass").height())* roomScale), 0, std::stoi(ot.getName()));
+                interact[std::stoi(ot.getName())].push_back(newGrass);
             }
             else if (classSplit[0] == "Element") {
                 if (loadEarthElem && (ecs::elements)std::stoi(ot.getName()) == ecs::Earth ||
@@ -567,15 +573,19 @@ void MapComponent::render() {
     auto roomScale = vectorTiles[room].first;
     for (int i = 0; i < vectorTiles[room].second.size(); i++) {
         auto it = vectorTiles[room].second[i].first;
-        if (it == 0) continue;
         auto ot = vectorTiles[room].second[i].second;
+        if (it == 0) continue;
         ot.x *= roomScale;
         ot.y *= roomScale;
         ot.w *= roomScale;
         ot.h *= roomScale;
         ot.x -= offsetX;
         ot.y -= offsetY;
-        tilemap->renderFrame(ot, (it - (it % 20)) / 20, it % 20 - 1);
+        it--;
+        int row = (it - (it % tilemap->getNumCols())) / tilemap->getNumCols();
+        int col = it % tilemap->getNumCols();
+
+        tilemap->renderFrame(ot, row, col);
     }
 
     for (auto it : ground[std::to_string(room)]) {
