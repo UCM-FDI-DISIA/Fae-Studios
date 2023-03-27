@@ -392,7 +392,44 @@
 			"rows": 4,
 			"cols": 3
 		},
-		{ "id" : "fire_attack", "file" : "../Ott - An Elemental Journey/resources/images/tests/fire_attack.png", "rows": 1, "cols": 1}
+		{ "id" : "fireTileset", "file" : "../Ott - An Elemental Journey/resources/images/levels/TilesLava.png", "rows" : 3, "cols" : 4},
+		{ "id" : "fire_attack", "file" : "../Ott - An Elemental Journey/resources/images/tests/fire_attack.png", "rows": 1, "cols": 1},
+		{
+			"id": "box",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/box.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "BossDoor",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/BossDoor.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "BossDoor_Earth",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/BossDoor_Earth.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "BossDoor_Water",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/BossDoor_Water.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "BossDoor_Fire",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/BossDoor_Fire.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "water",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/Water.png",
+			"rows": 1,
+			"cols": 1
+		}
 	],
 
   
@@ -425,17 +462,18 @@
 	"musics": [
 		{"id" :  "main_menu_music", "file" :  "../Ott - An Elemental Journey/resources/music/Ambient 4.wav"},
 		{"id" :  "earth_level", "file" :  "../Ott - An Elemental Journey/resources/music/Ambient 1.wav"},
-		{"id" :  "fire_boss_fight", "file" :  "../Ott - An Elemental Journey/resources/music/minotaur.wav},
-		{"id" :  "water_boss_fight", "file" :  "../Ott - An Elemental Journey/resources/music/boss_agua.wav},
-		{"id" :  "earth_boss_fight", "file" :  "../Ott - An Elemental Journey/resources/music/gusano.wav},
-		{"id" :  water_level", "file" :  "../Ott - An Elemental Journey/resources/music/mundo_agua.wav},
-		{"id" :  fire_level", "file" :  "../Ott - An Elemental Journey/resources/music/fuego.wav}
+		{"id" :  "fire_boss_fight", "file" :  "../Ott - An Elemental Journey/resources/music/minotaur.wav"},
+		{"id" :  "water_boss_fight", "file" :  "../Ott - An Elemental Journey/resources/music/boss_agua.wav"},
+		{"id" :  "earth_boss_fight", "file" :  "../Ott - An Elemental Journey/resources/music/gusano.wav"},
+		{"id" :  "water_level", "file" :  "../Ott - An Elemental Journey/resources/music/mundo_agua.wav"},
+		{"id" :  "fire_level", "file" :  "../Ott - An Elemental Journey/resources/music/fuego.wav"}
 	],
 
 	"maps": [
 		{ "id" : "earthMap", "file" : "../Ott - An Elemental Journey/resources/levels/EarthMap3.tmx", "cols" : 192, "tileset" : "level1tileset", "background" : "level1bg", "music" : "earth_level" },
 		{ "id" : "level1_1", "file" : "../Ott - An Elemental Journey/resources/levels/EarthMap2.tmx", "cols" : 192, "tileset" : "level1tileset", "background" : "level1bg", "music" : "earth_level"},
 		{ "id" : "demo", "file" : "../Ott - An Elemental Journey/resources/levels/DEMO.tmx", "cols" : 100, "tileset" : "level1tileset", "background" : "level1bg", "music" : "earth_level" },
+		{ "id" : "fireMap", "file" : "../Ott - An Elemental Journey/resources/levels/FireMap.tmx", "cols" : 117, "tileset" : "fireTileset", "background" : "level1bg", "music" : "water_level" },
 		{ "id" : "waterMap", "file" : "../Ott - An Elemental Journey/resources/levels/WaterMap.tmx", "cols" : 180, "tileset" : "waterTileset", "background" : "level1bg", "music" : "water_level" },
 		{ "id" : "waterBossMap", "file" : "../Ott - An Elemental Journey/resources/levels/WaterBossMap.tmx", "cols" : 211, "tileset" : "waterTileset", "background" : "level1bg", "music" : "water_boss_fight" }
 

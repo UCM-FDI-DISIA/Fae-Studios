@@ -42,6 +42,8 @@
 #include "../components/Pivot.h"
 #include "../components/Acceleration.h"
 #include "../components/WaterBossAnimationComponent.h"
+#include "../components/WaterBossAttack.h"
+#include "../components/ActiveWater.h"
 #include <string>
 #include <iostream>
 #include <functional>
@@ -346,33 +348,64 @@ namespace constructors {
 		return sanc;
 	}
 
-	static inline void DestructibleTile(Manager* mngr_, int x, int y, int w, std::string room, int index, MapComponent* map) {
+	static inline void DestructibleTile(Manager* mngr_, int x, int y, int w,int h, std::string room, int index, MapComponent* map) {
 		auto waterObj = mngr_->addEntity(ecs::_grp_GROUND);
-		waterObj->addComponent<Transform>(Vector2D(x,y), w, w);
-		waterObj->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
+		waterObj->addComponent<Transform>(Vector2D(x,y), w, h);
+		waterObj->addComponent<Image>(&sdlutils().images().at("box"));
 		waterObj->addComponent<Destruction>(room, index, map);
 	}
 
 	static inline Entity* WaterBoss(Manager* mngr_, int x, int y, int w, int h) {
 		auto waterBoss = mngr_->addEntity(ecs::_grp_CHARACTERS);
 		auto WbTransform = waterBoss->addComponent<Transform>(x, y, w, h);
-		auto waterPh = waterBoss->addComponent<PhysicsComponent>(colliders::SLIME);
-		waterPh->setVelocity(Vector2D(1, 0));
+		auto waterPh = waterBoss->addComponent<PhysicsComponent>(colliders::WATERBOSS);
 		waterPh->setGravity(false);
 		waterPh->lookDirection(false);
 		waterPh->createCollider();
 		waterBoss->addComponent<FramedImage>(&sdlutils().images().at("water_boss"), 4, 8);
 		waterBoss->addComponent<Acceleration>();
 		waterBoss->addComponent<Health>(6, ecs::Dark, false);
-		waterBoss->addComponent<EnemyContactDamage>();
 		waterBoss->addComponent<WaterBossAnimationComponent>(anims::WATERBOSS_ANIM);
+		waterBoss->addComponent<WaterBossAttack>();
 		waterBoss->reinitCmpts();
 
-		auto box0 = mngr_->addEntity(ecs::_grp_CHARACTERS);
-		x += 2150;
-		box0->addComponent<Transform>(x, y, w, h);
-		box0->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
+		//CAMBIAR A QUE SE LEA DE MAPA CUANDO FUNCIONE TODO
+
+		auto box0 = mngr_->addEntity(ecs::_grp_GENERAL);
+		x += 3000;
+		box0->addComponent<Transform>(x, y+100, 100, 100);
+		//box0->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
 		box0->addComponent<Pivot>(waterBoss, 0);
+
+		box0 = mngr_->addEntity(ecs::_grp_GENERAL);
+		y += 2000;
+		box0->addComponent<Transform>(x, y, 100, 100);
+		//box0->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
+		box0->addComponent<Pivot>(waterBoss, 1);
+
+		box0 = mngr_->addEntity(ecs::_grp_GENERAL);
+		x += 1600;
+		box0->addComponent<Transform>(x, y, 100, 100);
+		//box0->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
+		box0->addComponent<Pivot>(waterBoss, 2);
+
+		box0 = mngr_->addEntity(ecs::_grp_GENERAL);
+		y -= 1600;
+		box0->addComponent<Transform>(x, y, 100, 100);
+		//box0->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
+		box0->addComponent<Pivot>(waterBoss, 1);
+
+		box0 = mngr_->addEntity(ecs::_grp_GENERAL);
+		x += 1000;
+		box0->addComponent<Transform>(x, y, 100, 100);
+		//box0->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
+		box0->addComponent<Pivot>(waterBoss, 3);
+
+		box0 = mngr_->addEntity(ecs::_grp_GENERAL);
+		y -= 550;
+		box0->addComponent<Transform>(x, y, 100, 100);
+		//box0->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
+		box0->addComponent<Pivot>(waterBoss, 4);
 
 		return waterBoss;
 	}
@@ -409,6 +442,16 @@ namespace constructors {
 		auto a = e->getComponent<MapComponent>()->getObjects();
 		return e;
 		//bgrd->addComponent<Image>(game->getTexture("level1bg", PLAY_STATE));
+	}
+	static inline Entity* Water(Manager* mngr_, int x, int y, int w, int h,std::string clase)
+	{
+		Entity* wObject = mngr_->addEntity(ecs::_grp_WATER);
+		wObject->addComponent<Transform>(x, y, w, h);
+		wObject->addComponent<Image>(&sdlutils().images().at("water"));
+		bool active = (clase == "Activo");
+		wObject->addComponent<ActiveWater>(active);
+		
+		return wObject;
 	}
 
 	/*static inline void vine(Manager* mngr_, Vector2D position, int width, int height, Texture* t) {

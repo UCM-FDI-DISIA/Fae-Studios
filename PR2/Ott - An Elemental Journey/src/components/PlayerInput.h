@@ -10,7 +10,7 @@
 #include "FramedImage.h"
 #include "PlayerAttack.h"
 #include "AttackCharger.h"
-
+#include "BossDoor.h"
 class PlayerInput : public Component {
 public:
 	PlayerInput();
@@ -27,24 +27,15 @@ public:
 		{
 		case ecs::Earth:
 			earth = true;
-			selectedEarth = true;
-			selectedWater = false;
-			selectedFire = false;
-			selectedLight = false;
+			bossDoor->unlockElem(ecs::Earth);
 			break;
 		case ecs::Water:
 			water = true;
-			selectedEarth = false;
-			selectedWater = true;
-			selectedFire = false;
-			selectedLight = false;
+			bossDoor->unlockElem(ecs::Water);
 			break;
 		case ecs::Fire:
 			fire = true;
-			selectedEarth = false;
-			selectedWater = false;
-			selectedFire = true;
-			selectedLight = false;
+			bossDoor->unlockElem(ecs::Fire);
 			break;
 		default:
 			break;
@@ -66,6 +57,9 @@ public:
 		default:
 			break;
 		}
+	inline void getDoor(Entity* door)
+	{
+		bossDoor = door->getComponent<BossDoor>();
 	}
 
 private:
@@ -75,6 +69,7 @@ private:
 	PlayerAttack* attack_;
 	FramedImageOtt* image_;
 	Health* health_;
+	BossDoor* bossDoor=nullptr;
 	float horizontalSpeed = 0;
 	int attackTimer, chargedAttackTime = 1;
 	bool attack = false;

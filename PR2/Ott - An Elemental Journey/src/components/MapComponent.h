@@ -39,6 +39,8 @@ private:
 	std::unordered_map<std::string, std::vector<std::pair<bool, SDL_Rect>>> destructible;
 
 	std::vector<std::vector<Entity*>> interact;
+	//agua
+	std::vector<std::vector<Entity*>> waterObjects;
 
 	// Vector con las keys de la imagen asociada a cada habitacion
 	std::vector<std::vector<std::string>> mapKeys;
@@ -91,6 +93,7 @@ private:
 	const int POSITIONS_VECTOR_POS = 6;
 	
 	std::string currentMapKey = "earthMap";
+	const int WATER_VECTOR_POS = 5;
 
 	int realTileSize = 32;
 	int usedTileSize = 50;
@@ -115,6 +118,7 @@ public:
 
 	// cambio de mapa
 	void changeMap(int newMap, std::string key, int nextPos);
+	void WaterSetActive(bool c);
 
 	void playFadeOutAnimation() { anim_->startFadeOut(); }
 	

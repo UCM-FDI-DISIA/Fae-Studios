@@ -9,11 +9,12 @@ void Pivot::initComponent() {
 }
 void Pivot::update()
 {
-	Vector2D distance = playerTransform->getPosition() - transform->getPosition();	
-	Vector2D aux= bossPhysics->getVelocity();
+	SDL_Rect colliderBoss = playerTransform->getRect();
+	SDL_Rect colliderObject = transform->getRect();
 
-	if ((std::abs(distance.getX()) < 10.f && std::abs(distance.getY()) < 10.f))
-	{
+	SDL_Rect intersection;
+	if (SDL_IntersectRect(&colliderBoss, &colliderObject, &intersection)) {
+	
 		if (!active) {
 			if (num == 0)
 			{
@@ -23,23 +24,40 @@ void Pivot::update()
 			else if (num == 1)
 			{
 				bossPhysics->setVelocity({ 0.3,0 });
-				playerTransform->setRotation(90);
+				if (playerTransform->getRotation() == 90)
+				{
+					playerTransform->setRotation(-90);
+				}
+				else{
+
+					playerTransform->setRotation(+90);
+				}
+
 				bossPhysics->lookDirection(true);
+
 			}
-			else if (num == 2)
+			else if (num == 2 && !player->getComponent<Acceleration>()->getWaiting())
 			{
 				bossPhysics->setVelocity({ 0,-0.3 });
 				playerTransform->setRotation(-90);
+				//player->getComponent<Acceleration>()->setWaiting(true,1);
 			}
 			else if (num == 3)
 			{
-				bossPhysics->setVelocity({ -0.3,0 });
-				playerTransform->setRotation(90);
+				bossPhysics->setVelocity({ 0,-0.3 });
+				playerTransform->setRotation(-90);
 
-				bossPhysics->lookDirection(false);
+			}
+			else if (num == 4)
+			{
+				bossPhysics->setVelocity({ 0.3,0 });
+				playerTransform->setRotation(+90);
+				//player->getComponent<Acceleration>()->setWaiting(true,2);
+
 			}
 			active = true;
 		}
 	}
 	else active = false;
+
 }
