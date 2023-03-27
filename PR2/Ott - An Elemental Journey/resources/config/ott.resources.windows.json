@@ -95,6 +95,7 @@
 		{ "id" : "10_water_room", "file" : "../resources/images/map_rooms/10_water_map.png", "rows" : 1, "cols" : 1},
 		{ "id" : "11_water_room", "file" : "../resources/images/map_rooms/11_water_map.png", "rows" : 1, "cols" : 1},
 		{ "id" : "12_water_room", "file" : "../resources/images/map_rooms/12_water_map.png", "rows" : 1, "cols" : 1},
+		{ "id" : "0_water_boss_map", "file" : "../resources/images/map_rooms/0_water_boss_map.png", "rows" : 1, "cols" : 1},
 		{ "id" : "mapBG", "file" : "../resources/images/map_rooms/mapBg.png", "rows" : 1, "cols" : 1},
 		{ "id" : "earth_elem", "file" : "../resources/images/tests/EarthElement.png", "rows": 1, "cols": 10},
 		{ "id" : "water_elem", "file" : "../resources/images/tests/WaterElement.png", "rows": 1, "cols": 10},
