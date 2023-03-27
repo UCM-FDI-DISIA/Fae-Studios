@@ -487,6 +487,7 @@ void MapComponent::loadMap(std::string path, int nextPos) {
                
                 //eraseEntities.push_back(earthBoss); //what
             }
+            /*else if ((ot.getClass() == "DoorTrigger") && loadEarthBoss) {
            /* else if ((ot.getClass() == "DoorTrigger") && loadEarthBoss) {
                 auto roomScale = vectorTiles[std::stoi(ot.getName())].first;
                 Entity* trigger = mngr_->addEntity(ecs::_grp_TRIGGER);
