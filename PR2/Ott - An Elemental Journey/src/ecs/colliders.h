@@ -11,7 +11,7 @@ public:
 			izqPixels(izqPixels), totalHorPixels(totalHorPixels), upPixels(upPixels), totalVertPixels(totalVertPixels), width(width), height(height) {}
 		int izqPixels, totalHorPixels, upPixels, totalVertPixels, width, height;
 	};
-	static enum Colliders { OTT, MELEE, RANGE, SLIME,WATERBOSS };
+	static enum Colliders { OTT, MELEE, RANGE, SLIME };
 	static std::vector<offsetPhysics> collider;
 
 private:
@@ -19,6 +19,5 @@ private:
 	static offsetPhysics melee_collider;
 	static offsetPhysics range_collider;
 	static offsetPhysics slime_collider;
-	static offsetPhysics waterBoss_collider;
 };
 

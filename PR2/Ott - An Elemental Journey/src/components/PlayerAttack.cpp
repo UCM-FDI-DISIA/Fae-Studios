@@ -184,6 +184,7 @@ void PlayerAttack::update() {
 				trigger.w = colTrigger * (trAttack->getWidth() / waterAnimation->getTexture()->getNumCols());
 			}
 
+
 			MoveTrigger(Vector2D(trigger.w, WATER_ATTACK_HEIGHT* tr_->getScale()));
 
 			if (waterStateAnimation->getState() == WATER_ADVANCE)

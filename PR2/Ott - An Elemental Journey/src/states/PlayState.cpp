@@ -23,14 +23,12 @@
 #include "../components/EnemyContactDamage.h"
 #include "../components/Destruction.h"
 #include "../components/WaterBossAnimationComponent.h"
-#include "../components/BossDoor.h"
 
 #include "../components/FadeTransitionComponent.h"
 #include <fstream>
 #include "menus/PauseMenuState.h"
 #include "../components/ElementObject.h"
 #include <iostream>
-#include "../components/ActiveWater.h"
 
 PlayState::PlayState() : GameState(ecs::_state_PLAY) {
 	currentMap = ecs::EARTH_MAP;
@@ -180,8 +178,7 @@ void PlayState::checkCollisions(std::list<Entity*> entities) {
 				}
 				else if (!physics->isGrounded()) {
 					//cout << "ceiling touched" << endl;
-					//en principio ahora que está bien parametrizado, podemos conservar el rebote con el techo en todos los casos
-					//if (!(physics->getWater()) || (physics->getWater() && health->getElement() == ecs::Water))
+					if (!(physics->getWater()) || (physics->getWater() && health->getElement() == ecs::Water))
 					{
 						colVector = Vector2D(colVector.getX(), 1);
 						physics->setVerticalSpeed(1);
@@ -199,21 +196,19 @@ void PlayState::checkCollisions(std::list<Entity*> entities) {
 		int j = 0;
 		std::vector <Entity*> water = mngr_->getEntities(ecs::_grp_WATER);
 		for (Entity* w : water) {
-			if (w->getComponent<ActiveWater>()->getActive()) {
-				SDL_Rect r3 = w->getComponent<Transform>()->getRect();
-				SDL_Rect areaColision; // area de colision 	
-				bool interseccion = SDL_IntersectRect(&r1, &r3, &areaColision);
-				if (interseccion)
-				{
-					physics->setWater(true); ++j;
-					if (health->getElement() != ecs::Water) { physics->setGrounded(false); }
-					//comprobación de si esta en la zona de flote, de momento sin variable de ancho de zona de flote 
-					if (areaColision.y <= r3.y + 5) {
-						physics->setFloating(true);
-					}
-					else {
-						physics->setFloating(false);
-					}
+			SDL_Rect r3 = w->getComponent<Transform>()->getRect();
+			SDL_Rect areaColision; // area de colision 	
+			bool interseccion = SDL_IntersectRect(&r1, &r3, &areaColision);
+			if (interseccion)
+			{
+				physics->setWater(true); ++j;
+				if (health->getElement() != ecs::Water) { physics->setGrounded(false); }
+				//comprobación de si esta en la zona de flote, de momento sin variable de ancho de zona de flote 
+				if (areaColision.y <= r3.y + 5) {
+					physics->setFloating(true);
+				}
+				else {
+					physics->setFloating(false);
 				}
 			}
 

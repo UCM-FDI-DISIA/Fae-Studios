@@ -67,7 +67,7 @@ void MapComponent::generateEnemies() {
         }
         else if (it.getClass() == "WaterBoss") {
             
-            auto waterBoss = constructors::WaterBoss(mngr_, x_ * scale * roomScale, y_ * scale * roomScale, 350 * scale * roomScale, 350 * scale * roomScale);
+            auto waterBoss = constructors::WaterBoss(mngr_, x_ * scale * roomScale, y_ * scale * roomScale, 300 * scale * roomScale, 300 * scale * roomScale);
 
             for (auto it : mngr_->getEntities(ecs::_grp_GROUND)) {
                 it->getComponent<Destruction>()->setBoss(waterBoss);
@@ -94,7 +94,6 @@ MapComponent::MapComponent(Entity* fadeOut, PlayState* game, int currentMap, std
         vectorObjects.push_back({});
         vectorTiles.push_back({});
         interact.push_back({});
-        waterObjects.push_back({});
     }
     mapKeys.reserve(ecs::LAST_MAP_ID);
     for (int i = 0; i < ecs::LAST_MAP_ID; ++i) {
@@ -180,13 +179,6 @@ void MapComponent::update() {
             }
             ++i;
         }
-    }
-}
-
-void MapComponent::WaterSetActive(bool c)
-{
-    for (auto ent : waterObjects[currentRoom]) {
-        ent->setActive(true);
     }
 }
 
@@ -297,9 +289,6 @@ void MapComponent::loadMap(std::string path, int nextPos) {
                 }
                 else if (name == "Posiciones") {
                     vectorObjects[POSITIONS_VECTOR_POS] = objects;
-                else if (name == "Agua")
-                {
-                    vectorObjects[WATER_VECTOR_POS]=objects;
                 }
             }
             #pragma endregion
@@ -348,19 +337,9 @@ void MapComponent::loadMap(std::string path, int nextPos) {
             if (obj.getClass() == "Destructible") {
                 destructible[obj.getName()].push_back(std::make_pair(true, rect));
                 int index = destructible[obj.getName()].size() - 1;
-                constructors::DestructibleTile(mngr_, rect.x, rect.y, rect.w,rect.h, obj.getName(), index, this);
+                constructors::DestructibleTile(mngr_, rect.x, rect.y, rect.w, obj.getName(), index, this);
             }
             else ground[obj.getName()].push_back(rect);
-        }
-        for (auto obj : vectorObjects[WATER_VECTOR_POS]) {
-            SDL_Rect rect = getSDLRect(obj.getAABB());
-
-            Entity* waterW= constructors::Water(mngr_, rect.x, rect.y, rect.w, rect.h, obj.getClass());
-            std::cout << obj.getUID() << std::endl;
-            waterObjects[std::stoi(obj.getName())].push_back(waterW);
-            //WaterSetActive(true);
-
-            waterW->setActive(waterW->getComponent<ActiveWater>()->getActive());
         }
 
         std::unordered_map<std::string, std::pair<SDL_Rect, std::string>> triggerInfo;

@@ -22,8 +22,6 @@
     <ClCompile Include="src\states\menus\options\GraphicsOptionsMenuState.cpp" />
     <ClCompile Include="src\components\DamageArea.cpp" />
     <ClCompile Include="src\states\MapState.cpp" />
-    <ClCompile Include="src\components\ActiveWater.cpp" />
-    <ClCompile Include="src\components\BossDoor.cpp" />
     <ClCompile Include="src\components\Destruction.cpp" />
     <ClCompile Include="src\components\LifeAnimationComponent.cpp" />
     <ClCompile Include="src\components\Pivot.cpp" />
@@ -83,20 +81,16 @@
     <ClCompile Include="src\utils\Collisions.cpp" />
     <ClCompile Include="src\utils\Vector2D.cpp" />
     <ClCompile Include="src\components\WaterBossAnimationComponent.cpp" />
-    <ClCompile Include="src\components\WaterBossAttack.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\states\menus\options\GraphicsOptionsMenuState.h" />
     <ClInclude Include="src\states\MapState.h" />
     <ClInclude Include="src\components\LifeAnimationComponent.h" />
-    <ClInclude Include="src\components\ActiveWater.h" />
-    <ClInclude Include="src\components\BossDoor.h" />
     <ClInclude Include="src\components\Destruction.h" />
     <ClInclude Include="src\components\Pivot.h" />
     <ClInclude Include="src\components\Acceleration.h" />
     <ClCompile Include="src\components\VineManager.cpp" />
     <ClCompile Include="src\components\Trigger.cpp" />
-    <ClInclude Include="src\components\WaterBossAttack.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\components\EarthBossManager.h" />

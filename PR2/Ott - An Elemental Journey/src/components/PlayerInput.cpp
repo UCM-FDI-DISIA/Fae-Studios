@@ -19,8 +19,6 @@ void PlayerInput::initComponent()
 	horizontalSpeed = physics_->getHorizontalSpeed();
 }
 
-	
-
 void PlayerInput::update()
 {
 	if (!physics_->isStopped()) {

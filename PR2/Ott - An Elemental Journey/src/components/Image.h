@@ -20,6 +20,5 @@ public:
 	void render() override;
     int getWidth() const {return texture->width();}
     int getHeight() const {return texture->height();}
-	void changeText(Texture* tx) { texture = tx; }
 };
 
