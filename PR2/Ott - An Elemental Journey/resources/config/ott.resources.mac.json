@@ -393,7 +393,43 @@
 			"cols": 3
 		},
 		{ "id" : "fireTileset", "file" : "../Ott - An Elemental Journey/resources/images/levels/TilesLava.png", "rows" : 3, "cols" : 4},
-		{ "id" : "fire_attack", "file" : "../Ott - An Elemental Journey/resources/images/tests/fire_attack.png", "rows": 1, "cols": 1}
+		{ "id" : "fire_attack", "file" : "../Ott - An Elemental Journey/resources/images/tests/fire_attack.png", "rows": 1, "cols": 1},
+		{
+			"id": "box",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/box.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "BossDoor",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/BossDoor.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "BossDoor_Earth",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/BossDoor_Earth.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "BossDoor_Water",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/BossDoor_Water.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "BossDoor_Fire",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/BossDoor_Fire.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "water",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/Water.png",
+			"rows": 1,
+			"cols": 1
+		}
 	],
 
   

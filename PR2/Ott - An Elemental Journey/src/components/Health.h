@@ -47,6 +47,7 @@ public:
 		}
 		image->changeElement(elem);
 	}
+	inline void killHealth() { actualLife = 0; image->die(); die(); }
 	void saveSactuary(Entity* sanct);
 	inline int getSanctuaryID() { return sanctuaryID; }
 	inline void setSanctuary(Entity* lastS) { lastSanctuary = lastS; }
