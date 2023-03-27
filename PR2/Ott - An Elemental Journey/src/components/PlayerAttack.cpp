@@ -381,11 +381,12 @@ bool PlayerAttack::attackEnemy(SDL_Rect& attackZone) {
 		SDL_Rect rect = m->getComponent<Transform>()->getRect();
 
 		// Si enemigo y ataque interseccionan
-		if (SDL_HasIntersection(&rect, &attackZone) && !m->hasComponent<PlayerAttack>() && m->hasComponent<Health>()) {
+		SDL_Rect result;
+		if (SDL_IntersectRect(&rect, &attackZone, &result) && !m->hasComponent<PlayerAttack>() && m->hasComponent<Health>()) {
 
 			attack = true;
 			// Hace da�o a enemigo dependiendo del elemento
-			m->getComponent<Health>()->recieveDamage(health_->getElement());
+			m->getComponent<Health>()->recieveDamage(health_->getElement(), true);
 			break;
 		}
 	}

@@ -77,6 +77,7 @@ private:
 	CameraComponent* cam;
 	FadeOutAnimationComponent* anim_;
 	Entity* player_;
+	Entity* earthBoss;
 	Entity* fadeOut;
 	PlayState* game;
 	

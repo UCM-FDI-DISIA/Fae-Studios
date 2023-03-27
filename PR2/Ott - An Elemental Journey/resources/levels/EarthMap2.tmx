@@ -337,8 +337,8 @@
  </objectgroup>
  <objectgroup id="3" name="Objetos interactuables">
   <object id="27" name="lamp1" class="Lamp_0" x="640" y="1523.75" width="32"/>
-  <object id="54" name="0" class="Sanctuary" x="1318" y="1439.5" width="88.5"/>
-  <object id="55" class="Ott" x="416" y="1536" width="32"/>
+  <object id="54" name="0" class="Sanctuary_0" x="1318" y="1439.5" width="88.5"/>
+  <object id="55" class="Ott" x="416" y="1482.67" width="32" height="53.3333"/>
   <object id="176" name="lamp1" class="Lamp_2" x="1772" y="2106.66" width="32" height="6.66667"/>
   <object id="183" name="9" class="Grass" x="4862.56" y="761.401" width="42.3333" height="613"/>
   <object id="184" name="9" class="Grass" x="5081.39" y="757.568" width="41.6667" height="614.333"/>
@@ -372,9 +372,9 @@
   <object id="265" name="9" class="0.8" x="3855.36" y="693.031" width="2075.28" height="753.939"/>
  </objectgroup>
  <objectgroup id="8" name="Enemigos">
-  <object id="150" name="0_1" class="Mushroom" x="352.667" y="1369.67" width="31.3333" height="155.333"/>
-  <object id="151" name="0_2" class="Melee" x="1566.33" y="1312.17" width="31.3333" height="86.6667"/>
-  <object id="152" name="2_1" class="Slime" x="3168.79" y="1915.89" width="31.3333" height="173.333"/>
+  <object id="150" name="0_1_right" class="Mushroom" x="352.667" y="1369.67" width="31.3333" height="155.333"/>
+  <object id="151" name="0_2_right" class="Melee" x="1566.33" y="1312.17" width="31.3333" height="86.6667"/>
+  <object id="152" name="2_1_left" class="Slime" x="3168.79" y="1915.89" width="31.3333" height="173.333"/>
  </objectgroup>
  <objectgroup id="7" name="Triggers">
   <object id="166" name="0_1" class="01" x="2587.17" y="1244.67" width="32" height="160"/>

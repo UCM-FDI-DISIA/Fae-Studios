@@ -116,7 +116,7 @@ MapComponent::MapComponent(Entity* fadeOut, PlayState* game, int currentMap) : f
     for (int i = 0; i < ecs::LAST_MAP_ID; ++i) {
         mapKeys.push_back({});
     }
-    currentMapKey = "fireMap";
+    currentMapKey = "level1_1";
     tilemap = &sdlutils().images().at(sdlutils().levels().at(currentMapKey).tileset);
 }
 
@@ -487,7 +487,7 @@ void MapComponent::loadMap(std::string path, int nextPos) {
                
                 eraseEntities.push_back(earthBoss); //what
             }
-            else if ((ot.getClass() == "DoorTrigger") && loadEarthBoss) {
+            /*else if ((ot.getClass() == "DoorTrigger") && loadEarthBoss) {
                 auto roomScale = vectorTiles[std::stoi(ot.getName())].first;
                 Entity* trigger = mngr_->addEntity(ecs::_grp_TRIGGER);
                 trigger->addComponent<Transform>(Vector2D(x_* scale * roomScale, y_* scale* roomScale), w_* scale* roomScale, h_* scale* roomScale);
@@ -499,7 +499,7 @@ void MapComponent::loadMap(std::string path, int nextPos) {
                 trigger->addComponent<EnterBossRoom>(&sdlutils().images().at("animationWorm"));
                 trigger->addComponent<Trigger>();
                 interact[std::stoi(ot.getName())].push_back(trigger);
-            }
+            }*/
             else if (classSplit[0] == "Life") {
                 auto lifeSharIDSplit = strSplit(pickedLifeShards, ' ');
                 bool dontCreate = false;
