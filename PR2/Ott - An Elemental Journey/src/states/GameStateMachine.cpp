@@ -1,4 +1,5 @@
 #include "GameStateMachine.h"
+#include "menus/MainMenuState.h"
 
 GameState* GameStateMachine::currentState() const {
 	return stateStack.front();
@@ -18,26 +19,23 @@ void GameStateMachine::changeState(GameState* state) {
     stateStack.push_front(state);
 }
 
-void GameStateMachine::changeAllStatesFor(GameState* state) {
-    if (stateStack.front()->getStateID() == state->getStateID()) return;
-    else {
-        emptyStack();
-        stateStack.push_front(state);
-    }
+void GameStateMachine::resetStack() {
+    popState();
+    changeState(new MainMenuState());
 }
 
-void GameStateMachine::popState() {
+void GameStateMachine::popState(bool deleting) {
     if(!stateStack.empty()) {
         stateStack.front()->setDelete();
         delete stateStack.front();
         stateStack.pop_front();
     }
 
-    if(!stateStack.empty()) stateStack.front()->resetFade();
+    if(!stateStack.empty() && !deleting) stateStack.front()->resetFade();
 }
 
 void GameStateMachine::emptyStack() {
-    while (!empty()) popState();
+    while (!empty()) popState(true);
 }
 
 bool GameStateMachine::empty() {

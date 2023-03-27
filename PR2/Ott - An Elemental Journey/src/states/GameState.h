@@ -45,10 +45,12 @@ public:
 
     void setDelete() { mngr_->setDelete(); }
 
-    inline void resetFade() {
+    virtual inline void resetFade() {
         if (fade != nullptr && fade->hasComponent<FadeTransitionComponent>()) {
             if (fade->getComponent<FadeTransitionComponent>()->hasEndedAnimation()) fade->getComponent<FadeTransitionComponent>()->revertWithoutExecute();
         }
     }
+
+    virtual void changeResolution() {};
 };
 

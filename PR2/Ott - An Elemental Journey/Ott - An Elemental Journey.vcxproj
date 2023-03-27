@@ -20,6 +20,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\components\BossHealthBar.cpp" />
+    <ClCompile Include="src\states\menus\options\GraphicsOptionsMenuState.cpp" />
+    <ClCompile Include="src\components\DamageArea.cpp" />
+    <ClCompile Include="src\states\MapState.cpp" />
+    <ClCompile Include="src\components\Destruction.cpp" />
+    <ClCompile Include="src\components\LifeAnimationComponent.cpp" />
+    <ClCompile Include="src\components\Pivot.cpp" />
+    <ClCompile Include="src\components\Acceleration.cpp" />
     <ClCompile Include="src\components\EarthBossManager.cpp" />
     <ClCompile Include="src\components\EnterBossRoom.cpp" />
     <ClCompile Include="src\components\EarthBossAttack.cpp" />
@@ -54,6 +61,7 @@
     <ClCompile Include="src\components\SlimeStates.cpp" />
     <ClCompile Include="src\components\TestEnemyInput.cpp" />
     <ClCompile Include="src\ecs\anims.cpp" />
+    <ClCompile Include="src\sdlutils\Music.cpp" />
     <ClCompile Include="src\states\menus\MainMenuState.cpp" />
     <ClCompile Include="src\components\Image.cpp" />
     <ClCompile Include="src\components\TextComponent.cpp" />
@@ -73,18 +81,29 @@
     <ClCompile Include="src\states\PlayState.cpp" />
     <ClCompile Include="src\utils\Collisions.cpp" />
     <ClCompile Include="src\utils\Vector2D.cpp" />
+    <ClCompile Include="src\components\WaterBossAnimationComponent.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\states\menus\options\GraphicsOptionsMenuState.h" />
+    <ClInclude Include="src\states\MapState.h" />
+    <ClInclude Include="src\components\LifeAnimationComponent.h" />
+    <ClInclude Include="src\components\Destruction.h" />
+    <ClInclude Include="src\components\Pivot.h" />
+    <ClInclude Include="src\components\Acceleration.h" />
     <ClCompile Include="src\components\VineManager.cpp" />
     <ClCompile Include="src\components\Trigger.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\components\BossHealthBar.h" />
     <ClInclude Include="src\components\EarthBossManager.h" />
+    <ClInclude Include="src\components\ElementObject.h" />
     <ClInclude Include="src\components\EnterBossRoom.h" />
     <ClInclude Include="src\components\EarthBossAttack.h" />
     <ClInclude Include="src\components\EarthBossAnimationController.h" />
     <ClCompile Include="src\components\WaterAnimationController.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\components\DamageArea.h" />
     <ClInclude Include="src\components\FadeTransitionComponent.h" />
     <ClInclude Include="src\components\earthAnimationController.h" />
     <ClInclude Include="src\components\FadeOutAnimationComponent.h" />
@@ -155,6 +174,7 @@
     <ClInclude Include="src\utils\mpl.h" />
     <ClInclude Include="src\utils\Singleton.h" />
     <ClInclude Include="src\utils\Vector2D.h" />
+    <ClInclude Include="src\components\WaterBossAnimationComponent.h" />
     <ClInclude Include="src\components\VineManager.h" />
     <ClInclude Include="src\components\Trigger.h" />
   </ItemGroup>

@@ -45,6 +45,8 @@ public:
         if (horizontalFlip) flip = SDL_FLIP_HORIZONTAL;
         else flip = SDL_FLIP_NONE;
     }
+
+    inline void changeTexture(Texture* t) { texture = t; }
 };
 
 class FramedImageOtt : public Component

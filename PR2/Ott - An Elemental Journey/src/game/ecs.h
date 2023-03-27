@@ -38,12 +38,17 @@ namespace ecs {
         _GROWVINE,
         _PLAYERATTACK,
         _ENEMYSTATES,
+        _BOSSACCELERATION,
+        _BOSS_PIVOT,
+        _BOSS_DESTRUCTION,
         _VINEMANAGER,
         _ENTERBOSS,
         _FADEOUTANIM,
         _EARTH_ATTACK_ANIM,
         _EARTHMNGR,
         _WATER_ATTACK_ANIM,
+        _GET_ELEMENT,
+        _LIFESHARDANIM,
 
         _LAST_CMP_ID
     };
@@ -78,6 +83,7 @@ namespace ecs {
     enum stateId : stateId_type {
         _state_MENU, ///< Menú
         _state_PLAY, ///< Estado de juego
+        _state_MAP, ///< Estado de juego
 
         _LAST_STATE_ID
     };
@@ -87,8 +93,16 @@ namespace ecs {
 #pragma region AudioChannels
     using channelId_type = int8_t;
     enum channelId : channelId_type {
-        _channel_UI = -1,
-
+        _channel_UI = 0,
+        _channel_PLAYER = 1,
+        _channel_AMBIENTAL = 2,
+        _channel_ALERTS = 3,
+        _channel_ENEMY_SLIME = 4,
+        _channel_ENEMY_MELEE = 5,
+        _channel_ENEMY_RANGE = 6,
+        _channel_EARTH_BOSS = 7,
+        _channel_WATER_BOSS = 8,
+        _channel_FIRE_BOSS = 9,
 
         _LAST_CHANNEL_ID
     };
@@ -97,7 +111,8 @@ namespace ecs {
 #pragma endregion
 
     static enum elements { Light, Earth, Water, Fire, Dark };
-
+    
+    enum maps { EARTH_MAP, WATER_MAP, FIRE_MAP, LAST_MAP_ID };
 
     static const int numElems = 5;
     // Representación interna doblada

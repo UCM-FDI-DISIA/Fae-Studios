@@ -51,12 +51,22 @@
     <ClCompile Include="src\components\EnterBossRoom.cpp" />
     <ClCompile Include="src\components\Trigger.cpp" />
     <ClCompile Include="src\components\EnemyContactDamage.cpp" />
+    <ClCompile Include="src\components\Pivot.cpp" />
+    <ClCompile Include="src\components\Acceleration.cpp" />
+    <ClCompile Include="src\components\Destruction.cpp" />
     <ClCompile Include="src\ecs\colliders.cpp" />
     <ClCompile Include="src\components\FadeOutAnimationComponent.cpp" />
     <ClCompile Include="src\components\earthAnimationController.cpp" />
     <ClCompile Include="src\components\EarthBossManager.cpp" />
     <ClCompile Include="src\components\WaterAnimationController.cpp" />
+    <ClCompile Include="src\components\DamageArea.cpp" />
     <ClCompile Include="src\components\FadeTransitionComponent.cpp" />
+    <ClCompile Include="src\components\WaterBossAnimationComponent.cpp" />
+    <ClCompile Include="src\states\MapState.cpp" />
+    <ClCompile Include="src\components\WaterBossAnimationComponent.cpp" />
+    <ClCompile Include="src\components\LifeAnimationComponent.cpp" />
+    <ClCompile Include="src\sdlutils\Music.cpp" />
+    <ClCompile Include="src\states\menus\options\GraphicsOptionsMenuState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\components\Image.h" />
@@ -130,15 +140,24 @@
     <ClInclude Include="src\components\EnterBossRoom.h" />
     <ClInclude Include="src\components\Trigger.h" />
     <ClInclude Include="src\components\EnemyContactDamage.h" />
+    <ClInclude Include="src\components\Pivot.h" />
+    <ClInclude Include="src\components\Acceleration.h" />
+    <ClInclude Include="src\components\Destruction.h" />
     <ClInclude Include="src\ecs\colliders.h" />
     <ClInclude Include="src\components\FadeOutAnimationComponent.h" />
     <ClInclude Include="src\components\earthAnimationController.h" />
     <ClInclude Include="src\components\EarthBossManager.h" />
+    <ClInclude Include="src\components\ElementObject.h" />
+    <ClInclude Include="src\components\WaterBossAnimationComponent.h" />
+    <ClInclude Include="src\states\MapState.h" />
+    <ClInclude Include="src\components\LifeAnimationComponent.h" />
+    <ClInclude Include="src\states\menus\options\GraphicsOptionsMenuState.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="resources\config\ott.resources.mac.json" />
     <None Include="resources\config\ott.resources.windows.json" />
     <ClInclude Include="src\components\WaterAnimationController.h" />
+    <ClInclude Include="src\components\DamageArea.h" />
     <ClInclude Include="src\components\FadeTransitionComponent.h" />
   </ItemGroup>
 </Project>

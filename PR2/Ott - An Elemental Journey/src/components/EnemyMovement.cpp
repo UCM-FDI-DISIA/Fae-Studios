@@ -13,6 +13,7 @@ void EnemyMovement::initComponent()
 	transform = ent_->getComponent<Transform>();
 	playerCollider = player->getComponent<PhysicsComponent>();
 	health_ = ent_->getComponent<Health>();
+	image_ = ent_->getComponent<FramedImage>();
 	eAttack_ = ent_->getComponent<EnemyAttack>();
 
 	trigger.x = transform->getPosition().getX() + transform->getWidth(); trigger.y = transform->getPosition().getY();
@@ -48,15 +49,20 @@ void EnemyMovement::FollowPlayer()
 			//speed = { horizontalSpeed, speed.getY() };
 			physics->getVelocity() = Vector2D(-horizontalSpeed, physics->getVelocity().getY());
 			physics->lookDirection(false);
+			image_->flipTexture(true);
 		}
 		else {
 			physics->getVelocity() = Vector2D(horizontalSpeed, physics->getVelocity().getY());
 			physics->lookDirection(true);
+			image_->flipTexture(false);
 		}
 	}
 	else {
 		physics->getVelocity() = Vector2D(0, physics->getVelocity().getY());
-		if(eAttack_->getState() == eAttack_->normal) physics->lookDirection(!((double)ott.x - collider.x < 0));
+		if (eAttack_->getState() == eAttack_->normal) {
+			physics->lookDirection(!((double)ott.x - collider.x < 0));
+			image_->flipTexture(!physics->getLookDirection());
+		}
 	}
 }
 
@@ -68,6 +74,7 @@ void EnemyMovement::ChangeDirection(bool ground, const SDL_Rect& result)
 			if (physics->getLookDirection()) dir = -1;
 			else dir = 1;
 			physics->getVelocity() = { (float)dir, physics->getVelocity().getY() };
+			image_->flipTexture(physics->getLookDirection());
 			physics->lookDirection(!physics->getLookDirection());
 		}
 		else if (result.w < physics->getCollider().w * turningOffset)
@@ -75,10 +82,12 @@ void EnemyMovement::ChangeDirection(bool ground, const SDL_Rect& result)
 			if (abs(result.x - physics->getCollider().x) < turningError) {
 				physics->setVelocity({ -horizontalSpeed, physics->getVelocity().getY() });
 				physics->lookDirection(false);
+				image_->flipTexture(true);
 			}
 			else {
 				physics->setVelocity({ horizontalSpeed, physics->getVelocity().getY() });
 				physics->lookDirection(true);
+				image_->flipTexture(false);
 			}
 		}
 	}

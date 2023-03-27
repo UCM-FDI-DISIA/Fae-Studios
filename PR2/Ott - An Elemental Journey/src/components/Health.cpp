@@ -9,6 +9,7 @@
 #include "../states/GameStateMachine.h"
 #include "EarthBossManager.h"
 #include "EarthBossAttack.h"
+#include "InteractionComponent.h"
 
 void Health::die()
 {
@@ -28,37 +29,31 @@ void Health::initComponent() {
 
 void Health::recall(bool rest)
 {
-	if (lastSanctuary != nullptr) {
+	Vector2D newPos;
+	if (lastSanctuary != nullptr && !rest) {
 		auto sancTr_ = lastSanctuary->getComponent<Transform>();
 		auto tr_ = ent_->getComponent<Transform>();
-		image->reset();
-		if (!rest) {
-			Vector2D newPos = sancTr_->getPosition() + Vector2D(0, sancTr_->getHeight() - tr_->getHeight());
-			tr_->setPosition(newPos);
-		}
-		actualLife = maxLife;
-		dead = false;
-		static_cast<PlayState*>(GameStateMachine::instance()->currentState())->resetEnemies();
-		std::cout << "vuelvo a santuario" << std::endl;
+		newPos = sancTr_->getPosition() + Vector2D(0, sancTr_->getHeight() - tr_->getHeight());
+		static_cast<PlayState*>(GameStateMachine::instance()->currentState())->getMap()
+			->changeRoom(std::to_string(lastSanctuary->getComponent<InteractionComponent>()->getRoom()), newPos);
 	}
 	else 
 	{ 
-		std::cout << "me muero para siempre" << std::endl; 
-		Vector2D newPos = ent_->getComponent<Transform>()->getInitialPosition();
-		image->reset();
-		ent_->getComponent<Transform>()->setPosition(newPos);
-		actualLife = maxLife;
-		dead = false;
-
+		newPos = ent_->getComponent<Transform>()->getInitialPosition();
+		static_cast<PlayState*>(GameStateMachine::instance()->currentState())->getMap()
+			->changeRoom("0", newPos);
 	}
+	image->reset();
+	actualLife = maxLife;
+	static_cast<PlayState*>(GameStateMachine::instance()->currentState())->resetEnemies();
 }
 
-bool Health::recieveDamage(ecs::elements el)
+bool Health::recieveDamage(ecs::elements el, bool dir)
 {
 	if (ent_->hasComponent<PlayerAnimationComponent>()) {
 		if (pAnim_->isInvincible()) return false;
 		pAnim_->playerDamaged();
-		ent_->getComponent<PhysicsComponent>()->knockback();
+		ent_->getComponent<PhysicsComponent>()->knockback(dir);
 		//if() Añadir daño dependiendo de la entidad
 		int damage = elementsInfo::ottMatrix[el][elem];
 		actualLife -= damage;
@@ -90,6 +85,27 @@ bool Health::recieveDamage(ecs::elements el)
 void Health::saveSactuary(Entity* sanct)
 {
 	lastSanctuary = sanct;
+	sanctuaryID = lastSanctuary->getComponent<InteractionComponent>()->getID();
 	recall(true);
 	// aquí no estaría mal poner una animación de Ott sentaditto de pana
+}
+
+void Health::saveToFile(std::ofstream& file) {
+	file << "sanctuaryID " << lastSanctuary->getComponent<InteractionComponent>()->getID() << std::endl;
+	file << "lifeShards " << numShards << lifeShardIDs << "_" << std::endl;
+}
+
+void Health::loadFromFile(std::ifstream& file) {
+	std::string aux;
+	std::string aux2;
+	file >> aux >> sanctuaryID >> aux >> numShards;
+	file >> aux2;
+	while (aux2 != "_") {
+		lifeShardIDs += aux2 + " ";
+		file >> aux2;
+	}
+	int shards = numShards;
+	for (shards; shards > 1; shards -= 2) {
+		increaseMaxLife();
+	}
 }

@@ -12,14 +12,14 @@
 /// Clase base que se encarga del manejo de la funcionalidad de una entidad
 class Entity {
 private:
-    bool alive_; ///< Booleano que indica si la entidad está viva o no
+    bool alive_, active_ = true; ///< Booleano que indica si la entidad está viva o no
     Manager* mngr_; ///< Puntero al manager que la contiene
     std::vector<Component*> currCmps_; ///< Vector con los componentes que tiene la entidad
     std::array<Component*, ecs::maxComponentId> cmps_; ///< Array con TODOS los componentes de nuestro juego
 
 public:
     /// Constructora de la clase Entity
-    Entity() : mngr_(nullptr), cmps_(), currCmps_(), alive_() {
+    Entity() : mngr_(nullptr), cmps_(), currCmps_(), alive_(), active_(true) {
         currCmps_.reserve(ecs::maxComponentId); //Reservamos tantos huecos en el vector como número total de componentes tengamos
     }
 
@@ -41,6 +41,11 @@ public:
     /// Cambiamos si nuestra entidad está viva o no
     /// \param alive Booleano: true (si la entidad está viva), false (si queremos borrarla)
     inline void setAlive(bool alive) { alive_ = alive; }
+
+    // Métodos para activar / desactivar entidades. Lo usamos para que no se rendericen cosas que no se deberían ver ni actualizar.
+    inline void setActive(bool active) { active_ = active; }
+
+    inline bool isActive() { return active_; }
 
     /// Elimina un componente dado su tipo
     /// \tparam T Componente
@@ -98,16 +103,20 @@ public:
 
     /// Llama al update de todos los componentes de una entidad
     inline void update() {
-        auto n = currCmps_.size();
-        for (auto i = 0u; i < n; i++)
-            currCmps_[i]->update();
+        if (active_) {
+            auto n = currCmps_.size();
+            for (auto i = 0u; i < n; i++)
+                currCmps_[i]->update();
+        }
     }
 
     /// Llama al render de todos los componentes de una entidad
     inline void render() {
-        auto n = currCmps_.size();
-        for (auto i = 0u; i < n; i++)
-            currCmps_[i]->render();
+        if (active_) {
+            auto n = currCmps_.size();
+            for (auto i = 0u; i < n; i++)
+                currCmps_[i]->render();
+        }
     }
 
     /// reinicializa todos los componentes de una entidad
@@ -119,10 +128,24 @@ public:
 
     /// Llama al handleInput de todos los componentes de una entidad
     inline void handleInput() {
+        if (active_) {
+            auto n = currCmps_.size();
+            for (auto i = 0u; i < n; i++)
+                currCmps_[i]->handleInput();
+        }
+    }
+    
+    inline void saveToFile(std::ofstream& file) {
         auto n = currCmps_.size();
         for (auto i = 0u; i < n; i++)
-            currCmps_[i]->handleInput();
-    }
+            currCmps_[i]->saveToFile(file);
+    };
+
+    inline void loadFromFile(std::ifstream& file) {
+        auto n = currCmps_.size();
+        for (auto i = 0u; i < n; i++)
+            currCmps_[i]->loadFromFile(file);
+    };
 };
 
 #endif //TPV2_ENTITY_H

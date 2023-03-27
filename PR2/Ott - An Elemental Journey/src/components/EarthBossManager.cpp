@@ -37,6 +37,7 @@ void EarthBossManager::setState(int newState) {
 	}
 }
 void EarthBossManager::initializeEntities() {
+	sdlutils().soundEffects().at("roar").play(0, ecs::_channel_ALERTS);
 	//animController = ent_->addComponent<EarthBossAnimationController>(this);
 	//CREACIÓN DE LAS 6 ENREDADERAS LATERALES
 	SDL_Rect vine_Rect;
@@ -263,7 +264,7 @@ void EarthBossManager::stateManagment() {
 	if (changeState) {
 		if (states[actualState] == PRESENTATION) {
 			if (animController->getPresentationReps() < 3) {
-				presentBoss->getComponent<Transform>()->setPosition(Vector2D(presentBoss->getComponent<Transform>()->getPosition().getX() - presentBoss->getComponent<Transform>()->getWidth()/2, presentBoss->getComponent<Transform>()->getPosition().getY()));
+				presentBoss->getComponent<Transform>()->setPosition(Vector2D(presentBoss->getComponent<Transform>()->getPosition().getX() - presentBoss->getComponent<Transform>()->getWidth() / 2, presentBoss->getComponent<Transform>()->getPosition().getY()));
 			}
 			else {
 				player->getComponent<PhysicsComponent>()->Resume();

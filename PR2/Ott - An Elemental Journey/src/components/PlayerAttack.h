@@ -12,13 +12,16 @@ class PhysicsComponent;
 
 // Ancho y Alto ataque de agua
 const int WATER_ATTACK_WIDTH =  300;
-const int WATER_ATTACK_HEIGHT =  50;
+const int WATER_ATTACK_HEIGHT =  100;
 
 const int WATER_ATTACK_TICK_TIME = 2000; // Cada cuantos ms tick de agua
 const int WATER_ATTACK_DURATION = 6000; // Duracion del ataque de agua en ms
 
 const int EARTH_ATTACK_WIDTH = 300;
-const int EARTH_ATTACK_HEIGHT = 50;
+const int EARTH_ATTACK_HEIGHT = 100;
+
+const int FIRE_ATTACK_WIDTH = 100;
+const int FIRE_ATTACK_HEIGHT = 100;
 
 class PlayerAttack : public Component
 {
@@ -31,6 +34,9 @@ public:
 	{
 		earthAttackActive = false;
 		tAttack->setAlive(false);
+
+		if (chargedAttack)
+			tAttack2->setAlive(false);
 	}
 
 	inline void deleteWaterAttack()
@@ -48,9 +54,11 @@ public:
 private:
 	// Metodos
 	void MoveTrigger(Vector2D attackWH);
+	void MoveChargedEarthTrigger(Vector2D attackWH2);
 	bool attackEnemy(SDL_Rect& attackZone);
 	void spawnFireball();
 	void moveAttack(Transform* tr);
+	void moveChargedEarthAttack(Transform* tr, Transform* tr2);
 	void waterChargedAttack(SDL_Rect &trigger);
 
 	// Variables
@@ -66,7 +74,9 @@ private:
 	int triggerWidth;
 	int triggerHeight;
 	SDL_Rect trigger;
+	SDL_Rect trigger2;
 
+	bool chargedLight = false;
 	int waterDurationTimer; // timer duracion ataque de agua
 	int waterTickTimer = 0; // timer tick de agua
 	bool waterAttackActive;
@@ -76,5 +86,6 @@ private:
 	int colTrigger;
 	Entity* wAttack = nullptr; // Entidad ataque de agua
 	Entity* tAttack = nullptr; // Entidad ataque de tierra
+	Entity* tAttack2 = nullptr; // Entidad ataque tierra cargado
 };
 

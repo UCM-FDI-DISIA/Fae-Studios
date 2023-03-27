@@ -48,6 +48,7 @@ public:
 	inline void setRotation(float r) { rotation += r; };
 	inline Vector2D getPosition() const { return position; };
 	inline Vector2D getInitialPosition() const { return initialPos; };
+	inline void setInitialPosition(Vector2D ini) { initialPos = ini; };
 	inline void setPosition(Vector2D newPos) { position = newPos; };
 	inline void setWidth(float w) { width = w; }
 	inline void setHeight(float h) { height = h; }

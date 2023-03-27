@@ -1,5 +1,6 @@
 #include "FadeOutAnimationComponent.h"
 #include "MapComponent.h"
+#include "Health.h"
 #include "../states/GameStateMachine.h"
 #include "../states/PlayState.h"
 
@@ -38,11 +39,26 @@ void FadeOutAnimationComponent::update() {
 
 void FadeOutAnimationComponent::startFadeIn() {
 	if (roomChange) {
+		auto enemies_ = static_cast<PlayState*>(stateMachine().currentState())->getEnemies();
+		for (auto it : enemies_[map_->getCurrentRoom()]) {
+			it->setActive(false);
+		}
+		auto interact = map_->getInteract();
+		for (int i = 0; i < interact.size(); ++i) {
+			for (auto ot : interact[i]) {
+				if (i != newMapRoom) ot->setActive(false);
+				else ot->setActive(true);
+			}
+		}
 		map_->setCurrentRoom(newMapRoom);
 		cam_->setBounds(map_->getCamBounds());
 		mngr_->getPlayer()->getComponent<Transform>()->setPosition(newPlayerPos);
 		mngr_->getPlayer()->getComponent<Transform>()->setScale(map_->getCurrentRoomScale());
 		cam_->setPos(newPlayerPos);
+		for (auto it : enemies_[newMapRoom]) {
+			it->setActive(true);
+		}
+		mngr_->getPlayer()->getComponent<Health>()->setDead(false);
 	}
 	else {
 		static_cast<PlayState*>(stateMachine().currentState())->endRest();
