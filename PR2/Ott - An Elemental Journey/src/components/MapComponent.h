@@ -90,7 +90,7 @@ private:
 	const int CHANGE_MAP_VECTOR_POS = 5;
 	const int POSITIONS_VECTOR_POS = 6;
 	
-	std::string currentMapKey = "earthMap";
+	std::string currentMapKey = "fireMap";
 
 	int realTileSize = 32;
 	int usedTileSize = 50;
