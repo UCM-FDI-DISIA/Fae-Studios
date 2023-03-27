@@ -73,6 +73,10 @@ void MapComponent::generateEnemies() {
                 it->getComponent<Destruction>()->setBoss(waterBoss);
             }
         }
+        else if (it.getClass() == "fireBoss")
+        {
+            //
+        }
     }
 
     auto enemies_ = game->getEnemies();
