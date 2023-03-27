@@ -385,7 +385,7 @@ bool PlayerAttack::attackEnemy(SDL_Rect& attackZone) {
 
 			attack = true;
 			// Hace da�o a enemigo dependiendo del elemento
-			m->getComponent<Health>()->recieveDamage(health_->getElement());
+			m->getComponent<Health>()->recieveDamage(health_->getElement(), false);
 			break;
 		}
 	}

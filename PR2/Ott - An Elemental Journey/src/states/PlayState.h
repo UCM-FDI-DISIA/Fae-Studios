@@ -91,7 +91,6 @@ public:
     }
     void handleInput() override;
 
-    inline MapComponent* getMap() { return map_; }
     inline Entity* getPlayer() { return player_; }
     inline Entity* getCamera() { return camera_; }
     inline Entity* getEarthBoss() { return earthBoss_; }
