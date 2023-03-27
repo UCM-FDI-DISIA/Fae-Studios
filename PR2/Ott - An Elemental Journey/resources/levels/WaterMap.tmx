@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="180" height="82" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="345">
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="180" height="82" tilewidth="32" tileheight="32" infinite="0" nextlayerid="10" nextobjectid="366">
  <tileset firstgid="1" source="Tiles_Agua_Bosque.tsx"/>
  <layer id="1" name="Capa de patrones 1" width="180" height="82">
   <data encoding="csv">
@@ -88,9 +88,17 @@
 </data>
  </layer>
  <objectgroup id="3" name="Ott">
-  <object id="215" name="Ott" class="0" x="1920" y="326.667" width="45.3333" height="32"/>
+  <object id="215" name="Ott" class="0" x="1507.88" y="66.0609" width="45.3333" height="32"/>
  </objectgroup>
- <objectgroup id="5" name="Salas">
+ <objectgroup id="9" name="Agua">
+  <object id="351" name="0" class="Activo" x="1472" y="192" width="964" height="544"/>
+  <object id="352" name="0" class="Activo" x="1280" y="608" width="192" height="128"/>
+  <object id="354" name="12" class="Activo" x="0" y="447.03" width="1280" height="2176.97"/>
+  <object id="359" name="4" class="Activo" x="4480" y="1600" width="1376" height="864"/>
+  <object id="363" name="3" class="Activo" x="4648" y="128" width="1184" height="796"/>
+  <object id="364" name="5" class="Activo" x="2432" y="1540" width="2048" height="892"/>
+ </objectgroup>
+ <objectgroup id="5" name="Salas" visible="0">
   <object id="220" name="0" class="1.2" x="1119.5" y="24" width="896" height="652"/>
   <object id="224" name="1" class="1.2" x="2054.67" y="12.6667" width="864" height="512"/>
   <object id="226" name="2" class="1.4" x="2708" y="504" width="992" height="544"/>
@@ -107,7 +115,7 @@
  </objectgroup>
  <objectgroup id="6" name="Objetos Interactuables" visible="0"/>
  <objectgroup id="7" name="Enemigos" visible="0"/>
- <objectgroup id="2" name="Colisiones" class="Ground">
+ <objectgroup id="2" name="Colisiones" class="Ground" visible="0">
   <object id="7" name="0" class="Ground" x="1166.67" y="4.66667" width="324" height="200"/>
   <object id="10" name="0" class="Ground" x="1160" y="206.667" width="100.667" height="314"/>
   <object id="11" name="12" class="Ground" x="148.667" y="272.667" width="1004" height="56"/>
@@ -287,7 +295,7 @@
   <object id="306" name="12" class="Ground" x="1077.34" y="1135.83" width="70.666" height="24.9996"/>
   <object id="307" name="12" class="Ground" x="1108" y="1170.5" width="34.666" height="24.9996"/>
  </objectgroup>
- <objectgroup id="8" name="Triggers">
+ <objectgroup id="8" name="Triggers" visible="0">
   <object id="313" name="0_1" class="01" x="2026" y="208" width="30" height="92"/>
   <object id="315" name="1_0" class="01" x="2093" y="205.333" width="30" height="92"/>
   <object id="317" name="1_2" class="12" x="2712.17" y="496.5" width="170.333" height="19.3333"/>
