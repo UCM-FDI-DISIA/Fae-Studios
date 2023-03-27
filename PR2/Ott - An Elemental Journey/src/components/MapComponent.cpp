@@ -98,25 +98,7 @@ MapComponent::MapComponent(Entity* fadeOut, PlayState* game) : fadeOut(fadeOut),
         waterObjects.push_back({});
     }
 
-<<<<<<< Updated upstream
     tilemap = &sdlutils().images().at(sdlutils().levels().at(currentLevel).tileset);
-=======
-MapComponent::MapComponent(Entity* fadeOut, PlayState* game, int currentMap) : fadeOut(fadeOut), game(game), currentMap(currentMap) {
-    int n = 20;
-    vectorObjects.reserve(n);
-    vectorTiles.reserve(6);
-    for (int i = 0; i < n; ++i) {
-        vectorObjects.push_back({});
-        vectorTiles.push_back({});
-        interact.push_back({});
-    }
-    mapKeys.reserve(ecs::LAST_MAP_ID);
-    for (int i = 0; i < ecs::LAST_MAP_ID; ++i) {
-        mapKeys.push_back({});
-    }
-    currentMapKey = "waterMap";
-    tilemap = &sdlutils().images().at(sdlutils().levels().at(currentMapKey).tileset);
->>>>>>> Stashed changes
 }
 
 void MapComponent::initComponent() {
