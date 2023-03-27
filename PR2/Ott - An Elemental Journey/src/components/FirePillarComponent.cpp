@@ -25,8 +25,11 @@ void FirePillarComponent::update()
 	}
 	Entity* p = mngr_->getPlayer();
 	SDL_Rect r1 = p->getComponent<Transform>()->getRect(); SDL_Rect r2 = tr->getRect();
-	if (SDL_HasIntersection(&r1, &r2)) {
-		p->getComponent<Health>()->recieveDamage(ecs::Fire);
+	SDL_Rect r3;
+	if (SDL_IntersectRect(&r1, &r2, &r3)) {
+		bool dir = true;
+		if (r3.x + r3.w > r2.x + r2.w / 2) dir = false;
+		p->getComponent<Health>()->recieveDamage(ecs::Fire,dir);
 	}
 	std::cout << ent_->getComponent<FramedImage>()->getCurrentCol() << std::endl;
 	int c = ent_->getComponent<FramedImage>()->getCurrentCol();

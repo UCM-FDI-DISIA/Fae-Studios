@@ -63,7 +63,7 @@ void FireBossComponent::startSpecialAttack()
 {
 	Vector2D pPos = player->getComponent<Transform>()->getPosition();
 	if (abs(pPos.getY() - ent_->getComponent<Transform>()->getPosition().getY()) > ent_->getComponent<Transform>()->getHeight()) {
-		spawnPillars();
+		//spawnPillars();
 	}
 	else { ambushing = true; combo = true; currentCombo = comboN; comboTimer = SDL_GetTicks(); }
 	
@@ -131,7 +131,9 @@ void FireBossComponent::ambush()
 	if (interseccion)
 	{
 		collided = true;
-		playerH->recieveDamage(ecs::Fire); 
+		bool dir = true;
+		if (collision.x + collision.w > collider.x + collider.w / 2) dir = false;
+		playerH->recieveDamage(ecs::Fire,dir); 
 		//fAnim_->setState(ATTACK_FIREBOSS);
 	}
 	//wall

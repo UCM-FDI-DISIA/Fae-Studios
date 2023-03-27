@@ -225,7 +225,7 @@
   <object id="138" name="1_2_left" class="Mushroom" x="2049" y="1158.33" width="54" height="58.6667"/>
   <object id="139" name="1_3_right" class="Mushroom" x="1623" y="1046" width="63" height="73"/>
   <object id="140" name="1_3_right" class="Mushroom" x="1616" y="549" width="55" height="60.5"/>
-  <object id="164" name="bossFuego" class="bossFuego" x="4452" y="1018" width="36" height="62"/>
+  <object id="164" name="5_3_left" class="fireBoss" x="4456" y="888" width="36" height="62"/>
  </objectgroup>
  <objectgroup id="4" name="Objetos interactuables" visible="0">
   <object id="75" name="1" class="Sanctuary_11" x="1570" y="2149" width="116" height="5.5"/>

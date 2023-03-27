@@ -73,6 +73,11 @@ void MapComponent::generateEnemies() {
                 it->getComponent<Destruction>()->setBoss(waterBoss);
             }
         }
+        else if (it.getClass() == "fireBoss")
+        {
+            auto fBoss= constructors::FireBoss(mngr_, x_ * scale * roomScale, y_ * scale * roomScale);
+
+        }
     }
 
     auto enemies_ = game->getEnemies();

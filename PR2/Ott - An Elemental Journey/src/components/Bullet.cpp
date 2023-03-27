@@ -6,6 +6,7 @@
 #include <SDL.h>
 #include "../states/GameStateMachine.h"
 #include "../states/PlayState.h"
+#include "FireBossComponent.h"
 
 void Bullet::initComponent()
 {
@@ -23,8 +24,18 @@ void Bullet::update()
         SDL_Rect trigger = tr->getRect();
         auto enemiesGrp = mngr_->getEntities(ecs::_grp_CHARACTERS);
         for (auto e : enemiesGrp) {
-            SDL_Rect rect = e->getComponent<PhysicsComponent>()->getCollider();
+            auto pComponent = e->getComponent<PhysicsComponent>();
+            auto fBossComponent = e->getComponent<FireBossComponent>();
+            SDL_Rect rect;
             SDL_Rect result;
+            if (fBossComponent== nullptr)
+            {
+                rect = pComponent->getCollider();
+            }
+            else
+            {
+                rect = e->getComponent<Transform>()->getRect();
+            }
             if (e != instigator && SDL_IntersectRect(&rect, &trigger, &result)) {
                 bool dir = true;
                 if (result.x + result.w > rect.x + rect.w / 2) dir = false;
