@@ -8,6 +8,7 @@
 #include "../states/PlayState.h"
 #include "../states/GameStateMachine.h"
 #include "InteractionComponent.h"
+#include "ShieldComponent.h"
 
 void Health::die()
 {
@@ -50,14 +51,19 @@ bool Health::recieveDamage(ecs::elements el, bool dir)
 	if (ent_->hasComponent<PlayerAnimationComponent>()) {
 		if (pAnim_->isInvincible()) return false;
 		pAnim_->playerDamaged();
+		//si dir == true, knockback derecha
 		ent_->getComponent<PhysicsComponent>()->knockback(dir);
 		//if() Añadir daño dependiendo de la entidad
 		int damage = elementsInfo::ottMatrix[el][elem];
-		actualLife -= damage;
-		if (damage == 0) {
-			if (image->setWeak()) damage = 1;
+
+		if (ent_->getComponent<ShieldComponent>()->hasShield()) damage = ent_->getComponent<ShieldComponent>()->checkDamage(damage, dir);
+		if (damage != -1) {
+			actualLife -= damage;
+			if (damage == 0) {
+				if (image->setWeak()) damage = 1;
+			}
+			image->damage(damage);
 		}
-		image->damage(damage);
 	}
 	else {
 		if (!dead) {

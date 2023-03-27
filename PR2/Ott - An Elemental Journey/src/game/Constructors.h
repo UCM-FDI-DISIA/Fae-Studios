@@ -42,6 +42,7 @@
 #include "../components/Pivot.h"
 #include "../components/Acceleration.h"
 #include "../components/WaterBossAnimationComponent.h"
+#include "../components/ShieldComponent.h"
 #include <string>
 #include <iostream>
 #include <functional>
@@ -254,6 +255,7 @@ namespace constructors {
 		player->addComponent<PlayerAttack>();
 		player->addComponent<AttackCharger>(5);
 		player->addComponent<PlayerInput>();
+		player->addComponent<ShieldComponent>();
 		pAnim->initComponent();
 		health->initComponent();
 		ph->createCollider();	

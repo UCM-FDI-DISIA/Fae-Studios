@@ -63,6 +63,7 @@ public:
     void changeElement(ecs::elements newElem);
     inline void shielded(bool b) { isShielded = b; }
     inline void setLookingRight(bool l) { lookingRight = l; }
+    inline bool getLookingRight() const { return lookingRight; }
     constexpr static ecs::cmpId_type id = ecs::_IMAGE;
 private:
     Transform* tr_;

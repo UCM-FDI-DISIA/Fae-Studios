@@ -91,9 +91,9 @@ public:
 		Mix_HaltChannel(channel);
 	}
 
-	inline static void fadeOutChannel(int miliseconds, int channel = -1) {
-		_CHECK_CHANNEL_(channel);
-		Mix_FadeOutChannel(channel, miliseconds);
+	inline static void fadeOutChannel(int miliseconds, int group = -1) {
+		//_CHECK_CHANNEL_(channel);
+		Mix_FadeOutGroup(group, miliseconds);
 	}
 
 	inline static int setChannelVolume(int volume, int group = -1) {

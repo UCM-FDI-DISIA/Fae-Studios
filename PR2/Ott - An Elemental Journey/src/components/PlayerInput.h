@@ -10,6 +10,7 @@
 #include "FramedImage.h"
 #include "PlayerAttack.h"
 #include "AttackCharger.h"
+#include "ShieldComponent.h"
 
 class PlayerInput : public Component {
 public:
@@ -75,6 +76,8 @@ private:
 	PlayerAttack* attack_;
 	FramedImageOtt* image_;
 	Health* health_;
+	ShieldComponent* shield_;
+
 	float horizontalSpeed = 0;
 	int attackTimer, chargedAttackTime = 1;
 	bool attack = false;

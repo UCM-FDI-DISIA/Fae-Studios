@@ -49,6 +49,7 @@ namespace ecs {
         _WATER_ATTACK_ANIM,
         _GET_ELEMENT,
         _LIFESHARDANIM,
+        _SHIELD,
 
         _LAST_CMP_ID
     };

@@ -16,6 +16,7 @@ void PlayerInput::initComponent()
 	attack_ = ent_->getComponent<PlayerAttack>();
 	image_ = ent_->getComponent<FramedImageOtt>();
 	health_ = ent_->getComponent<Health>();
+	shield_ = ent_->getComponent<ShieldComponent>();
 	horizontalSpeed = physics_->getHorizontalSpeed();
 }
 
@@ -64,10 +65,11 @@ void PlayerInput::update()
 				if (input->isKeyDown(SDLK_z))
 				{
 					//Defensa
-					image_->shielded(true);
-					physics_->slowed();
+					//image_->shielded(true);
+					//physics_->slowed();
+					shield_->takeShield();
 				}
-				if (input->isKeyJustDown(SDLK_e) && anim_->getState() != ATTACK && !attack) {
+				if (input->isKeyJustDown(SDLK_e) && anim_->getState() != ATTACK && !attack && !shield_->hasShield()) {
 					//Ataque
 					attack = true;
 					attackTimer = SDL_GetTicks();
@@ -150,7 +152,8 @@ void PlayerInput::update()
 			}
 			if (input->isKeyJustUp(SDLK_z)) {
 				//defend = false;
-				image_->shielded(false);
+				//image_->shielded(false);
+				shield_->guardShield();
 			}
 		}
 
