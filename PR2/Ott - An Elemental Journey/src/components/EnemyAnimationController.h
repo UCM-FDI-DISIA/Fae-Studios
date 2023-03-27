@@ -17,7 +17,7 @@ public:
 	constexpr static ecs::cmpId_type id = ecs::_ENEMYANIM;
 
 	EnemyAnimationComponent(anims::Entities e) : eAnims(e) {};
-	virtual ~EnemyAnimationComponent() {};
+	virtual ~EnemyAnimationComponent();
 	void initComponent();
 	virtual void update();
 	inline int getState() { return currentAnimation; }
@@ -29,6 +29,7 @@ public:
 	inline int getColNum(int i) { return anims::animations[eAnims][i].colNum; }
 	inline bool isDamaged() { return damaged; }
 	inline void damage() { damaged = true; }
+	inline void setPosInList(int pos, int room) { posInList = pos; roomNum = room; }
 
 private:
 	bool damaged = false;
@@ -38,6 +39,8 @@ private:
 	Health* health_;
 	EnemyMovement* eMovement_;
 	EnemyAttack* eAttack_;
+
+	int posInList, roomNum;
 
 	int damageTimer_, damageStartTime_, timer_ = 0;
 	const int maxDamagedTimer_ = 500, FRAME_ANIMATION_TIME = 6;

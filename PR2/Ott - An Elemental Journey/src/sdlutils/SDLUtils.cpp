@@ -98,7 +98,7 @@ void SDLUtils::initSDLExtensions() {
 	assert(imgInit_ret != 0);
 
 #ifdef _DEBUG
-	std::cout << "Initializing SEL_Mixer" << std::endl;
+	std::cout << "Initializing SDL_Mixer" << std::endl;
 #endif
 	// initialize SDL_Mixer
 	int mixOpenAudio = Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
@@ -119,7 +119,6 @@ void SDLUtils::loadReasources(std::string filename) {
 	// can exit the method in different ways, this way we guarantee that
 	// it is always deleted
 	std::unique_ptr<JSONValue> jValueRoot(JSON::ParseFromFile(filename));
-
 	// check it was loaded correctly
 	// the root must be a JSON object
 	if (jValueRoot == nullptr || !jValueRoot->IsObject()) {
@@ -283,11 +282,12 @@ void SDLUtils::loadReasources(std::string filename) {
 					int cols = vObj["cols"]->AsNumber();
 					std::string tileset = vObj["tileset"]->AsString();
 					std::string background = vObj["background"]->AsString();
+					std::string song = vObj["music"]->AsString();
 #ifdef _DEBUG
 					std::cout << "Loading level with id: " << id << std::endl;
 #endif
 
-					levels_.emplace(id, Mapa(file, cols, tileset, background));
+					levels_.emplace(id, Mapa(file, cols, tileset, background, song));
 				}
 				else throw "'levels' array in '" + filename + "' includes an invalid value";
 			}

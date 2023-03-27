@@ -130,4 +130,7 @@ public:
 	inline int getFrameWidth() const { return fw; };
 	inline int getFrameHeight() const { return fh; };
 
+	inline void setColor(const SDL_Color& c) { SDL_SetTextureColorMod(texture_, c.r, c.g, c.b); }
+	inline void setAlpha(int alpha) { SDL_SetTextureBlendMode(texture_, SDL_BLENDMODE_BLEND); SDL_SetTextureAlphaMod(texture_, alpha); }
+
 };

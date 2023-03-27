@@ -2,6 +2,7 @@
 #include "Transform.h"
 #include "PhysicsComponent.h"
 #include "EnemyAttack.h"
+#include "FramedImage.h"
 
 class Health;
 
@@ -13,6 +14,7 @@ private:
 	Transform* transform;
 	PhysicsComponent* playerCollider;
 	Health* health_;
+	FramedImage* image_;
 	EnemyAttack* eAttack_;
 	SDL_Rect trigger;
 
@@ -20,7 +22,7 @@ private:
 	bool canMove;
 	int nearDistance;
 	double turningOffset = 0.75; //A partir de aquí no entiendo, solo he ctrl c ctrl v
-	int turningError = 1;
+	int turningError = 3;
 	float horizontalSpeed = 1;
 	void MoveTriggers();
 	bool collided = false;

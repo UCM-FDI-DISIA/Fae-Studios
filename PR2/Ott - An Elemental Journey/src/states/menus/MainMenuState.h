@@ -10,9 +10,11 @@ private:
 	Uint8 animFrame = 0;
 	float animTime = 0;
     Entity* littleOtt;
+	bool playStateInit;
 
 public:
 	MainMenuState();
 	void update() final;
+	void changeResolution() override;
 };
 

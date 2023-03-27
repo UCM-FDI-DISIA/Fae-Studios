@@ -12,6 +12,8 @@ Texture& Texture::operator=(Texture &&other) noexcept {
 	height_ = other.height_;
 	fw = other.fw;
 	fh = other.fh;
+	numRows = other.numRows;
+	numCols = other.numCols;
 
 	return *this;
 }
@@ -25,6 +27,8 @@ Texture::Texture(Texture &&other) noexcept {
 	height_ = other.height_;
 	fw = other.fw;
 	fh = other.fh;
+	numRows = other.numRows;
+	numCols = other.numCols;
 }
 
 Texture::Texture(SDL_Renderer *renderer, const std::string &fileName) {

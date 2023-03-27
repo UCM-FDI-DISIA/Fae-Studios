@@ -41,11 +41,29 @@ add_executable(Ott
         "Ott - An Elemental Journey/src/components/SlimeAttack.cpp"
         "Ott - An Elemental Journey/src/components/SlimeStates.cpp"
         "Ott - An Elemental Journey/src/components/TestEnemyInput.cpp"
-
+        "Ott - An Elemental Journey/src/components/earthAnimationController.cpp"
+        "Ott - An Elemental Journey/src/components/EnemyContactDamage.cpp"
+        "Ott - An Elemental Journey/src/components/FadeOutAnimationComponent.cpp"
+        "Ott - An Elemental Journey/src/components/WaterAnimationController.cpp"
+        "Ott - An Elemental Journey/src/components/EarthBossAnimationController.cpp"
+        "Ott - An Elemental Journey/src/components/EarthBossAttack.cpp"
+        "Ott - An Elemental Journey/src/components/EarthBossManager.cpp"
+        "Ott - An Elemental Journey/src/components/EnterBossRoom.cpp"
+        "Ott - An Elemental Journey/src/components/FadeTransitionComponent.cpp"
+        "Ott - An Elemental Journey/src/components/Trigger.cpp"
+        "Ott - An Elemental Journey/src/components/VineManager.cpp"
+        "Ott - An Elemental Journey/src/components/ColliderVine.cpp"
+        "Ott - An Elemental Journey/src/components/Acceleration.cpp"
+        "Ott - An Elemental Journey/src/components/DamageArea.cpp"
+        "Ott - An Elemental Journey/src/components/Destruction.cpp"
+        "Ott - An Elemental Journey/src/components/LifeAnimationComponent.cpp"
+        "Ott - An Elemental Journey/src/components/Pivot.cpp"
+        "Ott - An Elemental Journey/src/components/WaterBossAnimationComponent.cpp"
 
         #ECS
         "Ott - An Elemental Journey/src/ecs/Manager.cpp"
         "Ott - An Elemental Journey/src/ecs/anims.cpp"
+        "Ott - An Elemental Journey/src/ecs/colliders.cpp"
 
         #GAME
         "Ott - An Elemental Journey/src/game/Game.cpp"
@@ -58,6 +76,7 @@ add_executable(Ott
         "Ott - An Elemental Journey/src/sdlutils/SDLUtils.cpp"
         "Ott - An Elemental Journey/src/sdlutils/Texture.cpp"
         "Ott - An Elemental Journey/src/sdlutils/SoundEffect.cpp"
+        "Ott - An Elemental Journey/src/sdlutils/Music.cpp"
 
         #STATES
         "Ott - An Elemental Journey/src/states/GameStateMachine.cpp"
@@ -67,6 +86,8 @@ add_executable(Ott
         "Ott - An Elemental Journey/src/states/menus/options/OptionsMenuState.cpp"
         "Ott - An Elemental Journey/src/states/menus/options/MusicOptionsMenuState.cpp"
         "Ott - An Elemental Journey/src/states/menus/options/ControlMenuState.cpp"
+        "Ott - An Elemental Journey/src/states/MapState.cpp"
+        "Ott - An Elemental Journey/src/states/menus/options/GraphicsOptionsMenuState.cpp"
 
         #UTILS
         "Ott - An Elemental Journey/src/utils/Collisions.cpp"

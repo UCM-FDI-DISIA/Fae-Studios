@@ -4,13 +4,16 @@
 #include "../utils/checkML.h"
 #include "../sdlutils/SDLUtils.h"
 #include "../sdlutils/InputHandler.h"
+#include "../sdlutils/SoundEffect.h"
 
 
 Game::Game() {
     //Creamos la ventana de SDL con el nombre, la altura y la anchura, y la ruta de assets correspondiente
     SDLUtils::init(WINDOW_NAME, WINDOW_WIDTH, WINDOW_HEIGHT, jsonRoute);
     sdlutils().showCursor(); //Mostramos el cursor
-    SoundEffect::setChannelVolume(10, -1); //Bajamos el volumen total del juego
+    sdlutils().toggleFullScreen(SDLUtils::WINDOWED);
+    SoundEffect::setNumberofChannels(32 * ecs::maxChannelId);
+    SoundEffect::groupChannels();
 }
 
 void Game::run() {
@@ -18,29 +21,6 @@ void Game::run() {
 
     uint32_t startTime, frameTime; //Nos guardaremos el tiempo entre frames y el tiempo en el que se inicia cada frame
     startTime = SDL_GetTicks();
-    /*
-
-    while(!exit) {
-
-        // Singleton que comprueba el estado de los eventos de SDL respecto al input (KEYDOWN, KEYUP, MOUSEBUTTON...)
-        
-
-        handleEvents(); //Manejamos los eventos
-        if (frameTime >= FRAME_RATE) {
-            InputHandler::instance()->refresh();
-            update(); //Actualizamos cada FRAME_RATE ticks
-            startTime = SDL_GetTicks();
-        }
-        render(); //Renderizamos los gameobjects
-        stateMachine->currentState()->refresh();
-        changeState(); //Se cambia de estado si es necesario
-    }
-    while (!exit) { //Una vez que hayamos perdido o ganado, se mostrará el gameover o win en pantalla hasta que cerremos el juego
-        SDL_RenderClear(renderer);
-        SDL_RenderPresent(renderer);
-        handleEvents();
-    }
-    */
 
     //BUCLE DE EJECUCIÓN DEL JUEGO
     while (!exit) {

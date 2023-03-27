@@ -27,8 +27,6 @@ void FramedImage::render() {
 		rect.y -= camera.y;
 	}
 
-	SDL_RendererFlip flip = SDL_FLIP_NONE;
-	if (physics != nullptr && !physics->getLookDirection()) flip = SDL_FLIP_HORIZONTAL;
 	texture->renderFrame(rect, currentRow, currentCol, transform->getRotation(), flip);
 }
 
@@ -50,6 +48,7 @@ void FramedImage::initComponent() {
 void FramedImageOtt::initComponent()
 {
 	tr_ = ent_->getComponent<Transform>();
+	pAnim = ent_->getComponent<PlayerAnimationComponent>();
 	shieldTex_ = &sdlutils().images().at("shield");
 	auto camera = mngr_->getCamera();
 	if (camera != nullptr) {
@@ -64,12 +63,13 @@ void FramedImageOtt::initComponent()
 
 void FramedImageOtt::render()
 {
+	if (pAnim->getState() == DIE) std::cout << col << std::endl;
 	SDL_Rect dest; dest.x = tr_->getPosition().getX(); dest.y = tr_->getPosition().getY();
 	dest.w = tr_->getWidth(); dest.h = tr_->getHeight();
 	auto camCmpt = cam->camera;
 	dest.x -= camCmpt.x;
 	dest.y -= camCmpt.y;
-	//if (pAnim_->isInvincible() && SDL_GetTicks() % 2 == 0) return;
+	if (pAnim->isInvincible() && SDL_GetTicks() % 2 == 0 && pAnim->getState() != DIE) return;
 	bool lookRight = true;
 	SDL_RendererFlip flip = SDL_FLIP_NONE;
 	if (physics != nullptr) {
@@ -77,7 +77,7 @@ void FramedImageOtt::render()
 		if (!lookRight) flip = SDL_FLIP_HORIZONTAL;
 	}
 	//int state = pAnim_->getState();
-
+	if (pAnim->getState() != DIE && ent_->getComponent<Health>()->isDead()) { row = pAnim->getRowNum(DIE); col = 7; }
 	tex_->renderFrame(dest, row, col, 0, flip);
 
 	if (isShielded) { // esto habría que cambiarlo de alguna forma, me parece feo que se ponga aquí
@@ -96,15 +96,19 @@ void FramedImageOtt::changeElement(ecs::elements newElem)
 {
 	if (newElem == ecs::Light) {
 		tex_ = &sdlutils().images().at("ott_luz");
+		shieldTex_ = &sdlutils().images().at("shield");
 	}
 	else if (newElem == ecs::Earth) {
 		tex_ = &sdlutils().images().at("ott_tree");
+		shieldTex_ = &sdlutils().images().at("earthShield");
 	}
 	else if (newElem == ecs::Water) {
 		tex_ = &sdlutils().images().at("ott_water");
+		shieldTex_ = &sdlutils().images().at("waterShield");
 	}
 	else if (newElem == ecs::Fire) {
 		tex_ = &sdlutils().images().at("ott_fire");
+		shieldTex_ = &sdlutils().images().at("fireShield");
 	}
 }
 

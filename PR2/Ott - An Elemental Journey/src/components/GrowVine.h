@@ -1,6 +1,7 @@
 //LIMPIO
 
 #pragma once
+#include <string>
 #include "../ecs/Component.h"
 #include "../utils/Vector2D.h"
 #include "../ecs/Entity.h"
@@ -8,19 +9,24 @@
 #include "Transform.h"
 #include "ColliderVine.h"
 
-class GrowVine : public Component {
+class GrowVine : public Component
+{
 private:
+	Vector2D posIni;
 	Vector2D posFinalT;
-	Vector2D posFinalC;
-	ColliderVine* cl_;
 	Transform* tr_;
-
+	std::string orientation;
+	bool goesBack;
+	bool reached = false;
+	int speed;
+	int dir;
+	bool grow = true;
 public:
+	GrowVine(Vector2D posT, int s, int d, std::string o, bool back) : posFinalT(posT), speed(s), dir(d), orientation(o), goesBack(back), tr_(nullptr) {
+	}
+	virtual ~GrowVine() {}
 	constexpr static ecs::cmpId_type id = ecs::_GROWVINE;
-	
-	GrowVine(Vector2D posT, Vector2D posC) : posFinalT(posT), posFinalC(posC), tr_(nullptr), cl_(nullptr) {}
-	
 	void initComponent() override;
 	void update() override;
+	void isGrowing(bool g) { grow = g; }
 };
-

@@ -10,9 +10,14 @@ private:
 	int maxLife, actualLife;
 	ecs::elements elem;
 	Entity* lastSanctuary = nullptr;
+	int sanctuaryID;
 	HealthImage* image;
 	PlayerAnimationComponent* pAnim_;
+	std::string lifeShardIDs = " ";
 	bool dead = false;
+	int numShards = 0;
+	inline void increaseMaxLife() { maxLife++; actualLife = maxLife; image->increaseLife(); };
+
 public:
 	constexpr static ecs::cmpId_type id = ecs::_HEALTH;
 	Health(int h, ecs::elements e, bool player = false) : Component(), elem(e) {
@@ -23,11 +28,13 @@ public:
 	void die();
 	virtual void initComponent();
 	//Este te lleva al santuario
-	void recall();
+	void recall(bool rest = false);
 	inline bool isDead() { return dead; }
-	bool recieveDamage(ecs::elements el);
+	inline void setDead(bool dead) { this->dead = dead; }
+	bool recieveDamage(ecs::elements el, bool dir);
 	inline int getHealth() { return actualLife; }
 	inline int getMaxHealth() { return maxLife; }
+	inline std::string getLifeShardIDs() { return lifeShardIDs; }
 	inline ecs::elements getElement() { return elem; }
 	inline void setElement(int newElem) {
 		switch (newElem)
@@ -38,7 +45,17 @@ public:
 		case 3: elem = ecs::Fire; break;
 		default: break;
 		}
+		image->changeElement(elem);
 	}
-	void saveSactuary();
+	void saveSactuary(Entity* sanct);
+	inline int getSanctuaryID() { return sanctuaryID; }
+	inline void setSanctuary(Entity* lastS) { lastSanctuary = lastS; }
+	inline void addLifeShard(int id) { numShards++; if (numShards > 1 && numShards % 2 == 0) increaseMaxLife(); 
+	lifeShardIDs += (std::to_string(id) + " "); }
+
+
+	virtual void saveToFile(std::ofstream& file);
+	virtual void loadFromFile(std::ifstream& file);
+	
 };
 
