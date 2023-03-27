@@ -99,7 +99,10 @@ namespace ecs {
         _channel_ALERTS = 3,
         _channel_ENEMY_SLIME = 4,
         _channel_ENEMY_MELEE = 5,
-        _channel_EARTH_BOSS = 6,
+        _channel_ENEMY_RANGE = 6,
+        _channel_EARTH_BOSS = 7,
+        _channel_WATER_BOSS = 8,
+        _channel_FIRE_BOSS = 9,
 
         _LAST_CHANNEL_ID
     };

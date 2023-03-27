@@ -127,7 +127,8 @@
 	  {"id" :  "fire_boss_fight", "file" :  "../resources/music/minotaur.wav"},
 	  {"id" :  "water_boss_fight", "file" :  "../resources/music/boss_agua.wav"},
 	  {"id" :  "earth_boss_fight", "file" :  "../resources/music/gusano.wav"},
-	  {"id" :  "water_level", "file" :  "../resources/music/mundo_agua.wav"}
+	  {"id" :  "water_level", "file" :  "../resources/music/mundo_agua.wav"},
+	  {"id" :  "fire_level", "file" :  "../resources/music/fuego.wav"}
   ],
   
   "maps": [

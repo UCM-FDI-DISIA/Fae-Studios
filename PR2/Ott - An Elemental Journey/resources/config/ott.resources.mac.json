@@ -85,25 +85,25 @@
 		{
 			"id": "ott_luz",
 			"file": "../Ott - An Elemental Journey/resources/images/tests/Ott_Luz.png",
-			"rows": 11,
+			"rows": 10,
 			"cols": 8
 		},
 		{
 			"id": "ott_tree",
 			"file": "../Ott - An Elemental Journey/resources/images/tests/Ott_Tree.png",
-			"rows": 11,
+			"rows": 10,
 			"cols": 8
 		},
 		{
 			"id": "ott_water",
 			"file": "../Ott - An Elemental Journey/resources/images/tests/Ott_Water.png",
-			"rows": 11,
+			"rows": 10,
 			"cols": 8
 		},
 		{
 			"id": "ott_fire",
 			"file": "../Ott - An Elemental Journey/resources/images/tests/Ott_Fire.png",
-			"rows": 11,
+			"rows": 10,
 			"cols": 8
 		},
 		{
@@ -428,7 +428,8 @@
 		{"id" :  "fire_boss_fight", "file" :  "../Ott - An Elemental Journey/resources/music/minotaur.wav},
 		{"id" :  "water_boss_fight", "file" :  "../Ott - An Elemental Journey/resources/music/boss_agua.wav},
 		{"id" :  "earth_boss_fight", "file" :  "../Ott - An Elemental Journey/resources/music/gusano.wav},
-		{"id" :  water_level", "file" :  "../Ott - An Elemental Journey/resources/music/mundo_agua.wav}
+		{"id" :  water_level", "file" :  "../Ott - An Elemental Journey/resources/music/mundo_agua.wav},
+		{"id" :  fire_level", "file" :  "../Ott - An Elemental Journey/resources/music/fuego.wav}
 	],
 
 	"maps": [

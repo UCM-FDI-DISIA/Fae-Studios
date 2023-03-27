@@ -57,7 +57,7 @@ public:
 		int channel = returnFreeChannel(group);
 		_CHECK_CHANNEL_(channel);
 		assert(loops >= -1);
-		if (Mix_GetChunk(Mix_GroupNewer(group)) == chunk_) return -1;
+		if (Mix_GetChunk(Mix_GroupNewer(group)) == chunk_ || Mix_GetChunk(Mix_GroupOldest(group)) == chunk_) return -1;
 		else return Mix_PlayChannel(channel, chunk_, loops);
 	}
 
@@ -65,7 +65,7 @@ public:
 		int channel = returnFreeChannel(group);
 		_CHECK_CHANNEL_(channel);
 		assert(loops >= -1);
-		if (Mix_GetChunk(Mix_GroupNewer(group)) == chunk_) return -1;
+		if (Mix_GetChunk(Mix_GroupNewer(group)) == chunk_ || Mix_GetChunk(Mix_GroupOldest(group)) == chunk_) return -1;
 		return Mix_PlayChannelTimed(channel, chunk_, loops, miliseconds);
 	}
 
@@ -96,13 +96,21 @@ public:
 		Mix_FadeOutChannel(channel, miliseconds);
 	}
 
-	inline static int setChannelVolume(int volume, int channel = -1) {
-		_CHECK_CHANNEL_(channel);
+	inline static int setChannelVolume(int volume, int group = -1) {
 		float v = convertVolumeToSDLMixerValue(volume);
 		assert(v >= 0 && v <= 128);
+		volumesOfChannels[group] = v;
+		for (int i = (group * 32); i < (group + 1) * 32; ++i) {
+			_CHECK_CHANNEL_(i);
+			return Mix_Volume(i, v);
+		}
+	}
 
-		volumesOfChannels[channel] = v;
-		return Mix_Volume(channel, v);
+	inline static int setMasterVolume(int volume) {
+		float v = convertVolumeToSDLMixerValue(volume);
+		assert(v >= 0 && v <= 128);
+		masterVolume = v;
+		return Mix_MasterVolume(v);
 	}
 
     inline static bool isSoundBeingPlayed(int channel = -1) {
@@ -113,6 +121,10 @@ public:
 	inline static float getChannelVolume(int channel = -1) {
 		_CHECK_CHANNEL_(channel);
 		return convertSDLMixerValueToVolume(volumesOfChannels[channel]);
+	}
+
+	inline static int getMasterVolume() {
+		return convertSDLMixerValueToVolume(masterVolume);
 	}
 
 	inline static float getGeneralSoundsVolume() {
@@ -128,6 +140,7 @@ public:
 	inline static int setNumberofChannels(int n) {
 		assert(n > 0);
 		return channels_ = Mix_AllocateChannels(n);
+
 	}
 
 	inline static int getNumberOfChannels() {
@@ -153,5 +166,6 @@ private:
 
 	static std::unordered_map<int, int> volumesOfChannels;
 	static int generalSoundsVolume;
+	static int masterVolume;
 };
 

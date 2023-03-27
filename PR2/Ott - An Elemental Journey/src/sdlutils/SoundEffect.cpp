@@ -5,6 +5,7 @@
 
 int SoundEffect::channels_ = 0;
 int SoundEffect::generalSoundsVolume = SDL_MIX_MAXVOLUME;
+int SoundEffect::masterVolume = SDL_MIX_MAXVOLUME;
 
 std::unordered_map<int, int> SoundEffect::volumesOfChannels = { 
 	{ecs::_channel_UI, SDL_MIX_MAXVOLUME}, 

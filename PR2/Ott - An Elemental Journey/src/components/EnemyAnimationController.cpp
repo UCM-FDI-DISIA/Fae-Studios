@@ -70,7 +70,12 @@ void EnemyAnimationComponent::update() {
 		break;
 	case anims::MELEE_ANIM:
 		if (currentAnimation == WALK_ENEMY) sdlutils().soundEffects().at("menemy_step").play(0, ecs::_channel_ENEMY_MELEE);
+		break;
+	case anims::RANGE_ANIM:
+		if(currentAnimation == ATTACK_ENEMY) sdlutils().soundEffects().at("fireball").play(0, ecs::_channel_ENEMY_RANGE);
+		break;
 	}
+
 }
 
 void EnemyAnimationComponent::endAnim() {
