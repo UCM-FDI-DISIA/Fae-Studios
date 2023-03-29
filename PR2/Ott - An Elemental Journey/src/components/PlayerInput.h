@@ -10,63 +10,36 @@
 #include "FramedImage.h"
 #include "PlayerAttack.h"
 #include "AttackCharger.h"
-#include "ShieldComponent.h"
-
+#include "BossDoor.h"
 class PlayerInput : public Component {
 public:
 	PlayerInput();
 	virtual ~PlayerInput();
 	virtual void initComponent();
 	virtual void update();
-
-	virtual void saveToFile(std::ofstream& file);
-	virtual void loadFromFile(std::ifstream& file);
 	constexpr static ecs::cmpId_type id = ecs::_CTRL;
-	
 	inline void unlockElement(ecs::elements elem) {
 		switch (elem)
 		{
 		case ecs::Earth:
 			earth = true;
-			selectedEarth = true;
-			selectedWater = false;
-			selectedFire = false;
-			selectedLight = false;
+			bossDoor->unlockElem(ecs::Earth);
 			break;
 		case ecs::Water:
 			water = true;
-			selectedEarth = false;
-			selectedWater = true;
-			selectedFire = false;
-			selectedLight = false;
+			bossDoor->unlockElem(ecs::Water);
 			break;
 		case ecs::Fire:
 			fire = true;
-			selectedEarth = false;
-			selectedWater = false;
-			selectedFire = true;
-			selectedLight = false;
+			bossDoor->unlockElem(ecs::Fire);
 			break;
 		default:
 			break;
 		}
-		sdlutils().soundEffects().at("pick_elem").play(0, ecs::_channel_ALERTS);
 	};
-	inline bool hasElement(ecs::elements elem) {
-		switch (elem)
-		{
-		case ecs::Earth:
-			return earth;
-			break;
-		case ecs::Water:
-			return water;
-			break;
-		case ecs::Fire:
-			return fire;
-			break;
-		default:
-			break;
-		}
+	inline void getDoor(Entity* door)
+	{
+		bossDoor = door->getComponent<BossDoor>();
 	}
 
 private:
@@ -76,14 +49,11 @@ private:
 	PlayerAttack* attack_;
 	FramedImageOtt* image_;
 	Health* health_;
-	ShieldComponent* shield_;
-
+	BossDoor* bossDoor=nullptr;
 	float horizontalSpeed = 0;
 	int attackTimer, chargedAttackTime = 1;
 	bool attack = false;
-	bool earth = false, water = false, fire = false;
-	bool selectedEarth = false, selectedWater = false, selectedFire = false, selectedLight = true;
-	bool openingMap = false;
+	bool earth = false, water = true, fire = false;
 };
 
 

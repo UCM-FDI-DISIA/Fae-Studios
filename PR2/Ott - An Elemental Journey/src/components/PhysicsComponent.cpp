@@ -101,12 +101,11 @@ void PhysicsComponent::jump() {
 	}
 }
 
-void PhysicsComponent::knockback(bool dir) {
+void PhysicsComponent::knockback() {
 	if (!stopped) {
 		isKnockback = true;
-
 		int kckbDir = 1;
-		if (!dir) kckbDir = -1;
+		if (lookingRight) kckbDir = -1;
 		velocity_ = velocity_ + Vector2D(kckbDir * X_KNOCKBACK_FORCE, 0);
 	}
 }

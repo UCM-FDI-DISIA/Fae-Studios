@@ -29,14 +29,14 @@ public:
     /// \param state Estado de juego
 	void changeState(GameState* state);
 
-    void resetStack();
+    void changeAllStatesFor(GameState* state);
 
     /// Devuelve el estado de juego, aprovechando que siempre va a estar, y que va a estar al fondo de la pila
     /// \return Puntero al estado de juego
     GameState* getPlayState() const {return stateStack.back();}
 
     /// Quita el último estado que ha entrado a la pila
-	void popState(bool deleting = false);
+	void popState();
 
     /// Comprueba si la pila está vacía
 	bool empty();

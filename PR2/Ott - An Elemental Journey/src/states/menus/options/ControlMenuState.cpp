@@ -17,11 +17,9 @@ ControlMenuState::ControlMenuState() : MenuState() {
     fade = mngr_->addEntity(ecs::_grp_FADEOUT);
     fade->addComponent<FadeTransitionComponent>(true);
 
-    pos = Vector2D(sdlutils().getWindowDimensions().getX() / 2, 2*sdlutils().getWindowDimensions().getY() / 5);
-    size = Vector2D(3 * sdlutils().getWindowDimensions().getX() / 5, 4 * sdlutils().getWindowDimensions().getY() / 7);
-    auto img = constructors::image(mngr_, pos, size, &sdlutils().images().at("controls"));
-    Vector2D npos = pos - size / 2;
-    img->getComponent<Transform>()->setPosition(npos);
+    pos = Vector2D(sdlutils().getWindowDimensions().getX() / 2, sdlutils().getWindowDimensions().getY() / 2);
+    size = Vector2D(3 * sdlutils().width() / 5, 4 * sdlutils().height() / 7);
+    constructors::image(mngr_, pos, size, &sdlutils().images().at("whitebackground"));
     
     pos = Vector2D(sdlutils().getWindowDimensions().getX() / 2, 6 * sdlutils().getWindowDimensions().getY() / 7);
     constructors::button(mngr_, pos, "Volver", sdlutils().fonts().at("vcr_osd48"), [this]() {

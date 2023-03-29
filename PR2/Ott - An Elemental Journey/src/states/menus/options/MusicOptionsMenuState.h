@@ -4,12 +4,10 @@
 
 class MusicOptionsMenuState : public MenuState {
 private:
+	void generalVolume(int value);
 	void musicVolume(int value);
+	void soundsVolume(int value);
 	void uiVolume(int value);
-	void playerVolume(int value);
-	void enemiesVolume(int value);
-	void miscVolume(int value);
-	void masterVolume(int value);
 
 public:
 	MusicOptionsMenuState();

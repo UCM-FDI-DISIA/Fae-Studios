@@ -5,8 +5,7 @@
 #include <SDL.h>
 #include "Transform.h"
 
-
-enum Animations { IDLE, WALK, RUN, JUMP_UP, PEAK, FALL, LAND, VANISH, DIE, ATTACK, OPEN_MAP, CLOSE_MAP, CLIMB };
+enum Animations { IDLE, WALK, RUN, JUMP_UP, PEAK, FALL, LAND, VANISH, DIE, ATTACK };
 
 class FramedImageOtt;
 class Health;

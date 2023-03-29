@@ -5,7 +5,6 @@
 #include "../../../game/Constructors.h"
 #include "../../../components/FadeTransitionComponent.h"
 #include "../../../sdlutils/SoundEffect.h"
-#include "../../../sdlutils/Music.h"
 
 MusicOptionsMenuState::MusicOptionsMenuState() : MenuState() {
 	Vector2D pos;
@@ -15,33 +14,23 @@ MusicOptionsMenuState::MusicOptionsMenuState() : MenuState() {
 	fade->addComponent<FadeTransitionComponent>(true);
 		
 	pos = Vector2D(sdlutils().getWindowDimensions().getX() / 4, 2 * sdlutils().getWindowDimensions().getY() / 9);
-	constructors::slider(mngr_, pos, "Volumen general de sonidos", 0.0f, 100.0f, SoundEffect::getMasterVolume() , [this](int v) {
-		masterVolume(v);
+	constructors::slider(mngr_, pos, "Volumen general", 0.0f, 100.0f, 100.0f, [this](int v) {
+		generalVolume(v);
 	});
-	
+
 	pos = Vector2D(sdlutils().getWindowDimensions().getX() / 4, 4 * sdlutils().getWindowDimensions().getY() / 9);
-	constructors::slider(mngr_, pos, "Música", 0.0f, 100.0f, Music::getMusicVolume(), [this](int v) {
+	constructors::slider(mngr_, pos, "Música", 0.0f, 100.0f, 100.0f, [this](int v) {
 		musicVolume(v);
 	});
 
 	pos = Vector2D(sdlutils().getWindowDimensions().getX() / 4, 6 * sdlutils().getWindowDimensions().getY() / 9);
-	constructors::slider(mngr_, pos, "Interfaz", 0.0f, 100.0f, SoundEffect::getChannelVolume(ecs::_channel_UI), [this](int v) {
-		uiVolume(v);
+	constructors::slider(mngr_, pos, "Sonido general", 0.0f, 100.0f, 100.0f, [this](int v) {
+		soundsVolume(v);
 	});
 
 	pos = Vector2D(3 * sdlutils().getWindowDimensions().getX() / 4, 2 * sdlutils().getWindowDimensions().getY() / 9);
-	constructors::slider(mngr_, pos, "Jugador", 0.0f, 100.0f, SoundEffect::getChannelVolume(ecs::_channel_PLAYER), [this](int v) {
-		playerVolume(v);
-	});
-
-	pos = Vector2D(3 * sdlutils().getWindowDimensions().getX() / 4, 4 * sdlutils().getWindowDimensions().getY() / 9);
-	constructors::slider(mngr_, pos, "Enemigos", 0.0f, 100.0f, SoundEffect::getChannelVolume(ecs::_channel_ENEMY_SLIME), [this](int v) {
-		enemiesVolume(v);
-	});
-
-	pos = Vector2D(3 * sdlutils().getWindowDimensions().getX() / 4, 6 * sdlutils().getWindowDimensions().getY() / 9);
-	constructors::slider(mngr_, pos, "Misceláneo", 0.0f, 100.0f, SoundEffect::getChannelVolume(ecs::_channel_AMBIENTAL), [this](int v) {
-		miscVolume(v);
+	constructors::slider(mngr_, pos, "Interfaz", 0.0f, 100.0f, SoundEffect::getChannelVolume(ecs::_channel_UI), [this](int v) {
+		uiVolume(v);
 	});
 
 	pos = Vector2D(sdlutils().getWindowDimensions().getX() / 2, 6 * sdlutils().getWindowDimensions().getY() / 7);
@@ -54,27 +43,16 @@ MusicOptionsMenuState::MusicOptionsMenuState() : MenuState() {
 	fade->getComponent<FadeTransitionComponent>()->activateWithoutExecute();
 }
 
+
+void MusicOptionsMenuState::generalVolume(int value) {
+	//app->changeVolume(0, value);
+}
 void MusicOptionsMenuState::musicVolume(int value) {
-	Music::setMusicVolume(value);
+	//app->changeVolume(1, value);
+}
+void MusicOptionsMenuState::soundsVolume(int value) {
+	//app->changeVolume(2, value);
 }
 void MusicOptionsMenuState::uiVolume(int value) {
 	SoundEffect::setChannelVolume(value, ecs::_channel_UI);
-}
-void MusicOptionsMenuState::playerVolume(int value) {
-	SoundEffect::setChannelVolume(value, ecs::_channel_PLAYER);
-}
-void MusicOptionsMenuState::enemiesVolume(int value) {
-	SoundEffect::setChannelVolume(value, ecs::_channel_ENEMY_SLIME);
-	SoundEffect::setChannelVolume(value, ecs::_channel_ENEMY_RANGE);
-	SoundEffect::setChannelVolume(value, ecs::_channel_ENEMY_MELEE);
-	SoundEffect::setChannelVolume(value, ecs::_channel_EARTH_BOSS);
-	SoundEffect::setChannelVolume(value, ecs::_channel_WATER_BOSS);
-	SoundEffect::setChannelVolume(value, ecs::_channel_FIRE_BOSS);
-}
-void MusicOptionsMenuState::miscVolume(int value) {
-	SoundEffect::setChannelVolume(value, ecs::_channel_AMBIENTAL);
-	SoundEffect::setChannelVolume(value, ecs::_channel_ALERTS);
-}
-void MusicOptionsMenuState::masterVolume(int value) {
-	SoundEffect::setMasterVolume(value);
 }

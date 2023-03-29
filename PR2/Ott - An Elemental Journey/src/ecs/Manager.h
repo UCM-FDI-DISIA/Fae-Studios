@@ -65,10 +65,6 @@ public:
     inline void setDelete() { deleted = true; }
 
     inline bool isDeleted() { return deleted; }
-
-    void saveToFile(std::ofstream& file);
-
-    void loadFromFile(std::ifstream& file);
 };
 
 #endif //TPV2_MANAGER_H

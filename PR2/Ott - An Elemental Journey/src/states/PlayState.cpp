@@ -23,94 +23,82 @@
 #include "../components/EnemyContactDamage.h"
 #include "../components/Destruction.h"
 #include "../components/WaterBossAnimationComponent.h"
+#include "../components/BossDoor.h"
 
 #include "../components/FadeTransitionComponent.h"
-#include <fstream>
 #include "menus/PauseMenuState.h"
 #include "../components/ElementObject.h"
-#include <iostream>
+#include "../components/ActiveWater.h"
 
 PlayState::PlayState() : GameState(ecs::_state_PLAY) {
-	currentMap = ecs::EARTH_MAP;
-
 	mngr_->setPlayer(constructors::player(mngr_, 700, 1500, 100, 120));
 	mngr_->setCamera(constructors::camera(mngr_, 700, 2000, sdlutils().width(), sdlutils().height()));
 	player_ = mngr_->getPlayer();
 	camera_ = mngr_->getCamera();
+
+	std::cout << "prueba" << std::endl;
+	player_->getComponent<FramedImageOtt>()->initComponent();
+	player_->getComponent<Transform>()->initComponent();
+	player_->getComponent<PhysicsComponent>()->initComponent();
+	player_->getComponent<PlayerInput>()->initComponent();
+	player_->getComponent<PlayerAttack>()->initComponent();
+	player_->getComponent<Health>()->initComponent();
+
+ //   auto a = mngr_->addEntity(ecs::_grp_INTERACTION);
+	//a->addComponent<Transform>(player_->getComponent<Transform>()->getPosition().getX() + 100, player_->getComponent<Transform>()->getPosition().getY(), 300, 300);
+	//a->addComponent<Image>(&sdlutils().images().at("lamp"));
+	//a->addComponent<ElementObject>(ecs::Earth);
 
     fade = mngr_->addEntity(ecs::_grp_FADEOUT);
 	fade->addComponent<FadeTransitionComponent>(true, 1);
-	fade->getComponent<FadeTransitionComponent>()->setFunction([this]() {doNotDetectKeyboardInput = false; sdlutils().musics().at(sdlutils().levels().at(map_->getCurrentLevel()).bgsong).play(); });
+    fade->getComponent<FadeTransitionComponent>()->setFunction([this](){doNotDetectKeyboardInput = false;});
 	fade->getComponent<FadeTransitionComponent>()->activate();
 
 	// se reinicializan los componentes del jugador porque muchos tienen referencias entre ellos y con la cámara 
 	// y no se podrían coger de otra forma más que forzando el initComponent()
 	player_->reinitCmpts();
 
-	// Inicializar el array de salas
-	visitedRooms.reserve(ecs::LAST_MAP_ID);
-	for (int i = 0; i < ecs::LAST_MAP_ID; ++i) {
-		visitedRooms.push_back({});
-	}
 
-	map_ = constructors::map(mngr_, this, (int)(currentMap))->getComponent<MapComponent>();
+	
+	// COMENTO A LOS ENEMIGOS PORQUE ME ESTÁN DANDO POR CULO UN RATO CHAU BESOS
+
+
+
+
+	//constructors::eSlime(mngr_, "fireSlime", 600, 1100, 1.0f);
+	//constructors::eMelee(mngr_, "waterBug", 2400, 1000, 1.0f);
+	//constructors::eRanged(mngr_, "earthMushroom", 1700, 1000, 1.0f);
+	//constructors::map(mngr_);
+	//constructors::eSlime(mngr_, "fireSlime", 800, 2100, 1.0f, ecs::Fire);
+	// constructors::eMelee(mngr_, "waterBug", 2400, 2000, 1.0f, ecs::Water);
+	// constructors::eRanged(mngr_, "earthMushroom", 1700, 2000, 1.0f, ecs::Earth);
+	map_ = constructors::map(mngr_, this)->getComponent<MapComponent>();
 	initialEnemies = enemies;
+
+	/*float x = mngr_->getPlayer()->getComponent<Transform>()->getPosition().getX();
+	float y = mngr_->getPlayer()->getComponent<Transform>()->getPosition().getY();
+
+	auto waterObj = mngr_->addEntity(ecs::_grp_FINAL_BOSS_DOOR);
+	waterObj->addComponent<Transform>(x, y+350, 200, 250);
+	waterObj->addComponent<Image>(&sdlutils().images().at("BossDoor"));
+	waterObj->addComponent<BossDoor>();
+
+	auto earth = mngr_->addEntity(ecs::_grp_INTERACTION);
+	earth->addComponent<Transform>(x + 300, y + 500, 100, 100);
+	earth->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
+	earth->addComponent<ElementObject>(ecs::Earth);
+
+	earth = mngr_->addEntity(ecs::_grp_INTERACTION);
+	earth->addComponent<Transform>(x + 500, y + 500, 100, 100);
+	earth->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
+	earth->addComponent<ElementObject>(ecs::Water);
+
+	earth = mngr_->addEntity(ecs::_grp_INTERACTION);
+	earth->addComponent<Transform>(x + 700, y + 500, 100, 100);
+	earth->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
+	earth->addComponent<ElementObject>(ecs::Fire);*/
+	
 }
-
-PlayState::PlayState(std::string fileName) : GameState(ecs::_state_PLAY) {
-	currentMap = ecs::EARTH_MAP;
-
-	mngr_->setPlayer(constructors::player(mngr_, 700, 1500, 100, 120));
-	mngr_->setCamera(constructors::camera(mngr_, 700, 2000, sdlutils().width(), sdlutils().height()));
-	player_ = mngr_->getPlayer();
-	camera_ = mngr_->getCamera();
-
-	std::ifstream file(fileName);
-
-	player_->getComponent<Health>()->loadFromFile(file);
-	player_->getComponent<PlayerInput>()->loadFromFile(file);
-
-	fade = mngr_->addEntity(ecs::_grp_FADEOUT);
-	fade->addComponent<FadeTransitionComponent>(true, 1);
-	fade->getComponent<FadeTransitionComponent>()->setFunction([this]() {doNotDetectKeyboardInput = false; sdlutils().musics().at(sdlutils().levels().at(map_->getCurrentLevel()).bgsong).play(); });
-	fade->getComponent<FadeTransitionComponent>()->activate();
-
-	// se reinicializan los componentes del jugador porque muchos tienen referencias entre ellos y con la cámara 
-	// y no se podrían coger de otra forma más que forzando el initComponent()
-	player_->reinitCmpts();
-
-	visitedRooms.reserve(ecs::LAST_MAP_ID);
-	for (int i = 0; i < ecs::LAST_MAP_ID; ++i) {
-		visitedRooms.push_back({});
-	}
-	map_ = constructors::map(mngr_, this, (int)ecs::EARTH_MAP, file)->getComponent<MapComponent>();
-
-	currentMap = (ecs::maps) map_->getCurrentMap();
-	initialEnemies = enemies;	
-	std::string aux;
-	file >> aux >> aux;
-	while (aux != "_") {
-		bool visited;
-		file >> visited;
-		visitedRooms[ecs::EARTH_MAP][std::stoi(aux)] = visited;
-		file >> aux;
-	}
-	file >> aux >> aux;
-	while (aux != "_") {
-		bool visited;
-		file >> visited;
-		visitedRooms[ecs::WATER_MAP][std::stoi(aux)] = visited;
-		file >> aux;
-	}
-	file >> aux >> aux;
-	while (aux != "_") {
-		bool visited;
-		file >> visited;
-		visitedRooms[ecs::FIRE_MAP][std::stoi(aux)] = visited;
-		file >> aux;
-	}
-}
-
 
 PlayState::~PlayState() {
 	/*Mix_HaltMusic();
@@ -122,16 +110,23 @@ void PlayState::blockKeyboardInputAfterUnfreeze() {
     doNotDetectKeyboardInput = true;
 }
 
+void PlayState::resetFade() {
+    if (fade != nullptr && fade->hasComponent<FadeTransitionComponent>()) {
+        if (fade->getComponent<FadeTransitionComponent>()->hasEndedAnimation()) {
+            fade->getComponent<FadeTransitionComponent>()->setFunction([this](){doNotDetectKeyboardInput = false;});
+            fade->getComponent<FadeTransitionComponent>()->revert();
+        }
+    }
+}
+
 void PlayState::handleInput() {
     GameState::handleInput();
-	if (doNotDetectKeyboardInput && InputHandler::instance()->allKeysUp()) {
-		doNotDetectKeyboardInput = false;
-	}
+	//if (doNotDetectKeyboardInput && InputHandler::instance()->allKeysUp()) doNotDetectKeyboardInput = false;
 	
 	if (!doNotDetectKeyboardInput) {
 		if (InputHandler::instance()->isKeyJustDown(SDLK_ESCAPE)) {
-			fade->getComponent<FadeTransitionComponent>()->setFunction([this]() { sdlutils().musics().at(sdlutils().levels().at(map_->getCurrentLevel()).bgsong).pauseMusic(); SoundEffect::haltChannel(); GameStateMachine::instance()->pushState(new PauseMenuState()); });
-			fade->getComponent<FadeTransitionComponent>()->changeSpeed(2);
+			fade->getComponent<FadeTransitionComponent>()->setFunction([this]() { GameStateMachine::instance()->pushState(new PauseMenuState());});
+			fade->getComponent<FadeTransitionComponent>()->changeSpeed(5);
 			fade->getComponent<FadeTransitionComponent>()->revert();
 		}
 	}
@@ -150,7 +145,7 @@ void PlayState::checkCollisions(std::list<Entity*> entities) {
 		Vector2D& colVector = physics->getVelocity();
 
 		auto mov = e->getComponent<EnemyMovement>();
-		auto pAttack = e->getComponent<PlayerAttack>();
+
 		auto grounds = map_->checkCollisions(r1);
 
 		for (std::pair<SDL_Rect, SDL_Rect> gr : grounds) { // WALL COLLISION
@@ -162,6 +157,20 @@ void PlayState::checkCollisions(std::list<Entity*> entities) {
 				}
 			}
 		}
+		/*
+		for (Entity* g : ground) { // WALL COLLISION
+
+			SDL_Rect r2 = g->getComponent<Transform>()->getRect();
+			SDL_Rect areaColision; // area de colision 	
+			bool interseccion = SDL_IntersectRect(&r1, &r2, &areaColision);
+			if (interseccion && (areaColision.w < areaColision.h) && ((areaColision.x <= r2.x + (r2.w / 2) && physics->getLookDirection()) ||
+				(areaColision.x > r2.x + (r2.w / 2) && !physics->getLookDirection()))) {
+				colVector = Vector2D(0, colVector.getY());
+				if (mov != nullptr) {
+					mov->ChangeDirection(false, areaColision);
+				}
+			}
+		}*/
 		int i = 0;
 		for (std::pair<SDL_Rect, SDL_Rect> gr : grounds) {
 			auto areaColision = gr.first;
@@ -178,13 +187,15 @@ void PlayState::checkCollisions(std::list<Entity*> entities) {
 				}
 				else if (!physics->isGrounded()) {
 					//cout << "ceiling touched" << endl;
-					if (!(physics->getWater()) || (physics->getWater() && health->getElement() == ecs::Water))
+					//en principio ahora que está bien parametrizado, podemos conservar el rebote con el techo en todos los casos
+					//if (!(physics->getWater()) || (physics->getWater() && health->getElement() == ecs::Water))
 					{
 						colVector = Vector2D(colVector.getX(), 1);
 						physics->setVerticalSpeed(1);
 					}
 				}
 				if (mov != nullptr) mov->ChangeDirection(true, areaColision);
+
 				++i;
 				break;
 			}
@@ -196,19 +207,21 @@ void PlayState::checkCollisions(std::list<Entity*> entities) {
 		int j = 0;
 		std::vector <Entity*> water = mngr_->getEntities(ecs::_grp_WATER);
 		for (Entity* w : water) {
-			SDL_Rect r3 = w->getComponent<Transform>()->getRect();
-			SDL_Rect areaColision; // area de colision 	
-			bool interseccion = SDL_IntersectRect(&r1, &r3, &areaColision);
-			if (interseccion)
-			{
-				physics->setWater(true); ++j;
-				if (health->getElement() != ecs::Water) { physics->setGrounded(false); }
-				//comprobación de si esta en la zona de flote, de momento sin variable de ancho de zona de flote 
-				if (areaColision.y <= r3.y + 5) {
-					physics->setFloating(true);
-				}
-				else {
-					physics->setFloating(false);
+			if (w->getComponent<ActiveWater>()->getActive()) {
+				SDL_Rect r3 = w->getComponent<Transform>()->getRect();
+				SDL_Rect areaColision; // area de colision 	
+				bool interseccion = SDL_IntersectRect(&r1, &r3, &areaColision);
+				if (interseccion)
+				{
+					physics->setWater(true); ++j;
+					if (health->getElement() != ecs::Water) { physics->setGrounded(false); }
+					//comprobación de si esta en la zona de flote, de momento sin variable de ancho de zona de flote 
+					if (areaColision.y <= r3.y + 5) {
+						physics->setFloating(true);
+					}
+					else {
+						physics->setFloating(false);
+					}
 				}
 			}
 
@@ -258,9 +271,6 @@ void PlayState::checkInteraction() {
         if (SDL_HasIntersection(&r1, &r2)) {
 			if (ents->hasComponent<ElementObject>()) {
 				mngr_->getPlayer()->getComponent<PlayerInput>()->unlockElement(ents->getComponent<ElementObject>()->getElement());
-				mngr_->getPlayer()->getComponent<PlayerAnimationComponent>()->changeElem(ents->getComponent<ElementObject>()->getElement());
-				mngr_->getPlayer()->getComponent<PlayerAnimationComponent>()->setState(VANISH);
-				map_->unlockElement(ents->getComponent<ElementObject>()->getElement());
 				ents->setAlive(false);
 			}
 			else
@@ -275,31 +285,36 @@ void PlayState::checkInteraction() {
 void PlayState::update() {
 	checkCollisions({ player_ });
 	checkCollisions(enemies[map_->getCurrentRoom()]);
-	
+	/*for (auto it : enemies) {
+		for (auto ot : it) {
+			if (it != enemies[map_->getCurrentRoom()]) {
+				ot->getComponent<PhysicsComponent>()->Stop();
+			}
+			else {
+				ot->getComponent<PhysicsComponent>()->Resume();
+				ot->setActive(true);
+			}
+		}
+	}*/
 	GameState::update();
 }
 
 void PlayState::AddEnredadera() {
-	if (player_->getComponent<Health>()->getElement() == ecs::Earth) {
-		Entity* aux = (*interactionIt);
-		aux->getComponent<VineManager>()->addVine();
-	}
+    Entity* aux = (*interactionIt);
+	aux->getComponent<VineManager>()->addVine();
 }
 
 void PlayState::Teleport() {
-	if (player_->getComponent<Health>()->getElement() == ecs::Light) {
-		int cAnim = player_->getComponent<PlayerAnimationComponent>()->getState();
-		if (cAnim != IDLE && cAnim != RUN) return;
-		Entity* aux = *interactionIt;
-		Entity* tpLamp = aux->getComponent<LampComponent>()->getConnectedLamp();
-		Vector2D newPos = tpLamp->getComponent<Transform>()->getPosition();
-		auto newRoom = tpLamp->getComponent<LampComponent>()->getRoom();
-		if (aux->getComponent<LampComponent>()->getRoom() != newRoom) {
-			map_->changeRoom(std::to_string(newRoom), newPos);
-		}
-		player_->getComponent<PlayerAnimationComponent>()->startTP(newPos);
-		sdlutils().soundEffects().at("teleport").play(0, ecs::_channel_ALERTS);
+    int cAnim = player_->getComponent<PlayerAnimationComponent>()->getState();
+    if (cAnim != IDLE && cAnim != RUN) return;
+    Entity* aux = *interactionIt;
+    Entity* tpLamp = aux->getComponent<LampComponent>()->getConnectedLamp();
+    Vector2D newPos = tpLamp->getComponent<Transform>()->getPosition();
+	auto newRoom = tpLamp->getComponent<LampComponent>()->getRoom();
+	if (aux->getComponent<LampComponent>()->getRoom() != newRoom) {
+		map_->changeRoom(std::to_string(newRoom), newPos);
 	}
+	player_->getComponent<PlayerAnimationComponent>()->startTP(newPos);
 }
 
 void PlayState::Save() {
@@ -307,40 +322,6 @@ void PlayState::Save() {
 	lastSanctuary = getCurrentInteraction();
 }
 
-void PlayState::AddLifeShard(int id) {
-	player_->getComponent<Health>()->addLifeShard(id);
-	map_->addShard(id);
-}
-
-// AQUÍ SE GUARDA PARTIDA
 void PlayState::endRest() {
     player_->getComponent<Health>()->saveSactuary(lastSanctuary);
-	// Guardar datos en archivo
-	std::string hola = "../resources/saves/temporalUniqueSave.sv";
-	std::ofstream saveFile(hola);
-
-	player_->getComponent<Health>()->saveToFile(saveFile);
-	player_->getComponent<PlayerInput>()->saveToFile(saveFile);
-	map_->saveToFile(saveFile);
-	std::string rooms = "";
-	for (int i = 0; i < visitedRooms[ecs::EARTH_MAP].size(); ++i) {
-		if (visitedRooms[ecs::EARTH_MAP][i]) rooms += (std::to_string(i) + " 1 ");
-		else rooms += (std::to_string(i) + " 0 ");
-	}
-	saveFile << "earth_map_rooms " << rooms << "_" << std::endl;
-
-	rooms = "";
-	for (int i = 0; i < visitedRooms[ecs::WATER_MAP].size(); ++i) {
-		if (visitedRooms[ecs::WATER_MAP][i]) rooms += (std::to_string(i) + " 1 ");
-		else rooms += (std::to_string(i) + " 0 ");
-	}
-	saveFile << "water_map_rooms " << rooms << "_" << std::endl;
-
-	rooms = "";
-	for (int i = 0; i < visitedRooms[ecs::FIRE_MAP].size(); ++i) {
-		if (visitedRooms[ecs::FIRE_MAP][i]) rooms += (std::to_string(i) + " 1 ");
-		else rooms += (std::to_string(i) + " 0 ");
-	}
-	saveFile << "fire_map_rooms " << rooms << "_" << std::endl;
-	if (saveFile.fail()) std::cout << "FALLÉ GENTE" << std::endl;
 }

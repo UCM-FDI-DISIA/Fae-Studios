@@ -24,12 +24,8 @@ void Bullet::update()
         auto enemiesGrp = mngr_->getEntities(ecs::_grp_CHARACTERS);
         for (auto e : enemiesGrp) {
             SDL_Rect rect = e->getComponent<PhysicsComponent>()->getCollider();
-            SDL_Rect result;
-            if (e != instigator && SDL_IntersectRect(&rect, &trigger, &result)) {
-                bool dir = true;
-                if (result.x + result.w > rect.x + rect.w / 2) dir = false;
-                else dir = true;
-                e->getComponent<Health>()->recieveDamage(instigator->getComponent<Health>()->getElement(), dir);
+            if (e != instigator && SDL_HasIntersection(&rect, &trigger)) {
+                e->getComponent<Health>()->recieveDamage(instigator->getComponent<Health>()->getElement());
                 ent_->setAlive(false);
             }
         }

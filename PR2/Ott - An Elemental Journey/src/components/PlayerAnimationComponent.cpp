@@ -3,10 +3,6 @@
 #include "Health.h"
 #include "../ecs/Entity.h"
 #include "FramedImage.h"
-#include "../states/PlayState.h"
-#include "../states/MapState.h"
-#include "../states/GameStateMachine.h"
-
 #pragma once
 PlayerAnimationComponent::PlayerAnimationComponent(anims::Entities e)
 {
@@ -22,7 +18,7 @@ void PlayerAnimationComponent::initComponent() {
 
 void PlayerAnimationComponent::setState(int newState)
 {
-	if (state_ != newState) { state_ = newState; image->setCol(getColNum(state_)); timer_ = 0;}
+	if (state_ != newState) { state_ = newState; image->setCol(getColNum(state_)); timer_ = 0; }
 }
 
 void PlayerAnimationComponent::update()
@@ -30,12 +26,7 @@ void PlayerAnimationComponent::update()
 	if (!changingElem && !tp) timer_++; // controla el frame que se debe mostrar de la animación actual
 	else timer_--;
 	int col = image->getCurCol();
-
-	if (state_ == CLOSE_MAP) {
-		if(col != 0)
-			col = getColNum(state_) - (timer_ / getTPerFrame(state_)) % getNFrames(state_);
-	}
-	else if (col != getNFrames(state_) + getColNum(state_) - 1 || (changingElem && state_ == VANISH && timer_ < (getTPerFrame(state_) * getNFrames(state_)))) // si no es la última columna de la animación actual, se actualiza
+	if (col != getNFrames(state_) + getColNum(state_) - 1 || (changingElem && state_ == VANISH && timer_ < (getTPerFrame(state_) * getNFrames(state_)))) // si no es la última columna de la animación actual, se actualiza
 	{
 		col = (timer_ / getTPerFrame(state_)) % getNFrames(state_) + getColNum(state_);
 	}
@@ -53,8 +44,8 @@ void PlayerAnimationComponent::update()
 	if (health->getElement() != elemToChange) {
 		setState(VANISH);
 	}
-	else if(!health->isDead()) {
-		if (state_ == ATTACK || state_ == VANISH || state_ == DIE || state_ == LAND || state_ == OPEN_MAP || state_ == CLOSE_MAP) return; // estas animaciones se superponen a todas las demás
+	else {
+		if (state_ == ATTACK || state_ == VANISH || state_ == DIE || state_ == LAND) return; // estas animaciones se superponen a todas las demás
 		auto physics = ent_->getComponent<PhysicsComponent>();
 		Vector2D vel = physics->getVelocity(); // velocidad
 		if (vel.getY() == 0 && physics->isGrounded()) {
@@ -62,7 +53,7 @@ void PlayerAnimationComponent::update()
 			else if (vel.getX() != 0) setState(RUN); // estado correr
 			else setState(IDLE); // idle
 		}
-		else if (physics->isClimbing())  state_ = CLIMB;
+		else if (physics->isClimbing())  state_ = IDLE;
 		else if (vel.getY() == 0 && !physics->isGrounded()) { setState(PEAK); } // si no se mueve en la Y y no está en suelo, se pone PEAK
 		else if (vel.getY() < 0) { setState(JUMP_UP); } // salto 
 		else { setState(FALL); } // caída
@@ -87,11 +78,8 @@ void PlayerAnimationComponent::endAnim()
 			health->recall(); // volver al último santuario 
 		}
 		if (state_ == IDLE) image->setCol(0); // reiniciar estado IDLE
-		else if (state_ == OPEN_MAP) {
-			GameStateMachine::instance()->pushState(new MapState(static_cast<PlayState*> (GameStateMachine::instance()->getPlayState())));
-		}
-		else setState(IDLE); // poner estado idle 
-		if(state_ != DIE) timer_ = 0; // reiniciar el timer
+		else setState(IDLE); // poner estado idle
+		timer_ = 0; // reiniciar el timer
 	}
 }
 

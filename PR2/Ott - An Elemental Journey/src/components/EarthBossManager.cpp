@@ -20,7 +20,6 @@ void EarthBossManager::setState(int newState) {
 	}
 }
 void EarthBossManager::initializeEntities() {
-	sdlutils().soundEffects().at("roar").play(0, ecs::_channel_ALERTS);
 	//animController = ent_->addComponent<EarthBossAnimationController>(this);
 	//CREACIÓN DE LAS 6 ENREDADERAS LATERALES
 	SDL_Rect vine_Rect;
@@ -173,7 +172,6 @@ void EarthBossManager::stateManagment() {
 			if(actualState == WARNING) {
 				choosingVine();
 				animController->setState(anims::WARNINGEARTH, warningVector[5+ vine1].warning, warningVector[5+ vine2].warning);
-				sdlutils().soundEffects().at("warning").play(0, ecs::_channel_ALERTS);
 			}
 			else if (actualState != WARNING) {
 				setState(states[actualState]);

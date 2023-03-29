@@ -7,7 +7,6 @@
 #include "../../../sdlutils/SDLUtils.h"
 #include "../../../game/Constructors.h"
 #include "../../../components/FadeTransitionComponent.h"
-#include "GraphicsOptionsMenuState.h"
 
 OptionsMenuState::OptionsMenuState() : MenuState() {
 	Vector2D pos;
@@ -22,10 +21,9 @@ OptionsMenuState::OptionsMenuState() : MenuState() {
 	constructors::boldText(mngr_, "Opciones", pos, sdlutils().fonts().at("press_start48"), 5, yellow);
 
 	pos = Vector2D(sdlutils().getWindowDimensions().getX() / 2, 3 * sdlutils().getWindowDimensions().getY() / 7);
-	constructors::button(mngr_, pos, "Gráficos", sdlutils().fonts().at("vcr_osd24"), [this]() {
+	constructors::button(mngr_, pos, "Gráficos", sdlutils().fonts().at("vcr_osd24"), []() {
 		sdlutils().soundEffects().at("button").play(0, ecs::_channel_UI);
-		fade->getComponent<FadeTransitionComponent>()->setFunction([]() { GameStateMachine::instance()->pushState(new GraphicOptionsMenuState()); });
-		fade->getComponent<FadeTransitionComponent>()->revert();
+		std::cout << "opciones graficas" << std::endl;
 	});
 
 	pos = Vector2D(sdlutils().getWindowDimensions().getX() / 2, 4 * sdlutils().getWindowDimensions().getY() / 7);

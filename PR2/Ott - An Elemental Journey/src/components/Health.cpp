@@ -7,8 +7,6 @@
 #include "../game/Elements.h"
 #include "../states/PlayState.h"
 #include "../states/GameStateMachine.h"
-#include "InteractionComponent.h"
-#include "ShieldComponent.h"
 
 void Health::die()
 {
@@ -27,43 +25,44 @@ void Health::initComponent() {
 
 void Health::recall(bool rest)
 {
-	Vector2D newPos;
-	if (lastSanctuary != nullptr && !rest) {
+	if (lastSanctuary != nullptr) {
 		auto sancTr_ = lastSanctuary->getComponent<Transform>();
 		auto tr_ = ent_->getComponent<Transform>();
-		newPos = sancTr_->getPosition() + Vector2D(0, sancTr_->getHeight() - tr_->getHeight());
-		static_cast<PlayState*>(GameStateMachine::instance()->currentState())->getMap()
-			->changeRoom(std::to_string(lastSanctuary->getComponent<InteractionComponent>()->getRoom()), newPos);
+		image->reset();
+		if (!rest) {
+			Vector2D newPos = sancTr_->getPosition() + Vector2D(0, sancTr_->getHeight() - tr_->getHeight());
+			tr_->setPosition(newPos);
+		}
+		actualLife = maxLife;
+		dead = false;
+		static_cast<PlayState*>(GameStateMachine::instance()->currentState())->resetEnemies();
+		std::cout << "vuelvo a santuario" << std::endl;
 	}
 	else 
 	{ 
-		newPos = ent_->getComponent<Transform>()->getInitialPosition();
-		static_cast<PlayState*>(GameStateMachine::instance()->currentState())->getMap()
-			->changeRoom("0", newPos);
+		std::cout << "me muero para siempre" << std::endl; 
+		Vector2D newPos = ent_->getComponent<Transform>()->getInitialPosition();
+		image->reset();
+		ent_->getComponent<Transform>()->setPosition(newPos);
+		actualLife = maxLife;
+		dead = false;
+
 	}
-	image->reset();
-	actualLife = maxLife;
-	static_cast<PlayState*>(GameStateMachine::instance()->currentState())->resetEnemies();
 }
 
-bool Health::recieveDamage(ecs::elements el, bool dir)
+bool Health::recieveDamage(ecs::elements el)
 {
 	if (ent_->hasComponent<PlayerAnimationComponent>()) {
 		if (pAnim_->isInvincible()) return false;
 		pAnim_->playerDamaged();
-		//si dir == true, knockback derecha
-		ent_->getComponent<PhysicsComponent>()->knockback(dir);
+		ent_->getComponent<PhysicsComponent>()->knockback();
 		//if() Añadir daño dependiendo de la entidad
 		int damage = elementsInfo::ottMatrix[el][elem];
-
-		if (ent_->getComponent<ShieldComponent>()->hasShield()) damage = ent_->getComponent<ShieldComponent>()->checkDamage(damage, dir);
-		if (damage != -1) {
-			actualLife -= damage;
-			if (damage == 0) {
-				if (image->setWeak()) damage = 1;
-			}
-			image->damage(damage);
+		actualLife -= damage;
+		if (damage == 0) {
+			if (image->setWeak()) damage = 1;
 		}
+		image->damage(damage);
 	}
 	else {
 		if (!dead) {
@@ -83,27 +82,6 @@ bool Health::recieveDamage(ecs::elements el, bool dir)
 void Health::saveSactuary(Entity* sanct)
 {
 	lastSanctuary = sanct;
-	sanctuaryID = lastSanctuary->getComponent<InteractionComponent>()->getID();
 	recall(true);
 	// aquí no estaría mal poner una animación de Ott sentaditto de pana
-}
-
-void Health::saveToFile(std::ofstream& file) {
-	file << "sanctuaryID " << lastSanctuary->getComponent<InteractionComponent>()->getID() << std::endl;
-	file << "lifeShards " << numShards << lifeShardIDs << "_" << std::endl;
-}
-
-void Health::loadFromFile(std::ifstream& file) {
-	std::string aux;
-	std::string aux2;
-	file >> aux >> sanctuaryID >> aux >> numShards;
-	file >> aux2;
-	while (aux2 != "_") {
-		lifeShardIDs += aux2 + " ";
-		file >> aux2;
-	}
-	int shards = numShards;
-	for (shards; shards > 1; shards -= 2) {
-		increaseMaxLife();
-	}
 }

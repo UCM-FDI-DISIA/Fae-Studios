@@ -20,9 +20,8 @@ struct Mapa {
 	int cols;
 	std::string tileset;
 	std::string background;
-	std::string bgsong;
 
-	Mapa(std::string r, int cols, std::string tileset, std::string background, std::string bgsong) : route(r), cols(cols), tileset(tileset), background(background), bgsong(bgsong) {}
+	Mapa(std::string r, int cols, std::string tileset, std::string background) : route(r), cols(cols), tileset(tileset), background(background) {}
 };
 
 class SDLUtils: public Singleton<SDLUtils> {
@@ -115,22 +114,14 @@ public:
     }
 
 // toggle to full-screen/window mode
-
-	enum SCREEN_MODES {WINDOWED, FULL_DISPLAY, FULLSCREEN};
-
-	inline void toggleFullScreen(SCREEN_MODES s) {
+	inline void toggleFullScreen() {
 		auto flags = SDL_GetWindowFlags(window_);
-		currentScreenMode_ = s;
-		if (flags & SDL_WINDOW_FULLSCREEN && s == WINDOWED) {
+		if (flags & SDL_WINDOW_FULLSCREEN) {
 			SDL_SetWindowFullscreen(window_, 0);
+		} else {
+			SDL_SetWindowFullscreen(window_, SDL_WINDOW_FULLSCREEN);
 		}
-		else if (s == FULL_DISPLAY) {
-			SDL_SetWindowFullscreen(window_, SDL_WINDOW_FULLSCREEN_DESKTOP);
-		}
-		else if (s == FULLSCREEN) SDL_SetWindowFullscreen(window_, SDL_WINDOW_FULLSCREEN);
 	}
-
-	inline SCREEN_MODES getCurrentScreenMode() const { return currentScreenMode_; }
 
 // show the cursor when mouse is over the window
 	inline void showCursor() {
@@ -207,7 +198,6 @@ private:
 	std::string windowTitle_; // window title
 	int width_; // window width
 	int height_; // window height
-	SCREEN_MODES currentScreenMode_;
 
 	SDL_Window *window_; // the window
 	SDL_Renderer *renderer_; // the renderer

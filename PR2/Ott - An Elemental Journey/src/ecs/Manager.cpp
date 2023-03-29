@@ -56,24 +56,6 @@ void Manager::refresh() {
     }
 }
 
-void Manager::saveToFile(std::ofstream& file) {
-    for (auto& ents : entsByGroup_) {
-        auto n = ents.size();
-        for (auto i = 0u; i < n; i++)
-            if (!deleted) ents[i]->saveToFile(file);
-            else return;
-    }
-};
-
-void Manager::loadFromFile(std::ifstream& file) {
-    for (auto& ents : entsByGroup_) {
-        auto n = ents.size();
-        for (auto i = 0u; i < n; i++)
-            if (!deleted) ents[i]->loadFromFile(file);
-            else return;
-    }
-};
-
 void Manager::update() {
     for (auto& ents : entsByGroup_) {
         auto n = ents.size();
@@ -91,9 +73,6 @@ void Manager::render() {
             else return;
     }
 }
-
-
-
 
 void Manager::handleInput() {
     for (auto& ents : entsByGroup_) {
