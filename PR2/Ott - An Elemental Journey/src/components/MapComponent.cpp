@@ -256,7 +256,11 @@ void MapComponent::loadMap(std::string path) {
         }
         for (auto obj : vectorObjects[WATER_VECTOR_POS]) {
             SDL_Rect rect = getSDLRect(obj.getAABB());
-
+            auto roomScale = vectorTiles[std::stoi(obj.getName())].first;
+            rect.x *= roomScale;
+            rect.y *= roomScale;
+            rect.w *= roomScale;
+            rect.h *= roomScale;
             Entity* waterW= constructors::Water(mngr_, rect.x, rect.y, rect.w, rect.h, obj.getClass());
             std::cout << obj.getUID() << std::endl;
             waterObjects[std::stoi(obj.getName())].push_back(waterW);
