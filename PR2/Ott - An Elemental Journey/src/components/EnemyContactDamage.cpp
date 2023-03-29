@@ -14,6 +14,12 @@ void EnemyContactDamage::initComponent() {
 void EnemyContactDamage::update() {
 	SDL_Rect rect = collider->getCollider();
 	SDL_Rect playerRect = playerCollider->getCollider();
+	SDL_Rect result;
+	if (!health_->isDead() && SDL_IntersectRect(&rect, &playerRect, &result)) {
+		bool dir;
+		if (result.x + result.w > rect.x + rect.w / 2) dir = true;
+		else dir = false;
+		player->getComponent<Health>()->recieveDamage(health_->getElement(), dir);
 
-	if (!health_->isDead() && SDL_HasIntersection(&rect, &playerRect)) player->getComponent<Health>()->recieveDamage(health_->getElement());
+	}
 }

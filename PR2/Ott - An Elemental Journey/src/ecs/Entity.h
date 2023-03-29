@@ -134,6 +134,18 @@ public:
                 currCmps_[i]->handleInput();
         }
     }
+    
+    inline void saveToFile(std::ofstream& file) {
+        auto n = currCmps_.size();
+        for (auto i = 0u; i < n; i++)
+            currCmps_[i]->saveToFile(file);
+    };
+
+    inline void loadFromFile(std::ifstream& file) {
+        auto n = currCmps_.size();
+        for (auto i = 0u; i < n; i++)
+            currCmps_[i]->loadFromFile(file);
+    };
 };
 
 #endif //TPV2_ENTITY_H

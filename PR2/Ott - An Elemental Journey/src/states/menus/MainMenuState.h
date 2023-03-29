@@ -15,5 +15,6 @@ private:
 public:
 	MainMenuState();
 	void update() final;
+	void changeResolution() override;
 };
 

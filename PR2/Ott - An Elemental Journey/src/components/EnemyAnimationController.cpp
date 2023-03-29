@@ -63,6 +63,19 @@ void EnemyAnimationComponent::update() {
 	Vector2D vel = ent_->getComponent<PhysicsComponent>()->getVelocity();
 	if (vel.getX() != 0) currentAnimation = WALK_ENEMY;
 	else currentAnimation = IDLE_ENEMY;*/
+	switch (this->eAnims) {
+	case anims::SLIME_ANIM:
+		if (currentAnimation == WALK_ENEMY) sdlutils().soundEffects().at("slime_movement").play(0, ecs::_channel_ENEMY_SLIME);
+		else if(currentAnimation == ATTACK_ENEMY) sdlutils().soundEffects().at("slime_attack").play(0, ecs::_channel_ENEMY_SLIME);
+		break;
+	case anims::MELEE_ANIM:
+		if (currentAnimation == WALK_ENEMY) sdlutils().soundEffects().at("menemy_step").play(0, ecs::_channel_ENEMY_MELEE);
+		break;
+	case anims::RANGE_ANIM:
+		if(currentAnimation == ATTACK_ENEMY) sdlutils().soundEffects().at("fireball").play(0, ecs::_channel_ENEMY_RANGE);
+		break;
+	}
+
 }
 
 void EnemyAnimationComponent::endAnim() {

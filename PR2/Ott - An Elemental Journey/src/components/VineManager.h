@@ -25,7 +25,7 @@ private:
 public:
     constexpr static ecs::cmpId_type id = ecs::_VINEMANAGER;
     VineManager(VineType t, Vector2D ini, Vector2D fin, int d, float r, int w, int h, int s) : texture_(t), iniPos(ini), finPos(fin), dir(d), rotation(r), width(w), height(h), speed(s), vine(nullptr) {};
-    virtual ~VineManager() {}
+    virtual ~VineManager() { vine->setAlive(false); }
     void createVine();
     void addVine();
     inline Vector2D getIniPos() {

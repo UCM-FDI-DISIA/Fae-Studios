@@ -2,7 +2,6 @@
 #include "../ecs/Component.h"
 #include "Transform.h" 
 #include "PhysicsComponent.h"
-#include "Acceleration.h"
 
 class Pivot : public Component
 {
