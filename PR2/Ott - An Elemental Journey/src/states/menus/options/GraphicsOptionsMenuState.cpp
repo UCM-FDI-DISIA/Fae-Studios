@@ -24,6 +24,8 @@ GraphicOptionsMenuState::GraphicOptionsMenuState() : MenuState() {
 		else if (s == SDLUtils::FULLSCREEN) s = SDLUtils::WINDOWED;
 		sdlutils().toggleFullScreen(s);
 		fwNeedChange = true;
+        stateMachine().resChanged();
+        changeResolution();
 	});
 
 	fsTextPos = Vector2D(sdlutils().getWindowDimensions().getX() / 2, 2 * sdlutils().getWindowDimensions().getY() / 7 + 60);
@@ -64,5 +66,41 @@ void GraphicOptionsMenuState::update() {
 }
 
 void GraphicOptionsMenuState::changeResolution() {
+    for(int i = 0; i < ecs::maxGroupId; ++i) {
+        auto ents = mngr_->getEntities(i);
+        for(auto e : ents) e->setAlive(false);
+    }
 
+    Vector2D pos;
+    std::string txt;
+    SDL_Color c;
+    constructors::background(mngr_, &sdlutils().images().at("playbackground"));
+
+    fade = mngr_->addEntity(ecs::_grp_FADEOUT);
+    fade->addComponent<FadeTransitionComponent>(true);
+
+    pos = Vector2D(sdlutils().getWindowDimensions().getX() / 2, 2 * sdlutils().getWindowDimensions().getY() / 7);
+    constructors::button(mngr_, pos, "Pantalla completa", sdlutils().fonts().at("vcr_osd16"), [this]() {
+        sdlutils().soundEffects().at("button").play(0, ecs::_channel_UI);
+        if (s == SDLUtils::WINDOWED) s = SDLUtils::FULLSCREEN;
+        else if (s == SDLUtils::FULLSCREEN) s = SDLUtils::WINDOWED;
+        sdlutils().toggleFullScreen(s);
+        fwNeedChange = true;
+    });
+
+    fsTextPos = Vector2D(sdlutils().getWindowDimensions().getX() / 2, 2 * sdlutils().getWindowDimensions().getY() / 7 + 60);
+    switch (sdlutils().getCurrentScreenMode()) {
+        case (SDLUtils::WINDOWED): txt = "Desactivada"; c = rojo; break;
+        case (SDLUtils::FULLSCREEN): txt = "Activada"; c = verde; break;
+    }
+    fsText = constructors::normalText(mngr_, txt, fsTextPos, sdlutils().fonts().at("vcr_osd24"), c);
+
+    pos = Vector2D(sdlutils().getWindowDimensions().getX() / 2, 6 * sdlutils().getWindowDimensions().getY() / 7);
+    constructors::button(mngr_, pos, "Volver", sdlutils().fonts().at("vcr_osd48"), [this]() {
+        sdlutils().soundEffects().at("button_back").play(0, ecs::_channel_UI);
+        fade->getComponent<FadeTransitionComponent>()->setFunction([]() { GameStateMachine::instance()->popState(); });
+        fade->getComponent<FadeTransitionComponent>()->revert();
+    });
+
+    fade->getComponent<FadeTransitionComponent>()->activateWithoutExecute();
 }

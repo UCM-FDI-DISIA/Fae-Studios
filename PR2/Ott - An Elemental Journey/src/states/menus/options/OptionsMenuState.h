@@ -6,5 +6,6 @@
 class OptionsMenuState : public MenuState {
 public:
 	OptionsMenuState();
+    void changeResolution() override;
 };
 

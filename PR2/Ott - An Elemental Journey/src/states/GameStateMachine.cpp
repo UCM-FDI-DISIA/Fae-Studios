@@ -32,6 +32,7 @@ void GameStateMachine::popState(bool deleting) {
     }
 
     if(!stateStack.empty() && !deleting) stateStack.front()->resetFade();
+    if(resolutionHasChanged) stateStack.front()->changeResolution();
 }
 
 void GameStateMachine::emptyStack() {
