@@ -63,7 +63,7 @@ void FireBossComponent::startSpecialAttack()
 {
 	Vector2D pPos = player->getComponent<Transform>()->getPosition();
 	if (abs(pPos.getY() - ent_->getComponent<Transform>()->getPosition().getY()) > ent_->getComponent<Transform>()->getHeight()) {
-		//spawnPillars();
+		spawnPillars();
 	}
 	else { ambushing = true; combo = true; currentCombo = comboN; comboTimer = SDL_GetTicks(); }
 	
@@ -114,7 +114,7 @@ void FireBossComponent::ambush()
 
 	//direccion en que hacer la emboscada
 	if (tr_->getPosition().getX() - playerTr->getPosition().getX() > 0) { speed = -ambushSpeed; p->lookDirection(false); }
-	else { speed = ambushSpeed; p->lookDirection(true); }
+	else { speed = ambushSpeed; p->lookDirection(true);}
 	if (combo && abs(tr_->getPosition().getX() - playerTr->getPosition().getX()) < 50)
 	{
 		fAnim_->setState(ATTACK_FIREBOSS);  collider.w = collider.w * 2;
