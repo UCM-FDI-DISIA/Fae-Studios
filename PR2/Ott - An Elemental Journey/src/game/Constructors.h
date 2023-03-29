@@ -391,6 +391,7 @@ namespace constructors {
 		//boss->addComponent<Image>(&sdlutils().images().at("lamp"));
 		boss->addComponent<FireBossComponent>();
 		boss->addComponent<PhysicsComponent>(false);
+		boss->getComponent<PhysicsComponent>()->createCollider();
 		boss->addComponent<FramedImage>(&sdlutils().images().at("fireBoss"), 5, 13);
 		
 		auto anim=boss->addComponent<FireBossAnimation>(anims::FIREBOSS_ANIM);

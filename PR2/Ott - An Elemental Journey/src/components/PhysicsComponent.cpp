@@ -11,13 +11,9 @@
 const float gravityValue = 0.2;
 
 
-PhysicsComponent::PhysicsComponent(bool activate) {
-	jumpForce = earthJumpForce;
-	gravity = activate;
-}
-
-PhysicsComponent::PhysicsComponent(colliders::Colliders c) {
+PhysicsComponent::PhysicsComponent(colliders::Colliders c, bool activate) {
 	typeofCollider = c;
+	gravity = activate;
 	jumpForce = earthJumpForce;
 }
 

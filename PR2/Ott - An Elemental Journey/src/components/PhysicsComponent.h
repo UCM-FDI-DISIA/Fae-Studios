@@ -10,8 +10,7 @@ class PhysicsComponent : public Component
 {
 public:
 
-    PhysicsComponent(bool activate = true);
-    PhysicsComponent(colliders::Colliders c);
+    PhysicsComponent(colliders::Colliders c = colliders::DEFAULT, bool activate = true);
     PhysicsComponent(Vector2D vel) : velocity_(vel) {}
     virtual ~PhysicsComponent();
     virtual void initComponent();
