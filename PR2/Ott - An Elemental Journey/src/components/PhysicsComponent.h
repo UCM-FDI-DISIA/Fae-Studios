@@ -9,8 +9,8 @@
 class PhysicsComponent : public Component
 {
 public:
-
-    PhysicsComponent(colliders::Colliders c = colliders::DEFAULT, bool activate = true);
+    PhysicsComponent(bool activate = true);
+    PhysicsComponent(colliders::Colliders c);
     PhysicsComponent(Vector2D vel) : velocity_(vel) {}
     virtual ~PhysicsComponent();
     virtual void initComponent();
@@ -40,6 +40,7 @@ public:
     inline void Resume(bool verticalTrigger = false) { stopped = false; if(verticalTrigger) velocity_ = lastSpeed; }
     inline bool isStopped() { return stopped; }
     inline bool inKnocback()  { return isKnockback; }
+    inline bool getGravity() { return gravity; }
     /*inline void saveLastPos(const SDL_Rect& col)
     {
         int wPlayerRect = getCollider().w;

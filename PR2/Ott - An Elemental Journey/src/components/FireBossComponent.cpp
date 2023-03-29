@@ -57,7 +57,7 @@ void FireBossComponent::update()
 			normalAttackTimer = SDL_GetTicks();
 		}
 	}
-	
+
 }
 void FireBossComponent::startSpecialAttack()
 {

@@ -390,7 +390,7 @@ namespace constructors {
 		boss->addComponent<Transform>(Vector2D(x, y), 250, 250);
 		//boss->addComponent<Image>(&sdlutils().images().at("lamp"));
 		boss->addComponent<FireBossComponent>();
-		boss->addComponent<PhysicsComponent>(false);
+		boss->addComponent<PhysicsComponent>(colliders::OTT);
 		boss->getComponent<PhysicsComponent>()->createCollider();
 		boss->addComponent<FramedImage>(&sdlutils().images().at("fireBoss"), 5, 13);
 		

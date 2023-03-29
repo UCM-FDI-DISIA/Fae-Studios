@@ -47,7 +47,8 @@ public:
     inline void addEnemy(Entity* enemy, int room) { 
         enemies[room].push_front(enemy);
         enemyIt[room].push_back(enemies[room].begin());
-        enemy->getComponent<EnemyAnimationComponent>()->setPosInList(enemyIt[room].size() - 1, room);
+        if(enemy->hasComponent<EnemyAnimationComponent>()) enemy->getComponent<EnemyAnimationComponent>()->setPosInList(enemyIt[room].size() - 1, room);
+        
     };
 
     inline void initEnemies(int numRooms) {

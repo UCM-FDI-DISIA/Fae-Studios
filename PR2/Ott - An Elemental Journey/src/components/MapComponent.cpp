@@ -76,7 +76,7 @@ void MapComponent::generateEnemies() {
         else if (it.getClass() == "fireBoss")
         {
             auto fBoss= constructors::FireBoss(mngr_, x_ * scale * roomScale, y_ * scale * roomScale);
-
+            game->addEnemy(fBoss, roomNum);
         }
     }
 
