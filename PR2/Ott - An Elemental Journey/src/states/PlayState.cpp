@@ -65,6 +65,8 @@ PlayState::PlayState(std::string fileName) : GameState(ecs::_state_PLAY) {
 	player_ = mngr_->getPlayer();
 	camera_ = mngr_->getCamera();
 
+	constructors::lamp(mngr_, 300, 1500, 20, 50, 0, 100, 100, 20, 50, 1, 40, 40);
+
 	std::ifstream file(fileName);
 
 	player_->getComponent<Health>()->loadFromFile(file);

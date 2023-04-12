@@ -69,6 +69,7 @@
     <ClCompile Include="src\states\menus\options\GraphicsOptionsMenuState.cpp" />
     <ClCompile Include="src\components\ShieldComponent.cpp" />
     <ClCompile Include="src\components\WaterBossAttack.cpp" />
+    <ClCompile Include="src\components\FinalBossBehaviorComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\components\Image.h" />
@@ -156,6 +157,7 @@
     <ClInclude Include="src\states\menus\options\GraphicsOptionsMenuState.h" />
     <ClInclude Include="src\components\ShieldComponent.h" />
     <ClInclude Include="src\components\WaterBossAttack.h" />
+    <ClInclude Include="src\components\FinalBossBehaviorComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="resources\config\ott.resources.mac.json" />

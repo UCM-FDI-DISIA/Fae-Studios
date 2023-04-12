@@ -44,6 +44,7 @@
 #include "../components/Acceleration.h"
 #include "../components/WaterBossAnimationComponent.h"
 #include "../components/ShieldComponent.h"
+#include "../components/FinalBossBehaviorComponent.h"
 #include <string>
 #include <iostream>
 #include <functional>
@@ -260,6 +261,7 @@ namespace constructors {
 		pAnim->initComponent();
 		health->initComponent();
 		ph->createCollider();	
+		player->addComponent<FinalBossBehaviorComponent>(3);
 		return player;
 	}
 
