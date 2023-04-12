@@ -120,7 +120,7 @@ MapComponent::MapComponent(Entity* fadeOut, PlayState* game, int currentMap) : f
     for (int i = 0; i < ecs::LAST_MAP_ID; ++i) {
         mapKeys.push_back({});
     }
-    currentMapKey = "fireMap";
+    currentMapKey = "waterBossMap";
     tilemap = &sdlutils().images().at(sdlutils().levels().at(currentMapKey).tileset);
 }
 
@@ -186,6 +186,13 @@ void MapComponent::update() {
     }
 }
 
+void MapComponent::WaterSetActive(bool c)
+{
+    for (auto ent : waterObjects[currentRoom]) {
+        ent->setActive(true);
+    }
+}
+
 void MapComponent::changeRoom(std::string newRoom, Vector2D newPos, bool verticalTrigger) {
     // std::stoi -> String TO Int
     anim_->startFadeOut(newPos, std::stoi(newRoom), verticalTrigger);
@@ -220,6 +227,7 @@ void MapComponent::changeMap(int newMap, std::string key, int nextPos) {
     destructible = {};
    
     eraseEntities = {};
+    waterObjects = {};
     changeMapTriggers = {};
     triggers = {};
     positions = {};
@@ -294,6 +302,10 @@ void MapComponent::loadMap(std::string path, int nextPos) {
                 else if (name == "Posiciones") {
                     vectorObjects[POSITIONS_VECTOR_POS] = objects;
                 }
+                else if (name == "Agua")
+                {
+                    vectorObjects[WATER_VECTOR_POS] = objects;
+                }
             }
             #pragma endregion
         }
@@ -344,6 +356,21 @@ void MapComponent::loadMap(std::string path, int nextPos) {
                 constructors::DestructibleTile(mngr_, rect.x, rect.y, rect.w, obj.getName(), index, this);
             }
             else ground[obj.getName()].push_back(rect);
+        }
+
+        for (auto obj : vectorObjects[WATER_VECTOR_POS]) {
+            SDL_Rect rect = getSDLRect(obj.getAABB());
+            auto roomScale = vectorTiles[std::stoi(obj.getName())].first;
+            rect.x *= roomScale;
+            rect.y *= roomScale;
+            rect.w *= roomScale;
+            rect.h *= roomScale;
+            Entity* waterW = constructors::Water(mngr_, rect.x, rect.y, rect.w, rect.h, obj.getClass());
+            std::cout << obj.getUID() << std::endl;
+            waterObjects[std::stoi(obj.getName())].push_back(waterW);
+            //WaterSetActive(true);
+
+            waterW->setActive(waterW->getComponent<ActiveWater>()->getActive());
         }
 
         std::unordered_map<std::string, std::pair<SDL_Rect, std::string>> triggerInfo;

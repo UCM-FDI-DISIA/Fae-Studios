@@ -16,6 +16,7 @@
 #include<unordered_map>
 #include "CameraComponent.h"
 #include "FadeOutAnimationComponent.h"
+#include "../components/ActiveWater.h"
 
 using namespace tmx;
 
@@ -44,7 +45,8 @@ private:
 	std::vector<std::vector<std::string>> mapKeys;
 
 	std::vector<Entity*> eraseEntities;
-
+	//agua
+	std::vector<std::vector<Entity*>> waterObjects;
 
 	// En este mapa se guarda:
 	// string -> n�mero de sala
@@ -89,6 +91,8 @@ private:
 	const int ENEMIES_VECTOR_POS = 4;
 	const int CHANGE_MAP_VECTOR_POS = 5;
 	const int POSITIONS_VECTOR_POS = 6;
+	const int WATER_VECTOR_POS = 7;
+
 	
 	std::string currentMapKey = "earthMap";
 
@@ -115,6 +119,7 @@ public:
 
 	// cambio de mapa
 	void changeMap(int newMap, std::string key, int nextPos);
+	void WaterSetActive(bool c);
 
 	void playFadeOutAnimation() { anim_->startFadeOut(); }
 	

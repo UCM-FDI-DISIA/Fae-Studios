@@ -68,6 +68,7 @@
     <ClCompile Include="src\sdlutils\Music.cpp" />
     <ClCompile Include="src\states\menus\options\GraphicsOptionsMenuState.cpp" />
     <ClCompile Include="src\components\ShieldComponent.cpp" />
+    <ClCompile Include="src\components\WaterBossAttack.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\components\Image.h" />
@@ -154,6 +155,7 @@
     <ClInclude Include="src\components\LifeAnimationComponent.h" />
     <ClInclude Include="src\states\menus\options\GraphicsOptionsMenuState.h" />
     <ClInclude Include="src\components\ShieldComponent.h" />
+    <ClInclude Include="src\components\WaterBossAttack.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="resources\config\ott.resources.mac.json" />

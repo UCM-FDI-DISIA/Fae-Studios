@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\components\ShieldComponent.cpp" />
+    <ClCompile Include="src\components\WaterBossAttack.cpp" />
     <ClCompile Include="src\states\menus\options\GraphicsOptionsMenuState.cpp" />
     <ClCompile Include="src\components\DamageArea.cpp" />
     <ClCompile Include="src\states\MapState.cpp" />
@@ -85,6 +86,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\components\ShieldComponent.h" />
+    <ClInclude Include="src\components\WaterBossAttack.h" />
     <ClInclude Include="src\states\menus\options\GraphicsOptionsMenuState.h" />
     <ClInclude Include="src\states\MapState.h" />
     <ClInclude Include="src\components\LifeAnimationComponent.h" />
