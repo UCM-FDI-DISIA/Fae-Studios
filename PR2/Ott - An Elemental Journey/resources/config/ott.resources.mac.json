@@ -15,6 +15,16 @@
 
 	"images" : [
 		{ "id" : "playbackground", "file" : "../Ott - An Elemental Journey/resources/images/backgrounds/defaultmenubg.png", "rows" : 1, "cols" : 1},
+		{ "id" : "Sala0", "file" : "../Ott - An Elemental Journey/resources/images/backgrounds/Sala0.png", "rows" : 1, "cols" : 1},
+		{ "id" : "Sala1", "file" : "../Ott - An Elemental Journey/resources/images/backgrounds/Sala1.png", "rows" : 1, "cols" : 1},
+		{ "id" : "Sala2", "file" : "../Ott - An Elemental Journey/resources/images/backgrounds/Sala2.png", "rows" : 1, "cols" : 1},
+		{ "id" : "Sala3", "file" : "../Ott - An Elemental Journey/resources/images/backgrounds/Sala3.png", "rows" : 1, "cols" : 1},
+		{ "id" : "Sala4", "file" : "../Ott - An Elemental Journey/resources/images/backgrounds/Sala4.png", "rows" : 1, "cols" : 1},
+		{ "id" : "Sala5", "file" : "../Ott - An Elemental Journey/resources/images/backgrounds/Sala0.png", "rows" : 1, "cols" : 1},
+		{ "id" : "Sala6", "file" : "../Ott - An Elemental Journey/resources/images/backgrounds/Sala0.png", "rows" : 1, "cols" : 1},
+		{ "id" : "Sala7", "file" : "../Ott - An Elemental Journey/resources/images/backgrounds/Sala0.png", "rows" : 1, "cols" : 1},
+		{ "id" : "Sala8", "file" : "../Ott - An Elemental Journey/resources/images/backgrounds/Sala0.png", "rows" : 1, "cols" : 1},
+		{ "id" : "Sala9", "file" : "../Ott - An Elemental Journey/resources/images/backgrounds/Sala0.png", "rows" : 1, "cols" : 1},
 		{ "id" : "mainmenubackground", "file" : "../Ott - An Elemental Journey/resources/images/backgrounds/mainmenubg.png", "rows" : 1, "cols" : 1},
 		{ "id" : "blackbackground", "file" : "../Ott - An Elemental Journey/resources/images/backgrounds/mainbg.png", "rows" : 1, "cols" : 1},
 		{ "id" : "whitebackground", "file" : "../Ott - An Elemental Journey/resources/images/backgrounds/playbg.png", "rows" : 1, "cols" : 1},

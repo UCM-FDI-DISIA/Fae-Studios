@@ -101,7 +101,7 @@ MapComponent::MapComponent(Entity* fadeOut, PlayState* game, int currentMap, std
     }
     mapKeys.reserve(ecs::LAST_MAP_ID);
     for (int i = 0; i < ecs::LAST_MAP_ID; ++i) {
-        mapKeys.push_back({});
+        mapKeys.push_back({ "NULL", {0,0,0,0} });
     }
     loadFromFile(file);
     tilemap = &sdlutils().images().at(sdlutils().levels().at(currentMapKey).tileset);
@@ -120,7 +120,7 @@ MapComponent::MapComponent(Entity* fadeOut, PlayState* game, int currentMap) : f
     for (int i = 0; i < ecs::LAST_MAP_ID; ++i) {
         mapKeys.push_back({});
     }
-    currentMapKey = "waterMap";
+    currentMapKey = "earthMap";
     tilemap = &sdlutils().images().at(sdlutils().levels().at(currentMapKey).tileset);
 }
 
@@ -275,16 +275,16 @@ void MapComponent::loadMap(std::string path, int nextPos) {
                     numRooms = objects.size();
                     game->initEnemies(numRooms);
 
-                    // INICIALIZAR AGUA
+                    // INICIALIZAR AGUA y BACKGROUNDS
                     waterObjects.reserve(numRooms);
                     for (int i = 0; i < numRooms; ++i) {
                         waterObjects.push_back(std::vector<Entity*>());
                         waterObjects[i].reserve(5);
+                        backgrounds.push_back({});
                     }
                     for (int i = 0; i < 5; ++i) {
                         waterObjects[i].push_back({});
                     }
-
 
                     if (mapKeys[currentMap].size() != numRooms) {
                         mapKeys[currentMap].reserve(numRooms);
@@ -315,9 +315,11 @@ void MapComponent::loadMap(std::string path, int nextPos) {
                 else if (name == "Posiciones") {
                     vectorObjects[POSITIONS_VECTOR_POS] = objects;
                 }
-                else if (name == "Agua")
-                {
+                else if (name == "Agua") {
                     vectorObjects[WATER_VECTOR_POS] = objects;
+                }
+                else if (name == "Backgrounds") {
+                    vectorObjects[BACKGROUNDS_VECTOR_POS] = objects;
                 }
             }
             #pragma endregion
@@ -436,6 +438,10 @@ void MapComponent::loadMap(std::string path, int nextPos) {
             trRect.h *= roomScale;
 
             positions[numPos] = { trRect, std::stoi(roomNum) };
+        }
+
+        for (auto ot : vectorObjects[BACKGROUNDS_VECTOR_POS]) {
+            backgrounds[std::stoi(ot.getName())] = {ot.getClass(), getSDLRect(ot.getAABB())};
         }
 
         float scale = tileScale();
@@ -561,7 +567,6 @@ void MapComponent::loadMap(std::string path, int nextPos) {
 
         SDL_Rect playerRect = getSDLRect(playerPos.getAABB());
         
-
         auto playerTr_ = player_->getComponent<Transform>();
         int playerRoom;
         float playerRoomScale;
@@ -627,7 +632,6 @@ std::vector<std::pair<SDL_Rect, SDL_Rect>> MapComponent::checkCollisions(const S
             }
         }
     }
-
     return rects;
 }
 
@@ -638,6 +642,16 @@ void MapComponent::render() {
     int offsetY = camPos.y;
     int room = currentRoom;
     auto roomScale = vectorTiles[room].first;
+    if (currentmapKey == "earthMap") {
+        SDL_Rect imageRect = backgrounds[room].second;
+        imageRect.x *= roomScale;
+        imageRect.y *= roomScale;
+        imageRect.w *= roomScale;
+        imageRect.h *= roomScale;
+        imageRect.x -= offsetX;
+        imageRect.y -= offsetY;
+        sdlutils().images().at(backgrounds[room].first).render(imageRect);
+    }
     for (int i = 0; i < vectorTiles[room].second.size(); i++) {
         auto it = vectorTiles[room].second[i].first;
         auto ot = vectorTiles[room].second[i].second;

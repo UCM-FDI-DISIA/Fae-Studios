@@ -1,0 +1,23 @@
+Fondo Mundo Tierra (medidas en formato Ancho x Alto)
+
+Sala 0: 2600,97 x 1184,12
+
+Sala 1: 1140,91 x 1292,85
+
+Sala 2: 1058,97 x 1102,79
+
+Sala 3: 1161,64 x 710,57
+
+Sala 4: 1128,97 x 605,24
+
+Sala 5: 1085,70 x 502,42
+
+Sala 6: 736,46 x 1075,76
+
+Sala 7: 1325,15 x 1006,06
+
+Sala 8: 605,39 x 353,09
+
+Sala 9: 2075,28 x 753,94
+
+(la 7 y la 8 siento que son temporales y que van a cambiarse porque ahora tienen tamaños un poco raros pero te las paso como están ahora jeje)

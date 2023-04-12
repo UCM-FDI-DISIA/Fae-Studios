@@ -14,6 +14,16 @@
 
   "images" : [
 		{ "id" : "playbackground", "file" : "../resources/images/backgrounds/defaultmenubg.png", "rows" : 1, "cols" : 1},
+		{ "id" : "Sala0", "file" : "../resources/images/backgrounds/Sala0.png", "rows" : 1, "cols" : 1},
+		{ "id" : "Sala1", "file" : "../resources/images/backgrounds/Sala1.png", "rows" : 1, "cols" : 1},
+		{ "id" : "Sala2", "file" : "../resources/images/backgrounds/Sala2.png", "rows" : 1, "cols" : 1},
+		{ "id" : "Sala3", "file" : "../resources/images/backgrounds/Sala3.png", "rows" : 1, "cols" : 1},
+		{ "id" : "Sala4", "file" : "../resources/images/backgrounds/Sala4.png", "rows" : 1, "cols" : 1},
+		{ "id" : "Sala5", "file" : "../resources/images/backgrounds/Sala5.png", "rows" : 1, "cols" : 1},
+		{ "id" : "Sala6", "file" : "../resources/images/backgrounds/Sala6.png", "rows" : 1, "cols" : 1},
+		{ "id" : "Sala7", "file" : "../resources/images/backgrounds/Sala7.png", "rows" : 1, "cols" : 1},
+		{ "id" : "Sala8", "file" : "../resources/images/backgrounds/Sala8.png", "rows" : 1, "cols" : 1},
+		{ "id" : "Sala9", "file" : "../resources/images/backgrounds/Sala9.png", "rows" : 1, "cols" : 1},
 		{ "id" : "mainmenubackground", "file" : "../resources/images/backgrounds/mainmenubg.png", "rows" : 1, "cols" : 1},
 		{ "id" : "blackbackground", "file" : "../resources/images/backgrounds/mainbg.png", "rows" : 1, "cols" : 1},
 		{ "id" : "whitebackground", "file" : "../resources/images/backgrounds/playbg.png", "rows" : 1, "cols" : 1},

@@ -32,6 +32,7 @@ private:
 	// Se guarda un vector por cada habitaci�n que hay. En este vector se guarda su ID y su posici�n
 	// El float indica la escala del mapa
 	std::vector<std::pair<float, std::vector<std::pair<int, SDL_Rect>>>> vectorTiles;
+	std::vector<std::pair<std::string, SDL_Rect>> backgrounds;
 
 	// Se guarda un vector con cada tipo de objetos que tiene el mapa (Colisiones, Objetos Interactuables, Salas, Triggers
 	std::vector<std::vector<Object>> vectorObjects;
@@ -93,6 +94,7 @@ private:
 	const int CHANGE_MAP_VECTOR_POS = 5;
 	const int POSITIONS_VECTOR_POS = 6;
 	const int WATER_VECTOR_POS = 7;
+	const int BACKGROUNDS_VECTOR_POS = 8;
 
 	
 	std::string currentMapKey = "earthMap";
