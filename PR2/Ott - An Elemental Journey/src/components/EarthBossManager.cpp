@@ -54,7 +54,7 @@ void EarthBossManager::initializeEntities() {
 		vine->addComponent<Transform>(vine_Rect);
 		vine->addComponent<ImageVine>(&sdlutils().images().at("vineBoss"), 1, false);
 		vine->addComponent<GrowVine>(finPosVine, 7, -1, "horizontal", true);
-		//vine->addComponent<EarthBossAttack>();
+		vine->addComponent<EarthBossAttack>();
 		vine->getComponent<GrowVine>()->isGrowing(false);
 		vineVector.push_back(vine);
 	}
