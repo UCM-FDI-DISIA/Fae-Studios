@@ -642,7 +642,7 @@ void MapComponent::render() {
     int offsetY = camPos.y;
     int room = currentRoom;
     auto roomScale = vectorTiles[room].first;
-    if (currentmapKey == "earthMap") {
+    if (currentMapKey == "earthMap") {
         SDL_Rect imageRect = backgrounds[room].second;
         imageRect.x *= roomScale;
         imageRect.y *= roomScale;
