@@ -593,7 +593,7 @@ void MapComponent::loadMap(std::string path, int nextPos) {
         currentRoom = playerRoom;
         cam->setBounds(getCamBounds());
 
-        mngr_->getEarthBoss()->getComponent<EarthBossManager>()->addPlatforms(platformEarthBoss);
+        if(currentMapKey == "earthMap") mngr_->getEarthBoss()->getComponent<EarthBossManager>()->addPlatforms(platformEarthBoss);
         generateEnemies();
     }
     else
