@@ -273,6 +273,18 @@ void MapComponent::loadMap(std::string path, int nextPos) {
                         });
                     numRooms = objects.size();
                     game->initEnemies(numRooms);
+
+                    // INICIALIZAR AGUA
+                    waterObjects.reserve(numRooms);
+                    for (int i = 0; i < numRooms; ++i) {
+                        waterObjects.push_back(std::vector<Entity*>());
+                        waterObjects[i].reserve(5);
+                    }
+                    for (int i = 0; i < 5; ++i) {
+                        waterObjects[i].push_back({});
+                    }
+
+
                     if (mapKeys[currentMap].size() != numRooms) {
                         mapKeys[currentMap].reserve(numRooms);
                         for (int i = 0; i < numRooms; ++i) {
