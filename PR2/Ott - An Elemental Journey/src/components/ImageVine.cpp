@@ -4,6 +4,7 @@
 #include "../states/PlayState.h"
 #include "../states/GameStateMachine.h"
 ImageVine::ImageVine(Texture* text, float rot, bool canClimb) :tr_(nullptr), tex_(text), rotation(rot) {
+    //Rotation 0 es vertical y 1 horizontal
     canClimb_ = canClimb;
 }
 
@@ -48,7 +49,7 @@ void ImageVine::render()
                 anidatedVines.push_back(aux);
             }
             for (int j = 0; j < i; ++j) {
-                tex_->renderFrame(anidatedVines[j], 0, 0, rotation);
+                tex_->renderFrame(anidatedVines[j], 0, 0);
             }
         }
     }

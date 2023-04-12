@@ -79,6 +79,7 @@ private:
 	CameraComponent* cam;
 	FadeOutAnimationComponent* anim_;
 	Entity* player_;
+	Entity* earthBoss;
 	Entity* fadeOut;
 	PlayState* game;
 	
@@ -121,6 +122,10 @@ public:
 	void changeMap(int newMap, std::string key, int nextPos);
 	void WaterSetActive(bool c);
 
+	void addCollision(std::string sala, SDL_Rect newCol);
+
+	void deleteCollision(std::string sala);
+	
 	void playFadeOutAnimation() { anim_->startFadeOut(); }
 	
 	inline std::string getCurrentLevel() { return currentMapKey; }
