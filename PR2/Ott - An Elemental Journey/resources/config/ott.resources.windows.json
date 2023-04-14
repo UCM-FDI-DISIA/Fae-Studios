@@ -158,6 +158,12 @@
 			"file": "../resources/images/tests/Water.png",
 			"rows": 1,
 			"cols": 1
+		},
+  		{
+			"id": "attackBubble",
+			"file": "../resources/images/sprites/attackBubble.png",
+			"rows": 1,
+			"cols": 1
 		}
   ],
 

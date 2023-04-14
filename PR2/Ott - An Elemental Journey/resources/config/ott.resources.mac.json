@@ -361,7 +361,8 @@
 		{ "id" : "earth_elem", "file" : "../Ott - An Elemental Journey/resources/images/tests/EarthElement.png", "rows": 1, "cols": 10},
 		{ "id" : "water_elem", "file" : "../Ott - An Elemental Journey/resources/images/tests/WaterElement.png", "rows": 1, "cols": 10},
 		{ "id" : "fire_elem", "file" : "../Ott - An Elemental Journey/resources/images/tests/FireElement.png", "rows": 1, "cols": 10},
-		{ "id" : "fire_attack", "file" : "../Ott - An Elemental Journey/resources/images/tests/fire_attack.png", "rows": 1, "cols": 1}
+		{ "id" : "fire_attack", "file" : "../Ott - An Elemental Journey/resources/images/tests/fire_attack.png", "rows": 1, "cols": 1},
+		{ "id" : "attackBubble", "file" : "../Ott - An Elemental Journey/resources/images/sprites/attackBubble.png", "rows": 1, "cols": 1}
 	],
 
 	"messages" : [],

@@ -10,8 +10,10 @@ public:
 	void initComponent() override;
 	void update() override;
 private:
+	void spawnBubbles();
 	Health* bossHealth;
 	int timeBetweenAttacks, lastAttack;
+	int BUBBLE_DIM = 70;
 };
 
 
