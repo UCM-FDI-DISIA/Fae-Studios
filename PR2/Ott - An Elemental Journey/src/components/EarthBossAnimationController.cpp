@@ -25,7 +25,7 @@ void EarthBossAnimationController::update() {
 			image1->setCol(col);
 
 			if (image2 != nullptr) {
-				int col2 = image2->getCurrentCol();
+ 				int col2 = image2->getCurrentCol();
 
 				if (col2 != getNFrames(state) + getColNum(state) - 1) col2 = (timer_ / getTPerFrame(state)) % getNFrames(state) + getColNum(state);
 
@@ -41,20 +41,17 @@ void EarthBossAnimationController::update() {
 }
 
 void EarthBossAnimationController::endAnim() {
-	if (state == anims::EARTHBOSSPRESENT) {
-		std::cout << "Animacion de presentacion acabada, pasar al de pausa" << std::endl;
-		emngr_->setChangeState(true);
-	}
-	else if(state == anims::PAUSE_ANIM) {
-		std::cout << "Animacion de pausa acabada, pasar a la siguiente" << std::endl;
-		emngr_->setChangeState(true);
-	}
-	else if (state == anims::WARNINGEARTH) {
-		std::cout << "Animacion de warning acabada, pasar a la siguiente" << std::endl;
-		emngr_->setChangeState(true);
-		thereIsAnimation = false;
+	if (animPresentacion < 3 && state == anims::EARTHBOSSPRESENT) {
+		++animPresentacion;
 		image1->setCol(0);
-		image2->setCol(0);
 	}
+	else{
+		if (state == anims::WARNINGEARTH) {
+			thereIsAnimation = false;
+			image1->setCol(0);
+			image2->setCol(0);
+		}
+	}
+	emngr_->setChangeState(true);
 	timer_ = 0;
 }

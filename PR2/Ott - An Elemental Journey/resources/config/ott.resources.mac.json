@@ -1,3 +1,4 @@
+// CAMBIAR ESTOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
 {
 
 	"fonts" : [
@@ -14,6 +15,16 @@
 
 	"images" : [
 		{ "id" : "playbackground", "file" : "../Ott - An Elemental Journey/resources/images/backgrounds/defaultmenubg.png", "rows" : 1, "cols" : 1},
+		{ "id" : "Sala0", "file" : "../Ott - An Elemental Journey/resources/images/backgrounds/Sala0.png", "rows" : 1, "cols" : 1},
+		{ "id" : "Sala1", "file" : "../Ott - An Elemental Journey/resources/images/backgrounds/Sala1.png", "rows" : 1, "cols" : 1},
+		{ "id" : "Sala2", "file" : "../Ott - An Elemental Journey/resources/images/backgrounds/Sala2.png", "rows" : 1, "cols" : 1},
+		{ "id" : "Sala3", "file" : "../Ott - An Elemental Journey/resources/images/backgrounds/Sala3.png", "rows" : 1, "cols" : 1},
+		{ "id" : "Sala4", "file" : "../Ott - An Elemental Journey/resources/images/backgrounds/Sala4.png", "rows" : 1, "cols" : 1},
+		{ "id" : "Sala5", "file" : "../Ott - An Elemental Journey/resources/images/backgrounds/Sala0.png", "rows" : 1, "cols" : 1},
+		{ "id" : "Sala6", "file" : "../Ott - An Elemental Journey/resources/images/backgrounds/Sala0.png", "rows" : 1, "cols" : 1},
+		{ "id" : "Sala7", "file" : "../Ott - An Elemental Journey/resources/images/backgrounds/Sala0.png", "rows" : 1, "cols" : 1},
+		{ "id" : "Sala8", "file" : "../Ott - An Elemental Journey/resources/images/backgrounds/Sala0.png", "rows" : 1, "cols" : 1},
+		{ "id" : "Sala9", "file" : "../Ott - An Elemental Journey/resources/images/backgrounds/Sala0.png", "rows" : 1, "cols" : 1},
 		{ "id" : "mainmenubackground", "file" : "../Ott - An Elemental Journey/resources/images/backgrounds/mainmenubg.png", "rows" : 1, "cols" : 1},
 		{ "id" : "blackbackground", "file" : "../Ott - An Elemental Journey/resources/images/backgrounds/mainbg.png", "rows" : 1, "cols" : 1},
 		{ "id" : "whitebackground", "file" : "../Ott - An Elemental Journey/resources/images/backgrounds/playbg.png", "rows" : 1, "cols" : 1},
@@ -43,12 +54,262 @@
 		{ "id" : "level1bg", "file" : "../Ott - An Elemental Journey/resources/images/levels/fondo.png", "rows" : 1, "cols" : 1},
 		{ "id" : "level1tileset", "file" : "../Ott - An Elemental Journey/resources/images/levels/tilesetlevel1.png", "rows" : 34, "cols" : 20},
 		{ "id" : "waterTileset", "file" : "../Ott - An Elemental Journey/resources/images/levels/Tiles_Agua_Bosque.png", "rows" : 34, "cols" : 20},
+		{"id": "earth_elem", "file": "../Ott - An Elemental Journey/resources/images/tests/EarthElement.png", "rows": 1, "cols": 10},
+		{"id": "water_elem", "file": "../Ott - An Elemental Journey/resources/images/tests/WaterElement.png", "rows": 1, "cols": 10},
+		{"id": "fire_elem", "file": "../Ott - An Elemental Journey/resources/images/tests/FireElement.png", "rows": 1, "cols": 10},
+		{
+			"id": "shield",
+			"file": "../Ott - An Elemental Journey/resources/images/levels/Shield.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "whip",
+			"file": "../Ott - An Elemental Journey/resources/images/levels/whip.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "waterShield",
+			"file": "../Ott - An Elemental Journey/resources/images/levels/waterShield.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "earthShield",
+			"file": "../Ott - An Elemental Journey/resources/images/levels/earthShield.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "fireShield",
+			"file": "../Ott - An Elemental Journey/resources/images/levels/fireShield.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "enemy",
+			"file": "../Ott - An Elemental Journey/resources/images/sprites/Enemy.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "bug",
+			"file": "../Ott - An Elemental Journey/resources/images/sprites/Bug.png",
+			"rows": 2,
+			"cols": 21
+		},
+		{
+			"id": "waterBug",
+			"file": "../Ott - An Elemental Journey/resources/images/sprites/WaterBug.png",
+			"rows": 2,
+			"cols": 21
+		},
+		{
+			"id": "earthBug",
+			"file": "../Ott - An Elemental Journey/resources/images/sprites/EarthBug.png",
+			"rows": 2,
+			"cols": 21
+		},
+		{
+			"id": "fireBug",
+			"file": "../Ott - An Elemental Journey/resources/images/sprites/FireBug.png",
+			"rows": 2,
+			"cols": 21
+		},
+		{
+			"id": "darkBug",
+			"file": "../Ott - An Elemental Journey/resources/images/sprites/DarkBug.png",
+			"rows": 2,
+			"cols": 21
+		},
+		{
+			"id": "waterMushroom",
+			"file": "../Ott - An Elemental Journey/resources/images/sprites/WaterMushroom.png",
+			"rows": 2,
+			"cols": 22
+		},
+		{
+			"id": "earthMushroom",
+			"file": "../Ott - An Elemental Journey/resources/images/sprites/EarthMushroom.png",
+			"rows": 2,
+			"cols": 22
+		},
+		{
+			"id": "fireMushroom",
+			"file": "../Ott - An Elemental Journey/resources/images/sprites/FireMushroom.png",
+			"rows": 2,
+			"cols": 22
+		},
+		{
+			"id": "darkMushroom",
+			"file": "../Ott - An Elemental Journey/resources/images/sprites/DarkMushroom.png",
+			"rows": 2,
+			"cols": 22
+		},
+		{
+			"id": "waterSlime",
+			"file": "../Ott - An Elemental Journey/resources/images/sprites/WaterSlime.png",
+			"rows": 2,
+			"cols": 21
+		},
+		{
+			"id": "earthSlime",
+			"file": "../Ott - An Elemental Journey/resources/images/sprites/EarthSlime.png",
+			"rows": 2,
+			"cols": 21
+		},
+		{
+			"id": "fireSlime",
+			"file": "../Ott - An Elemental Journey/resources/images/sprites/FireSlime.png",
+			"rows": 2,
+			"cols": 21
+		},
+		{
+			"id": "darkSlime",
+			"file": "../Ott - An Elemental Journey/resources/images/sprites/DarkSlime.png",
+			"rows": 2,
+			"cols": 21
+		},
+		{
+			"id": "mushroom",
+			"file": "../Ott - An Elemental Journey/resources/images/sprites/Mushroom.png",
+			"rows": 2,
+			"cols": 21
+		},
+		{
+			"id": "spores",
+			"file": "../Ott - An Elemental Journey/resources/images/sprites/spores.png",
+			"rows": 1,
+			"cols": 1
+		},
+
+		{
+			"id": "water_chargedAttack",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/water_Attack.png",
+			"rows": 1,
+			"cols": 1
+		},
+
+		{
+			"id": "water_attack",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/water_Attack_PlaceHolder.png",
+			"rows": 2,
+			"cols": 7
+		},
+		{
+			"id": "earth_attack",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/earth_Attack.png",
+			"rows": 2,
+			"cols": 7
+		},
+		{
+			"id": "animationWorm",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/AnimationWorm.png",
+			"rows": 1,
+			"cols": 8
+		},
+		{
+			"id": "fallingWorm",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/WormFallingAttack.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "vine",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/EarthBossVine.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "vineBoss",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/EarthBossVineAttack.png",
+			"rows": 1,
+			"cols": 1
+		},
+
+		{
+			"id": "warning",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/EarthBossWarning.png",
+			"rows": 1,
+			"cols": 28
+		},
+
+		{
+			"id": "bossHealthBar",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/BossHealthBar.png",
+			"rows": 1,
+			"cols": 1
+		},
+
+		{
+			"id": "bossLife",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/BossLife.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "vinePlatform",
+			"file": "../resources/images/tests/VinePlatform.png",
+			"rows": 1,
+			"cols": 1
+		},
+
+		{
+			"id": "water_boss",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/Boss_Agua.png",
+			"rows": 4,
+			"cols": 8
+		},
+		{
+			"id" : "0_earth_room", 
+			"file" : "../Ott - An Elemental Journey/resources/images/map_rooms/0_earth_map.png",
+			"rows" : 1, 
+			"cols" : 1
+		},
+		{ 
+			"id" : "1_earth_room", 
+			"file" : "../Ott - An Elemental Journey/resources/images/map_rooms/1_earth_map.png",
+			"rows" : 1, 
+			"cols" : 1
+		},
+		{ 
+			"id" : "2_earth_room", 
+			"file" : "../Ott - An Elemental Journey/resources/images/map_rooms/2_earth_map.png",
+			"rows" : 1, 
+			"cols" : 1
+		},
+		{ 
+			"id" : "3_earth_room", 
+			"file" : "../Ott - An Elemental Journey/resources/images/map_rooms/3_earth_map.png",
+			"rows" : 1, 
+			"cols" : 1
+		},
+		{ 
+			"id" : "4_earth_room", 
+			"file" : "../Ott - An Elemental Journey/resources/images/map_rooms/4_earth_map.png",
+			"rows" : 1, 
+			"cols" : 1
+		},
+		{ 
+			"id" : "5_earth_room", 
+			"file" : "../Ott - An Elemental Journey/resources/images/map_rooms/5_earth_map.png",
+			"rows" : 1, 
+			"cols" : 1
+		},
+		{ 
+			"id" : "mapBG", 
+			"file" : "../Ott - An Elemental Journey/resources/images/map_rooms/mapBg.png",
+			"rows" : 1, 
+			"cols" : 1
+		},
+		{
+			"id": "lamps",
+			"file": "../Ott - An Elemental Journey/resources/images/ui/lamps.png",
+			"rows": 4,
+			"cols": 3
+		},
 		{ "id" : "fireTileset", "file" : "../Ott - An Elemental Journey/resources/images/levels/TilesLava.png", "rows" : 3, "cols" : 4},
-		{ "id" : "shield", "file" : "../Ott - An Elemental Journey/resources/images/levels/Shield.png", "rows" : 1, "cols" : 1},
-		{ "id" : "whip", "file" : "../Ott - An Elemental Journey/resources/images/levels/whip.png", "rows" : 1, "cols" : 1},
-		{ "id" : "waterShield", "file" : "../Ott - An Elemental Journey/resources/images/levels/waterShield.png", "rows" : 1, "cols" : 1},
-		{ "id" : "earthShield", "file" : "../Ott - An Elemental Journey/resources/images/levels/earthShield.png", "rows" : 1, "cols" : 1},
-		{ "id" : "fireShield", "file" : "../Ott - An Elemental Journey/resources/images/levels/fireShield.png", "rows" : 1, "cols" : 1},
 		{ "id" : "enemy", "file" : "../Ott - An Elemental Journey/resources/images/sprites/Enemy.png", "rows" : 1, "cols" : 1},
 		{ "id" : "bug", "file" : "../Ott - An Elemental Journey/resources/images/sprites/Bug.png", "rows" : 2, "cols" : 21},
 		{ "id" : "waterBug", "file" : "../Ott - An Elemental Journey/resources/images/sprites/WaterBug.png", "rows" : 2, "cols" : 21},

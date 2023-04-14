@@ -101,7 +101,7 @@ MapComponent::MapComponent(Entity* fadeOut, PlayState* game, int currentMap, std
     }
     mapKeys.reserve(ecs::LAST_MAP_ID);
     for (int i = 0; i < ecs::LAST_MAP_ID; ++i) {
-        mapKeys.push_back({});
+        mapKeys.push_back({ "NULL", {0,0,0,0} });
     }
     loadFromFile(file);
     tilemap = &sdlutils().images().at(sdlutils().levels().at(currentMapKey).tileset);
@@ -257,6 +257,7 @@ void MapComponent::loadMap(std::string path, int nextPos) {
         int playerSanctuaryRoom;
         const auto& layers2 = map.getLayers();
         std::unordered_map<std::string, std::pair<Vector2D,int>> lamps;
+        std::vector<Entity*> platformEarthBoss;
         //cout << "Map has " << layers2.size() << " layers" << endl;
         for (const auto& layer : layers2)
         {
@@ -273,6 +274,18 @@ void MapComponent::loadMap(std::string path, int nextPos) {
                         });
                     numRooms = objects.size();
                     game->initEnemies(numRooms);
+
+                    // INICIALIZAR AGUA y BACKGROUNDS
+                    waterObjects.reserve(numRooms);
+                    for (int i = 0; i < numRooms; ++i) {
+                        waterObjects.push_back(std::vector<Entity*>());
+                        waterObjects[i].reserve(5);
+                        backgrounds.push_back({});
+                    }
+                    for (int i = 0; i < 5; ++i) {
+                        waterObjects[i].push_back({});
+                    }
+
                     if (mapKeys[currentMap].size() != numRooms) {
                         mapKeys[currentMap].reserve(numRooms);
                         for (int i = 0; i < numRooms; ++i) {
@@ -302,9 +315,11 @@ void MapComponent::loadMap(std::string path, int nextPos) {
                 else if (name == "Posiciones") {
                     vectorObjects[POSITIONS_VECTOR_POS] = objects;
                 }
-                else if (name == "Agua")
-                {
+                else if (name == "Agua") {
                     vectorObjects[WATER_VECTOR_POS] = objects;
+                }
+                else if (name == "Backgrounds") {
+                    vectorObjects[BACKGROUNDS_VECTOR_POS] = objects;
                 }
             }
             #pragma endregion
@@ -425,6 +440,10 @@ void MapComponent::loadMap(std::string path, int nextPos) {
             positions[numPos] = { trRect, std::stoi(roomNum) };
         }
 
+        for (auto ot : vectorObjects[BACKGROUNDS_VECTOR_POS]) {
+            backgrounds[std::stoi(ot.getName())] = {ot.getClass(), getSDLRect(ot.getAABB())};
+        }
+
         float scale = tileScale();
         for (auto ot : vectorObjects[I_OBJECTS_VECTOR_POS]) {
             //unordered_map<string, TP_Lamp*> lamps;
@@ -503,10 +522,22 @@ void MapComponent::loadMap(std::string path, int nextPos) {
                 Entity* earthBoss = mngr_->addEntity(ecs::_grp_GENERAL);
                 earthBoss->addComponent<EarthBossManager>(roomDimensions);
                 mngr_->setEarthBoss(earthBoss);
-                eraseEntities.push_back(earthBoss);
-                //earthBoss->getComponent<EarthBossManager>()->initializeEntities();
             }
-            else if ((ot.getClass() == "DoorTrigger") && loadEarthBoss) {
+            else if (ot.getClass() == "EarthBossPlatforms") {
+                auto roomScale = vectorTiles[std::stoi(ot.getName())].first;
+                SDL_Rect platformDimensions;
+                platformDimensions.x = x_ * scale * roomScale;
+                platformDimensions.y = y_ * scale * roomScale;
+                platformDimensions.w = w_ * scale * roomScale;
+                platformDimensions.h = h_ * scale * roomScale;
+                Entity* earthBossPlatforms = mngr_->addEntity(ecs::_grp_GENERAL);
+                earthBossPlatforms->addComponent<Transform>(platformDimensions);
+                platformEarthBoss.push_back(earthBossPlatforms);
+               
+                //eraseEntities.push_back(earthBoss); //what
+            }
+            /*else if ((ot.getClass() == "DoorTrigger") && loadEarthBoss) {
+           /* else if ((ot.getClass() == "DoorTrigger") && loadEarthBoss) {
                 auto roomScale = vectorTiles[std::stoi(ot.getName())].first;
                 Entity* trigger = mngr_->addEntity(ecs::_grp_TRIGGER);
                 trigger->addComponent<Transform>(Vector2D(x_* scale * roomScale, y_* scale* roomScale), w_* scale* roomScale, h_* scale* roomScale);
@@ -518,7 +549,7 @@ void MapComponent::loadMap(std::string path, int nextPos) {
                 trigger->addComponent<EnterBossRoom>(&sdlutils().images().at("animationWorm"));
                 trigger->addComponent<Trigger>();
                 interact[std::stoi(ot.getName())].push_back(trigger);
-            }
+            }*/
             else if (classSplit[0] == "Life") {
                 auto lifeSharIDSplit = strSplit(pickedLifeShards, ' ');
                 bool dontCreate = false;
@@ -536,7 +567,6 @@ void MapComponent::loadMap(std::string path, int nextPos) {
 
         SDL_Rect playerRect = getSDLRect(playerPos.getAABB());
         
-
         auto playerTr_ = player_->getComponent<Transform>();
         int playerRoom;
         float playerRoomScale;
@@ -567,12 +597,23 @@ void MapComponent::loadMap(std::string path, int nextPos) {
         playerTr_->setScale(playerRoomScale);
         currentRoom = playerRoom;
         cam->setBounds(getCamBounds());
+
+        if(currentMapKey == "earthMap") mngr_->getEarthBoss()->getComponent<EarthBossManager>()->addPlatforms(platformEarthBoss);
         generateEnemies();
     }
     else
     {
         std::cout << "Failed loading map" << std::endl;
     }
+}
+
+void MapComponent::addCollision(std::string sala, SDL_Rect newCol) {
+    ground[sala].push_back(newCol);
+}
+
+void MapComponent::deleteCollision(std::string sala) {
+    auto pos = ground.find(sala);
+    if (pos != ground.end()) (*pos).second.erase(--(*pos).second.end());
 }
 
 std::vector<std::pair<SDL_Rect, SDL_Rect>> MapComponent::checkCollisions(const SDL_Rect& playerRect) {
@@ -591,7 +632,6 @@ std::vector<std::pair<SDL_Rect, SDL_Rect>> MapComponent::checkCollisions(const S
             }
         }
     }
-
     return rects;
 }
 
@@ -602,6 +642,16 @@ void MapComponent::render() {
     int offsetY = camPos.y;
     int room = currentRoom;
     auto roomScale = vectorTiles[room].first;
+    if (currentMapKey == "earthMap") {
+        SDL_Rect imageRect = backgrounds[room].second;
+        imageRect.x *= roomScale;
+        imageRect.y *= roomScale;
+        imageRect.w *= roomScale;
+        imageRect.h *= roomScale;
+        imageRect.x -= offsetX;
+        imageRect.y -= offsetY;
+        sdlutils().images().at(backgrounds[room].first).render(imageRect);
+    }
     for (int i = 0; i < vectorTiles[room].second.size(); i++) {
         auto it = vectorTiles[room].second[i].first;
         auto ot = vectorTiles[room].second[i].second;
@@ -622,7 +672,7 @@ void MapComponent::render() {
     for (auto it : ground[std::to_string(room)]) {
         it.x -= cam->camera.x;
         it.y -= cam->camera.y;
-        sdlutils().images().at("pixelWhite").render(it);
+        sdlutils().images().at("pixel").render(it);
     }
 }
 

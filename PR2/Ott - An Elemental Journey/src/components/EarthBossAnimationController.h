@@ -26,6 +26,7 @@ public:
     inline int getRowNum(anims::Entities eAnims) { return anims::animations[eAnims][0].rowNum; }
     inline int getColNum(anims::Entities eAnims) { return anims::animations[eAnims][0].colNum; }
     inline void setAnimation(bool a) { thereIsAnimation = a; }
+    inline int getPresentationReps() { return animPresentacion; }
 
 private:
     bool thereIsAnimation = false;
@@ -35,6 +36,7 @@ private:
     EarthBossManager* emngr_;
     float timer;
 
+    int animPresentacion = 0;
     int warningRepetition = 0;
     int damageTimer_, damageStartTime_, timer_ = 0;
     const int maxDamagedTimer_ = 500, FRAME_ANIMATION_TIME = 6;

@@ -64,7 +64,6 @@ namespace ecs {
     /// Identificador de los grupos
     enum grpId : grpId_type {
         _grp_GENERAL, ///< General
-        _grp_UI, ///< Elementos de la interfaz gráfica
         _grp_MINIBOSS,
         _grp_GROUND,
         _grp_VINE,
@@ -74,6 +73,7 @@ namespace ecs {
         _grp_CHARACTERS,
         _grp_PROYECTILES,
         _grp_WATER,
+        _grp_UI, ///< Elementos de la interfaz gráfica
         _grp_FADEOUT,
 
         _LAST_GRP_ID

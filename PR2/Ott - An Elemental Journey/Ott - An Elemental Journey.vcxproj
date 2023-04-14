@@ -22,6 +22,7 @@
     <ClCompile Include="src\components\FinalBossBehaviorComponent.cpp" />
     <ClCompile Include="src\components\ShieldComponent.cpp" />
     <ClCompile Include="src\components\WaterBossAttack.cpp" />
+    <ClCompile Include="src\components\BossHealthBar.cpp" />
     <ClCompile Include="src\states\menus\options\GraphicsOptionsMenuState.cpp" />
     <ClCompile Include="src\components\DamageArea.cpp" />
     <ClCompile Include="src\states\MapState.cpp" />
@@ -99,6 +100,7 @@
     <ClCompile Include="src\components\Trigger.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\components\BossHealthBar.h" />
     <ClInclude Include="src\components\EarthBossManager.h" />
     <ClInclude Include="src\components\ElementObject.h" />
     <ClInclude Include="src\components\EnterBossRoom.h" />

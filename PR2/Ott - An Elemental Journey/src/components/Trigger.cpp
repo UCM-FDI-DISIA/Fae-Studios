@@ -2,7 +2,7 @@
 Trigger::Trigger() {
 }
 void Trigger::update() {
-	if (mngr_->getPlayer() != nullptr) {
+	if (!detected && mngr_->getPlayer() != nullptr) {
 		player_ = mngr_->getPlayer();
 		auto interactionIt = mngr_->getEntities(ecs::_grp_TRIGGER).begin();
 		while (interactionIt != mngr_->getEntities(ecs::_grp_TRIGGER).end()) {
@@ -13,7 +13,7 @@ void Trigger::update() {
 			if (SDL_HasIntersection(&r1, &r2)) {
 				if (ents->hasComponent<EnterBossRoom>()) {
 					ents->getComponent<EnterBossRoom>()->enterRoom();
-					ents->getComponent<EnterBossRoom>()->startAnim();
+					detected = true;
 				}
 			}
 
