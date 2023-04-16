@@ -44,6 +44,7 @@
 #include "../components/Acceleration.h"
 #include "../components/WaterBossAnimationComponent.h"
 #include "../components/ShieldComponent.h"
+#include "../components/ChargedAttackBar.h"
 #include <string>
 #include <iostream>
 #include <functional>
@@ -251,6 +252,7 @@ namespace constructors {
 		SDL_Rect rect = { 20,20,(int)(0.56*lamp_w),lamp_w };
 		player->addComponent<HealthImage>(&sdlutils().images().at("lamps"), 5, rect);
 		player->addComponent<FramedImageOtt>(&sdlutils().images().at("ott_luz"));
+		player->addComponent<ChargedAttackBar>(&sdlutils().images().at("chargebar"));
 		auto pAnim = player->addComponent<PlayerAnimationComponent>(anims::OTT_ANIM);
 		auto health = player->addComponent<Health>(5, ecs::Light, true);
 		player->addComponent<PlayerAttack>();

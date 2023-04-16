@@ -52,6 +52,7 @@ namespace ecs {
         _GET_ELEMENT,
         _LIFESHARDANIM,
         _SHIELD,
+        _CHARGED_ATTACK_BAR,
 
         _LAST_CMP_ID
     };

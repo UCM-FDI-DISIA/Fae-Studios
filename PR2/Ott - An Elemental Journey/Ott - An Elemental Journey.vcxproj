@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\components\ChargedAttackBar.cpp" />
     <ClCompile Include="src\components\ShieldComponent.cpp" />
     <ClCompile Include="src\components\WaterBossAttack.cpp" />
     <ClCompile Include="src\components\BossHealthBar.cpp" />
@@ -86,6 +87,7 @@
     <ClCompile Include="src\components\WaterBossAnimationComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\components\ChargedAttackBar.h" />
     <ClInclude Include="src\components\ShieldComponent.h" />
     <ClInclude Include="src\components\WaterBossAttack.h" />
     <ClInclude Include="src\states\menus\options\GraphicsOptionsMenuState.h" />

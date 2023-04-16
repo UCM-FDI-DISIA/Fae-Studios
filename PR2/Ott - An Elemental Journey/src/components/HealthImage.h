@@ -28,6 +28,11 @@ public:
 	void damage(int num); // dañar X puntos
 	inline void increaseLife() { numHearts++; heartState.push_back(FULL_HEART); reset(); }
 	constexpr static ecs::cmpId_type id = ecs::_HEALTH_IMAGE; // ID
+	inline SDL_Rect getLastHeartPos() const {
+		SDL_Rect tmp = pos;
+		tmp.x += (numHearts - 1) * OFFSET_X * pos.w;
+		return tmp;
+	}
 	void changeElement(ecs::elements newElem) {
 		if (newElem == ecs::Light) row = 0;
 		else if (newElem == ecs::Earth) row = 1;
