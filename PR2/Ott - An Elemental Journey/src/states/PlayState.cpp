@@ -304,7 +304,10 @@ void PlayState::Teleport() {
 
 void PlayState::Save() {
 	map_->playFadeOutAnimation();
+	if(lastSanctuary!=nullptr) lastSanctuary->getComponent<Image>()->changeText(&sdlutils().images().at("sanctuaryOff"));
 	lastSanctuary = getCurrentInteraction();
+	lastSanctuary->getComponent<Image>()->changeText(&sdlutils().images().at("sanctuary"));
+
 }
 
 void PlayState::AddLifeShard(int id) {

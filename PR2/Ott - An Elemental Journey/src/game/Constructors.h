@@ -344,9 +344,10 @@ namespace constructors {
 	static inline Entity* sanctuary(Manager* mngr_, Vector2D position, int ID, int room, int width = 100, int height = 130) {
 		auto sanc = mngr_->addEntity(ecs::_grp_INTERACTION);
 		sanc->addComponent<Transform>(position, width, height);
-		sanc->addComponent<Image>(&sdlutils().images().at("sanctuary"));
+		sanc->addComponent<Image>(&sdlutils().images().at("sanctuaryOff"));
 		auto cb = []() {
 			static_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->Save();
+
 		};
 		sanc->addComponent<InteractionComponent>(cb, SANCTUARY_IT, ID, room);
 		return sanc;

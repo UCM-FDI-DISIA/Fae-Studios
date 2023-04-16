@@ -19,7 +19,7 @@ private:
     Entity* camera_;
     Entity* earthBoss_;
     MapComponent* map_;
-    Entity* lastSanctuary;
+    Entity* lastSanctuary=nullptr;
     std::vector<std::list<Entity*>> enemies, initialEnemies;
     std::vector<std::vector<std::list<Entity*>::iterator>> enemyIt;
     ecs::maps currentMap;
