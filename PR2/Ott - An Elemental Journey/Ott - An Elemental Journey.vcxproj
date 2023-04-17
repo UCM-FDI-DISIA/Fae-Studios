@@ -23,6 +23,7 @@
     <ClCompile Include="src\components\ShieldComponent.cpp" />
     <ClCompile Include="src\components\WaterBossAttack.cpp" />
     <ClCompile Include="src\components\BossHealthBar.cpp" />
+    <ClCompile Include="src\components\WaterBubbleComponent.cpp" />
     <ClCompile Include="src\states\menus\options\GraphicsOptionsMenuState.cpp" />
     <ClCompile Include="src\components\DamageArea.cpp" />
     <ClCompile Include="src\states\MapState.cpp" />
@@ -90,6 +91,7 @@
     <ClInclude Include="src\components\FinalBossBehaviorComponent.h" />
     <ClInclude Include="src\components\ShieldComponent.h" />
     <ClInclude Include="src\components\WaterBossAttack.h" />
+    <ClInclude Include="src\components\WaterBubbleComponent.h" />
     <ClInclude Include="src\states\menus\options\GraphicsOptionsMenuState.h" />
     <ClInclude Include="src\states\MapState.h" />
     <ClInclude Include="src\components\LifeAnimationComponent.h" />

@@ -1,6 +1,7 @@
 #include "FinalBossBehaviorComponent.h"
 #include "Health.h"
 #include "Image.h"
+#include "WaterBubbleComponent.h"
 FinalBossBehaviorComponent::FinalBossBehaviorComponent(int time)
 {
 	timeBetweenAttacks = time;
@@ -42,11 +43,10 @@ void FinalBossBehaviorComponent::spawnBubbles() //Ataque de agua
 	// Transform del boss
 	auto pTransf = ent_->getComponent<Transform>();
 	// Burguja
-	Entity* bubble = mngr_->addEntity(ecs::_grp_CHARACTERS);
+	Entity* bubble = mngr_->addEntity(ecs::_grp_BUBBLE);
 
-	// Transform ataque
 	bubble->addComponent<Transform>(pTransf->getPosition(), BUBBLE_DIM * pTransf->getScale(), BUBBLE_DIM * pTransf->getScale());
-
 	bubble->addComponent<Image>(&sdlutils().images().at("attackBubble"));
-
+	bubble->addComponent<Health>(100, ecs::Water);
+	bubble->addComponent<WaterBubbleComponent>();
 }
