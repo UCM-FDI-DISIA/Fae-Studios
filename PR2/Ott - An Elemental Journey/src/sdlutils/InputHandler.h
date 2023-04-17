@@ -39,6 +39,7 @@ public:
 
     // update the state with a new event
     inline void update(const SDL_Event &event) {
+        curEvent = event;
         switch (event.type) {
             case SDL_KEYDOWN:
                 onKeyDown(event);
@@ -148,6 +149,7 @@ public:
         return mbState_[b];
     }
 
+    inline SDL_Event getEvent() { return curEvent; }
     // TODO add support for Joystick, see Chapter 4 of
     // the book 'SDL Game Development'
 
@@ -210,6 +212,7 @@ private:
     std::pair<Sint32, Sint32> mousePos_;
     std::array<bool, 3> mbState_;
     const Uint8 *kbState_;
+    SDL_Event curEvent;
 }
 ;
 

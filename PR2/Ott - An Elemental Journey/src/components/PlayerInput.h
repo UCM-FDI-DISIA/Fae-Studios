@@ -22,7 +22,7 @@ public:
 	virtual void saveToFile(std::ofstream& file);
 	virtual void loadFromFile(std::ifstream& file);
 	constexpr static ecs::cmpId_type id = ecs::_CTRL;
-	
+	inline void setCanInteract(bool value) { canInteract = value; }
 	inline void unlockElement(ecs::elements elem) {
 		switch (elem)
 		{
@@ -84,6 +84,7 @@ private:
 	bool earth = false, water = true, fire = false;
 	bool selectedEarth = false, selectedWater = false, selectedFire = false, selectedLight = true;
 	bool openingMap = false;
+	bool canInteract = false;
 };
 
 

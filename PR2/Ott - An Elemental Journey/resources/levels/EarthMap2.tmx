@@ -383,7 +383,7 @@
   <object id="223" name="8_earth_room" class=" 1.8" x="3816.91" y="1942.42" width="605.394" height="353.091"/>
   <object id="265" name="9_earth_room" class="0.8" x="3855.36" y="693.031" width="2075.28" height="753.939"/>
  </objectgroup>
- <objectgroup id="7" name="Triggers" visible="0">
+ <objectgroup id="7" name="Triggers">
   <object id="166" name="0_1" class="01" x="2587.17" y="1244.67" width="32" height="160"/>
   <object id="167" name="1_0" class="01" x="2643.17" y="1276.67" width="32" height="160"/>
   <object id="168" name="2_1" class="12" x="2592.5" y="1944" width="32" height="160"/>
@@ -407,8 +407,8 @@
   <object id="236" name="1_8" class="18" x="3784.68" y="2001.83" width="21.8586" height="109.293"/>
   <object id="237" name="8_1" class="18" x="3809.46" y="2000.14" width="21.8586" height="114.387"/>
  </objectgroup>
- <objectgroup id="8" name="Enemigos" visible="0">
-  <object id="150" name="0_1_right" class="Mushroom" x="352.667" y="1369.67" width="31.3333" height="155.333"/>
+ <objectgroup id="8" name="Enemigos">
+  <object id="150" name="0_1_right" class="Mushroom" x="1056" y="1248" width="31.3333" height="155.333"/>
   <object id="151" name="0_2_left" class="Melee" x="1566.33" y="1312.17" width="31.3333" height="86.6667"/>
   <object id="152" name="2_1_right" class="Slime" x="3168.79" y="1915.89" width="31.3333" height="173.333"/>
  </objectgroup>

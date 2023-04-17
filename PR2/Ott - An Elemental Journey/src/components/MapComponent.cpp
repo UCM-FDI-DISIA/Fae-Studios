@@ -465,9 +465,9 @@ void MapComponent::loadMap(std::string path, int nextPos) {
                 if (loadEarthElem && (ecs::elements)std::stoi(ot.getName()) == ecs::Earth ||
                     loadWaterElem && (ecs::elements)std::stoi(ot.getName()) == ecs::Water ||
                     loadFireElem && (ecs::elements)std::stoi(ot.getName()) == ecs::Fire) {
-
-                    auto roomScale = vectorTiles[std::stoi(classSplit[1])].first;
-                    auto elem = constructors::ElementEntity(mngr_, (x_* scale)* roomScale, (y_* scale)* roomScale, (w_* scale)* roomScale, (h_* scale)* roomScale, (ecs::elements)std::stoi(ot.getName()));
+                    auto room = std::stoi(classSplit[1]);
+                    auto roomScale = vectorTiles[room].first;
+                    auto elem = constructors::ElementEntity(mngr_, (x_* scale)* roomScale, (y_* scale)* roomScale, (w_* scale)* roomScale, (h_* scale)* roomScale, (ecs::elements)std::stoi(ot.getName()), room);
                     interact[std::stoi(classSplit[1])].push_back(elem);
                 }
             }

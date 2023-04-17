@@ -78,6 +78,7 @@
     <ClCompile Include="src\components\ChargedAttackBar.cpp" />
     <ClCompile Include="src\components\ActiveWater.cpp" />
     <ClCompile Include="src\components\BossDoor.cpp" />
+    <ClCompile Include="src\components\LampAnimationComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\components\Image.h" />
@@ -174,6 +175,7 @@
     <ClInclude Include="src\components\ChargedAttackBar.h" />
     <ClInclude Include="src\components\ActiveWater.h" />
     <ClInclude Include="src\components\BossDoor.h" />
+    <ClInclude Include="src\components\LampAnimationComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="resources\config\ott.resources.mac.json" />

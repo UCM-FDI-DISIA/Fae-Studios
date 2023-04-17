@@ -6,6 +6,7 @@
 #include "../components/FramedImage.h"
 #include "../components/TextComponent.h"
 #include "../components/ElementObject.h"
+#include "../components/LampAnimationComponent.h"
 #include "../components/Slider.h"
 #include "../sdlutils/SDLUtils.h"
 #include "../components/Image.h";
@@ -335,7 +336,7 @@ namespace constructors {
 		return shard;
 	}
 
-	static inline Entity* ElementEntity(Manager* mngr_, int x, int y, int w, int h, ecs::elements elem) {
+	static inline Entity* ElementEntity(Manager* mngr_, int x, int y, int w, int h, ecs::elements elem, int room) {
 		auto element = mngr_->addEntity(ecs::_grp_INTERACTION);
 		element->addComponent<Transform>(Vector2D(x, y), w, h);
 		std::string key;
@@ -353,6 +354,10 @@ namespace constructors {
 		element->addComponent<FramedImage>(&sdlutils().images().at(key), 1, 10);
 		element->addComponent<LifeAnimationComponent>();
 		element->addComponent<ElementObject>(elem);
+		auto cb = [elem]() {
+			static_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->UnlockElement(elem);
+		};
+		element->addComponent<InteractionComponent>(cb, ELEMENT_IT, elem, room, true);
 
 		return element;
 	}
@@ -364,17 +369,20 @@ namespace constructors {
 
 		Texture* t_ = &sdlutils().images().at("lamp");
 		lamp->addComponent<Transform>(Vector2D(x1, y1 - h1), w1, h1);
-		lamp->addComponent<Image>(t_);
+		lamp->addComponent<FramedImage>(t_, 1, 5);
 		lamp->addComponent<LampComponent>(lamp2, room1);
 		auto cb = []() {
 			static_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->Teleport();
 		};
 
 		lamp->addComponent<InteractionComponent>(cb, LAMP_IT, ID1, room1);
+		lamp->addComponent<LampAnimationComponent>();
+
 		lamp2->addComponent<Transform>(Vector2D(x2, y2 - h2), w2, h2);
-		lamp2->addComponent<Image>(t_);
+		lamp2->addComponent<FramedImage>(t_, 1, 5);
 		lamp2->addComponent<LampComponent>(lamp, room2);
 		lamp2->addComponent<InteractionComponent>(cb, LAMP_IT, ID2, room2);
+		lamp2->addComponent<LampAnimationComponent>();
 		return std::make_pair(lamp, lamp2);
 	}
 

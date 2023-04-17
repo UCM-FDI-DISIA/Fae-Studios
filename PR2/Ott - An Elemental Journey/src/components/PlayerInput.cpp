@@ -48,9 +48,9 @@ void PlayerInput::update()
 			if (input->isKeyDown(SDLK_q)) {
 				ent_->getComponent<AttackCharger>()->addCharge(8);
 			}
-			if (input->isKeyDown(SDLK_f)) {
+			if (canInteract && input->isKeyDown(SDLK_f)) {
 				//Recuperar vidas
-				static_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->checkInteraction();
+				static_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->interact();
 			}
 			if (input->isKeyDown(SDLK_TAB)) {
 				if (anim_->getState() != OPEN_MAP && anim_->getState() != CLOSE_MAP && physics_->isGrounded()) {

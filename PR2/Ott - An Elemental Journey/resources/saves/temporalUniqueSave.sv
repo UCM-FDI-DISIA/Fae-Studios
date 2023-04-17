@@ -1,6 +1,6 @@
 sanctuaryID 0
-lifeShards 0 _
-earth 1
+lifeShards 2 1 0 _
+earth 0
 water 1
 fire 1
 map_key earthMap 0

@@ -24,6 +24,7 @@
     <ClCompile Include="src\components\ChargedAttackBar.cpp" />
     <ClCompile Include="src\components\ActiveWater.cpp" />
     <ClCompile Include="src\components\BossDoor.cpp" />
+    <ClCompile Include="src\components\LampAnimationComponent.cpp" />
     <ClCompile Include="src\components\ShieldComponent.cpp" />
     <ClCompile Include="src\components\WaterBossAttack.cpp" />
     <ClCompile Include="src\components\BossHealthBar.cpp" />
@@ -96,6 +97,7 @@
   <ItemGroup>
     <ClInclude Include="src\components\FireBossAnimation.h" />
     <ClInclude Include="src\components\FireBossComponent.h" />
+    <ClInclude Include="src\components\LampAnimationComponent.h" />
     <ClInclude Include="src\components\ChargedAttackBar.h" />
     <ClInclude Include="src\components\ActiveWater.h" />
     <ClInclude Include="src\components\BossDoor.h" />
@@ -320,4 +322,9 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties resources_4config_4ott_1resources_1windows_1json__JsonSchema="https://deta.space/assets/spacefile.schema.json" />
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>

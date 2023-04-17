@@ -23,7 +23,6 @@
 #include "../components/EnemyContactDamage.h"
 #include "../components/Destruction.h"
 #include "../components/WaterBossAnimationComponent.h"
-
 #include "../components/FadeTransitionComponent.h"
 #include <fstream>
 #include "menus/PauseMenuState.h"
@@ -249,34 +248,30 @@ std::pair<bool, bool> PlayState::checkCollisionWithVine() {
 }
 
 void PlayState::checkInteraction() {
-    bool interact = false;
-    interactionIt = mngr_->getEntities(ecs::_grp_INTERACTION).begin();
+	auto input = player_->getComponent<PlayerInput>();
+	input->setCanInteract(false);
+	auto it = mngr_->getEntities(ecs::_grp_INTERACTION).begin();
 	auto itEnd = mngr_->getEntities(ecs::_grp_INTERACTION).end();
 	SDL_Rect r1 = mngr_->getPlayer()->getComponent<Transform>()->getRect();
-    while (!interact && interactionIt != itEnd) {
-        Entity* ents = *interactionIt;
+    while (it != itEnd) {
+        Entity* ents = *it;
         SDL_Rect r2 = ents->getComponent<Transform>()->getRect();
         if (SDL_HasIntersection(&r1, &r2)) {
-			if (ents->hasComponent<ElementObject>()) {
-				mngr_->getPlayer()->getComponent<PlayerInput>()->unlockElement(ents->getComponent<ElementObject>()->getElement());
-				mngr_->getPlayer()->getComponent<PlayerAnimationComponent>()->changeElem(ents->getComponent<ElementObject>()->getElement());
-				mngr_->getPlayer()->getComponent<PlayerAnimationComponent>()->setState(VANISH);
-				map_->unlockElement(ents->getComponent<ElementObject>()->getElement());
-				ents->setAlive(false);
-			}
-			else
-				ents->getComponent<InteractionComponent>()->interact();
-            interact = true;
-			std::cout << "interacción" << std::endl;
-        }
-        interactionIt++;
+			ents->getComponent<InteractionComponent>()->OnPlayerNear();
+			input->setCanInteract(true);
+			interactionIt = it;
+		}
+		else { 
+			ents->getComponent<InteractionComponent>()->OnPlayerLeave();
+		}
+		it++; 
     }
 }
 
 void PlayState::update() {
+	checkInteraction();
 	checkCollisions({ player_ });
 	checkCollisions(enemies[map_->getCurrentRoom()]);
-	
 	GameState::update();
 }
 
@@ -285,6 +280,13 @@ void PlayState::AddEnredadera() {
 		Entity* aux = (*interactionIt);
 		aux->getComponent<VineManager>()->addVine();
 	}
+}
+
+void PlayState::UnlockElement(ecs::elements elem) {
+	player_->getComponent<PlayerInput>()->unlockElement((* interactionIt)->getComponent<ElementObject>()->getElement());
+	player_->getComponent<PlayerAnimationComponent>()->changeElem((*interactionIt)->getComponent<ElementObject>()->getElement());
+	player_->getComponent<PlayerAnimationComponent>()->setState(VANISH);
+	map_->unlockElement(elem);
 }
 
 void PlayState::Teleport() {

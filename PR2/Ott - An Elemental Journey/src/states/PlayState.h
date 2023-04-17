@@ -5,6 +5,7 @@
 #include "../components/MapComponent.h"
 #include "../components/EnemyAnimationController.h"
 #include "../components/FireBossAnimation.h"
+#include "../components/InteractionComponent.h"
 #include <list>
 #include <vector>
 #include "../game/ecs.h"
@@ -94,6 +95,7 @@ public:
     }
     void handleInput() override;
 
+    inline void interact() { (*interactionIt)->getComponent<InteractionComponent>()->interact(); }
     inline Entity* getPlayer() { return player_; }
     inline Entity* getCamera() { return camera_; }
     inline Entity* getEarthBoss() { return earthBoss_; }
@@ -104,6 +106,7 @@ public:
     void AddLifeShard(int id);
     void Teleport();
     void Save();
+    void UnlockElement(ecs::elements elem);
     void endRest();
     inline std::vector<std::list<Entity*>> getEnemies() { return enemies; }
     inline ecs::maps getCurrentMap() { return currentMap; }
