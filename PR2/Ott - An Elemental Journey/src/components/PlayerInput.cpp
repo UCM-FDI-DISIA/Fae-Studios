@@ -73,7 +73,6 @@ void PlayerInput::update()
 					//Ataque
 					attack = true;
 					attackTimer = SDL_GetTicks();
-
 				}
 				if (input->isKeyDown(SDLK_a) && earth && !selectedEarth) {
 					//Cambio elemento
@@ -147,8 +146,8 @@ void PlayerInput::update()
 					attack_->startAttack(isCharged);
 					if (isCharged) {
 						int& numCharges = pChargedAttackComp->getCharge(); numCharges = 0;
+                        pChargedAttackComp->resetCharges();
 					}
-                    pChargedAttackComp->resetCharges();
 				}
 			}
 			if (input->isKeyJustUp(SDLK_z)) {

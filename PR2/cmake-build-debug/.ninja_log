@@ -95,3 +95,7 @@
 2233	4086	1681743129876348127	CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/states/menus/options/OptionsMenuState.cpp.o	ec790c0fb8e34f8d
 2830	4128	1681743129918859165	CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/states/menus/options/GraphicsOptionsMenuState.cpp.o	53c8132f04e017f
 4128	4324	1681743130117910547	Ott	d3337e9905ed9ec9
+10	809	1681743230145390514	CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/PlayerInput.cpp.o	2b8fd864fbde21ad
+809	1005	1681743230348786153	Ott	d3337e9905ed9ec9
+13	888	1681743281665040275	CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/PlayerInput.cpp.o	2b8fd864fbde21ad
+889	1090	1681743281869544238	Ott	d3337e9905ed9ec9
