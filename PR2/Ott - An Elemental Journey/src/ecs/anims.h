@@ -19,7 +19,7 @@ public:
 	static enum Entities { OTT_ANIM, MELEE_ANIM, RANGE_ANIM, 
 		SLIME_ANIM, EARTH_ATTACK, EARTHBOSSPRESENT, EARTHBOSSATTACK, 
 		WARNINGEARTH, PAUSE_ANIM, MINIPAUSE_ANIM, WATER_ATTACK, 
-		WATERBOSS_ANIM, LIFE_SHARD, FIREBOSS_ANIM, LAMP_ANIM };
+		WATERBOSS_ANIM, LIFE_SHARD, FIREBOSS_ANIM, LAMP_ANIM, GRASS_ANIM };
 	static std::vector<std::vector<animDescription>> animations;
 
 	class offsetPhysics {
@@ -50,6 +50,7 @@ private:
 	static std::vector<animDescription> water_attack;
 	// LAMP
 	static std::vector<animDescription> lamp;
+	static std::vector<animDescription> grass;
 
 	static offsetPhysics ott_collider;
 	static offsetPhysics melee_collider;

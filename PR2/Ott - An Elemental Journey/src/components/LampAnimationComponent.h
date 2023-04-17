@@ -19,7 +19,7 @@ public:
 	};
 	inline void startBackwardsAnim() {
 		shouldAnimate = true; forward = false; 
-		state = CHANGING; 
+		state = CHANGING;
 		sdlutils().soundEffects().at("lampActivationBackwards").playFor(1000, 0, ecs::_channel_AMBIENTAL);
 		timer_ = (getTPerFrame(state) * getNFrames(state)); };
 

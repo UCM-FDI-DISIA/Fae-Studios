@@ -176,6 +176,7 @@
     <ClInclude Include="src\components\ActiveWater.h" />
     <ClInclude Include="src\components\BossDoor.h" />
     <ClInclude Include="src\components\LampAnimationComponent.h" />
+    <ClInclude Include="src\components\GrassAnimationComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="resources\config\ott.resources.mac.json" />

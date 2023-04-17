@@ -1,5 +1,6 @@
 #pragma once
 #include "LampAnimationComponent.h"
+#include "GrassAnimationComponent.h"
 #include "Health.h"
 #include "../ecs/Component.h"
 #include "../utils/Vector2D.h"
@@ -24,6 +25,9 @@ public:
 						}
 						ent_->getComponent<LampAnimationComponent>()->setNear(true);
 						break;
+					case GRASS_IT:
+						ent_->getComponent<GrassAnimationComponent>()->startAnim();
+						break;
 					default:
 						break;
 				}
@@ -38,6 +42,9 @@ public:
 						ent_->getComponent<LampAnimationComponent>()->startBackwardsAnim();
 					}
 					ent_->getComponent<LampAnimationComponent>()->setNear(false);
+					break;
+				case GRASS_IT:
+					ent_->getComponent<GrassAnimationComponent>()->stopAnim();
 					break;
 				default:
 					break;

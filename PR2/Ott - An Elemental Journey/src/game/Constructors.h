@@ -7,6 +7,7 @@
 #include "../components/TextComponent.h"
 #include "../components/ElementObject.h"
 #include "../components/LampAnimationComponent.h"
+#include "../components/GrassAnimationComponent.h"
 #include "../components/Slider.h"
 #include "../sdlutils/SDLUtils.h"
 #include "../components/Image.h";
@@ -313,13 +314,14 @@ namespace constructors {
 	static inline Entity* grass(Manager* mngr_, Vector2D position, int widthVine, int heightVine, Vector2D posiniVine, Vector2D posfinVine, int ID, int room, int width = 60, int height = 60) {
 		auto grass = mngr_->addEntity(ecs::_grp_INTERACTION);
 		grass->addComponent<Transform>(position, width, height);
-		grass->addComponent<Image>(&sdlutils().images().at("grass"));
+		grass->addComponent<FramedImage>(&sdlutils().images().at("grass"), 1, 4);
 		grass->addComponent<VineManager>(NORMAL, posiniVine, posfinVine, -1, 0, widthVine, heightVine, 2);
 		grass->getComponent<VineManager>()->createVine();
 		auto cb = []() {
 			static_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->AddEnredadera();
 		};
 		grass->addComponent<InteractionComponent>(cb, GRASS_IT, ID, room);
+		grass->addComponent<GrassAnimationComponent>();
 		return grass;
 	}
 

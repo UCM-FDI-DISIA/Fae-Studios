@@ -95,6 +95,7 @@
     <ClCompile Include="src\components\WaterBossAnimationComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\components\GrassAnimationComponent.h" />
     <ClInclude Include="src\components\FireBossAnimation.h" />
     <ClInclude Include="src\components\FireBossComponent.h" />
     <ClInclude Include="src\components\LampAnimationComponent.h" />
