@@ -43,6 +43,14 @@ void FadeOutAnimationComponent::startFadeIn() {
 		for (auto it : enemies_[map_->getCurrentRoom()]) {
 			it->setActive(false);
 		}
+		auto waterObjects = map_->getWater();
+		for (auto water : waterObjects[map_->getCurrentRoom()]) {
+			water->setActive(false);
+		}
+		for (auto water : waterObjects[newMapRoom]) {
+			water->setActive(true);
+		}
+
 		auto interact = map_->getInteract();
 		for (int i = 0; i < interact.size(); ++i) {
 			for (auto ot : interact[i]) {

@@ -121,7 +121,7 @@ MapComponent::MapComponent(Entity* fadeOut, PlayState* game, int currentMap) : f
     for (int i = 0; i < ecs::LAST_MAP_ID; ++i) {
         mapKeys.push_back({});
     }
-    currentMapKey = "fireMap";
+    currentMapKey = "waterMap";
     tilemap = &sdlutils().images().at(sdlutils().levels().at(currentMapKey).tileset);
 }
 
@@ -283,9 +283,6 @@ void MapComponent::loadMap(std::string path, int nextPos) {
                         waterObjects[i].reserve(5);
                         backgrounds.push_back({});
                     }
-                    for (int i = 0; i < 5; ++i) {
-                        waterObjects[i].push_back({});
-                    }
 
                     if (mapKeys[currentMap].size() != numRooms) {
                         mapKeys[currentMap].reserve(numRooms);
@@ -386,7 +383,7 @@ void MapComponent::loadMap(std::string path, int nextPos) {
             waterObjects[std::stoi(obj.getName())].push_back(waterW);
             //WaterSetActive(true);
 
-            waterW->setActive(waterW->getComponent<ActiveWater>()->getActive());
+            waterW->setActive(false);
         }
 
         std::unordered_map<std::string, std::pair<SDL_Rect, std::string>> triggerInfo;
@@ -601,6 +598,9 @@ void MapComponent::loadMap(std::string path, int nextPos) {
 
         if(currentMapKey == "earthMap") mngr_->getEarthBoss()->getComponent<EarthBossManager>()->addPlatforms(platformEarthBoss);
         generateEnemies();
+        for (auto water : waterObjects[currentRoom]) {
+            water->setActive(true);
+        }
     }
     else
     {
