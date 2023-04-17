@@ -10,7 +10,11 @@
 #include "Health.h"
 #include "Trigger.h"
 #include "EnterBossRoom.h"
-#include <unistd.h>
+#ifdef __APPLE__
+	#include <unistd.h>
+#endif // __WINDOWS__
+
+
 void EarthBossManager::initComponent() {
 	//INICIALIZACION DEL PLAYER
 	player = mngr_->getPlayer();
