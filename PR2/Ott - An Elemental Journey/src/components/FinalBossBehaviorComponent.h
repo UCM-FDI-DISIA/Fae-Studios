@@ -11,9 +11,11 @@ public:
 	void update() override;
 private:
 	void spawnBubbles();
+	void spawnFireWall();
 	Health* bossHealth;
 	int timeBetweenAttacks, lastAttack;
 	int BUBBLE_DIM = 70;
+	int FIREWALL_HEIGHT = 400, FIREWALL_WIDTH = 30;
 };
 
 

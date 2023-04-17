@@ -2,6 +2,7 @@
 #include "Health.h"
 #include "Image.h"
 #include "WaterBubbleComponent.h"
+#include "FireWallComponent.h"
 FinalBossBehaviorComponent::FinalBossBehaviorComponent(int time)
 {
 	timeBetweenAttacks = time;
@@ -33,8 +34,8 @@ void FinalBossBehaviorComponent::update()
 		int newElem = rand() % 4; newElem++;
 		std::cout << newElem << std::endl;
 		bossHealth->setElement(newElem);
-
-		spawnBubbles();
+		
+		spawnFireWall();
 	}
 }
 
@@ -49,4 +50,16 @@ void FinalBossBehaviorComponent::spawnBubbles() //Ataque de agua
 	bubble->addComponent<Image>(&sdlutils().images().at("attackBubble"));
 	bubble->addComponent<Health>(100, ecs::Water);
 	bubble->addComponent<WaterBubbleComponent>();
+}
+
+void FinalBossBehaviorComponent::spawnFireWall()
+{
+	// Transform del boss
+	auto pTransf = ent_->getComponent<Transform>();
+	// Burguja
+	Entity* fireW = mngr_->addEntity(ecs::_grp_PROYECTILES);
+
+	fireW->addComponent<Transform>(pTransf->getPosition() - Vector2D(200, FIREWALL_HEIGHT/2), FIREWALL_WIDTH * pTransf->getScale(), FIREWALL_HEIGHT * pTransf->getScale());
+	fireW->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
+	fireW->addComponent<FireWallComponent>(Vector2D(1,0));
 }

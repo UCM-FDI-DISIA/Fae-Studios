@@ -53,6 +53,7 @@ namespace ecs {
         _LIFESHARDANIM,
         _SHIELD,
         _FINALBOSS,
+        _FINALBOSS_ATTACK,
 
         _LAST_CMP_ID
     };
