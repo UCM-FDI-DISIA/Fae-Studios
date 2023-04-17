@@ -10,6 +10,7 @@ class Trigger : public Component
 private:
 	Entity* player_;
 	Transform* tr_;
+	bool detected = false;
 public:
 	Trigger();
 	virtual ~Trigger() {}

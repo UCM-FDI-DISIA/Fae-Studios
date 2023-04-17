@@ -178,7 +178,7 @@ void PlayState::checkCollisions(std::list<Entity*> entities) {
 				}
 				else if (!physics->isGrounded()) {
 					//cout << "ceiling touched" << endl;
-					if (!(physics->getWater()) || (physics->getWater() && health->getElement() == ecs::Water))
+					//if (!(physics->getWater()) || (physics->getWater() && health->getElement() == ecs::Water))
 					{
 						colVector = Vector2D(colVector.getX(), 1);
 						physics->setVerticalSpeed(1);
@@ -204,8 +204,9 @@ void PlayState::checkCollisions(std::list<Entity*> entities) {
 				physics->setWater(true); ++j;
 				if (health->getElement() != ecs::Water) { physics->setGrounded(false); }
 				//comprobación de si esta en la zona de flote, de momento sin variable de ancho de zona de flote 
-				if (areaColision.y <= r3.y + 5) {
+				if (areaColision.y <= r3.y + 2) {
 					physics->setFloating(true);
+					if (areaColision.h < r1.h /2 && physics->getVelocity().getY() < 0) { physics->setFloating(false); physics->setWater(false); }
 				}
 				else {
 					physics->setFloating(false);
@@ -304,7 +305,10 @@ void PlayState::Teleport() {
 
 void PlayState::Save() {
 	map_->playFadeOutAnimation();
+	if(lastSanctuary!=nullptr) lastSanctuary->getComponent<Image>()->changeText(&sdlutils().images().at("sanctuaryOff"));
 	lastSanctuary = getCurrentInteraction();
+	lastSanctuary->getComponent<Image>()->changeText(&sdlutils().images().at("sanctuary"));
+
 }
 
 void PlayState::AddLifeShard(int id) {

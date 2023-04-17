@@ -59,6 +59,7 @@ add_executable(Ott
         "Ott - An Elemental Journey/src/components/LifeAnimationComponent.cpp"
         "Ott - An Elemental Journey/src/components/Pivot.cpp"
         "Ott - An Elemental Journey/src/components/WaterBossAnimationComponent.cpp"
+        "Ott - An Elemental Journey/src/components/ShieldComponent.cpp"
 
         #ECS
         "Ott - An Elemental Journey/src/ecs/Manager.cpp"

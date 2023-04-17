@@ -52,6 +52,7 @@ void PhysicsComponent::update() {
 			velocity_ = Vector2D(velocity_.getX(), verticalSpeed);
 			return;
 		}
+
 		if (climbing) {
 			grounded = true;
 			velocity_ = Vector2D(velocity_.getX(), dirClimbing);
@@ -60,7 +61,10 @@ void PhysicsComponent::update() {
 
 			if (inWater)
 			{
-				verticalSpeed += 0.1;
+				if ((!floating || floating && verticalSpeed > 0)|| ent_->getComponent<Health>()->getElement() == ecs::Water)
+				{
+					verticalSpeed += 0.1;
+				}
 			}
 			else
 			{

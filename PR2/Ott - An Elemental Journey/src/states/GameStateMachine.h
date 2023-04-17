@@ -13,6 +13,8 @@ private:
     /// Constructora de la máquina de estados
     GameStateMachine() = default;
 
+    bool resolutionHasChanged = false;
+
 public:
     /// Destructora de la máquina de estados
     ~GameStateMachine() { emptyStack(); };
@@ -53,6 +55,9 @@ public:
     /// Quita el último estado que ha entrado a la pila y lo devuelve
     /// \return El último estado que ha entrado a la pila
 	GameState* pop();
+
+    inline void resChanged() {resolutionHasChanged = true;}
+    inline void resNotChangedAnymore() {resolutionHasChanged = false;}
 };
 
 inline GameStateMachine& stateMachine() {

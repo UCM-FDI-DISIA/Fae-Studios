@@ -33,6 +33,7 @@
 #include "../states/GameStateMachine.h"
 #include "../components/VineManager.h"
 #include "../components/EnemyContactDamage.h"
+#include "../components/WaterBossAttack.h"
 #include "../states/GameStateMachine.h"
 #include "../components/FirePillarComponent.h"
 #include "../components/FireBossComponent.h"
@@ -49,6 +50,7 @@
 #include "../components/Acceleration.h"
 #include "../components/WaterBossAnimationComponent.h"
 #include "../components/ShieldComponent.h"
+#include "../components/ChargedAttackBar.h"
 #include <string>
 #include <iostream>
 #include <functional>
@@ -286,6 +288,7 @@ namespace constructors {
 		SDL_Rect rect = { 20,20,(int)(0.56*lamp_w),lamp_w };
 		player->addComponent<HealthImage>(&sdlutils().images().at("lamps"), 5, rect);
 		player->addComponent<FramedImageOtt>(&sdlutils().images().at("ott_luz"));
+		player->addComponent<ChargedAttackBar>(&sdlutils().images().at("chargebar"));
 		auto pAnim = player->addComponent<PlayerAnimationComponent>(anims::OTT_ANIM);
 		auto health = player->addComponent<Health>(5, ecs::Light, true);
 		player->addComponent<PlayerAttack>();
@@ -354,6 +357,7 @@ namespace constructors {
 		return element;
 	}
 
+
 	static inline std::pair<Entity*, Entity*> lamp(Manager* mngr_, int x1, int y1, int w1, int h1, int room1, int x2, int y2, int w2, int h2, int room2, int ID1, int ID2) {
 		auto lamp = mngr_->addEntity(ecs::_grp_INTERACTION);
 		auto lamp2 = mngr_->addEntity(ecs::_grp_INTERACTION);
@@ -378,9 +382,10 @@ namespace constructors {
 
 		auto sanc = mngr_->addEntity(ecs::_grp_INTERACTION);
 		sanc->addComponent<Transform>(position, width, height);
-		sanc->addComponent<Image>(&sdlutils().images().at("sanctuary"));
+		sanc->addComponent<Image>(&sdlutils().images().at("sanctuaryOff"));
 		auto cb = []() {
 			static_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->Save();
+
 		};
 		sanc->addComponent<InteractionComponent>(cb, SANCTUARY_IT, ID, room);
 		return sanc;
@@ -410,23 +415,54 @@ namespace constructors {
 	static inline Entity* WaterBoss(Manager* mngr_, int x, int y, int w, int h) {
 		auto waterBoss = mngr_->addEntity(ecs::_grp_CHARACTERS);
 		auto WbTransform = waterBoss->addComponent<Transform>(x, y, w, h);
-		auto waterPh = waterBoss->addComponent<PhysicsComponent>(colliders::SLIME);
-		waterPh->setVelocity(Vector2D(1, 0));
+		auto waterPh = waterBoss->addComponent<PhysicsComponent>(colliders::WATERBOSS);
 		waterPh->setGravity(false);
 		waterPh->lookDirection(false);
 		waterPh->createCollider();
 		waterBoss->addComponent<FramedImage>(&sdlutils().images().at("water_boss"), 4, 8);
 		waterBoss->addComponent<Acceleration>();
 		waterBoss->addComponent<Health>(6, ecs::Dark, false);
-		waterBoss->addComponent<EnemyContactDamage>();
 		waterBoss->addComponent<WaterBossAnimationComponent>(anims::WATERBOSS_ANIM);
+		waterBoss->addComponent<WaterBossAttack>();
 		waterBoss->reinitCmpts();
 
-		auto box0 = mngr_->addEntity(ecs::_grp_CHARACTERS);
-		x += 2150;
-		box0->addComponent<Transform>(x, y, w, h);
-		box0->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
+		//CAMBIAR A QUE SE LEA DE MAPA CUANDO FUNCIONE TODO
+
+		auto box0 = mngr_->addEntity(ecs::_grp_GENERAL);
+		x += 3000;
+		box0->addComponent<Transform>(x, y + 100, 100, 100);
+		//box0->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
 		box0->addComponent<Pivot>(waterBoss, 0);
+
+		box0 = mngr_->addEntity(ecs::_grp_GENERAL);
+		y += 2000;
+		box0->addComponent<Transform>(x, y, 100, 100);
+		//box0->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
+		box0->addComponent<Pivot>(waterBoss, 1);
+
+		box0 = mngr_->addEntity(ecs::_grp_GENERAL);
+		x += 1600;
+		box0->addComponent<Transform>(x, y, 100, 100);
+		//box0->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
+		box0->addComponent<Pivot>(waterBoss, 2);
+
+		box0 = mngr_->addEntity(ecs::_grp_GENERAL);
+		y -= 1600;
+		box0->addComponent<Transform>(x, y, 100, 100);
+		//box0->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
+		box0->addComponent<Pivot>(waterBoss, 1);
+
+		box0 = mngr_->addEntity(ecs::_grp_GENERAL);
+		x += 1000;
+		box0->addComponent<Transform>(x, y, 100, 100);
+		//box0->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
+		box0->addComponent<Pivot>(waterBoss, 3);
+
+		box0 = mngr_->addEntity(ecs::_grp_GENERAL);
+		y -= 550;
+		box0->addComponent<Transform>(x, y, 100, 100);
+		//box0->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
+		box0->addComponent<Pivot>(waterBoss, 4);
 
 		return waterBoss;
 	}
@@ -465,6 +501,16 @@ namespace constructors {
 		//bgrd->addComponent<Image>(game->getTexture("level1bg", PLAY_STATE));
 	}
 
+	static inline Entity* Water(Manager* mngr_, int x, int y, int w, int h, std::string clase)
+	{
+		Entity* wObject = mngr_->addEntity(ecs::_grp_WATER);
+		wObject->addComponent<Transform>(x, y, w, h);
+		wObject->addComponent<Image>(&sdlutils().images().at("water"));
+		bool active = (clase == "Activo");
+		wObject->addComponent<ActiveWater>(active);
+
+		return wObject;
+	}
 	/*static inline void vine(Manager* mngr_, Vector2D position, int width, int height, Texture* t) {
 		auto vine = mngr_->addEntity(ecs::_grp_VINE);
 		vine->addComponent<Transform>(position.getX(), position.getY(), width, height);

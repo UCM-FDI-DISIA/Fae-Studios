@@ -21,7 +21,12 @@
   <ItemGroup>
     <ClCompile Include="src\components\FireBossAnimation.cpp" />
     <ClCompile Include="src\components\FireBossComponent.cpp" />
+    <ClCompile Include="src\components\ChargedAttackBar.cpp" />
+    <ClCompile Include="src\components\ActiveWater.cpp" />
+    <ClCompile Include="src\components\BossDoor.cpp" />
     <ClCompile Include="src\components\ShieldComponent.cpp" />
+    <ClCompile Include="src\components\WaterBossAttack.cpp" />
+    <ClCompile Include="src\components\BossHealthBar.cpp" />
     <ClCompile Include="src\states\menus\options\GraphicsOptionsMenuState.cpp" />
     <ClCompile Include="src\components\DamageArea.cpp" />
     <ClCompile Include="src\states\MapState.cpp" />
@@ -91,7 +96,11 @@
   <ItemGroup>
     <ClInclude Include="src\components\FireBossAnimation.h" />
     <ClInclude Include="src\components\FireBossComponent.h" />
+    <ClInclude Include="src\components\ChargedAttackBar.h" />
+    <ClInclude Include="src\components\ActiveWater.h" />
+    <ClInclude Include="src\components\BossDoor.h" />
     <ClInclude Include="src\components\ShieldComponent.h" />
+    <ClInclude Include="src\components\WaterBossAttack.h" />
     <ClInclude Include="src\states\menus\options\GraphicsOptionsMenuState.h" />
     <ClInclude Include="src\states\MapState.h" />
     <ClInclude Include="src\components\LifeAnimationComponent.h" />
@@ -102,6 +111,7 @@
     <ClCompile Include="src\components\Trigger.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\components\BossHealthBar.h" />
     <ClInclude Include="src\components\EarthBossManager.h" />
     <ClInclude Include="src\components\ElementObject.h" />
     <ClInclude Include="src\components\EnterBossRoom.h" />

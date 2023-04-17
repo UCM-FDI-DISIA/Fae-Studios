@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="192" height="105" tilewidth="32" tileheight="32" infinite="0" nextlayerid="12" nextobjectid="220">
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="192" height="105" tilewidth="32" tileheight="32" infinite="0" nextlayerid="12" nextobjectid="222">
  <tileset firstgid="1" name="EarthMapTileset" tilewidth="32" tileheight="32" tilecount="680" columns="20">
   <image source="../images/levels/tilesetlevel1.png" width="640" height="1088"/>
  </tileset>
@@ -115,7 +115,7 @@
 48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup id="2" name="Colisiones">
+ <objectgroup id="2" name="Colisiones" visible="0">
   <object id="1" name="0" class="Ground" x="2" y="992" width="1061.33" height="235"/>
   <object id="2" name="1" class="Ground" x="1792.67" y="543.333" width="266" height="447.333"/>
   <object id="3" name="1" class="Ground" x="2058.67" y="544" width="519.333" height="244"/>
@@ -178,7 +178,7 @@
   <object id="181" name="6" x="5315.41" y="1121.39" width="119.333" height="16"/>
   <object id="182" name="6" x="5506.74" y="897.392" width="119.333" height="16"/>
  </objectgroup>
- <objectgroup id="3" name="Objetos interactuables" visible="0">
+ <objectgroup id="3" name="Objetos interactuables">
   <object id="27" name="lamp1" class="Lamp_0" x="640" y="1523.75" width="32"/>
   <object id="54" name="1" class="Sanctuary_0" x="1318" y="1439.5" width="88.5"/>
   <object id="176" name="lamp1" class="Lamp_3" x="1772" y="2106.66" width="32" height="6.66667"/>
@@ -205,18 +205,18 @@
   <object id="175" name="5_earth_room" class="1" x="1048.18" y="2336.88" width="471.64" height="665.237"/>
   <object id="200" name="6_earth_room" class="0.8" x="4635.64" y="672" width="1282.61" height="753.939"/>
  </objectgroup>
- <objectgroup id="10" name="Trigger de cambio de mapa">
+ <objectgroup id="10" name="Trigger de cambio de mapa" visible="0">
   <object id="214" name="6" class="waterMap_1_0" x="5673.83" y="729" width="31.5" height="106.5"/>
  </objectgroup>
  <objectgroup id="11" name="Posiciones">
   <object id="216" name="6" class="0" x="5108" y="1220" width="21.3333" height="50.6667"/>
  </objectgroup>
- <objectgroup id="8" name="Enemigos">
+ <objectgroup id="8" name="Enemigos" visible="0">
   <object id="151" name="1_2_left" class="Melee" x="1568" y="1312" width="31.3333" height="86.6667"/>
   <object id="152" name="2_1_right" class="Slime" x="3147.97" y="1922.98" width="31.3333" height="173.333"/>
   <object id="219" name="0_2_right" class="Mushroom" x="384" y="1440" width="31.3333" height="86.6667"/>
  </objectgroup>
- <objectgroup id="7" name="Triggers" visible="0">
+ <objectgroup id="7" name="Triggers">
   <object id="163" name="0_1" class="01" x="992" y="1248" width="32" height="160"/>
   <object id="165" name="1_0" class="01" x="1056" y="1248" width="32" height="160"/>
   <object id="166" name="1_2" class="12" x="2587.17" y="1244.67" width="32" height="160"/>
@@ -230,7 +230,7 @@
   <object id="192" name="2_6" class="26" x="4582.67" y="1225.33" width="32" height="160"/>
   <object id="193" name="6_2" class="26" x="4622.42" y="1225.58" width="32" height="160"/>
  </objectgroup>
- <objectgroup id="9" name="Ott">
+ <objectgroup id="9" name="Ott" visible="0">
   <object id="153" name="Ott" class="0" x="555" y="1304.67" width="37" height="87"/>
  </objectgroup>
 </map>

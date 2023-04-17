@@ -17,8 +17,10 @@ namespace ecs {
         _SLIDER,
         _SLIDER_NEEDLE,
         _SLIDER_PERCENTAGE,
+        _ACTIVE_WATER,
         _VINE,
         _CAMERA,
+        _WATER_BOSS_ATTACK,
         _ANIM,
         _ENEMYANIM,
         _TRIGGER,
@@ -52,6 +54,7 @@ namespace ecs {
         _GET_ELEMENT,
         _LIFESHARDANIM,
         _SHIELD,
+        _CHARGED_ATTACK_BAR,
 
         _LAST_CMP_ID
     };
@@ -63,7 +66,6 @@ namespace ecs {
     /// Identificador de los grupos
     enum grpId : grpId_type {
         _grp_GENERAL, ///< General
-        _grp_UI, ///< Elementos de la interfaz gráfica
         _grp_MINIBOSS,
         _grp_GROUND,
         _grp_VINE,
@@ -73,6 +75,7 @@ namespace ecs {
         _grp_CHARACTERS,
         _grp_PROYECTILES,
         _grp_WATER,
+        _grp_UI, ///< Elementos de la interfaz gráfica
         _grp_FADEOUT,
 
         _LAST_GRP_ID

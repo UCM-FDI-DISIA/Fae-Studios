@@ -73,6 +73,11 @@
     <ClCompile Include="src\sdlutils\Music.cpp" />
     <ClCompile Include="src\states\menus\options\GraphicsOptionsMenuState.cpp" />
     <ClCompile Include="src\components\ShieldComponent.cpp" />
+    <ClCompile Include="src\components\WaterBossAttack.cpp" />
+    <ClCompile Include="src\components\BossHealthBar.cpp" />
+    <ClCompile Include="src\components\ChargedAttackBar.cpp" />
+    <ClCompile Include="src\components\ActiveWater.cpp" />
+    <ClCompile Include="src\components\BossDoor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\components\Image.h" />
@@ -164,6 +169,11 @@
     <ClInclude Include="src\components\LifeAnimationComponent.h" />
     <ClInclude Include="src\states\menus\options\GraphicsOptionsMenuState.h" />
     <ClInclude Include="src\components\ShieldComponent.h" />
+    <ClInclude Include="src\components\WaterBossAttack.h" />
+    <ClInclude Include="src\components\BossHealthBar.h" />
+    <ClInclude Include="src\components\ChargedAttackBar.h" />
+    <ClInclude Include="src\components\ActiveWater.h" />
+    <ClInclude Include="src\components\BossDoor.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="resources\config\ott.resources.mac.json" />

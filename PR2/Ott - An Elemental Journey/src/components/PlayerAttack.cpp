@@ -384,8 +384,22 @@ void PlayerAttack::moveChargedEarthAttack(Transform* tr1, Transform* tr2) {
 // Ataca enemigo si esta en la zona de ataque
 bool PlayerAttack::attackEnemy(SDL_Rect& attackZone) {
 	bool attack = false;
+	auto miniboss = mngr_->getEntities(ecs::_grp_MINIBOSS);
 	auto enemiesGrp = mngr_->getEntities(ecs::_grp_CHARACTERS);
 
+	for (auto m : miniboss) {
+		SDL_Rect rect = m->getComponent<Transform>()->getRect();
+
+		// Si enemigo y ataque interseccionan
+		SDL_Rect result;
+		if (SDL_IntersectRect(&rect, &attackZone, &result) && !m->hasComponent<PlayerAttack>() && m->hasComponent<Health>()) {
+
+			attack = true;
+			// Hace da�o a enemigo dependiendo del elemento
+			m->getComponent<Health>()->recieveDamage(health_->getElement(), true);
+			break;
+		}
+	}
 	for (auto e : enemiesGrp) {
 
 		SDL_Rect rect = e->getComponent<PhysicsComponent>()->getCollider();

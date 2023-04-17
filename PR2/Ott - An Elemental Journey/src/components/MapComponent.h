@@ -16,6 +16,7 @@
 #include<unordered_map>
 #include "CameraComponent.h"
 #include "FadeOutAnimationComponent.h"
+#include "../components/ActiveWater.h"
 
 using namespace tmx;
 
@@ -31,6 +32,7 @@ private:
 	// Se guarda un vector por cada habitaci�n que hay. En este vector se guarda su ID y su posici�n
 	// El float indica la escala del mapa
 	std::vector<std::pair<float, std::vector<std::pair<int, SDL_Rect>>>> vectorTiles;
+	std::vector<std::pair<std::string, SDL_Rect>> backgrounds;
 
 	// Se guarda un vector con cada tipo de objetos que tiene el mapa (Colisiones, Objetos Interactuables, Salas, Triggers
 	std::vector<std::vector<Object>> vectorObjects;
@@ -44,7 +46,8 @@ private:
 	std::vector<std::vector<std::string>> mapKeys;
 
 	std::vector<Entity*> eraseEntities;
-
+	//agua
+	std::vector<std::vector<Entity*>> waterObjects;
 
 	// En este mapa se guarda:
 	// string -> n�mero de sala
@@ -77,6 +80,7 @@ private:
 	CameraComponent* cam;
 	FadeOutAnimationComponent* anim_;
 	Entity* player_;
+	Entity* earthBoss;
 	Entity* fadeOut;
 	PlayState* game;
 	
@@ -89,6 +93,9 @@ private:
 	const int ENEMIES_VECTOR_POS = 4;
 	const int CHANGE_MAP_VECTOR_POS = 5;
 	const int POSITIONS_VECTOR_POS = 6;
+	const int WATER_VECTOR_POS = 7;
+	const int BACKGROUNDS_VECTOR_POS = 8;
+
 	
 	std::string currentMapKey = "earthMap";
 
@@ -115,7 +122,12 @@ public:
 
 	// cambio de mapa
 	void changeMap(int newMap, std::string key, int nextPos);
+	void WaterSetActive(bool c);
 
+	void addCollision(std::string sala, SDL_Rect newCol);
+
+	void deleteCollision(std::string sala);
+	
 	void playFadeOutAnimation() { anim_->startFadeOut(); }
 	
 	inline std::string getCurrentLevel() { return currentMapKey; }

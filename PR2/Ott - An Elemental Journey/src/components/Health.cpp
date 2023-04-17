@@ -8,6 +8,8 @@
 #include "../game/Elements.h"
 #include "../states/PlayState.h"
 #include "../states/GameStateMachine.h"
+#include "EarthBossManager.h"
+#include "EarthBossAttack.h"
 #include "InteractionComponent.h"
 #include "ShieldComponent.h"
 
@@ -16,6 +18,8 @@ void Health::die()
 	if (ent_->hasComponent<PlayerAnimationComponent>()) ent_->getComponent<PlayerAnimationComponent>()->setState(DIE);
 	else if ((ent_->hasComponent<EnemyAnimationComponent>())) ent_->getComponent<EnemyAnimationComponent>()->setState(DIE_ENEMY);
 	else if ((ent_->hasComponent<FireBossAnimation>())) ent_->getComponent<FireBossAnimation>()->setState(DIE_FIREBOSS);
+	else if (bar != nullptr && ent_->hasComponent<EarthBossAttack>()) bar->die();
+	else if(ent_->hasComponent<EnemyAnimationComponent>()) ent_->getComponent<EnemyAnimationComponent>()->setState(DIE_ENEMY);
 	else ent_->setAlive(false);
 	auto gen = ent_->getComponent<Generations>();
 	// si la entidad muerta es un slime y no esta en su ultima gen manda a que se divida
@@ -67,6 +71,11 @@ bool Health::recieveDamage(ecs::elements el, bool dir)
 			}
 			image->damage(damage);
 		}
+	}
+	else if (ent_->hasComponent<EarthBossAttack>() && bar != nullptr) {
+		int damage = elementsInfo::ottMatrix[el][elem];
+		actualLife -= (2*damage);
+		bar->damage(damage);
 	}
 	else {
 		if (!dead) {

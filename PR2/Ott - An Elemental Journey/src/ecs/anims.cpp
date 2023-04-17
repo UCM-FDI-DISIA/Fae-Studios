@@ -33,13 +33,13 @@ std::vector<anims::animDescription> anims::earth_attack{ {50,7,0,0}, {50,7,0,6} 
 //MINI BOSS TIERRA
 std::vector<anims::animDescription> anims::earthBossPresent_anims{ {100, 8, 0, 0} };
 std::vector<anims::animDescription> anims::earthBoss_anims{ {100, 1,0,0} };
-std::vector<anims::animDescription> anims::warning_anims{ {50, 27,1,0} };
-std::vector<anims::animDescription> anims::pause_anims{ {10000, 1,0,0} };
-//ATAQUE AGUA
+std::vector<anims::animDescription> anims::warning_anims{ {60, 27,1,0} };
+std::vector<anims::animDescription> anims::pause_anims{ {5000, 1,0,0} };
+std::vector<anims::animDescription> anims::miniPause_anims{ {1000, 1,0,0} };
+
 std::vector<anims::animDescription> anims::water_attack{ {100,7,0,0}, {100,7,1,6} };
 // vector con todas las animaciones definidas. se accede a �l por un enum llamado Entities
-std::vector<std::vector<anims::animDescription>> anims::animations{ott_anims, melee_anims, range_anims, slime_anims, earth_attack, earthBossPresent_anims,earthBoss_anims, warning_anims,pause_anims, water_attack, waterBoss_anims, lifeshard_anims, fireboss_anims };
-
+std::vector<std::vector<anims::animDescription>> anims::animations{ott_anims, melee_anims, range_anims, slime_anims, earth_attack, earthBossPresent_anims,earthBoss_anims, warning_anims,pause_anims,miniPause_anims, water_attack, waterBoss_anims, lifeshard_anims, fireboss_anims };
 
 
 // int izqPixels, totalHorPixels, upPixels, totalVertPixels, width, height;
