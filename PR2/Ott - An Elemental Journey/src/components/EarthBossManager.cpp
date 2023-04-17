@@ -12,7 +12,7 @@
 #include "EnterBossRoom.h"
 #ifdef __APPLE__
 	#include <unistd.h>
-#endif // __WINDOWS__
+#endif // __APPLE__
 
 
 void EarthBossManager::initComponent() {
