@@ -4,6 +4,7 @@
 #include "../ecs/Entity.h"
 #include "../components/MapComponent.h"
 #include "../components/EnemyAnimationController.h"
+#include "../components/FireBossAnimation.h"
 #include <list>
 #include <vector>
 #include "../game/ecs.h"
@@ -47,7 +48,8 @@ public:
     inline void addEnemy(Entity* enemy, int room) { 
         enemies[room].push_front(enemy);
         enemyIt[room].push_back(enemies[room].begin());
-        if(enemy->hasComponent<EnemyAnimationComponent>()) enemy->getComponent<EnemyAnimationComponent>()->setPosInList(enemyIt[room].size() - 1, room);
+        if (enemy->hasComponent<EnemyAnimationComponent>()) enemy->getComponent<EnemyAnimationComponent>()->setPosInList(enemyIt[room].size() - 1, room);
+        else if(enemy->hasComponent<FireBossAnimation>()) enemy->getComponent<FireBossAnimation>()->setPosInList(enemyIt[room].size() - 1, room);
         
     };
 
