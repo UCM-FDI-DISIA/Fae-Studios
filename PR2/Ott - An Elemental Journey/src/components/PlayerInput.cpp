@@ -46,7 +46,7 @@ void PlayerInput::update()
 				physics_->jump();
 			}
 			if (input->isKeyDown(SDLK_q)) {
-				ent_->getComponent<AttackCharger>()->addCharge(5);
+				ent_->getComponent<AttackCharger>()->addCharge(8);
 			}
 			if (input->isKeyDown(SDLK_f)) {
 				//Recuperar vidas
@@ -148,6 +148,7 @@ void PlayerInput::update()
 					if (isCharged) {
 						int& numCharges = pChargedAttackComp->getCharge(); numCharges = 0;
 					}
+                    pChargedAttackComp->resetCharges();
 				}
 			}
 			if (input->isKeyJustUp(SDLK_z)) {

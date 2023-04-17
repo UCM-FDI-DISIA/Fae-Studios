@@ -12,13 +12,14 @@
 #include "EarthBossAttack.h"
 #include "InteractionComponent.h"
 #include "ShieldComponent.h"
+#include "AttackCharger.h"
 
 void Health::die()
 {
 	if (ent_->hasComponent<PlayerAnimationComponent>()) ent_->getComponent<PlayerAnimationComponent>()->setState(DIE);
 	else if ((ent_->hasComponent<EnemyAnimationComponent>())) {
         ent_->getComponent<EnemyAnimationComponent>()->setState(DIE_ENEMY);
-        mngr_->getPlayer()->getComponent<ChargedAttackBar>()->addCharge(elementsInfo::ottMatrix[getElement()][mngr_->getPlayer()->getComponent<Health>()->getElement()] + 1);
+        mngr_->getPlayer()->getComponent<AttackCharger>()->addCharge(elementsInfo::ottMatrix[getElement()][mngr_->getPlayer()->getComponent<Health>()->getElement()] + 1);
     }
 	else if ((ent_->hasComponent<FireBossAnimation>())) ent_->getComponent<FireBossAnimation>()->setState(DIE_FIREBOSS);
 	else if (bar != nullptr && ent_->hasComponent<EarthBossAttack>()) bar->die();
