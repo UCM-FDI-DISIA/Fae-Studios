@@ -2,6 +2,7 @@
 #include "../ecs/Component.h"
 #include "../sdlutils/Texture.h"
 #include "HealthImage.h"
+#include <iostream>
 
 const int MAX_CHARGES = 8;
 
@@ -19,7 +20,8 @@ public:
 
 	inline void addCharge(int charges) { 
 		charges_ += charges; 
-		if (charges_ > MAX_CHARGES) charges_ = MAX_CHARGES; 
+		if (charges_ > MAX_CHARGES) charges_ = MAX_CHARGES;
+        std::cout << charges_ << std::endl;
 	}
 	inline void resetCharges() { charges_ = 0; }
 	inline int numCharges() const { return charges_; }

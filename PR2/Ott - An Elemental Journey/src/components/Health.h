@@ -4,6 +4,7 @@
 #include "HealthImage.h"
 #include "BossHealthBar.h"
 #include "PlayerAnimationComponent.h"
+#include "ChargedAttackBar.h"
 
 class Health : public Component
 {
@@ -24,16 +25,16 @@ public:
 	constexpr static ecs::cmpId_type id = ecs::_HEALTH;
 	Health(int h, ecs::elements e, bool player = false) : Component(), elem(e) {
 		if (player) { maxLife = h; actualLife = h; }
-		else { maxLife = 2 * h; actualLife = 2 * h; }// La vida de los enemigos tiene una representación diferente
+		else { maxLife = 2 * h; actualLife = 2 * h; }// La vida de los enemigos tiene una representaciï¿½n diferente
 	};
 
 	Health(BossHealthBar* bar_, int h, ecs::elements e, bool player = false) : Component(), elem(e) {
 		bar = bar_;
 		bar->setBossLife(h);
 		if (player) { maxLife = h; actualLife = h; }
-		else { maxLife = 2 * h; actualLife = 2 * h; }// La vida de los enemigos tiene una representación diferente
+		else { maxLife = 2 * h; actualLife = 2 * h; }// La vida de los enemigos tiene una representaciï¿½n diferente
 	};
-	//Este método activa la animación
+	//Este mï¿½todo activa la animaciï¿½n
 	void die();
 	virtual void initComponent();
 	//Este te lleva al santuario

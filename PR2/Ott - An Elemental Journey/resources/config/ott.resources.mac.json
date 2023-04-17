@@ -74,6 +74,8 @@
 		{ "id" : "earthSlime", "file" : "../Ott - An Elemental Journey/resources/images/sprites/EarthSlime.png", "rows" : 2, "cols" : 21},
 		{ "id" : "fireSlime", "file" : "../Ott - An Elemental Journey/resources/images/sprites/FireSlime.png", "rows" : 2, "cols" : 21},
 		{ "id" : "darkSlime", "file" : "../Ott - An Elemental Journey/resources/images/sprites/DarkSlime.png", "rows" : 2, "cols" : 21},
+	  	{ "id" : "fireBoss", "file" : "../Ott - An Elemental Journey/resources/images/sprites/Skeleton.png", "rows" : 5, "cols" : 13},
+	  	{ "id" : "firePillar", "file" : "../Ott - An Elemental Journey/resources/images/tests/firePillar.png", "rows" : 1, "cols" : 6},
 		{ "id" : "mushroom", "file" : "../Ott - An Elemental Journey/resources/images/sprites/Mushroom.png", "rows" : 2, "cols" : 21},
 		{ "id" : "spores", "file" : "../Ott - An Elemental Journey/resources/images/sprites/spores.png", "rows" : 1, "cols" : 1},
 		{ "id" : "animationWorm", "file" : "../Ott - An Elemental Journey/resources/images/tests/AnimationWorm.png", "rows": 1, "cols": 8 },

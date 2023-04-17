@@ -16,7 +16,10 @@
 void Health::die()
 {
 	if (ent_->hasComponent<PlayerAnimationComponent>()) ent_->getComponent<PlayerAnimationComponent>()->setState(DIE);
-	else if ((ent_->hasComponent<EnemyAnimationComponent>())) ent_->getComponent<EnemyAnimationComponent>()->setState(DIE_ENEMY);
+	else if ((ent_->hasComponent<EnemyAnimationComponent>())) {
+        ent_->getComponent<EnemyAnimationComponent>()->setState(DIE_ENEMY);
+        mngr_->getPlayer()->getComponent<ChargedAttackBar>()->addCharge(elementsInfo::ottMatrix[getElement()][mngr_->getPlayer()->getComponent<Health>()->getElement()] + 1);
+    }
 	else if ((ent_->hasComponent<FireBossAnimation>())) ent_->getComponent<FireBossAnimation>()->setState(DIE_FIREBOSS);
 	else if (bar != nullptr && ent_->hasComponent<EarthBossAttack>()) bar->die();
 	else if(ent_->hasComponent<EnemyAnimationComponent>()) ent_->getComponent<EnemyAnimationComponent>()->setState(DIE_ENEMY);
@@ -60,7 +63,7 @@ bool Health::recieveDamage(ecs::elements el, bool dir)
 		pAnim_->playerDamaged();
 		//si dir == true, knockback derecha
 		ent_->getComponent<PhysicsComponent>()->knockback(dir);
-		//if() Añadir daño dependiendo de la entidad
+		//if() Aï¿½adir daï¿½o dependiendo de la entidad
 		int damage = elementsInfo::ottMatrix[el][elem];
 
 		if (ent_->getComponent<ShieldComponent>()->hasShield()) damage = ent_->getComponent<ShieldComponent>()->checkDamage(damage, dir);
@@ -97,7 +100,7 @@ void Health::saveSactuary(Entity* sanct)
 	lastSanctuary = sanct;
 	sanctuaryID = lastSanctuary->getComponent<InteractionComponent>()->getID();
 	recall(true);
-	// aquí no estaría mal poner una animación de Ott sentaditto de pana
+	// aquï¿½ no estarï¿½a mal poner una animaciï¿½n de Ott sentaditto de pana
 }
 
 void Health::saveToFile(std::ofstream& file) {

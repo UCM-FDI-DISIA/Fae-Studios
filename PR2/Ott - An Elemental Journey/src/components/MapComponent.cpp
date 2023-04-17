@@ -8,6 +8,23 @@
 #include "../game/Constructors.h"
 #include <algorithm>
 
+MapComponent::MapComponent(Entity* fadeOut, PlayState* game, int currentMap) : fadeOut(fadeOut), game(game), currentMap(currentMap) {
+    int n = 20;
+    vectorObjects.reserve(n);
+    vectorTiles.reserve(6);
+    for (int i = 0; i < n; ++i) {
+        vectorObjects.push_back({});
+        vectorTiles.push_back({});
+        interact.push_back({});
+    }
+    mapKeys.reserve(ecs::LAST_MAP_ID);
+    for (int i = 0; i < ecs::LAST_MAP_ID; ++i) {
+        mapKeys.push_back({});
+    }
+    currentMapKey = "waterMap";
+    tilemap = &sdlutils().images().at(sdlutils().levels().at(currentMapKey).tileset);
+}
+
 std::vector<std::string> strSplit(std::string s, char c) {
 
     std::vector<std::string> split;
@@ -105,23 +122,6 @@ MapComponent::MapComponent(Entity* fadeOut, PlayState* game, int currentMap, std
         mapKeys.push_back({ "NULL", {0,0,0,0} });
     }
     loadFromFile(file);
-    tilemap = &sdlutils().images().at(sdlutils().levels().at(currentMapKey).tileset);
-}
-
-MapComponent::MapComponent(Entity* fadeOut, PlayState* game, int currentMap) : fadeOut(fadeOut), game(game), currentMap(currentMap) {
-    int n = 20;
-    vectorObjects.reserve(n);
-    vectorTiles.reserve(6);
-    for (int i = 0; i < n; ++i) {
-        vectorObjects.push_back({});
-        vectorTiles.push_back({});
-        interact.push_back({});
-    }
-    mapKeys.reserve(ecs::LAST_MAP_ID);
-    for (int i = 0; i < ecs::LAST_MAP_ID; ++i) {
-        mapKeys.push_back({});
-    }
-    currentMapKey = "waterMap";
     tilemap = &sdlutils().images().at(sdlutils().levels().at(currentMapKey).tileset);
 }
 
