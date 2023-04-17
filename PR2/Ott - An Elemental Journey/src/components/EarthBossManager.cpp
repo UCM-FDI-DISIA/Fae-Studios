@@ -10,6 +10,7 @@
 #include "Health.h"
 #include "Trigger.h"
 #include "EnterBossRoom.h"
+#include <unistd.h>
 void EarthBossManager::initComponent() {
 	//INICIALIZACION DEL PLAYER
 	player = mngr_->getPlayer();
@@ -39,14 +40,14 @@ void EarthBossManager::setState(int newState) {
 void EarthBossManager::initializeEntities() {
 	sdlutils().soundEffects().at("roar").play(0, ecs::_channel_ALERTS);
 	//animController = ent_->addComponent<EarthBossAnimationController>(this);
-	//CREACIÓN DE LAS 6 ENREDADERAS LATERALES
+	//CREACIï¿½N DE LAS 6 ENREDADERAS LATERALES
 	SDL_Rect vine_Rect;
 	vine_Rect.x = roomDimensions.x + roomDimensions.w + offSet;
 	vine_Rect.w = roomDimensions.w;
 	//vine_Rect.h = sdlutils().images().at("vineBoss").height();
 	vine_Rect.h = roomDimensions.h / 6 + offSet;
 	for (int i = 0; i < NUM_VINES; ++i) {
-		//COLISIONAR Y DAÑAR AL JUGADOR
+		//COLISIONAR Y DAï¿½AR AL JUGADOR
 		Vector2D finPosVine = Vector2D(roomDimensions.x + offSet*2, roomDimensions.y + (roomDimensions.h / 6)*i);
 		Entity* vine = mngr_->addEntity(ecs::_grp_MINIBOSS);
 		if (i % 2 == 0)vine_Rect.y = roomDimensions.y + (roomDimensions.h / 6 )*i + vine_Rect.h - offSet*2;
@@ -74,7 +75,7 @@ void EarthBossManager::initializeEntities() {
 		warningVector.push_back(warning);
 	}
 
-	//CREACIÓN DE LOS 3 WARNINGS LATERALES
+	//CREACIï¿½N DE LOS 3 WARNINGS LATERALES
 	warning_Rect.x -= offSet;
 	warning_Rect.y = roomDimensions.y;;
 	warning_Rect.w = (sdlutils().images().at("warning").width()/28)*2;
@@ -88,7 +89,7 @@ void EarthBossManager::initializeEntities() {
 		warningVector.push_back(warning);
 	}
 
-	//CREACIÓN DEL BOSS
+	//CREACIï¿½N DEL BOSS
 	SDL_Rect boss_Rect;
 	boss_Rect.x = roomDimensions.x;
 	boss_Rect.y = roomDimensions.y - roomDimensions.h;
@@ -104,12 +105,12 @@ void EarthBossManager::initializeEntities() {
 	boss->addComponent<Health>(healthBar->getComponent<BossHealthBar>(), 2, ecs::Earth, false);
 	boss->addComponent<EarthBossAttack>();
 
-	//CREACIÓN DEL PAUSA
+	//CREACIï¿½N DEL PAUSA
 	pause = mngr_->addEntity(ecs::_grp_MINIBOSS);
 	pause->addComponent<Transform>(boss_Rect);
 	pause->addComponent<FramedImage>(&sdlutils().images().at("pixel"), sdlutils().images().at("pixel").getNumRows(), sdlutils().images().at("pixel").getNumCols());
 
-	//CREACIÓN DE LA PRESENTACIÓN
+	//CREACIï¿½N DE LA PRESENTACIï¿½N
 	SDL_Rect presentation_Rect;
 	presentation_Rect.x = roomDimensions.x + (roomDimensions.w/4)*2;
 	presentation_Rect.y = roomDimensions.y + (roomDimensions.h - (roomDimensions.h / 2.5) + 10);
@@ -202,7 +203,13 @@ void EarthBossManager::horizontalAttack() {
 }
 
 void EarthBossManager::choosingVine() {
+#ifdef __WINDOWS__
 	srand(time(NULL) * _getpid() * rand());
+#endif
+#ifdef __APPLE__
+    srand(time(NULL) * getpid() * rand());
+#endif
+
 	int aux = rand() % 4;
 	while (aux == numRandVine || aux == 0) {
 		aux = rand() % 4;
@@ -252,7 +259,12 @@ void EarthBossManager::update() {
 	}
 }
 void EarthBossManager::createVinePlatform() {
-	srand(time(NULL) * _getpid() * rand());
+#ifdef __WINDOWS__
+    srand(time(NULL) * _getpid() * rand());
+#endif
+#ifdef __APPLE__
+    srand(time(NULL) * getpid() * rand());
+#endif
 	int aux = rand() % 5;
 	SDL_Rect platformVine_Rect = vinePlatform->getComponent<Transform>()->getRect();
 	platformVine_Rect.x = platformVector[aux]->getComponent<Transform>()->getPosition().getX() - 15;
