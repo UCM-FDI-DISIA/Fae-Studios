@@ -1,5 +1,8 @@
 #include "FireBossAnimation.h"
 #include "FramedImage.h"
+#include "../states/PlayState.h"
+#include "../states/GameStateMachine.h"
+
 void FireBossAnimation::initComponent()
 {
 	image = ent_->getComponent<FramedImage>();
@@ -23,6 +26,9 @@ void FireBossAnimation::update()
 	}
 
 }
+
+FireBossAnimation::~FireBossAnimation() { if (!ent_->isAlive())static_cast<PlayState*>(GameStateMachine::instance()->currentState())->eraseEnemy(posInList, roomNum); };
+
 
 void FireBossAnimation::endAnim()
 {

@@ -10,7 +10,7 @@ class FireBossAnimation : public Component {
 public:
 	constexpr static ecs::cmpId_type id = ecs::_FIREBOSS_ANIM;
 	FireBossAnimation(anims::Entities e) : eAnims(e) {};
-	virtual ~FireBossAnimation() {};
+	virtual ~FireBossAnimation();
 	void initComponent() ;
 	virtual void update() ;
 	inline int getState() { return currentAnimation; }
@@ -20,9 +20,13 @@ public:
 	inline int getColNum(int i) { return anims::animations[eAnims][i].colNum; }
 	void endAnim();
 	void setState(int newState);
+	inline void setPosInList(int pos, int room) { posInList = pos; roomNum = room; }
 private:
 	bool damaged = false;
 	int currentAnimation = IDLE_FIREBOSS;
+
+	int posInList;
+	int roomNum;
 
 	//anims::Entities eAnims = anims::MELEE_ANIM;
 	anims::Entities eAnims = anims::FIREBOSS_ANIM;;
