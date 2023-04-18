@@ -127,7 +127,7 @@ public:
 	virtual void update();
 
 	// cambio de mapa
-	void changeMap(int newMap, std::string key, int nextPos);
+	void changeMap(int newMap, std::string key, int nextPos = -1);
 	void WaterSetActive(bool c);
 
 	void addCollision(std::string sala, SDL_Rect newCol);
@@ -150,7 +150,7 @@ public:
 	inline std::vector<std::vector<Entity*>> getInteract() { return interact; };
 	inline std::vector<std::vector<Entity*>> getWater() { return waterObjects; };
 	inline int getCurrentRoom() { return currentRoom; }
-	inline void setCurrentRoom(int newRoom) { currentRoom = newRoom; backgrounds[currentRoom]->setActive(true); }
+	inline void setCurrentRoom(int newRoom) { backgrounds[currentRoom]->setActive(false); currentRoom = newRoom; backgrounds[currentRoom]->setActive(true); }
 	inline float getCurrentRoomScale() { return vectorTiles[currentRoom].first; }
 	inline std::string getMapKey(int map, int i) { if (i < mapKeys[map].size()) return mapKeys[map][i]; else return " "; }
 
