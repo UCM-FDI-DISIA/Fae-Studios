@@ -46,7 +46,7 @@ void Health::recall(bool rest) {
 		auto map = static_cast<PlayState*>(GameStateMachine::instance()->currentState())->getMap();
 		if (lastSanctuary.mapKey != map->getCurrentLevel()) {
 			if (lastSanctuary.mapKey == "earthMap") {
-				map->changeMap(ecs::EARTH_MAP, lastSanctuary.mapKey, 0);
+				map->changeMap(ecs::EARTH_MAP, lastSanctuary.mapKey, -1);
 			}
 		}
 		map->changeRoom(std::to_string(lastSanctuary.sanct->getComponent<InteractionComponent>()->getRoom()), newPos);
