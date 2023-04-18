@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="192" height="105" tilewidth="32" tileheight="32" infinite="0" nextlayerid="14" nextobjectid="364">
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="192" height="105" tilewidth="32" tileheight="32" infinite="0" nextlayerid="14" nextobjectid="366">
  <tileset firstgid="1" name="EarthMapTileset" tilewidth="32" tileheight="32" tilecount="680" columns="20">
   <image source="../images/levels/tilesetlevel1.png" width="640" height="1088"/>
  </tileset>
@@ -335,11 +335,11 @@
   <object id="336" name="6" class="Ground" x="2637" y="2137.33" width="894" height="116"/>
   <object id="337" name="9" class="Ground" x="4002.67" y="1820" width="130.667" height="74.6667"/>
  </objectgroup>
- <objectgroup id="11" name="Trigger de cambio de mapa" visible="0">
-  <object id="338" name="9" class="waterMap_1_0" x="5894.75" y="714" width="29.5" height="97.75"/>
+ <objectgroup id="11" name="Trigger de cambio de mapa">
+  <object id="338" name="0" class="waterMap_1_0" x="327.917" y="1429.17" width="29.5" height="97.75"/>
  </objectgroup>
  <objectgroup id="12" name="Posiciones" visible="0">
-  <object id="339" name="9" class="0" x="5751.58" y="733" width="19.5" height="52.75"/>
+  <object id="339" name="0" class="0" x="288.262" y="1464.47" width="19.5" height="52.75"/>
  </objectgroup>
  <objectgroup id="3" name="Objetos interactuables">
   <object id="27" name="lamp1" class="Lamp_0" x="640" y="1523.75" width="32"/>
@@ -369,8 +369,8 @@
   <object id="347" name="3" class="Element_0" x="608.125" y="1408" width="31.875" height="31.75"/>
   <object id="348" name="0" class="Life_1" x="288" y="1407.88" width="31.875" height="31.875"/>
   <object id="349" name="0" class="Life_0" x="352" y="1408.13" width="32.125" height="31.75"/>
-  <object id="362" name="0" class="Sanctuary_0" x="1598.42" y="1408" width="100.5" height="4"/>
-  <object id="363" name="1" class="Grass" x="319.833" y="1421.29" width="29.6667" height="110.75"/>
+  <object id="363" name="1" class="Grass" x="911.833" y="1291.96" width="29.6667" height="110.75"/>
+  <object id="365" name="1" class="Sanctuary_1" x="3232" y="2102" width="88.5"/>
  </objectgroup>
  <objectgroup id="6" name="Salas" visible="0">
   <object id="61" name="0_earth_room" class="1" x="0" y="507.878" width="2600.97" height="1184.12"/>
@@ -384,7 +384,7 @@
   <object id="223" name="8_earth_room" class=" 1.8" x="3816.91" y="1942.42" width="605.394" height="353.091"/>
   <object id="265" name="9_earth_room" class="0.8" x="3855.36" y="693.031" width="2075.28" height="753.939"/>
  </objectgroup>
- <objectgroup id="7" name="Triggers">
+ <objectgroup id="7" name="Triggers" visible="0">
   <object id="166" name="0_1" class="01" x="2587.17" y="1244.67" width="32" height="160"/>
   <object id="167" name="1_0" class="01" x="2643.17" y="1276.67" width="32" height="160"/>
   <object id="168" name="2_1" class="12" x="2592.5" y="1944" width="32" height="160"/>
@@ -408,7 +408,7 @@
   <object id="236" name="1_8" class="18" x="3784.68" y="2001.83" width="21.8586" height="109.293"/>
   <object id="237" name="8_1" class="18" x="3809.46" y="2000.14" width="21.8586" height="114.387"/>
  </objectgroup>
- <objectgroup id="8" name="Enemigos">
+ <objectgroup id="8" name="Enemigos" visible="0">
   <object id="150" name="0_1_right" class="Mushroom" x="1056" y="1248" width="31.3333" height="155.333"/>
   <object id="151" name="0_2_left" class="Melee" x="1566.33" y="1312.17" width="31.3333" height="86.6667"/>
   <object id="152" name="2_1_right" class="Slime" x="3168.79" y="1915.89" width="31.3333" height="173.333"/>

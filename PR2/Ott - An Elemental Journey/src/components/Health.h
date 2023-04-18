@@ -11,7 +11,6 @@ class Health : public Component
 private:
 	int maxLife, actualLife;
 	ecs::elements elem;
-	Entity* lastSanctuary = nullptr;
 	int sanctuaryID;
 	HealthImage* image;
 	BossHealthBar* bar = nullptr;
@@ -59,13 +58,12 @@ public:
 	}
 	void saveSactuary(Entity* sanct);
 	inline int getSanctuaryID() { return sanctuaryID; }
-	inline void setSanctuary(Entity* lastS) { lastSanctuary = lastS; }
+	inline void setSanctuaryID(int ID) { sanctuaryID = ID; }
 	inline void addLifeShard(int id) { numShards++; if (numShards > 1 && numShards % 2 == 0) increaseMaxLife(); 
 	lifeShardIDs += (std::to_string(id) + " "); }
 	inline void killHealth() { actualLife = 0; image->die(); die(); }
 
 	virtual void saveToFile(std::ofstream& file);
 	virtual void loadFromFile(std::ifstream& file);
-	
 };
 

@@ -21,6 +21,7 @@ private:
     Entity* player_ = nullptr;
     Entity* camera_ = nullptr;
     Entity* earthBoss_ = nullptr;
+    Entity* map_ = nullptr;
 
 public:
     /// Constructora de la clase Manager
@@ -55,6 +56,9 @@ public:
 
     inline Entity* getPlayer() { return player_; } // handler para el player
     inline void setPlayer(Entity* p) { player_ = p; } // handler para el player
+
+    inline Entity* getMap() { return map_; } // handler para el player
+    inline void setMap(Entity* p) { map_ = p; } // handler para el player
 
     inline Entity* getCamera() { return camera_; } // handler para el player
     inline void setCamera(Entity* c) { camera_ = c; } // handler para el player

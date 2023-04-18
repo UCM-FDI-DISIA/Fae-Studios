@@ -1,0 +1,4 @@
+3
+earthMap 2
+waterMap 0
+fireMap 2

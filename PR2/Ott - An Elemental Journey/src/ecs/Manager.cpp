@@ -77,9 +77,13 @@ void Manager::loadFromFile(std::ifstream& file) {
 void Manager::update() {
     for (auto& ents : entsByGroup_) {
         auto n = ents.size();
-        for (auto i = 0u; i < n; i++)
-            if (!deleted) ents[i]->update();
+        for (auto i = 0u; i < n; i++) {
+            if (!deleted) { 
+                ents[i]->update(); 
+                n = ents.size();
+            }
             else return;
+        }
     }
 }
 
@@ -91,9 +95,6 @@ void Manager::render() {
             else return;
     }
 }
-
-
-
 
 void Manager::handleInput() {
     for (auto& ents : entsByGroup_) {

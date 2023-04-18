@@ -40,7 +40,8 @@ namespace ecs {
         _GROWVINE,
         _PLAYERATTACK,
         _ENEMYSTATES,
-        _BOSS,
+        _BOSS, 
+        _BACKGROUND_COMPONENT,
         _FIREBOSS_ANIM,
         _BOSSACCELERATION,
         _BOSS_PIVOT,
@@ -66,6 +67,7 @@ namespace ecs {
     using grpId_type = uint8_t;
     /// Identificador de los grupos
     enum grpId : grpId_type {
+        _grp_BACKGROUNDS,
         _grp_GENERAL, ///< General
         _grp_MINIBOSS,
         _grp_GROUND,
@@ -74,6 +76,7 @@ namespace ecs {
         _grp_INTERACTION,
         _grp_TRIGGER,
         _grp_CHARACTERS,
+        _grp_PLATFORMS,
         _grp_PROYECTILES,
         _grp_WATER,
         _grp_UI, ///< Elementos de la interfaz gráfica

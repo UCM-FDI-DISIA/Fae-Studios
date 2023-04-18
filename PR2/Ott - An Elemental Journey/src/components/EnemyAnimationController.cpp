@@ -19,7 +19,7 @@ void EnemyAnimationComponent::setState(int newState) {
 }
 
 EnemyAnimationComponent::~EnemyAnimationComponent() {
-	if(!ent_->isAlive())static_cast<PlayState*>(stateMachine().currentState())->eraseEnemy(posInList, roomNum);
+	if(!ent_->isAlive()) static_cast<PlayState*>(stateMachine().currentState())->eraseEnemy(posInList, roomNum);
 }
 
 void EnemyAnimationComponent::initComponent() {

@@ -32,7 +32,6 @@ private:
 	// Se guarda un vector por cada habitaci�n que hay. En este vector se guarda su ID y su posici�n
 	// El float indica la escala del mapa
 	std::vector<std::pair<float, std::vector<std::pair<int, SDL_Rect>>>> vectorTiles;
-	std::vector<std::pair<std::string, SDL_Rect>> backgrounds;
 
 	// Se guarda un vector con cada tipo de objetos que tiene el mapa (Colisiones, Objetos Interactuables, Salas, Triggers
 	std::vector<std::vector<Object>> vectorObjects;
@@ -41,11 +40,17 @@ private:
 	std::unordered_map<std::string, std::vector<std::pair<bool, SDL_Rect>>> destructible;
 
 	std::vector<std::vector<Entity*>> interact;
+	struct sanctuaries_info {
+		Entity* sanct;
+		std::string mapKey;
+	};
+	std::vector<sanctuaries_info> sanctuaries;
 
 	// Vector con las keys de la imagen asociada a cada habitacion
 	std::vector<std::vector<std::string>> mapKeys;
 
 	std::vector<Entity*> eraseEntities;
+	std::vector<Entity*> backgrounds;
 	//agua
 	std::vector<std::vector<Entity*>> waterObjects;
 
@@ -105,6 +110,7 @@ private:
 	int numRooms = 0;
 	int currentMap = 0;
 
+	void initSanctuaries();
 	void loadMap(std::string path, int nextPos = -1);
 	std::string pickedLifeShards = "";
 	bool loadEarthBoss = true, loadWaterBoss = true, loadFireBoss = true;
@@ -137,12 +143,14 @@ public:
 	inline int getCurrentMap() { return currentMap; }
 	inline void changeVisualMap(int map) { currentMap = map; };
 
+	inline sanctuaries_info getSanctuary(int ID) { return sanctuaries[ID]; }
+
 	std::vector<std::pair<SDL_Rect, SDL_Rect>> checkCollisions(const SDL_Rect& playerRect);
 	
 	inline std::vector<std::vector<Entity*>> getInteract() { return interact; };
 	inline std::vector<std::vector<Entity*>> getWater() { return waterObjects; };
 	inline int getCurrentRoom() { return currentRoom; }
-	inline void setCurrentRoom(int newRoom) { currentRoom = newRoom; }
+	inline void setCurrentRoom(int newRoom) { currentRoom = newRoom; backgrounds[currentRoom]->setActive(true); }
 	inline float getCurrentRoomScale() { return vectorTiles[currentRoom].first; }
 	inline std::string getMapKey(int map, int i) { if (i < mapKeys[map].size()) return mapKeys[map][i]; else return " "; }
 

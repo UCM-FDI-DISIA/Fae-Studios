@@ -90,7 +90,7 @@
  <objectgroup id="3" name="Ott">
   <object id="215" name="Ott" class="0" x="1510" y="66.667" width="45.3333" height="32"/>
  </objectgroup>
- <objectgroup id="11" name="Agua">
+ <objectgroup id="11" name="Agua" visible="0">
   <object id="350" name="0" class="Activo" x="1248" y="320" width="768" height="320"/>
   <object id="351" name="0" class="Activo" x="1120" y="512" width="128" height="128"/>
   <object id="360" name="4" class="Activo" x="4544" y="960" width="1024" height="1408"/>
@@ -120,8 +120,8 @@
   <object id="243" name="11_water_room" class="1" x="1120" y="704" width="1056" height="512"/>
   <object id="245" name="12_water_room" class="1" x="56" y="284" width="1080" height="2220"/>
  </objectgroup>
- <objectgroup id="6" name="Objetos Interactuables" visible="0"/>
- <objectgroup id="7" name="Enemigos">
+ <objectgroup id="6" name="Objetos Interactuables"/>
+ <objectgroup id="7" name="Enemigos" visible="0">
   <object id="372" name="2_2_left" class="Melee" x="3232" y="798" width="32" height="64"/>
   <object id="373" name="3_2_left" class="Mushroom" x="4544" y="326" width="32" height="32"/>
   <object id="376" name="3_2_left" class="Slime" x="5184" y="474" width="32" height="64"/>

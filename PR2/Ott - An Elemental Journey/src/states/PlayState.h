@@ -81,8 +81,7 @@ public:
         int room = map_->getCurrentRoom();
         enemies[numRoom].erase(enemyIt[numRoom][itPos]);
     }
-    void resetEnemies() 
-    { 
+    void resetEnemies() { 
         for (int i = 0; i < enemies.size(); ++i) {
             for (auto it : enemies[i]) {
                 it->setAlive(false);
@@ -110,6 +109,6 @@ public:
     void endRest();
     inline std::vector<std::list<Entity*>> getEnemies() { return enemies; }
     inline ecs::maps getCurrentMap() { return currentMap; }
-    inline void changeMap(int map) { currentMap = (ecs::maps)map; enemies.clear(); initialEnemies.clear(); enemyIt.clear(); };
+    inline void changeMap(int map) { currentMap = (ecs::maps)map; enemies.clear(); 
+        initialEnemies.clear(); enemyIt.clear(); };
 };
-

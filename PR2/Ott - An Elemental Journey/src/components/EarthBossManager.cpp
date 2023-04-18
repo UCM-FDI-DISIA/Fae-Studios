@@ -130,7 +130,7 @@ void EarthBossManager::initializeEntities() {
 	platformVine_Rect.h = sdlutils().images().at("vinePlatform").height()*2;
 	platformVine_Rect.x = platformVector[0]->getComponent<Transform>()->getPosition().getX() - 15;
 	platformVine_Rect.y = platformVector[0]->getComponent<Transform>()->getPosition().getY() + platformVine_Rect.h* 2;
-	vinePlatform = mngr_->addEntity(ecs::_grp_INTERACTION);
+	vinePlatform = mngr_->addEntity(ecs::_grp_PLATFORMS);
 	vinePlatform->addComponent<Transform>(platformVine_Rect);
 	vinePlatform->addComponent<FramedImage>(&sdlutils().images().at("vinePlatform"), sdlutils().images().at("vinePlatform").getNumRows(), sdlutils().images().at("vinePlatform").getNumCols());
 	vinePlatform->addComponent<EarthBossAttack>();

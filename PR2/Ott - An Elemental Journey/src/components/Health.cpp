@@ -36,18 +36,22 @@ void Health::initComponent() {
 	image = ent_->getComponent<HealthImage>();
 }
 
-void Health::recall(bool rest)
-{
+void Health::recall(bool rest) {
 	Vector2D newPos;
-	if (lastSanctuary != nullptr && !rest) {
-		auto sancTr_ = lastSanctuary->getComponent<Transform>();
+	auto lastSanctuary = static_cast<PlayState*>(GameStateMachine::instance()->currentState())->getMap()->getSanctuary(sanctuaryID);
+	if (lastSanctuary.sanct != nullptr && !rest) {
+		auto sancTr_ = lastSanctuary.sanct->getComponent<Transform>();
 		auto tr_ = ent_->getComponent<Transform>();
 		newPos = sancTr_->getPosition() + Vector2D(0, sancTr_->getHeight() - tr_->getHeight());
-		static_cast<PlayState*>(GameStateMachine::instance()->currentState())->getMap()
-			->changeRoom(std::to_string(lastSanctuary->getComponent<InteractionComponent>()->getRoom()), newPos);
+		auto map = static_cast<PlayState*>(GameStateMachine::instance()->currentState())->getMap();
+		if (lastSanctuary.mapKey != map->getCurrentLevel()) {
+			if (lastSanctuary.mapKey == "earthMap") {
+				map->changeMap(ecs::EARTH_MAP, lastSanctuary.mapKey, 0);
+			}
+		}
+		map->changeRoom(std::to_string(lastSanctuary.sanct->getComponent<InteractionComponent>()->getRoom()), newPos);
 	}
-	else 
-	{ 
+	else { 
 		newPos = ent_->getComponent<Transform>()->getInitialPosition();
 		static_cast<PlayState*>(GameStateMachine::instance()->currentState())->getMap()
 			->changeRoom("0", newPos);
@@ -57,8 +61,7 @@ void Health::recall(bool rest)
 	static_cast<PlayState*>(GameStateMachine::instance()->currentState())->resetEnemies();
 }
 
-bool Health::recieveDamage(ecs::elements el, bool dir)
-{
+bool Health::recieveDamage(ecs::elements el, bool dir) {
 	if (ent_->hasComponent<PlayerAnimationComponent>()) {
 		if (pAnim_->isInvincible()) return false;
 		pAnim_->playerDamaged();
@@ -96,16 +99,14 @@ bool Health::recieveDamage(ecs::elements el, bool dir)
 	else return false;
 }
 
-void Health::saveSactuary(Entity* sanct)
-{
-	lastSanctuary = sanct;
-	sanctuaryID = lastSanctuary->getComponent<InteractionComponent>()->getID();
+void Health::saveSactuary(Entity* sanct) {
+	sanctuaryID = sanct->getComponent<InteractionComponent>()->getID();
 	recall(true);
 	// aqu� no estar�a mal poner una animaci�n de Ott sentaditto de pana
 }
 
 void Health::saveToFile(std::ofstream& file) {
-	file << "sanctuaryID " << lastSanctuary->getComponent<InteractionComponent>()->getID() << std::endl;
+	file << "sanctuaryID " << sanctuaryID << std::endl;
 	file << "lifeShards " << numShards << lifeShardIDs << "_" << std::endl;
 }
 

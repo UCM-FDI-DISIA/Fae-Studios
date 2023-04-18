@@ -130,7 +130,30 @@ void MapComponent::initComponent() {
     player_ = mngr_->getPlayer();
     anim_ = fadeOut->getComponent<FadeOutAnimationComponent>();
     anim_->setMap(ent_);
+    initSanctuaries();
     loadMap(sdlutils().levels().at(currentMapKey).route);
+}
+
+void MapComponent::initSanctuaries() {
+    std::ifstream file;
+    std::string route;
+    file.open("../resources/txt_info/sanctuaryInfo.txt");
+
+    int n;
+    file >> n;
+    for (int i = 0; i < n; ++i) {
+        std::string mapKey;
+        int numSancts;
+        file >> mapKey >> numSancts;
+        switch (i) {
+            case 0: mapKey = "earthMap"; break;
+            case 1: mapKey = "waterMap"; break;
+            case 2: mapKey = "fireMap"; break;
+        }
+        for (int o = 0; o < numSancts; ++o) {
+            sanctuaries.push_back({ nullptr, mapKey });
+        }
+    }
 }
 
 void MapComponent::update() {
@@ -212,11 +235,21 @@ void MapComponent::changeMap(int newMap, std::string key, int nextPos) {
     }
     for (auto it : interact) {
         for (auto ot : it) {
+            if (!ot->hasComponent<InteractionComponent>()) ot->setAlive(false);
+            else if(ot->getComponent<InteractionComponent>()->getType() != SANCTUARY_IT)
+                ot->setAlive(false);
+        }
+    }
+    for (auto it : waterObjects) {
+        for (auto ot : it) {
             ot->setAlive(false);
         }
     }
     for (int i = 0; i < eraseEntities.size(); ++i) {
         eraseEntities[i]->setAlive(false);
+    }
+    for (auto it : mngr_->getEntities(ecs::_grp_TRIGGER)) {
+        it->setAlive(false);
     }
     interact.clear();
     eraseEntities.clear();
@@ -255,6 +288,7 @@ void MapComponent::loadMap(std::string path, int nextPos) {
     {
         tmx::Object playerPos;
         Entity* playerSanctuary = nullptr;
+        int playerSanctuaryID = -1;
         int playerSanctuaryRoom;
         const auto& layers2 = map.getLayers();
         std::unordered_map<std::string, std::pair<Vector2D,int>> lamps;
@@ -275,13 +309,15 @@ void MapComponent::loadMap(std::string path, int nextPos) {
                         });
                     numRooms = objects.size();
                     game->initEnemies(numRooms);
+                    for (int i = 0; i < numRooms; ++i) {
+                        backgrounds.push_back({});
+                    }
 
                     // INICIALIZAR AGUA y BACKGROUNDS
                     waterObjects.reserve(numRooms);
                     for (int i = 0; i < numRooms; ++i) {
                         waterObjects.push_back(std::vector<Entity*>());
                         waterObjects[i].reserve(5);
-                        backgrounds.push_back({});
                     }
 
                     if (mapKeys[currentMap].size() != numRooms) {
@@ -439,7 +475,14 @@ void MapComponent::loadMap(std::string path, int nextPos) {
         }
 
         for (auto ot : vectorObjects[BACKGROUNDS_VECTOR_POS]) {
-            backgrounds[std::stoi(ot.getName())] = {ot.getClass(), getSDLRect(ot.getAABB())};
+            int roomNum = std::stoi(ot.getName());
+            auto bg = mngr_->addEntity(ecs::_grp_BACKGROUNDS);
+            auto bgRect = getSDLRect(ot.getAABB());
+            auto roomScale = vectorTiles[roomNum].first;
+            bg->addComponent<Transform>(Vector2D(bgRect.x, bgRect.y) * roomScale, bgRect.w* roomScale, bgRect.h* roomScale);
+            bg->addComponent<Image>(&sdlutils().images().at(ot.getClass()));
+            bg->setActive(false);
+            backgrounds[roomNum] = bg;
         }
 
         float scale = tileScale();
@@ -472,8 +515,6 @@ void MapComponent::loadMap(std::string path, int nextPos) {
                 }
             }
             else if (classSplit[0] == "Lamp") {
-                //createLamp(Vector2D(x_ * scale, y_ * scale - game->getTexture("lamp", PLAY_STATE)->getH() * 2));
-
                 std::string lampName = ot.getName();
                 int roomNum = std::stoi(classSplit[1]);
                 float roomScale2 = vectorTiles[roomNum].first;
@@ -502,16 +543,20 @@ void MapComponent::loadMap(std::string path, int nextPos) {
             }
             else if (classSplit[0] == "Sanctuary") {
                 auto roomScale = vectorTiles[std::stoi(ot.getName())].first;
+                int ID = std::stoi(classSplit[1]);
                 Vector2D pos = Vector2D(x_ * scale * roomScale, (y_ * scale) * roomScale);
-                auto sanct = constructors::sanctuary(mngr_, pos - Vector2D(0, 250 * roomScale), std::stoi(classSplit[1]), std::stoi(ot.getName()), 250 * roomScale, 250 * roomScale);
+                auto sanct = constructors::sanctuary(mngr_, pos - Vector2D(0, 250 * roomScale), ID, std::stoi(ot.getName()), 250 * roomScale, 250 * roomScale);
+                sanctuaries[ID].sanct = sanct;
                 interact[std::stoi(ot.getName())].push_back(sanct);
                 if (std::stoi(classSplit[1]) == player_->getComponent<Health>()->getSanctuaryID()) {
                     playerSanctuary = sanct;
+                    playerSanctuaryID = ID;
                     playerSanctuaryRoom = std::stoi(ot.getName());
                 }
             }
             else if ((ot.getClass() == "BossRoom") && loadEarthBoss) {
-                auto roomScale = vectorTiles[std::stoi(ot.getName())].first;
+                int roomNum = std::stoi(ot.getName());
+                auto roomScale = vectorTiles[roomNum].first;
                 SDL_Rect roomDimensions;
                 roomDimensions.x = x_ * scale * roomScale;
                 roomDimensions.y = y_ * scale * roomScale;
@@ -520,9 +565,11 @@ void MapComponent::loadMap(std::string path, int nextPos) {
                 Entity* earthBoss = mngr_->addEntity(ecs::_grp_GENERAL);
                 earthBoss->addComponent<EarthBossManager>(roomDimensions);
                 mngr_->setEarthBoss(earthBoss);
+                interact[roomNum].push_back(earthBoss);
             }
             else if (ot.getClass() == "EarthBossPlatforms") {
-                auto roomScale = vectorTiles[std::stoi(ot.getName())].first;
+                int roomNum = std::stoi(ot.getName());
+                auto roomScale = vectorTiles[roomNum].first;
                 SDL_Rect platformDimensions;
                 platformDimensions.x = x_ * scale * roomScale;
                 platformDimensions.y = y_ * scale * roomScale;
@@ -531,23 +578,7 @@ void MapComponent::loadMap(std::string path, int nextPos) {
                 Entity* earthBossPlatforms = mngr_->addEntity(ecs::_grp_GENERAL);
                 earthBossPlatforms->addComponent<Transform>(platformDimensions);
                 platformEarthBoss.push_back(earthBossPlatforms);
-               
-                //eraseEntities.push_back(earthBoss); //what
             }
-            /*else if ((ot.getClass() == "DoorTrigger") && loadEarthBoss) {
-           /* else if ((ot.getClass() == "DoorTrigger") && loadEarthBoss) {
-                auto roomScale = vectorTiles[std::stoi(ot.getName())].first;
-                Entity* trigger = mngr_->addEntity(ecs::_grp_TRIGGER);
-                trigger->addComponent<Transform>(Vector2D(x_* scale * roomScale, y_* scale* roomScale), w_* scale* roomScale, h_* scale* roomScale);
-                trigger->addComponent<VineManager>(EVIL, 
-                    Vector2D(((x_ * scale) - 260)* roomScale, (((y_ * scale) + h_ * scale) - 100) * roomScale) ,
-                    Vector2D((x_ * scale* roomScale) - 170 * roomScale, (y_ * scale - 100)* roomScale),
-                    -1, 0, w_ * scale* roomScale, h_ * scale* roomScale, 3);
-                trigger->getComponent<VineManager>()->createVine();
-                trigger->addComponent<EnterBossRoom>(&sdlutils().images().at("animationWorm"));
-                trigger->addComponent<Trigger>();
-                interact[std::stoi(ot.getName())].push_back(trigger);
-            }*/
             else if (classSplit[0] == "Life") {
                 auto lifeSharIDSplit = strSplit(pickedLifeShards, ' ');
                 bool dontCreate = false;
@@ -561,7 +592,6 @@ void MapComponent::loadMap(std::string path, int nextPos) {
                 }
             }
         }
-
 
         SDL_Rect playerRect = getSDLRect(playerPos.getAABB());
         
@@ -590,10 +620,11 @@ void MapComponent::loadMap(std::string path, int nextPos) {
             playerTr_->setPosition(newPos);
             playerRoom = playerSanctuaryRoom;
             playerRoomScale = vectorTiles[playerRoom].first;
-            player_->getComponent<Health>()->setSanctuary(playerSanctuary);
+            player_->getComponent<Health>()->setSanctuaryID(playerSanctuaryID);
         }
         playerTr_->setScale(playerRoomScale);
         currentRoom = playerRoom;
+        backgrounds[currentRoom]->setActive(true);
         cam->setBounds(getCamBounds());
 
         if(currentMapKey == "earthMap") mngr_->getEarthBoss()->getComponent<EarthBossManager>()->addPlatforms(platformEarthBoss);
@@ -643,16 +674,7 @@ void MapComponent::render() {
     int offsetY = camPos.y;
     int room = currentRoom;
     auto roomScale = vectorTiles[room].first;
-    if (currentMapKey == "earthMap") {
-        SDL_Rect imageRect = backgrounds[room].second;
-        imageRect.x *= roomScale;
-        imageRect.y *= roomScale;
-        imageRect.w *= roomScale;
-        imageRect.h *= roomScale;
-        imageRect.x -= offsetX;
-        imageRect.y -= offsetY;
-        sdlutils().images().at(backgrounds[room].first).render(imageRect);
-    }
+
     for (int i = 0; i < vectorTiles[room].second.size(); i++) {
         auto it = vectorTiles[room].second[i].first;
         auto ot = vectorTiles[room].second[i].second;
