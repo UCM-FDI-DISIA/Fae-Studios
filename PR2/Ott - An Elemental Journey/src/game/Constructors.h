@@ -262,7 +262,7 @@ namespace constructors {
 		pAnim->initComponent();
 		health->initComponent();
 		ph->createCollider();	
-		player->addComponent<FinalBossBehaviorComponent>(3);
+		player->addComponent<FinalBossBehaviorComponent>();
 		return player;
 	}
 

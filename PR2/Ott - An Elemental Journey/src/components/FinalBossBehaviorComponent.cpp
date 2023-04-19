@@ -3,10 +3,9 @@
 #include "Image.h"
 #include "WaterBubbleComponent.h"
 #include "FireWallComponent.h"
-FinalBossBehaviorComponent::FinalBossBehaviorComponent(int time)
+FinalBossBehaviorComponent::FinalBossBehaviorComponent()
 {
-	timeBetweenAttacks = time;
-	lastAttack = -time * 1000;
+	currentElement = rand() % 4;
 }
 
 void FinalBossBehaviorComponent::initComponent()
@@ -17,25 +16,24 @@ void FinalBossBehaviorComponent::initComponent()
 void FinalBossBehaviorComponent::update()
 {
 	//Temporizador de ataque
-	if (SDL_GetTicks() - lastAttack >= timeBetweenAttacks * 1000) {
+	if (SDL_GetTicks() - lastAttack >= timeBetweenAttacks) {
 		lastAttack = SDL_GetTicks();
 
 		//Switch de los diferentes ataques del boss
-		int currentElem = (int)bossHealth->getElement();
-		switch (currentElem)
+		switch (currentElement)
 		{
-		case 1: std::cout << "Ataque tierra boss final" << std::endl; break;
-		case 2: std::cout << "Ataque agua boss final" << std::endl; break;
-		case 3: std::cout << "Ataque fuego boss final" << std::endl; break;
-		case 4: std::cout << "Ataque oscuridad boss final" << std::endl; break;
+		case 0: std::cout << "Ataque tierra boss final" << std::endl; break;
+		case 1: std::cout << "Ataque agua boss final" << std::endl; spawnBubbles(); break;
+		case 2: std::cout << "Ataque fuego boss final" << std::endl; spawnFireWall(); break;
+		case 3: std::cout << "Ataque oscuridad boss final" << std::endl; break;
 		default: std::cout << "Ataque generico boss final" << std::endl; break;
 		}
 		//Cambia de elemento aleatoriamente
-		int newElem = rand() % 4; newElem++;
-		std::cout << newElem << std::endl;
-		bossHealth->setElement(newElem);
-		
-		spawnFireWall();
+		int lastElem = currentElement;
+		do{
+			currentElement = rand() % 4;
+		} while (lastElem == currentElement);
+
 	}
 }
 
@@ -52,7 +50,7 @@ void FinalBossBehaviorComponent::spawnBubbles() //Ataque de agua
 	bubble->addComponent<WaterBubbleComponent>();
 }
 
-void FinalBossBehaviorComponent::spawnFireWall()
+void FinalBossBehaviorComponent::spawnFireWall() //Ataque fuego
 {
 	// Transform del boss
 	auto pTransf = ent_->getComponent<Transform>();
