@@ -20,6 +20,7 @@ private:
     Entity* player_;
     Entity* camera_;
     Entity* earthBoss_;
+    Entity* screenDarkener_;
     MapComponent* map_;
     Entity* lastSanctuary=nullptr;
     std::vector<std::list<Entity*>> enemies, initialEnemies;
@@ -27,6 +28,8 @@ private:
     ecs::maps currentMap;
 
     float gravityValue = 0.2;
+
+    bool isScreenDarkened = false;
 
 public:
     /// Constructora del estado de juego

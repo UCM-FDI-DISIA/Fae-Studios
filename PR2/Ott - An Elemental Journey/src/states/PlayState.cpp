@@ -28,6 +28,7 @@
 #include "menus/PauseMenuState.h"
 #include "../components/ElementObject.h"
 #include <iostream>
+#include "../components/ScreenDarkenerComponent.h"
 
 PlayState::PlayState() : GameState(ecs::_state_PLAY) {
 	currentMap = ecs::EARTH_MAP;
@@ -41,6 +42,10 @@ PlayState::PlayState() : GameState(ecs::_state_PLAY) {
 	fade->addComponent<FadeTransitionComponent>(true, 1);
 	fade->getComponent<FadeTransitionComponent>()->setFunction([this]() {doNotDetectKeyboardInput = false; sdlutils().musics().at(sdlutils().levels().at(map_->getCurrentLevel()).bgsong).play(); });
 	fade->getComponent<FadeTransitionComponent>()->activate();
+
+    screenDarkener_ = mngr_->addEntity(ecs::_grp_UI);
+    screenDarkener_->addComponent<Transform>(Vector2D(0,0), 0, 0);
+    screenDarkener_->addComponent<ScreenDarkenerComponent>();
 
 	// se reinicializan los componentes del jugador porque muchos tienen referencias entre ellos y con la cámara 
 	// y no se podrían coger de otra forma más que forzando el initComponent()
@@ -73,6 +78,10 @@ PlayState::PlayState(std::string fileName) : GameState(ecs::_state_PLAY) {
 	fade->addComponent<FadeTransitionComponent>(true, 1);
 	fade->getComponent<FadeTransitionComponent>()->setFunction([this]() {doNotDetectKeyboardInput = false; sdlutils().musics().at(sdlutils().levels().at(map_->getCurrentLevel()).bgsong).play(); });
 	fade->getComponent<FadeTransitionComponent>()->activate();
+
+    screenDarkener_ = mngr_->addEntity(ecs::_grp_UI);
+    screenDarkener_->addComponent<Transform>(Vector2D(0,0), 0, 0);
+    screenDarkener_->addComponent<ScreenDarkenerComponent>();
 
 	// se reinicializan los componentes del jugador porque muchos tienen referencias entre ellos y con la cámara 
 	// y no se podrían coger de otra forma más que forzando el initComponent()
@@ -273,6 +282,16 @@ void PlayState::update() {
 	checkCollisions({ player_ });
 	checkCollisions(enemies[map_->getCurrentRoom()]);
 	GameState::update();
+
+    if(!isScreenDarkened && player_->getComponent<Health>()->getHealth() == 1) {
+        screenDarkener_->getComponent<ScreenDarkenerComponent>()->darken();
+        isScreenDarkened = true;
+    }
+
+    if(isScreenDarkened && player_->getComponent<Health>()->getHealth() > 1) {
+        screenDarkener_->getComponent<ScreenDarkenerComponent>()->undarken();
+        isScreenDarkened = false;
+    }
 }
 
 void PlayState::AddEnredadera() {

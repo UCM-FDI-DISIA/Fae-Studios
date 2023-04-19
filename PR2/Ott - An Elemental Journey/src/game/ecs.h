@@ -57,6 +57,7 @@ namespace ecs {
         _SHIELD, 
         _LAMP_ANIM,
         _CHARGED_ATTACK_BAR,
+        _SCREEN_DARKENER,
 
         _LAST_CMP_ID
     };
