@@ -164,6 +164,12 @@
 			"file": "../resources/images/sprites/attackBubble.png",
 			"rows": 1,
 			"cols": 1
+		},
+		{
+			"id": "finalBoss",
+			"file": "../resources/images/tests/BossFinal.png",
+			"rows": 1,
+			"cols": 1
 		}
   ],
 
