@@ -83,6 +83,7 @@
     <ClCompile Include="src\components\PlatformMovementY.cpp" />
     <ClCompile Include="src\components\PlatformMovementX.cpp" />
     <ClCompile Include="src\components\ScreenDarkenerComponent.cpp" />
+    <ClCompile Include="src\components\LoreRoom.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\components\Image.h" />
@@ -185,6 +186,7 @@
     <ClInclude Include="src\components\PlatformMovementY.h" />
     <ClInclude Include="src\components\PlatformMovementX.h" />
     <ClInclude Include="src\components\ScreenDarkenerComponent.h" />
+    <ClInclude Include="src\components\LoreRoom.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="resources\config\ott.resources.mac.json" />

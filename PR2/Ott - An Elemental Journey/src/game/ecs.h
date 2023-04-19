@@ -59,6 +59,7 @@ namespace ecs {
         _CHARGED_ATTACK_BAR,
         _SCREEN_DARKENER,
         _PLATFORM_MOVEMENT,
+        _LORE,
 
         _LAST_CMP_ID
     };
@@ -73,8 +74,10 @@ namespace ecs {
         _grp_GENERAL, ///< General
         _grp_MINIBOSS,
         _grp_GROUND,
-        _grp_INTERACTION,
+        _grp_VINE,
         _grp_CARTEL,
+        _grp_MAP,
+        _grp_INTERACTION,
         _grp_TRIGGER,
         _grp_CHARACTERS,
         _grp_PLATFORMS,

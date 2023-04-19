@@ -3,6 +3,8 @@
 #include "../ecs/Manager.h"
 #include "../ecs/Entity.h"
 #include "../components/CameraComponent.h"
+#include "../components/LoreRoom.h"
+#include "../components/Trigger.h"
 #include "../states/PlayState.h"
 #include "../states/GameStateMachine.h"
 #include "../game/Constructors.h"
@@ -638,6 +640,21 @@ void MapComponent::loadMap(std::string path, int nextPos) {
                 Entity* earthBossPlatforms = mngr_->addEntity(ecs::_grp_GENERAL);
                 earthBossPlatforms->addComponent<Transform>(platformDimensions);
                 platformEarthBoss.push_back(earthBossPlatforms);
+            }
+            else if (ot.getClass() == "lore_Trigger") {
+                int roomNum = std::stoi(ot.getName());
+                auto roomScale = vectorTiles[roomNum].first;
+                SDL_Rect trigger;
+                trigger.x = x_ * scale * roomScale;
+                trigger.y = y_ * scale * roomScale;
+                trigger.w = w_ * scale * roomScale;
+                trigger.h = h_ * scale * roomScale;
+                Entity* triggerLore = mngr_->addEntity(ecs::_grp_GENERAL);
+                triggerLore->addComponent<Transform>(trigger);
+                triggerLore->addComponent<LoreRoom>(player_);
+                triggerLore->addComponent<Trigger>();
+            
+                interact[roomNum].push_back(triggerLore);
             }
             else if (classSplit[0] == "Life") {
                 auto lifeSharIDSplit = strSplit(pickedLifeShards, ' ');
