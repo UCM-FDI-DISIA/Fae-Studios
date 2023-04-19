@@ -1,4 +1,4 @@
-sanctuaryID 4
+sanctuaryID 1
 lifeShards 0 _
 earth 0
 water 1

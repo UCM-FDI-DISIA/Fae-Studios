@@ -337,8 +337,8 @@
   <object id="412" name="12_8" class="812" x="4548.49" y="2125.35" width="21.8586" height="113.293"/>
   <object id="413" name="8_12" class="812" x="4573.65" y="2124.69" width="21.8586" height="113.293"/>
  </objectgroup>
- <objectgroup id="9" name="Ott" visible="0">
-  <object id="153" name="Ott" class="0" x="555" y="1304.67" width="37" height="87"/>
+ <objectgroup id="9" name="Ott">
+  <object id="153" name="6" class="6" x="2923" y="3088.67" width="37" height="87"/>
  </objectgroup>
  <objectgroup id="13" name="Backgrounds" visible="0">
   <object id="430" name="0" class="Sala0" x="0" y="512" width="2600.97" height="1184.12"/>

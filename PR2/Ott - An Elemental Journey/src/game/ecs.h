@@ -72,8 +72,6 @@ namespace ecs {
         _grp_GENERAL, ///< General
         _grp_MINIBOSS,
         _grp_GROUND,
-        _grp_VINE,
-        _grp_MAP,
         _grp_INTERACTION,
         _grp_CARTEL,
         _grp_TRIGGER,
@@ -81,6 +79,8 @@ namespace ecs {
         _grp_PLATFORMS,
         _grp_PROYECTILES,
         _grp_WATER,
+        _grp_MAP,
+        _grp_VINE,
         _grp_UI, ///< Elementos de la interfaz gráfica
         _grp_FADEOUT,
 

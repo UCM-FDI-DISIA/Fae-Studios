@@ -22,6 +22,7 @@ private:
     Texture* tex_ = nullptr;
     SDL_Rect destTransform;
     SDL_Rect destTexture;
+    SDL_Rect initialPos = {0,0,0,0};
     float rotation;
     bool canClimb_;
 };
