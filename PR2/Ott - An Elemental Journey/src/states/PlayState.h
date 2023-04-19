@@ -23,6 +23,7 @@ private:
     MapComponent* map_;
     Entity* lastSanctuary=nullptr;
     std::vector<std::list<Entity*>> enemies, initialEnemies;
+    std::vector<std::list<Entity*>> carteles;
     std::vector<std::vector<std::list<Entity*>::iterator>> enemyIt;
     ecs::maps currentMap;
 
@@ -54,10 +55,20 @@ public:
         
     };
 
+    inline void addCarteles(Entity* cartel, int room) {
+        carteles[room].push_front(cartel);
+    };
+
     inline void initEnemies(int numRooms) {
         for (int i = 0; i < numRooms; ++i) {
             enemies.push_back({});
             enemyIt.push_back({});
+        }
+    }
+
+    inline void initCarteles(int numRooms) {
+        for (int i = 0; i < numRooms; ++i) {
+            carteles.push_back({});
         }
     }
 
@@ -108,6 +119,7 @@ public:
     void UnlockElement(ecs::elements elem);
     void endRest();
     inline std::vector<std::list<Entity*>> getEnemies() { return enemies; }
+    inline std::vector<std::list<Entity*>> getCarteles() { return carteles; }
     inline ecs::maps getCurrentMap() { return currentMap; }
     inline void changeMap(int map) { currentMap = (ecs::maps)map; enemies.clear(); 
         initialEnemies.clear(); enemyIt.clear(); };

@@ -74,6 +74,7 @@ namespace ecs {
         _grp_VINE,
         _grp_MAP,
         _grp_INTERACTION,
+        _grp_CARTEL,
         _grp_TRIGGER,
         _grp_CHARACTERS,
         _grp_PLATFORMS,

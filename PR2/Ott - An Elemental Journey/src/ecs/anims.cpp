@@ -40,12 +40,17 @@ std::vector<anims::animDescription> anims::miniPause_anims{ {1000, 1,0,0} };
 std::vector<anims::animDescription> anims::water_attack{ {100,7,0,0}, {100,7,1,6} };
 std::vector<anims::animDescription> anims::lamp{ {100,1,0,0}, {50, 3, 0, 1},{100,1,0,4} };
 std::vector<anims::animDescription> anims::grass{ {100,1,0,0}, {200,4,0,0} };
+std::vector<anims::animDescription> anims::movimiento_cartel{ {60,14,0,0} };
+std::vector<anims::animDescription> anims::lampara_cartel{ {60,27,0,0} };
+std::vector<anims::animDescription> anims::enredadera_cartel{ {60,17,0,0} };
+std::vector<anims::animDescription> anims::elemento_cartel{ {60,44,0,0} };
 // vector con todas las animaciones definidas. se accede a �l por un enum llamado Entities
 std::vector<std::vector<anims::animDescription>> anims::animations{ott_anims, 
 			melee_anims, range_anims, slime_anims, earth_attack, 
 			earthBossPresent_anims,earthBoss_anims, warning_anims,
 			pause_anims,miniPause_anims, water_attack, waterBoss_anims, 
-			lifeshard_anims, fireboss_anims, lamp, grass };
+			lifeshard_anims, movimiento_cartel,lampara_cartel,enredadera_cartel, elemento_cartel, 
+			fireboss_anims, lamp, grass };
 
 // int izqPixels, totalHorPixels, upPixels, totalVertPixels, width, height;
 

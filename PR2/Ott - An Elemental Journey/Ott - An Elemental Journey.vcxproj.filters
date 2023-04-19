@@ -79,6 +79,7 @@
     <ClCompile Include="src\components\ActiveWater.cpp" />
     <ClCompile Include="src\components\BossDoor.cpp" />
     <ClCompile Include="src\components\LampAnimationComponent.cpp" />
+    <ClCompile Include="src\components\GeneralAnimationController.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\components\Image.h" />
@@ -177,6 +178,7 @@
     <ClInclude Include="src\components\BossDoor.h" />
     <ClInclude Include="src\components\LampAnimationComponent.h" />
     <ClInclude Include="src\components\GrassAnimationComponent.h" />
+    <ClInclude Include="src\components\GeneralAnimationController.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="resources\config\ott.resources.mac.json" />
@@ -184,5 +186,21 @@
     <ClInclude Include="src\components\WaterAnimationController.h" />
     <ClInclude Include="src\components\DamageArea.h" />
     <ClInclude Include="src\components\FadeTransitionComponent.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="resources\images\carteles\Movimiento\Untitled-Artwork-1.png" />
+    <Image Include="resources\images\carteles\Movimiento\Untitled-Artwork-2.png" />
+    <Image Include="resources\images\carteles\Movimiento\Untitled-Artwork-3.png" />
+    <Image Include="resources\images\carteles\Movimiento\Untitled-Artwork-4.png" />
+    <Image Include="resources\images\carteles\Movimiento\Untitled-Artwork-5.png" />
+    <Image Include="resources\images\carteles\Movimiento\Untitled-Artwork-6.png" />
+    <Image Include="resources\images\carteles\Movimiento\Untitled-Artwork-7.png" />
+    <Image Include="resources\images\carteles\Movimiento\Untitled-Artwork-8.png" />
+    <Image Include="resources\images\carteles\Movimiento\Untitled-Artwork-9.png" />
+    <Image Include="resources\images\carteles\Movimiento\Untitled-Artwork-10.png" />
+    <Image Include="resources\images\carteles\Movimiento\Untitled-Artwork-11.png" />
+    <Image Include="resources\images\carteles\Movimiento\Untitled-Artwork-12.png" />
+    <Image Include="resources\images\carteles\Movimiento\Untitled-Artwork-13.png" />
+    <Image Include="resources\images\carteles\Movimiento\Untitled-Artwork-14.png" />
   </ItemGroup>
 </Project>
