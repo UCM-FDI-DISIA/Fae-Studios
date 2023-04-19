@@ -527,14 +527,17 @@ namespace constructors {
 
 	static inline Entity* Platform(Manager* mngr_, int x, int y, int w, int h, int a, int t, std::string axis) 
 	{
-		Entity* pObject = mngr_->addEntity(ecs::_grp_GROUND);
+		Entity* pObject = mngr_->addEntity(ecs::_grp_MOVING_PLATFORMS);
+		auto ph = pObject->addComponent<PhysicsComponent>(false);
 		pObject->addComponent<Transform>(x, y, w, h);
 		pObject->addComponent<Image>(&sdlutils().images().at("platform"));
-		pObject->addComponent<PhysicsComponent>(0);
+		ph->setGravity(false);
 		if (axis == "X")
 			pObject->addComponent<PlatformMovementX>(a, t);
 		else
 			pObject->addComponent<PlatformMovementY>(a, t);
+
+		return pObject;
 	}
 	/*static inline void vine(Manager* mngr_, Vector2D position, int width, int height, Texture* t) {
 		auto vine = mngr_->addEntity(ecs::_grp_VINE);

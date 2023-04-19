@@ -21,7 +21,7 @@ MapComponent::MapComponent(Entity* fadeOut, PlayState* game, int currentMap) : f
     for (int i = 0; i < ecs::LAST_MAP_ID; ++i) {
         mapKeys.push_back({});
     }
-    currentMapKey = "earthMap";
+    currentMapKey = "fireMap";
     tilemap = &sdlutils().images().at(sdlutils().levels().at(currentMapKey).tileset);
 }
 
@@ -375,6 +375,7 @@ void MapComponent::loadMap(std::string path, int nextPos) {
                 else if (name == "Carteles") {
                     vectorObjects[CARTELES_VECTOR_POS] = objects;
                     game->initCarteles(numRooms);
+                }
                 else if (name == "Plataformas") {
                     vectorObjects[PLATFORMS_VECTOR_POS] = objects;
                 }
@@ -506,11 +507,11 @@ void MapComponent::loadMap(std::string path, int nextPos) {
             rect.y *= roomScale;
             rect.w *= roomScale;
             rect.h *= roomScale;
-            Entity* plat = constructors::Platform(mngr_, rect.x, rect.y, rect.w, rect.h, std::stoi(nameSplit[1]), std::stoi(nameSplit[2]), nameSplit[0]);
+            Entity* plat = constructors::Platform(mngr_, rect.x, rect.y, rect.w, rect.h, std::stoi(nameSplit[1]) * roomScale, std::stoi(nameSplit[2]), nameSplit[0]);
 
             platforms[std::stoi(nameSplit[3])].push_back(plat);
 
-            plat->setActive(false);
+            //plat->setActive(false);
         }
 
         for (auto ot : vectorObjects[BACKGROUNDS_VECTOR_POS]) {

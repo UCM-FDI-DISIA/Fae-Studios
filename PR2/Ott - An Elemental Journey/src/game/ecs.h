@@ -58,6 +58,7 @@ namespace ecs {
         _LAMP_ANIM,
         _CHARGED_ATTACK_BAR,
         _SCREEN_DARKENER,
+        _PLATFORM_MOVEMENT,
 
         _LAST_CMP_ID
     };
@@ -83,6 +84,7 @@ namespace ecs {
         _grp_VINE,
         _grp_UI, ///< Elementos de la interfaz gráfica
         _grp_FADEOUT,
+        _grp_MOVING_PLATFORMS,
 
         _LAST_GRP_ID
     };

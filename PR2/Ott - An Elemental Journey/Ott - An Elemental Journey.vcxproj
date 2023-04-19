@@ -28,6 +28,7 @@
     <ClCompile Include="src\components\LampAnimationComponent.cpp" />
     <ClCompile Include="src\components\PlatformMovementX.cpp" />
     <ClCompile Include="src\components\PlatformMovementY.cpp" />
+    <ClCompile Include="src\components\ScreenDarkenerComponent.cpp" />
     <ClCompile Include="src\components\ShieldComponent.cpp" />
     <ClCompile Include="src\components\WaterBossAttack.cpp" />
     <ClCompile Include="src\components\BossHealthBar.cpp" />
@@ -108,6 +109,7 @@
     <ClInclude Include="src\components\BossDoor.h" />
     <ClInclude Include="src\components\PlatformMovementX.h" />
     <ClInclude Include="src\components\PlatformMovementY.h" />
+    <ClInclude Include="src\components\ScreenDarkenerComponent.h" />
     <ClInclude Include="src\components\ShieldComponent.h" />
     <ClInclude Include="src\components\WaterBossAttack.h" />
     <ClInclude Include="src\states\menus\options\GraphicsOptionsMenuState.h" />

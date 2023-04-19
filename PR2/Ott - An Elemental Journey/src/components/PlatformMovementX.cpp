@@ -7,5 +7,6 @@ void PlatformMovementX::initComponent()
 
 void PlatformMovementX::update()
 {
-	physics->setVelocity(Vector2D(amplitude * (2 * M_PI) / time * cos((2 * M_PI) / time * SDL_GetTicks()), 0));
+	deltaTime = SDL_GetTicks();
+	physics->setVelocity(Vector2D(amplitude * (2 * M_PI) / time * cos((2 * M_PI) / time * deltaTime), 0));
 }

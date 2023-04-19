@@ -4,9 +4,10 @@ class PlatformMovementX : public Component {
 private:
 	PhysicsComponent* physics;
 	float amplitude;
-	float time;
+	float time, deltaTime;
 public:
-	PlatformMovementX(float a, float t) : Component(), physics(nullptr), amplitude(a), time(t) {};
+	constexpr static ecs::cmpId_type id = ecs::_PLATFORM_MOVEMENT;
+	PlatformMovementX(float a, float t) : Component(), physics(nullptr), amplitude(a), time(t), deltaTime(SDL_GetTicks()) {};
 	~PlatformMovementX() = default;
 	void initComponent() override;
 	void update() override;
