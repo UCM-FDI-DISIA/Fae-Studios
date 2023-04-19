@@ -51,6 +51,10 @@ void FadeOutAnimationComponent::startFadeIn() {
 			water->setActive(true);
 		}
 
+		auto carteles_ = static_cast<PlayState*>(stateMachine().currentState())->getCarteles();
+		for (auto it : carteles_[map_->getCurrentRoom()]) {
+			it->setActive(false);
+		}
 		auto interact = map_->getInteract();
 		for (int i = 0; i < interact.size(); ++i) {
 			for (auto ot : interact[i]) {
@@ -67,6 +71,10 @@ void FadeOutAnimationComponent::startFadeIn() {
 			it->setActive(true);
 		}
 		mngr_->getPlayer()->getComponent<Health>()->setDead(false);
+
+		for (auto it : carteles_[newMapRoom]) {
+			it->setActive(true);
+		}
 	}
 	else {
 		static_cast<PlayState*>(stateMachine().currentState())->endRest();

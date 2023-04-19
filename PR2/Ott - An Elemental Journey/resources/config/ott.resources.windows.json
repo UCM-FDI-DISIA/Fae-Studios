@@ -131,10 +131,39 @@
 		{ "id" : "BossDoor_Earth", "file" : "../resources/images/tests/BossDoor_Earth.png", "rows" : 1, "cols" : 1 },
 		{ "id" : "BossDoor_Water", "file" : "../resources/images/tests/BossDoor_Water.png", "rows" : 1, "cols" : 1 },
 		{ "id" : "BossDoor_Fire", "file" : "../resources/images/tests/BossDoor_Fire.png", "rows" : 1, "cols" : 1 },
-		{ "id" : "water", "file" : "../resources/images/tests/Water.png", "rows" : 1, "cols" : 1 }
+		{
+			"id": "water",
+			"file": "../resources/images/tests/Water.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "movimientoCartel",
+			"file": "../resources/images/carteles/Movimiento/cartelMovimientoAnimation.png",
+			"rows": 1,
+			"cols": 14
+		},
+		{
+			"id": "lamparaCartel",
+			"file": "../resources/images/carteles/Lampara/cartelLamparaAnimation.png",
+			"rows": 1,
+			"cols": 27
+		},
+		{
+			"id": "enredaderaCartel",
+			"file": "../resources/images/carteles/Enredadera/cartelEnredaderaAnimation.png",
+			"rows": 1,
+			"cols": 17
+		},
+		{
+			"id": "elementoCartel",
+			"file": "../resources/images/carteles/Elemento/cartelElementoAnimation.png",
+			"rows": 1,
+			"cols": 44
+		}
   ],
 
-  "messages" : [],
+	"messages": [],
 
   "sounds" : [
 		{ "id" : "play_button", "file" : "../resources/sound/playbutton.wav" },

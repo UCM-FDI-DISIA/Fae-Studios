@@ -53,6 +53,7 @@
 #include "../components/WaterBossAnimationComponent.h"
 #include "../components/ShieldComponent.h"
 #include "../components/ChargedAttackBar.h"
+#include "../components/GeneralAnimationController.h"
 #include <string>
 #include <iostream>
 #include <functional>
@@ -526,5 +527,27 @@ namespace constructors {
 		vine->addComponent<Transform>(position.getX(), position.getY(), width, height);
 		vine->addComponent<Image>(&sdlutils().images().at("enredadera"));
 	}*/
+
+	static inline Entity* Cartel(Manager* mngr_, int x, int y, int w, int h, std::string numCartel) {
+		Entity* cartelObject = mngr_->addEntity(ecs::_grp_CARTEL);
+		cartelObject->addComponent<Transform>(x, y, w, h);
+		if (numCartel == "movimientoCartel") {
+			cartelObject->addComponent<FramedImage>(&sdlutils().images().at("movimientoCartel"), 0, 14);
+			cartelObject->addComponent< GeneralAnimationController>(anims::CARTELMOVIMIENTO,cartelObject);
+		}
+		else if (numCartel == "lamparaCartel") {
+			cartelObject->addComponent<FramedImage>(&sdlutils().images().at("lamparaCartel"), 0, 27);
+			cartelObject->addComponent< GeneralAnimationController>(anims::CARTELLAMPARA,cartelObject);
+		}
+		else if (numCartel == "enredaderaCartel") {
+			cartelObject->addComponent<FramedImage>(&sdlutils().images().at("enredaderaCartel"), 0, 17);
+			cartelObject->addComponent< GeneralAnimationController>(anims::CARTELENREDADERA,cartelObject);
+		}
+		else if (numCartel == "elementoCartel") {
+			cartelObject->addComponent<FramedImage>(&sdlutils().images().at("elementoCartel"), 0, 44);
+			cartelObject->addComponent< GeneralAnimationController>(anims::CARTELELEMENTO,cartelObject);
+		}
+		return cartelObject;
+	}
 }
 

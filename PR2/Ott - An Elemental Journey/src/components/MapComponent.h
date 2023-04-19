@@ -100,6 +100,7 @@ private:
 	const int POSITIONS_VECTOR_POS = 6;
 	const int WATER_VECTOR_POS = 7;
 	const int BACKGROUNDS_VECTOR_POS = 8;
+	const int CARTELES_VECTOR_POS = 9;
 
 	
 	std::string currentMapKey = "earthMap";

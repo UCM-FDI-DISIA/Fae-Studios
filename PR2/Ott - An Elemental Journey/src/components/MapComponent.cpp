@@ -355,6 +355,10 @@ void MapComponent::loadMap(std::string path, int nextPos) {
                 else if (name == "Backgrounds") {
                     vectorObjects[BACKGROUNDS_VECTOR_POS] = objects;
                 }
+                else if (name == "Carteles") {
+                    vectorObjects[CARTELES_VECTOR_POS] = objects;
+                    game->initCarteles(numRooms);
+                }
             }
             #pragma endregion
         }
@@ -483,6 +487,26 @@ void MapComponent::loadMap(std::string path, int nextPos) {
             bg->addComponent<Image>(&sdlutils().images().at(ot.getClass()));
             bg->setActive(false);
             backgrounds[roomNum] = bg;
+        }
+
+        for (auto cartel : vectorObjects[CARTELES_VECTOR_POS]) {
+            auto name = strSplit(cartel.getName(), '_');
+            std::string roomNum = name[0];
+            float roomScale = vectorTiles[std::stoi(roomNum)].first;
+            SDL_Rect trRect = getSDLRect(cartel.getAABB());
+           
+            trRect.x *= roomScale;
+            if (name[1] != "0") {
+                trRect.y -= sdlutils().images().at(cartel.getClass()).height();
+            }
+            trRect.y *= roomScale;
+            trRect.w = sdlutils().images().at(cartel.getClass()).width()/ sdlutils().images().at(cartel.getClass()).getNumCols();
+            trRect.w *= roomScale;
+            trRect.h = sdlutils().images().at(cartel.getClass()).height();
+            trRect.h *= roomScale;
+
+            game->addCarteles(constructors::Cartel(mngr_, trRect.x, trRect.y, trRect.w, trRect.h, cartel.getClass()), std::stoi(roomNum));
+           
         }
 
         float scale = tileScale();
