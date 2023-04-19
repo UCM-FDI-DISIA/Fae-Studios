@@ -14,7 +14,7 @@ Game::Game() {
     sdlutils().toggleFullScreen(SDLUtils::WINDOWED);
     SoundEffect::setNumberofChannels(32 * ecs::maxChannelId);
     SoundEffect::groupChannels();
-    SDL_GameControllerAddMappingsFromFile("gamecontrollerdb.txt");
+    /*SDL_GameControllerAddMappingsFromFile("gamecontrollerdb.txt");
     SDL_Joystick* gGameController;
     SDL_JoystickEventState(SDL_ENABLE);
     if (SDL_NumJoysticks() < 1)
@@ -25,7 +25,7 @@ Game::Game() {
     if (gGameController == NULL)
     {
         printf("Warning: Unable to open game controller! SDL Error: %s\n", SDL_GetError());
-    }
+    }*/
 }
 
 void Game::run() {

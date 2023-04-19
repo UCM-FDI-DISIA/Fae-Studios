@@ -137,7 +137,12 @@ void MapComponent::initComponent() {
 void MapComponent::initSanctuaries() {
     std::ifstream file;
     std::string route;
+#ifdef __WINDOWS__
     file.open("../resources/txt_info/sanctuaryInfo.txt");
+#endif
+#ifdef __APPLE__
+    file.open("../Ott - An Elemental Journey/resources/txt_info/sanctuaryInfo.txt");
+#endif
 
     int n;
     file >> n;

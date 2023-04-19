@@ -70,6 +70,7 @@ add_executable(Ott
         "Ott - An Elemental Journey/src/components/FirePillarComponent.cpp"
         "Ott - An Elemental Journey/src/components/WaterContainerComponent.cpp"
         "Ott - An Elemental Journey/src/components/WaterVineComponent.cpp"
+        "Ott - An Elemental Journey/src/components/LampAnimationComponent.cpp"
 
         #ECS
         "Ott - An Elemental Journey/src/ecs/Manager.cpp"
