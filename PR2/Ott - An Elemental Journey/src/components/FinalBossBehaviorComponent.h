@@ -9,10 +9,15 @@ public:
 
 	void initComponent() override;
 	void update() override;
+
 private:
 	void spawnBubbles();
 	void spawnFireWall();
 	void fist();
+
+	void spawnBlackHole();
+
+
 	Health* bossHealth;
 	int timeBetweenAttacks = 5000, lastAttack = -timeBetweenAttacks;
 	int currentElement;

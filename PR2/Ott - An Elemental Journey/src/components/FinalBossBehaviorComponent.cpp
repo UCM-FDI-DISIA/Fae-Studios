@@ -31,7 +31,7 @@ void FinalBossBehaviorComponent::update()
 		}
 		//Cambia de elemento aleatoriamente
 		int lastElem = currentElement;
-		do{
+		do {
 			currentElement = rand() % 4;
 		} while (lastElem == currentElement);
 
@@ -58,9 +58,23 @@ void FinalBossBehaviorComponent::spawnFireWall() //Ataque fuego
 	// Burguja
 	Entity* fireW = mngr_->addEntity(ecs::_grp_PROYECTILES);
 
-	fireW->addComponent<Transform>(pTransf->getPosition() - Vector2D(200, FIREWALL_HEIGHT/2), FIREWALL_WIDTH * pTransf->getScale(), FIREWALL_HEIGHT * pTransf->getScale());
+	fireW->addComponent<Transform>(pTransf->getPosition() - Vector2D(200, FIREWALL_HEIGHT / 2), FIREWALL_WIDTH * pTransf->getScale(), FIREWALL_HEIGHT * pTransf->getScale());
 	fireW->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
-	fireW->addComponent<FireWallComponent>(Vector2D(1,0));
+	fireW->addComponent<FireWallComponent>(Vector2D(1, 0));
+}
+
+void FinalBossBehaviorComponent::spawnBlackHole() {
+
+	// Transform del boss
+	auto pTransf = ent_->getComponent<Transform>();
+	// Agujero negro
+	Entity* blackHole = mngr_->addEntity(ecs::_grp_BUBBLE);
+
+	blackHole->addComponent<Transform>(pTransf->getPosition(), BUBBLE_DIM * pTransf->getScale(), BUBBLE_DIM * pTransf->getScale());
+	blackHole->addComponent<Image>(&sdlutils().images().at("attackBubble"));
+	blackHole->addComponent<Health>(100, ecs::Dark);
+	blackHole->addComponent<WaterBubbleComponent>();
+
 }
 
 void FinalBossBehaviorComponent::fist() {
