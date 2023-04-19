@@ -80,6 +80,8 @@
     <ClCompile Include="src\components\BossDoor.cpp" />
     <ClCompile Include="src\components\LampAnimationComponent.cpp" />
     <ClCompile Include="src\components\GeneralAnimationController.cpp" />
+    <ClCompile Include="src\components\PlatformMovementY.cpp" />
+    <ClCompile Include="src\components\PlatformMovementX.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\components\Image.h" />
@@ -179,6 +181,8 @@
     <ClInclude Include="src\components\LampAnimationComponent.h" />
     <ClInclude Include="src\components\GrassAnimationComponent.h" />
     <ClInclude Include="src\components\GeneralAnimationController.h" />
+    <ClInclude Include="src\components\PlatformMovementY.h" />
+    <ClInclude Include="src\components\PlatformMovementX.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="resources\config\ott.resources.mac.json" />

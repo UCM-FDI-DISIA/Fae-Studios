@@ -53,6 +53,7 @@ private:
 	std::vector<Entity*> backgrounds;
 	//agua
 	std::vector<std::vector<Entity*>> waterObjects;
+	std::vector<std::vector<Entity*>> platforms;
 
 	// En este mapa se guarda:
 	// string -> n�mero de sala
@@ -101,8 +102,8 @@ private:
 	const int WATER_VECTOR_POS = 7;
 	const int BACKGROUNDS_VECTOR_POS = 8;
 	const int CARTELES_VECTOR_POS = 9;
+	const int PLATFORMS_VECTOR_POS = 10;
 
-	
 	std::string currentMapKey = "earthMap";
 
 	int realTileSize = 32;

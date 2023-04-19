@@ -744,6 +744,12 @@
 			"file": "../Ott - An Elemental Journey/resources/images/tests/Water.png",
 			"rows": 1,
 			"cols": 1
+		},
+		{ 
+			"id" : "platform", 
+			"file" : "../Ott - An Elemental Journey/resources/images/tests/Platform.PNG",
+			"rows" : 1,
+			"cols" : 1 
 		}
 	],
   "messages" : [],

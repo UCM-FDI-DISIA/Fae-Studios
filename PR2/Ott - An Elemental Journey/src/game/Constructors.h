@@ -54,6 +54,8 @@
 #include "../components/ShieldComponent.h"
 #include "../components/ChargedAttackBar.h"
 #include "../components/GeneralAnimationController.h"
+#include "../components/PlatformMovementY.h"
+#include "../components/PlatformMovementX.h"
 #include <string>
 #include <iostream>
 #include <functional>
@@ -521,6 +523,18 @@ namespace constructors {
 		wObject->addComponent<ActiveWater>(active);
 
 		return wObject;
+	}
+
+	static inline Entity* Platform(Manager* mngr_, int x, int y, int w, int h, int a, int t, std::string axis) 
+	{
+		Entity* pObject = mngr_->addEntity(ecs::_grp_GROUND);
+		pObject->addComponent<Transform>(x, y, w, h);
+		pObject->addComponent<Image>(&sdlutils().images().at("platform"));
+		pObject->addComponent<PhysicsComponent>(0);
+		if (axis == "X")
+			pObject->addComponent<PlatformMovementX>(a, t);
+		else
+			pObject->addComponent<PlatformMovementY>(a, t);
 	}
 	/*static inline void vine(Manager* mngr_, Vector2D position, int width, int height, Texture* t) {
 		auto vine = mngr_->addEntity(ecs::_grp_VINE);

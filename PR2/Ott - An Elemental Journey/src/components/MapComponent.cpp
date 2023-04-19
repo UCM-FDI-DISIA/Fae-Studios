@@ -250,6 +250,11 @@ void MapComponent::changeMap(int newMap, std::string key, int nextPos) {
             ot->setAlive(false);
         }
     }
+    for (auto it : platforms) {
+        for (auto ot : it) {
+            ot->setAlive(false);
+        }
+    }
     for (int i = 0; i < eraseEntities.size(); ++i) {
         eraseEntities[i]->setAlive(false);
     }
@@ -267,6 +272,7 @@ void MapComponent::changeMap(int newMap, std::string key, int nextPos) {
    
     eraseEntities = {};
     waterObjects = {};
+    platforms = {};
     changeMapTriggers = {};
     triggers = {};
     positions = {};
@@ -318,11 +324,17 @@ void MapComponent::loadMap(std::string path, int nextPos) {
                         backgrounds.push_back({});
                     }
 
-                    // INICIALIZAR AGUA y BACKGROUNDS
+                    // INICIALIZAR AGUA, PLATAFORMAS y BACKGROUNDS
                     waterObjects.reserve(numRooms);
                     for (int i = 0; i < numRooms; ++i) {
                         waterObjects.push_back(std::vector<Entity*>());
                         waterObjects[i].reserve(5);
+                    }
+
+                    platforms.reserve(numRooms);
+                    for (int i = 0; i < numRooms; ++i) {
+                        platforms.push_back(std::vector<Entity*>());
+                        platforms[i].reserve(5);
                     }
 
                     if (mapKeys[currentMap].size() != numRooms) {
@@ -363,6 +375,8 @@ void MapComponent::loadMap(std::string path, int nextPos) {
                 else if (name == "Carteles") {
                     vectorObjects[CARTELES_VECTOR_POS] = objects;
                     game->initCarteles(numRooms);
+                else if (name == "Plataformas") {
+                    vectorObjects[PLATFORMS_VECTOR_POS] = objects;
                 }
             }
             #pragma endregion
@@ -481,6 +495,22 @@ void MapComponent::loadMap(std::string path, int nextPos) {
             trRect.h *= roomScale;
 
             positions[numPos] = { trRect, std::stoi(roomNum) };
+        }
+
+        for (auto pl : vectorObjects[PLATFORMS_VECTOR_POS]) {
+            auto nameSplit = strSplit(pl.getName(), '_');
+            std::string roomNum = nameSplit[3];
+            SDL_Rect rect = getSDLRect(pl.getAABB());
+            float roomScale = vectorTiles[std::stoi(roomNum)].first;
+            rect.x *= roomScale;
+            rect.y *= roomScale;
+            rect.w *= roomScale;
+            rect.h *= roomScale;
+            Entity* plat = constructors::Platform(mngr_, rect.x, rect.y, rect.w, rect.h, std::stoi(nameSplit[1]), std::stoi(nameSplit[2]), nameSplit[0]);
+
+            platforms[std::stoi(nameSplit[3])].push_back(plat);
+
+            plat->setActive(false);
         }
 
         for (auto ot : vectorObjects[BACKGROUNDS_VECTOR_POS]) {
@@ -660,6 +690,9 @@ void MapComponent::loadMap(std::string path, int nextPos) {
         generateEnemies();
         for (auto water : waterObjects[currentRoom]) {
             water->setActive(true);
+        }
+        for (auto pl : platforms[currentRoom]) {
+            pl->setActive(true);
         }
     }
     else
