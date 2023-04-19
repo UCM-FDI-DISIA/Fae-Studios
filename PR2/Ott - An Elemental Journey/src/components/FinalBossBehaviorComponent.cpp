@@ -3,6 +3,7 @@
 #include "Image.h"
 #include "WaterBubbleComponent.h"
 #include "FireWallComponent.h"
+#include "FistComponent.h"
 FinalBossBehaviorComponent::FinalBossBehaviorComponent()
 {
 	currentElement = rand() % 4;
@@ -26,7 +27,7 @@ void FinalBossBehaviorComponent::update()
 		case 1: std::cout << "Ataque agua boss final" << std::endl; spawnBubbles(); break;
 		case 2: std::cout << "Ataque fuego boss final" << std::endl; spawnFireWall(); break;
 		case 3: std::cout << "Ataque oscuridad boss final" << std::endl; break;
-		default: std::cout << "Ataque generico boss final" << std::endl; break;
+		default: std::cout << "Ataque generico boss final" << std::endl; fist(); break;
 		}
 		//Cambia de elemento aleatoriamente
 		int lastElem = currentElement;
@@ -60,4 +61,17 @@ void FinalBossBehaviorComponent::spawnFireWall() //Ataque fuego
 	fireW->addComponent<Transform>(pTransf->getPosition() - Vector2D(200, FIREWALL_HEIGHT/2), FIREWALL_WIDTH * pTransf->getScale(), FIREWALL_HEIGHT * pTransf->getScale());
 	fireW->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
 	fireW->addComponent<FireWallComponent>(Vector2D(1,0));
+}
+
+void FinalBossBehaviorComponent::fist() {
+
+	//// Transform del boss
+	//auto pTransf = ent_->getComponent<Transform>();
+	//// Burguja
+	//Entity* fist = mngr_->addEntity(ecs::_grp_PROYECTILES);
+
+	//fist->addComponent<Transform>(Vector2D(0-FIST_SIZE, FIST_SIZE*2), FIST_SIZE,FIST_SIZE);
+	//fist->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
+	//fist->addComponent<FistComponent>();
+
 }
