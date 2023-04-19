@@ -531,22 +531,22 @@ namespace constructors {
 	static inline Entity* Cartel(Manager* mngr_, int x, int y, int w, int h, std::string numCartel) {
 		Entity* cartelObject = mngr_->addEntity(ecs::_grp_CARTEL);
 		cartelObject->addComponent<Transform>(x, y, w, h);
+		int row = sdlutils().images().at(numCartel).getNumRows(), col = sdlutils().images().at(numCartel).getNumCols();
+		anims::Entities type;
 		if (numCartel == "movimientoCartel") {
-			cartelObject->addComponent<FramedImage>(&sdlutils().images().at("movimientoCartel"), 0, 14);
-			cartelObject->addComponent< GeneralAnimationController>(anims::CARTELMOVIMIENTO,cartelObject);
+			type = anims::CARTELMOVIMIENTO;
 		}
 		else if (numCartel == "lamparaCartel") {
-			cartelObject->addComponent<FramedImage>(&sdlutils().images().at("lamparaCartel"), 0, 27);
-			cartelObject->addComponent< GeneralAnimationController>(anims::CARTELLAMPARA,cartelObject);
+			type = anims::CARTELLAMPARA;
 		}
 		else if (numCartel == "enredaderaCartel") {
-			cartelObject->addComponent<FramedImage>(&sdlutils().images().at("enredaderaCartel"), 0, 17);
-			cartelObject->addComponent< GeneralAnimationController>(anims::CARTELENREDADERA,cartelObject);
+			type = anims::CARTELENREDADERA;
 		}
 		else if (numCartel == "elementoCartel") {
-			cartelObject->addComponent<FramedImage>(&sdlutils().images().at("elementoCartel"), 0, 44);
-			cartelObject->addComponent< GeneralAnimationController>(anims::CARTELELEMENTO,cartelObject);
+			type = anims::CARTELELEMENTO;
 		}
+		cartelObject->addComponent<FramedImage>(&sdlutils().images().at(numCartel), row, col);
+			cartelObject->addComponent< GeneralAnimationController>(type,cartelObject);
 		return cartelObject;
 	}
 }

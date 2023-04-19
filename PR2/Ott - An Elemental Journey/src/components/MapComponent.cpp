@@ -21,7 +21,7 @@ MapComponent::MapComponent(Entity* fadeOut, PlayState* game, int currentMap) : f
     for (int i = 0; i < ecs::LAST_MAP_ID; ++i) {
         mapKeys.push_back({});
     }
-    currentMapKey = "earthMap";
+    currentMapKey = "waterMap";
     tilemap = &sdlutils().images().at(sdlutils().levels().at(currentMapKey).tileset);
 }
 
@@ -648,7 +648,7 @@ void MapComponent::loadMap(std::string path, int nextPos) {
         }
         playerTr_->setScale(playerRoomScale);
         currentRoom = playerRoom;
-        backgrounds[currentRoom]->setActive(true);
+        if(backgrounds[currentRoom] != NULL) backgrounds[currentRoom]->setActive(true);
         cam->setBounds(getCamBounds());
 
         if(currentMapKey == "earthMap") mngr_->getEarthBoss()->getComponent<EarthBossManager>()->addPlatforms(platformEarthBoss);
