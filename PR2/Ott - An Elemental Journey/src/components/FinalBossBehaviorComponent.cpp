@@ -6,11 +6,13 @@
 FinalBossBehaviorComponent::FinalBossBehaviorComponent()
 {
 	currentElement = rand() % 4;
+	bossTransform = nullptr; bossHealth = nullptr;
 }
 
 void FinalBossBehaviorComponent::initComponent()
 {
 	bossHealth = ent_->getComponent<Health>();
+	bossTransform = ent_->getComponent<Transform>();
 }
 
 void FinalBossBehaviorComponent::update()

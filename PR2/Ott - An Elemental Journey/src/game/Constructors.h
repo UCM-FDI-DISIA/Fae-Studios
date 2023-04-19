@@ -262,10 +262,18 @@ namespace constructors {
 		pAnim->initComponent();
 		health->initComponent();
 		ph->createCollider();	
-		player->addComponent<FinalBossBehaviorComponent>();
+		//player->addComponent<FinalBossBehaviorComponent>();
 		return player;
 	}
-
+	static inline Entity* boss(Manager* mngr_, int x, int y, int w, int h)
+	{
+		auto b= mngr_->addEntity(ecs::_grp_BOSS);
+		b->addComponent<Transform>(Vector2D(x, y), w, h);
+		auto health = b->addComponent<Health>(5, ecs::Light, true); health->initComponent();
+		b->addComponent<Image>(&sdlutils().images().at("finalBoss"));
+		b->addComponent<FinalBossBehaviorComponent>();
+		return b;
+	}
 	static inline Entity* camera(Manager* mngr_, int x, int y, int w, int h) {
 		auto camera = mngr_->addEntity(ecs::_grp_GENERAL);
 		camera->addComponent<Transform>(Vector2D(x, y), w, h);

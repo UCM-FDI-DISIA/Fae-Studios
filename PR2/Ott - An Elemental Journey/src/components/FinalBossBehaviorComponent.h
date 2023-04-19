@@ -17,6 +17,7 @@ private:
 	int currentElement;
 	int BUBBLE_DIM = 70;
 	int FIREWALL_HEIGHT = 400, FIREWALL_WIDTH = 30;
+	Transform* bossTransform;
 };
 
 
