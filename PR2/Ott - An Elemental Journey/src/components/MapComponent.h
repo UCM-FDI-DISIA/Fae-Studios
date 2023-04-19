@@ -100,6 +100,7 @@ private:
 	const int POSITIONS_VECTOR_POS = 6;
 	const int WATER_VECTOR_POS = 7;
 	const int BACKGROUNDS_VECTOR_POS = 8;
+	const int CARTELES_VECTOR_POS = 9;
 
 	
 	std::string currentMapKey = "earthMap";
@@ -150,7 +151,15 @@ public:
 	inline std::vector<std::vector<Entity*>> getInteract() { return interact; };
 	inline std::vector<std::vector<Entity*>> getWater() { return waterObjects; };
 	inline int getCurrentRoom() { return currentRoom; }
-	inline void setCurrentRoom(int newRoom) { backgrounds[currentRoom]->setActive(false); currentRoom = newRoom; backgrounds[currentRoom]->setActive(true); }
+	inline void setCurrentRoom(int newRoom) {
+		bool null = backgrounds[currentRoom] == NULL;
+		if (!null) {
+			backgrounds[currentRoom]->setActive(false); 
+		}
+		currentRoom = newRoom; 
+		if (!null) {
+			backgrounds[currentRoom]->setActive(true); }
+		}
 	inline float getCurrentRoomScale() { return vectorTiles[currentRoom].first; }
 	inline std::string getMapKey(int map, int i) { if (i < mapKeys[map].size()) return mapKeys[map][i]; else return " "; }
 

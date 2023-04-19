@@ -19,7 +19,8 @@ public:
 	static enum Entities { OTT_ANIM, MELEE_ANIM, RANGE_ANIM, 
 		SLIME_ANIM, EARTH_ATTACK, EARTHBOSSPRESENT, EARTHBOSSATTACK, 
 		WARNINGEARTH, PAUSE_ANIM, MINIPAUSE_ANIM, WATER_ATTACK, 
-		WATERBOSS_ANIM, LIFE_SHARD, FIREBOSS_ANIM, LAMP_ANIM, GRASS_ANIM };
+		WATERBOSS_ANIM, LIFE_SHARD, CARTELMOVIMIENTO, CARTELLAMPARA, CARTELENREDADERA, 
+		CARTELELEMENTO, FIREBOSS_ANIM, LAMP_ANIM, GRASS_ANIM };
 	static std::vector<std::vector<animDescription>> animations;
 
 	class offsetPhysics {
@@ -40,6 +41,10 @@ private:
 	static std::vector<animDescription> fireboss_anims;
 	static std::vector<animDescription> waterBoss_anims;
 	static std::vector<animDescription> earth_attack;
+	static std::vector<animDescription> movimiento_cartel;
+	static std::vector<animDescription> lampara_cartel;
+	static std::vector<animDescription> enredadera_cartel;
+	static std::vector<animDescription> elemento_cartel;
 	//ANIMACIONES RELACIONADAS CON LA BATALLA DEL BOSS DE TIERRA
 	static std::vector<animDescription> earthBossPresent_anims;
 	static std::vector<animDescription> earthBoss_anims;
