@@ -13,11 +13,11 @@ public:
 private:
 	void spawnBubbles();
 	void spawnFireWall();
-	void fist();
+	void spawnFist();
 
 	void spawnBlackHole();
 
-
+	Transform* bossTransform;
 	Health* bossHealth;
 	int timeBetweenAttacks = 5000, lastAttack = -timeBetweenAttacks;
 	int currentElement;

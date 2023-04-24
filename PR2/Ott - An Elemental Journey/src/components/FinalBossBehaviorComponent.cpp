@@ -6,7 +6,7 @@
 #include "FistComponent.h"
 FinalBossBehaviorComponent::FinalBossBehaviorComponent()
 {
-	currentElement = rand() % 4;
+	currentElement = rand() % 5;
 	bossTransform = nullptr; bossHealth = nullptr;
 }
 
@@ -29,12 +29,13 @@ void FinalBossBehaviorComponent::update()
 		case 1: std::cout << "Ataque agua boss final" << std::endl; spawnBubbles(); break;
 		case 2: std::cout << "Ataque fuego boss final" << std::endl; spawnFireWall(); break;
 		case 3: std::cout << "Ataque oscuridad boss final" << std::endl; break;
-		default: std::cout << "Ataque generico boss final" << std::endl; fist(); break;
+		case 4: std::cout << "Ataque puño boss final" << std::endl; spawnFist(); break;
+		default: std::cout << "Ataque generico boss final" << std::endl; spawnFist(); break;
 		}
 		//Cambia de elemento aleatoriamente
 		int lastElem = currentElement;
 		do {
-			currentElement = rand() % 4;
+			currentElement = rand() % 5;
 		} while (lastElem == currentElement);
 
 	}
@@ -42,27 +43,27 @@ void FinalBossBehaviorComponent::update()
 
 void FinalBossBehaviorComponent::spawnBubbles() //Ataque de agua 
 {
-	// Transform del boss
-	auto pTransf = ent_->getComponent<Transform>();
-	// Burguja
-	Entity* bubble = mngr_->addEntity(ecs::_grp_BUBBLE);
+	//// Transform del boss
+	//auto pTransf = ent_->getComponent<Transform>();
+	//// Burguja
+	//Entity* bubble = mngr_->addEntity(ecs::_grp_BUBBLE);
 
-	bubble->addComponent<Transform>(pTransf->getPosition(), BUBBLE_DIM * pTransf->getScale(), BUBBLE_DIM * pTransf->getScale());
-	bubble->addComponent<Image>(&sdlutils().images().at("attackBubble"));
-	bubble->addComponent<Health>(100, ecs::Water);
-	bubble->addComponent<WaterBubbleComponent>();
+	//bubble->addComponent<Transform>(pTransf->getPosition(), BUBBLE_DIM * pTransf->getScale(), BUBBLE_DIM * pTransf->getScale());
+	//bubble->addComponent<Image>(&sdlutils().images().at("attackBubble"));
+	//bubble->addComponent<Health>(100, ecs::Water);
+	//bubble->addComponent<WaterBubbleComponent>();
 }
 
 void FinalBossBehaviorComponent::spawnFireWall() //Ataque fuego
 {
-	// Transform del boss
-	auto pTransf = ent_->getComponent<Transform>();
-	// Burguja
-	Entity* fireW = mngr_->addEntity(ecs::_grp_PROYECTILES);
+	//// Transform del boss
+	//auto pTransf = ent_->getComponent<Transform>();
+	//// Burguja
+	//Entity* fireW = mngr_->addEntity(ecs::_grp_PROYECTILES);
 
-	fireW->addComponent<Transform>(pTransf->getPosition() - Vector2D(200, FIREWALL_HEIGHT / 2), FIREWALL_WIDTH * pTransf->getScale(), FIREWALL_HEIGHT * pTransf->getScale());
-	fireW->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
-	fireW->addComponent<FireWallComponent>(Vector2D(1, 0));
+	//fireW->addComponent<Transform>(pTransf->getPosition() - Vector2D(200, FIREWALL_HEIGHT / 2), FIREWALL_WIDTH * pTransf->getScale(), FIREWALL_HEIGHT * pTransf->getScale());
+	//fireW->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
+	//fireW->addComponent<FireWallComponent>(Vector2D(1, 0));
 }
 
 void FinalBossBehaviorComponent::spawnBlackHole() {
@@ -79,15 +80,15 @@ void FinalBossBehaviorComponent::spawnBlackHole() {
 
 }
 
-void FinalBossBehaviorComponent::fist() {
+void FinalBossBehaviorComponent::spawnFist() {
 
-	//// Transform del boss
-	//auto pTransf = ent_->getComponent<Transform>();
-	//// Burguja
-	//Entity* fist = mngr_->addEntity(ecs::_grp_PROYECTILES);
+	// Transform del boss
+	auto pTransf = ent_->getComponent<Transform>();
+	// Burguja
+	Entity* fist = mngr_->addEntity(ecs::_grp_PROYECTILES);
 
-	//fist->addComponent<Transform>(Vector2D(0-FIST_SIZE, FIST_SIZE*2), FIST_SIZE,FIST_SIZE);
-	//fist->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
-	//fist->addComponent<FistComponent>();
+	fist->addComponent<Transform>(Vector2D(mngr_->getPlayer()->getComponent<Transform>()->getPosition().getX(), mngr_->getPlayer()->getComponent<Transform>()->getPosition().getY()), FIST_SIZE, FIST_SIZE);
+	fist->addComponent<Image>(&sdlutils().images().at("BossFist"));
+	fist->addComponent<FistComponent>();
 
 }

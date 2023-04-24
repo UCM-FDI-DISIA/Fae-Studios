@@ -170,6 +170,12 @@
 			"file": "../resources/images/tests/BossFinal.png",
 			"rows": 1,
 			"cols": 1
+		},
+		{
+			"id": "BossFist",
+			"file": "../resources/images/tests/Boss_Fist.png",
+			"rows": 1,
+			"cols": 1
 		}
   ],
 
