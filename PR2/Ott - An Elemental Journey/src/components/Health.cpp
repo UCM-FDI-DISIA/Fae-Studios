@@ -67,7 +67,6 @@ void Health::recall(bool rest) {
 bool Health::recieveDamage(ecs::elements el, bool dir) {
 	if (ent_->hasComponent<PlayerAnimationComponent>()) {
 		if (pAnim_->isInvincible()) return false;
-		pAnim_->playerDamaged();
 		//si dir == true, knockback derecha
 		ent_->getComponent<PhysicsComponent>()->knockback(dir);
 		//if() A�adir da�o dependiendo de la entidad
@@ -76,6 +75,7 @@ bool Health::recieveDamage(ecs::elements el, bool dir) {
 		if (ent_->getComponent<ShieldComponent>()->hasShield()) damage = ent_->getComponent<ShieldComponent>()->checkDamage(damage, dir);
 		if (damage != -1) {
 			actualLife -= damage;
+			pAnim_->playerDamaged();
 			if (damage == 0) {
 				if (image->setWeak()) damage = 1;
 			}

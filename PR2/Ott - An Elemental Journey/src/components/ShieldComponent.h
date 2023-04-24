@@ -18,11 +18,11 @@ public:
     void initComponent() override;
     void takeShield();
     void guardShield();
-    inline int checkDamage(int damage, bool dir) const { 
-        if (physics_->getLookDirection() != dir) return -1;
+    inline int checkDamage(int damage, bool dir)  { 
+        if (physics_->getLookDirection() != dir) return elementalDamage(damage);
         else return damage;
     }
-
+    int elementalDamage(int dmg) ;
     inline bool hasShield() const { return hasTakenShieldOut; }
 };
 

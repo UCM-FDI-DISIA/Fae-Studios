@@ -33,7 +33,10 @@ bool HealthImage::setWeak() { // poner a débil último corazón
 		}
 		return true; // booleano que indica si se ha hecho daño o no
 	}
-	else heartState[lastFullHeart] = WEAK_HEART; // cambiar a débil
+	else {
+		heartState[lastFullHeart] = WEAK_HEART; // cambiar a débil
+		timerWeak = SDL_GetTicks();
+	}
 	return false; // booleano para saber si se ha hecho daño o no
 }
 
@@ -42,6 +45,13 @@ void HealthImage::reset() { // resetteo de los corazones
 		heartState[o] = FULL_HEART;
 	}
 	lastFullHeart = numHearts - 1;
+}
+
+void HealthImage::update()
+{
+	if (heartState[lastFullHeart] == WEAK_HEART && SDL_GetTicks() - timerWeak >= weakTime * 1000) {
+		heartState[lastFullHeart] = FULL_HEART;
+	}
 }
 
 void HealthImage::render() { // try and guess :)
