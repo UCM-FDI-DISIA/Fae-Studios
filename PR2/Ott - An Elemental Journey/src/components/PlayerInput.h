@@ -68,7 +68,9 @@ public:
 			break;
 		}
 	}
-
+	inline void stunStart() {
+		stunned = true; timerStunned = SDL_GetTicks();
+	}
 private:
 	Transform* tr_;
 	PhysicsComponent* physics_;
@@ -85,6 +87,8 @@ private:
 	bool selectedEarth = false, selectedWater = false, selectedFire = false, selectedLight = true;
 	bool openingMap = false;
 	bool canInteract = false;
+	bool stunned = false;
+	int stunnedTime = 2, timerStunned;
 };
 
 

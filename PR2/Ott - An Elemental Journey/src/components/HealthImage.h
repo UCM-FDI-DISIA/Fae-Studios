@@ -21,6 +21,7 @@ public:
 		}
 	};
 	virtual ~HealthImage() {}; // destructora vacía
+	virtual void update();
 	virtual void render(); // guess
 	bool setWeak(); // pone el último corazón lleno a débil
 	void reset(); // resettea la barra de vida
@@ -45,6 +46,7 @@ private:
 	int row = 0; 
 	const float OFFSET_X = 1.25f; // offset de separación entre corazones
 	int numHearts, lastFullHeart; // número de corazones y posición del último corazón no vacío
+	int timerWeak, weakTime = 5;
 	std::vector<int> heartState; // vector con el estado de cada corazón
 	SDL_Rect pos; // posición de renderizado recibida en el constructor
 };

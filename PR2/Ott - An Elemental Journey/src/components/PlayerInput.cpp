@@ -22,6 +22,11 @@ void PlayerInput::initComponent()
 
 void PlayerInput::update()
 {
+	if (stunned) {
+		if (SDL_GetTicks() - timerStunned >= stunnedTime * 1000) stunned = false;
+		else return;
+	}
+
 	if (!physics_->isStopped()) {
 		Vector2D& playerV = physics_->getVelocity();
 		auto input = InputHandler::instance();

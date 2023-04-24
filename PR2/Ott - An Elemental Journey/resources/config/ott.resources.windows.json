@@ -156,12 +156,6 @@
 			"cols": 17
 		},
 		{
-			"id": "elementoCartel",
-			"file": "../resources/images/carteles/Elemento/cartelElementoAnimation.png",
-			"rows": 1,
-			"cols": 44
-		},
-		{
 			"id": "platform", 
 			"file": "../resources/images/tests/Platform.PNG",
 			"rows": 1,
