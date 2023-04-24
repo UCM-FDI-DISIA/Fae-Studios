@@ -128,6 +128,7 @@ public:
 
 	virtual void update();
 
+	void activateObjectsInRoom(int room, bool activate = true);
 	// cambio de mapa
 	void changeMap(int newMap, std::string key, int nextPos = -1);
 	void WaterSetActive(bool c);

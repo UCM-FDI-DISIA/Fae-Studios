@@ -105,9 +105,6 @@ void MapComponent::generateEnemies() {
             ot->setActive(false);
         }
     }
-    for (auto it : enemies_[currentRoom]) {
-        it->setActive(true);
-    }
 }
 
 MapComponent::MapComponent(Entity* fadeOut, PlayState* game, int currentMap, std::ifstream& file) : fadeOut(fadeOut), game(game), currentMap(currentMap) {
@@ -227,7 +224,6 @@ void MapComponent::WaterSetActive(bool c)
 void MapComponent::changeRoom(std::string newRoom, Vector2D newPos, bool verticalTrigger) {
     // std::stoi -> String TO Int
     anim_->startFadeOut(newPos, std::stoi(newRoom), verticalTrigger);
-    std::cout << "ANIM ACTIVO? " << fadeOut->isActive() << std::endl;
     game->setVisited(std::stoi(newRoom));
 }
 
@@ -565,6 +561,7 @@ void MapComponent::loadMap(std::string path, int nextPos) {
                     Vector2D(x_* scale* roomScale, ((y_* scale - sdlutils().images().at("grass").height()) + h_ * scale + 100)* roomScale),
                     Vector2D(x_* scale* roomScale, (y_* scale - sdlutils().images().at("grass").height())* roomScale), 0, std::stoi(ot.getName()));
                 interact[std::stoi(ot.getName())].push_back(newGrass);
+                newGrass->setActive(false);
             }
             else if (classSplit[0] == "Element") {
                 if (loadEarthElem && (ecs::elements)std::stoi(ot.getName()) == ecs::Earth ||
@@ -574,6 +571,7 @@ void MapComponent::loadMap(std::string path, int nextPos) {
                     auto roomScale = vectorTiles[room].first;
                     auto elem = constructors::ElementEntity(mngr_, (x_* scale)* roomScale, (y_* scale)* roomScale, (w_* scale)* roomScale, (h_* scale)* roomScale, (ecs::elements)std::stoi(ot.getName()), room);
                     interact[std::stoi(classSplit[1])].push_back(elem);
+                    elem->setActive(false);
                 }
             }
             else if (classSplit[0] == "Lamp") {
@@ -598,6 +596,8 @@ void MapComponent::loadMap(std::string path, int nextPos) {
 
                     interact[roomNum].push_back(lampPair.second);
                     interact[(*at).second.second].push_back(lampPair.first);
+                    lampPair.first->setActive(false);
+                    lampPair.second->setActive(false);
                 }
                 else {
                     lamps.insert({ lampName, std::make_pair(Vector2D(x_*scale*roomScale2,y_*scale*roomScale2), roomNum)});
@@ -615,6 +615,7 @@ void MapComponent::loadMap(std::string path, int nextPos) {
                     playerSanctuaryID = ID;
                     playerSanctuaryRoom = std::stoi(ot.getName());
                 }
+                sanct->setActive(false);
             }
             else if ((ot.getClass() == "BossRoom") && loadEarthBoss) {
                 int roomNum = std::stoi(ot.getName());
@@ -628,6 +629,7 @@ void MapComponent::loadMap(std::string path, int nextPos) {
                 earthBoss->addComponent<EarthBossManager>(roomDimensions);
                 mngr_->setEarthBoss(earthBoss);
                 interact[roomNum].push_back(earthBoss);
+                earthBoss->setActive(false);
             }
             else if (ot.getClass() == "EarthBossPlatforms") {
                 int roomNum = std::stoi(ot.getName());
@@ -640,6 +642,7 @@ void MapComponent::loadMap(std::string path, int nextPos) {
                 Entity* earthBossPlatforms = mngr_->addEntity(ecs::_grp_GENERAL);
                 earthBossPlatforms->addComponent<Transform>(platformDimensions);
                 platformEarthBoss.push_back(earthBossPlatforms);
+                earthBossPlatforms->setActive(false);
             }
             else if (ot.getClass() == "lore_Trigger") {
                 int roomNum = std::stoi(ot.getName());
@@ -655,6 +658,7 @@ void MapComponent::loadMap(std::string path, int nextPos) {
                 triggerLore->addComponent<Trigger>();
             
                 interact[roomNum].push_back(triggerLore);
+                triggerLore->setActive(false);
             }
             else if (classSplit[0] == "Life") {
                 auto lifeSharIDSplit = strSplit(pickedLifeShards, ' ');
@@ -666,6 +670,7 @@ void MapComponent::loadMap(std::string path, int nextPos) {
                     auto roomScale = vectorTiles[std::stoi(ot.getName())].first;
                     auto life = constructors::LifeShard(mngr_, x_*scale*roomScale,y_* scale* roomScale, w_* scale* roomScale, h_*scale*roomScale, std::stoi(classSplit[1]), std::stoi(ot.getName()));
                     interact[std::stoi(ot.getName())].push_back(life);
+                    life->setActive(false);
                 }
             }
         }
@@ -706,9 +711,7 @@ void MapComponent::loadMap(std::string path, int nextPos) {
 
         if(currentMapKey == "earthMap") mngr_->getEarthBoss()->getComponent<EarthBossManager>()->addPlatforms(platformEarthBoss);
         generateEnemies();
-        for (auto water : waterObjects[currentRoom]) {
-            water->setActive(true);
-        }
+        activateObjectsInRoom(currentRoom);
         for (auto pl : platforms[currentRoom]) {
             pl->setActive(true);
         }
@@ -716,6 +719,31 @@ void MapComponent::loadMap(std::string path, int nextPos) {
     else
     {
         std::cout << "Failed loading map" << std::endl;
+    }
+}
+
+void MapComponent::activateObjectsInRoom(int room, bool activate) {
+    auto enemies_ = game->getEnemies();
+    auto carteles_ = game->getCarteles();
+    for (auto it : interact[room]) {
+        it->setActive(activate);
+    }
+    for (auto it : waterObjects[room]) {
+        it->setActive(activate);
+    }
+
+    if (enemies_.size() != 0) {
+        for (auto it : enemies_[room]) {
+            it->setActive(activate);
+        }
+    }
+
+    if (carteles_.size() != 0) {
+        if (carteles_.size() > 0) {
+            for (auto it : carteles_[room]) {
+                it->setActive(activate);
+            }
+        }
     }
 }
 

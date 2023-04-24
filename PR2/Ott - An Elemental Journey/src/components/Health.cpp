@@ -38,18 +38,21 @@ void Health::initComponent() {
 
 void Health::recall(bool rest) {
 	Vector2D newPos;
-	auto lastSanctuary = static_cast<PlayState*>(GameStateMachine::instance()->currentState())->getMap()->getSanctuary(sanctuaryID);
-	if (lastSanctuary.sanct != nullptr && !rest) {
-		auto sancTr_ = lastSanctuary.sanct->getComponent<Transform>();
-		auto tr_ = ent_->getComponent<Transform>();
-		newPos = sancTr_->getPosition() + Vector2D(0, sancTr_->getHeight() - tr_->getHeight());
-		auto map = static_cast<PlayState*>(GameStateMachine::instance()->currentState())->getMap();
-		if (lastSanctuary.mapKey != map->getCurrentLevel()) {
-			if (lastSanctuary.mapKey == "earthMap") {
-				map->changeMap(ecs::EARTH_MAP, lastSanctuary.mapKey);
+	
+	if (sanctuaryID != -1) {
+		auto lastSanctuary = static_cast<PlayState*>(GameStateMachine::instance()->currentState())->getMap()->getSanctuary(sanctuaryID);
+		if (lastSanctuary.sanct != nullptr && !rest) {
+			auto sancTr_ = lastSanctuary.sanct->getComponent<Transform>();
+			auto tr_ = ent_->getComponent<Transform>();
+			newPos = sancTr_->getPosition() + Vector2D(0, sancTr_->getHeight() - tr_->getHeight());
+			auto map = static_cast<PlayState*>(GameStateMachine::instance()->currentState())->getMap();
+			if (lastSanctuary.mapKey != map->getCurrentLevel()) {
+				if (lastSanctuary.mapKey == "earthMap") {
+					map->changeMap(ecs::EARTH_MAP, lastSanctuary.mapKey);
+				}
 			}
+			map->changeRoom(std::to_string(lastSanctuary.sanct->getComponent<InteractionComponent>()->getRoom()), newPos);
 		}
-		map->changeRoom(std::to_string(lastSanctuary.sanct->getComponent<InteractionComponent>()->getRoom()), newPos);
 	}
 	else { 
 		newPos = ent_->getComponent<Transform>()->getInitialPosition();

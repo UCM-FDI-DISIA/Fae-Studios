@@ -13,8 +13,6 @@ void FadeOutAnimationComponent::initComponent() {
 
 void FadeOutAnimationComponent::update() {
 	tr_->setPosition(Vector2D(cam_->camera.x, cam_->camera.y));
-	//tr_->setWidth(sdlutils().width());
-	//tr_->setHeight(sdlutils().height());   ESTO NO VA
 	if (fadeOut || fadeIn) {
 		timer_++;
 		if (timer_ > timeBetweenFrames) {
@@ -39,46 +37,14 @@ void FadeOutAnimationComponent::update() {
 
 void FadeOutAnimationComponent::startFadeIn() {
 	if (roomChange) {
-		auto enemies_ = static_cast<PlayState*>(stateMachine().currentState())->getEnemies();
-		for (auto it : enemies_[map_->getCurrentRoom()]) {
-			it->setActive(false);
-		}
-		auto waterObjects = map_->getWater();
-		for (auto water : waterObjects[map_->getCurrentRoom()]) {
-			water->setActive(false);
-		}
-		for (auto water : waterObjects[newMapRoom]) {
-			water->setActive(true);
-		}
-
-		auto carteles_ = static_cast<PlayState*>(stateMachine().currentState())->getCarteles();
-		if (carteles_.size() > 0) {
-			for (auto it : carteles_[map_->getCurrentRoom()]) {
-				it->setActive(false);
-			}
-		}
-		auto interact = map_->getInteract();
-		for (int i = 0; i < interact.size(); ++i) {
-			for (auto ot : interact[i]) {
-				if (i != newMapRoom) ot->setActive(false);
-				else ot->setActive(true);
-			}
-		}
-		map_->setCurrentRoom(newMapRoom);
-		cam_->setBounds(map_->getCamBounds());
-		mngr_->getPlayer()->getComponent<Transform>()->setPosition(newPlayerPos);
-		mngr_->getPlayer()->getComponent<Transform>()->setScale(map_->getCurrentRoomScale());
-		cam_->setPos(newPlayerPos);
-		for (auto it : enemies_[newMapRoom]) {
-			it->setActive(true);
-		}
-		mngr_->getPlayer()->getComponent<Health>()->setDead(false);
-
-		if (carteles_.size() > 0) {
-			for (auto it : carteles_[newMapRoom]) {
-				it->setActive(true);
-			}
-		}
+		map_->activateObjectsInRoom(map_->getCurrentRoom(), false); // desactivar los objetos de la sala actual
+		map_->setCurrentRoom(newMapRoom); // settear la nueva sala
+		cam_->setBounds(map_->getCamBounds()); // cambiar los bounds de la cámara
+		mngr_->getPlayer()->getComponent<Transform>()->setPosition(newPlayerPos); // settear la posición del jugador
+		mngr_->getPlayer()->getComponent<Transform>()->setScale(map_->getCurrentRoomScale()); // settear su escala
+		cam_->setPos(newPlayerPos); // settear la nueva posición de la cámara
+		mngr_->getPlayer()->getComponent<Health>()->setDead(false); // decirle al jugador que no está muerto
+		map_->activateObjectsInRoom(map_->getCurrentRoom(), true); // activar los objetos de la nueva sala
 	}
 	else {
 		static_cast<PlayState*>(stateMachine().currentState())->endRest();

@@ -63,13 +63,13 @@ void FramedImageOtt::initComponent()
 
 void FramedImageOtt::render()
 {
-	if (pAnim->getState() == DIE) std::cout << col << std::endl;
 	SDL_Rect dest; dest.x = tr_->getPosition().getX(); dest.y = tr_->getPosition().getY();
 	dest.w = tr_->getWidth(); dest.h = tr_->getHeight();
 	auto camCmpt = cam->camera;
 	dest.x -= camCmpt.x;
 	dest.y -= camCmpt.y;
-	if (pAnim->isInvincible() && SDL_GetTicks() % 2 == 0 && pAnim->getState() != DIE) return;
+	if (!ent_->getComponent<Health>()->isDead() && pAnim->isInvincible() && SDL_GetTicks() % 2 == 0)
+		return;
 	bool lookRight = true;
 	SDL_RendererFlip flip = SDL_FLIP_NONE;
 	if (physics != nullptr) {

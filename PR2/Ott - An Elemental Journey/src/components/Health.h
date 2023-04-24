@@ -11,7 +11,7 @@ class Health : public Component
 private:
 	int maxLife, actualLife;
 	ecs::elements elem;
-	int sanctuaryID;
+	int sanctuaryID = -1;
 	HealthImage* image;
 	BossHealthBar* bar = nullptr;
 	PlayerAnimationComponent* pAnim_;

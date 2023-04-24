@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="192" height="105" tilewidth="32" tileheight="32" infinite="0" nextlayerid="14" nextobjectid="445">
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="192" height="105" tilewidth="32" tileheight="32" infinite="0" nextlayerid="15" nextobjectid="445">
  <tileset firstgid="1" name="EarthMapTileset" tilewidth="32" tileheight="32" tilecount="680" columns="20">
   <image source="../images/levels/tilesetlevel1.png" width="640" height="1088"/>
  </tileset>
@@ -115,6 +115,23 @@
 48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,119,0,0,105,66,66,66,66,66,66,66,66,111,0,0,85,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74
 </data>
  </layer>
+ <objectgroup id="14" name="Carteles"/>
+ <objectgroup id="6" name="Salas" visible="0">
+  <object id="61" name="0_earth_room" class="1" x="0" y="507.878" width="2600.97" height="1184.12"/>
+  <object id="73" name="1_earth_room" class="1" x="2660.76" y="761.88" width="1140.91" height="1372.85"/>
+  <object id="74" name="2_earth_room" class="1.2" x="1555.85" y="1737.33" width="1051.97" height="1102.79"/>
+  <object id="75" name="3_earth_room" class="0.9" x="361.847" y="1674.55" width="1161.64" height="710.57"/>
+  <object id="175" name="4_earth_room" class="1" x="369.18" y="2426.88" width="1128.97" height="605.237"/>
+  <object id="215" name="5_earth_room" class="1.3" x="1539.75" y="2827.15" width="1065.37" height="502.424"/>
+  <object id="216" name="6_earth_room" class="1.4" x="2629.03" y="2212.12" width="763.455" height="1075.76"/>
+  <object id="221" name="7_earth_room" class="1" x="3431.69" y="2734.31" width="1134.48" height="566.06"/>
+  <object id="223" name="8_earth_room" class="1.3" x="4577.09" y="1848.48" width="818.546" height="1376.12"/>
+  <object id="265" name="13_earth_room" class="0.8" x="3855.36" y="693.031" width="2075.28" height="796.606"/>
+  <object id="350" name="9_earth_room" class="1.4" x="5413.39" y="2707.94" width="710.546" height="471.12"/>
+  <object id="351" name="10_earth_room" class="1.4" x="3704.06" y="2294.94" width="854.546" height="466.12"/>
+  <object id="352" name="11_earth_room" class="1.4" x="5414.06" y="1842.94" width="716.546" height="490.12"/>
+  <object id="353" name="12_earth_room" class="1.4" x="3817.39" y="1824.94" width="744.546" height="490.12"/>
+ </objectgroup>
  <objectgroup id="2" name="Colisiones" visible="0">
   <object id="1" name="0" class="Ground" x="222" y="768" width="1841.33" height="393"/>
   <object id="3" name="0" class="Ground" x="2058.67" y="757.333" width="519.333" height="30.6667"/>
@@ -283,22 +300,6 @@
   <object id="424" name="4" class="Sanctuary_2" x="677.083" y="2977" width="88.5"/>
   <object id="425" name="7" class="Sanctuary_3" x="3971.08" y="3202.33" width="88.5"/>
   <object id="426" name="13" class="Sanctuary_4" x="4133.5" y="1376.33" width="88.5"/>
- </objectgroup>
- <objectgroup id="6" name="Salas" visible="0">
-  <object id="61" name="0_earth_room" class="1" x="0" y="507.878" width="2600.97" height="1184.12"/>
-  <object id="73" name="1_earth_room" class="1" x="2660.76" y="761.88" width="1140.91" height="1372.85"/>
-  <object id="74" name="2_earth_room" class="1.2" x="1555.85" y="1737.33" width="1051.97" height="1102.79"/>
-  <object id="75" name="3_earth_room" class="0.9" x="361.847" y="1674.55" width="1161.64" height="710.57"/>
-  <object id="175" name="4_earth_room" class="1" x="369.18" y="2426.88" width="1128.97" height="605.237"/>
-  <object id="215" name="5_earth_room" class="1.3" x="1539.75" y="2827.15" width="1065.37" height="502.424"/>
-  <object id="216" name="6_earth_room" class="1.4" x="2629.03" y="2212.12" width="763.455" height="1075.76"/>
-  <object id="221" name="7_earth_room" class="1" x="3431.69" y="2734.31" width="1134.48" height="566.06"/>
-  <object id="223" name="8_earth_room" class="1.3" x="4577.09" y="1848.48" width="818.546" height="1376.12"/>
-  <object id="265" name="13_earth_room" class="0.8" x="3855.36" y="693.031" width="2075.28" height="796.606"/>
-  <object id="350" name="9_earth_room" class="1.4" x="5413.39" y="2707.94" width="710.546" height="471.12"/>
-  <object id="351" name="10_earth_room" class="1.4" x="3704.06" y="2294.94" width="854.546" height="466.12"/>
-  <object id="352" name="11_earth_room" class="1.4" x="5414.06" y="1842.94" width="716.546" height="490.12"/>
-  <object id="353" name="12_earth_room" class="1.4" x="3817.39" y="1824.94" width="744.546" height="490.12"/>
  </objectgroup>
  <objectgroup id="8" name="Enemigos" visible="0">
   <object id="150" name="0_1_right" class="Mushroom" x="352.667" y="1369.67" width="31.3333" height="155.333"/>

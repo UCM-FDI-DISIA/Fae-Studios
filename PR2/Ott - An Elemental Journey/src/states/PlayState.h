@@ -23,8 +23,8 @@ private:
     Entity* screenDarkener_;
     MapComponent* map_;
     Entity* lastSanctuary=nullptr;
-    std::vector<std::list<Entity*>> enemies, initialEnemies;
-    std::vector<std::list<Entity*>> carteles;
+    std::vector<std::list<Entity*>> enemies = {}, initialEnemies = {};
+    std::vector<std::list<Entity*>> carteles = {};
     std::vector<std::vector<std::list<Entity*>::iterator>> enemyIt;
     ecs::maps currentMap;
 
