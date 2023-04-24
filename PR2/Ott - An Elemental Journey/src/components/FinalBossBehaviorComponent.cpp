@@ -26,9 +26,9 @@ void FinalBossBehaviorComponent::update()
 		switch (currentElement)
 		{
 		case 0: std::cout << "Ataque tierra boss final" << std::endl; break;
-		case 1: std::cout << "Ataque agua boss final" << std::endl; spawnBubbles(); break;
-		case 2: std::cout << "Ataque fuego boss final" << std::endl; spawnFireWall(); break;
-		case 3: std::cout << "Ataque oscuridad boss final" << std::endl; break;
+		case 1: std::cout << "Ataque agua boss final" << std::endl; /*spawnBubbles();*/ break;
+		case 2: std::cout << "Ataque fuego boss final" << std::endl; /*spawnFireWall();*/ break;
+		case 3: std::cout << "Ataque oscuridad boss final" << std::endl; spawnBlackHole(); break;
 		default: std::cout << "Ataque generico boss final" << std::endl; fist(); break;
 		}
 		//Cambia de elemento aleatoriamente
@@ -67,15 +67,16 @@ void FinalBossBehaviorComponent::spawnFireWall() //Ataque fuego
 
 void FinalBossBehaviorComponent::spawnBlackHole() {
 
+	std::cout << "Agujero negro" << std::endl;
+
 	// Transform del boss
 	auto pTransf = ent_->getComponent<Transform>();
 	// Agujero negro
 	Entity* blackHole = mngr_->addEntity(ecs::_grp_BUBBLE);
 
-	blackHole->addComponent<Transform>(pTransf->getPosition(), BUBBLE_DIM * pTransf->getScale(), BUBBLE_DIM * pTransf->getScale());
-	blackHole->addComponent<Image>(&sdlutils().images().at("attackBubble"));
+	blackHole->addComponent<Transform>(pTransf->getPosition(), BLACKHOLE_SIZE * pTransf->getScale(), BLACKHOLE_SIZE * pTransf->getScale());
+	blackHole->addComponent<Image>(&sdlutils().images().at("blackHole"));
 	blackHole->addComponent<Health>(100, ecs::Dark);
-	blackHole->addComponent<WaterBubbleComponent>();
 
 }
 
