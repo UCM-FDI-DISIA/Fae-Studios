@@ -31,14 +31,14 @@ void ImageVine::render()
         actualInitialPos.x -= cam.x;
         actualInitialPos.y -= cam.y;
         destTransform = { destTransform.x - cam.x, destTransform.y - cam.y, destTransform.w, destTransform.h };
-        float i = (destTransform.h / (destTexture.h * 2)) + 3;
+        float i = (destTransform.h / (destTexture.h * 2)) + 1;
         std::vector<std::pair<SDL_Rect, SDL_Rect>> anidatedVines;
         SDL_Rect aux = destTransform;
         destTexture.x = 0;
         aux.h = destTexture.h * 2;
         aux.w = destTexture.w * 2;
         if (rotation == 0) {
-            for (int j = 1; j < i; ++j) {
+            for (int j = 0; j < i; ++j) {
                 if (actualInitialPos.y > aux.y) {
                     if (actualInitialPos.y <= aux.y +aux.h) {
                         destTexture.y = tex_->height() - abs((actualInitialPos.y - aux.y))/2;
@@ -53,19 +53,18 @@ void ImageVine::render()
                 }
                 aux.y += (tex_->height() * 2);
             }
-
+            
             for (int j = 0; j < anidatedVines.size(); ++j) {
                 SDL_Rect rect = anidatedVines[j].second;
-                rect.y -= tex_->height();
                 tex_->render(anidatedVines[j].first, rect, 0);
             }
         }
         else {
-            for (int j = 1; j < i; ++j) {
-                aux.x += (destTexture.w * 2);
-                anidatedVines.push_back({ destTexture,aux });
-            }
             for (int j = 0; j < i; ++j) {
+                anidatedVines.push_back({ destTexture,aux });
+                aux.x += (destTexture.w * 2);
+            }
+            for (int j = 0; j < anidatedVines.size(); ++j) {
                 tex_->renderFrame(anidatedVines[j].second, 0, 0);
             }
         }
