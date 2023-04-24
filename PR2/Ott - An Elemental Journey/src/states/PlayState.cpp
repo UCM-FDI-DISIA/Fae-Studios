@@ -231,6 +231,20 @@ void PlayState::checkCollisions(std::list<Entity*> entities) {
 		}
 		if (j == 0) { physics->setWater(false); physics->setFloating(false); }
 		aa++;
+		
+		for (Entity* p : mngr_->getEntities(ecs::_grp_MOVING_PLATFORMS)) {
+			SDL_Rect pl = p->getComponent<Transform>()->getRect();
+			SDL_Rect result;
+			if (SDL_IntersectRect(&r1, &pl, &result)) {
+				if ((pl.x <= result.x + (result.w / 2) && physics->getLookDirection()) ||
+					(pl.x > result.x + (result.w / 2) && !physics->getLookDirection())) {
+					colVector = Vector2D(0, colVector.getY());
+				}
+				if (result.x > pl.x) {
+					colVector = Vector2D(colVector.getX() + p->getComponent<PhysicsComponent>()->getVelocity().getX(), colVector.getY() + p->getComponent<PhysicsComponent>()->getVelocity().getY());
+				}
+			}
+		}
 	}
 }
 
