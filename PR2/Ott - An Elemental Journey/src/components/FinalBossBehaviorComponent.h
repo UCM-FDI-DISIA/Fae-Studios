@@ -13,7 +13,7 @@ public:
 private:
 	void spawnBubbles();
 	void spawnFireWall();
-	void fist();
+	void spawnFist();
 
 	void spawnBlackHole();
 
