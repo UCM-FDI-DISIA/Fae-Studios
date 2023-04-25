@@ -797,6 +797,7 @@
 		{ "id" : "demo", "file" : "../Ott - An Elemental Journey/resources/levels/DEMO.tmx", "cols" : 100, "tileset" : "level1tileset", "background" : "level1bg", "music" : "earth_level" },
 		{ "id" : "waterMap", "file" : "../Ott - An Elemental Journey/resources/levels/WaterMap.tmx", "cols" : 180, "tileset" : "waterTileset", "background" : "level1bg", "music" : "water_level" },
 		{ "id" : "fireMap", "file" : "../Ott - An Elemental Journey/resources/levels/FireMap.tmx", "cols" : 162, "tileset" : "fireTileset", "background" : "level1bg", "music" : "water_level" },
-		{ "id" : "waterBossMap", "file" : "../Ott - An Elemental Journey/resources/levels/WaterBossMap.tmx", "cols" : 211, "tileset" : "waterTileset", "background" : "level1bg", "music" : "water_boss_fight" }
-	]
+		{ "id" : "waterBossMap", "file" : "../Ott - An Elemental Journey/resources/levels/WaterBossMap.tmx", "cols" : 211, "tileset" : "waterTileset", "background" : "level1bg", "music" : "water_boss_fight" },
+		{"id": "QA", "file" : "../Ott - An Elemental Journey/resources/levels/MapaQA.tmx", "cols" : 83, "tileset":  "waterTileset", "background" :"level1bg", "music": "earth_level" }
+  ]
 }
