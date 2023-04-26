@@ -248,6 +248,12 @@
 			"cols": 20
 		},
 		{
+			"id": "finalBossTileset",
+			"file": "../resources/images/levels/Tiles_Oscuridad.png",
+			"rows": 34,
+			"cols": 20
+		},
+		{
 			"id": "waterTileset",
 			"file": "../resources/images/levels/Tiles_Agua_Bosque.png",
 			"rows": 34,
@@ -747,6 +753,7 @@
 		{ "id" : "demo", "file" : "../resources/levels/DEMO.tmx", "cols" : 100, "tileset" : "level1tileset", "background" : "level1bg", "music" : "earth_level" },
 		{ "id" : "waterMap", "file" : "../resources/levels/WaterMap.tmx", "cols" : 180, "tileset" : "waterTileset", "background" : "level1bg", "music" : "water_level" },
 		{ "id" : "fireMap", "file" : "../resources/levels/FireMap.tmx", "cols" : 162, "tileset" : "fireTileset", "background" : "level1bg", "music" : "water_level" },
-		{ "id" : "waterBossMap", "file" : "../resources/levels/WaterBossMap.tmx", "cols" : 211, "tileset" : "waterTileset", "background" : "level1bg", "music" : "water_boss_fight" }
+		{ "id" : "waterBossMap", "file" : "../resources/levels/WaterBossMap.tmx", "cols" : 211, "tileset" : "waterTileset", "background" : "level1bg", "music" : "water_boss_fight" },
+		{ "id" : "finalBossMap", "file" : "../resources/levels/finalBossMap.tmx", "cols" : 35, "tileset" : "finalBossTileset", "background" : "level1bg", "music" : "water_boss_fight" }
 	]
 }

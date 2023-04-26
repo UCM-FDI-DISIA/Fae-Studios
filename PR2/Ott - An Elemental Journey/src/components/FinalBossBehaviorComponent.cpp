@@ -22,6 +22,8 @@ void FinalBossBehaviorComponent::update()
 	if (SDL_GetTicks() - lastAttack >= timeBetweenAttacks) {
 		lastAttack = SDL_GetTicks();
 
+		currentElement = 3;
+
 		//Switch de los diferentes ataques del boss
 		switch (currentElement)
 		{
@@ -29,7 +31,7 @@ void FinalBossBehaviorComponent::update()
 		case 1: std::cout << "Ataque agua boss final" << std::endl; spawnBubbles(); break;
 		case 2: std::cout << "Ataque fuego boss final" << std::endl; spawnFireWall(); break;
 		case 3: std::cout << "Ataque oscuridad boss final" << std::endl; spawnBlackHole();break;
-		case 4: std::cout << "Ataque pu�o boss final" << std::endl; spawnFist(); break;
+		case 4: std::cout << "Ataque pu�o boss final" << std::endl; /*spawnFist();*/ break;
 		default: std::cout << "Ataque generico boss final" << std::endl; spawnFist(); break;
 		}
 		//Cambia de elemento aleatoriamente

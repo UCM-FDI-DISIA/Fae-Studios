@@ -53,6 +53,7 @@
 		{ "id" : "sanctuary", "file" : "../Ott - An Elemental Journey/resources/images/tests/sanctuary.png", "rows" : 1, "cols" : 1},
 		{ "id" : "level1bg", "file" : "../Ott - An Elemental Journey/resources/images/levels/fondo.png", "rows" : 1, "cols" : 1},
 		{ "id" : "level1tileset", "file" : "../Ott - An Elemental Journey/resources/images/levels/tilesetlevel1.png", "rows" : 34, "cols" : 20},
+		{ "id": "finalBossTileset", "file": "../Ott - An Elemental Journey/resources/images/levels/Tiles_Oscuridad.png", "rows": 34, "cols": 20},
 		{ "id" : "waterTileset", "file" : "../Ott - An Elemental Journey/resources/images/levels/Tiles_Agua_Bosque.png", "rows" : 34, "cols" : 20},
 		{"id": "earth_elem", "file": "../Ott - An Elemental Journey/resources/images/tests/EarthElement.png", "rows": 1, "cols": 10},
 		{"id": "water_elem", "file": "../Ott - An Elemental Journey/resources/images/tests/WaterElement.png", "rows": 1, "cols": 10},
@@ -408,6 +409,7 @@
 		{ "id" : "demo", "file" : "../Ott - An Elemental Journey/resources/levels/DEMO.tmx", "cols" : 100, "tileset" : "level1tileset", "background" : "level1bg", "music" : "earth_level" },
 		{ "id" : "waterMap", "file" : "../Ott - An Elemental Journey/resources/levels/WaterMap.tmx", "cols" : 180, "tileset" : "waterTileset", "background" : "level1bg", "music" : "water_level" },
 		{ "id" : "fireMap", "file" : "../Ott - An Elemental Journey/resources/levels/FireMap.tmx", "cols" : 162, "tileset" : "fireTileset", "background" : "level1bg", "music" : "water_level" },
-		{ "id" : "waterBossMap", "file" : "../Ott - An Elemental Journey/resources/levels/WaterBossMap.tmx", "cols" : 211, "tileset" : "waterTileset", "background" : "level1bg", "music" : "water_boss_fight" }
+		{ "id" : "waterBossMap", "file" : "../Ott - An Elemental Journey/resources/levels/WaterBossMap.tmx", "cols" : 211, "tileset" : "waterTileset", "background" : "level1bg", "music" : "water_boss_fight" },
+		{ "id" : "finalBossMap", "file" : "../Ott - An Elemental Journey/resources/levels/finalBossMap.tmx", "cols" : 35, "tileset" : "finalBossTileset", "background" : "level1bg", "music" : "water_boss_fight" }
 	]
 }
