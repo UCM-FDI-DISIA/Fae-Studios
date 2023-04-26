@@ -205,7 +205,7 @@
   <object id="195" name="6" type="Ground" x="802.333" y="1854.67" width="731" height="81.3333"/>
  </objectgroup>
  <objectgroup id="8" name="Plataformas">
-  <object id="198" name="Y_5440_5000_1" type="Ground" x="1827.33" y="1439" width="125.5" height="31.3333"/>
+  <object id="198" name="Y_575_2112_1" type="Ground" x="1827.33" y="2112.06" width="125.5" height="33.6666"/>
  </objectgroup>
  <objectgroup id="7" name="Ott" visible="0">
   <object id="141" name="0" type="0" x="129.333" y="2049.33" width="32" height="32"/>

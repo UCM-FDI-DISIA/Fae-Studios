@@ -525,7 +525,7 @@ namespace constructors {
 		return wObject;
 	}
 
-	static inline Entity* Platform(Manager* mngr_, int x, int y, int w, int h, int a, int t, std::string axis) 
+	static inline Entity* Platform(Manager* mngr_, int x, int y, int w, int h, int a, int t, std::string axis, float room) 
 	{
 		Entity* pObject = mngr_->addEntity(ecs::_grp_MOVING_PLATFORMS);
 		auto ph = pObject->addComponent<PhysicsComponent>(false);
@@ -535,7 +535,7 @@ namespace constructors {
 		if (axis == "X")
 			pObject->addComponent<PlatformMovementX>(a, t);
 		else
-			pObject->addComponent<PlatformMovementY>(a, t);
+			pObject->addComponent<PlatformMovementY>(a, t, room);
 
 		return pObject;
 	}

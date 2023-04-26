@@ -23,7 +23,7 @@ MapComponent::MapComponent(Entity* fadeOut, PlayState* game, int currentMap) : f
     for (int i = 0; i < ecs::LAST_MAP_ID; ++i) {
         mapKeys.push_back({});
     }
-    currentMapKey = "earthMap2";
+    currentMapKey = "fireMap";
     tilemap = &sdlutils().images().at(sdlutils().levels().at(currentMapKey).tileset);
 }
 
@@ -505,7 +505,7 @@ void MapComponent::loadMap(std::string path, int nextPos) {
             rect.y *= roomScale;
             rect.w *= roomScale;
             rect.h *= roomScale;
-            Entity* plat = constructors::Platform(mngr_, rect.x, rect.y, rect.w, rect.h, std::stoi(nameSplit[1]) * roomScale, std::stoi(nameSplit[2]), nameSplit[0]);
+            Entity* plat = constructors::Platform(mngr_, rect.x, rect.y, rect.w, rect.h, std::stoi(nameSplit[1]) * roomScale, std::stoi(nameSplit[2]) * roomScale, nameSplit[0], roomScale);
 
             platforms[std::stoi(nameSplit[3])].push_back(plat);
 
