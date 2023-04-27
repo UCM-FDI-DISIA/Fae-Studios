@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="192" height="105" tilewidth="32" tileheight="32" infinite="0" nextlayerid="15" nextobjectid="446">
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="192" height="105" tilewidth="32" tileheight="32" infinite="0" nextlayerid="15" nextobjectid="447">
  <tileset firstgid="1" name="EarthMapTileset" tilewidth="32" tileheight="32" tilecount="680" columns="20">
   <image source="../images/levels/tilesetlevel1.png" width="640" height="1088"/>
  </tileset>
@@ -115,8 +115,7 @@
 48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,119,0,0,105,66,66,66,66,66,66,66,66,111,0,0,85,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74
 </data>
  </layer>
- <objectgroup id="14" name="Carteles"/>
- <objectgroup id="6" name="Salas">
+ <objectgroup id="6" name="Salas" visible="0">
   <object id="61" name="0_earth_room" class="1" x="0" y="507.878" width="2600.97" height="1184.12"/>
   <object id="73" name="1_earth_room" class="1" x="2660.76" y="761.88" width="1140.91" height="1372.85"/>
   <object id="74" name="2_earth_room" class="1.2" x="1555.85" y="1737.33" width="1051.97" height="1102.79"/>
@@ -132,7 +131,10 @@
   <object id="352" name="11_earth_room" class="1.4" x="5414.06" y="1842.94" width="716.546" height="490.12"/>
   <object id="353" name="12_earth_room" class="1.4" x="3817.39" y="1824.94" width="744.546" height="490.12"/>
  </objectgroup>
- <objectgroup id="2" name="Colisiones">
+ <objectgroup id="14" name="Carteles">
+  <object id="446" name="0_1" class="lamparaCartel" x="415" y="1525" width="34"/>
+ </objectgroup>
+ <objectgroup id="2" name="Colisiones" visible="0">
   <object id="1" name="0" class="Ground" x="222" y="768" width="1841.33" height="393"/>
   <object id="3" name="0" class="Ground" x="2058.67" y="757.333" width="519.333" height="30.6667"/>
   <object id="4" name="0" class="Ground" x="2578" y="753.334" width="124" height="480.666"/>
@@ -262,7 +264,7 @@
  <objectgroup id="12" name="Posiciones" visible="0">
   <object id="339" name="13" class="0" x="5751.58" y="733" width="19.5" height="52.75"/>
  </objectgroup>
- <objectgroup id="3" name="Objetos interactuables">
+ <objectgroup id="3" name="Objetos interactuables" visible="0">
   <object id="27" name="lamp1" class="Lamp_9" x="5887" y="3000.75" width="32"/>
   <object id="54" name="0" class="Sanctuary_0" x="1318" y="1441" width="88.5"/>
   <object id="55" class="Ott" x="416" y="1536" width="32"/>
@@ -285,7 +287,7 @@
   <object id="329" name="lamp3" class="Lamp_6" x="3090" y="2495" width="32"/>
   <object id="330" name="lamp3" class="Lamp_1" x="2885.92" y="1562.08" width="32"/>
   <object id="332" name="1" class="Grass" x="2975.16" y="800.167" width="29.6667" height="762.083"/>
-  <object id="345" name="1" class="Element_6" x="3060.13" y="3100.13" width="31.75" height="31.75"/>
+  <object id="345" name="1" class="Element_13" x="4444.07" y="1283.83" width="31.75" height="31.75"/>
   <object id="346" name="2" class="Element_0" x="543.875" y="1407.88" width="31.875" height="32.25"/>
   <object id="347" name="3" class="Element_0" x="608.125" y="1408" width="31.875" height="31.75"/>
   <object id="348" name="3" class="Life_3" x="735.758" y="2042.83" width="31.875" height="31.875"/>
@@ -336,7 +338,7 @@
   <object id="413" name="8_12" class="812" x="4573.65" y="2124.69" width="21.8586" height="113.293"/>
  </objectgroup>
  <objectgroup id="9" name="Ott">
-  <object id="153" name="6" class="6" x="2923" y="3088.67" width="37" height="87"/>
+  <object id="153" name="0" class="0" x="592.697" y="1437.52" width="37" height="87"/>
  </objectgroup>
  <objectgroup id="13" name="Backgrounds" visible="0">
   <object id="430" name="0" class="Sala0" x="0" y="512" width="2600.97" height="1184.12"/>

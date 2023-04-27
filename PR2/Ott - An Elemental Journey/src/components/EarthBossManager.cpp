@@ -227,8 +227,17 @@ void EarthBossManager::choosingVine() {
 	numRandVine = aux;
 }
 
+void EarthBossManager::resetFight() {
+	isFight = false;
+	boss->getComponent<Health>()->setHealth(boss->getComponent<Health>()->getMaxHealth());
+	
+}
+
 void EarthBossManager::update() {
 	if (isFight) {
+		if (player->getComponent<Health>()->getHealth() <= 0) {
+			resetFight();
+		}
 		stateManagment();
 		if (attackingHorizontally) {
 			if (!refvine1->getComponent<GrowVine>()->getGrow()) {
