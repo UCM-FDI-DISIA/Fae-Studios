@@ -565,7 +565,7 @@ namespace constructors {
 			type = anims::CARTELELEMENTO;
 		}
 		cartelObject->addComponent<FramedImage>(&sdlutils().images().at(numCartel), row, col);
-			cartelObject->addComponent< GeneralAnimationController>(type,cartelObject);
+			//cartelObject->addComponent< GeneralAnimationController>(type,cartelObject);
 		return cartelObject;
 	}
 }

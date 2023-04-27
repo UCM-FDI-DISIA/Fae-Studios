@@ -146,8 +146,8 @@
 		{
 			"id": "lamparaCartel",
 			"file": "../resources/images/carteles/Lampara/cartelLamparaAnimation.png",
-			"rows": 1,
-			"cols": 27
+			"rows": 2,
+			"cols": 13
 		},
 		{
 			"id": "enredaderaCartel",

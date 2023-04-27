@@ -43,6 +43,7 @@ public:
 	bool recieveDamage(ecs::elements el, bool dir);
 	inline int getHealth() { return actualLife; }
 	inline int getMaxHealth() { return maxLife; }
+	inline void setHealth(int health) { actualLife = health; }
 	inline std::string getLifeShardIDs() { return lifeShardIDs; }
 	inline ecs::elements getElement() { return elem; }
 	inline void setElement(int newElem) {
