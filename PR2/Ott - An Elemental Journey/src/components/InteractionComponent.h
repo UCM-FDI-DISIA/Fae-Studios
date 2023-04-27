@@ -5,6 +5,7 @@
 #include "../ecs/Component.h"
 #include "../utils/Vector2D.h"
 #include <functional>
+#include"../game/Game.h"
 
 enum Interaction {LAMP_IT, SANCTUARY_IT, LIFESHARD_IT, GRASS_IT, ELEMENT_IT };
 
@@ -18,6 +19,9 @@ public:
 	void interact() { callback(); if (destroyAfterInteraction) { ent_->setAlive(false); } }
 	void OnPlayerNear() {
 		if (!nearPlayer) {
+			if (SDL_NumJoysticks() == 1 && SDL_JoystickHasRumble(game().getJoystick())) {
+				SDL_JoystickRumble(game().getJoystick(), UINT16_MAX / 2, UINT16_MAX / 2, 1000);
+			}
 				switch (type) {
 					case LAMP_IT:
 						if (mngr_->getPlayer()->getComponent<Health>()->getElement() == ecs::Light) {
