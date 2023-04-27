@@ -56,6 +56,7 @@
 #include "../components/GeneralAnimationController.h"
 #include "../components/PlatformMovementY.h"
 #include "../components/PlatformMovementX.h"
+#include "../components/FireBossRoom.h"
 #include <string>
 #include <iostream>
 #include <functional>
@@ -183,6 +184,12 @@ namespace constructors {
 
 		return waterC;
 	}
+	static inline Entity* fireBossRoom(Manager* mngr_, int x, int y, int w, int h) {
+		auto triggerBoss = mngr_->addEntity(ecs::_grp_MAP);
+		triggerBoss->addComponent<Transform>(Vector2D(x, y), w, h);
+		triggerBoss->addComponent<FireBossRoom>();
+		return triggerBoss;
+	}
 
 	static inline Entity* eSlime(Manager* mngr_, Texture* tex, int x, int y, float scale, int gens, int lives, ecs::elements el, bool lookingRight, int room) {
 		// Asi se a�ade enemigo slime
@@ -234,6 +241,7 @@ namespace constructors {
 		quitButton->getComponent<Transform>()->setPosition(quitButton->getComponent<Transform>()->getPosition() - Vector2D(quitButton->getComponent<FramedImage>()->getFrameWidth() / 2, quitButton->getComponent<FramedImage>()->getFrameHeight() / 2));
 		return quitButton;
 	}
+	
 
 	static inline void slider(Manager* mngr_, Vector2D& position, std::string title, float minValue, float maxValue, float currentValue, std::function<void(int)> const& callback) {
 		auto s = mngr_->addEntity(ecs::_grp_UI);

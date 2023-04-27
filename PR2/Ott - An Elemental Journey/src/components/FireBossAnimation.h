@@ -29,7 +29,7 @@ private:
 	int roomNum;
 
 	//anims::Entities eAnims = anims::MELEE_ANIM;
-	anims::Entities eAnims = anims::FIREBOSS_ANIM;;
+	anims::Entities eAnims = anims::FIREBOSS_ANIM;
 	FramedImage* image;
 	//Health* health_;
 	//EnemyMovement* eMovement_;

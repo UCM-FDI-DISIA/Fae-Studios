@@ -94,8 +94,8 @@ void MapComponent::generateEnemies() {
         }
         else if (it.getClass() == "fireBoss")
         {
-            auto fBoss= constructors::FireBoss(mngr_, x_ * scale * roomScale, y_ * scale * roomScale);
-            game->addEnemy(fBoss, roomNum);
+            //auto fBoss= constructors::FireBoss(mngr_, x_ * scale * roomScale, y_ * scale * roomScale);
+            //game->addEnemy(fBoss, roomNum);
         }
     }
 
@@ -676,9 +676,15 @@ void MapComponent::loadMap(std::string path, int nextPos) {
             }
             else if (classSplit[0] == "WaterTank") {
                 auto roomScale = vectorTiles[std::stoi(ot.getName())].first;
-                auto life = constructors::waterContainer(mngr_, x_ * scale * roomScale, y_ * scale * roomScale, w_ * scale * roomScale, h_ * scale * roomScale, roomScale);
-                interact[std::stoi(ot.getName())].push_back(life);
-                life->setActive(false);
+                auto wTank = constructors::waterContainer(mngr_, x_ * scale * roomScale, y_ * scale * roomScale, w_ * scale * roomScale, h_ * scale * roomScale, roomScale);
+                interact[std::stoi(ot.getName())].push_back(wTank);
+                wTank->setActive(false);
+            }
+            else if (classSplit[0] == "FireBossRoom") {
+                auto roomScale = vectorTiles[std::stoi(ot.getName())].first;
+                auto fireRoom = constructors::fireBossRoom(mngr_, x_ * scale * roomScale, y_ * scale * roomScale, w_ * scale * roomScale, h_ * scale * roomScale);
+                interact[std::stoi(ot.getName())].push_back(fireRoom);
+                fireRoom->setActive(false);
             }
         }
 

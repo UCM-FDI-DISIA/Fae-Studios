@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\components\FireBossRoom.cpp" />
     <ClCompile Include="src\components\LoreRoom.cpp" />
     <ClCompile Include="src\components\FireBossAnimation.cpp" />
     <ClCompile Include="src\components\FireBossComponent.cpp" />
@@ -100,6 +101,7 @@
     <ClCompile Include="src\components\WaterBossAnimationComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\components\FireBossRoom.h" />
     <ClInclude Include="src\components\LoreRoom.h" />
     <ClInclude Include="src\components\GrassAnimationComponent.h" />
     <ClInclude Include="src\components\FireBossAnimation.h" />
