@@ -23,7 +23,7 @@ MapComponent::MapComponent(Entity* fadeOut, PlayState* game, int currentMap) : f
     for (int i = 0; i < ecs::LAST_MAP_ID; ++i) {
         mapKeys.push_back({});
     }
-    currentMapKey = "earthMap";
+    currentMapKey = "fireMap";
     tilemap = &sdlutils().images().at(sdlutils().levels().at(currentMapKey).tileset);
 }
 
@@ -94,8 +94,9 @@ void MapComponent::generateEnemies() {
         }
         else if (it.getClass() == "fireBoss")
         {
-            //auto fBoss= constructors::FireBoss(mngr_, x_ * scale * roomScale, y_ * scale * roomScale);
-            //game->addEnemy(fBoss, roomNum);
+            auto fBoss= constructors::FireBoss(mngr_, x_ * scale * roomScale, y_ * scale * roomScale);
+            game->addEnemy(fBoss, roomNum);
+            mngr_->setFireBoss(fBoss);
         }
     }
 

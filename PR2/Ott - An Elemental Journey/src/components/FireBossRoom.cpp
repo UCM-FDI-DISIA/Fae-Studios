@@ -1,6 +1,7 @@
 #include "FireBossRoom.h"
 #include "FramedImage.h"
 #include "GeneralAnimationController.h"
+#include "../game/Constructors.h"
 FireBossRoom::FireBossRoom()
 {
 }
@@ -8,6 +9,7 @@ FireBossRoom::FireBossRoom()
 
 void FireBossRoom::initComponent()
 {
+	camera = mngr_->getCamera();
 	tr_ = ent_->getComponent<Transform>();
 	minion = mngr_->addEntity(ecs::_grp_MINIBOSS);
 	minion->addComponent<Transform>(Vector2D(tr_->getPosition().getX() + tr_->getWidth()/2, tr_->getPosition().getY() + tr_->getHeight() - 145), 150, 150);
@@ -28,10 +30,17 @@ void FireBossRoom::update()
 		if (player->getPosition().getX() > tr_->getPosition().getX() && (player->getPosition().getX() + player->getWidth() / 2) < tr_->getPosition().getX() + tr_->getWidth() && player->getPosition().getY() + player->getHeight() > tr_->getPosition().getY() && player->getPosition().getY() < tr_->getPosition().getY() + tr_->getHeight()) {
 			currentAnim = DIE_MINION;
 			startTime = SDL_GetTicks();
+			camera->getComponent<CameraComponent>()->cameraShake(true);
+			auto mTr = minion->getComponent<Transform>();
+			mngr_->getFireBoss()->getComponent<FireBossComponent>()->activateBoss();
 			entered = true;
+
+			Mix_PauseMusic();
+			sdlutils().musics().at("fire_boss_fight").play();
 		}
 	}
 	if (currentAnim == DIE_MINION && ((SDL_GetTicks()-startTime) > (anims::animations[eAnims][currentAnim].tPerFrame * anims::animations[eAnims][currentAnim].numFrames) + 1)) {
+		camera->getComponent<CameraComponent>()->cameraShake(false);
 		minion->setActive(false);
 	}
 }

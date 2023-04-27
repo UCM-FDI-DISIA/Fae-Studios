@@ -416,7 +416,6 @@ namespace constructors {
 	static inline Entity* FireBoss(Manager* mngr_, int x, int y) {
 		auto boss = mngr_->addEntity(ecs::_grp_CHARACTERS);
 		boss->addComponent<Transform>(Vector2D(x, y), 250, 250);
-		//boss->addComponent<Image>(&sdlutils().images().at("lamp"));
 		boss->addComponent<FireBossComponent>();
 		boss->addComponent<PhysicsComponent>(colliders::OTT);
 		boss->getComponent<PhysicsComponent>()->createCollider();

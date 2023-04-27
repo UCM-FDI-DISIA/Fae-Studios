@@ -11,6 +11,8 @@ private:
 	};
 	Transform* tr_;
 	class FramedImage* image;
+
+	Entity* camera = nullptr;
 public:
 	FireBossRoom();
 	virtual ~FireBossRoom();
