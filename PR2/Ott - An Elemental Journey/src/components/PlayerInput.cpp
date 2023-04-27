@@ -34,13 +34,13 @@ void PlayerInput::update()
 		auto input = InputHandler::instance();
 		auto state = anim_->getState();
 		if (input->keyDownEvent() && state != DIE && !openingMap) {
-			if (input->isKeyDown(SDLK_LEFT) || SDL_NumJoysticks() == 1 && SDL_JoystickGetAxis(game().getJoystick(), 0) < -100) {
+			if (input->isKeyDown(SDLK_LEFT) || SDL_NumJoysticks() == 1 && (SDL_JoystickGetAxis(game().getJoystick(), 0) < -100 || SDL_JoystickGetButton(game().getJoystick(), SDL_CONTROLLER_BUTTON_DPAD_LEFT))) {
 				//Moviento Izquierda 
 				playerV = Vector2D(-horizontalSpeed, playerV.getY());
 				physics_->lookDirection(false);
                 if(physics_->isGrounded() && !physics_->isClimbing() && abs(physics_->getVelocity().getX()) > 0) sdlutils().soundEffects().at("ott_step").playFor(1000,0, ecs::_channel_PLAYER);
 			}
-			if (input->isKeyDown(SDLK_RIGHT) || SDL_NumJoysticks() == 1 && SDL_JoystickGetAxis(game().getJoystick(), 0) > 100)
+			if (input->isKeyDown(SDLK_RIGHT) || SDL_NumJoysticks() == 1 && (SDL_JoystickGetAxis(game().getJoystick(), 0) > 100 || SDL_JoystickGetButton(game().getJoystick(), SDL_CONTROLLER_BUTTON_DPAD_RIGHT)))
 			{
 				//Movimiento derecha
 				playerV = Vector2D(horizontalSpeed, playerV.getY());
@@ -187,12 +187,12 @@ void PlayerInput::update()
 		auto vineCol = static_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->checkCollisionWithVine();
 		int speed = 1;
 		if (vineCol.first) {
-			if ((input->isKeyDown(SDLK_UP) || SDL_NumJoysticks() == 1 && SDL_JoystickGetAxis(game().getJoystick(), 1) < -100) && vineCol.second) {
+			if ((input->isKeyDown(SDLK_UP) || SDL_NumJoysticks() == 1 && (SDL_JoystickGetAxis(game().getJoystick(), 1) < -100 || SDL_JoystickGetButton(game().getJoystick(), SDL_CONTROLLER_BUTTON_DPAD_UP))) && vineCol.second) {
 				physics_->setClimbing(true, -speed);
 				anim_->setState(CLIMB);
 				if(!SoundEffect::isSoundBeingPlayed(ecs::_channel_AMBIENTAL)) sdlutils().soundEffects().at("vine_climb").play(0, ecs::_channel_AMBIENTAL);
 			}
-			else if (input->isKeyDown(SDLK_DOWN) || SDL_NumJoysticks() == 1 && SDL_JoystickGetAxis(game().getJoystick(), 1) < -100) {
+			else if (input->isKeyDown(SDLK_DOWN) || SDL_NumJoysticks() == 1 && (SDL_JoystickGetAxis(game().getJoystick(), 1) > 100 || SDL_JoystickGetButton(game().getJoystick(), SDL_CONTROLLER_BUTTON_DPAD_DOWN))) {
 				physics_->setClimbing(true, speed);
 				anim_->setState(CLIMB);
 				if(!SoundEffect::isSoundBeingPlayed(ecs::_channel_AMBIENTAL)) sdlutils().soundEffects().at("vine_climb").play(0, ecs::_channel_AMBIENTAL);
