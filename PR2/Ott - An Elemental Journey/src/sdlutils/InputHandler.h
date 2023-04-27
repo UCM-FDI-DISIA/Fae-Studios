@@ -68,6 +68,7 @@ public:
 
     // refresh
     inline void refresh() {
+        SDL_JoystickEventState(SDL_ENABLE);
         SDL_Event event;
 
         clearState();

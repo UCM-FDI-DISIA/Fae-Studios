@@ -6,6 +6,7 @@
 #include "Transform.h"
 #include "../ecs/Entity.h"
 #include "CameraComponent.h"
+#include "GrowVine.h"
 class ImageVine : public Component {
 public:
     ImageVine(Texture* text, float rot, bool canClimb);
@@ -23,6 +24,7 @@ private:
     SDL_Rect destTransform;
     SDL_Rect destTexture;
     SDL_Rect initialPos = {0,0,0,0};
+    GrowVine* grow_;
     float rotation;
     bool canClimb_;
 };

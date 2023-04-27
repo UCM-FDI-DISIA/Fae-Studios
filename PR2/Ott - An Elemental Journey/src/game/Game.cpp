@@ -6,7 +6,6 @@
 #include "../sdlutils/InputHandler.h"
 #include "../sdlutils/SoundEffect.h"
 
-
 Game::Game() {
     //Creamos la ventana de SDL con el nombre, la altura y la anchura, y la ruta de assets correspondiente
     SDLUtils::init(WINDOW_NAME, WINDOW_WIDTH, WINDOW_HEIGHT, jsonRoute);
@@ -14,18 +13,20 @@ Game::Game() {
     sdlutils().toggleFullScreen(SDLUtils::WINDOWED);
     SoundEffect::setNumberofChannels(32 * ecs::maxChannelId);
     SoundEffect::groupChannels();
-    /*SDL_GameControllerAddMappingsFromFile("gamecontrollerdb.txt");
+    SDL_GameControllerAddMappingsFromFile("gamecontrollerdb.txt");
     SDL_Joystick* gGameController;
     SDL_JoystickEventState(SDL_ENABLE);
     if (SDL_NumJoysticks() < 1)
     {
         printf("Warning: No joysticks connected!\n");
     }
-    gGameController = SDL_JoystickOpen(0);
-    if (gGameController == NULL)
-    {
-        printf("Warning: Unable to open game controller! SDL Error: %s\n", SDL_GetError());
-    }*/
+    else {
+        gGameController = SDL_JoystickOpen(0);
+        if (gGameController == NULL)
+        {
+            printf("Warning: Unable to open game controller! SDL Error: %s\n", SDL_GetError());
+        }
+    }
 }
 
 void Game::run() {
@@ -53,7 +54,11 @@ void Game::run() {
             stateMachine().instance()->currentState()->refresh(); //Refrescamos TODOS los estados de la pila al mismo tiempo, de arriba a abajo
         }
     }
-    if(exit) SDLUtils::close(); //Si se acaba el bucle principal con la condición de salida, cerramos la ventana
+    if (exit) {
+        if(SDL_NumJoysticks() == 1)
+            SDL_JoystickClose(gGameController);
+        SDLUtils::close(); //Si se acaba el bucle principal con la condición de salida, cerramos la ventana
+    } 
 }
 
 

@@ -23,13 +23,14 @@ private:
 	bool grow = true;
 	bool ungrow = false;
 public:
-	GrowVine(Vector2D posT, int s, int d, std::string o, bool back) : posFinalT(posT), speed(s), dir(d), orientation(o), goesBack(back), tr_(nullptr) {
+	inline GrowVine(Vector2D posT, int s, int d, std::string o, bool back) : posFinalT(posT), speed(s), dir(d), orientation(o), goesBack(back), tr_(nullptr) {
 	}
 	virtual ~GrowVine() {}
 	constexpr static ecs::cmpId_type id = ecs::_GROWVINE;
 	void initComponent() override;
 	void update() override;
-	void startUngrowing() { ungrow = true; reached = false; };
-	void isGrowing(bool g) { grow = g; }
-	bool getGrow() { return grow; }
+	inline void startUngrowing() { ungrow = true; reached = false; };
+	inline void isGrowing(bool g) { grow = g; }
+	inline bool getUngrow() { return ungrow; }
+	inline bool getGrow() { return grow; }
 };

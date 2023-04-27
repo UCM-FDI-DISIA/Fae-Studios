@@ -11,6 +11,8 @@ ImageVine::ImageVine(Texture* text, float rot, bool canClimb) :tr_(nullptr), tex
 void ImageVine::initComponent()
 {
     tr_ = ent_->getComponent<Transform>();
+    grow_ = ent_->getComponent<GrowVine>();
+    assert(grow_ != nullptr);
 }
 
 void ImageVine::render()
@@ -37,35 +39,59 @@ void ImageVine::render()
         destTexture.x = 0;
         aux.h = destTexture.h * 2;
         aux.w = destTexture.w * 2;
-        if (rotation == 0) {
-            for (int j = 0; j < i; ++j) {
-                if (actualInitialPos.y > aux.y) {
-                    if (actualInitialPos.y <= aux.y +aux.h) {
-                        destTexture.y = tex_->height() - abs((actualInitialPos.y - aux.y))/2;
-                        destTexture.h = tex_->height() - destTexture.y;
+        
+        if (!grow_->getUngrow()) {
+            if (rotation == 0) {
+                for (int j = 0; j < i; ++j) {
+                    if (actualInitialPos.y > aux.y) {
+                        if (actualInitialPos.y <= aux.y +aux.h) {
+                            destTexture.y = tex_->height() - abs((actualInitialPos.y - aux.y))/2;
+                            destTexture.h = tex_->height() - destTexture.y;
+                        }
+                        else { 
+                            destTexture.y = 0; 
+                            destTexture.h = tex_->height();
+                        }
+                        aux.h = destTexture.h * 2;
+                        anidatedVines.push_back({ destTexture, aux });
                     }
-                    else { 
-                        destTexture.y = 0; 
-                        destTexture.h = tex_->height();
-                    }
-                    aux.h = destTexture.h * 2;
-                    anidatedVines.push_back({ destTexture, aux });
+                    aux.y += (tex_->height() * 2);
                 }
-                aux.y += (tex_->height() * 2);
-            }
             
-            for (int j = 0; j < anidatedVines.size(); ++j) {
-                SDL_Rect rect = anidatedVines[j].second;
-                tex_->render(anidatedVines[j].first, rect, 0);
+                for (int j = 0; j < anidatedVines.size(); ++j) {
+                    SDL_Rect rect = anidatedVines[j].second;
+                    tex_->render(anidatedVines[j].first, rect, 0);
+                }
+
+            }
+            else {
+                for (int j = 0; j < i; ++j) {
+                    anidatedVines.push_back({ destTexture,aux });
+                    aux.x += (destTexture.w * 2);
+                }
+                for (int j = 0; j < anidatedVines.size(); ++j) {
+                    tex_->renderFrame(anidatedVines[j].second, 0, 0);
+                }
             }
         }
         else {
-            for (int j = 0; j < i; ++j) {
-                anidatedVines.push_back({ destTexture,aux });
-                aux.x += (destTexture.w * 2);
-            }
-            for (int j = 0; j < anidatedVines.size(); ++j) {
-                tex_->renderFrame(anidatedVines[j].second, 0, 0);
+            if (rotation == 0) {
+                for (int j = i; j > 0; --j) {
+                    actualInitialPos.y = aux.y + tex_->height() * 2;
+                    if (actualInitialPos.y > aux.y) {
+                        destTexture.y = 0;
+                        destTexture.h = tex_->height();
+                        aux.h = destTexture.h * 2;
+                        anidatedVines.push_back({ destTexture, aux });
+                    }
+                    aux.y += (tex_->height() * 2);
+                    std::cout << aux.y << std::endl;
+                }
+
+                for (int j = 0; j < anidatedVines.size(); ++j) {
+                    SDL_Rect rect = anidatedVines[j].second;
+                    tex_->render(anidatedVines[j].first, rect, 0);
+                }
             }
         }
     }
