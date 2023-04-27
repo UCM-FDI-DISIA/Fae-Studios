@@ -20,6 +20,7 @@ void FireBossComponent::update()
 {
 	if (fAnim_->getState() == DIE_FIREBOSS) return;
 	p = ent_->getComponent<PhysicsComponent>();
+
 	speed = 0;
 	if (stunned) {
 		if (SDL_GetTicks() - stunTimer > timeStunned * 1000) {
@@ -28,14 +29,11 @@ void FireBossComponent::update()
 		else return;
 	}
 	if (SDL_GetTicks() - specialAttackTimer >= timeSpecialAttack * 1000) {
-		std::cout << "Ataque especial" << std::endl;
-		specialAttackTimer = SDL_GetTicks();
-		//normalAttackTimer = SDL_GetTicks();
 		startSpecialAttack();
 	}
 	else if (!retirada && !ambushing && SDL_GetTicks() - normalAttackTimer >= timeNormalAttack * 1000) {
-		std::cout << "Ataque normal" << std::endl;
-		//normalAttackTimer = SDL_GetTicks();
+		//std::cout << "Ataque normal" << std::endl;
+		normalAttackTimer = SDL_GetTicks();
 		startNormalAttack();
 	}
 	if (ambushing) 
@@ -65,16 +63,13 @@ void FireBossComponent::startSpecialAttack()
 	if (abs(pPos.getY() - ent_->getComponent<Transform>()->getPosition().getY()) > ent_->getComponent<Transform>()->getHeight()) {
 		spawnPillars();
 	}
-	else { ambushing = true; combo = true; currentCombo = comboN; comboTimer = SDL_GetTicks(); }
-	
+	else { ambushing = true; combo = true; currentCombo = comboN; comboTimer = SDL_GetTicks(); specialAttackTimer = SDL_GetTicks();}
 }
 void FireBossComponent::startNormalAttack()
 {
 	Vector2D pPos = player->getComponent<Transform>()->getPosition();
 	if ((abs(pPos.getY() - ent_->getComponent<Transform>()->getPosition().getY()) > ent_->getComponent<Transform>()->getHeight() ) && (SDL_GetTicks() - normalAttackTimer >= timeNormalAttack * 1000)) {
 		shootAtPlayer();
-		normalAttackTimer = SDL_GetTicks();
-		
 	}
 	else if(!ambushing && (SDL_GetTicks() - normalAttackTimer >= timeNormalAttack * 1000)){
 		ambushing = true; 
@@ -83,8 +78,11 @@ void FireBossComponent::startNormalAttack()
 void FireBossComponent::spawnPillars()
 {
 	Transform* pTr = player->getComponent<Transform>();
-	Vector2D pPos = player->getComponent<Transform>()->getPosition();
-	constructors::firePillar(mngr_, "firePillar", pPos.getX() - pTr->getWidth()/2, ent_->getComponent<Transform>()->getPosition().getY() + ent_->getComponent<Transform>()->getHeight()/2, 1);
+	Vector2D pPos = pTr->getPosition();
+	if(player->getComponent<PhysicsComponent>()->isGrounded()){
+		constructors::firePillar(mngr_, "firePillar", pPos.getX() - pTr->getWidth() / 2, pPos.getY() + pTr->getHeight()/2, 1);
+		specialAttackTimer = SDL_GetTicks();
+	}
 }
 
 void FireBossComponent::shootAtPlayer()
@@ -94,7 +92,7 @@ void FireBossComponent::shootAtPlayer()
 	Transform* pTr = player->getComponent<Transform>();
 	Vector2D direction = pTr->getPosition() - position; 
 	direction = direction.normalize() * 2;
-	constructors::bullet(mngr_, "lamp", position.getX(), position.getY(), 50, direction, ent_, ecs::Fire, 1);
+	constructors::bullet(mngr_, "fire_attack", position.getX(), position.getY(), 50, direction, ent_, ecs::Fire, 1);
 }
 void FireBossComponent::ambush()
 {

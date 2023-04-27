@@ -170,16 +170,18 @@ namespace constructors {
 
 		return enemy;
 	}
-	static inline void waterContainer(Manager* mngr_, std::string imageKey, int x, int y, float scale, Entity* fireBossRef) {
+	static inline Entity* waterContainer(Manager* mngr_, int x, int y,int w, int h, float scale) {
 		auto waterC = mngr_->addEntity(ecs::_grp_MAP);
-		waterC->addComponent<Transform>(Vector2D(x,y), 250*scale, 300*scale);
-		waterC->addComponent<Image>(&sdlutils().images().at(imageKey));
-		waterC->addComponent<WaterContainerComponent>(fireBossRef);
+		waterC->addComponent<Transform>(Vector2D(x,y), w, h);
+		waterC->addComponent<Image>(&sdlutils().images().at("water"));
+		waterC->addComponent<WaterContainerComponent>();
 
 		auto waterVine = mngr_->addEntity(ecs::_grp_MAP);
-		waterVine->addComponent<Transform>(Vector2D(0, 0), 30 * scale, 100 * scale);
+		waterVine->addComponent<Transform>(Vector2D(0, 0), 30 * scale, 300 * scale);
 		waterVine->addComponent<Image>(&sdlutils().images().at("enredadera"));
 		waterVine->addComponent<WaterVineComponent>(waterC);
+
+		return waterC;
 	}
 
 	static inline Entity* eSlime(Manager* mngr_, Texture* tex, int x, int y, float scale, int gens, int lives, ecs::elements el, bool lookingRight, int room) {

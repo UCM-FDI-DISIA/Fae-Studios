@@ -13,7 +13,7 @@ private:
 	int comboN = 3;
 	int currentCombo=0;
 	//SDL_Rect collider;
-	int specialAttackTimer = 0, timeSpecialAttack = 7, normalAttackTimer = 0, timeNormalAttack = 12, ambushSpeed = 1, speed=0, rSpeed=1,stunTimer = 0, timeStunned = 5, comboTimer = 0, comboTime = 3;
+	int specialAttackTimer = 0, timeSpecialAttack = 7, normalAttackTimer = 0, timeNormalAttack = 3, ambushSpeed = 1, speed=0, rSpeed=1,stunTimer = 0, timeStunned = 5, comboTimer = 0, comboTime = 3;
 	bool ambushing = false, retirada = false, stunned = false, combo = false;
 	void startSpecialAttack();
 	void startNormalAttack();
