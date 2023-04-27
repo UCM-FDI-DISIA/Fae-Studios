@@ -55,7 +55,8 @@ void Game::run() {
         }
     }
     if (exit) {
-        SDL_JoystickClose(gGameController);
+        if(SDL_NumJoysticks() == 1)
+            SDL_JoystickClose(gGameController);
         SDLUtils::close(); //Si se acaba el bucle principal con la condición de salida, cerramos la ventana
     } 
 }

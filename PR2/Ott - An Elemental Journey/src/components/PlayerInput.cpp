@@ -50,7 +50,8 @@ void PlayerInput::update()
 
 			if (input->isKeyDown(SDLK_SPACE) || SDL_NumJoysticks() == 1 && SDL_JoystickGetButton(game().getJoystick(), SDL_CONTROLLER_BUTTON_A)) {
 				//Salto
-				physics_->jump();
+				if(SDL_NumJoysticks() == 1 && !SDL_JoystickGetButton(game().getJoystick(), SDL_CONTROLLER_BUTTON_B))
+					physics_->jump();
 			}
 			if (input->isKeyDown(SDLK_q)) {
 				ent_->getComponent<AttackCharger>()->addCharge(8);
@@ -81,15 +82,17 @@ void PlayerInput::update()
 					attack = true;
 					attackTimer = SDL_GetTicks();
 				}
-				if ((input->isKeyDown(SDLK_a) || SDL_NumJoysticks() == 1 && SDL_JoystickGetButton(game().getJoystick(), SDL_CONTROLLER_BUTTON_PADDLE3)) && earth && !selectedEarth) {
+				if ((input->isKeyDown(SDLK_a) || SDL_NumJoysticks() == 1 && SDL_JoystickGetButton(game().getJoystick(), SDL_CONTROLLER_BUTTON_RIGHTSHOULDER)) && earth && !selectedEarth) {
 					//Cambio elemento
-					anim_->changeElem(ecs::Earth);
-					anim_->setState(VANISH);
-					selectedEarth = true;
-					selectedWater = false;
-					selectedFire = false;
-					selectedLight = false;
-					sdlutils().soundEffects().at("elem_changed").play(0, ecs::_channel_ALERTS);
+					if (SDL_NumJoysticks() == 1 && !SDL_JoystickGetButton(game().getJoystick(), SDL_CONTROLLER_BUTTON_A)) {
+						anim_->changeElem(ecs::Earth);
+						anim_->setState(VANISH);
+						selectedEarth = true;
+						selectedWater = false;
+						selectedFire = false;
+						selectedLight = false;
+						sdlutils().soundEffects().at("elem_changed").play(0, ecs::_channel_ALERTS);
+					}
 				}
 				if (input->isKeyDown(SDLK_d) && water && !selectedWater) {
 					anim_->changeElem(ecs::Water);
