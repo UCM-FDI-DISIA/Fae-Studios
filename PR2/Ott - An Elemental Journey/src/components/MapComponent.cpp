@@ -23,8 +23,7 @@ MapComponent::MapComponent(Entity* fadeOut, PlayState* game, int currentMap) : f
     for (int i = 0; i < ecs::LAST_MAP_ID; ++i) {
         mapKeys.push_back({});
     }
-
-    currentMapKey = "earthMap";
+    currentMapKey = "fireMap";
     tilemap = &sdlutils().images().at(sdlutils().levels().at(currentMapKey).tileset);
 }
 
@@ -673,6 +672,12 @@ void MapComponent::loadMap(std::string path, int nextPos) {
                     interact[std::stoi(ot.getName())].push_back(life);
                     life->setActive(false);
                 }
+            }
+            else if (classSplit[0] == "WaterTank") {
+                auto roomScale = vectorTiles[std::stoi(ot.getName())].first;
+                auto life = constructors::waterContainer(mngr_, x_ * scale * roomScale, y_ * scale * roomScale, w_ * scale * roomScale, h_ * scale * roomScale, roomScale);
+                interact[std::stoi(ot.getName())].push_back(life);
+                life->setActive(false);
             }
         }
 

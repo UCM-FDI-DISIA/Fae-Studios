@@ -3,12 +3,11 @@
 class WaterContainerComponent :public Component
 {
 private:
-	Entity* fireBoss;
-	float fillRate = 0.05f, currentFill = 0;
+	float fillRate = 0.08f, currentFill = 0;
 	int originalHeight, originalYpos;
 	
 public:
-	WaterContainerComponent(Entity* fireBossRef);
+	WaterContainerComponent();
 	virtual void initComponent();
 	virtual void update();
 	inline float getCurrentFill() { return currentFill; }

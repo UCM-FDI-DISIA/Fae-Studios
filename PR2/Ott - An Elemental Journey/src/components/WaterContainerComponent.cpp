@@ -3,7 +3,7 @@
 #include "Transform.h"
 #include "FireBossComponent.h"
 #include "Image.h"
-WaterContainerComponent::WaterContainerComponent(Entity* Ref) : fireBoss(Ref)
+WaterContainerComponent::WaterContainerComponent() 
 {
 }
 
@@ -37,7 +37,7 @@ void WaterContainerComponent::dropWater()
 		SDL_Rect bossRect = bossTr->getRect();
 		if (SDL_HasIntersection(&stunRect, &bossRect) && e->hasComponent<FireBossComponent>()) {
 			std::cout << "Boss mojado" << std::endl;
-			fireBoss->getComponent<FireBossComponent>()->stunBoss();
+			e->getComponent<FireBossComponent>()->stunBoss();
 		}
 	}
 }
