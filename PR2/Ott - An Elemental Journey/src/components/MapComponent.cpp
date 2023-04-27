@@ -120,7 +120,7 @@ MapComponent::MapComponent(Entity* fadeOut, PlayState* game, int currentMap) : f
     for (int i = 0; i < ecs::LAST_MAP_ID; ++i) {
         mapKeys.push_back({});
     }
-    currentMapKey = "earthMap";
+    currentMapKey = "finalBossMap";
     tilemap = &sdlutils().images().at(sdlutils().levels().at(currentMapKey).tileset);
 }
 
@@ -282,7 +282,7 @@ void MapComponent::loadMap(std::string path, int nextPos) {
                         waterObjects[i].reserve(5);
                         backgrounds.push_back({});
                     }
-                    for (int i = 0; i < 5; ++i) {
+                    for (int i = 0; i < numRooms; ++i) {
                         waterObjects[i].push_back({});
                     }
 
@@ -321,6 +321,13 @@ void MapComponent::loadMap(std::string path, int nextPos) {
                 else if (name == "Backgrounds") {
                     vectorObjects[BACKGROUNDS_VECTOR_POS] = objects;
                 }
+                else if (name == "Agujeros Negros") {
+                    vectorObjects[BLACKHOLE_VECTOR_POS] = objects;
+                }
+                else if (name == "Burbujas") {
+                    vectorObjects[BUBBLE_VECTOR_POS] = objects;
+                }
+                
             }
             #pragma endregion
         }
@@ -371,6 +378,32 @@ void MapComponent::loadMap(std::string path, int nextPos) {
                 constructors::DestructibleTile(mngr_, rect.x, rect.y, rect.w, obj.getName(), index, this);
             }
             else ground[obj.getName()].push_back(rect);
+        }
+
+        // BLACKHOLES SALA FINAL BOSS
+        for (auto obj : vectorObjects[BLACKHOLE_VECTOR_POS]) {
+            SDL_Rect rect = getSDLRect(obj.getAABB());
+
+            auto roomScale = vectorTiles[std::stoi(obj.getClass())].first;
+            rect.x *= roomScale;
+            rect.y *= roomScale;
+            rect.w *= roomScale;
+            rect.h *= roomScale;
+        
+            blackHolesPos.push_back(rect);
+        }
+
+        // BURBUJAS SALA FINAL BOSS
+        for (auto obj : vectorObjects[BUBBLE_VECTOR_POS]) {
+            SDL_Rect rect = getSDLRect(obj.getAABB());
+
+            auto roomScale = vectorTiles[std::stoi(obj.getClass())].first;
+            rect.x *= roomScale;
+            rect.y *= roomScale;
+            rect.w *= roomScale;
+            rect.h *= roomScale;
+
+            bubblesPos.push_back(rect);
         }
 
         for (auto obj : vectorObjects[WATER_VECTOR_POS]) {

@@ -45,27 +45,27 @@ void FinalBossBehaviorComponent::update()
 
 void FinalBossBehaviorComponent::spawnBubbles() //Ataque de agua 
 {
-	//// Transform del boss
-	//auto pTransf = ent_->getComponent<Transform>();
-	//// Burguja
-	//Entity* bubble = mngr_->addEntity(ecs::_grp_BUBBLE);
+	// Transform del boss
+	auto pTransf = ent_->getComponent<Transform>();
+	// Burguja
+	Entity* bubble = mngr_->addEntity(ecs::_grp_BUBBLE);
 
-	//bubble->addComponent<Transform>(pTransf->getPosition(), BUBBLE_DIM * pTransf->getScale(), BUBBLE_DIM * pTransf->getScale());
-	//bubble->addComponent<Image>(&sdlutils().images().at("attackBubble"));
-	//bubble->addComponent<Health>(100, ecs::Water);
-	//bubble->addComponent<WaterBubbleComponent>();
+	bubble->addComponent<Transform>(pTransf->getPosition(), BUBBLE_DIM * pTransf->getScale(), BUBBLE_DIM * pTransf->getScale());
+	bubble->addComponent<Image>(&sdlutils().images().at("attackBubble"));
+	bubble->addComponent<Health>(100, ecs::Water);
+	bubble->addComponent<WaterBubbleComponent>();
 }
 
 void FinalBossBehaviorComponent::spawnFireWall() //Ataque fuego
 {
-	//// Transform del boss
-	//auto pTransf = ent_->getComponent<Transform>();
-	//// Burguja
-	//Entity* fireW = mngr_->addEntity(ecs::_grp_PROYECTILES);
+	// Transform del boss
+	auto pTransf = ent_->getComponent<Transform>();
+	// Burguja
+	Entity* fireW = mngr_->addEntity(ecs::_grp_PROYECTILES);
 
-	//fireW->addComponent<Transform>(pTransf->getPosition() - Vector2D(200, FIREWALL_HEIGHT / 2), FIREWALL_WIDTH * pTransf->getScale(), FIREWALL_HEIGHT * pTransf->getScale());
-	//fireW->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
-	//fireW->addComponent<FireWallComponent>(Vector2D(1, 0));
+	fireW->addComponent<Transform>(pTransf->getPosition() - Vector2D(200, FIREWALL_HEIGHT / 2), FIREWALL_WIDTH * pTransf->getScale(), FIREWALL_HEIGHT * pTransf->getScale());
+	fireW->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
+	fireW->addComponent<FireWallComponent>(Vector2D(1, 0));
 }
 
 void FinalBossBehaviorComponent::spawnBlackHole() {
