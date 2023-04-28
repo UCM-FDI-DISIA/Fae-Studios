@@ -68,6 +68,13 @@ void PhysicsComponent::update() {
 			}
 			else
 			{
+				if (velocity_.getY() < 0 && !inWater) {
+					auto horSpeed = velocity_.getX();
+					if(horSpeed < 0)
+						velocity_ = Vector2D(-jumpingHorizontalSpeed, verticalSpeed);
+					else if (horSpeed > 0) 
+						velocity_ = Vector2D(+jumpingHorizontalSpeed, verticalSpeed);
+				}
 				if (velocity_.getY() > -1 && velocity_.getY() < 0) {
 					verticalSpeed += gravityValue / 2;
 				}
@@ -75,6 +82,12 @@ void PhysicsComponent::update() {
 			}
 			if (verticalSpeed > MAX_VERTICAL_SPEED) verticalSpeed = MAX_VERTICAL_SPEED;
 			velocity_ = Vector2D(velocity_.getX(), verticalSpeed);
+		}
+
+		if (grounded) {
+			float horSpeed = velocity_.getX();
+			if(horSpeed != 0)
+				velocity_ = Vector2D(horizontalSpeed * horSpeed/abs(horSpeed), verticalSpeed);
 		}
 
 		if (isKnockback) {

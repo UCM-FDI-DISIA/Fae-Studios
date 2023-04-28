@@ -319,7 +319,6 @@ void MapComponent::loadMap(std::string path, int nextPos) {
                         });
                     numRooms = objects.size();
                     game->initEnemies(numRooms);
-                   // game->initCarteles(numRooms);
                     for (int i = 0; i < numRooms; ++i) {
                         backgrounds.push_back({});
                     }
@@ -533,12 +532,12 @@ void MapComponent::loadMap(std::string path, int nextPos) {
            
             trRect.x *= roomScale;
             if (name[1] != "0") {
-                trRect.y -= sdlutils().images().at(cartel.getClass()).height()/ sdlutils().images().at(cartel.getClass()).getNumRows();
+                trRect.y -= sdlutils().images().at(cartel.getClass()).height();
             }
             trRect.y *= roomScale;
             trRect.w = sdlutils().images().at(cartel.getClass()).width()/ sdlutils().images().at(cartel.getClass()).getNumCols();
             trRect.w *= roomScale;
-            trRect.h = sdlutils().images().at(cartel.getClass()).height() / sdlutils().images().at(cartel.getClass()).getNumRows();
+            trRect.h = sdlutils().images().at(cartel.getClass()).height();
             trRect.h *= roomScale;
 
             game->addCarteles(constructors::Cartel(mngr_, trRect.x, trRect.y, trRect.w, trRect.h, cartel.getClass()), std::stoi(roomNum));
