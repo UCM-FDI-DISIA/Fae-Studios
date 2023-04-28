@@ -49,6 +49,7 @@ void EnterBossRoom::unlockDoors() {
 	map->deleteCollision("10");
 	blockEnter->getComponent<GrowVine>()->startUngrowing();
 	blockExit->getComponent<GrowVine>()->startUngrowing();
+	camera->getComponent<CameraComponent>()->setBounds(map->getCamBounds());
 }
 
 void EnterBossRoom::enterRoom() {
