@@ -84,7 +84,7 @@ void PhysicsComponent::update() {
 			velocity_ = Vector2D(velocity_.getX(), verticalSpeed);
 		}
 
-		if (grounded) {
+		if (grounded && !inWater) {
 			float horSpeed = velocity_.getX();
 			if(horSpeed != 0)
 				velocity_ = Vector2D(horizontalSpeed * horSpeed/abs(horSpeed), verticalSpeed);

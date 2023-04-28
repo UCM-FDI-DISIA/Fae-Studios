@@ -18,11 +18,11 @@ public:
 	virtual ~InteractionComponent() { 
 		
 	};
-	inline void setIt(std::vector<Entity*>::iterator i, vector<Entity*>* v) { 
-		it = i; 
-		vecPtr = v;
+	inline void setIt(list<Entity*>::iterator i, list<Entity*>* v) { 
+		listIt = i; 
+		listPtr = v;
 	}; 
-	void interact() { callback(); if (destroyAfterInteraction) { ent_->setAlive(false); vecPtr->erase(it);} }
+	void interact() { callback(); if (destroyAfterInteraction) { ent_->setAlive(false); listPtr->erase(listIt); } }
 	void OnPlayerNear() {
 		if (!nearPlayer) {
 			if (SDL_NumJoysticks() == 1 && SDL_JoystickHasRumble(game().getJoystick())) {
@@ -74,6 +74,6 @@ private:
 	int intID;
 	int room;
 	bool nearPlayer = false;
-	std::vector<Entity*>::iterator it;
-	vector<Entity*>* vecPtr;
+	list<Entity*>::iterator listIt;
+	list<Entity*>* listPtr;
 };

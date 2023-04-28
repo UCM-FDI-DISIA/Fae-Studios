@@ -24,6 +24,7 @@ void BossHealthBar::die() {
 
 void BossHealthBar::render() {
 	if (!isDead) {
+		//if (mngr_->getPlayer()->getComponent<Health>()->getHealth() <= 0) reset();
 		barTx->render(posBar);
 		lifeTx->render(posLife);
 	}

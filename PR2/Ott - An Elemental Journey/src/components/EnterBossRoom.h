@@ -7,6 +7,7 @@
 #include "VineManager.h"
 #include "PlayerInput.h"
 #include "MapComponent.h"
+#include <string>
 
 class EnterBossRoom : public Component
 {
@@ -23,6 +24,7 @@ private:
 	bool startShaking = false;
 	bool unlocked = false;
 	SDL_Rect bossRoom;
+	std::string roomNum = "13";
 
 public:
 	EnterBossRoom(SDL_Rect bR): bossRoom(bR) {}
