@@ -28,6 +28,11 @@ public:
 	EnterBossRoom(SDL_Rect bR): bossRoom(bR) {}
 	void initComponent();
 	virtual ~EnterBossRoom() {}
+	inline void StartShaking() {
+		startShaking = true;
+		timer = SDL_GetTicks();
+		resetTime = true;
+	}
 	constexpr static ecs::cmpId_type id = ecs::_ENTERBOSS;
 	void enterRoom();
 	void blockDoors();

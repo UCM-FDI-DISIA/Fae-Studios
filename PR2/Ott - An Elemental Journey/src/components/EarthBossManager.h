@@ -22,6 +22,7 @@ public:
     void initComponent() override;
     void die();
     void resetFight();
+    void destroyEntities();
     void setChangeState(bool c) { changeState = c; }
     Entity* getHealthBar() { return healthBar; }
     void addPlatforms(std::vector<Entity*> pV) { platformVector = pV; }

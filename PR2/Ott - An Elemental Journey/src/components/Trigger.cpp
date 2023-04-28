@@ -4,6 +4,7 @@
 Trigger::Trigger() {
 }
 void Trigger::update() {
+	
 	if (!detected && mngr_->getPlayer() != nullptr) {
 		player_ = mngr_->getPlayer();
 	
@@ -12,6 +13,7 @@ void Trigger::update() {
 		if (SDL_HasIntersection(&r1, &r2)) {
 			if (ent_->hasComponent<EnterBossRoom>()) {
 				ent_->getComponent<EnterBossRoom>()->enterRoom();
+				ent_->getComponent<EnterBossRoom>()->StartShaking();
 				detected = true;
 			}
 			else if (ent_->hasComponent<LoreRoom>()) {
@@ -20,7 +22,7 @@ void Trigger::update() {
 			}
 		}
 	}
-	if (player_->getComponent<Health>()->getHealth() <= 0) detected = false;
+	if (mngr_->getPlayer()->getComponent<Health>()->getHealth() <= 0) detected = false;
 }
 
 void Trigger::initComponent()
