@@ -128,7 +128,7 @@ MapComponent::MapComponent(Entity* fadeOut, PlayState* game, int currentMap, std
 void MapComponent::initComponent() {
     cam = mngr_->getCamera()->getComponent<CameraComponent>();
     player_ = mngr_->getPlayer();
-    anim_ = fadeOut->getComponent<FadeOutAnimationComponent>();
+    anim_ = fadeOut->getComponent<FadeOutMapComponent>();
     anim_->setMap(ent_);
     initSanctuaries();
     loadMap(sdlutils().levels().at(currentMapKey).route);
@@ -208,12 +208,23 @@ void MapComponent::update() {
             SDL_Rect result;
             SDL_Rect rect = trigger.triggerRect;
             if (SDL_IntersectRect(&playerRect, &rect, &result)) {
-                changeMap(trigger.map, trigger.key, trigger.nextPos);
+                anim_->startFadeOut(trigger.map, trigger.key, trigger.nextPos);
                 break;
             }
             ++i;
         }
     }
+}
+
+void MapComponent::setPlayerInRoom(Vector2D newPlayerPos, int newRoom) {
+    cam->setPos(newPlayerPos); // settear la nueva posición de la cámara
+    activateObjectsInRoom(currentRoom, false); // desactivar los objetos de la sala actual
+    setCurrentRoom(newRoom); // settear la nueva sala
+    cam->setBounds(getCamBounds()); // cambiar los bounds de la cámara
+    mngr_->getPlayer()->getComponent<Transform>()->setPosition(newPlayerPos); // settear la posición del jugador
+    mngr_->getPlayer()->getComponent<Transform>()->setScale(getCurrentRoomScale()); // settear su escala
+    mngr_->getPlayer()->getComponent<Health>()->setDead(false); // decirle al jugador que no está muerto
+    activateObjectsInRoom(currentRoom, true); // activar los objetos de la nueva sala
 }
 
 void MapComponent::WaterSetActive(bool c)
@@ -749,6 +760,7 @@ void MapComponent::loadMap(std::string path, int nextPos) {
         currentRoom = playerRoom;
         if(backgrounds[currentRoom] != NULL) backgrounds[currentRoom]->setActive(true);
         cam->setBounds(getCamBounds());
+        cam->setPos(playerTr_->getPosition());
 
         if(currentMapKey == "earthMap") mngr_->getEarthBoss()->getComponent<EarthBossManager>()->addPlatforms(platformEarthBoss);
         generateEnemies();

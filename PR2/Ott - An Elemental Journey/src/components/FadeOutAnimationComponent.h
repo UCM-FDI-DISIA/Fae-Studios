@@ -7,11 +7,11 @@
 
 class MapComponent;
 
-class FadeOutAnimationComponent : public Component {
+class FadeOutMapComponent : public Component {
 public:
 	constexpr static ecs::cmpId_type id = ecs::_FADEOUTANIM;
-	FadeOutAnimationComponent() = default;
-	virtual ~FadeOutAnimationComponent() = default;
+	FadeOutMapComponent() = default;
+	virtual ~FadeOutMapComponent() = default;
 	void initComponent();
 	inline void startFadeOut(Vector2D newPos, int newRoom, bool verticalTrigger = false)
 	{
@@ -19,6 +19,15 @@ public:
 		newMapRoom = newRoom;
 		resumeSpeed = verticalTrigger;
 		roomChange = true;
+	};
+	inline void startFadeOut(int newMapEnum, std::string newMapKey, int newPosIndex)
+	{
+		fadeOut = true; playerPs_->Stop(); fadeIn = false; col = 0; 
+		newMapPlayerPos = newPosIndex;
+		this->newMapKey = newMapKey;
+		this->newMapEnum = newMapEnum;
+		mapChange = true;
+		roomChange = false;
 	};
 	inline void startFadeOut()
 	{
@@ -41,6 +50,9 @@ private:
 	const int timeBetweenFrames = 6;
 	int timer_ = 0;
 	const int MAX_COL = 10;
-	bool fadeIn = false, fadeOut = false, onAnimPlaying = false, roomChange = true;
+	bool fadeIn = false, fadeOut = false, onAnimPlaying = false, roomChange = true, mapChange = false;
 	bool resumeSpeed = false;
+
+	int newMapPlayerPos, newMapEnum;
+	std::string newMapKey;
 };
