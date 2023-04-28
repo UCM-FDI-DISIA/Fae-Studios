@@ -37,12 +37,13 @@ void FadeOutAnimationComponent::update() {
 
 void FadeOutAnimationComponent::startFadeIn() {
 	if (roomChange) {
+		cam_->setPos(newPlayerPos); // settear la nueva posición de la cámara
+		tr_->setPosition(Vector2D(cam_->camera.x, cam_->camera.y));
 		map_->activateObjectsInRoom(map_->getCurrentRoom(), false); // desactivar los objetos de la sala actual
 		map_->setCurrentRoom(newMapRoom); // settear la nueva sala
 		cam_->setBounds(map_->getCamBounds()); // cambiar los bounds de la cámara
 		mngr_->getPlayer()->getComponent<Transform>()->setPosition(newPlayerPos); // settear la posición del jugador
 		mngr_->getPlayer()->getComponent<Transform>()->setScale(map_->getCurrentRoomScale()); // settear su escala
-		cam_->setPos(newPlayerPos); // settear la nueva posición de la cámara
 		mngr_->getPlayer()->getComponent<Health>()->setDead(false); // decirle al jugador que no está muerto
 		map_->activateObjectsInRoom(map_->getCurrentRoom(), true); // activar los objetos de la nueva sala
 	}
