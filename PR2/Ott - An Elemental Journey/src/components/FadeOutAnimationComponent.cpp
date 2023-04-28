@@ -4,14 +4,14 @@
 #include "../states/GameStateMachine.h"
 #include "../states/PlayState.h"
 
-void FadeOutAnimationComponent::initComponent() {
+void FadeOutMapComponent::initComponent() {
 	playerPs_ = mngr_->getPlayer()->getComponent<PhysicsComponent>();
 	image_ = ent_->getComponent<FramedImage>();
 	tr_ = ent_->getComponent<Transform>();
 	cam_ = mngr_->getCamera()->getComponent<CameraComponent>();
 }
 
-void FadeOutAnimationComponent::update() {
+void FadeOutMapComponent::update() {
 	tr_->setPosition(Vector2D(cam_->camera.x, cam_->camera.y));
 	if (fadeOut || fadeIn) {
 		timer_++;
@@ -35,17 +35,16 @@ void FadeOutAnimationComponent::update() {
 	}
 }
 
-void FadeOutAnimationComponent::startFadeIn() {
+void FadeOutMapComponent::startFadeIn() {
 	if (roomChange) {
-		cam_->setPos(newPlayerPos); // settear la nueva posición de la cámara
+		map_->setPlayerInRoom(newPlayerPos, newMapRoom);
 		tr_->setPosition(Vector2D(cam_->camera.x, cam_->camera.y));
-		map_->activateObjectsInRoom(map_->getCurrentRoom(), false); // desactivar los objetos de la sala actual
-		map_->setCurrentRoom(newMapRoom); // settear la nueva sala
-		cam_->setBounds(map_->getCamBounds()); // cambiar los bounds de la cámara
-		mngr_->getPlayer()->getComponent<Transform>()->setPosition(newPlayerPos); // settear la posición del jugador
-		mngr_->getPlayer()->getComponent<Transform>()->setScale(map_->getCurrentRoomScale()); // settear su escala
-		mngr_->getPlayer()->getComponent<Health>()->setDead(false); // decirle al jugador que no está muerto
-		map_->activateObjectsInRoom(map_->getCurrentRoom(), true); // activar los objetos de la nueva sala
+		roomChange = false;
+	}
+	else if (mapChange) {
+		map_->changeMap(newMapEnum, newMapKey, newMapPlayerPos);
+		tr_->setPosition(Vector2D(cam_->camera.x, cam_->camera.y));
+		mapChange = false;
 	}
 	else {
 		static_cast<PlayState*>(stateMachine().currentState())->endRest();

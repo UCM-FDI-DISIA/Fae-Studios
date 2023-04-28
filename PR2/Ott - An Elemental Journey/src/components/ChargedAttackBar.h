@@ -21,7 +21,6 @@ public:
 	inline void addCharge(int charges) { 
 		charges_ += charges; 
 		if (charges_ > MAX_CHARGES) charges_ = MAX_CHARGES;
-        std::cout << charges_ << std::endl;
 	}
 	inline void resetCharges() { charges_ = 0; }
 	inline int numCharges() const { return charges_; }
