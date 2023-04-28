@@ -210,23 +210,24 @@ void PlayState::checkCollisions(std::list<Entity*> entities) {
 		int j = 0;
 		std::vector <Entity*> water = mngr_->getEntities(ecs::_grp_WATER);
 		for (Entity* w : water) {
-			SDL_Rect r3 = w->getComponent<Transform>()->getRect();
-			SDL_Rect areaColision; // area de colision 	
-			bool interseccion = SDL_IntersectRect(&r1, &r3, &areaColision);
-			if (interseccion)
-			{
-				physics->setWater(true); ++j;
-				if (health->getElement() != ecs::Water) { physics->setGrounded(false); }
-				//comprobación de si esta en la zona de flote, de momento sin variable de ancho de zona de flote 
-				if (areaColision.y <= r3.y + 2) {
-					physics->setFloating(true);
-					if (areaColision.h < r1.h /2 && physics->getVelocity().getY() < 0) { physics->setFloating(false); physics->setWater(false); }
-				}
-				else {
-					physics->setFloating(false);
+			if (w->isActive()) {
+				SDL_Rect r3 = w->getComponent<Transform>()->getRect();
+				SDL_Rect areaColision; // area de colision 	
+				bool interseccion = SDL_IntersectRect(&r1, &r3, &areaColision);
+				if (interseccion)
+				{
+					physics->setWater(true); ++j;
+					if (health->getElement() != ecs::Water) { physics->setGrounded(false); }
+					//comprobación de si esta en la zona de flote, de momento sin variable de ancho de zona de flote 
+					if (areaColision.y <= r3.y + 2) {
+						physics->setFloating(true);
+						if (areaColision.h < r1.h / 2 && physics->getVelocity().getY() < 0) { physics->setFloating(false); physics->setWater(false); }
+					}
+					else {
+						physics->setFloating(false);
+					}
 				}
 			}
-
 		}
 		if (j == 0) { physics->setWater(false); physics->setFloating(false); }
 		aa++;
