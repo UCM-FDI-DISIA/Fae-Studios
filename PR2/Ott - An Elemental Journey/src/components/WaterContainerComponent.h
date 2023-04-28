@@ -5,7 +5,7 @@ class WaterContainerComponent :public Component
 private:
 	float fillRate = 0.08f, currentFill = 0;
 	int originalHeight, originalYpos;
-	
+	class Transform* tr;
 public:
 	WaterContainerComponent();
 	virtual void initComponent();

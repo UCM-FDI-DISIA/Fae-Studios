@@ -29,6 +29,7 @@ void FireBossRoom::update()
 		Transform* player = p->getComponent<Transform>();
 		if (player->getPosition().getX() > tr_->getPosition().getX() && (player->getPosition().getX() + player->getWidth() / 2) < tr_->getPosition().getX() + tr_->getWidth() && player->getPosition().getY() + player->getHeight() > tr_->getPosition().getY() && player->getPosition().getY() < tr_->getPosition().getY() + tr_->getHeight()) {
 			currentAnim = DIE_MINION;
+			col = anims::animations[eAnims][currentAnim].colNum;
 			startTime = SDL_GetTicks();
 			camera->getComponent<CameraComponent>()->cameraShake(true);
 			auto mTr = minion->getComponent<Transform>();

@@ -4,6 +4,7 @@
 #include "PhysicsComponent.h"
 #include"FireBossAnimation.h"
 #include "Transform.h"
+#include "FramedImage.h"
 #include "../game/Constructors.h"
 FireBossComponent::FireBossComponent()
 {
@@ -15,17 +16,19 @@ void FireBossComponent::initComponent()
 	tr_ = ent_->getComponent<Transform>();
 	player = mngr_->getPlayer();
 	endY = tr_->getPosition().getY();
+	startX = tr_->getPosition().getX();
 	tr_->setPosition(Vector2D{ tr_->getPosition().getX(), tr_->getPosition().getY() - 2000 });
+	
 }
 
 void FireBossComponent::update()
 {
+	//Casos donde el boss no puede hacer nada (cuando cae en la presentación, cuando se muere, y si está estuneado)
 	if (fAnim_->getState() == DIE_FIREBOSS || !start) return;
 
 	if (falling) {
 		if (tr_->getPosition().getY() + tr_->getHeight()*0.75 < endY) {
 			tr_->setPosition(Vector2D{ tr_->getPosition().getX(), (float)(tr_->getPosition().getY() + 30) });
-			std::cout << tr_->getPosition() << std::endl;
 			return;
 		}
 		else {
@@ -33,71 +36,70 @@ void FireBossComponent::update()
 			falling = false;
 		}
 	}
-	p = ent_->getComponent<PhysicsComponent>();
-
-	speed = 0;
 	if (stunned) {
 		if (SDL_GetTicks() - stunTimer > timeStunned * 1000) {
+			normalAttackTimer = specialAttackTimer = SDL_GetTicks();
 			stunned = false;
 		}
 		else return;
 	}
-	if (SDL_GetTicks() - specialAttackTimer >= timeSpecialAttack * 1000) {
-		startSpecialAttack();
-	}
-	else if (!retirada && !ambushing && SDL_GetTicks() - normalAttackTimer >= timeNormalAttack * 1000) {
-		//std::cout << "Ataque normal" << std::endl;
-		normalAttackTimer = SDL_GetTicks();
-		startNormalAttack();
-	}
-	if (ambushing) 
-	{ 
-		ambush();
-		if(fAnim_->getState() != DIE_FIREBOSS && fAnim_->getState() != ATTACK_FIREBOSS) fAnim_->setState(AMBUSH_FIREBOSS);
-	}
-	else if (retirada && fAnim_->getState() != ATTACK_FIREBOSS)
+
+	p = ent_->getComponent<PhysicsComponent>();
+
+	//Comportamiento
+	Transform* pTr = player->getComponent<Transform>();
+	Vector2D pPos = pTr->getPosition();
+	if (abs(pPos.getY() - ent_->getComponent<Transform>()->getPosition().getY()) > ent_->getComponent<Transform>()->getHeight()) //Si el jugador no está a su alcance
 	{
-		//direccion
-		if (tr_->getPosition().getX() - tr_->getInitialPosition().getX() > 0) { speed = -rSpeed; p->lookDirection(false); }
-		else{ speed = rSpeed; p->lookDirection(true); }
-		//movimiento hacia su posicion incial
-		tr_->setPosition(Vector2D(tr_->getPosition().getX() + speed, tr_->getPosition().getY()));
-		//si ha llegado
-		if (tr_->getPosition().getX() == tr_->getInitialPosition().getX()) 
-		{ 
-			retirada = false; fAnim_->setState(IDLE_FIREBOSS);
-			normalAttackTimer = SDL_GetTicks();
+		if (!outRage) {
+			outRage = true; waitTimer = SDL_GetTicks();
+		}
+		else {
+			Vector2D dirMov = { (Vector2D{(float)startX, tr_->getPosition().getY()}) - (tr_->getPosition() + Vector2D{tr_->getWidth() / 2,0}) };
+			if (SDL_GetTicks() - waitTimer < maxWait || (dirMov.magnitude() <= 10)) {
+				p->setVelocity(Vector2D{ 0, 0 });
+				if ((SDL_GetTicks() - specialAttackTimer >= timeSpecialAttack) && (player->getComponent<PhysicsComponent>()->isGrounded() && !player->getComponent<PhysicsComponent>()->isClimbing())) {
+					spawnPillars();
+				}
+				if (SDL_GetTicks() - normalAttackTimer >= timeNormalAttack) shootAtPlayer();
+			}
+			else {
+				p->setVelocity(dirMov.normalize());
+				if (fAnim_->getState() != ATTACK_FIREBOSS)
+					tr_->setPosition(tr_->getPosition() + Vector2D{ p->getVelocity().getX(),0 });
+			}
+		}
+		
+	}
+	else{
+		if (outRage) outRage = false;
+		Vector2D dirMov = { (pPos + Vector2D{pTr->getWidth() / 2,0}) - (tr_->getPosition() + Vector2D{tr_->getWidth() / 2,0}) };
+		if (dirMov.magnitude() <= 100) {
+			if (SDL_GetTicks() - normalAttackTimer >= timeNormalAttack) meleePlayer();
+			p->setVelocity(Vector2D{ 0, 0 });
+		}
+		else {
+			p->setVelocity(dirMov.normalize());
+			if(fAnim_->getState() != ATTACK_FIREBOSS)
+			tr_->setPosition(tr_->getPosition() + Vector2D{ p->getVelocity().getX(),0 });
 		}
 	}
-
-}
-void FireBossComponent::startSpecialAttack()
-{
-	Vector2D pPos = player->getComponent<Transform>()->getPosition();
-	if (abs(pPos.getY() - ent_->getComponent<Transform>()->getPosition().getY()) > ent_->getComponent<Transform>()->getHeight()) {
-		spawnPillars();
-	}
-	else { ambushing = true; combo = true; currentCombo = comboN; comboTimer = SDL_GetTicks(); specialAttackTimer = SDL_GetTicks();}
-}
-void FireBossComponent::startNormalAttack()
-{
-	Vector2D pPos = player->getComponent<Transform>()->getPosition();
-	if ((abs(pPos.getY() - ent_->getComponent<Transform>()->getPosition().getY()) > ent_->getComponent<Transform>()->getHeight() ) && (SDL_GetTicks() - normalAttackTimer >= timeNormalAttack * 1000)) {
-		shootAtPlayer();
-	}
-	else if(!ambushing && (SDL_GetTicks() - normalAttackTimer >= timeNormalAttack * 1000)){
-		ambushing = true; 
+	if (fAnim_->getState() != ATTACK_FIREBOSS) {
+		if (abs(p->getVelocity().getX()) > 0) {
+			fAnim_->setState(AMBUSH_FIREBOSS);
+			fImg = ent_->getComponent<FramedImage>();
+			fImg->flipTexture(false);
+			if (p->getVelocity().getX() < 0) fImg->flipTexture(true);
+		}
+		else fAnim_->setState(IDLE_FIREBOSS);
 	}
 }
 void FireBossComponent::spawnPillars()
 {
 	Transform* pTr = player->getComponent<Transform>();
 	Vector2D pPos = pTr->getPosition();
+	constructors::firePillar(mngr_, "firePillar", pPos.getX() - pTr->getWidth() / 2, pPos.getY() + pTr->getHeight() / 2, 1);
 	specialAttackTimer = SDL_GetTicks();
-	if (player->getComponent<PhysicsComponent>()->isGrounded() && !player->getComponent<PhysicsComponent>()->isClimbing()) {
-		constructors::firePillar(mngr_, "firePillar", pPos.getX() - pTr->getWidth() / 2, pPos.getY() + pTr->getHeight() / 2, 1);
-	}
-	else shootAtPlayer();
 }
 
 void FireBossComponent::shootAtPlayer()
@@ -105,71 +107,24 @@ void FireBossComponent::shootAtPlayer()
 	if (fAnim_->getState() != DIE_FIREBOSS) fAnim_->setState(ATTACK_FIREBOSS);
 	Vector2D position = tr_->getPosition();
 	Transform* pTr = player->getComponent<Transform>();
-	Vector2D direction = pTr->getPosition() - position; 
+	Vector2D direction = pTr->getPosition() - position;
 	direction = direction.normalize() * 2;
 	constructors::bullet(mngr_, "fire_attack", position.getX(), position.getY(), 50, direction, ent_, ecs::Fire, 1);
+	normalAttackTimer = SDL_GetTicks();
 }
-void FireBossComponent::ambush()
+
+void FireBossComponent::meleePlayer()
 {
-	Transform* playerTr = player->getComponent<Transform>();
-	Health* playerH = player->getComponent<Health>();
-	std::vector<Entity*> ground = mngr_->getEntities(ecs::_grp_GROUND);
-
-	
-	//colliders jugador, boss
-	SDL_Rect collider = tr_->getRect(); collider.x = collider.x + collider.w / 4;
-	collider.w = collider.w / 2;
-	SDL_Rect playerCollider = playerTr->getRect();
-	SDL_Rect collision;
-
-	bool collided = false;
-	int speed;
-
-	//direccion en que hacer la emboscada
-	if (tr_->getPosition().getX() - playerTr->getPosition().getX() > 0) { speed = -ambushSpeed; p->lookDirection(false); }
-	else { speed = ambushSpeed; p->lookDirection(true);}
-	if (combo && abs(tr_->getPosition().getX() - playerTr->getPosition().getX()) < 50)
-	{
-		fAnim_->setState(ATTACK_FIREBOSS);  collider.w = collider.w * 2;
-		
+	fAnim_->setState(ATTACK_FIREBOSS);
+	Transform* pTr = player->getComponent<Transform>();
+	if (SDL_HasIntersection(&pTr->getRect(), &tr_->getRect())) {
+		bool d = false;
+		if (tr_->getPosition().getX() + tr_->getWidth() / 2 <= pTr->getPosition().getX() + pTr->getWidth() / 2) d = true;
+		player->getComponent<Health>()->recieveDamage(ecs::Fire, d);
 	}
-	else
-	{
-		tr_->setPosition(Vector2D(tr_->getPosition().getX() + speed, tr_->getPosition().getY()));
-	}
-
-	//colisiones con ott, paredes como condicion de paro de la emboscada
-	//ott
-	bool interseccion = SDL_IntersectRect(&collider, &playerCollider, &collision);
-	if (interseccion)
-	{
-		collided = true;
-		bool dir = true;
-		if (collision.x + collision.w > collider.x + collider.w / 2) dir = false;
-		playerH->recieveDamage(ecs::Fire,dir); 
-		//fAnim_->setState(ATTACK_FIREBOSS);
-	}
-	//wall
-	else
-	{
-		for (Entity* g : ground) {
-			SDL_Rect r2 = g->getComponent<Transform>()->getRect();
-			bool interseccion = SDL_IntersectRect(&collider, &r2, &collision);
-			if (interseccion && (collision.w < collision.h)) 
-			{ 
-				collided = true;
-			}
-		}
-	}
-	//condicion de fin (timer en caso de combo, chocarse en caso de embestida)
-	if (collided || (combo && currentCombo <= 0))
-	{
-		retirada = true; ambushing = false; combo = false; fAnim_->setState(AMBUSH_FIREBOSS);
-		normalAttackTimer = SDL_GetTicks(); 
-		if (combo) { specialAttackTimer = SDL_GetTicks(); }
-		//std::cout << currentCombo << std::endl;
-	}
+	normalAttackTimer = SDL_GetTicks();
 }
+
 
 void FireBossComponent::stunBoss()
 {
