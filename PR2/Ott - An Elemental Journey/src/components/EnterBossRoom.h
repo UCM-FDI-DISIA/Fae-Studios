@@ -21,6 +21,7 @@ private:
 	bool start = false;
 	bool added = false;
 	bool startShaking = false;
+	bool unlocked = false;
 	SDL_Rect bossRoom;
 
 public:

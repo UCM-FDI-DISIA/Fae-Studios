@@ -14,11 +14,25 @@ void FireBossComponent::initComponent()
 {
 	tr_ = ent_->getComponent<Transform>();
 	player = mngr_->getPlayer();
+	endY = tr_->getPosition().getY();
+	tr_->setPosition(Vector2D{ tr_->getPosition().getX(), tr_->getPosition().getY() - 2000 });
 }
 
 void FireBossComponent::update()
 {
-	if (fAnim_->getState() == DIE_FIREBOSS) return;
+	if (fAnim_->getState() == DIE_FIREBOSS || !start) return;
+
+	if (falling) {
+		if (tr_->getPosition().getY() + tr_->getHeight()*0.75 < endY) {
+			tr_->setPosition(Vector2D{ tr_->getPosition().getX(), (float)(tr_->getPosition().getY() + 30) });
+			std::cout << tr_->getPosition() << std::endl;
+			return;
+		}
+		else {
+			tr_->setPosition(Vector2D{ tr_->getPosition().getX(),(float)(endY - tr_->getHeight() * 0.75)});
+			falling = false;
+		}
+	}
 	p = ent_->getComponent<PhysicsComponent>();
 
 	speed = 0;
@@ -79,10 +93,11 @@ void FireBossComponent::spawnPillars()
 {
 	Transform* pTr = player->getComponent<Transform>();
 	Vector2D pPos = pTr->getPosition();
-	if(player->getComponent<PhysicsComponent>()->isGrounded()){
-		constructors::firePillar(mngr_, "firePillar", pPos.getX() - pTr->getWidth() / 2, pPos.getY() + pTr->getHeight()/2, 1);
-		specialAttackTimer = SDL_GetTicks();
+	specialAttackTimer = SDL_GetTicks();
+	if (player->getComponent<PhysicsComponent>()->isGrounded() && !player->getComponent<PhysicsComponent>()->isClimbing()) {
+		constructors::firePillar(mngr_, "firePillar", pPos.getX() - pTr->getWidth() / 2, pPos.getY() + pTr->getHeight() / 2, 1);
 	}
+	else shootAtPlayer();
 }
 
 void FireBossComponent::shootAtPlayer()

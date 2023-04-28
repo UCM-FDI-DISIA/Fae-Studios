@@ -34,6 +34,8 @@ void FireBossAnimation::endAnim()
 {
 	if (currentAnimation == DIE_FIREBOSS) {
 		ent_->setAlive(false);
+		sdlutils().musics().at("fire_boss_fight").fadeOutMusic(1000);
+		sdlutils().musics().at("fire_level").fadeInMusic(2000);
 	}
 	if (currentAnimation == ATTACK_FIREBOSS) {
 		auto fComp = ent_->getComponent<FireBossComponent>();

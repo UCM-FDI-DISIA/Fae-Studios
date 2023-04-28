@@ -48,10 +48,9 @@ void PlayerInput::update()
                 if(physics_->isGrounded() && !physics_->isClimbing() && abs(physics_->getVelocity().getX()) > 0) sdlutils().soundEffects().at("ott_step").playFor(1000, 0, ecs::_channel_PLAYER);
 			}
 
-			if (input->isKeyDown(SDLK_SPACE) || SDL_NumJoysticks() == 1 && SDL_JoystickGetButton(game().getJoystick(), SDL_CONTROLLER_BUTTON_A)) {
+			if (input->isKeyDown(SDLK_SPACE) || (SDL_NumJoysticks() == 1 && SDL_JoystickGetButton(game().getJoystick(), SDL_CONTROLLER_BUTTON_A))) {
 				//Salto
-				if(SDL_NumJoysticks() == 1 && !SDL_JoystickGetButton(game().getJoystick(), SDL_CONTROLLER_BUTTON_B))
-					physics_->jump();
+				physics_->jump();
 			}
 			if (input->isKeyDown(SDLK_q)) {
 				ent_->getComponent<AttackCharger>()->addCharge(8);
@@ -82,23 +81,20 @@ void PlayerInput::update()
 					attack = true;
 					attackTimer = SDL_GetTicks();
 				}
-				if ((input->isKeyDown(SDLK_a) || SDL_NumJoysticks() == 1 && SDL_JoystickGetButton(game().getJoystick(), SDL_CONTROLLER_BUTTON_RIGHTSHOULDER)) && earth && !selectedEarth) {
+				if ((input->isKeyDown(SDLK_a) || (SDL_NumJoysticks() == 1 && SDL_JoystickGetButton(game().getJoystick(), SDL_CONTROLLER_BUTTON_RIGHTSHOULDER))) && earth && !selectedEarth) {
 					//Cambio elemento
-					if (SDL_NumJoysticks() == 1 && !SDL_JoystickGetButton(game().getJoystick(), SDL_CONTROLLER_BUTTON_A)) {
-						anim_->changeElem(ecs::Earth);
-						anim_->setState(VANISH);
-						selectedEarth = true;
-						selectedWater = false;
-						selectedFire = false;
-						selectedLight = false;
-						sdlutils().soundEffects().at("elem_changed").play(0, ecs::_channel_ALERTS);
-
-						if (SDL_NumJoysticks() == 1 && SDL_JoystickHasLED(game().getJoystick())) {
-							SDL_JoystickSetLED(game().getJoystick(), 0, UINT8_MAX, 0);
-						}
+					anim_->changeElem(ecs::Earth);
+					anim_->setState(VANISH);
+					selectedEarth = true;
+					selectedWater = false;
+					selectedFire = false;
+					selectedLight = false;
+					sdlutils().soundEffects().at("elem_changed").play(0, ecs::_channel_ALERTS);
+					if (SDL_NumJoysticks() == 1 && SDL_JoystickHasLED(game().getJoystick())) {
+						SDL_JoystickSetLED(game().getJoystick(), 0, UINT8_MAX, 0);
 					}
 				}
-				if ((input->isKeyDown(SDLK_d) || SDL_NumJoysticks() == 1 && SDL_JoystickGetAxis(game().getJoystick(), SDL_CONTROLLER_AXIS_TRIGGERLEFT) > 100) && water && !selectedWater) {
+				if (input->isKeyDown(SDLK_d) && water && !selectedWater) {
 					anim_->changeElem(ecs::Water);
 					anim_->setState(VANISH);
 					selectedEarth = false;

@@ -96,6 +96,7 @@ void MapComponent::generateEnemies() {
         {
             auto fBoss= constructors::FireBoss(mngr_, x_ * scale * roomScale, y_ * scale * roomScale);
             game->addEnemy(fBoss, roomNum);
+            mngr_->setFireBoss(fBoss);
         }
     }
 
@@ -318,6 +319,7 @@ void MapComponent::loadMap(std::string path, int nextPos) {
                         });
                     numRooms = objects.size();
                     game->initEnemies(numRooms);
+                   // game->initCarteles(numRooms);
                     for (int i = 0; i < numRooms; ++i) {
                         backgrounds.push_back({});
                     }
@@ -531,12 +533,12 @@ void MapComponent::loadMap(std::string path, int nextPos) {
            
             trRect.x *= roomScale;
             if (name[1] != "0") {
-                trRect.y -= sdlutils().images().at(cartel.getClass()).height();
+                trRect.y -= sdlutils().images().at(cartel.getClass()).height()/ sdlutils().images().at(cartel.getClass()).getNumRows();
             }
             trRect.y *= roomScale;
             trRect.w = sdlutils().images().at(cartel.getClass()).width()/ sdlutils().images().at(cartel.getClass()).getNumCols();
             trRect.w *= roomScale;
-            trRect.h = sdlutils().images().at(cartel.getClass()).height();
+            trRect.h = sdlutils().images().at(cartel.getClass()).height() / sdlutils().images().at(cartel.getClass()).getNumRows();
             trRect.h *= roomScale;
 
             game->addCarteles(constructors::Cartel(mngr_, trRect.x, trRect.y, trRect.w, trRect.h, cartel.getClass()), std::stoi(roomNum));
@@ -675,9 +677,15 @@ void MapComponent::loadMap(std::string path, int nextPos) {
             }
             else if (classSplit[0] == "WaterTank") {
                 auto roomScale = vectorTiles[std::stoi(ot.getName())].first;
-                auto life = constructors::waterContainer(mngr_, x_ * scale * roomScale, y_ * scale * roomScale, w_ * scale * roomScale, h_ * scale * roomScale, roomScale);
-                interact[std::stoi(ot.getName())].push_back(life);
-                life->setActive(false);
+                auto wTank = constructors::waterContainer(mngr_, x_ * scale * roomScale, y_ * scale * roomScale, w_ * scale * roomScale, h_ * scale * roomScale, roomScale);
+                interact[std::stoi(ot.getName())].push_back(wTank);
+                wTank->setActive(false);
+            }
+            else if (classSplit[0] == "FireBossRoom") {
+                auto roomScale = vectorTiles[std::stoi(ot.getName())].first;
+                auto fireRoom = constructors::fireBossRoom(mngr_, x_ * scale * roomScale, y_ * scale * roomScale, w_ * scale * roomScale, h_ * scale * roomScale);
+                interact[std::stoi(ot.getName())].push_back(fireRoom);
+                fireRoom->setActive(false);
             }
         }
 

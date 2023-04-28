@@ -15,6 +15,8 @@ private:
 	//SDL_Rect collider;
 	int specialAttackTimer = 0, timeSpecialAttack = 7, normalAttackTimer = 0, timeNormalAttack = 3, ambushSpeed = 1, speed=0, rSpeed=1,stunTimer = 0, timeStunned = 5, comboTimer = 0, comboTime = 3;
 	bool ambushing = false, retirada = false, stunned = false, combo = false;
+	bool falling = true, start = false;
+	int endY;
 	void startSpecialAttack();
 	void startNormalAttack();
 	void spawnPillars();
@@ -28,6 +30,7 @@ public:
 	inline void minusCombo() { currentCombo--; }
 	void stunBoss();
 	inline bool isMoving() { return ambushing || retirada; }
+	inline void activateBoss() { start = true; }
 	inline void setAnimComponent(FireBossAnimation* a) { fAnim_ = a; }
 	constexpr static ecs::cmpId_type id = ecs::_BOSS;
 };

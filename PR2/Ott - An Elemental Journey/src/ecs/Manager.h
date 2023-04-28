@@ -21,6 +21,7 @@ private:
     Entity* player_ = nullptr;
     Entity* camera_ = nullptr;
     Entity* earthBoss_ = nullptr;
+    Entity* fireBoss_ = nullptr;
     Entity* map_ = nullptr;
 
 public:
@@ -65,6 +66,9 @@ public:
 
     Entity* getEarthBoss() { return earthBoss_; }
     void setEarthBoss(Entity* e) { earthBoss_ = e; }
+
+    Entity* getFireBoss() { return fireBoss_; }
+    void setFireBoss(Entity* e) { fireBoss_ = e; }
 
     inline void setDelete() { deleted = true; }
 
