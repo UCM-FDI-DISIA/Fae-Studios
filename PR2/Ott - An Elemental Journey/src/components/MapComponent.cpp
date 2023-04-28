@@ -562,6 +562,10 @@ void MapComponent::loadMap(std::string path, int nextPos) {
                     Vector2D(x_* scale* roomScale, ((y_* scale - sdlutils().images().at("grass").height()) + h_ * scale + 100)* roomScale),
                     Vector2D(x_* scale* roomScale, (y_* scale - sdlutils().images().at("grass").height())* roomScale), 0, std::stoi(ot.getName()));
                 interact[std::stoi(ot.getName())].push_back(newGrass);
+                auto v = interact[std::stoi(ot.getName())];
+                auto it = v.end();
+                --it;
+                newGrass->getComponent<InteractionComponent>()->setIt(it, &v);
                 newGrass->setActive(false);
             }
             else if (classSplit[0] == "Element") {
@@ -572,6 +576,10 @@ void MapComponent::loadMap(std::string path, int nextPos) {
                     auto roomScale = vectorTiles[room].first;
                     auto elem = constructors::ElementEntity(mngr_, (x_* scale)* roomScale, (y_* scale)* roomScale, (w_* scale)* roomScale, (h_* scale)* roomScale, (ecs::elements)std::stoi(ot.getName()), room);
                     interact[std::stoi(classSplit[1])].push_back(elem);
+                    auto v = &interact[std::stoi(classSplit[1])];
+                    auto it = v->end();
+                    --it;
+                    elem->getComponent<InteractionComponent>()->setIt(it, v);
                     elem->setActive(false);
                 }
             }
@@ -596,7 +604,15 @@ void MapComponent::loadMap(std::string path, int nextPos) {
                         x_* scale* roomScale2, y_* scale* roomScale2 + hOffset * roomScale2, w2, h2, roomNum, 0, 0);
 
                     interact[roomNum].push_back(lampPair.second);
+                    auto v = &interact[roomNum];
+                    auto it = v->end();
+                    --it;
+                    lampPair.second->getComponent<InteractionComponent>()->setIt(it, v);
                     interact[(*at).second.second].push_back(lampPair.first);
+                    auto v2 = &interact[(*at).second.second];
+                    auto it2 = v->end();
+                    --it2;
+                    lampPair.first->getComponent<InteractionComponent>()->setIt(it2, v2);
                     lampPair.first->setActive(false);
                     lampPair.second->setActive(false);
                 }
@@ -611,6 +627,10 @@ void MapComponent::loadMap(std::string path, int nextPos) {
                 auto sanct = constructors::sanctuary(mngr_, pos - Vector2D(0, 250 * roomScale), ID, std::stoi(ot.getName()), 250 * roomScale, 250 * roomScale);
                 sanctuaries[ID].sanct = sanct;
                 interact[std::stoi(ot.getName())].push_back(sanct);
+                auto v = &interact[std::stoi(ot.getName())];
+                auto it = v->end();
+                --it;
+                sanct->getComponent<InteractionComponent>()->setIt(it, v);
                 if (std::stoi(classSplit[1]) == player_->getComponent<Health>()->getSanctuaryID()) {
                     playerSanctuary = sanct;
                     playerSanctuaryID = ID;
@@ -659,6 +679,10 @@ void MapComponent::loadMap(std::string path, int nextPos) {
                 triggerLore->addComponent<Trigger>();
             
                 interact[roomNum].push_back(triggerLore);
+                auto v = interact[roomNum];
+                auto it = v.end();
+                --it;
+                triggerLore->getComponent<InteractionComponent>()->setIt(it, &v);
                 triggerLore->setActive(false);
             }
             else if (classSplit[0] == "Life") {
@@ -671,6 +695,10 @@ void MapComponent::loadMap(std::string path, int nextPos) {
                     auto roomScale = vectorTiles[std::stoi(ot.getName())].first;
                     auto life = constructors::LifeShard(mngr_, x_*scale*roomScale,y_* scale* roomScale, w_* scale* roomScale, h_*scale*roomScale, std::stoi(classSplit[1]), std::stoi(ot.getName()));
                     interact[std::stoi(ot.getName())].push_back(life);
+                    auto v = &interact[std::stoi(ot.getName())];
+                    auto it = v->end();
+                    --it;
+                    life->getComponent<InteractionComponent>()->setIt(it, v);
                     life->setActive(false);
                 }
             }
@@ -678,12 +706,20 @@ void MapComponent::loadMap(std::string path, int nextPos) {
                 auto roomScale = vectorTiles[std::stoi(ot.getName())].first;
                 auto wTank = constructors::waterContainer(mngr_, x_ * scale * roomScale, y_ * scale * roomScale, w_ * scale * roomScale, h_ * scale * roomScale, roomScale);
                 interact[std::stoi(ot.getName())].push_back(wTank);
+                auto v = &interact[std::stoi(ot.getName())];
+                auto it = v->end();
+                --it;
+                wTank->getComponent<InteractionComponent>()->setIt(it, v);
                 wTank->setActive(false);
             }
             else if (classSplit[0] == "FireBossRoom") {
                 auto roomScale = vectorTiles[std::stoi(ot.getName())].first;
                 auto fireRoom = constructors::fireBossRoom(mngr_, x_ * scale * roomScale, y_ * scale * roomScale, w_ * scale * roomScale, h_ * scale * roomScale);
                 interact[std::stoi(ot.getName())].push_back(fireRoom);
+                auto v = &interact[std::stoi(ot.getName())];
+                auto it = v->end();
+                --it;
+                fireRoom->getComponent<InteractionComponent>()->setIt(it, v);
                 fireRoom->setActive(false);
             }
         }
