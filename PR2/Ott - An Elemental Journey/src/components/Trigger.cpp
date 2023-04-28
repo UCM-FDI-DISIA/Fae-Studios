@@ -1,5 +1,6 @@
 #include "Trigger.h"
 #include "LoreRoom.h"
+#include "Health.h"
 Trigger::Trigger() {
 }
 void Trigger::update() {
@@ -19,6 +20,7 @@ void Trigger::update() {
 			}
 		}
 	}
+	if (player_->getComponent<Health>()->getHealth() <= 0) detected = false;
 }
 
 void Trigger::initComponent()
