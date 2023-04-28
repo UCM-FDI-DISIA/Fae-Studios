@@ -40,7 +40,7 @@
   <object id="36" name="0" type="Activo" x="680" y="537" width="144" height="154"/>
  </objectgroup>
  <objectgroup id="10" name="bossFinal">
-  <object id="37" name="0" type="0" x="274" y="77" width="591" height="643"/>
+  <object id="37" name="0" type="0" x="282" y="97" width="563" height="591"/>
  </objectgroup>
  <objectgroup id="2" name="Colisiones" class="Ground">
   <object id="7" name="0" type="Ground" x="0" y="530" width="302" height="234"/>

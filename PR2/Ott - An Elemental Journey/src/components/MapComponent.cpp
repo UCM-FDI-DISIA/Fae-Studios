@@ -409,6 +409,7 @@ void MapComponent::loadMap(std::string path, int nextPos) {
             bubblesPos.push_back(rect);
         }
 
+        // BOSS SALA FINAL BOSS
         for (auto obj : vectorObjects[FINALBOSS_VECTOR_POS]) {
             SDL_Rect rect = getSDLRect(obj.getAABB());
 
