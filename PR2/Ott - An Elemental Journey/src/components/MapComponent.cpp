@@ -23,7 +23,7 @@ MapComponent::MapComponent(Entity* fadeOut, PlayState* game, int currentMap) : f
     for (int i = 0; i < ecs::LAST_MAP_ID; ++i) {
         mapKeys.push_back({});
     }
-    currentMapKey = "waterMap";
+    currentMapKey = "fireMap";
     tilemap = &sdlutils().images().at(sdlutils().levels().at(currentMapKey).tileset);
 }
 
@@ -715,18 +715,12 @@ void MapComponent::loadMap(std::string path, int nextPos) {
                 auto roomScale = vectorTiles[std::stoi(ot.getName())].first;
                 auto wTank = constructors::waterContainer(mngr_, x_ * scale * roomScale, y_ * scale * roomScale, w_ * scale * roomScale, h_ * scale * roomScale, roomScale);
                 interact[std::stoi(ot.getName())].push_back(wTank);
-                auto v = &interact[std::stoi(ot.getName())];
-                auto it = (--v->end());
-                wTank->getComponent<InteractionComponent>()->setIt(it, v);
                 wTank->setActive(false);
             }
             else if (classSplit[0] == "FireBossRoom") {
                 auto roomScale = vectorTiles[std::stoi(ot.getName())].first;
                 auto fireRoom = constructors::fireBossRoom(mngr_, x_ * scale * roomScale, y_ * scale * roomScale, w_ * scale * roomScale, h_ * scale * roomScale);
                 interact[std::stoi(ot.getName())].push_back(fireRoom);
-                auto v = &interact[std::stoi(ot.getName())];
-                auto it = (--v->end());
-                fireRoom->getComponent<InteractionComponent>()->setIt(it, v);
                 fireRoom->setActive(false);
             }
         }
