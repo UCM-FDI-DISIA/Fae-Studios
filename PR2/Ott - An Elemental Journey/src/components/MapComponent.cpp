@@ -153,7 +153,8 @@ void MapComponent::initSanctuaries() {
         switch (i) {
             case 0: mapKey = "earthMap"; break;
             case 1: mapKey = "waterMap"; break;
-            case 2: mapKey = "fireMap"; break;
+            case 2: mapKey = "waterBossMap"; break;
+            case 3: mapKey = "fireMap"; break;
         }
         for (int o = 0; o < numSancts; ++o) {
             sanctuaries.push_back({ nullptr, mapKey });
