@@ -144,7 +144,7 @@
   <object id="391" name="12_2_left" type="Slime" x="4291" y="2305" width="32" height="64"/>
  </objectgroup>
  <objectgroup id="9" name="Trigger de cambio de mapa">
-  <object id="345" name="0" type="waterBossMap_2_0" x="3989.85" y="2536.06" width="120" height="86"/>
+  <object id="345" name="12" type="waterBossMap_2_0" x="3989.85" y="2536.06" width="120" height="86"/>
   <object id="449" name="13" type="earthMap_0_0" x="18" y="1694" width="96" height="32"/>
   <object id="450" name="13" type="earthMap_0_1" x="400" y="1692.67" width="96" height="32"/>
  </objectgroup>
