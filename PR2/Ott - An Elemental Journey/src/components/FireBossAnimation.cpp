@@ -37,24 +37,7 @@ void FireBossAnimation::endAnim()
 		sdlutils().musics().at("fire_boss_fight").fadeOutMusic(1000);
 		sdlutils().musics().at("fire_level").fadeInMusic(2000);
 	}
-	if (currentAnimation == ATTACK_FIREBOSS) {
-		auto fComp = ent_->getComponent<FireBossComponent>();
-		if (fComp->getCurrentCombo() > 0) 
-		{
-			fComp->minusCombo();
-			std::cout << fComp->getCurrentCombo() << std::endl;
-			timer_ = 0;
-			//currentAnimation = IDLE_FIREBOSS;
-			//currentAnimation = ATTACK_FIREBOSS;
-		}
-		else 
-		{
-			if (fComp->isMoving()) currentAnimation = AMBUSH_FIREBOSS;
-			else currentAnimation = IDLE_FIREBOSS;
-		}
-	}
-	
-	
+	if (currentAnimation == ATTACK_FIREBOSS) currentAnimation = IDLE_FIREBOSS;
 }
 
 void FireBossAnimation::setState(int newState)

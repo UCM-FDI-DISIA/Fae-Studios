@@ -20,6 +20,9 @@ SDL_Rect FramedImage::getRect() const
 }
 
 void FramedImage::render() {
+	if (ent_->hasComponent<FireBossComponent>()) {
+		if (ent_->getComponent<FireBossComponent>()->isStunned() && SDL_GetTicks() % 2 == 0) return;
+	}
 	auto rect = getRect();
 	if (cam != nullptr) {
 		auto camera = cam->camera;
