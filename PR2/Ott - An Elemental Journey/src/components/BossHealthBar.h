@@ -12,6 +12,7 @@ public:
 	BossHealthBar(int actualBoss_, Texture* bar, Texture* life) : actualBoss((Boss)actualBoss_), barTx(bar), lifeTx(life) {}
 	BossHealthBar(Entity* bossManager_, int actualBoss_, Texture* bar, Texture* life) : bossManager(bossManager_), actualBoss((Boss)actualBoss_), barTx(bar), lifeTx(life) {}
 	void initComponent() override;
+	bool getIsDead() { return isDead; }
 	void setBossLife(int n) { BossLife = n; }
 	void damage(int n);
 	void reset();

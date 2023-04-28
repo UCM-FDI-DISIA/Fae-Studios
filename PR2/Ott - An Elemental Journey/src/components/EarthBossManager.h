@@ -27,6 +27,8 @@ public:
     void setChangeState(bool c) { changeState = c; }
     Entity* getHealthBar() { return healthBar; }
     void addPlatforms(std::vector<Entity*> pV) { platformVector = pV; }
+    Entity* getBoss() { return boss; }
+    bool getShowBar() { return showBar; }
 private:
     //Dimensiones de la sala del boss de tierra
     SDL_Rect roomDimensions;
@@ -69,6 +71,7 @@ private:
     bool isFight = false; // para empezar o acabar la partida
     bool attackingHorizontally = false;
     bool attackingVertically = false;
+    bool showBar = false;
 
     //Métodos
     void verticalAttackPosition();
