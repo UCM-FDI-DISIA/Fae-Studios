@@ -4,6 +4,7 @@
 #include "WaterBubbleComponent.h"
 #include "FireWallComponent.h"
 #include "FistComponent.h"
+#include "MapComponent.h"
 FinalBossBehaviorComponent::FinalBossBehaviorComponent()
 {
 	currentElement = rand() % 5;
@@ -31,7 +32,7 @@ void FinalBossBehaviorComponent::update()
 		case 1: std::cout << "Ataque agua boss final" << std::endl; spawnBubbles(); break;
 		case 2: std::cout << "Ataque fuego boss final" << std::endl; spawnFireWall(); break;
 		case 3: std::cout << "Ataque oscuridad boss final" << std::endl; spawnBlackHole();break;
-		case 4: std::cout << "Ataque pu�o boss final" << std::endl; /*spawnFist();*/ break;
+		case 4: std::cout << "Ataque pu�o boss final" << std::endl; spawnFist(); break;
 		default: std::cout << "Ataque generico boss final" << std::endl; spawnFist(); break;
 		}
 		//Cambia de elemento aleatoriamente
@@ -75,8 +76,8 @@ void FinalBossBehaviorComponent::spawnBlackHole() {
 	// Transform del boss
 	auto pTransf = ent_->getComponent<Transform>();
 	// Agujero negro
-	Entity* blackHole = mngr_->addEntity(ecs::_grp_BUBBLE);
-
+	Entity* blackHole = mngr_->addEntity(ecs::_grp_BLACKHOLE);
+	//Vector2D pos = MapCom
 	blackHole->addComponent<Transform>(pTransf->getPosition(), BLACKHOLE_SIZE * pTransf->getScale(), BLACKHOLE_SIZE * pTransf->getScale());
 	blackHole->addComponent<Image>(&sdlutils().images().at("blackHole"));
 	blackHole->addComponent<Health>(100, ecs::Dark);

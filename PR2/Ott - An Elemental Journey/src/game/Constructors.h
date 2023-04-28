@@ -262,7 +262,6 @@ namespace constructors {
 		pAnim->initComponent();
 		health->initComponent();
 		ph->createCollider();	
-		//player->addComponent<FinalBossBehaviorComponent>();
 		return player;
 	}
 	static inline Entity* boss(Manager* mngr_, int x, int y, int w, int h)

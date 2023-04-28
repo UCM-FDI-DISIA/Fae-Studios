@@ -327,6 +327,9 @@ void MapComponent::loadMap(std::string path, int nextPos) {
                 else if (name == "Burbujas") {
                     vectorObjects[BUBBLE_VECTOR_POS] = objects;
                 }
+                else if (name == "bossFinal") {
+                    vectorObjects[FINALBOSS_VECTOR_POS] = objects;
+                }
                 
             }
             #pragma endregion
@@ -404,6 +407,18 @@ void MapComponent::loadMap(std::string path, int nextPos) {
             rect.h *= roomScale;
 
             bubblesPos.push_back(rect);
+        }
+
+        for (auto obj : vectorObjects[FINALBOSS_VECTOR_POS]) {
+            SDL_Rect rect = getSDLRect(obj.getAABB());
+
+            auto roomScale = vectorTiles[std::stoi(obj.getClass())].first;
+            rect.x *= roomScale;
+            rect.y *= roomScale;
+            rect.w *= roomScale;
+            rect.h *= roomScale;
+
+            constructors::boss(mngr_, rect.x, rect.y, rect.w, rect.h);
         }
 
         for (auto obj : vectorObjects[WATER_VECTOR_POS]) {
