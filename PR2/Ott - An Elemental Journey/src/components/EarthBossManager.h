@@ -7,13 +7,15 @@
 #include <vector>
 #include "../ecs/anims.h"
 #include "EarthBossAnimationController.h"
+#include "CameraComponent.h"
+#include "MapComponent.h"
 
 
 class EarthBossManager : public Component
 {
 public:
     constexpr static ecs::cmpId_type id = ecs::_EARTHMNGR;
-    EarthBossManager(SDL_Rect rD);
+    EarthBossManager(SDL_Rect rD, MapComponent* map_);
     virtual ~EarthBossManager(){}
     void initializeEntities();
     void isFighting(bool b) { isFight = b; }
@@ -32,6 +34,7 @@ private:
     std::vector<Entity*> warningVector;
     std::vector<Entity*> vineVector;
     std::vector<Entity*> platformVector;
+    MapComponent* map;
     Entity* healthBar;
     Entity* boss;
     Entity* presentBoss;

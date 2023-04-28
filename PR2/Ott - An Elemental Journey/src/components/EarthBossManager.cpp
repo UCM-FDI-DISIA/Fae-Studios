@@ -31,7 +31,7 @@ void EarthBossManager::initComponent() {
 	trigger->addComponent<EnterBossRoom>(roomDimensions);
 	trigger->addComponent<Trigger>();
 }
-EarthBossManager::EarthBossManager(SDL_Rect rD) : roomDimensions(rD) {
+EarthBossManager::EarthBossManager(SDL_Rect rD, MapComponent* map_) : roomDimensions(rD), map(map_){
 }
 void EarthBossManager::setState(int newState) {
 	switch (newState) {
@@ -271,8 +271,8 @@ void EarthBossManager::createVinePlatform() {
 #endif
 	int aux = rand() % 5;
 	SDL_Rect platformVine_Rect = vinePlatform->getComponent<Transform>()->getRect();
-	platformVine_Rect.x = platformVector[aux]->getComponent<Transform>()->getPosition().getX() - 15;
-	platformVine_Rect.y = platformVector[aux]->getComponent<Transform>()->getPosition().getY() - 5;
+	platformVine_Rect.x = platformVector[aux]->getComponent<Transform>()->getPosition().getX() - 5;
+	platformVine_Rect.y = platformVector[aux]->getComponent<Transform>()->getPosition().getY() + 3;
 	vinePlatform->getComponent<Transform>()->setPosition(Vector2D(platformVine_Rect.x, platformVine_Rect.y));
 }
 
@@ -326,4 +326,6 @@ void EarthBossManager::die() {
 	boss->getComponent<Transform>()->setPosition(Vector2D(boss->getComponent<Transform>()->getPosition().getX(), roomDimensions.y - roomDimensions.h));
 	isFight = false;
 	trigger->getComponent<EnterBossRoom>()->unlockDoors();
+	auto bounds = map->getCamBounds();
+	mngr_->getCamera()->getComponent<CameraComponent>()->setBounds(bounds);
 }

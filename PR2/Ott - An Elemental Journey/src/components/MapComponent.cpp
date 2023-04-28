@@ -626,7 +626,7 @@ void MapComponent::loadMap(std::string path, int nextPos) {
                 roomDimensions.w = w_ * scale * roomScale;
                 roomDimensions.h = h_ * scale * roomScale;
                 Entity* earthBoss = mngr_->addEntity(ecs::_grp_GENERAL);
-                earthBoss->addComponent<EarthBossManager>(roomDimensions);
+                earthBoss->addComponent<EarthBossManager>(roomDimensions, this);
                 mngr_->setEarthBoss(earthBoss);
                 interact[roomNum].push_back(earthBoss);
                 earthBoss->setActive(false);
