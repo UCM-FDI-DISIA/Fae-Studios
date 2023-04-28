@@ -22,9 +22,12 @@ private:
 
 public:
 	constexpr static ecs::cmpId_type id = ecs::_HEALTH;
-	Health(int h, ecs::elements e, bool player = false) : Component(), elem(e) {
-		if (player) { maxLife = h; actualLife = h; }
-		else { maxLife = 2 * h; actualLife = 2 * h; }// La vida de los enemigos tiene una representaci�n diferente
+	Health(int h, ecs::elements e, bool player = false) : Component(), elem(e) { // ENEMIGOS
+		maxLife = 2 * h; actualLife = 2 * h; 
+	};
+
+	Health(int h, ecs::elements e, HealthImage* image) : Component(), elem(e), image(image) { // JUGADOR
+		maxLife = h; actualLife = h;
 	};
 
 	Health(BossHealthBar* bar_, int h, ecs::elements e, bool player = false) : Component(), elem(e) {

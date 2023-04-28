@@ -106,6 +106,10 @@ void MapComponent::generateEnemies() {
             ot->setActive(false);
         }
     }
+
+    for (auto it : enemies_[currentRoom]) {
+        it->setActive(true);
+    }
 }
 
 MapComponent::MapComponent(Entity* fadeOut, PlayState* game, int currentMap, std::ifstream& file) : fadeOut(fadeOut), game(game), currentMap(currentMap) {
