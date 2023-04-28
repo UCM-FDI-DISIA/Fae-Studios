@@ -39,7 +39,7 @@ private:
 	std::unordered_map<std::string, std::vector<SDL_Rect>> ground;
 	std::unordered_map<std::string, std::vector<std::pair<bool, SDL_Rect>>> destructible;
 
-	std::vector<std::vector<Entity*>> interact;
+	std::vector<std::list<Entity*>> interact;
 	struct sanctuaries_info {
 		Entity* sanct;
 		std::string mapKey;
@@ -152,7 +152,7 @@ public:
 
 	std::vector<std::pair<SDL_Rect, SDL_Rect>> checkCollisions(const SDL_Rect& playerRect);
 	
-	inline std::vector<std::vector<Entity*>> getInteract() { return interact; };
+	inline std::vector<std::list<Entity*>> getInteract() { return interact; };
 	inline std::vector<std::vector<Entity*>> getWater() { return waterObjects; };
 	inline int getCurrentRoom() { return currentRoom; }
 	inline void setCurrentRoom(int newRoom) {
