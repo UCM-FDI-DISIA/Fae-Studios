@@ -12,125 +12,715 @@
 		{ "id" : "press_start48", "file" : "../resources/fonts/PressStart2P-Regular.ttf", "size": 48 }
   ],
 
-  "images" : [
-		{ "id" : "playbackground", "file" : "../resources/images/backgrounds/defaultmenubg.png", "rows" : 1, "cols" : 1},
-		{ "id" : "Sala0", "file" : "../resources/images/backgrounds/Sala0.png", "rows" : 1, "cols" : 1},
-		{ "id" : "Sala1", "file" : "../resources/images/backgrounds/Sala1.png", "rows" : 1, "cols" : 1},
-		{ "id" : "Sala2", "file" : "../resources/images/backgrounds/Sala2.png", "rows" : 1, "cols" : 1},
-		{ "id" : "Sala3", "file" : "../resources/images/backgrounds/Sala3.png", "rows" : 1, "cols" : 1},
-		{ "id" : "Sala4", "file" : "../resources/images/backgrounds/Sala4.png", "rows" : 1, "cols" : 1},
-		{ "id" : "Sala5", "file" : "../resources/images/backgrounds/Sala5.png", "rows" : 1, "cols" : 1},
-		{ "id" : "Sala6", "file" : "../resources/images/backgrounds/Sala6.png", "rows" : 1, "cols" : 1},
-		{ "id" : "Sala7", "file" : "../resources/images/backgrounds/Sala7.png", "rows" : 1, "cols" : 1},
-		{ "id" : "Sala8", "file" : "../resources/images/backgrounds/Sala8.png", "rows" : 1, "cols" : 1},
-		{ "id" : "Sala9", "file" : "../resources/images/backgrounds/Sala9.png", "rows" : 1, "cols" : 1},
-		{ "id" : "Sala10", "file" : "../resources/images/backgrounds/Sala10.png", "rows" : 1, "cols" : 1},
-		{ "id" : "Sala11", "file" : "../resources/images/backgrounds/Sala11.png", "rows" : 1, "cols" : 1},
-		{ "id" : "Sala12", "file" : "../resources/images/backgrounds/Sala12.png", "rows" : 1, "cols" : 1},
-		{ "id" : "Sala13", "file" : "../resources/images/backgrounds/Sala13.png", "rows" : 1, "cols" : 1},
-		{ "id" : "mainmenubackground", "file" : "../resources/images/backgrounds/mainmenubg.png", "rows" : 1, "cols" : 1},
-		{ "id" : "blackbackground", "file" : "../resources/images/backgrounds/mainbg.png", "rows" : 1, "cols" : 1},
-		{ "id" : "whitebackground", "file" : "../resources/images/backgrounds/playbg.png", "rows" : 1, "cols" : 1},
-		{ "id" : "button", "file" : "../resources/images/ui/button.png", "rows" : 1, "cols" : 3},
-		{ "id" : "largebutton", "file" : "../resources/images/ui/largebutton.png", "rows" : 1, "cols" : 3},
-		{ "id" : "controls", "file" : "../resources/images/ui/controles.png", "rows" : 1, "cols" : 1},
-		{ "id" : "lifeshard", "file" : "../resources/images/tests/lifeshard.png", "rows": 1, "cols": 10},
-		{ "id" : "quitbutton", "file" : "../resources/images/ui/quitbutton.png", "rows" : 1, "cols" : 3},
-		{ "id" : "slider", "file" : "../resources/images/ui/slider.png", "rows" : 3, "cols" : 1},
-		{ "id" : "needle", "file" : "../resources/images/ui/needle.png", "rows" : 1, "cols" : 3},
-		{ "id" : "chargebar", "file" : "../resources/images/ui/charged-bar.png", "rows" : 1, "cols" : 9},
-		{ "id" : "hearts", "file" : "../resources/images/ui/hearts.png", "rows" : 1, "cols" : 13},
-		{ "id" : "screendarkentop", "file" : "../resources/images/ui/screendarken-top.png", "rows" : 1, "cols" : 1},
-		{ "id" : "screendarkenside", "file" : "../resources/images/ui/screendarken-side.png", "rows" : 1, "cols" : 1},
-		{ "id" : "whiteBox", "file" : "../resources/images/tests/whiteBox.png", "rows" : 1, "cols" : 1},
-		{ "id" : "ott_luz", "file" : "../resources/images/tests/Ott_Luz.png", "rows" : 11, "cols" : 8},
-		{ "id" : "ott_tree", "file" : "../resources/images/tests/Ott_Tree.png", "rows" : 11, "cols" : 8},
-		{ "id" : "ott_water", "file" : "../resources/images/tests/Ott_Water.png", "rows" : 11, "cols" : 8},
-		{ "id" : "ott_fire", "file" : "../resources/images/tests/Ott_Fire.png", "rows" : 11, "cols" : 8},
-		{ "id" : "fadeOut", "file" : "../resources/images/tests/fadeOut.png", "rows" : 1, "cols" : 11},
-		{ "id" : "lamp", "file" : "../resources/images/tests/lamp-sheet-1.png", "rows" : 1, "cols" : 5},
-		{ "id" : "enredadera", "file" : "../resources/images/tests/enredadera.png", "rows" : 1, "cols" : 1},
-		{ "id" : "grass", "file" : "../resources/images/tests/grass-sheet.png", "rows" : 1, "cols" : 4},
-		{ "id" : "pixel", "file" : "../resources/images/tests/1x1Pixel.png", "rows" : 1, "cols" : 1},
-		{ "id" : "pixelWhite", "file" : "../resources/images/tests/1x1PixelWhite.png", "rows" : 1, "cols" : 1},
-		{ "id": "sanctuary", "file": "../resources/images/tests/sanctuary.png", "rows": 1, "cols": 1 },
-		{ "id": "sanctuaryOff", "file": "../resources/images/tests/sanctuaryOff.png", "rows": 1, "cols": 1 },
-		{ "id" : "level1bg", "file" : "../resources/images/levels/fondo.png", "rows" : 1, "cols" : 1},
-		{ "id" : "level1tileset", "file" : "../resources/images/levels/tilesetlevel1.png", "rows" : 34, "cols" : 20},
-		{ "id" : "waterTileset", "file" : "../resources/images/levels/Tiles_Agua_Bosque.png", "rows" : 34, "cols" : 20},
-		{ "id" : "fireTileset", "file" : "../resources/images/levels/TilesLava.png", "rows" : 3, "cols" : 4},
-		{ "id" : "shield", "file" : "../resources/images/levels/Shield.png", "rows" : 1, "cols" : 1},
-		{ "id" : "whip", "file" : "../resources/images/levels/whip.png", "rows" : 1, "cols" : 1},
-		{ "id" : "waterShield", "file" : "../resources/images/levels/waterShield.png", "rows" : 1, "cols" : 1},
-		{ "id" : "earthShield", "file" : "../resources/images/levels/earthShield.png", "rows" : 1, "cols" : 1},
-		{ "id" : "fireShield", "file" : "../resources/images/levels/fireShield.png", "rows" : 1, "cols" : 1},
-		{ "id" : "enemy", "file" : "../resources/images/sprites/Enemy.png", "rows" : 1, "cols" : 1},
-		{ "id" : "bug", "file" : "../resources/images/sprites/Bug.png", "rows" : 2, "cols" : 21},
-		{ "id" : "waterBug", "file" : "../resources/images/sprites/WaterBug.png", "rows" : 2, "cols" : 21},
-		{ "id" : "earthBug", "file" : "../resources/images/sprites/EarthBug.png", "rows" : 2, "cols" : 21},
-		{ "id" : "fireBug", "file" : "../resources/images/sprites/FireBug.png", "rows" : 2, "cols" : 21},
-		{ "id" : "darkBug", "file" : "../resources/images/sprites/DarkBug.png", "rows" : 2, "cols" : 21},
-		{ "id" : "waterMushroom", "file" : "../resources/images/sprites/WaterMushroom.png", "rows" : 2, "cols" : 22},
-		{ "id" : "earthMushroom", "file" : "../resources/images/sprites/EarthMushroom.png", "rows" : 2, "cols" : 22},
-		{ "id" : "fireMushroom", "file" : "../resources/images/sprites/FireMushroom.png", "rows" : 2, "cols" : 22},
-		{ "id" : "darkMushroom", "file" : "../resources/images/sprites/DarkMushroom.png", "rows" : 2, "cols" : 22},
-		{ "id" : "waterSlime", "file" : "../resources/images/sprites/WaterSlime.png", "rows" : 2, "cols" : 21},
-		{ "id" : "earthSlime", "file" : "../resources/images/sprites/EarthSlime.png", "rows" : 2, "cols" : 21},
-		{ "id" : "fireSlime", "file" : "../resources/images/sprites/FireSlime.png", "rows" : 2, "cols" : 21},
-		{ "id" : "darkSlime", "file" : "../resources/images/sprites/DarkSlime.png", "rows" : 2, "cols" : 21},
-		{ "id" : "mushroom", "file" : "../resources/images/sprites/Mushroom.png", "rows" : 2, "cols" : 21},
-		{ "id" : "spores", "file" : "../resources/images/sprites/spores.png", "rows" : 1, "cols" : 1},
-		{ "id" : "water_attack", "file" : "../resources/images/tests/water_Attack.png", "rows" : 1, "cols" : 1},
-   		{ "id" : "fireBoss", "file" : "../resources/images/sprites/Skeleton.png", "rows" : 5, "cols" : 13},
-		{ "id" : "firePillar", "file" : "../resources/images/tests/firePillar.png", "rows" : 1, "cols" : 6},
-		{ "id" : "animationWorm", "file" : "../resources/images/tests/AnimationWorm.png", "rows": 1, "cols": 8 },
-		{ "id" : "fallingWorm", "file" : "../resources/images/tests/WormFallingAttack.png", "rows": 1, "cols": 1 },
-		{ "id" : "vine", "file" : "../resources/images/tests/EarthBossVine.png", "rows" : 1, "cols" : 1},
-		{ "id" : "vineBoss", "file" : "../resources/images/tests/EarthBossVineAttack.png", "rows" : 1, "cols" : 1},
-		{ "id" : "warning", "file" : "../resources/images/tests/EarthBossWarning.png", "rows" : 1, "cols" : 28},
-		{ "id" : "water_chargedAttack", "file" : "../resources/images/tests/water_Attack.png", "rows" : 1, "cols" : 1},
-		{ "id" :  "bossHealthBar", "file" : "../resources/images/tests/BossHealthBar.png", "rows" : 1, "cols" :  1},
-		{ "id" :  "bossLife", "file" : "../resources/images/tests/BossLife.png", "rows" : 1, "cols" :  1},
-		{ "id" :  "vinePlatform", "file" : "../resources/images/tests/VinePlatform.png", "rows" : 1, "cols" :  1},
-		{ "id" : "earth_attack", "file" : "../resources/images/tests/earth_Attack.png", "rows" : 1, "cols" : 7},
-		{ "id" : "water_attack", "file" : "../resources/images/tests/water_Attack_PlaceHolder.png", "rows" : 2, "cols" : 7},
-		{ "id" : "water_boss", "file" : "../resources/images/tests/Boss_Agua.png", "rows" : 4, "cols" : 8},
-		{ "id" : "lamps", "file" : "../resources/images/ui/lamps.png", "rows" : 4, "cols" : 3},
-		{ "id" : "0_earth_room", "file" : "../resources/images/map_rooms/0_earth_map.png", "rows" : 1, "cols" : 1},
-		{ "id" : "1_earth_room", "file" : "../resources/images/map_rooms/1_earth_map.png", "rows" : 1, "cols" : 1},
-		{ "id" : "2_earth_room", "file" : "../resources/images/map_rooms/2_earth_map.png", "rows" : 1, "cols" : 1},
-		{ "id" : "3_earth_room", "file" : "../resources/images/map_rooms/3_earth_map.png", "rows" : 1, "cols" : 1},
-		{ "id" : "4_earth_room", "file" : "../resources/images/map_rooms/4_earth_map.png", "rows" : 1, "cols" : 1},
-		{ "id" : "5_earth_room", "file" : "../resources/images/map_rooms/5_earth_map.png", "rows" : 1, "cols" : 1},
-		{ "id" : "6_earth_room", "file" : "../resources/images/map_rooms/6_earth_map.png", "rows" : 1, "cols" : 1},
-		{ "id" : "7_earth_room", "file" : "../resources/images/map_rooms/7_earth_map.png", "rows" : 1, "cols" : 1},
-		{ "id" : "8_earth_room", "file" : "../resources/images/map_rooms/8_earth_map.png", "rows" : 1, "cols" : 1},
-		{ "id" : "9_earth_room", "file" : "../resources/images/map_rooms/9_earth_map.png", "rows" : 1, "cols" : 1},
-		{ "id" : "0_water_room", "file" : "../resources/images/map_rooms/0_water_map.png", "rows" : 1, "cols" : 1},
-		{ "id" : "1_water_room", "file" : "../resources/images/map_rooms/1_water_map.png", "rows" : 1, "cols" : 1},
-		{ "id" : "2_water_room", "file" : "../resources/images/map_rooms/2_water_map.png", "rows" : 1, "cols" : 1},
-		{ "id" : "3_water_room", "file" : "../resources/images/map_rooms/3_water_map.png", "rows" : 1, "cols" : 1},
-		{ "id" : "4_water_room", "file" : "../resources/images/map_rooms/4_water_map.png", "rows" : 1, "cols" : 1},
-		{ "id" : "5_water_room", "file" : "../resources/images/map_rooms/5_water_map.png", "rows" : 1, "cols" : 1},
-		{ "id" : "6_water_room", "file" : "../resources/images/map_rooms/6_water_map.png", "rows" : 1, "cols" : 1},
-		{ "id" : "7_water_room", "file" : "../resources/images/map_rooms/7_water_map.png", "rows" : 1, "cols" : 1},
-		{ "id" : "8_water_room", "file" : "../resources/images/map_rooms/8_water_map.png", "rows" : 1, "cols" : 1},
-		{ "id" : "9_water_room", "file" : "../resources/images/map_rooms/9_water_map.png", "rows" : 1, "cols" : 1},
-		{ "id" : "10_water_room", "file" : "../resources/images/map_rooms/10_water_map.png", "rows" : 1, "cols" : 1},
-		{ "id" : "11_water_room", "file" : "../resources/images/map_rooms/11_water_map.png", "rows" : 1, "cols" : 1},
-		{ "id" : "12_water_room", "file" : "../resources/images/map_rooms/12_water_map.png", "rows" : 1, "cols" : 1},
-		{ "id" : "0_water_boss_map", "file" : "../resources/images/map_rooms/0_water_boss_map.png", "rows" : 1, "cols" : 1},
-		{ "id" : "mapBG", "file" : "../resources/images/map_rooms/mapBg.png", "rows" : 1, "cols" : 1},
-		{ "id" : "earth_elem", "file" : "../resources/images/tests/EarthElement.png", "rows" : 1, "cols" : 10},
-		{ "id" : "water_elem", "file" : "../resources/images/tests/WaterElement.png", "rows" : 1, "cols" : 10},
-		{ "id" : "fire_elem", "file" : "../resources/images/tests/FireElement.png", "rows" : 1, "cols" : 10},
-		{ "id" : "fire_attack", "file" : "../resources/images/tests/fire_attack.png", "rows" : 1, "cols" : 1},
-		{ "id" : "water_boss", "file" : "../resources/images/tests/Boss_Agua.png", "rows" : 4, "cols" : 8 },
-		{ "id" : "box", "file" : "../resources/images/tests/box.png", "rows": 1, "cols" : 1 },
-		{ "id" : "BossDoor", "file" : "../resources/images/tests/BossDoor.png", "rows" : 1, "cols" : 1 },
-		{ "id" : "BossDoor_Earth", "file" : "../resources/images/tests/BossDoor_Earth.png", "rows" : 1, "cols" : 1 },
-		{ "id" : "BossDoor_Water", "file" : "../resources/images/tests/BossDoor_Water.png", "rows" : 1, "cols" : 1 },
-		{ "id" : "BossDoor_Fire", "file" : "../resources/images/tests/BossDoor_Fire.png", "rows" : 1, "cols" : 1 },
+	"images": [
+		{
+			"id": "playbackground",
+			"file": "../resources/images/backgrounds/defaultmenubg.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "Sala0",
+			"file": "../resources/images/backgrounds/Sala0.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "Sala1",
+			"file": "../resources/images/backgrounds/Sala1.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "Sala2",
+			"file": "../resources/images/backgrounds/Sala2.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "Sala3",
+			"file": "../resources/images/backgrounds/Sala3.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "Sala4",
+			"file": "../resources/images/backgrounds/Sala4.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "Sala5",
+			"file": "../resources/images/backgrounds/Sala5.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "Sala6",
+			"file": "../resources/images/backgrounds/Sala6.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "Sala7",
+			"file": "../resources/images/backgrounds/Sala7.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "Sala8",
+			"file": "../resources/images/backgrounds/Sala8.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "Sala9",
+			"file": "../resources/images/backgrounds/Sala9.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "Sala10",
+			"file": "../resources/images/backgrounds/Sala10.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "Sala11",
+			"file": "../resources/images/backgrounds/Sala11.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "Sala12",
+			"file": "../resources/images/backgrounds/Sala12.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "Sala13",
+			"file": "../resources/images/backgrounds/Sala13.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "mainmenubackground",
+			"file": "../resources/images/backgrounds/mainmenubg.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "blackbackground",
+			"file": "../resources/images/backgrounds/mainbg.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "whitebackground",
+			"file": "../resources/images/backgrounds/playbg.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "button",
+			"file": "../resources/images/ui/button.png",
+			"rows": 1,
+			"cols": 3
+		},
+		{
+			"id": "largebutton",
+			"file": "../resources/images/ui/largebutton.png",
+			"rows": 1,
+			"cols": 3
+		},
+		{
+			"id": "controls",
+			"file": "../resources/images/ui/controles.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "lifeshard",
+			"file": "../resources/images/tests/lifeshard.png",
+			"rows": 1,
+			"cols": 10
+		},
+		{
+			"id": "quitbutton",
+			"file": "../resources/images/ui/quitbutton.png",
+			"rows": 1,
+			"cols": 3
+		},
+		{
+			"id": "slider",
+			"file": "../resources/images/ui/slider.png",
+			"rows": 3,
+			"cols": 1
+		},
+		{
+			"id": "needle",
+			"file": "../resources/images/ui/needle.png",
+			"rows": 1,
+			"cols": 3
+		},
+		{
+			"id": "chargebar",
+			"file": "../resources/images/ui/charged-bar.png",
+			"rows": 1,
+			"cols": 9
+		},
+		{
+			"id": "hearts",
+			"file": "../resources/images/ui/hearts.png",
+			"rows": 1,
+			"cols": 13
+		},
+		{
+			"id": "screendarkentop",
+			"file": "../resources/images/ui/screendarken-top.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "screendarkenside",
+			"file": "../resources/images/ui/screendarken-side.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "whiteBox",
+			"file": "../resources/images/tests/whiteBox.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "ott_luz",
+			"file": "../resources/images/tests/Ott_Luz.png",
+			"rows": 11,
+			"cols": 8
+		},
+		{
+			"id": "ott_tree",
+			"file": "../resources/images/tests/Ott_Tree.png",
+			"rows": 11,
+			"cols": 8
+		},
+		{
+			"id": "ott_water",
+			"file": "../resources/images/tests/Ott_Water.png",
+			"rows": 11,
+			"cols": 8
+		},
+		{
+			"id": "ott_fire",
+			"file": "../resources/images/tests/Ott_Fire.png",
+			"rows": 11,
+			"cols": 8
+		},
+		{
+			"id": "fadeOut",
+			"file": "../resources/images/tests/fadeOut.png",
+			"rows": 1,
+			"cols": 11
+		},
+		{
+			"id": "lamp",
+			"file": "../resources/images/tests/lamp-sheet-1.png",
+			"rows": 1,
+			"cols": 5
+		},
+		{
+			"id": "enredadera",
+			"file": "../resources/images/tests/enredadera.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "grass",
+			"file": "../resources/images/tests/grass-sheet.png",
+			"rows": 1,
+			"cols": 4
+		},
+		{
+			"id": "pixel",
+			"file": "../resources/images/tests/1x1Pixel.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "pixelWhite",
+			"file": "../resources/images/tests/1x1PixelWhite.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "sanctuary",
+			"file": "../resources/images/tests/sanctuary.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "sanctuaryOff",
+			"file": "../resources/images/tests/sanctuaryOff.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "level1bg",
+			"file": "../resources/images/levels/fondo.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "level1tileset",
+			"file": "../resources/images/levels/tilesetlevel1.png",
+			"rows": 34,
+			"cols": 20
+		},
+		{
+			"id": "waterTileset",
+			"file": "../resources/images/levels/Tiles_Agua_Bosque.png",
+			"rows": 34,
+			"cols": 20
+		},
+		{
+			"id": "fireTileset",
+			"file": "../resources/images/levels/TilesLava.png",
+			"rows": 3,
+			"cols": 4
+		},
+		{
+			"id": "shield",
+			"file": "../resources/images/levels/Shield.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "whip",
+			"file": "../resources/images/levels/whip.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "waterShield",
+			"file": "../resources/images/levels/waterShield.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "earthShield",
+			"file": "../resources/images/levels/earthShield.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "fireShield",
+			"file": "../resources/images/levels/fireShield.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "enemy",
+			"file": "../resources/images/sprites/Enemy.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "bug",
+			"file": "../resources/images/sprites/Bug.png",
+			"rows": 2,
+			"cols": 21
+		},
+		{
+			"id": "waterBug",
+			"file": "../resources/images/sprites/WaterBug.png",
+			"rows": 2,
+			"cols": 21
+		},
+		{
+			"id": "earthBug",
+			"file": "../resources/images/sprites/EarthBug.png",
+			"rows": 2,
+			"cols": 21
+		},
+		{
+			"id": "fireBug",
+			"file": "../resources/images/sprites/FireBug.png",
+			"rows": 2,
+			"cols": 21
+		},
+		{
+			"id": "darkBug",
+			"file": "../resources/images/sprites/DarkBug.png",
+			"rows": 2,
+			"cols": 21
+		},
+		{
+			"id": "waterMushroom",
+			"file": "../resources/images/sprites/WaterMushroom.png",
+			"rows": 2,
+			"cols": 22
+		},
+		{
+			"id": "earthMushroom",
+			"file": "../resources/images/sprites/EarthMushroom.png",
+			"rows": 2,
+			"cols": 22
+		},
+		{
+			"id": "fireMushroom",
+			"file": "../resources/images/sprites/FireMushroom.png",
+			"rows": 2,
+			"cols": 22
+		},
+		{
+			"id": "darkMushroom",
+			"file": "../resources/images/sprites/DarkMushroom.png",
+			"rows": 2,
+			"cols": 22
+		},
+		{
+			"id": "waterSlime",
+			"file": "../resources/images/sprites/WaterSlime.png",
+			"rows": 2,
+			"cols": 21
+		},
+		{
+			"id": "earthSlime",
+			"file": "../resources/images/sprites/EarthSlime.png",
+			"rows": 2,
+			"cols": 21
+		},
+		{
+			"id": "fireSlime",
+			"file": "../resources/images/sprites/FireSlime.png",
+			"rows": 2,
+			"cols": 21
+		},
+		{
+			"id": "darkSlime",
+			"file": "../resources/images/sprites/DarkSlime.png",
+			"rows": 2,
+			"cols": 21
+		},
+		{
+			"id": "mushroom",
+			"file": "../resources/images/sprites/Mushroom.png",
+			"rows": 2,
+			"cols": 21
+		},
+		{
+			"id": "spores",
+			"file": "../resources/images/sprites/spores.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "water_attack",
+			"file": "../resources/images/tests/water_Attack.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "fireBoss",
+			"file": "../resources/images/sprites/Skeleton.png",
+			"rows": 5,
+			"cols": 13
+		},
+		{
+			"id": "firePillar",
+			"file": "../resources/images/tests/firePillar.png",
+			"rows": 1,
+			"cols": 6
+		},
+		{
+			"id": "animationWorm",
+			"file": "../resources/images/tests/AnimationWorm.png",
+			"rows": 1,
+			"cols": 8
+		},
+		{
+			"id": "fallingWorm",
+			"file": "../resources/images/tests/WormFallingAttack.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "vine",
+			"file": "../resources/images/tests/EarthBossVine.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "vineBoss",
+			"file": "../resources/images/tests/EarthBossVineAttack.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "warning",
+			"file": "../resources/images/tests/EarthBossWarning.png",
+			"rows": 1,
+			"cols": 28
+		},
+		{
+			"id": "water_chargedAttack",
+			"file": "../resources/images/tests/water_Attack.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "bossHealthBar",
+			"file": "../resources/images/tests/BossHealthBar.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "bossLife",
+			"file": "../resources/images/tests/BossLife.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "vinePlatform",
+			"file": "../resources/images/tests/VinePlatform.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "earth_attack",
+			"file": "../resources/images/tests/earth_Attack.png",
+			"rows": 1,
+			"cols": 7
+		},
+		{
+			"id": "water_attack",
+			"file": "../resources/images/tests/water_Attack_PlaceHolder.png",
+			"rows": 2,
+			"cols": 7
+		},
+		{
+			"id": "water_boss",
+			"file": "../resources/images/tests/Boss_Agua.png",
+			"rows": 4,
+			"cols": 8
+		},
+		{
+			"id": "lamps",
+			"file": "../resources/images/ui/lamps.png",
+			"rows": 4,
+			"cols": 3
+		},
+		{
+			"id": "0_earth_room",
+			"file": "../resources/images/map_rooms/0_earth_map.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "1_earth_room",
+			"file": "../resources/images/map_rooms/1_earth_map.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "2_earth_room",
+			"file": "../resources/images/map_rooms/2_earth_map.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "3_earth_room",
+			"file": "../resources/images/map_rooms/3_earth_map.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "4_earth_room",
+			"file": "../resources/images/map_rooms/4_earth_map.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "5_earth_room",
+			"file": "../resources/images/map_rooms/5_earth_map.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "6_earth_room",
+			"file": "../resources/images/map_rooms/6_earth_map.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "7_earth_room",
+			"file": "../resources/images/map_rooms/7_earth_map.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "8_earth_room",
+			"file": "../resources/images/map_rooms/8_earth_map.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "9_earth_room",
+			"file": "../resources/images/map_rooms/9_earth_map.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "0_water_room",
+			"file": "../resources/images/map_rooms/0_water_map.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "1_water_room",
+			"file": "../resources/images/map_rooms/1_water_map.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "2_water_room",
+			"file": "../resources/images/map_rooms/2_water_map.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "3_water_room",
+			"file": "../resources/images/map_rooms/3_water_map.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "4_water_room",
+			"file": "../resources/images/map_rooms/4_water_map.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "5_water_room",
+			"file": "../resources/images/map_rooms/5_water_map.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "6_water_room",
+			"file": "../resources/images/map_rooms/6_water_map.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "7_water_room",
+			"file": "../resources/images/map_rooms/7_water_map.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "8_water_room",
+			"file": "../resources/images/map_rooms/8_water_map.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "9_water_room",
+			"file": "../resources/images/map_rooms/9_water_map.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "10_water_room",
+			"file": "../resources/images/map_rooms/10_water_map.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "11_water_room",
+			"file": "../resources/images/map_rooms/11_water_map.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "12_water_room",
+			"file": "../resources/images/map_rooms/12_water_map.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "0_water_boss_map",
+			"file": "../resources/images/map_rooms/0_water_boss_map.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "mapBG",
+			"file": "../resources/images/map_rooms/mapBg.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "earth_elem",
+			"file": "../resources/images/tests/EarthElement.png",
+			"rows": 1,
+			"cols": 10
+		},
+		{
+			"id": "water_elem",
+			"file": "../resources/images/tests/WaterElement.png",
+			"rows": 1,
+			"cols": 10
+		},
+		{
+			"id": "fire_elem",
+			"file": "../resources/images/tests/FireElement.png",
+			"rows": 1,
+			"cols": 10
+		},
+		{
+			"id": "fire_attack",
+			"file": "../resources/images/tests/fire_attack.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "water_boss",
+			"file": "../resources/images/tests/Boss_Agua.png",
+			"rows": 4,
+			"cols": 8
+		},
+		{
+			"id": "box",
+			"file": "../resources/images/tests/box.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "BossDoor",
+			"file": "../resources/images/tests/BossDoor.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "BossDoor_Earth",
+			"file": "../resources/images/tests/BossDoor_Earth.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "BossDoor_Water",
+			"file": "../resources/images/tests/BossDoor_Water.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "BossDoor_Fire",
+			"file": "../resources/images/tests/BossDoor_Fire.png",
+			"rows": 1,
+			"cols": 1
+		},
 		{
 			"id": "water",
 			"file": "../resources/images/tests/Water.png",
@@ -156,12 +746,18 @@
 			"cols": 17
 		},
 		{
-			"id": "platform", 
+			"id": "elementoCartel",
+			"file": "../resources/images/carteles/Elemento/cartelElementoAnimation.png",
+			"rows": 4,
+			"cols": 11
+		},
+		{
+			"id": "platform",
 			"file": "../resources/images/tests/Platform.PNG",
 			"rows": 1,
 			"cols": 1
 		}
-  ],
+	],
 
 	"messages": [],
 
@@ -204,7 +800,7 @@
   
   "maps": [
 		{ "id" : "earthMap2", "file" : "../resources/levels/EarthMap3.tmx", "cols" : 192, "tileset" : "level1tileset", "background" : "level1bg", "music" : "earth_level" },
-		{ "id" : "earthMap", "file" : "../resources/levels/EarthMap2.tmx", "cols" : 192, "tileset" : "level1tileset", "background" : "level1bg", "music" : "earth_level" },
+		{ "id" : "earthMap", "file" : "../resources/levels/EarthMap2.tmx", "cols" : 246, "tileset" : "level1tileset", "background" : "level1bg", "music" : "earth_level" },
 		{ "id" : "demo", "file" : "../resources/levels/DEMO.tmx", "cols" : 100, "tileset" : "level1tileset", "background" : "level1bg", "music" : "earth_level" },
 		{ "id" : "waterMap", "file" : "../resources/levels/WaterMap.tmx", "cols" : 180, "tileset" : "waterTileset", "background" : "level1bg", "music" : "water_level" },
 		{ "id" : "fireMap", "file" : "../resources/levels/FireMap.tmx", "cols" : 162, "tileset" : "fireTileset", "background" : "level1bg", "music" : "water_level" },
