@@ -8,7 +8,7 @@
 #include "../states/PlayState.h"
 #include "Health.h"
 
-const float gravityValue = 0.2;
+const float gravityValue = 0.15f;
 
 PhysicsComponent::PhysicsComponent(bool activate) {
 	jumpForce = earthJumpForce;
@@ -68,10 +68,26 @@ void PhysicsComponent::update() {
 			}
 			else
 			{
-				verticalSpeed += gravityValue;
+				if (velocity_.getY() < 0 && !inWater) {
+					auto horSpeed = velocity_.getX();
+					if(horSpeed < 0)
+						velocity_ = Vector2D(-jumpingHorizontalSpeed, verticalSpeed);
+					else if (horSpeed > 0) 
+						velocity_ = Vector2D(+jumpingHorizontalSpeed, verticalSpeed);
+				}
+				if (velocity_.getY() > -1 && velocity_.getY() < 0) {
+					verticalSpeed += gravityValue / 2;
+				}
+				else verticalSpeed += gravityValue;
 			}
 			if (verticalSpeed > MAX_VERTICAL_SPEED) verticalSpeed = MAX_VERTICAL_SPEED;
 			velocity_ = Vector2D(velocity_.getX(), verticalSpeed);
+		}
+
+		if (grounded) {
+			float horSpeed = velocity_.getX();
+			if(horSpeed != 0)
+				velocity_ = Vector2D(horizontalSpeed * horSpeed/abs(horSpeed), verticalSpeed);
 		}
 
 		if (isKnockback) {
@@ -97,7 +113,7 @@ void PhysicsComponent::jump() {
 		else { jumpForce = earthJumpForce; }
 		//condiciones de salto: que este flotamdo o que este en el suelo no escalando y o bien no este en el agua o bien lo este pero sea de elemento de agua
 		if (floating || (grounded && !climbing && ((!inWater) || (inWater && ent_->getComponent<Health>()->getElement() == ecs::Water)))) {
-			verticalSpeed = jumpForce;
+			verticalSpeed = jumpForce * 4/5;
 			velocity_ = Vector2D(velocity_.getX(), verticalSpeed);
 		}
 	}

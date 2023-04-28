@@ -57,8 +57,8 @@ void EarthBossManager::initializeEntities() {
 		if (i % 2 == 0)vine_Rect.y = roomDimensions.y + (roomDimensions.h / 6 )*i + vine_Rect.h - offSet*2;
 		else vine_Rect.y = ((vineVector[i - 1]->getComponent<Transform>()->getPosition().getY()) + (vine_Rect.h / 2.5));
 		vine->addComponent<Transform>(vine_Rect);
-		vine->addComponent<ImageVine>(&sdlutils().images().at("vineBoss"), 1, false);
 		vine->addComponent<GrowVine>(finPosVine, 7, -1, "horizontal", true);
+		vine->addComponent<ImageVine>(&sdlutils().images().at("vineBoss"), 1, false);
 		vine->addComponent<EarthBossAttack>();
 		vine->getComponent<GrowVine>()->isGrowing(false);
 		vineVector.push_back(vine);
@@ -227,8 +227,17 @@ void EarthBossManager::choosingVine() {
 	numRandVine = aux;
 }
 
+void EarthBossManager::resetFight() {
+	isFight = false;
+	boss->getComponent<Health>()->setHealth(boss->getComponent<Health>()->getMaxHealth());
+	
+}
+
 void EarthBossManager::update() {
 	if (isFight) {
+		if (player->getComponent<Health>()->getHealth() <= 0) {
+			resetFight();
+		}
 		stateManagment();
 		if (attackingHorizontally) {
 			if (!refvine1->getComponent<GrowVine>()->getGrow()) {

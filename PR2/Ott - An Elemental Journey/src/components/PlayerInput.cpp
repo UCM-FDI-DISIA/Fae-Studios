@@ -3,6 +3,7 @@
 #include "../states/GameStateMachine.h"
 #include "../sdlutils/SDLUtils.h"
 #include "../game/ecs.h"
+#include "../game/Game.h"
 
 PlayerInput::PlayerInput()
 {
@@ -22,6 +23,7 @@ void PlayerInput::initComponent()
 
 void PlayerInput::update()
 {
+	SDL_JoystickUpdate();
 	if (stunned) {
 		if (SDL_GetTicks() - timerStunned >= stunnedTime * 1000) stunned = false;
 		else return;
@@ -32,13 +34,13 @@ void PlayerInput::update()
 		auto input = InputHandler::instance();
 		auto state = anim_->getState();
 		if (input->keyDownEvent() && state != DIE && !openingMap) {
-			if (input->isKeyDown(SDLK_LEFT)) {
+			if (input->isKeyDown(SDLK_LEFT) || SDL_NumJoysticks() == 1 && (SDL_JoystickGetAxis(game().getJoystick(), 0) < -100 || SDL_JoystickGetButton(game().getJoystick(), SDL_CONTROLLER_BUTTON_DPAD_LEFT))) {
 				//Moviento Izquierda 
 				playerV = Vector2D(-horizontalSpeed, playerV.getY());
 				physics_->lookDirection(false);
                 if(physics_->isGrounded() && !physics_->isClimbing() && abs(physics_->getVelocity().getX()) > 0) sdlutils().soundEffects().at("ott_step").playFor(1000,0, ecs::_channel_PLAYER);
 			}
-			if (input->isKeyDown(SDLK_RIGHT))
+			if (input->isKeyDown(SDLK_RIGHT) || SDL_NumJoysticks() == 1 && (SDL_JoystickGetAxis(game().getJoystick(), 0) > 100 || SDL_JoystickGetButton(game().getJoystick(), SDL_CONTROLLER_BUTTON_DPAD_RIGHT)))
 			{
 				//Movimiento derecha
 				playerV = Vector2D(horizontalSpeed, playerV.getY());
@@ -46,18 +48,18 @@ void PlayerInput::update()
                 if(physics_->isGrounded() && !physics_->isClimbing() && abs(physics_->getVelocity().getX()) > 0) sdlutils().soundEffects().at("ott_step").playFor(1000, 0, ecs::_channel_PLAYER);
 			}
 
-			if (input->isKeyDown(SDLK_SPACE)) {
+			if (input->isKeyDown(SDLK_SPACE) || (SDL_NumJoysticks() == 1 && SDL_JoystickGetButton(game().getJoystick(), SDL_CONTROLLER_BUTTON_A))) {
 				//Salto
 				physics_->jump();
 			}
 			if (input->isKeyDown(SDLK_q)) {
 				ent_->getComponent<AttackCharger>()->addCharge(8);
 			}
-			if (canInteract && input->isKeyDown(SDLK_f)) {
+			if (canInteract && (input->isKeyDown(SDLK_f) || SDL_NumJoysticks() == 1 && SDL_JoystickGetButton(game().getJoystick(), SDL_CONTROLLER_BUTTON_Y))) {
 				//Recuperar vidas
 				static_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->interact();
 			}
-			if (input->isKeyDown(SDLK_TAB)) {
+			if (input->isKeyDown(SDLK_TAB) || SDL_NumJoysticks() == 1 && SDL_JoystickGetButton(game().getJoystick(), SDL_CONTROLLER_BUTTON_BACK)) {
 				if (anim_->getState() != OPEN_MAP && anim_->getState() != CLOSE_MAP && physics_->isGrounded()) {
 					anim_->setState(OPEN_MAP);
 					sdlutils().soundEffects().at("map").play (0, ecs::_channel_PLAYER);
@@ -67,19 +69,19 @@ void PlayerInput::update()
 				physics_->setVelocity(Vector2D(0, physics_->getVelocity().getY()));
 			}
 			if (state != VANISH) {
-				if (input->isKeyDown(SDLK_z))
+				if (input->isKeyDown(SDLK_z) || SDL_NumJoysticks() == 1 && SDL_JoystickGetButton(game().getJoystick(), SDL_CONTROLLER_BUTTON_B))
 				{
 					//Defensa
 					//image_->shielded(true);
 					//physics_->slowed();
 					shield_->takeShield();
 				}
-				if (input->isKeyJustDown(SDLK_e) && anim_->getState() != ATTACK && !attack && !shield_->hasShield()) {
+				if ((input->isKeyJustDown(SDLK_e) || SDL_NumJoysticks() == 1 && SDL_JoystickGetButton(game().getJoystick(), SDL_CONTROLLER_BUTTON_X)) && anim_->getState() != ATTACK && !attack && !shield_->hasShield()) {
 					//Ataque
 					attack = true;
 					attackTimer = SDL_GetTicks();
 				}
-				if (input->isKeyDown(SDLK_a) && earth && !selectedEarth) {
+				if ((input->isKeyDown(SDLK_a) || (SDL_NumJoysticks() == 1 && SDL_JoystickGetButton(game().getJoystick(), SDL_CONTROLLER_BUTTON_RIGHTSHOULDER))) && earth && !selectedEarth) {
 					//Cambio elemento
 					anim_->changeElem(ecs::Earth);
 					anim_->setState(VANISH);
@@ -88,6 +90,9 @@ void PlayerInput::update()
 					selectedFire = false;
 					selectedLight = false;
 					sdlutils().soundEffects().at("elem_changed").play(0, ecs::_channel_ALERTS);
+					if (SDL_NumJoysticks() == 1 && SDL_JoystickHasLED(game().getJoystick())) {
+						SDL_JoystickSetLED(game().getJoystick(), 0, UINT8_MAX, 0);
+					}
 				}
 				if (input->isKeyDown(SDLK_d) && water && !selectedWater) {
 					anim_->changeElem(ecs::Water);
@@ -97,8 +102,12 @@ void PlayerInput::update()
 					selectedFire = false;
 					selectedLight = false;
 					sdlutils().soundEffects().at("elem_changed").play(0, ecs::_channel_ALERTS);
+
+					if (SDL_NumJoysticks() == 1 && SDL_JoystickHasLED(game().getJoystick())) {
+						SDL_JoystickSetLED(game().getJoystick(), 0, 0, UINT8_MAX);
+					}
 				}
-				if (input->isKeyDown(SDLK_w) && fire && !selectedFire) {
+				if ((input->isKeyDown(SDLK_w) || SDL_NumJoysticks() == 1 && SDL_JoystickGetAxis(game().getJoystick(), SDL_CONTROLLER_AXIS_TRIGGERRIGHT) > 100) && fire && !selectedFire) {
 					anim_->changeElem(ecs::Fire);
 					anim_->setState(VANISH);
 					selectedEarth = false;
@@ -106,8 +115,12 @@ void PlayerInput::update()
 					selectedFire = true;
 					selectedLight = false;
 					sdlutils().soundEffects().at("elem_changed").play(0, ecs::_channel_ALERTS);
+
+					if (SDL_NumJoysticks() == 1 && SDL_JoystickHasLED(game().getJoystick())) {
+						SDL_JoystickSetLED(game().getJoystick(), UINT8_MAX, 0, 0);
+					}
 				}
-				if (input->isKeyDown(SDLK_s) && !selectedLight) {
+				if ((input->isKeyDown(SDLK_s) || SDL_NumJoysticks() == 1 && SDL_JoystickGetButton(game().getJoystick(), SDL_CONTROLLER_BUTTON_LEFTSHOULDER)) && !selectedLight) {
 					anim_->changeElem(ecs::Light);
 					anim_->setState(VANISH);
 					selectedEarth = false;
@@ -115,6 +128,10 @@ void PlayerInput::update()
 					selectedFire = false;
 					selectedLight = true;
 					sdlutils().soundEffects().at("elem_changed").play(0, ecs::_channel_ALERTS);
+
+					if (SDL_NumJoysticks() == 1 && SDL_JoystickHasLED(game().getJoystick())) {
+						SDL_JoystickSetLED(game().getJoystick(), UINT8_MAX, UINT8_MAX, UINT8_MAX);
+					}
 				}
 			}
 			if (input->isKeyDown(SDLK_UP)) {
@@ -142,7 +159,7 @@ void PlayerInput::update()
 					playerV = playerV - Vector2D(-horizontalSpeed, 0);
 					if (playerV.getX() > horizontalSpeed) playerV = Vector2D(horizontalSpeed, playerV.getY());
 				}
-				if (input->isKeyJustUp(SDLK_e) && attack) {
+				if ((input->isKeyJustUp(SDLK_e) || SDL_NumJoysticks() == 1 && SDL_JoystickGetButton(game().getJoystick(), SDL_CONTROLLER_BUTTON_X)) && attack) {
 					attack = false;
 					AttackCharger* pChargedAttackComp = ent_->getComponent<AttackCharger>();
 					bool canChargeAttack = pChargedAttackComp->hasChargedAttack();
@@ -166,12 +183,12 @@ void PlayerInput::update()
 		auto vineCol = static_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->checkCollisionWithVine();
 		int speed = 1;
 		if (vineCol.first) {
-			if (input->isKeyDown(SDLK_UP) && vineCol.second) {
+			if ((input->isKeyDown(SDLK_UP) || SDL_NumJoysticks() == 1 && (SDL_JoystickGetAxis(game().getJoystick(), 1) < -100 || SDL_JoystickGetButton(game().getJoystick(), SDL_CONTROLLER_BUTTON_DPAD_UP))) && vineCol.second) {
 				physics_->setClimbing(true, -speed);
 				anim_->setState(CLIMB);
 				if(!SoundEffect::isSoundBeingPlayed(ecs::_channel_AMBIENTAL)) sdlutils().soundEffects().at("vine_climb").play(0, ecs::_channel_AMBIENTAL);
 			}
-			else if (input->isKeyDown(SDLK_DOWN)) {
+			else if (input->isKeyDown(SDLK_DOWN) || SDL_NumJoysticks() == 1 && (SDL_JoystickGetAxis(game().getJoystick(), 1) > 100 || SDL_JoystickGetButton(game().getJoystick(), SDL_CONTROLLER_BUTTON_DPAD_DOWN))) {
 				physics_->setClimbing(true, speed);
 				anim_->setState(CLIMB);
 				if(!SoundEffect::isSoundBeingPlayed(ecs::_channel_AMBIENTAL)) sdlutils().soundEffects().at("vine_climb").play(0, ecs::_channel_AMBIENTAL);

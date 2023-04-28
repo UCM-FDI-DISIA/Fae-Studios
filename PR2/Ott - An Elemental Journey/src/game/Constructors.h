@@ -56,6 +56,7 @@
 #include "../components/GeneralAnimationController.h"
 #include "../components/PlatformMovementY.h"
 #include "../components/PlatformMovementX.h"
+#include "../components/FireBossRoom.h"
 #include <string>
 #include <iostream>
 #include <functional>
@@ -170,16 +171,24 @@ namespace constructors {
 
 		return enemy;
 	}
-	static inline void waterContainer(Manager* mngr_, std::string imageKey, int x, int y, float scale, Entity* fireBossRef) {
+	static inline Entity* waterContainer(Manager* mngr_, int x, int y,int w, int h, float scale) {
 		auto waterC = mngr_->addEntity(ecs::_grp_MAP);
-		waterC->addComponent<Transform>(Vector2D(x,y), 250*scale, 300*scale);
-		waterC->addComponent<Image>(&sdlutils().images().at(imageKey));
-		waterC->addComponent<WaterContainerComponent>(fireBossRef);
+		waterC->addComponent<Transform>(Vector2D(x,y), w, h);
+		waterC->addComponent<Image>(&sdlutils().images().at("water"));
+		waterC->addComponent<WaterContainerComponent>();
 
 		auto waterVine = mngr_->addEntity(ecs::_grp_MAP);
-		waterVine->addComponent<Transform>(Vector2D(0, 0), 30 * scale, 100 * scale);
+		waterVine->addComponent<Transform>(Vector2D(0, 0), 30 * scale, 300 * scale);
 		waterVine->addComponent<Image>(&sdlutils().images().at("enredadera"));
 		waterVine->addComponent<WaterVineComponent>(waterC);
+
+		return waterC;
+	}
+	static inline Entity* fireBossRoom(Manager* mngr_, int x, int y, int w, int h) {
+		auto triggerBoss = mngr_->addEntity(ecs::_grp_MAP);
+		triggerBoss->addComponent<Transform>(Vector2D(x, y), w, h);
+		triggerBoss->addComponent<FireBossRoom>();
+		return triggerBoss;
 	}
 
 	static inline Entity* eSlime(Manager* mngr_, Texture* tex, int x, int y, float scale, int gens, int lives, ecs::elements el, bool lookingRight, int room) {
@@ -232,6 +241,7 @@ namespace constructors {
 		quitButton->getComponent<Transform>()->setPosition(quitButton->getComponent<Transform>()->getPosition() - Vector2D(quitButton->getComponent<FramedImage>()->getFrameWidth() / 2, quitButton->getComponent<FramedImage>()->getFrameHeight() / 2));
 		return quitButton;
 	}
+	
 
 	static inline void slider(Manager* mngr_, Vector2D& position, std::string title, float minValue, float maxValue, float currentValue, std::function<void(int)> const& callback) {
 		auto s = mngr_->addEntity(ecs::_grp_UI);
@@ -406,7 +416,6 @@ namespace constructors {
 	static inline Entity* FireBoss(Manager* mngr_, int x, int y) {
 		auto boss = mngr_->addEntity(ecs::_grp_CHARACTERS);
 		boss->addComponent<Transform>(Vector2D(x, y), 250, 250);
-		//boss->addComponent<Image>(&sdlutils().images().at("lamp"));
 		boss->addComponent<FireBossComponent>();
 		boss->addComponent<PhysicsComponent>(colliders::OTT);
 		boss->getComponent<PhysicsComponent>()->createCollider();
@@ -525,7 +534,7 @@ namespace constructors {
 		return wObject;
 	}
 
-	static inline Entity* Platform(Manager* mngr_, int x, int y, int w, int h, int a, int t, std::string axis) 
+	static inline Entity* Platform(Manager* mngr_, int x, int y, int w, int h, int a, int t, std::string axis, float room) 
 	{
 		Entity* pObject = mngr_->addEntity(ecs::_grp_MOVING_PLATFORMS);
 		auto ph = pObject->addComponent<PhysicsComponent>(false);
@@ -535,7 +544,7 @@ namespace constructors {
 		if (axis == "X")
 			pObject->addComponent<PlatformMovementX>(a, t);
 		else
-			pObject->addComponent<PlatformMovementY>(a, t);
+			pObject->addComponent<PlatformMovementY>(a, t, room);
 
 		return pObject;
 	}
@@ -563,7 +572,7 @@ namespace constructors {
 			type = anims::CARTELELEMENTO;
 		}
 		cartelObject->addComponent<FramedImage>(&sdlutils().images().at(numCartel), row, col);
-			cartelObject->addComponent< GeneralAnimationController>(type,cartelObject);
+			//cartelObject->addComponent< GeneralAnimationController>(type,cartelObject);
 		return cartelObject;
 	}
 }

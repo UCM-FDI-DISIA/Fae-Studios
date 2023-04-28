@@ -205,7 +205,6 @@ void PlayState::checkCollisions(std::list<Entity*> entities) {
 			}
 		}
 		
-		if(i == 0) physics->setGrounded(false);
 
 		//colisiones con el material de agua 
 		int j = 0;
@@ -240,11 +239,19 @@ void PlayState::checkCollisions(std::list<Entity*> entities) {
 					(pl.x > result.x + (result.w / 2) && !physics->getLookDirection())) {
 					colVector = Vector2D(0, colVector.getY());
 				}
-				if (result.x > pl.x) {
-					colVector = Vector2D(colVector.getX() + p->getComponent<PhysicsComponent>()->getVelocity().getX(), colVector.getY() + p->getComponent<PhysicsComponent>()->getVelocity().getY());
+				if (r1.y < pl.y) {
+					colVector = Vector2D(colVector.getX(), p->getComponent<PhysicsComponent>()->getVelocity().getY());
+					//physics->setVerticalSpeed(p->getComponent<PhysicsComponent>()->getVelocity().getY());
+					physics->setGrounded(true);
+					++i;
+					std::cout << "si" << std::endl;
+				}
+				else if (r1.y >= result.y + result.w / 2) {
+					colVector = Vector2D(colVector.getX(), 0);
 				}
 			}
 		}
+		if(i == 0) physics->setGrounded(false);
 	}
 }
 

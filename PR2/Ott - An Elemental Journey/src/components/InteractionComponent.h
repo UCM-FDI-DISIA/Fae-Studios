@@ -5,6 +5,7 @@
 #include "../ecs/Component.h"
 #include "../utils/Vector2D.h"
 #include <functional>
+#include"../game/Game.h"
 
 enum Interaction {LAMP_IT, SANCTUARY_IT, LIFESHARD_IT, GRASS_IT, ELEMENT_IT };
 
@@ -14,10 +15,19 @@ public:
 	InteractionComponent(std::function<void()> const& callback, Interaction type, int ID, int room, bool destroyAfterIntreaction = false) : callback(callback), 
 		destroyAfterInteraction(destroyAfterIntreaction), type(type), intID(ID), room(room) {}
 	//Para las lámparas de teletransporte
-	virtual ~InteractionComponent() = default;
-	void interact() { callback(); if (destroyAfterInteraction) { ent_->setAlive(false); } }
+	virtual ~InteractionComponent() { 
+		
+	};
+	inline void setIt(std::vector<Entity*>::iterator i, vector<Entity*>* v) { 
+		it = i; 
+		vecPtr = v;
+	}; 
+	void interact() { callback(); if (destroyAfterInteraction) { ent_->setAlive(false); vecPtr->erase(it);} }
 	void OnPlayerNear() {
 		if (!nearPlayer) {
+			if (SDL_NumJoysticks() == 1 && SDL_JoystickHasRumble(game().getJoystick())) {
+				SDL_JoystickRumble(game().getJoystick(), UINT16_MAX / 2, UINT16_MAX / 2, 1000);
+			}
 				switch (type) {
 					case LAMP_IT:
 						if (mngr_->getPlayer()->getComponent<Health>()->getElement() == ecs::Light) {
@@ -64,4 +74,6 @@ private:
 	int intID;
 	int room;
 	bool nearPlayer = false;
+	std::vector<Entity*>::iterator it;
+	vector<Entity*>* vecPtr;
 };

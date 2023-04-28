@@ -724,8 +724,8 @@
 		{
 			"id": "lamparaCartel",
 			"file": "../Ott - An Elemental Journey/resources/images/carteles/Lampara/cartelLamparaAnimation.png",
-			"rows": 1,
-			"cols": 27
+			"rows": 2,
+			"cols": 13
 		},
 		{
 			"id": "enredaderaCartel",
@@ -736,8 +736,8 @@
 		{
 			"id": "elementoCartel",
 			"file": "../Ott - An Elemental Journey/resources/images/carteles/Elemento/cartelElementoAnimation.png",
-			"rows": 1,
-			"cols": 44
+			"rows": 4,
+			"cols": 11
 		},
 		{
 			"id": "water",

@@ -28,6 +28,8 @@ public:
 	inline void setPos(Vector2D newPos) {
 		float x = newPos.getX() - sdlutils().width() / 2;
 		float y = newPos.getY() - sdlutils().height() / 2;
+		camera.x = x;
+		camera.y = y;
 		tr_->setPosition(Vector2D(x,y));
 	}
 	virtual void initComponent();
@@ -36,6 +38,4 @@ public:
 		camerashake = n;
 	}
 	inline void setBounds(const SDL_Rect& b) { bounds = b; }
-
 };
-

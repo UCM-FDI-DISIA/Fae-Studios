@@ -3,56 +3,69 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "MapaQA.tmx",
+    "activeFile": "FireMap.tmx",
     "expandedProjectPaths": [
         "."
     ],
     "fileStates": {
         "C:/Users/pablo/OneDrive/Escritorio/Uni/2º/Proyectos II/Fae-Studios/Ott/TilesLava.tsx": {
-            "scaleInDock": 1
+            "scaleInDock": 1,
+            "scaleInEditor": 1
         },
         "FireMap.tmx": {
             "expandedObjectLayers": [
-                5,
-                7,
-                2,
                 3,
+                2,
+                7,
+                5,
                 4
             ],
-            "scale": 1.5,
-            "selectedLayer": 6,
+            "scale": 0.125,
+            "selectedLayer": 2,
             "viewCenter": {
-                "x": 265,
-                "y": 1971
+                "x": 2292,
+                "y": 1076
             }
         },
         "MapaQA.tmx": {
             "expandedObjectLayers": [
-                4,
                 3,
+                6,
                 2,
                 5,
-                6
+                4
             ],
-            "scale": 0.33,
-            "selectedLayer": 2,
+            "scale": 1.5,
+            "selectedLayer": 3,
             "viewCenter": {
-                "x": 1410.6060606060607,
-                "y": 689.3939393939394
+                "x": 435,
+                "y": 483
             }
         },
         "Tiles_Agua_Bosque.tsx": {
-            "scaleInDock": 1.5
+            "scaleInDock": 0.5,
+            "scaleInEditor": 0.33
+        },
+        "WaterMap.tmx": {
+            "scale": 1.5,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 1584.3333333333333,
+                "y": 149
+            }
         }
     },
     "map.fixedSize": false,
     "map.lastUsedFormat": "tmx",
     "openFiles": [
-        "MapaQA.tmx"
+        "FireMap.tmx"
     ],
     "project": "MapaPruebas.tiled-project",
     "recentFiles": [
+        "FireMap.tmx",
+        "WaterMap.tmx",
         "MapaQA.tmx",
-        "FireMap.tmx"
+        "Tiles_Agua_Bosque.tsx",
+        "C:/Users/pablo/OneDrive/Escritorio/Uni/2º/Proyectos II/Fae-Studios/Ott/TilesLava.tsx"
     ]
 }

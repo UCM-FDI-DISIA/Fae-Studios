@@ -3,6 +3,7 @@
 #include "WaterContainerComponent.h"
 #include "../ecs/Manager.h"
 #include "Bullet.h"
+#include "../sdlutils/SDLUtils.h"
 WaterVineComponent::WaterVineComponent(Entity* ref) : waterTankRef(ref)
 {
 	
@@ -38,7 +39,8 @@ void WaterVineComponent::pickSpawnLocation()
 {
 	auto WaterTr = waterTankRef->getComponent<Transform>();
 	auto tr = ent_->getComponent<Transform>();
-	int n = rand() % 2;
+	auto& sdl = *SDLUtils::instance();
+	int n = sdl.rand().nextInt(0, 2);
 	if (n == 0) tr->setPosition(Vector2D(WaterTr->getPosition().getX(), WaterTr->getPosition().getY()));
 	else tr->setPosition(Vector2D(WaterTr->getPosition().getX() + WaterTr->getWidth(), WaterTr->getPosition().getY()));
 }

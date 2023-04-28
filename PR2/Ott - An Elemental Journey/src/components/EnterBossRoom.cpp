@@ -23,8 +23,8 @@ void EnterBossRoom::blockDoors() {
 	Vector2D finPosVine1 = Vector2D(bossRoom.x +30*3, bossRoom.y);
 	blockEnter = mngr_->addEntity(ecs::_grp_GROUND);
 	blockEnter->addComponent<Transform>(vine_Rect1);
-	blockEnter->addComponent<ImageVine>(&sdlutils().images().at("vine"), 0, false);
 	blockEnter->addComponent<GrowVine>(finPosVine1, 2, -1, "vertical", false);
+	blockEnter->addComponent<ImageVine>(&sdlutils().images().at("vine"), 0, false);
 	blockEnter->addComponent<EarthBossAttack>();
 	blockEnter->getComponent<GrowVine>()->isGrowing(true);
 	SDL_Rect collision1 = { (bossRoom.x + 30 * 3) - 10, bossRoom.y, 5, bossRoom.h };
@@ -34,8 +34,8 @@ void EnterBossRoom::blockDoors() {
 	Vector2D finPosVine2 = Vector2D(bossRoom.x + (bossRoom.w / 2) * 1.65, bossRoom.y);
 	blockExit = mngr_->addEntity(ecs::_grp_GROUND);
 	blockExit->addComponent<Transform>(vine_Rect2);
-	blockExit->addComponent<ImageVine>(&sdlutils().images().at("vine"), 0, false);
 	blockExit->addComponent<GrowVine>(finPosVine2, 2, -1, "vertical", false);
+	blockExit->addComponent<ImageVine>(&sdlutils().images().at("vine"), 0, false);
 	blockExit->addComponent<EarthBossAttack>();
 	blockExit->getComponent<GrowVine>()->isGrowing(true);
 	SDL_Rect collision2 = { (int)(bossRoom.x + (bossRoom.w / 2) * 1.65)+10, (int)bossRoom.y, 5, (int)bossRoom.h };
@@ -49,6 +49,7 @@ void EnterBossRoom::unlockDoors() {
 	map->deleteCollision(roomNum);
 	blockEnter->getComponent<GrowVine>()->startUngrowing();
 	blockExit->getComponent<GrowVine>()->startUngrowing();
+	camera->getComponent<CameraComponent>()->setBounds(map->getCamBounds());
 }
 
 void EnterBossRoom::enterRoom() {
@@ -66,6 +67,7 @@ void EnterBossRoom::enterRoom() {
 }
 
 void EnterBossRoom::update() {
+	
 	if (startShaking) {
 		int aux = SDL_GetTicks() - timer;
 		if (aux <= 1000) {
@@ -87,6 +89,12 @@ void EnterBossRoom::update() {
 			startShaking = false;
 		}
 
+	}
+	else{
+		if (player->getComponent<Health>()->getHealth() <= 0 && !unlocked) {
+			unlockDoors();
+			unlocked = true;
+		}
 	}
 }
 
