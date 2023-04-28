@@ -85,7 +85,7 @@ void ImageVine::render()
                         anidatedVines.push_back({ destTexture, aux });
                     }
                     aux.y += (tex_->height() * 2);
-                    std::cout << aux.y << std::endl;
+                  
                 }
 
                 for (int j = 0; j < anidatedVines.size(); ++j) {

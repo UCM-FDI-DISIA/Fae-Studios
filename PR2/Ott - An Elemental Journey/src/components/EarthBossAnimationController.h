@@ -27,6 +27,7 @@ public:
     inline int getColNum(anims::Entities eAnims) { return anims::animations[eAnims][0].colNum; }
     inline void setAnimation(bool a) { thereIsAnimation = a; }
     inline int getPresentationReps() { return animPresentacion; }
+    inline void presentationRepsReset() { animPresentacion = 0; }
 
 private:
     bool thereIsAnimation = false;

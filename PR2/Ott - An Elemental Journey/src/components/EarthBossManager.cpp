@@ -41,14 +41,32 @@ void EarthBossManager::setState(int newState) {
 		case MINIPAUSE:animController->setState(anims::MINIPAUSE_ANIM, pause, nullptr); break;
 	}
 }
+void EarthBossManager::destroyEntities() {
+	for (int i = 0; i < vineVector.size(); ++i) {
+		vineVector[i]->setAlive(false);
+	}
+	vineVector.clear();
+	for (int i = 0; i < warningVector.size(); ++i) {
+		warningVector[i]->setAlive(false);
+	}
+	warningVector.clear();
+	boss->setAlive(false);
+	pause->setAlive(false);
+	presentBoss->setAlive(false);
+	vinePlatform->setAlive(false);
+	
+	refvine1 = nullptr;
+    refvine2 = nullptr;
+    refvine3 = nullptr;
+	refvine4 = nullptr;
+	vinePlatform = nullptr;
+}
 void EarthBossManager::initializeEntities() {
 	sdlutils().soundEffects().at("roar").play(0, ecs::_channel_ALERTS);
-	//animController = ent_->addComponent<EarthBossAnimationController>(this);
-	//CREACI�N DE LAS 6 ENREDADERAS LATERALES
+	//CREACION DE LAS 6 ENREDADERAS LATERALES
 	SDL_Rect vine_Rect;
 	vine_Rect.x = roomDimensions.x + roomDimensions.w + offSet;
 	vine_Rect.w = roomDimensions.w;
-	//vine_Rect.h = sdlutils().images().at("vineBoss").height();
 	vine_Rect.h = roomDimensions.h / 6 + offSet;
 	for (int i = 0; i < NUM_VINES; ++i) {
 		//COLISIONAR Y DA�AR AL JUGADOR
@@ -108,6 +126,7 @@ void EarthBossManager::initializeEntities() {
 	healthBar->addComponent<BossHealthBar>(ent_, 1, &sdlutils().images().at("bossHealthBar"), &sdlutils().images().at("bossLife"));
 	boss->addComponent<Health>(healthBar->getComponent<BossHealthBar>(), 2, ecs::Earth, false);
 	boss->addComponent<EarthBossAttack>();
+	//boss->getComponent<Health>()->setHealth(boss->getComponent<Health>()->getMaxHealth());
 
 	//CREACI�N DEL PAUSA
 	pause = mngr_->addEntity(ecs::_grp_MINIBOSS);
@@ -229,13 +248,15 @@ void EarthBossManager::choosingVine() {
 
 void EarthBossManager::resetFight() {
 	isFight = false;
-	boss->getComponent<Health>()->setHealth(boss->getComponent<Health>()->getMaxHealth());
-	
+	changeState = true;
+	destroyEntities();
+	actualState = 1;
+
 }
 
 void EarthBossManager::update() {
 	if (isFight) {
-		if (player->getComponent<Health>()->getHealth() <= 0) {
+		if (player->getComponent<Health>()->getHealth() <= 0){
 			resetFight();
 		}
 		stateManagment();
@@ -292,11 +313,11 @@ void EarthBossManager::stateManagment() {
 				presentBoss->getComponent<Transform>()->setPosition(Vector2D(presentBoss->getComponent<Transform>()->getPosition().getX() - presentBoss->getComponent<Transform>()->getWidth() / 2, presentBoss->getComponent<Transform>()->getPosition().getY()));
 			}
 			else {
-				player->getComponent<PhysicsComponent>()->Resume();
 				setState(states[++actualState]);
 			} 
 		}
 		else {
+			player->getComponent<PhysicsComponent>()->Resume();
 			if (states[actualState] != ATTACKHORIZONTAL && states[actualState] != ATTACKVERTICAL) {
 				animController->setAnimation(true);
 				if(states[actualState] == WARNING) {
@@ -335,6 +356,7 @@ void EarthBossManager::die() {
 	boss->getComponent<Transform>()->setPosition(Vector2D(boss->getComponent<Transform>()->getPosition().getX(), roomDimensions.y - roomDimensions.h));
 	isFight = false;
 	trigger->getComponent<EnterBossRoom>()->unlockDoors();
+	resetFight();
 	auto bounds = map->getCamBounds();
 	mngr_->getCamera()->getComponent<CameraComponent>()->setBounds(bounds);
 }

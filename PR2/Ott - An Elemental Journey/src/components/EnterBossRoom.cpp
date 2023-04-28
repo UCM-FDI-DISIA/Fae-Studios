@@ -12,6 +12,10 @@ void EnterBossRoom::initComponent() {
 	camera = mngr_->getCamera();
 	player = mngr_->getPlayer();
 	earthBoss = mngr_->getEarthBoss();
+	bossRoom.w = sdlutils().width() + 1;
+	bossRoom.x -= 150;
+	bossRoom.y -= 100;
+	bossRoom.h += 150;
 }
 
 void EnterBossRoom::blockDoors() {
@@ -54,13 +58,7 @@ void EnterBossRoom::unlockDoors() {
 
 void EnterBossRoom::enterRoom() {
 	if (resetTime) {
-		timer = SDL_GetTicks();
 		resetTime = false;
-		startShaking = true;
-	    bossRoom.w = sdlutils().width() + 1;
-		bossRoom.x -= 150;
-		bossRoom.y -= 100;
-		bossRoom.h += 150;
 		camera->getComponent<CameraComponent>()->setBounds(bossRoom);
 		blockDoors();
 	}
@@ -94,6 +92,7 @@ void EnterBossRoom::update() {
 		if (player->getComponent<Health>()->getHealth() <= 0 && !unlocked) {
 			unlockDoors();
 			unlocked = true;
+			added = false;
 		}
 	}
 }
