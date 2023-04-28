@@ -67,6 +67,7 @@ private:
     bool stopped = false;
     float verticalSpeed = 0;
     const float horizontalSpeed = 1.8f;
+    const float jumpingHorizontalSpeed = 1.8f * 1.25f;
     Vector2D velocity_;
     float dirClimbing = 0;
     Vector2D lastPos;
