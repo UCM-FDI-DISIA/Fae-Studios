@@ -495,7 +495,7 @@ namespace constructors {
 		auto fadeOut = mngr_->addEntity(ecs::_grp_FADEOUT);
 		fadeOut->addComponent<Transform>(0, 0, sdlutils().width() * 1.5, sdlutils().height() * 1.5);
 		fadeOut->addComponent<FramedImage>(&sdlutils().images().at("fadeOut"), 5, 5);
-		fadeOut->addComponent<FadeOutAnimationComponent>();
+		fadeOut->addComponent<FadeOutMapComponent>();
 		fadeOut->setActive(true);
 		e->addComponent<MapComponent>(fadeOut, game, currentMap);
 		auto scale = e->getComponent<MapComponent>()->tileScale();
@@ -512,7 +512,7 @@ namespace constructors {
 		auto fadeOut = mngr_->addEntity(ecs::_grp_FADEOUT);
 		fadeOut->addComponent<Transform>(0,0,sdlutils().width()*1.5, sdlutils().height()*1.5);
 		fadeOut->addComponent<FramedImage>(&sdlutils().images().at("fadeOut"), 5, 5);
-		fadeOut->addComponent<FadeOutAnimationComponent>();
+		fadeOut->addComponent<FadeOutMapComponent>();
 		fadeOut->setActive(true);
 		e->addComponent<MapComponent>(fadeOut, game, level, fileName);
 		auto scale = e->getComponent<MapComponent>()->tileScale();

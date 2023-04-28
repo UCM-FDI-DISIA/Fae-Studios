@@ -84,7 +84,7 @@ private:
 
 	Texture* tilemap = nullptr;
 	CameraComponent* cam;
-	FadeOutAnimationComponent* anim_;
+	FadeOutMapComponent* anim_;
 	Entity* player_;
 	Entity* earthBoss;
 	Entity* fadeOut;
@@ -132,6 +132,8 @@ public:
 	// cambio de mapa
 	void changeMap(int newMap, std::string key, int nextPos = -1);
 	void WaterSetActive(bool c);
+
+	void setPlayerInRoom(Vector2D newPlayerPos, int newRoom);
 
 	void addCollision(std::string sala, SDL_Rect newCol);
 
