@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.0" orientation="orthogonal" renderorder="right-down" width="211" height="64" tilewidth="32" tileheight="32" infinite="0" nextlayerid="10" nextobjectid="709">
+<map version="1.10" tiledversion="1.10.0" orientation="orthogonal" renderorder="right-down" width="211" height="64" tilewidth="32" tileheight="32" infinite="0" nextlayerid="10" nextobjectid="710">
  <tileset firstgid="1" source="Tiles_Agua_Bosque.tsx"/>
  <layer id="1" name="Capa de patrones 1" width="211" height="64">
   <data encoding="csv">
@@ -79,6 +79,7 @@
  <objectgroup id="6" name="Posiciones">
   <object id="488" name="0" type="0" x="544" y="336" width="53.5" height="96.5"/>
   <object id="708" name="0" type="1" x="52" y="331.5" width="31.5" height="52"/>
+  <object id="709" name="0" type="2" x="6356.5" y="233" width="41" height="78"/>
  </objectgroup>
  <objectgroup id="7" name="Agua" visible="0">
   <object id="489" name="0" type="Activo" x="120.667" y="486" width="6422.67" height="1366.97"/>
