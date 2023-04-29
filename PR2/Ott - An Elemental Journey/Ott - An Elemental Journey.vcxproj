@@ -221,6 +221,7 @@
     <ClInclude Include="src\components\WaterAnimationController.h" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="resources\images\carteles\BossTierra.png" />
     <Image Include="resources\images\carteles\Movimiento\Untitled-Artwork-1.png" />
     <Image Include="resources\images\carteles\Movimiento\Untitled-Artwork-10.png" />
     <Image Include="resources\images\carteles\Movimiento\Untitled-Artwork-11.png" />
