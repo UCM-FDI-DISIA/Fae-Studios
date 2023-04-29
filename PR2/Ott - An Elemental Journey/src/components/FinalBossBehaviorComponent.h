@@ -1,11 +1,12 @@
 #pragma once
 #include "Transform.h"
+#include "MapComponent.h"
 class Health;
 class FinalBossBehaviorComponent : public Component
 {
 public:
 	constexpr static ecs::cmpId_type id = ecs::_FINALBOSS;
-	FinalBossBehaviorComponent();
+	FinalBossBehaviorComponent(MapComponent* map);
 
 	void initComponent() override;
 	void update() override;
@@ -19,6 +20,7 @@ private:
 
 	Transform* bossTransform;
 	Health* bossHealth;
+	MapComponent* map_;
 	int timeBetweenAttacks = 5000, lastAttack = -timeBetweenAttacks;
 	int currentElement;
 	int BUBBLE_DIM = 70;

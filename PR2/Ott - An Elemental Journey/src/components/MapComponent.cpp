@@ -419,7 +419,7 @@ void MapComponent::loadMap(std::string path, int nextPos) {
             rect.w *= roomScale;
             rect.h *= roomScale;
 
-            constructors::boss(mngr_, rect.x, rect.y, rect.w, rect.h);
+            constructors::boss(mngr_, this, rect.x, rect.y, rect.w, rect.h);
         }
 
         for (auto obj : vectorObjects[WATER_VECTOR_POS]) {

@@ -4,11 +4,12 @@
 #include "WaterBubbleComponent.h"
 #include "FireWallComponent.h"
 #include "FistComponent.h"
-#include "MapComponent.h"
-FinalBossBehaviorComponent::FinalBossBehaviorComponent()
+#include "AttractionComponent.h"
+FinalBossBehaviorComponent::FinalBossBehaviorComponent(MapComponent* map)
 {
 	currentElement = rand() % 5;
 	bossTransform = nullptr; bossHealth = nullptr;
+	map_ = map;
 }
 
 void FinalBossBehaviorComponent::initComponent()
@@ -23,17 +24,15 @@ void FinalBossBehaviorComponent::update()
 	if (SDL_GetTicks() - lastAttack >= timeBetweenAttacks) {
 		lastAttack = SDL_GetTicks();
 
-		currentElement = 3;
-
 		//Switch de los diferentes ataques del boss
 		switch (currentElement)
 		{
 		case 0: std::cout << "Ataque tierra boss final" << std::endl; break;
-		case 1: std::cout << "Ataque agua boss final" << std::endl; spawnBubbles(); break;
-		case 2: std::cout << "Ataque fuego boss final" << std::endl; spawnFireWall(); break;
-		case 3: std::cout << "Ataque oscuridad boss final" << std::endl; spawnBlackHole();break;
-		case 4: std::cout << "Ataque pu�o boss final" << std::endl; spawnFist(); break;
-		default: std::cout << "Ataque generico boss final" << std::endl; spawnFist(); break;
+		case 1: std::cout << "Ataque agua boss final" << std::endl; /*spawnBubbles();*/ break;
+		case 2: std::cout << "Ataque fuego boss final" << std::endl; /*spawnFireWall();*/ break;
+		case 3: std::cout << "Ataque oscuridad boss final" << std::endl; spawnBlackHole(); break;
+		case 4: std::cout << "Ataque pu�o boss final" << std::endl;/* spawnFist();*/ break;
+		default: std::cout << "Ataque generico boss final" << std::endl; /*spawnFist();*/ break;
 		}
 		//Cambia de elemento aleatoriamente
 		int lastElem = currentElement;
@@ -73,14 +72,25 @@ void FinalBossBehaviorComponent::spawnBlackHole() {
 
 	std::cout << "Agujero negro" << std::endl;
 
-	// Transform del boss
-	auto pTransf = ent_->getComponent<Transform>();
+	std::vector<Entity*> blackHoles;
+
 	// Agujero negro
-	Entity* blackHole = mngr_->addEntity(ecs::_grp_BLACKHOLE);
-	//Vector2D pos = MapCom
-	blackHole->addComponent<Transform>(pTransf->getPosition(), BLACKHOLE_SIZE * pTransf->getScale(), BLACKHOLE_SIZE * pTransf->getScale());
+	//Entity* blackHole = mngr_->addEntity(ecs::_grp_BLACKHOLE);
+
+	int blackHolesNum = map_->blackHolesNum();
+
+	for (int i = 0; i < blackHolesNum; ++i) {
+		blackHoles.push_back(mngr_->addEntity(ecs::_grp_BLACKHOLE));
+		SDL_Rect rect = map_->getBlackHolePos(i);
+		blackHoles[i]->addComponent<Transform>(Vector2D(rect.x, rect.y), rect.w, rect.h);
+		blackHoles[i]->addComponent<Image>(&sdlutils().images().at("blackHole"));
+		blackHoles[i]->addComponent<AttractionComponent>();
+		//blackHoles[i]->addComponent<Health>(100, ecs::Dark);
+	}
+
+	/*blackHole->addComponent<Transform>(Vector2D(rect.x, rect.y), rect.w, rect.h);
 	blackHole->addComponent<Image>(&sdlutils().images().at("blackHole"));
-	blackHole->addComponent<Health>(100, ecs::Dark);
+	blackHole->addComponent<Health>(100, ecs::Dark);*/
 
 }
 

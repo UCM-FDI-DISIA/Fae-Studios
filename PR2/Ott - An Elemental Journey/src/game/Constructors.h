@@ -264,13 +264,13 @@ namespace constructors {
 		ph->createCollider();	
 		return player;
 	}
-	static inline Entity* boss(Manager* mngr_, int x, int y, int w, int h)
+	static inline Entity* boss(Manager* mngr_, MapComponent* map_, int x, int y, int w, int h)
 	{
 		auto b= mngr_->addEntity(ecs::_grp_MINIBOSS);
 		b->addComponent<Transform>(Vector2D(x, y), w, h);
 		auto health = b->addComponent<Health>(5, ecs::Light, true); health->initComponent();
 		b->addComponent<Image>(&sdlutils().images().at("finalBoss"));
-		b->addComponent<FinalBossBehaviorComponent>();
+		b->addComponent<FinalBossBehaviorComponent>(map_);
 		return b;
 	}
 	static inline Entity* camera(Manager* mngr_, int x, int y, int w, int h) {

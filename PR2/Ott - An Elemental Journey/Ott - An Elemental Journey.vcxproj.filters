@@ -70,6 +70,11 @@
     <ClCompile Include="src\components\ShieldComponent.cpp" />
     <ClCompile Include="src\components\WaterBossAttack.cpp" />
     <ClCompile Include="src\components\FinalBossBehaviorComponent.cpp" />
+    <ClCompile Include="src\components\FireWallComponent.cpp" />
+    <ClCompile Include="src\components\FistComponent.cpp" />
+    <ClCompile Include="src\components\BossHealthBar.cpp" />
+    <ClCompile Include="src\components\WaterBubbleComponent.cpp" />
+    <ClCompile Include="src\components\AttractionComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\components\Image.h" />
@@ -158,6 +163,11 @@
     <ClInclude Include="src\components\ShieldComponent.h" />
     <ClInclude Include="src\components\WaterBossAttack.h" />
     <ClInclude Include="src\components\FinalBossBehaviorComponent.h" />
+    <ClInclude Include="src\components\FireWallComponent.h" />
+    <ClInclude Include="src\components\FistComponent.h" />
+    <ClInclude Include="src\components\WaterBubbleComponent.h" />
+    <ClInclude Include="src\components\BossHealthBar.h" />
+    <ClInclude Include="src\components\AttractionComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="resources\config\ott.resources.mac.json" />
