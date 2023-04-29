@@ -67,13 +67,13 @@ void EarthBossManager::initializeEntities() {
 	SDL_Rect vine_Rect;
 	vine_Rect.x = roomDimensions.x + roomDimensions.w + offSet;
 	vine_Rect.w = roomDimensions.w;
-	vine_Rect.h = roomDimensions.h / 6 + offSet;
+	vine_Rect.h = roomDimensions.h / 6 - (offSet*1.5);
 	for (int i = 0; i < NUM_VINES; ++i) {
 		//COLISIONAR Y DA�AR AL JUGADOR
 		Vector2D finPosVine = Vector2D(roomDimensions.x + offSet*2, roomDimensions.y + (roomDimensions.h / 6)*i);
 		Entity* vine = mngr_->addEntity(ecs::_grp_MINIBOSS);
-		if (i % 2 == 0)vine_Rect.y = roomDimensions.y + (roomDimensions.h / 6 )*i + vine_Rect.h - offSet*2.75;
-		else vine_Rect.y = ((vineVector[i - 1]->getComponent<Transform>()->getPosition().getY()) + (vine_Rect.h / 1.75));
+		if (i % 2 == 0)vine_Rect.y = roomDimensions.y + (roomDimensions.h / 6 )*i + vine_Rect.h;
+		else vine_Rect.y = ((vineVector[i - 1]->getComponent<Transform>()->getPosition().getY()) + (vine_Rect.h));
 		vine->addComponent<Transform>(vine_Rect);
 		vine->addComponent<GrowVine>(finPosVine, 7, -1, "horizontal", true);
 		vine->addComponent<ImageVine>(&sdlutils().images().at("vineBoss"), 1, false);
