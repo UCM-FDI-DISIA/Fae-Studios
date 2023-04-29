@@ -71,13 +71,13 @@ void EarthBossManager::initializeEntities() {
 	SDL_Rect vine_Rect;
 	vine_Rect.x = roomDimensions.x + roomDimensions.w + offSet;
 	vine_Rect.w = roomDimensions.w;
-	vine_Rect.h = roomDimensions.h / 6 + offSet;
+	vine_Rect.h = roomDimensions.h / 6 - (offSet*1.5);
 	for (int i = 0; i < NUM_VINES; ++i) {
 		//COLISIONAR Y DA�AR AL JUGADOR
 		Vector2D finPosVine = Vector2D(roomDimensions.x + offSet*2, roomDimensions.y + (roomDimensions.h / 6)*i);
 		Entity* vine = mngr_->addEntity(ecs::_grp_MINIBOSS);
-		if (i % 2 == 0)vine_Rect.y = roomDimensions.y + (roomDimensions.h / 6 )*i + vine_Rect.h - offSet*2;
-		else vine_Rect.y = ((vineVector[i - 1]->getComponent<Transform>()->getPosition().getY()) + (vine_Rect.h / 2.5));
+		if (i % 2 == 0)vine_Rect.y = roomDimensions.y + (roomDimensions.h / 6 )*i + vine_Rect.h;
+		else vine_Rect.y = ((vineVector[i - 1]->getComponent<Transform>()->getPosition().getY()) + (vine_Rect.h));
 		vine->addComponent<Transform>(vine_Rect);
 		vine->addComponent<GrowVine>(finPosVine, 7, -1, "horizontal", true);
 		vine->addComponent<ImageVine>(&sdlutils().images().at("vineBoss"), 1, false);
@@ -109,7 +109,7 @@ void EarthBossManager::initializeEntities() {
 	for (int j = 0; j < 3; ++j) {
 		float offsetAux = ((roomDimensions.h / 3) - (sdlutils().images().at("warning").height() * 2)) / 2;
 		Entity* warning = mngr_->addEntity(ecs::_grp_MINIBOSS);
-		warning_Rect.y = roomDimensions.y + +offsetAux+ ((roomDimensions.h / 3) * j);
+		warning_Rect.y = roomDimensions.y + offsetAux + ((roomDimensions.h / 3) * j);
 		warning->addComponent<Transform>(warning_Rect);
 		warning->addComponent<FramedImage>(&sdlutils().images().at("warning"), sdlutils().images().at("warning").getNumRows(), sdlutils().images().at("warning").getNumCols());
 		warningVector.push_back(warning);
@@ -118,17 +118,17 @@ void EarthBossManager::initializeEntities() {
 	//CREACI�N DEL BOSS
 	SDL_Rect boss_Rect;
 	boss_Rect.x = roomDimensions.x;
-	boss_Rect.y = roomDimensions.y - roomDimensions.h;
+	boss_Rect.y = roomDimensions.y - roomDimensions.h - offSet;
 	boss_Rect.h = roomDimensions.h;
 	boss_Rect.w = roomDimensions.w / 5;
     finPosBoss = Vector2D{ (float)roomDimensions.x , (float)roomDimensions.y + (float)roomDimensions.h };
-    iniPosBoss = Vector2D{ (float)roomDimensions.x , (float)roomDimensions.y - (float)roomDimensions.h };
+    iniPosBoss = Vector2D{ (float)roomDimensions.x , (float)roomDimensions.y - (float)roomDimensions.h - (float)offSet };
 	boss = mngr_->addEntity(ecs::_grp_MINIBOSS);
 	boss->addComponent<Transform>(boss_Rect);
 	boss->addComponent<FramedImage>(&sdlutils().images().at("fallingWorm"), sdlutils().images().at("fallingWorm").getNumRows(), sdlutils().images().at("fallingWorm").getNumCols());
 	healthBar = mngr_->addEntity(ecs::_grp_UI);
 	healthBar->addComponent<BossHealthBar>(ent_, 1, &sdlutils().images().at("bossHealthBar"), &sdlutils().images().at("bossLife"));
-	boss->addComponent<Health>(healthBar->getComponent<BossHealthBar>(), 2, ecs::Earth, false);
+	boss->addComponent<Health>(healthBar->getComponent<BossHealthBar>(), 10, ecs::Earth, false);
 	boss->addComponent<EarthBossAttack>();
 	//boss->getComponent<Health>()->setHealth(boss->getComponent<Health>()->getMaxHealth());
 
@@ -173,19 +173,19 @@ void EarthBossManager::verticalAttackPosition() {
 		bossWarning = 0;
 	}
 	else if (playerPos < (roomDimensions.x + (2 * (roomDimensions.w / 5)))) {
-		tr_->setPosition(Vector2D(roomDimensions.x + (roomDimensions.w / 5), roomDimensions.y - roomDimensions.h));
+		tr_->setPosition(Vector2D(roomDimensions.x + (roomDimensions.w / 5), roomDimensions.y - roomDimensions.h - offSet));
 		bossWarning = 1;
 	}
 	else if (playerPos < (roomDimensions.x + (3 * (roomDimensions.w / 5)))) {
-		tr_->setPosition(Vector2D(roomDimensions.x + (2 * (roomDimensions.w / 5)), roomDimensions.y - roomDimensions.h));
+		tr_->setPosition(Vector2D(roomDimensions.x + (2 * (roomDimensions.w / 5)), roomDimensions.y - roomDimensions.h - offSet));
 		bossWarning = 2;
 	}
 	else if (playerPos < (roomDimensions.x + (4 * (roomDimensions.w / 5)))) {
-		tr_->setPosition(Vector2D(roomDimensions.x + (3 * (roomDimensions.w / 5)), roomDimensions.y - roomDimensions.h));
+		tr_->setPosition(Vector2D(roomDimensions.x + (3 * (roomDimensions.w / 5)), roomDimensions.y - roomDimensions.h - offSet));
 		bossWarning = 3;
 	}
 	else {
-		tr_->setPosition(Vector2D(roomDimensions.x + (4 * (roomDimensions.w / 5)), roomDimensions.y - roomDimensions.h));
+		tr_->setPosition(Vector2D(roomDimensions.x + (4 * (roomDimensions.w / 5)), roomDimensions.y - roomDimensions.h - offSet));
 		bossWarning = 4;
 	} 
 }
