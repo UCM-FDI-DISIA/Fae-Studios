@@ -23,7 +23,7 @@ MapComponent::MapComponent(Entity* fadeOut, PlayState* game, int currentMap) : f
     for (int i = 0; i < ecs::LAST_MAP_ID; ++i) {
         mapKeys.push_back({});
     }
-    currentMapKey = "waterBossMap";
+    currentMapKey = "earthMap";
     tilemap = &sdlutils().images().at(sdlutils().levels().at(currentMapKey).tileset);
 }
 
@@ -443,7 +443,7 @@ void MapComponent::loadMap(std::string path, int nextPos) {
             if (obj.getClass() == "Destructible") {
                 destructible[obj.getName()].push_back(std::make_pair(true, rect));
                 int index = destructible[obj.getName()].size() - 1;
-                eraseEntities.push_back(constructors::DestructibleTile(mngr_, rect.x, rect.y, rect.w, obj.getName(), index, this));
+                eraseEntities.push_back(constructors::DestructibleTile(mngr_, rect.x, rect.y, rect.w, rect.h, obj.getName(), index, this));
             }
             else ground[obj.getName()].push_back(rect);
         }
@@ -664,6 +664,7 @@ void MapComponent::loadMap(std::string path, int nextPos) {
                 mngr_->setEarthBoss(earthBoss);
                 interact[roomNum].push_back(earthBoss);
                 earthBoss->setActive(false);
+                eraseEntities.push_back(earthBoss);
             }
             else if (ot.getClass() == "EarthBossPlatforms") {
                 int roomNum = std::stoi(ot.getName());
@@ -677,6 +678,7 @@ void MapComponent::loadMap(std::string path, int nextPos) {
                 earthBossPlatforms->addComponent<Transform>(platformDimensions);
                 platformEarthBoss.push_back(earthBossPlatforms);
                 earthBossPlatforms->setActive(false);
+                eraseEntities.push_back(earthBossPlatforms);
             }
             else if (ot.getClass() == "lore_Trigger") {
                 int roomNum = std::stoi(ot.getName());
