@@ -1,11 +1,6 @@
 #include "../utils/checkML.h"
 #include "ChargedAttackBar.h"
 
-void ChargedAttackBar::initComponent() {
-	hImage_ = ent_->getComponent<HealthImage>();
-}
-
-
 void ChargedAttackBar::render() {
 	SDL_Rect tmp = hImage_->getLastHeartPos();
 	tmp.x += 90;

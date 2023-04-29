@@ -7,7 +7,7 @@ private:
     ChargedAttackBar* chargedBar_;
 
 public:
-	AttackCharger(int max) : Component(), maxCharge(max), currentCharge(0) {};
+	AttackCharger(int max, ChargedAttackBar* chargedBar) : Component(), maxCharge(max), currentCharge(0), chargedBar_(chargedBar) {};
 	inline int& getCharge() { return currentCharge; }
 	inline void addCharge(int n) {
 		if (currentCharge + n >= maxCharge) {
@@ -22,9 +22,6 @@ public:
         chargedBar_->resetCharges();
     }
 	inline bool hasChargedAttack() { return currentCharge >= maxCharge; }
-    inline void initComponent() override {
-        chargedBar_ = ent_->getComponent<ChargedAttackBar>();
-    }
 	constexpr static ecs::cmpId_type id = ecs::_CHARGED_ATTACK;
 };
 
