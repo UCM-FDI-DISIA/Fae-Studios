@@ -251,14 +251,15 @@ void EarthBossManager::resetFight() {
 	changeState = true;
 	destroyEntities();
 	actualState = 1;
-
 }
 
 void EarthBossManager::update() {
 	if (isFight) {
-		if (player->getComponent<Health>()->getHealth() <= 0){
+		if (player->getComponent<Health>()->getHealth() <= 0) {
 			resetFight();
+			showBar = false;
 		}
+		//else (showBar = true);
 		stateManagment();
 		if (attackingHorizontally) {
 			if (!refvine1->getComponent<GrowVine>()->getGrow()) {

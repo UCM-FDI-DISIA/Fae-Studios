@@ -23,7 +23,7 @@ void BossHealthBar::die() {
 }
 
 void BossHealthBar::render() {
-	if (!isDead) {
+	if (!isDead && bossManager->getComponent<EarthBossManager>()->getShowBar()) {
 		if (mngr_->getPlayer()->getComponent<Health>()->getHealth() <= 0) {
 			//bossManager->getComponent<EarthBossManager>()->getBoss()->getComponent<Health>()->resetHealth();
 			reset();
