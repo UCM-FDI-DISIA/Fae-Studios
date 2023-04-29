@@ -416,12 +416,6 @@
 			"cols": 1
 		},
 		{
-			"id": "water_attack",
-			"file": "../resources/images/tests/water_Attack.png",
-			"rows": 1,
-			"cols": 1
-		},
-		{
 			"id": "fireBoss",
 			"file": "../resources/images/sprites/Skeleton.png",
 			"rows": 5,
