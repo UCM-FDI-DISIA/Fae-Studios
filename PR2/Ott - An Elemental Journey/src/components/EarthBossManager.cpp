@@ -10,6 +10,8 @@
 #include "Health.h"
 #include "Trigger.h"
 #include "EnterBossRoom.h"
+#include "PlayerInput.h"
+
 #ifdef __APPLE__
 	#include <unistd.h>
 #endif // __APPLE__
@@ -25,8 +27,9 @@ void EarthBossManager::initComponent() {
 	SDL_Rect trigger_Rect;
 	trigger_Rect.x = roomDimensions.x + 200;
 	trigger_Rect.y = roomDimensions.y;
-	trigger_Rect.w = roomDimensions.w;
+	trigger_Rect.w = 1;
 	trigger_Rect.h = roomDimensions.h;
+	
 	trigger->addComponent<Transform>(trigger_Rect);
 	trigger->addComponent<EnterBossRoom>(roomDimensions);
 	trigger->addComponent<Trigger>();
@@ -60,6 +63,7 @@ void EarthBossManager::destroyEntities() {
     refvine3 = nullptr;
 	refvine4 = nullptr;
 	vinePlatform = nullptr;
+	
 }
 void EarthBossManager::initializeEntities() {
 	sdlutils().soundEffects().at("roar").play(0, ecs::_channel_ALERTS);
@@ -253,6 +257,7 @@ void EarthBossManager::resetFight() {
 	actualState = 1;
 	attackingHorizontally = false;
 	attackingVertically = false;
+	resetTrigger = false;
 }
 
 void EarthBossManager::update() {
@@ -295,7 +300,12 @@ void EarthBossManager::update() {
 				}
 			}
 		}
-		
+		trigger->getComponent<Transform>()->setPosition(Vector2D(trigger->getComponent<Transform>()->getPosition().getX(), roomDimensions.y - roomDimensions.h*2));
+	}
+	
+	else if ( !resetTrigger && !isFight && (player->getComponent<Transform>()->getPosition().getX() > (roomDimensions.x + roomDimensions.w) || player->getComponent<Transform>()->getPosition().getX() < roomDimensions.x)){
+		resetTrigger = true;
+		trigger->getComponent<Transform>()->setPosition(Vector2D(trigger->getComponent<Transform>()->getPosition().getX(), roomDimensions.y));
 	}
 }
 void EarthBossManager::createVinePlatform() {
@@ -323,7 +333,7 @@ void EarthBossManager::stateManagment() {
 			} 
 		}
 		else {
-			player->getComponent<PhysicsComponent>()->Resume();
+			player->getComponent<PlayerInput>()->Resume();
 			if (states[actualState] != ATTACKHORIZONTAL && states[actualState] != ATTACKVERTICAL) {
 				animController->setAnimation(true);
 				if(states[actualState] == WARNING) {

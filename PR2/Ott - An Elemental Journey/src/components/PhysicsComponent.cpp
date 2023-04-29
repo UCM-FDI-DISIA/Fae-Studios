@@ -43,6 +43,7 @@ void PhysicsComponent::createCollider() {
 
 void PhysicsComponent::update() {
 	if (!stopped) {
+		
 		//ascenso progresivo en el agua cuando tiene otros elementos
 		if (!floating && inWater && ent_->getComponent<Health>()->getElement() != ecs::Water)
 		{
@@ -53,10 +54,11 @@ void PhysicsComponent::update() {
 			return;
 		}
 
-		if (climbing) {
+		if (climbing && ent_->getComponent<Health>()->getHealth() > 0) {
 			grounded = true;
 			velocity_ = Vector2D(velocity_.getX(), dirClimbing);
 		}
+		else if(climbing && ent_->getComponent<Health>()->getHealth() <= 0)velocity_ = Vector2D(velocity_.getX(), MAX_VERTICAL_SPEED);
 		if (!grounded && gravity && (!inWater || (inWater && ent_->getComponent<Health>()->getElement() == ecs::Water))) {
 
 			if (inWater)
@@ -104,6 +106,7 @@ void PhysicsComponent::update() {
 		}
 	}
 	else setVelocity(Vector2D(0, 0));
+	
 
 }
 
