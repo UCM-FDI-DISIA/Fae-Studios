@@ -416,12 +416,6 @@
 			"cols": 1
 		},
 		{
-			"id": "water_attack",
-			"file": "../resources/images/tests/water_Attack.png",
-			"rows": 1,
-			"cols": 1
-		},
-		{
 			"id": "fireBoss",
 			"file": "../resources/images/sprites/Skeleton.png",
 			"rows": 5,
@@ -750,6 +744,12 @@
 			"file": "../resources/images/carteles/Elemento/cartelElementoAnimation.png",
 			"rows": 4,
 			"cols": 11
+		},
+		{
+			"id": "bossTierraCartel",
+			"file": "../resources/images/carteles/BossTierra.png",
+			"rows": 1,
+			"cols": 1
 		},
 		{
 			"id": "platform",

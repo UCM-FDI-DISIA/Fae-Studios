@@ -120,7 +120,7 @@ void PlayerAttack::update() {
 						// ATAQUE AGUA SIMPLE
 						wAttack = mngr_->addEntity(ecs::_grp_PROYECTILES);
 						wAttack->addComponent<Transform>(Vector2D(trigger.x, trigger.y), WATER_ATTACK_WIDTH * tr_->getScale(), WATER_ATTACK_HEIGHT * tr_->getScale());
-						wAttack->addComponent<FramedImage>(&sdlutils().images().at("water_attack"), 1, 10);
+						wAttack->addComponent<FramedImage>(&sdlutils().images().at("water_attack"), 2, 7);
 						wAttack->addComponent<WaterAnimationController>(anims::WATER_ATTACK);
 						waterAttackActive = true;
 						colTrigger = 0;
