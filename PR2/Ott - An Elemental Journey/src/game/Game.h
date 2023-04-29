@@ -32,6 +32,8 @@ class Game : public Singleton<Game> {
 private:
     bool exit = false; ///< Indica si el juego se va a cerrar o no
 
+    bool joystick = false;
+
     SDL_Joystick* gGameController;
 
     /// Constructora de la clase Game (privada porque es un singleton)
@@ -47,6 +49,8 @@ public:
     void exitGame() { exit = true; }
 
     inline SDL_Joystick* getJoystick() { return gGameController; }
+
+    inline bool getIsJoystick() { return joystick; }
 };
 
 /// Una forma más sencilla de devolver Game::instance()
