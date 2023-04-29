@@ -54,6 +54,8 @@ void EnterBossRoom::unlockDoors() {
 	blockEnter->getComponent<GrowVine>()->startUngrowing();
 	blockExit->getComponent<GrowVine>()->startUngrowing();
 	camera->getComponent<CameraComponent>()->setBounds(map->getCamBounds());
+	blockEnter->setAlive(false);
+	blockExit->setAlive(false);
 }
 
 void EnterBossRoom::enterRoom() {

@@ -23,7 +23,7 @@ MapComponent::MapComponent(Entity* fadeOut, PlayState* game, int currentMap) : f
     for (int i = 0; i < ecs::LAST_MAP_ID; ++i) {
         mapKeys.push_back({});
     }
-    currentMapKey = "fireMap";
+    currentMapKey = "earthMap";
     tilemap = &sdlutils().images().at(sdlutils().levels().at(currentMapKey).tileset);
 }
 
@@ -87,9 +87,11 @@ void MapComponent::generateEnemies() {
         else if (it.getClass() == "WaterBoss") {
             
             auto waterBoss = constructors::WaterBoss(mngr_, x_ * scale * roomScale, y_ * scale * roomScale, 300 * scale * roomScale, 300 * scale * roomScale);
+            eraseEntities.push_back(waterBoss);
 
             for (auto it : mngr_->getEntities(ecs::_grp_GROUND)) {
-                it->getComponent<Destruction>()->setBoss(waterBoss);
+                auto dest = it->getComponent<Destruction>();
+                if(dest != nullptr) dest->setBoss(waterBoss);
             }
         }
         else if (it.getClass() == "fireBoss")
@@ -292,6 +294,8 @@ void MapComponent::changeMap(int newMap, std::string key, int nextPos) {
     triggers = {};
     positions = {};
 
+    game->eraseCarteles(numRooms);
+
     vectorObjects = {};
     vectorTiles = {};
     
@@ -441,7 +445,7 @@ void MapComponent::loadMap(std::string path, int nextPos) {
             if (obj.getClass() == "Destructible") {
                 destructible[obj.getName()].push_back(std::make_pair(true, rect));
                 int index = destructible[obj.getName()].size() - 1;
-                constructors::DestructibleTile(mngr_, rect.x, rect.y, rect.w, obj.getName(), index, this);
+                eraseEntities.push_back(constructors::DestructibleTile(mngr_, rect.x, rect.y, rect.w, rect.h, obj.getName(), index, this));
             }
             else ground[obj.getName()].push_back(rect);
         }
@@ -662,6 +666,7 @@ void MapComponent::loadMap(std::string path, int nextPos) {
                 mngr_->setEarthBoss(earthBoss);
                 interact[roomNum].push_back(earthBoss);
                 earthBoss->setActive(false);
+                eraseEntities.push_back(earthBoss);
             }
             else if (ot.getClass() == "EarthBossPlatforms") {
                 int roomNum = std::stoi(ot.getName());
@@ -675,6 +680,7 @@ void MapComponent::loadMap(std::string path, int nextPos) {
                 earthBossPlatforms->addComponent<Transform>(platformDimensions);
                 platformEarthBoss.push_back(earthBossPlatforms);
                 earthBossPlatforms->setActive(false);
+                eraseEntities.push_back(earthBossPlatforms);
             }
             else if (ot.getClass() == "lore_Trigger") {
                 int roomNum = std::stoi(ot.getName());
@@ -714,13 +720,16 @@ void MapComponent::loadMap(std::string path, int nextPos) {
             else if (classSplit[0] == "WaterTank") {
                 auto roomScale = vectorTiles[std::stoi(ot.getName())].first;
                 auto wTank = constructors::waterContainer(mngr_, x_ * scale * roomScale, y_ * scale * roomScale, w_ * scale * roomScale, h_ * scale * roomScale, roomScale);
-                interact[std::stoi(ot.getName())].push_back(wTank);
-                wTank->setActive(false);
+                interact[std::stoi(ot.getName())].push_back(wTank.first);
+                eraseEntities.push_back(wTank.first);
+                eraseEntities.push_back(wTank.second);
+                wTank.first->setActive(false);
             }
             else if (classSplit[0] == "FireBossRoom") {
                 auto roomScale = vectorTiles[std::stoi(ot.getName())].first;
                 auto fireRoom = constructors::fireBossRoom(mngr_, x_ * scale * roomScale, y_ * scale * roomScale, w_ * scale * roomScale, h_ * scale * roomScale);
                 interact[std::stoi(ot.getName())].push_back(fireRoom);
+                eraseEntities.push_back(fireRoom);
                 fireRoom->setActive(false);
             }
         }

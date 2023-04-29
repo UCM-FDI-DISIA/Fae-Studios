@@ -752,6 +752,12 @@
 			"cols": 11
 		},
 		{
+			"id": "bossTierraCartel",
+			"file": "../resources/images/carteles/BossTierra.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
 			"id": "platform",
 			"file": "../resources/images/tests/Platform.PNG",
 			"rows": 1,

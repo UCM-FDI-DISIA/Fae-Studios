@@ -251,6 +251,8 @@ void EarthBossManager::resetFight() {
 	changeState = true;
 	destroyEntities();
 	actualState = 1;
+	attackingHorizontally = false;
+	attackingVertically = false;
 }
 
 void EarthBossManager::update() {
@@ -277,7 +279,7 @@ void EarthBossManager::update() {
 				if (bossPos->getPosition().getY() < finPosBoss.getY()) {
 					if (bossPos->getPosition().getX() <= vinePlatform->getComponent<Transform>()->getPosition().getX() &&
 						(bossPos->getPosition().getX() + bossPos->getWidth()) >= vinePlatform->getComponent<Transform>()->getPosition().getX()) {
-						verticalSpeed = 1;
+						verticalSpeed = 2;
 					}
 					bossPos->setPosition(Vector2D(bossPos->getPosition().getX(), bossPos->getPosition().getY() + verticalSpeed));
 				}
@@ -293,6 +295,7 @@ void EarthBossManager::update() {
 				}
 			}
 		}
+		
 	}
 }
 void EarthBossManager::createVinePlatform() {

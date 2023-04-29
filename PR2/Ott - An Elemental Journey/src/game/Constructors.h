@@ -171,7 +171,7 @@ namespace constructors {
 
 		return enemy;
 	}
-	static inline Entity* waterContainer(Manager* mngr_, int x, int y,int w, int h, float scale) {
+	static inline pair<Entity*, Entity*> waterContainer(Manager* mngr_, int x, int y,int w, int h, float scale) {
 		auto waterC = mngr_->addEntity(ecs::_grp_MAP);
 		waterC->addComponent<Transform>(Vector2D(x,y), w, h);
 		waterC->addComponent<Image>(&sdlutils().images().at("water"));
@@ -182,7 +182,7 @@ namespace constructors {
 		waterVine->addComponent<Image>(&sdlutils().images().at("enredadera"));
 		waterVine->addComponent<WaterVineComponent>(waterC);
 
-		return waterC;
+		return { waterC, waterVine };
 	}
 	static inline Entity* fireBossRoom(Manager* mngr_, int x, int y, int w, int h) {
 		auto triggerBoss = mngr_->addEntity(ecs::_grp_MAP);
@@ -431,11 +431,12 @@ namespace constructors {
 		return boss;
 	}
 
-	static inline void DestructibleTile(Manager* mngr_, int x, int y, int w, std::string room, int index, MapComponent* map) {
+	static inline Entity* DestructibleTile(Manager* mngr_, int x, int y, int w, int h, std::string room, int index, MapComponent* map) {
 		auto waterObj = mngr_->addEntity(ecs::_grp_GROUND);
-		waterObj->addComponent<Transform>(Vector2D(x,y), w, w);
-		waterObj->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
+		waterObj->addComponent<Transform>(Vector2D(x,y), w, h);
+		waterObj->addComponent<Image>(&sdlutils().images().at("box"));
 		waterObj->addComponent<Destruction>(room, index, map);
+		return waterObj;
 	}
 
 	static inline Entity* WaterBoss(Manager* mngr_, int x, int y, int w, int h) {

@@ -214,5 +214,6 @@
     <Image Include="resources\images\carteles\Movimiento\Untitled-Artwork-12.png" />
     <Image Include="resources\images\carteles\Movimiento\Untitled-Artwork-13.png" />
     <Image Include="resources\images\carteles\Movimiento\Untitled-Artwork-14.png" />
+    <Image Include="resources\images\carteles\BossTierra.png" />
   </ItemGroup>
 </Project>

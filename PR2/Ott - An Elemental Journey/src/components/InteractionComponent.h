@@ -25,7 +25,7 @@ public:
 	void interact() { callback(); if (destroyAfterInteraction) { ent_->setAlive(false); listPtr->erase(listIt); } }
 	void OnPlayerNear() {
 		if (!nearPlayer) {
-			if (SDL_NumJoysticks() == 1 && SDL_JoystickHasRumble(game().getJoystick())) {
+			if (game().getIsJoystick() && SDL_JoystickHasRumble(game().getJoystick())) {
 				SDL_JoystickRumble(game().getJoystick(), UINT16_MAX / 2, UINT16_MAX / 2, 1000);
 			}
 				switch (type) {
