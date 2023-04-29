@@ -72,8 +72,8 @@ void EarthBossManager::initializeEntities() {
 		//COLISIONAR Y DA�AR AL JUGADOR
 		Vector2D finPosVine = Vector2D(roomDimensions.x + offSet*2, roomDimensions.y + (roomDimensions.h / 6)*i);
 		Entity* vine = mngr_->addEntity(ecs::_grp_MINIBOSS);
-		if (i % 2 == 0)vine_Rect.y = roomDimensions.y + (roomDimensions.h / 6 )*i + vine_Rect.h - offSet*2;
-		else vine_Rect.y = ((vineVector[i - 1]->getComponent<Transform>()->getPosition().getY()) + (vine_Rect.h / 2.5));
+		if (i % 2 == 0)vine_Rect.y = roomDimensions.y + (roomDimensions.h / 6 )*i + vine_Rect.h - offSet*2.75;
+		else vine_Rect.y = ((vineVector[i - 1]->getComponent<Transform>()->getPosition().getY()) + (vine_Rect.h / 1.75));
 		vine->addComponent<Transform>(vine_Rect);
 		vine->addComponent<GrowVine>(finPosVine, 7, -1, "horizontal", true);
 		vine->addComponent<ImageVine>(&sdlutils().images().at("vineBoss"), 1, false);
@@ -169,19 +169,19 @@ void EarthBossManager::verticalAttackPosition() {
 		bossWarning = 0;
 	}
 	else if (playerPos < (roomDimensions.x + (2 * (roomDimensions.w / 5)))) {
-		tr_->setPosition(Vector2D(roomDimensions.x + (roomDimensions.w / 5), roomDimensions.y - roomDimensions.h));
+		tr_->setPosition(Vector2D(roomDimensions.x + (roomDimensions.w / 5), roomDimensions.y - roomDimensions.h - offSet));
 		bossWarning = 1;
 	}
 	else if (playerPos < (roomDimensions.x + (3 * (roomDimensions.w / 5)))) {
-		tr_->setPosition(Vector2D(roomDimensions.x + (2 * (roomDimensions.w / 5)), roomDimensions.y - roomDimensions.h));
+		tr_->setPosition(Vector2D(roomDimensions.x + (2 * (roomDimensions.w / 5)), roomDimensions.y - roomDimensions.h - offSet));
 		bossWarning = 2;
 	}
 	else if (playerPos < (roomDimensions.x + (4 * (roomDimensions.w / 5)))) {
-		tr_->setPosition(Vector2D(roomDimensions.x + (3 * (roomDimensions.w / 5)), roomDimensions.y - roomDimensions.h));
+		tr_->setPosition(Vector2D(roomDimensions.x + (3 * (roomDimensions.w / 5)), roomDimensions.y - roomDimensions.h - offSet));
 		bossWarning = 3;
 	}
 	else {
-		tr_->setPosition(Vector2D(roomDimensions.x + (4 * (roomDimensions.w / 5)), roomDimensions.y - roomDimensions.h));
+		tr_->setPosition(Vector2D(roomDimensions.x + (4 * (roomDimensions.w / 5)), roomDimensions.y - roomDimensions.h - offSet));
 		bossWarning = 4;
 	} 
 }

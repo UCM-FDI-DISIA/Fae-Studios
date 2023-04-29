@@ -140,7 +140,7 @@
   <object id="465" name="0_0" class="elementoCartel" x="233.333" y="1424"/>
   <object id="468" name="13_0" class="bossTierraCartel" x="5027" y="706"/>
  </objectgroup>
- <objectgroup id="2" name="Colisiones" visible="0">
+ <objectgroup id="2" name="Colisiones">
   <object id="1" name="0" class="Ground" x="222" y="768" width="1841.33" height="393"/>
   <object id="3" name="0" class="Ground" x="2058.67" y="757.333" width="519.333" height="30.6667"/>
   <object id="4" name="0" class="Ground" x="2578" y="753.334" width="124" height="480.666"/>
@@ -176,14 +176,14 @@
   <object id="146" name="4" class="Ground" x="1329.33" y="2811.34" width="245" height="54.3333"/>
   <object id="148" name="3" class="Ground" x="1430.67" y="1725.33" width="142.333" height="237.667"/>
   <object id="177" name="13" class="Ground" x="3784.14" y="1372.73" width="2564.02" height="196.061"/>
-  <object id="179" name="13" class="Ground" x="5576.74" y="1112.73" width="119.333" height="16"/>
-  <object id="180" name="13" class="Ground" x="5770.07" y="888.059" width="119.333" height="16"/>
-  <object id="181" name="13" class="Ground" x="5963.41" y="1112.06" width="119.333" height="16"/>
-  <object id="182" name="13" class="Ground" x="6154.74" y="888.059" width="119.333" height="16"/>
-  <object id="212" name="13" class="Ground" x="5388.33" y="888" width="119.333" height="16"/>
+  <object id="179" name="13" class="Ground" x="5567.74" y="1121.73" width="119.333" height="16"/>
+  <object id="180" name="13" class="Ground" x="5761.07" y="897.059" width="119.333" height="16"/>
+  <object id="181" name="13" class="Ground" x="5954.41" y="1121.06" width="119.333" height="16"/>
+  <object id="182" name="13" class="Ground" x="6145.74" y="897.059" width="119.333" height="16"/>
+  <object id="212" name="13" class="Ground" x="5379.33" y="897" width="119.333" height="16"/>
   <object id="214" name="0" class="Ground" x="1741.33" y="1625.33" width="224" height="36"/>
-  <object id="243" name="13" class="Ground" x="3732" y="993.333" width="95.9997" height="110.667"/>
-  <object id="245" name="13" class="Ground" x="5116.67" y="689.333" width="214" height="500"/>
+  <object id="243" name="13" class="Ground" x="3732" y="993.333" width="1218.67" height="110.667"/>
+  <object id="245" name="13" class="Ground" x="4947.34" y="689.333" width="383.333" height="544"/>
   <object id="246" name="13" class="Ground" x="6454.33" y="800" width="1268.33" height="731.333"/>
   <object id="247" name="13" class="Ground" x="5325.33" y="666.667" width="2542" height="48"/>
   <object id="248" name="1" class="Ground" x="2706" y="759" width="251.667" height="181"/>
@@ -269,7 +269,6 @@
   <object id="454" name="1" class="Ground" x="3049.5" y="2051.17" width="426" height="27.6667"/>
   <object id="456" name="13" class="Ground" x="7826" y="715" width="42" height="822"/>
   <object id="457" name="13" class="Ground" x="6325.33" y="862.667" width="132.667" height="664"/>
-  <object id="467" name="13" class="Ground" x="3825.33" y="1104" width="1290.67" height="85.3333"/>
  </objectgroup>
  <objectgroup id="11" name="Trigger de cambio de mapa" visible="0">
   <object id="338" name="13" class="waterMap_1_0" x="7741.42" y="1440.67" width="66.8333" height="97.75"/>
@@ -293,11 +292,11 @@
   <object id="189" name="13" class="BossRoom" x="5339.64" y="732.023" width="987.879" height="648.242"/>
   <object id="196" name="lamp2" class="Lamp_1" x="3727.58" y="1370.42" width="32"/>
   <object id="199" name="lamp2" class="Lamp_0" x="1217.58" y="1430.92" width="32"/>
-  <object id="207" name="13" class="EarthBossPlatforms" x="5378" y="885" width="118" height="23"/>
-  <object id="208" name="13" class="EarthBossPlatforms" x="5572" y="1109.5" width="118" height="23"/>
-  <object id="209" name="13" class="EarthBossPlatforms" x="5765" y="886.5" width="118" height="23"/>
-  <object id="210" name="13" class="EarthBossPlatforms" x="5957" y="1107.5" width="118" height="23"/>
-  <object id="211" name="13" class="EarthBossPlatforms" x="6150" y="885.5" width="118" height="23"/>
+  <object id="207" name="13" class="EarthBossPlatforms" x="5377" y="887" width="118" height="23"/>
+  <object id="208" name="13" class="EarthBossPlatforms" x="5571" y="1111.5" width="118" height="23"/>
+  <object id="209" name="13" class="EarthBossPlatforms" x="5764" y="888.5" width="118" height="23"/>
+  <object id="210" name="13" class="EarthBossPlatforms" x="5956" y="1109.5" width="118" height="23"/>
+  <object id="211" name="13" class="EarthBossPlatforms" x="6149" y="887.5" width="118" height="23"/>
   <object id="298" name="6" class="Grass" x="2992.83" y="2306.5" width="32.3333" height="897"/>
   <object id="327" name="1" class="Grass" x="3396.17" y="1166.33" width="33.6667" height="365.333"/>
   <object id="329" name="lamp3" class="Lamp_6" x="3090" y="2495" width="32"/>
