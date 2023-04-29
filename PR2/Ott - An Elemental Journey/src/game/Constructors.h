@@ -296,16 +296,20 @@ namespace constructors {
 	}
 		
 	static inline Entity* player(Manager* mngr_, int x, int y, int w, int h) {
+
+		auto healthUI = mngr_->addEntity(ecs::_grp_UI);
+		auto lamp_w = 150;
+		SDL_Rect rect = { 20,20,(int)(0.56*lamp_w),lamp_w };
+		auto healthImage = healthUI->addComponent<HealthImage>(&sdlutils().images().at("lamps"), 5, rect);
+
 		auto player = mngr_->addEntity(ecs::_grp_CHARACTERS);
 		auto ph = player->addComponent<PhysicsComponent>(colliders::OTT);
 		player->addComponent<Transform>(Vector2D(x, y), w, h);
-		auto lamp_w = 150;
-		SDL_Rect rect = { 20,20,(int)(0.56*lamp_w),lamp_w };
 		player->addComponent<HealthImage>(&sdlutils().images().at("lamps"), 5, rect);
 		player->addComponent<FramedImageOtt>(&sdlutils().images().at("ott_luz"));
 		player->addComponent<ChargedAttackBar>(&sdlutils().images().at("chargebar"));
 		auto pAnim = player->addComponent<PlayerAnimationComponent>(anims::OTT_ANIM);
-		auto health = player->addComponent<Health>(5, ecs::Light, true);
+		auto health = player->addComponent<Health>(5, ecs::Light, healthImage);
 		player->addComponent<PlayerAttack>();
 		player->addComponent<AttackCharger>(8);
 		player->addComponent<PlayerInput>();
@@ -415,7 +419,7 @@ namespace constructors {
 	}
 	static inline Entity* FireBoss(Manager* mngr_, int x, int y) {
 		auto boss = mngr_->addEntity(ecs::_grp_CHARACTERS);
-		boss->addComponent<Transform>(Vector2D(x, y), 250, 250);
+		boss->addComponent<Transform>(Vector2D(x, y),400, 400);
 		boss->addComponent<FireBossComponent>();
 		boss->addComponent<PhysicsComponent>(colliders::OTT);
 		boss->getComponent<PhysicsComponent>()->createCollider();
@@ -423,7 +427,7 @@ namespace constructors {
 		
 		auto anim=boss->addComponent<FireBossAnimation>(anims::FIREBOSS_ANIM);
 		boss->getComponent<FireBossComponent>()->setAnimComponent(anim);
-		boss->addComponent<Health>(2, ecs::Fire, false);
+		boss->addComponent<Health>(25, ecs::Fire, false);
 		return boss;
 	}
 
@@ -495,7 +499,7 @@ namespace constructors {
 		auto fadeOut = mngr_->addEntity(ecs::_grp_FADEOUT);
 		fadeOut->addComponent<Transform>(0, 0, sdlutils().width() * 1.5, sdlutils().height() * 1.5);
 		fadeOut->addComponent<FramedImage>(&sdlutils().images().at("fadeOut"), 5, 5);
-		fadeOut->addComponent<FadeOutAnimationComponent>();
+		fadeOut->addComponent<FadeOutMapComponent>();
 		fadeOut->setActive(true);
 		e->addComponent<MapComponent>(fadeOut, game, currentMap);
 		auto scale = e->getComponent<MapComponent>()->tileScale();
@@ -512,7 +516,7 @@ namespace constructors {
 		auto fadeOut = mngr_->addEntity(ecs::_grp_FADEOUT);
 		fadeOut->addComponent<Transform>(0,0,sdlutils().width()*1.5, sdlutils().height()*1.5);
 		fadeOut->addComponent<FramedImage>(&sdlutils().images().at("fadeOut"), 5, 5);
-		fadeOut->addComponent<FadeOutAnimationComponent>();
+		fadeOut->addComponent<FadeOutMapComponent>();
 		fadeOut->setActive(true);
 		e->addComponent<MapComponent>(fadeOut, game, level, fileName);
 		auto scale = e->getComponent<MapComponent>()->tileScale();

@@ -33,7 +33,6 @@ void Health::die()
 
 void Health::initComponent() {
 	pAnim_ = ent_->getComponent<PlayerAnimationComponent>();
-	image = ent_->getComponent<HealthImage>();
 }
 
 void Health::recall(bool rest) {

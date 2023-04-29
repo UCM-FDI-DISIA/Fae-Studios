@@ -23,7 +23,7 @@ MapComponent::MapComponent(Entity* fadeOut, PlayState* game, int currentMap) : f
     for (int i = 0; i < ecs::LAST_MAP_ID; ++i) {
         mapKeys.push_back({});
     }
-    currentMapKey = "earthMap";
+    currentMapKey = "fireMap";
     tilemap = &sdlutils().images().at(sdlutils().levels().at(currentMapKey).tileset);
 }
 
@@ -106,6 +106,10 @@ void MapComponent::generateEnemies() {
             ot->setActive(false);
         }
     }
+
+    for (auto it : enemies_[currentRoom]) {
+        it->setActive(true);
+    }
 }
 
 MapComponent::MapComponent(Entity* fadeOut, PlayState* game, int currentMap, std::ifstream& file) : fadeOut(fadeOut), game(game), currentMap(currentMap) {
@@ -128,7 +132,7 @@ MapComponent::MapComponent(Entity* fadeOut, PlayState* game, int currentMap, std
 void MapComponent::initComponent() {
     cam = mngr_->getCamera()->getComponent<CameraComponent>();
     player_ = mngr_->getPlayer();
-    anim_ = fadeOut->getComponent<FadeOutAnimationComponent>();
+    anim_ = fadeOut->getComponent<FadeOutMapComponent>();
     anim_->setMap(ent_);
     initSanctuaries();
     loadMap(sdlutils().levels().at(currentMapKey).route);
@@ -208,12 +212,23 @@ void MapComponent::update() {
             SDL_Rect result;
             SDL_Rect rect = trigger.triggerRect;
             if (SDL_IntersectRect(&playerRect, &rect, &result)) {
-                changeMap(trigger.map, trigger.key, trigger.nextPos);
+                anim_->startFadeOut(trigger.map, trigger.key, trigger.nextPos);
                 break;
             }
             ++i;
         }
     }
+}
+
+void MapComponent::setPlayerInRoom(Vector2D newPlayerPos, int newRoom) {
+    cam->setPos(newPlayerPos); // settear la nueva posición de la cámara
+    activateObjectsInRoom(currentRoom, false); // desactivar los objetos de la sala actual
+    setCurrentRoom(newRoom); // settear la nueva sala
+    cam->setBounds(getCamBounds()); // cambiar los bounds de la cámara
+    mngr_->getPlayer()->getComponent<Transform>()->setPosition(newPlayerPos); // settear la posición del jugador
+    mngr_->getPlayer()->getComponent<Transform>()->setScale(getCurrentRoomScale()); // settear su escala
+    mngr_->getPlayer()->getComponent<Health>()->setDead(false); // decirle al jugador que no está muerto
+    activateObjectsInRoom(currentRoom, true); // activar los objetos de la nueva sala
 }
 
 void MapComponent::WaterSetActive(bool c)
@@ -700,18 +715,12 @@ void MapComponent::loadMap(std::string path, int nextPos) {
                 auto roomScale = vectorTiles[std::stoi(ot.getName())].first;
                 auto wTank = constructors::waterContainer(mngr_, x_ * scale * roomScale, y_ * scale * roomScale, w_ * scale * roomScale, h_ * scale * roomScale, roomScale);
                 interact[std::stoi(ot.getName())].push_back(wTank);
-                auto v = &interact[std::stoi(ot.getName())];
-                auto it = (--v->end());
-                wTank->getComponent<InteractionComponent>()->setIt(it, v);
                 wTank->setActive(false);
             }
             else if (classSplit[0] == "FireBossRoom") {
                 auto roomScale = vectorTiles[std::stoi(ot.getName())].first;
                 auto fireRoom = constructors::fireBossRoom(mngr_, x_ * scale * roomScale, y_ * scale * roomScale, w_ * scale * roomScale, h_ * scale * roomScale);
                 interact[std::stoi(ot.getName())].push_back(fireRoom);
-                auto v = &interact[std::stoi(ot.getName())];
-                auto it = (--v->end());
-                fireRoom->getComponent<InteractionComponent>()->setIt(it, v);
                 fireRoom->setActive(false);
             }
         }
@@ -749,6 +758,7 @@ void MapComponent::loadMap(std::string path, int nextPos) {
         currentRoom = playerRoom;
         if(backgrounds[currentRoom] != NULL) backgrounds[currentRoom]->setActive(true);
         cam->setBounds(getCamBounds());
+        cam->setPos(playerTr_->getPosition());
 
         if(currentMapKey == "earthMap") mngr_->getEarthBoss()->getComponent<EarthBossManager>()->addPlatforms(platformEarthBoss);
         generateEnemies();
