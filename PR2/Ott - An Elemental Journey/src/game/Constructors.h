@@ -301,17 +301,16 @@ namespace constructors {
 		auto lamp_w = 150;
 		SDL_Rect rect = { 20,20,(int)(0.56*lamp_w),lamp_w };
 		auto healthImage = healthUI->addComponent<HealthImage>(&sdlutils().images().at("lamps"), 5, rect);
+		auto chargedAttackBar = healthUI->addComponent<ChargedAttackBar>(&sdlutils().images().at("chargebar"), healthImage);
 
 		auto player = mngr_->addEntity(ecs::_grp_CHARACTERS);
 		auto ph = player->addComponent<PhysicsComponent>(colliders::OTT);
 		player->addComponent<Transform>(Vector2D(x, y), w, h);
-		player->addComponent<HealthImage>(&sdlutils().images().at("lamps"), 5, rect);
 		player->addComponent<FramedImageOtt>(&sdlutils().images().at("ott_luz"));
-		player->addComponent<ChargedAttackBar>(&sdlutils().images().at("chargebar"));
 		auto pAnim = player->addComponent<PlayerAnimationComponent>(anims::OTT_ANIM);
 		auto health = player->addComponent<Health>(5, ecs::Light, healthImage);
 		player->addComponent<PlayerAttack>();
-		player->addComponent<AttackCharger>(8);
+		player->addComponent<AttackCharger>(8, chargedAttackBar);
 		player->addComponent<PlayerInput>();
 		player->addComponent<ShieldComponent>();
 		pAnim->initComponent();
