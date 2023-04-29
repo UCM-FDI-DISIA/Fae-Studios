@@ -11,6 +11,9 @@ public:
 	void initComponent() override;
 	void update() override;
 
+	void deleteBlackHoles();
+	void deleteBubbles();
+
 private:
 	void spawnBubbles();
 	void spawnFireWall();
@@ -27,6 +30,9 @@ private:
 	int FIREWALL_HEIGHT = 400, FIREWALL_WIDTH = 30;
 	int FIST_SIZE = 200;
 	int BLACKHOLE_SIZE = 100;
+
+	std::vector<Entity*> blackHoles;
+	std::vector<Entity*> bubbles;
 };
 
 

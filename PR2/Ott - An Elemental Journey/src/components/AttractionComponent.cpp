@@ -1,4 +1,5 @@
 #include "AttractionComponent.h"
+#include "FinalBossBehaviorComponent.h"
 
 void AttractionComponent::initComponent() {
 	// Player
@@ -16,7 +17,7 @@ void AttractionComponent::update() {
 	playerTransform->setPosition(Vector2D(playerTransform->getPosition() + dir.normalize()));
 
 	if (SDL_GetTicks() - spawnTime >= lifeTime) {
-		ent_->setAlive(false); 
+		bossBehaComp_->deleteBlackHoles();
 		playerPhisics->Resume();
 	}
 }

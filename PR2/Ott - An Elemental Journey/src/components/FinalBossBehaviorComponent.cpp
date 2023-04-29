@@ -5,7 +5,7 @@
 #include "FireWallComponent.h"
 #include "FistComponent.h"
 #include "AttractionComponent.h"
-FinalBossBehaviorComponent::FinalBossBehaviorComponent(MapComponent* map)
+FinalBossBehaviorComponent::FinalBossBehaviorComponent(MapComponent* map) :Component()
 {
 	currentElement = rand() % 5;
 	bossTransform = nullptr; bossHealth = nullptr;
@@ -43,6 +43,22 @@ void FinalBossBehaviorComponent::update()
 	}
 }
 
+// Mata agujeros negros y elimina del vector
+void FinalBossBehaviorComponent::deleteBlackHoles() {
+	for (auto it = blackHoles.begin(); it != blackHoles.end(); ++it) {
+		(*it)->setAlive(false);
+	}
+	blackHoles.clear();
+}
+
+// Mata burbujas y elimina del vector
+void FinalBossBehaviorComponent::deleteBubbles() {
+	for (auto it = bubbles.begin(); it != bubbles.end(); ++it) {
+		(*it)->setAlive(false);
+	}
+	bubbles.clear();
+}
+
 void FinalBossBehaviorComponent::spawnBubbles() //Ataque de agua 
 {
 	// Transform del boss
@@ -72,26 +88,16 @@ void FinalBossBehaviorComponent::spawnBlackHole() {
 
 	std::cout << "Agujero negro" << std::endl;
 
-	std::vector<Entity*> blackHoles;
-
-	// Agujero negro
-	//Entity* blackHole = mngr_->addEntity(ecs::_grp_BLACKHOLE);
-
 	int blackHolesNum = map_->blackHolesNum();
 
+	// Crea blackHoles y añade componentes
 	for (int i = 0; i < blackHolesNum; ++i) {
 		blackHoles.push_back(mngr_->addEntity(ecs::_grp_BLACKHOLE));
 		SDL_Rect rect = map_->getBlackHolePos(i);
 		blackHoles[i]->addComponent<Transform>(Vector2D(rect.x, rect.y), rect.w, rect.h);
 		blackHoles[i]->addComponent<Image>(&sdlutils().images().at("blackHole"));
-		blackHoles[i]->addComponent<AttractionComponent>();
-		//blackHoles[i]->addComponent<Health>(100, ecs::Dark);
+		blackHoles[i]->addComponent<AttractionComponent>(this);
 	}
-
-	/*blackHole->addComponent<Transform>(Vector2D(rect.x, rect.y), rect.w, rect.h);
-	blackHole->addComponent<Image>(&sdlutils().images().at("blackHole"));
-	blackHole->addComponent<Health>(100, ecs::Dark);*/
-
 }
 
 void FinalBossBehaviorComponent::spawnFist() {
