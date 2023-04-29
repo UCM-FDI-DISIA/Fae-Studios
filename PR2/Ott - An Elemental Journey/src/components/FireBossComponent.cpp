@@ -49,14 +49,14 @@ void FireBossComponent::update()
 	//Comportamiento
 	Transform* pTr = player->getComponent<Transform>();
 	Vector2D pPos = pTr->getPosition();
-	if (abs(pPos.getY() - ent_->getComponent<Transform>()->getPosition().getY()) > ent_->getComponent<Transform>()->getHeight()) //Si el jugador no está a su alcance
+	if (pPos.getY() < tr_->getPosition().getY() ) //Si el jugador no está a su alcance
 	{
 		if (!outRage) {
 			outRage = true; waitTimer = SDL_GetTicks();
 		}
 		else {
 			Vector2D dirMov = { (Vector2D{(float)startX, tr_->getPosition().getY()}) - (tr_->getPosition() + Vector2D{tr_->getWidth() / 2,0}) };
-			if (SDL_GetTicks() - waitTimer < maxWait || (dirMov.magnitude() <= 10)) {
+			if (SDL_GetTicks() - waitTimer < maxWait || (dirMov.magnitude() <= 30)) {
 				p->setVelocity(Vector2D{ 0, 0 });
 				if ((SDL_GetTicks() - specialAttackTimer >= timeSpecialAttack) && (player->getComponent<PhysicsComponent>()->isGrounded() && !player->getComponent<PhysicsComponent>()->isClimbing())) {
 					spawnPillars();
@@ -74,7 +74,7 @@ void FireBossComponent::update()
 	else{
 		if (outRage) outRage = false;
 		Vector2D dirMov = { (pPos + Vector2D{pTr->getWidth() / 2,0}) - (tr_->getPosition() + Vector2D{tr_->getWidth() / 2,0}) };
-		if (dirMov.magnitude() <= 100) {
+		if (dirMov.magnitude() <= 200) {
 			if (SDL_GetTicks() - normalAttackTimer >= timeNormalAttack) meleePlayer();
 			p->setVelocity(Vector2D{ 0, 0 });
 		}
@@ -85,13 +85,16 @@ void FireBossComponent::update()
 		}
 	}
 	if (fAnim_->getState() != ATTACK_FIREBOSS) {
+		fImg = ent_->getComponent<FramedImage>();
+		fImg->flipTexture(false);
 		if (abs(p->getVelocity().getX()) > 0) {
 			fAnim_->setState(AMBUSH_FIREBOSS);
-			fImg = ent_->getComponent<FramedImage>();
-			fImg->flipTexture(false);
 			if (p->getVelocity().getX() < 0) fImg->flipTexture(true);
 		}
-		else fAnim_->setState(IDLE_FIREBOSS);
+		else {
+			fAnim_->setState(IDLE_FIREBOSS);
+			if(pTr->getPosition().getX() < tr_->getPosition().getX()) fImg->flipTexture(true); 
+		}
 	}
 }
 void FireBossComponent::spawnPillars()
@@ -109,7 +112,7 @@ void FireBossComponent::shootAtPlayer()
 	Transform* pTr = player->getComponent<Transform>();
 	Vector2D direction = pTr->getPosition() - position;
 	direction = direction.normalize() * 2;
-	constructors::bullet(mngr_, "fire_attack", position.getX(), position.getY(), 50, direction, ent_, ecs::Fire, 1);
+	constructors::bullet(mngr_, "fire_attack", position.getX()+tr_->getWidth()/2, position.getY() + tr_->getHeight()/2, 80, direction, ent_, ecs::Fire, 1);
 	normalAttackTimer = SDL_GetTicks();
 }
 
