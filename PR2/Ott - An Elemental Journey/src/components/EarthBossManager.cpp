@@ -105,7 +105,7 @@ void EarthBossManager::initializeEntities() {
 	for (int j = 0; j < 3; ++j) {
 		float offsetAux = ((roomDimensions.h / 3) - (sdlutils().images().at("warning").height() * 2)) / 2;
 		Entity* warning = mngr_->addEntity(ecs::_grp_MINIBOSS);
-		warning_Rect.y = roomDimensions.y + +offsetAux+ ((roomDimensions.h / 3) * j);
+		warning_Rect.y = roomDimensions.y + offsetAux + ((roomDimensions.h / 3) * j);
 		warning->addComponent<Transform>(warning_Rect);
 		warning->addComponent<FramedImage>(&sdlutils().images().at("warning"), sdlutils().images().at("warning").getNumRows(), sdlutils().images().at("warning").getNumCols());
 		warningVector.push_back(warning);
@@ -114,17 +114,17 @@ void EarthBossManager::initializeEntities() {
 	//CREACI�N DEL BOSS
 	SDL_Rect boss_Rect;
 	boss_Rect.x = roomDimensions.x;
-	boss_Rect.y = roomDimensions.y - roomDimensions.h;
+	boss_Rect.y = roomDimensions.y - roomDimensions.h - offSet;
 	boss_Rect.h = roomDimensions.h;
 	boss_Rect.w = roomDimensions.w / 5;
     finPosBoss = Vector2D{ (float)roomDimensions.x , (float)roomDimensions.y + (float)roomDimensions.h };
-    iniPosBoss = Vector2D{ (float)roomDimensions.x , (float)roomDimensions.y - (float)roomDimensions.h };
+    iniPosBoss = Vector2D{ (float)roomDimensions.x , (float)roomDimensions.y - (float)roomDimensions.h - (float)offSet };
 	boss = mngr_->addEntity(ecs::_grp_MINIBOSS);
 	boss->addComponent<Transform>(boss_Rect);
 	boss->addComponent<FramedImage>(&sdlutils().images().at("fallingWorm"), sdlutils().images().at("fallingWorm").getNumRows(), sdlutils().images().at("fallingWorm").getNumCols());
 	healthBar = mngr_->addEntity(ecs::_grp_UI);
 	healthBar->addComponent<BossHealthBar>(ent_, 1, &sdlutils().images().at("bossHealthBar"), &sdlutils().images().at("bossLife"));
-	boss->addComponent<Health>(healthBar->getComponent<BossHealthBar>(), 2, ecs::Earth, false);
+	boss->addComponent<Health>(healthBar->getComponent<BossHealthBar>(), 10, ecs::Earth, false);
 	boss->addComponent<EarthBossAttack>();
 	//boss->getComponent<Health>()->setHealth(boss->getComponent<Health>()->getMaxHealth());
 
@@ -259,36 +259,38 @@ void EarthBossManager::update() {
 			resetFight();
 			showBar = false;
 		}
-		//else (showBar = true);
-		stateManagment();
-		if (attackingHorizontally) {
-			if (!refvine1->getComponent<GrowVine>()->getGrow()) {
-				attackingHorizontally = false;
-				vine1 = -1;
-				vine2 = -1;
-				if (actualState < states.size() - 1)  ++actualState;
-				else actualState = 1;
-				changeState = true;
-			}
-		}
-		else if (attackingVertically) {
-			auto bossPos = boss->getComponent<Transform>();
-			if (bossPos->getPosition().getY() < finPosBoss.getY()) {
-				if (bossPos->getPosition().getX() <= vinePlatform->getComponent<Transform>()->getPosition().getX() &&
-					(bossPos->getPosition().getX() + bossPos->getWidth()) >= vinePlatform->getComponent<Transform>()->getPosition().getX()) {
-					verticalSpeed = 1;
+		else {
+			showBar = true;
+			stateManagment();
+			if (attackingHorizontally) {
+				if (!refvine1->getComponent<GrowVine>()->getGrow()) {
+					attackingHorizontally = false;
+					vine1 = -1;
+					vine2 = -1;
+					if (actualState < states.size() - 1)  ++actualState;
+					else actualState = 1;
+					changeState = true;
 				}
-				bossPos->setPosition(Vector2D(bossPos->getPosition().getX(), bossPos->getPosition().getY() + verticalSpeed));
 			}
-			else {
-				if (actualState < states.size() - 1)  ++actualState;
-				else actualState = 1;
-				bossPos->setPosition(Vector2D(bossPos->getPosition().getX(), roomDimensions.y - roomDimensions.h));
+			else if (attackingVertically) {
+				auto bossPos = boss->getComponent<Transform>();
+				if (bossPos->getPosition().getY() < finPosBoss.getY()) {
+					if (bossPos->getPosition().getX() <= vinePlatform->getComponent<Transform>()->getPosition().getX() &&
+						(bossPos->getPosition().getX() + bossPos->getWidth()) >= vinePlatform->getComponent<Transform>()->getPosition().getX()) {
+						verticalSpeed = 1;
+					}
+					bossPos->setPosition(Vector2D(bossPos->getPosition().getX(), bossPos->getPosition().getY() + verticalSpeed));
+				}
+				else {
+					if (actualState < states.size() - 1)  ++actualState;
+					else actualState = 1;
+					bossPos->setPosition(Vector2D(bossPos->getPosition().getX(), roomDimensions.y - roomDimensions.h));
 
-				attackingVertically = false;
-				changeState = true;
-				createVinePlatform();
-				verticalSpeed = 3;
+					attackingVertically = false;
+					changeState = true;
+					createVinePlatform();
+					verticalSpeed = 3;
+				}
 			}
 		}
 	}
