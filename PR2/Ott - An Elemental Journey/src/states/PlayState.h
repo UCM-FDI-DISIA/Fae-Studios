@@ -75,6 +75,21 @@ public:
         }
     }
 
+    inline void eraseCarteles(int numRooms) {
+        if (carteles.size() > 0) {
+            for (auto c : carteles) {
+                if (c.size() > 0) {
+                    for (auto cartel : carteles) {
+                        for (auto cart : cartel) {
+                            cart->setAlive(false);
+                        }
+                    }
+                }
+            }
+        }
+        carteles.clear();
+    }
+
     inline void initVisitedRooms(int numRooms) {
         visitedRooms[currentMap].reserve(numRooms);
         visitedRooms[currentMap].push_back(true);
