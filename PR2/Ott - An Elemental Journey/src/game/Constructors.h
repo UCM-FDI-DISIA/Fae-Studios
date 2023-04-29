@@ -419,7 +419,7 @@ namespace constructors {
 	}
 	static inline Entity* FireBoss(Manager* mngr_, int x, int y) {
 		auto boss = mngr_->addEntity(ecs::_grp_CHARACTERS);
-		boss->addComponent<Transform>(Vector2D(x, y), 250, 250);
+		boss->addComponent<Transform>(Vector2D(x, y),400, 400);
 		boss->addComponent<FireBossComponent>();
 		boss->addComponent<PhysicsComponent>(colliders::OTT);
 		boss->getComponent<PhysicsComponent>()->createCollider();
@@ -427,7 +427,7 @@ namespace constructors {
 		
 		auto anim=boss->addComponent<FireBossAnimation>(anims::FIREBOSS_ANIM);
 		boss->getComponent<FireBossComponent>()->setAnimComponent(anim);
-		boss->addComponent<Health>(2, ecs::Fire, false);
+		boss->addComponent<Health>(25, ecs::Fire, false);
 		return boss;
 	}
 
