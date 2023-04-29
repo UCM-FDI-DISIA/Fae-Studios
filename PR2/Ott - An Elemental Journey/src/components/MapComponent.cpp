@@ -294,6 +294,8 @@ void MapComponent::changeMap(int newMap, std::string key, int nextPos) {
     triggers = {};
     positions = {};
 
+    game->eraseCarteles(numRooms);
+
     vectorObjects = {};
     vectorTiles = {};
     
