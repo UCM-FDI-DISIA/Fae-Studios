@@ -23,7 +23,7 @@ MapComponent::MapComponent(Entity* fadeOut, PlayState* game, int currentMap) : f
     for (int i = 0; i < ecs::LAST_MAP_ID; ++i) {
         mapKeys.push_back({});
     }
-    currentMapKey = "fireMap";
+    currentMapKey = "waterBossMap";
     tilemap = &sdlutils().images().at(sdlutils().levels().at(currentMapKey).tileset);
 }
 
@@ -87,9 +87,11 @@ void MapComponent::generateEnemies() {
         else if (it.getClass() == "WaterBoss") {
             
             auto waterBoss = constructors::WaterBoss(mngr_, x_ * scale * roomScale, y_ * scale * roomScale, 300 * scale * roomScale, 300 * scale * roomScale);
+            eraseEntities.push_back(waterBoss);
 
             for (auto it : mngr_->getEntities(ecs::_grp_GROUND)) {
-                it->getComponent<Destruction>()->setBoss(waterBoss);
+                auto dest = it->getComponent<Destruction>();
+                if(dest != nullptr) dest->setBoss(waterBoss);
             }
         }
         else if (it.getClass() == "fireBoss")
@@ -441,7 +443,7 @@ void MapComponent::loadMap(std::string path, int nextPos) {
             if (obj.getClass() == "Destructible") {
                 destructible[obj.getName()].push_back(std::make_pair(true, rect));
                 int index = destructible[obj.getName()].size() - 1;
-                constructors::DestructibleTile(mngr_, rect.x, rect.y, rect.w, obj.getName(), index, this);
+                eraseEntities.push_back(constructors::DestructibleTile(mngr_, rect.x, rect.y, rect.w, obj.getName(), index, this));
             }
             else ground[obj.getName()].push_back(rect);
         }

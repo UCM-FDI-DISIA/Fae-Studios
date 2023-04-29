@@ -431,11 +431,12 @@ namespace constructors {
 		return boss;
 	}
 
-	static inline void DestructibleTile(Manager* mngr_, int x, int y, int w, std::string room, int index, MapComponent* map) {
+	static inline Entity* DestructibleTile(Manager* mngr_, int x, int y, int w, std::string room, int index, MapComponent* map) {
 		auto waterObj = mngr_->addEntity(ecs::_grp_GROUND);
 		waterObj->addComponent<Transform>(Vector2D(x,y), w, w);
-		waterObj->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
+		waterObj->addComponent<Image>(&sdlutils().images().at("box"));
 		waterObj->addComponent<Destruction>(room, index, map);
+		return waterObj;
 	}
 
 	static inline Entity* WaterBoss(Manager* mngr_, int x, int y, int w, int h) {
