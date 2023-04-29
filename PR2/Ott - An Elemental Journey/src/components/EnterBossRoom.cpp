@@ -3,7 +3,6 @@
 #include "FramedImage.h"
 #include "Transform.h"
 #include "EarthBossManager.h"
-#include "PhysicsComponent.h"
 #include "PlayerInput.h"
 #include "EarthBossAttack.h"
 #include "../states/GameStateMachine.h"
@@ -17,6 +16,7 @@ void EnterBossRoom::initComponent() {
 	bossRoom.x -= 150;
 	bossRoom.y -= 100;
 	bossRoom.h += 150;
+	playerCollider = player->getComponent<PhysicsComponent>()->getCollider();
 }
 
 void EnterBossRoom::blockDoors() {
@@ -64,11 +64,11 @@ void EnterBossRoom::enterRoom() {
 		resetTime = false;
 		camera->getComponent<CameraComponent>()->setBounds(bossRoom);
 		blockDoors();
+		unlocked = false;
 	}
 }
 
 void EnterBossRoom::update() {
-	
 	if (startShaking) {
 		int aux = SDL_GetTicks() - timer;
 		if (aux <= 1000) {
@@ -93,10 +93,12 @@ void EnterBossRoom::update() {
 
 	}
 	else{
-		if (player->getComponent<Health>()->getHealth() <= 0 && !unlocked) {
-			unlockDoors();
-			unlocked = true;
-			added = false;
+		if (map != nullptr) {
+			if (!unlocked && map->getCurrentRoom() == 13 && player->getComponent<Health>()->getHealth() <= 0) {
+ 				unlockDoors();
+				unlocked = true;
+				added = false;
+			}
 		}
 	}
 }
