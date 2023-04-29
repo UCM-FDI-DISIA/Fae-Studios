@@ -4,6 +4,7 @@
 #include "Transform.h"
 #include "EarthBossManager.h"
 #include "PhysicsComponent.h"
+#include "PlayerInput.h"
 #include "EarthBossAttack.h"
 #include "../states/GameStateMachine.h"
 #include "../states/PlayState.h"
@@ -73,7 +74,8 @@ void EnterBossRoom::update() {
 		if (aux <= 1000) {
 			if (camera != nullptr && player != nullptr) {
 				camera->getComponent<CameraComponent>()->cameraShake(true);
-				player->getComponent<PhysicsComponent>()->Stop();
+				player->getComponent<PlayerInput>()->Stop();
+				player->getComponent<PhysicsComponent>()->setVelocity(Vector2D(0, player->getComponent<PhysicsComponent>()->getVelocity().getY()));
 				start = true;
 			}
 			if (col == 7) col = 0;
