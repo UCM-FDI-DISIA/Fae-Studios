@@ -7,6 +7,7 @@
 #include "VineManager.h"
 #include "PlayerInput.h"
 #include "MapComponent.h"
+#include "PhysicsComponent.h"
 #include <string>
 
 class EnterBossRoom : public Component
@@ -17,7 +18,8 @@ private:
 	Entity* earthBoss = nullptr;
 	Entity* blockEnter = nullptr;
 	Entity* blockExit = nullptr;
-	MapComponent* map;
+	SDL_Rect playerCollider;
+	MapComponent* map = nullptr;
 	int col = 0;
 	bool start = false;
 	bool added = false;
@@ -25,6 +27,7 @@ private:
 	bool unlocked = false;
 	SDL_Rect bossRoom;
 	std::string roomNum = "13";
+	bool hasEntered = false;
 
 public:
 	EnterBossRoom(SDL_Rect bR): bossRoom(bR) {}
