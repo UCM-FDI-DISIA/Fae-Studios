@@ -68,15 +68,15 @@ const SDL_Color transparente{ 255,255,255,1 };
 const SDL_Color blanco{ 255,255,255 };
 
 namespace constructors {
-	//static inline Entity* damageArea(Manager* mngr_, std::string imageKey, ecs::elements el, int x, int y, int w, int h)
-	//{
-	//	auto a = mngr_->addEntity(ecs::_grp_GENERAL); //crear grupo
-	//	a->addComponent<Transform>(x, y, w, h);
-	//	a->addComponent<Image>(&sdlutils().images().at(imageKey));
-	//	a->addComponent<DamageArea>(el);
+	static inline Entity* damageArea(Manager* mngr_, std::string imageKey, ecs::elements el, int x, int y, int w, int h, bool lava)
+	{
+		auto a = mngr_->addEntity(ecs::_grp_GENERAL); //crear grupo
+		a->addComponent<Transform>(x, y, w, h);
+		if(!lava)a->addComponent<Image>(&sdlutils().images().at(imageKey));
+		a->addComponent<DamageArea>(el, lava);
 
-	//	return a;
-	//}
+		return a;
+	}
 	//static inline Entity* eRanged(Manager* mngr_, std::string imageKey, int x, int y, float scale, ecs::elements el) {
 	static inline Entity* eRanged(Manager* mngr_, std::string imageKey, int x, int y, float scale, ecs::elements el, bool lookingRight) {
 
@@ -477,40 +477,47 @@ namespace constructors {
 		//CAMBIAR A QUE SE LEA DE MAPA CUANDO FUNCIONE TODO
 
 		auto box0 = mngr_->addEntity(ecs::_grp_GENERAL);
-		x += 3000;
+		x += 2800;
 		box0->addComponent<Transform>(x, y + 100, 100, 100);
-		//box0->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
+		//box0->addComponent<Image>(&sdlutils().images().at("box"));
 		box0->addComponent<Pivot>(waterBoss, 0);
 
 		box0 = mngr_->addEntity(ecs::_grp_GENERAL);
-		y += 2000;
+		y += 1950;
 		box0->addComponent<Transform>(x, y, 100, 100);
-		//box0->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
+		//box0->addComponent<Image>(&sdlutils().images().at("box"));
 		box0->addComponent<Pivot>(waterBoss, 1);
 
 		box0 = mngr_->addEntity(ecs::_grp_GENERAL);
 		x += 1600;
 		box0->addComponent<Transform>(x, y, 100, 100);
-		//box0->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
+		//box0->addComponent<Image>(&sdlutils().images().at("box"));
 		box0->addComponent<Pivot>(waterBoss, 2);
 
 		box0 = mngr_->addEntity(ecs::_grp_GENERAL);
-		y -= 1600;
+		y -= 1500;
 		box0->addComponent<Transform>(x, y, 100, 100);
-		//box0->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
+		//box0->addComponent<Image>(&sdlutils().images().at("box"));
 		box0->addComponent<Pivot>(waterBoss, 1);
 
 		box0 = mngr_->addEntity(ecs::_grp_GENERAL);
-		x += 1000;
+		x += 900;
 		box0->addComponent<Transform>(x, y, 100, 100);
-		//box0->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
+		//box0->addComponent<Image>(&sdlutils().images().at("box"));
 		box0->addComponent<Pivot>(waterBoss, 3);
 
 		box0 = mngr_->addEntity(ecs::_grp_GENERAL);
-		y -= 550;
+		y -= 600;
 		box0->addComponent<Transform>(x, y, 100, 100);
-		//box0->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
+		//box0->addComponent<Image>(&sdlutils().images().at("box"));
 		box0->addComponent<Pivot>(waterBoss, 4);
+
+
+		box0 = mngr_->addEntity(ecs::_grp_GENERAL);
+		x += 3900;
+		box0->addComponent<Transform>(x, y, 100, 100);
+		//box0->addComponent<Image>(&sdlutils().images().at("box"));
+		box0->addComponent<Pivot>(waterBoss, 5);
 
 		return waterBoss;
 	}

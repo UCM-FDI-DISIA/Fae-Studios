@@ -11,6 +11,9 @@ private:
 	bool waiting = false;
 	Vector2D speed;
 	bool start = false;
+	const int distanceFactor = 750;
+	const int minDistance = distanceFactor * 2 / 3;
+	const float distanceSpeed = 1.5;
 
 	int state = 0;
 

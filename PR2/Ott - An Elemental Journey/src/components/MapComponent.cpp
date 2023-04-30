@@ -587,6 +587,48 @@ void MapComponent::loadMap(std::string path, int nextPos) {
                 newGrass->getComponent<InteractionComponent>()->setIt(it, v);
                 newGrass->setActive(false);
             }
+            else if (ot.getClass() == "Spike") {
+                auto roomScale = vectorTiles[std::stoi(ot.getName())].first;
+                auto newSpike = constructors::damageArea(mngr_,
+                    "whiteBox", ecs::Earth, (x_ * scale) * roomScale,
+                    ((y_ * scale - sdlutils().images().at("grass").height()) + h_ * scale) * roomScale,
+                    w_ * scale * roomScale,
+                    h_ * scale * roomScale,
+                    false);
+                interact[std::stoi(ot.getName())].push_back(newSpike);
+                auto v = &interact[std::stoi(ot.getName())];
+                auto it = (--v->end());
+                //newSpike->getComponent<InteractionComponent>()->setIt(it, v);
+                newSpike->setActive(false);
+            }
+            else if (ot.getClass() == "HangingSpike") {
+                auto roomScale = vectorTiles[std::stoi(ot.getName())].first;
+                auto newSpike = constructors::damageArea(mngr_,
+                    "whiteBox", ecs::Earth, (x_ * scale) * roomScale,
+                    ((y_ * scale - sdlutils().images().at("grass").height()) + h_ * scale) * roomScale,
+                    w_ * scale * roomScale,
+                    h_ * scale * roomScale,
+                    false);
+                interact[std::stoi(ot.getName())].push_back(newSpike);
+                auto v = &interact[std::stoi(ot.getName())];
+                auto it = (--v->end());
+                //newSpike->getComponent<InteractionComponent>()->setIt(it, v);
+                newSpike->setActive(false);
+            }
+            else if (ot.getClass() == "Lava") {
+                auto roomScale = vectorTiles[std::stoi(ot.getName())].first;
+                auto newSpike = constructors::damageArea(mngr_,
+                    "whiteBox", ecs::Earth, (x_ * scale) * roomScale,
+                    ((y_ * scale - sdlutils().images().at("grass").height()) + h_ * scale) * roomScale,
+                    w_ * scale * roomScale,
+                    h_ * scale * roomScale,
+                    false);
+                interact[std::stoi(ot.getName())].push_back(newSpike);
+                auto v = &interact[std::stoi(ot.getName())];
+                auto it = (--v->end());
+                //newSpike->getComponent<InteractionComponent>()->setIt(it, v);
+                newSpike->setActive(false);
+            }
             else if (classSplit[0] == "Element") {
                 if (loadEarthElem && (ecs::elements)std::stoi(ot.getName()) == ecs::Earth ||
                     loadWaterElem && (ecs::elements)std::stoi(ot.getName()) == ecs::Water ||

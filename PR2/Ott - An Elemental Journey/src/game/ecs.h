@@ -61,6 +61,7 @@ namespace ecs {
         _SCREEN_DARKENER,
         _PLATFORM_MOVEMENT,
         _LORE,
+        _DAMAGE_AREA,
 
         _LAST_CMP_ID
     };
@@ -76,10 +77,10 @@ namespace ecs {
         _grp_MINIBOSS,
         _grp_GROUND,
         _grp_VINE,
+        _grp_INTERACTION,
         _grp_CHARACTERS,
         _grp_WATER,
         _grp_MAP,
-        _grp_INTERACTION,
         _grp_CARTEL,
         _grp_TRIGGER,
         _grp_PLATFORMS,
