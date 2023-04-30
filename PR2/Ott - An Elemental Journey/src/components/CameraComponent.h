@@ -17,6 +17,10 @@ private:
 	int timer;
 	bool left = false;
 	bool right = true;
+	bool lookingDown = false;
+	bool lookingUp = false;
+	int posFin;
+	int posIni;
 	SDL_Rect bounds;
 
 public:
@@ -37,5 +41,10 @@ public:
 	inline void cameraShake(bool n) {
 		camerashake = n;
 	}
+	inline void lookDown(bool n) {
+		lookingDown = n;
+	}
 	inline void setBounds(const SDL_Rect& b) { bounds = b; }
+	bool canLookDown();
+	void startLookingDown();
 };

@@ -39,6 +39,10 @@ void PlayerAnimationComponent::update()
 	{
 		col = (timer_ / getTPerFrame(state_)) % getNFrames(state_) + getColNum(state_);
 	}
+	else if (state_ == LOOKDOWN) {
+		if (col != getNFrames(state_)-1)
+			col = getColNum(state_) - (timer_ / getTPerFrame(state_)) % getNFrames(state_);
+	}
 
 	image->setCol(col); // se settea la nueva columna
 	image->setRow(getRowNum(state_)); // se settea la fila 
@@ -54,7 +58,7 @@ void PlayerAnimationComponent::update()
 		setState(VANISH);
 	}
 	else if(!health->isDead()) {
-		if (state_ == ATTACK || state_ == VANISH || state_ == DIE || state_ == LAND || state_ == OPEN_MAP || state_ == CLOSE_MAP) return; // estas animaciones se superponen a todas las demás
+		if (state_ == ATTACK || state_ == VANISH || state_ == DIE || state_ == LAND || state_ == OPEN_MAP || state_ == CLOSE_MAP || state_ == LOOKDOWN || state_ == LOOKUP) return; // estas animaciones se superponen a todas las demás
 		auto physics = ent_->getComponent<PhysicsComponent>();
 		Vector2D vel = physics->getVelocity(); // velocidad
 		if (vel.getY() == 0 && physics->isGrounded()) {
@@ -90,6 +94,7 @@ void PlayerAnimationComponent::endAnim()
 		else if (state_ == OPEN_MAP) {
 			GameStateMachine::instance()->pushState(new MapState(static_cast<PlayState*> (GameStateMachine::instance()->getPlayState())));
 		}
+		else if (state_ == LOOKDOWN) return;
 		else setState(IDLE); // poner estado idle 
 		if(state_ != DIE) timer_ = 0; // reiniciar el timer
 	}

@@ -3,7 +3,8 @@
 #include "../utils/checkML.h"
 #include "../states/PlayState.h"
 #include "../states/GameStateMachine.h"
-
+#include "PlayerInput.h"
+#include "PhysicsComponent.h"
 inline float lerp(float a, float b, float t) {
 	return a + t * (b - a);
 }
@@ -35,8 +36,23 @@ void CameraComponent::update() {
 			timer = SDL_GetTicks();
 		}
 	}
+	else if(lookingDown) {
+		camera.y = lerp(camera.y, posFin + (posFin - posIni), 0.002);
+		if ((posFin - camera.y)*0.002 <= 0.1) {
+			lookingUp = true;
+			lookingDown = false;
+			timer = SDL_GetTicks();
+		}
+	}
+	else if (lookingUp) {
+		int aux = SDL_GetTicks() - timer;
+		if (aux >= 2000) {
+			lookingUp = false;
+			mngr_->getPlayer()->getComponent<PlayerInput>()->finishedLookingDown();
+		}
+	}
+	
 	else {
-
 		SDL_Rect ottRect = playerTrnf_->getRect(); // conseguir la posici�n de Ott
 		// mover camera.x
 		// Comprobamos si la c�mara est� suficientemente cerca del jugador. En caso de que lo est�, la posici�n se settea a la 
@@ -72,4 +88,14 @@ void CameraComponent::update() {
 		camera = { camera.x,camera.y,sdlutils().width(), sdlutils().height() };
 
 	}
+}
+
+bool CameraComponent::canLookDown() {
+	return (camera.y + camera.h / 2) <= bounds.y + bounds.h - tr_->getHeight();
+}
+void CameraComponent::startLookingDown() {
+	std::cout <<"PosFin: " << posFin << std::endl;
+	std::cout <<"PosIni: " << posIni << std::endl;
+	posFin = camera.y + (camera.h / 2);
+	posIni = camera.y;
 }

@@ -74,6 +74,7 @@ public:
 	inline void stunStart() {
 		stunned = true; timerStunned = SDL_GetTicks();
 	}
+	void finishedLookingDown();
 private:
 	Transform* tr_;
 	PhysicsComponent* physics_;
@@ -93,6 +94,7 @@ private:
 	bool stunned = false;
 	int stunnedTime = 2, timerStunned;
 	bool stopped = false;
+	bool lookingdown = false;
 };
 
 
