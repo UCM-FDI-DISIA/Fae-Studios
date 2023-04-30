@@ -3,7 +3,7 @@
 #include "FramedImage.h"
 #include "Transform.h"
 #include "EarthBossManager.h"
-#include "PhysicsComponent.h"
+#include "PlayerInput.h"
 #include "EarthBossAttack.h"
 #include "../states/GameStateMachine.h"
 #include "../states/PlayState.h"
@@ -16,6 +16,7 @@ void EnterBossRoom::initComponent() {
 	bossRoom.x -= 150;
 	bossRoom.y -= 100;
 	bossRoom.h += 150;
+	playerCollider = player->getComponent<PhysicsComponent>()->getCollider();
 }
 
 void EnterBossRoom::blockDoors() {
@@ -54,6 +55,8 @@ void EnterBossRoom::unlockDoors() {
 	blockEnter->getComponent<GrowVine>()->startUngrowing();
 	blockExit->getComponent<GrowVine>()->startUngrowing();
 	camera->getComponent<CameraComponent>()->setBounds(map->getCamBounds());
+	blockEnter->setAlive(false);
+	blockExit->setAlive(false);
 }
 
 void EnterBossRoom::enterRoom() {
@@ -61,17 +64,18 @@ void EnterBossRoom::enterRoom() {
 		resetTime = false;
 		camera->getComponent<CameraComponent>()->setBounds(bossRoom);
 		blockDoors();
+		unlocked = false;
 	}
 }
 
 void EnterBossRoom::update() {
-	
 	if (startShaking) {
 		int aux = SDL_GetTicks() - timer;
 		if (aux <= 1000) {
 			if (camera != nullptr && player != nullptr) {
 				camera->getComponent<CameraComponent>()->cameraShake(true);
-				player->getComponent<PhysicsComponent>()->Stop();
+				player->getComponent<PlayerInput>()->Stop();
+				player->getComponent<PhysicsComponent>()->setVelocity(Vector2D(0, player->getComponent<PhysicsComponent>()->getVelocity().getY()));
 				start = true;
 			}
 			if (col == 7) col = 0;
@@ -89,10 +93,12 @@ void EnterBossRoom::update() {
 
 	}
 	else{
-		if (player->getComponent<Health>()->getHealth() <= 0 && !unlocked) {
-			unlockDoors();
-			unlocked = true;
-			added = false;
+		if (map != nullptr) {
+			if (!unlocked && map->getCurrentRoom() == 13 && player->getComponent<Health>()->getHealth() <= 0) {
+ 				unlockDoors();
+				unlocked = true;
+				added = false;
+			}
 		}
 	}
 }

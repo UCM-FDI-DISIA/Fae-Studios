@@ -61,6 +61,7 @@ namespace ecs {
         _SCREEN_DARKENER,
         _PLATFORM_MOVEMENT,
         _LORE,
+        _DAMAGE_AREA,
 
         _LAST_CMP_ID
     };

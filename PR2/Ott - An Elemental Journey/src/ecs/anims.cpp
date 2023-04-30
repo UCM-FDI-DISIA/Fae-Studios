@@ -22,7 +22,7 @@ std::vector<anims::animDescription> anims::lifeshard_anims{ {10,10,0,0} };
 // ENEMIGO A RANGO
 std::vector<anims::animDescription> anims::range_anims{ {150,3,0,0}, {150,12,0,10}, {150,3,0,7}, {250,4,0,3} };
 // ENEMIGO SLIME
-std::vector<anims::animDescription> anims::slime_anims{ {300,4,0,0}, {150,4,0,17}, {1000,1,0,10}, {150,6,0,4}, {300,4,0,0}, {200,7,0,10} };
+std::vector<anims::animDescription> anims::slime_anims{ {300,4,0,0}, {150,4,0,17}, {1000,1,0,10}, {250,6,0,4}, {300,4,0,0}, {100,7,0,10} };
 
 //FIRE BOSS
 std::vector<anims::animDescription> anims::fireboss_anims{ {200,4, 3,0}, {100,12, 2,0},{150,8,0,5}, {200,13,1,0} };

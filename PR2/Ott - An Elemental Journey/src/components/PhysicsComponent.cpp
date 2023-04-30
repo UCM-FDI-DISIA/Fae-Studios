@@ -21,7 +21,20 @@ PhysicsComponent::PhysicsComponent(colliders::Colliders c) {
 void PhysicsComponent::initComponent() {
 
 }
-
+void PhysicsComponent::saveLastPos(const SDL_Rect& col)
+{
+	int wPlayerRect = getCollider().w;
+	auto tr = ent_->getComponent<Transform>();
+	if (wPlayerRect * offset < col.w)
+	{
+		lastPos = tr->getPosition();
+	}
+}
+void PhysicsComponent::setLastPos()
+{
+	auto tr = ent_->getComponent<Transform>();
+	tr->setPosition(lastPos);
+}
 void PhysicsComponent::createCollider() {
 	auto tr = ent_->getComponent<Transform>();
 	colliderOffset = Vector2D(colliders::collider[typeofCollider].izqPixels / (float)colliders::collider[typeofCollider].totalHorPixels * tr->getWidth(),
@@ -43,6 +56,7 @@ void PhysicsComponent::createCollider() {
 
 void PhysicsComponent::update() {
 	if (!stopped) {
+		
 		//ascenso progresivo en el agua cuando tiene otros elementos
 		if (inWater && ent_->getComponent<Health>()->getElement() != ecs::Water)
 		{
@@ -61,12 +75,14 @@ void PhysicsComponent::update() {
 			if (verticalSpeed > 0) { isJumpingF = false; }
 		}
 
-		if (climbing) {
+		if (climbing && ent_->getComponent<Health>()->getHealth() > 0) {
 			grounded = true;
 			velocity_ = Vector2D(velocity_.getX(), dirClimbing);
 		}
-		if (!grounded && gravity && ((!inWater || (inWater && ent_->getComponent<Health>()->getElement() == ecs::Water))||floating)) {
+		else if(climbing && ent_->getComponent<Health>()->getHealth() <= 0)velocity_ = Vector2D(velocity_.getX(), MAX_VERTICAL_SPEED);
+		if (!grounded && gravity && (!inWater || (inWater && ent_->getComponent<Health>()->getElement() == ecs::Water))) {
 
+		if (!grounded && gravity && ((!inWater || (inWater && ent_->getComponent<Health>()->getElement() == ecs::Water))||floating)) {
 			if (inWater&&!isJumpingF)
 			{
 				if ((!floating || floating && verticalSpeed > 0)|| ent_->getComponent<Health>()->getElement() == ecs::Water)
@@ -113,7 +129,6 @@ void PhysicsComponent::update() {
 		}
 	}
 	else setVelocity(Vector2D(0, 0));
-	
 }
 
 void PhysicsComponent::jump() {

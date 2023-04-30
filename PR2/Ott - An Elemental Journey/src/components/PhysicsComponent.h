@@ -5,7 +5,6 @@
 #include <SDL.h>
 #include "../ecs/anims.h"
 #include "../ecs/colliders.h"
-
 class PhysicsComponent : public Component
 {
 public:
@@ -56,6 +55,8 @@ public:
         auto tr = ent_->getComponent<Transform>();
         tr->setPosition(lastPos);
     }*/
+    void saveLastPos(const SDL_Rect& col);
+    void setLastPos();
     //virtual void render();
 private:
     SDL_Rect collider;

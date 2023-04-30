@@ -19,6 +19,9 @@ public:
 	virtual void initComponent();
 	virtual void update();
 
+	inline void Stop() { stopped = true; }
+	inline void Resume() { stopped = false; }
+
 	virtual void saveToFile(std::ofstream& file);
 	virtual void loadFromFile(std::ifstream& file);
 	constexpr static ecs::cmpId_type id = ecs::_CTRL;
@@ -89,6 +92,7 @@ private:
 	bool canInteract = false;
 	bool stunned = false;
 	int stunnedTime = 2, timerStunned;
+	bool stopped = false;
 };
 
 

@@ -56,6 +56,8 @@ private:
     int vine2 = -1;
     int bossWarning = -1;
     int numRandVine = 0;
+    int posIniTrigger;
+    bool resetTrigger = false;
     Vector2D finPosBoss;
     Vector2D iniPosBoss;
 
