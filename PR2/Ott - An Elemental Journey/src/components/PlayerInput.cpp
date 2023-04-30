@@ -37,7 +37,7 @@ void PlayerInput::update()
 			Vector2D& playerV = physics_->getVelocity();
 			auto input = InputHandler::instance();
 			auto state = anim_->getState();
-			if (input->keyDownEvent() && state != DIE && !openingMap) {
+			if ((input->keyDownEvent() || game().getIsJoystick()) && state != DIE && !openingMap) {
 				if (input->isKeyDown(SDLK_LEFT) || (game().getIsJoystick() && (SDL_JoystickGetAxis(game().getJoystick(), 0) < -1000  || SDL_JoystickGetButton(game().getJoystick(), SDL_CONTROLLER_BUTTON_DPAD_LEFT)))) {
 					//Moviento Izquierda 
 					playerV = Vector2D(-horizontalSpeed, playerV.getY());
