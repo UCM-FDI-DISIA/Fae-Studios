@@ -6,11 +6,13 @@
 #include "FistComponent.h"
 #include "AttractionComponent.h"
 #include "BlackHoleAnimationComp.h"
+#include "EnemyContactDamage.h"
 FinalBossBehaviorComponent::FinalBossBehaviorComponent(MapComponent* map) :Component()
 {
-	currentElement = rand() % 5;
+	currentElement = rand() % 6;
 	bossTransform = nullptr; bossHealth = nullptr;
 	map_ = map;
+	timeBetweenAttacks = SDL_GetTicks() + ATTACK_TIME;
 }
 
 void FinalBossBehaviorComponent::initComponent()
@@ -22,23 +24,26 @@ void FinalBossBehaviorComponent::initComponent()
 void FinalBossBehaviorComponent::update()
 {
 	//Temporizador de ataque
-	if (SDL_GetTicks() - lastAttack >= timeBetweenAttacks) {
-		lastAttack = SDL_GetTicks();
+	if (SDL_GetTicks() > timeBetweenAttacks) {
+		timeBetweenAttacks +=ATTACK_TIME+ SDL_GetTicks();
 
 		//Switch de los diferentes ataques del boss
 		switch (currentElement)
 		{
 		case 0: std::cout << "Ataque tierra boss final" << std::endl; break;
-		case 1: std::cout << "Ataque agua boss final" << std::endl; /*spawnBubbles();*/ break;
-		case 2: std::cout << "Ataque fuego boss final" << std::endl; /*spawnFireWall();*/ break;
-		case 3: std::cout << "Ataque oscuridad boss final" << std::endl; spawnBlackHole(); break;
-		case 4: std::cout << "Ataque pu�o boss final" << std::endl;/* spawnFist();*/ break;
-		default: std::cout << "Ataque generico boss final" << std::endl; /*spawnFist();*/ break;
+
+		case 1: std::cout << "Ataque agua boss final" << std::endl; spawnBubbles(); break;
+		case 2: std::cout << "Ataque fuego boss final" << std::endl; spawnFireWall(); break;
+		case 3: std::cout << "Ataque oscuridad boss final" << std::endl; spawnBlackHole();break;
+		case 4: std::cout << "Ataque puno boss final" << std::endl; spawnFist(); break;
+		case 5: std::cout << "Ataque punoTop boss final" << std::endl; spawnFistTop(); break;
+		default: std::cout << "Ataque generico boss final" << std::endl; spawnFist(); break;
+
 		}
 		//Cambia de elemento aleatoriamente
 		int lastElem = currentElement;
 		do {
-			currentElement = rand() % 5;
+			currentElement = rand() % 6;
 		} while (lastElem == currentElement);
 
 	}
@@ -87,9 +92,9 @@ void FinalBossBehaviorComponent::spawnFireWall() //Ataque fuego
 
 void FinalBossBehaviorComponent::spawnBlackHole() {
 
-	std::cout << "Agujero negro" << std::endl;
-
+	//std::cout << "Agujero negro" << std::endl;
 	int blackHolesNum = map_->blackHolesNum();
+
 
 	// Crea blackHoles y añade componentes
 	for (int i = 0; i < blackHolesNum; ++i) {
@@ -109,8 +114,22 @@ void FinalBossBehaviorComponent::spawnFist() {
 	// Burguja
 	Entity* fist = mngr_->addEntity(ecs::_grp_PROYECTILES);
 
-	fist->addComponent<Transform>(Vector2D(mngr_->getPlayer()->getComponent<Transform>()->getPosition().getX(), mngr_->getPlayer()->getComponent<Transform>()->getPosition().getY()), FIST_SIZE, FIST_SIZE);
+	fist->addComponent<Transform>(Vector2D(mngr_->getPlayer()->getComponent<Transform>()->getPosition().getX()-1000, mngr_->getPlayer()->getComponent<Transform>()->getPosition().getY()), FIST_SIZE, FIST_SIZE);
 	fist->addComponent<Image>(&sdlutils().images().at("BossFist"));
-	fist->addComponent<FistComponent>();
+	fist->addComponent<FistComponent>(0);
+
+}
+
+void FinalBossBehaviorComponent::spawnFistTop() {
+
+	// Transform del boss
+	auto pTransf = ent_->getComponent<Transform>();
+	// Burguja
+	Entity* fist = mngr_->addEntity(ecs::_grp_PROYECTILES);
+
+	fist->addComponent<Transform>(Vector2D(mngr_->getPlayer()->getComponent<Transform>()->getPosition().getX(), mngr_->getPlayer()->getComponent<Transform>()->getPosition().getY()-500), FIST_SIZE, FIST_SIZE);
+	fist->addComponent<Image>(&sdlutils().images().at("BossFistTop"));
+	fist->addComponent<FistComponent>(1);
+
 
 }

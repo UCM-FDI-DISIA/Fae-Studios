@@ -708,6 +708,12 @@
 			"file": "../resources/images/tests/Boss_Fist.png",
 			"rows": 1,
 			"cols": 1
+		},
+		{
+			"id": "BossFistTop",
+			"file": "../resources/images/tests/Boss_Fist_Top.png",
+			"rows": 1,
+			"cols": 1
 		}
 	],
 

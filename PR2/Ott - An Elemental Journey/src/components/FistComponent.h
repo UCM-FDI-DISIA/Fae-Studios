@@ -5,13 +5,19 @@
 class FistComponent : public Component
 {
 public:
-	FistComponent() {};
-	virtual ~FistComponent();
+	FistComponent(int side) { 
+		side_ = side; 
+		if (side_ == 0)dir = { 2,0 };
+		else dir = { 0,2 };
+	};
+	virtual ~FistComponent() {};
 	void initComponent() override;
 	constexpr static ecs::cmpId_type id = ecs::_FINALBOSS_ATTACK;
 private:
 	void update() override;
-	Entity* player;
+	Transform* player;
 	Transform* tr_;
-	int initialXPos, maxDistance = 900;
+	int initialXPos, initialYPos, maxDistance = 3000;
+	int side_ = 0;
+	Vector2D dir;
 };
