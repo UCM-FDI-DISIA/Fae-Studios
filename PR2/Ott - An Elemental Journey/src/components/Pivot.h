@@ -8,6 +8,7 @@ class Pivot : public Component
 {
 private:
 	Entity* player;
+	Entity* map;
 	Transform* transform;
 	Transform* playerTransform;
 	PhysicsComponent* bossPhysics;
@@ -17,8 +18,9 @@ private:
 
 public:
 	constexpr static ecs::cmpId_type id = ecs::_BOSSACCELERATION;
-	Pivot(Entity* ent, int n) {
+	Pivot(Entity* ent, int n, Entity* map_) {
 		player = ent;
+		map = map_;
 		playerTransform = player->getComponent<Transform>();
 		bossPhysics = player->getComponent<PhysicsComponent>();
 		num = n;

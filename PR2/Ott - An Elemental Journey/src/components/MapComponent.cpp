@@ -84,9 +84,9 @@ void MapComponent::generateEnemies() {
             Entity* enemie = constructors::eSlime(mngr_, path + "Slime", x_ * scale * roomScale, y_ * scale * roomScale, roomScale, elem, lookingRight, roomNum);
             game->addEnemy(enemie, roomNum);
         }
-        else if (it.getClass() == "WaterBoss") {
+        else if (it.getClass() == "WaterBoss" && loadWaterBoss) {
             
-            auto waterBoss = constructors::WaterBoss(mngr_, x_ * scale * roomScale, y_ * scale * roomScale, 300 * scale * roomScale, 300 * scale * roomScale);
+            auto waterBoss = constructors::WaterBoss(mngr_, ent_, x_ * scale * roomScale, y_ * scale * roomScale, 300 * scale * roomScale, 300 * scale * roomScale);
             eraseEntities.push_back(waterBoss);
 
             for (auto it : mngr_->getEntities(ecs::_grp_GROUND)) {
@@ -94,9 +94,9 @@ void MapComponent::generateEnemies() {
                 if(dest != nullptr) dest->setBoss(waterBoss);
             }
         }
-        else if (it.getClass() == "fireBoss")
+        else if (it.getClass() == "fireBoss" && loadFireBoss)
         {
-            auto fBoss= constructors::FireBoss(mngr_, x_ * scale * roomScale, y_ * scale * roomScale);
+            auto fBoss= constructors::FireBoss(mngr_, ent_, x_ * scale * roomScale, y_ * scale * roomScale);
             game->addEnemy(fBoss, roomNum);
             mngr_->setFireBoss(fBoss);
         }
@@ -759,7 +759,7 @@ void MapComponent::loadMap(std::string path, int nextPos) {
                     life->setActive(false);
                 }
             }
-            else if (classSplit[0] == "WaterTank") {
+            else if (classSplit[0] == "WaterTank" && loadFireBoss) {
                 auto roomScale = vectorTiles[std::stoi(ot.getName())].first;
                 auto wTank = constructors::waterContainer(mngr_, x_ * scale * roomScale, y_ * scale * roomScale, w_ * scale * roomScale, h_ * scale * roomScale, roomScale);
                 interact[std::stoi(ot.getName())].push_back(wTank.first);
@@ -767,7 +767,7 @@ void MapComponent::loadMap(std::string path, int nextPos) {
                 eraseEntities.push_back(wTank.second);
                 wTank.first->setActive(false);
             }
-            else if (classSplit[0] == "FireBossRoom") {
+            else if (classSplit[0] == "FireBossRoom" && loadFireBoss) {
                 auto roomScale = vectorTiles[std::stoi(ot.getName())].first;
                 auto fireRoom = constructors::fireBossRoom(mngr_, x_ * scale * roomScale, y_ * scale * roomScale, w_ * scale * roomScale, h_ * scale * roomScale);
                 interact[std::stoi(ot.getName())].push_back(fireRoom);
@@ -811,7 +811,7 @@ void MapComponent::loadMap(std::string path, int nextPos) {
         cam->setBounds(getCamBounds());
         cam->setPos(playerTr_->getPosition());
 
-        if(currentMapKey == "earthMap") mngr_->getEarthBoss()->getComponent<EarthBossManager>()->addPlatforms(platformEarthBoss);
+        if(currentMapKey == "earthMap" && loadEarthBoss) mngr_->getEarthBoss()->getComponent<EarthBossManager>()->addPlatforms(platformEarthBoss);
         generateEnemies();
         activateObjectsInRoom(currentRoom);
         for (auto pl : platforms[currentRoom]) {
@@ -911,9 +911,9 @@ void MapComponent::render() {
 
 void MapComponent::saveToFile(std::ofstream& file) {
     file << "map_key " << currentMapKey << " " << currentMap << std::endl
-        << "earth_boss " << (int)true << std::endl 
-        << "water_boss " << (int)true << std::endl
-        << "fire_boss " << (int)true << std::endl;
+        << "earth_boss " << loadEarthBoss << std::endl 
+        << "water_boss " << loadWaterBoss << std::endl
+        << "fire_boss " << loadFireBoss << std::endl;
 }
 
 void MapComponent::loadFromFile(std::ifstream& file) {

@@ -1,6 +1,7 @@
 #include "Pivot.h"
 #include "../sdlutils/InputHandler.h"
 #include <math.h>
+#include "MapComponent.h"
 
 void Pivot::initComponent() {
 	
@@ -57,6 +58,7 @@ void Pivot::update()
 			}
 			else if (num == 5) {
 				player->setAlive(false);
+				map->getComponent<MapComponent>()->setBossCompleted(ecs::Water);
 			}
 			active = true;
 		}
