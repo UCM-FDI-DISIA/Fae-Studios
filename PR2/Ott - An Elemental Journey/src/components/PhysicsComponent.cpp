@@ -71,7 +71,7 @@ void PhysicsComponent::update() {
 			{
 				if ((!floating || floating && verticalSpeed > 0)|| ent_->getComponent<Health>()->getElement() == ecs::Water)
 				{
-					verticalSpeed += 0.1;
+					verticalSpeed += 0.07;
 				}
 			}
 			else
@@ -124,7 +124,7 @@ void PhysicsComponent::jump() {
 		if (inWaterJumpArea || (grounded && !climbing && ((!inWater) || (inWater && ent_->getComponent<Health>()->getElement() == ecs::Water)))) {
 			verticalSpeed = jumpForce * 4 / 5; 
 			velocity_ = Vector2D(velocity_.getX(), verticalSpeed);
-			if (inWaterJumpArea) { std::cout << "SALTE" << std::endl; isJumpingF = true; }
+			if (inWaterJumpArea) { isJumpingF = true; }
 		}
 	}
 }
