@@ -76,6 +76,14 @@ void PlayerInput::update()
 					openingMap = true;
 					physics_->setVelocity(Vector2D(0, physics_->getVelocity().getY()));
 				}
+				if (input->isKeyDown(SDLK_DOWN) && !lookingdown && mngr_->getCamera()->getComponent<CameraComponent>()->canLookDown()) {
+					anim_->setState(LOOKDOWN);
+					ent_->getComponent<PlayerInput>()->Stop();
+					physics_->setVelocity(Vector2D(0, mngr_->getPlayer()->getComponent<PhysicsComponent>()->getVelocity().getY()));
+					mngr_->getCamera()->getComponent<CameraComponent>()->startLookingDown();
+					mngr_->getCamera()->getComponent<CameraComponent>()->lookDown(true);
+					lookingdown = true;
+				}
 				if (state != VANISH) {
 					if (input->isKeyDown(SDLK_z) || (game().getIsJoystick() && SDL_GameControllerGetButton(game().getJoystick(), SDL_CONTROLLER_BUTTON_B)))
 					{
@@ -224,5 +232,11 @@ void PlayerInput::saveToFile(std::ofstream& file) {
 	file << "earth " << (int)earth << std::endl;
 	file << "water " << (int)water << std::endl;
 	file << "fire " << (int)fire << std::endl;
+}
+void PlayerInput::finishedLookingDown() {
+	mngr_->getPlayer()->getComponent<PlayerInput>()->Resume();
+	lookingdown = false;
+	anim_->setState(LOOKUP);
+
 }
 
