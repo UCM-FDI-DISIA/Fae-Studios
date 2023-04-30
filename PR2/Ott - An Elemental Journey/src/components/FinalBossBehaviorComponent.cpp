@@ -25,7 +25,7 @@ void FinalBossBehaviorComponent::update()
 {
 	//Temporizador de ataque
 	if (SDL_GetTicks() > timeBetweenAttacks) {
-		timeBetweenAttacks +=ATTACK_TIME+ SDL_GetTicks();
+		timeBetweenAttacks +=ATTACK_TIME;
 
 		//Switch de los diferentes ataques del boss
 		switch (currentElement)
@@ -112,7 +112,7 @@ void FinalBossBehaviorComponent::spawnFist() {
 	// Transform del boss
 	auto pTransf = ent_->getComponent<Transform>();
 	// Burguja
-	Entity* fist = mngr_->addEntity(ecs::_grp_PROYECTILES);
+	Entity* fist = mngr_->addEntity(ecs::_grp_BOSS_FIST);
 
 	fist->addComponent<Transform>(Vector2D(mngr_->getPlayer()->getComponent<Transform>()->getPosition().getX()-1000, mngr_->getPlayer()->getComponent<Transform>()->getPosition().getY()), FIST_SIZE, FIST_SIZE);
 	fist->addComponent<Image>(&sdlutils().images().at("BossFist"));
@@ -125,9 +125,9 @@ void FinalBossBehaviorComponent::spawnFistTop() {
 	// Transform del boss
 	auto pTransf = ent_->getComponent<Transform>();
 	// Burguja
-	Entity* fist = mngr_->addEntity(ecs::_grp_PROYECTILES);
+	Entity* fist = mngr_->addEntity(ecs::_grp_BOSS_FIST);
 
-	fist->addComponent<Transform>(Vector2D(mngr_->getPlayer()->getComponent<Transform>()->getPosition().getX(), mngr_->getPlayer()->getComponent<Transform>()->getPosition().getY()-500), FIST_SIZE, FIST_SIZE);
+	fist->addComponent<Transform>(Vector2D(mngr_->getPlayer()->getComponent<Transform>()->getPosition().getX(), mngr_->getPlayer()->getComponent<Transform>()->getPosition().getY()-1000), FIST_SIZE, FIST_SIZE);
 	fist->addComponent<Image>(&sdlutils().images().at("BossFistTop"));
 	fist->addComponent<FistComponent>(1);
 

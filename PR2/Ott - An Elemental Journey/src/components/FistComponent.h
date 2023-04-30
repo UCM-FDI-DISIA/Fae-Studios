@@ -7,8 +7,8 @@ class FistComponent : public Component
 public:
 	FistComponent(int side) { 
 		side_ = side; 
-		if (side_ == 0)dir = { 2,0 };
-		else dir = { 0,2 };
+		if (side_ == 0)dir = { 3,0 };
+		else dir = { 0,3 };
 	};
 	virtual ~FistComponent() {};
 	void initComponent() override;

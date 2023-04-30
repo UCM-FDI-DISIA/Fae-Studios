@@ -3,7 +3,7 @@
 #include "MapComponent.h"
 class Health;
 
-const int ATTACK_TIME = 3000;
+const int ATTACK_TIME = 5000;
 class FinalBossBehaviorComponent : public Component
 {
 public:
@@ -31,7 +31,7 @@ private:
 	int currentElement;
 	int BUBBLE_DIM = 70;
 	int FIREWALL_HEIGHT = 400, FIREWALL_WIDTH = 30;
-	int FIST_SIZE = 200;
+	int FIST_SIZE = 250;
 	int BLACKHOLE_SIZE = 100;
 
 	std::vector<Entity*> blackHoles;
