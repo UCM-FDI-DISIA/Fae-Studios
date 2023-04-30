@@ -5,6 +5,7 @@
 #include "FireWallComponent.h"
 #include "FistComponent.h"
 #include "AttractionComponent.h"
+#include "BlackHoleAnimationComp.h"
 FinalBossBehaviorComponent::FinalBossBehaviorComponent(MapComponent* map) :Component()
 {
 	currentElement = rand() % 5;
@@ -95,8 +96,9 @@ void FinalBossBehaviorComponent::spawnBlackHole() {
 		blackHoles.push_back(mngr_->addEntity(ecs::_grp_BLACKHOLE));
 		SDL_Rect rect = map_->getBlackHolePos(i);
 		blackHoles[i]->addComponent<Transform>(Vector2D(rect.x, rect.y), rect.w, rect.h);
-		blackHoles[i]->addComponent<Image>(&sdlutils().images().at("blackHole"));
+		blackHoles[i]->addComponent<FramedImage>(&sdlutils().images().at("blackHole"), 1, 4);
 		blackHoles[i]->addComponent<AttractionComponent>(this);
+		blackHoles[i]->addComponent<BlackHoleAnimationComp>();
 	}
 }
 

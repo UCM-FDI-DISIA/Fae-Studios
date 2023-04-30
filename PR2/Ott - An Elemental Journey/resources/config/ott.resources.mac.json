@@ -364,7 +364,7 @@
 		{ "id" : "fire_elem", "file" : "../Ott - An Elemental Journey/resources/images/tests/FireElement.png", "rows": 1, "cols": 10},
 		{ "id" : "fire_attack", "file" : "../Ott - An Elemental Journey/resources/images/tests/fire_attack.png", "rows": 1, "cols": 1},
 		{	"id": "attackBubble",	"file": "../Ott - An Elemental Journey/resources/images/sprites/attackBubble.png", "rows": 1, "cols": 1	},
-		{	"id": "blackHole", "file": "../Ott - An Elemental Journey/resources/images/tests/BlackHole.png", "rows": 1,	"cols": 1}
+		{	"id": "blackHole", "file": "../Ott - An Elemental Journey/resources/images/tests/BlackHole.png", "rows": 1,	"cols": 4}
 	],
 
 	"messages" : [],

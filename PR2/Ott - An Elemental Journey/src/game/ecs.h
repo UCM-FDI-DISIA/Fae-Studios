@@ -54,6 +54,7 @@ namespace ecs {
         _SHIELD,
         _FINALBOSS,
         _FINALBOSS_ATTACK,
+        _BLACK_HOLE_ANIMATION,
         _ATTRACTION,
 
         _LAST_CMP_ID

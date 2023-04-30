@@ -701,7 +701,7 @@
 			"id": "blackHole",
 			"file": "../resources/images/tests/BlackHole.png",
 			"rows": 1,
-			"cols": 1
+			"cols": 4
 		},
 		{
 			"id": "BossFist",

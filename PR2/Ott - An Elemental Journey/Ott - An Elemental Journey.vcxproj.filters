@@ -75,6 +75,7 @@
     <ClCompile Include="src\components\BossHealthBar.cpp" />
     <ClCompile Include="src\components\WaterBubbleComponent.cpp" />
     <ClCompile Include="src\components\AttractionComponent.cpp" />
+    <ClCompile Include="src\components\BlackHoleAnimationComp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\components\Image.h" />
@@ -168,6 +169,7 @@
     <ClInclude Include="src\components\WaterBubbleComponent.h" />
     <ClInclude Include="src\components\BossHealthBar.h" />
     <ClInclude Include="src\components\AttractionComponent.h" />
+    <ClInclude Include="src\components\BlackHoleAnimationComp.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="resources\config\ott.resources.mac.json" />
