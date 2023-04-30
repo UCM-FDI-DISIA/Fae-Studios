@@ -28,12 +28,12 @@ void FinalBossBehaviorComponent::update()
 		//Switch de los diferentes ataques del boss
 		switch (currentElement)
 		{
-		case 0: std::cout << "Ataque tierra boss final" << std::endl; break;
-		case 1: std::cout << "Ataque agua boss final" << std::endl; /*spawnBubbles();*/ break;
-		case 2: std::cout << "Ataque fuego boss final" << std::endl; /*spawnFireWall();*/ break;
+		case 0: /*std::cout << "Ataque tierra boss final" << std::endl;*/ break;
+		case 1: std::cout << "Ataque agua boss final" << std::endl; spawnBubbles(); break;
+		case 2:/* std::cout << "Ataque fuego boss final" << std::endl; spawnFireWall();*/ break;
 		case 3: std::cout << "Ataque oscuridad boss final" << std::endl; spawnBlackHole(); break;
-		case 4: std::cout << "Ataque pu�o boss final" << std::endl;/* spawnFist();*/ break;
-		default: std::cout << "Ataque generico boss final" << std::endl; /*spawnFist();*/ break;
+		case 4: /*std::cout << "Ataque pu�o boss final" << std::endl;/* spawnFist();*/ break;
+		default: /*std::cout << "Ataque generico boss final" << std::endl; /*spawnFist();*/ break;
 		}
 		//Cambia de elemento aleatoriamente
 		int lastElem = currentElement;
@@ -54,23 +54,30 @@ void FinalBossBehaviorComponent::deleteBlackHoles() {
 
 // Mata burbujas y elimina del vector
 void FinalBossBehaviorComponent::deleteBubbles() {
+	int i = 1;
 	for (auto it = bubbles.begin(); it != bubbles.end(); ++it) {
 		(*it)->setAlive(false);
+		std::cout << "Seteado a false " << i << std::endl;
+
+		++i;
 	}
 	bubbles.clear();
 }
 
 void FinalBossBehaviorComponent::spawnBubbles() //Ataque de agua 
 {
-	// Transform del boss
-	auto pTransf = ent_->getComponent<Transform>();
-	// Burguja
-	Entity* bubble = mngr_->addEntity(ecs::_grp_BUBBLE);
+	int bubblesNum = map_->bubblesNum();
 
-	bubble->addComponent<Transform>(pTransf->getPosition(), BUBBLE_DIM * pTransf->getScale(), BUBBLE_DIM * pTransf->getScale());
-	bubble->addComponent<Image>(&sdlutils().images().at("attackBubble"));
-	bubble->addComponent<Health>(100, ecs::Water);
-	bubble->addComponent<WaterBubbleComponent>();
+	// Crea bubbles y añade componentes
+	for (int i = 0; i < bubblesNum; ++i) {
+		bubbles.push_back(mngr_->addEntity(ecs::_grp_BUBBLE));
+		SDL_Rect rect = map_->getBubblePos(i);
+
+		bubbles[i]->addComponent<Transform>(Vector2D(rect.x, rect.y), rect.w, rect.h);
+		bubbles[i]->addComponent<Image>(&sdlutils().images().at("attackBubble"));
+		bubbles[i]->addComponent<Health>(100, ecs::Water);
+		bubbles[i]->addComponent<WaterBubbleComponent>(this);
+	}
 }
 
 void FinalBossBehaviorComponent::spawnFireWall() //Ataque fuego
@@ -86,8 +93,6 @@ void FinalBossBehaviorComponent::spawnFireWall() //Ataque fuego
 }
 
 void FinalBossBehaviorComponent::spawnBlackHole() {
-
-	std::cout << "Agujero negro" << std::endl;
 
 	int blackHolesNum = map_->blackHolesNum();
 

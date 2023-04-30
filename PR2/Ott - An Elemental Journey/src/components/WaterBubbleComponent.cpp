@@ -1,8 +1,10 @@
 #include "WaterBubbleComponent.h"
 #include "../components/Image.h"
 #include "../components/Bullet.h"
-WaterBubbleComponent::WaterBubbleComponent()
+#include "FinalBossBehaviorComponent.h"
+WaterBubbleComponent::WaterBubbleComponent(FinalBossBehaviorComponent* bossBehaComp)
 {
+	bossBehaComp_ = bossBehaComp;
 }
 
 
@@ -19,7 +21,11 @@ void WaterBubbleComponent::update()
 		spawnShot();
 		lastTimeShot = SDL_GetTicks();
 	}
-	if(SDL_GetTicks() - spawnTime >= lifeTime) ent_->setAlive(false); //Se destruye pasados unos segundos
+	if(SDL_GetTicks() - spawnTime >= lifeTime) {
+		
+		//Se mata pasados unos segundos
+		bossBehaComp_->deleteBubbles();
+	}
 }
 
 void WaterBubbleComponent::spawnShot()
