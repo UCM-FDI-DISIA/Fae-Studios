@@ -200,5 +200,19 @@ public:
 		else if (e == ecs::Earth) loadEarthElem = false;
 	};
 	virtual void loadFromFile(std::ifstream& file);
+
+	void setBossCompleted(ecs::elements e) {
+		switch (e) {
+			case ecs::Earth:
+				loadEarthBoss = false;
+				break;
+			case ecs::Water:
+				loadWaterBoss = false;
+				break;
+			case ecs::Fire:
+				loadFireBoss = false;
+				break;
+		}
+	}
 };
 

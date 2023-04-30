@@ -9,7 +9,7 @@ class FramedImage;
 class FireBossAnimation : public Component {
 public:
 	constexpr static ecs::cmpId_type id = ecs::_FIREBOSS_ANIM;
-	FireBossAnimation(anims::Entities e) : eAnims(e) {};
+	FireBossAnimation(anims::Entities e, Entity* map_) : eAnims(e), map(map_) {};
 	virtual ~FireBossAnimation();
 	void initComponent() ;
 	virtual void update() ;
@@ -28,6 +28,7 @@ private:
 	int posInList;
 	int roomNum;
 
+	Entity* map;
 	//anims::Entities eAnims = anims::MELEE_ANIM;
 	anims::Entities eAnims = anims::FIREBOSS_ANIM;
 	FramedImage* image;

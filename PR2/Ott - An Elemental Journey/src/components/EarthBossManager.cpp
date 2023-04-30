@@ -360,4 +360,5 @@ void EarthBossManager::die() {
 	resetFight();
 	auto bounds = map->getCamBounds();
 	mngr_->getCamera()->getComponent<CameraComponent>()->setBounds(bounds);
+	map->setBossCompleted(ecs::Earth);
 }

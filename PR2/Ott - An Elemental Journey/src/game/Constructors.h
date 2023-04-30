@@ -438,7 +438,7 @@ namespace constructors {
 		sanc->addComponent<InteractionComponent>(cb, SANCTUARY_IT, ID, room);
 		return sanc;
 	}
-	static inline Entity* FireBoss(Manager* mngr_, int x, int y) {
+	static inline Entity* FireBoss(Manager* mngr_, Entity* map, int x, int y) {
 		auto boss = mngr_->addEntity(ecs::_grp_CHARACTERS);
 		boss->addComponent<Transform>(Vector2D(x, y),400, 400);
 		boss->addComponent<FireBossComponent>();
@@ -446,7 +446,7 @@ namespace constructors {
 		boss->getComponent<PhysicsComponent>()->createCollider();
 		boss->addComponent<FramedImage>(&sdlutils().images().at("fireBoss"), 5, 13);
 		
-		auto anim=boss->addComponent<FireBossAnimation>(anims::FIREBOSS_ANIM);
+		auto anim=boss->addComponent<FireBossAnimation>(anims::FIREBOSS_ANIM, map);
 		boss->getComponent<FireBossComponent>()->setAnimComponent(anim);
 		boss->addComponent<Health>(25, ecs::Fire, false);
 		return boss;
@@ -460,7 +460,7 @@ namespace constructors {
 		return waterObj;
 	}
 
-	static inline Entity* WaterBoss(Manager* mngr_, int x, int y, int w, int h) {
+	static inline Entity* WaterBoss(Manager* mngr_, Entity* map, int x, int y, int w, int h) {
 		auto waterBoss = mngr_->addEntity(ecs::_grp_CHARACTERS);
 		auto WbTransform = waterBoss->addComponent<Transform>(x, y, w, h);
 		auto waterPh = waterBoss->addComponent<PhysicsComponent>(colliders::WATERBOSS);
@@ -480,44 +480,44 @@ namespace constructors {
 		x += 2800;
 		box0->addComponent<Transform>(x, y + 100, 100, 100);
 		//box0->addComponent<Image>(&sdlutils().images().at("box"));
-		box0->addComponent<Pivot>(waterBoss, 0);
+		box0->addComponent<Pivot>(waterBoss, 0, map);
 
 		box0 = mngr_->addEntity(ecs::_grp_GENERAL);
 		y += 1950;
 		box0->addComponent<Transform>(x, y, 100, 100);
 		//box0->addComponent<Image>(&sdlutils().images().at("box"));
-		box0->addComponent<Pivot>(waterBoss, 1);
+		box0->addComponent<Pivot>(waterBoss, 1, map);
 
 		box0 = mngr_->addEntity(ecs::_grp_GENERAL);
 		x += 1600;
 		box0->addComponent<Transform>(x, y, 100, 100);
 		//box0->addComponent<Image>(&sdlutils().images().at("box"));
-		box0->addComponent<Pivot>(waterBoss, 2);
+		box0->addComponent<Pivot>(waterBoss, 2, map);
 
 		box0 = mngr_->addEntity(ecs::_grp_GENERAL);
 		y -= 1500;
 		box0->addComponent<Transform>(x, y, 100, 100);
 		//box0->addComponent<Image>(&sdlutils().images().at("box"));
-		box0->addComponent<Pivot>(waterBoss, 1);
+		box0->addComponent<Pivot>(waterBoss, 1, map);
 
 		box0 = mngr_->addEntity(ecs::_grp_GENERAL);
 		x += 900;
 		box0->addComponent<Transform>(x, y, 100, 100);
 		//box0->addComponent<Image>(&sdlutils().images().at("box"));
-		box0->addComponent<Pivot>(waterBoss, 3);
+		box0->addComponent<Pivot>(waterBoss, 3, map);
 
 		box0 = mngr_->addEntity(ecs::_grp_GENERAL);
 		y -= 600;
 		box0->addComponent<Transform>(x, y, 100, 100);
 		//box0->addComponent<Image>(&sdlutils().images().at("box"));
-		box0->addComponent<Pivot>(waterBoss, 4);
+		box0->addComponent<Pivot>(waterBoss, 4, map);
 
 
 		box0 = mngr_->addEntity(ecs::_grp_GENERAL);
 		x += 3900;
 		box0->addComponent<Transform>(x, y, 100, 100);
 		//box0->addComponent<Image>(&sdlutils().images().at("box"));
-		box0->addComponent<Pivot>(waterBoss, 5);
+		box0->addComponent<Pivot>(waterBoss, 5, map);
 
 		return waterBoss;
 	}
