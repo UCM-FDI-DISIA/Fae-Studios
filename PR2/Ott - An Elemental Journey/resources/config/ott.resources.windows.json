@@ -762,6 +762,12 @@
 			"file": "../resources/images/tests/Platform.PNG",
 			"rows": 1,
 			"cols": 1
+		},
+		{
+			"id": "button_needle",
+			"file": "../resources/images/ui/button_needle.png",
+			"rows": 1,
+			"cols": 1
 		}
 	],
 

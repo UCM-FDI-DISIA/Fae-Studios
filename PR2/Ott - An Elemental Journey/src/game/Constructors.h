@@ -227,6 +227,17 @@ namespace constructors {
 		b->getComponent<Transform>()->setWidth(b->getComponent<FramedImage>()->getFrameWidth());
 		b->getComponent<Transform>()->setHeight(b->getComponent<FramedImage>()->getFrameHeight());
 		b->getComponent<Transform>()->setPosition(b->getComponent<Transform>()->getPosition() - Vector2D(b->getComponent<FramedImage>()->getFrameWidth() / 2, b->getComponent<FramedImage>()->getFrameHeight() / 2));
+		
+		if (game().getIsJoystick()) {
+			auto ned = mngr_->addEntity(ecs::_grp_UI);
+			ned->addComponent<Transform>(Vector2D(0,0), 50, 50);
+			ned->addComponent<Image>(&sdlutils().images().at("button_needle"));
+			ned->getComponent<Transform>()->setWidth(ned->getComponent<Image>()->getWidth() / 2.5f);
+			ned->getComponent<Transform>()->setHeight(ned->getComponent<Image>()->getHeight() / 2.5f);
+			ned->addComponent<ButtonNeedle>();
+			b->getComponent<Button>()->setNeedle(ned);
+		}
+		
 		return b;
 	}
 
@@ -239,6 +250,17 @@ namespace constructors {
 		quitButton->getComponent<Transform>()->setWidth(quitButton->getComponent<FramedImage>()->getFrameWidth());
 		quitButton->getComponent<Transform>()->setHeight(quitButton->getComponent<FramedImage>()->getFrameHeight());
 		quitButton->getComponent<Transform>()->setPosition(quitButton->getComponent<Transform>()->getPosition() - Vector2D(quitButton->getComponent<FramedImage>()->getFrameWidth() / 2, quitButton->getComponent<FramedImage>()->getFrameHeight() / 2));
+		
+		if (game().getIsJoystick()) {
+			auto ned = mngr_->addEntity(ecs::_grp_UI);
+			ned->addComponent<Transform>(Vector2D(0, 0), 50, 50);
+			ned->addComponent<Image>(&sdlutils().images().at("button_needle"));
+			ned->getComponent<Transform>()->setWidth(ned->getComponent<Image>()->getWidth() / 2.5f);
+			ned->getComponent<Transform>()->setHeight(ned->getComponent<Image>()->getHeight() / 2.5f);
+			ned->addComponent<ButtonNeedle>();
+			quitButton->getComponent<Button>()->setNeedle(ned);
+		}
+		
 		return quitButton;
 	}
 	

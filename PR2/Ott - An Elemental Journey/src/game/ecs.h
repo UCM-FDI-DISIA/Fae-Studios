@@ -14,6 +14,7 @@ namespace ecs {
         _IMAGE, ///< Image y FramedImage
         _TEXT, ///< Text
         _BUTTON,
+        _BUTTON_NEEDLE,
         _SLIDER,
         _SLIDER_NEEDLE,
         _SLIDER_PERCENTAGE,

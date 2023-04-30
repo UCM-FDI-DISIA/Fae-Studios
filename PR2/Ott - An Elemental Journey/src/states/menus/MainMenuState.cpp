@@ -30,7 +30,7 @@ MainMenuState::MainMenuState() : MenuState() {
     littleOtt->addComponent<FramedImage>(&sdlutils().images().at("ott_luz"), 9, 8);
 
     pos = Vector2D(sdlutils().getWindowDimensions().getX() / 2, 3 * sdlutils().getWindowDimensions().getY() / 7);
-    constructors::button(mngr_, pos, "Jugar", sdlutils().fonts().at("vcr_osd48"), [this]() {
+    buttons.push_back(constructors::button(mngr_, pos, "Jugar", sdlutils().fonts().at("vcr_osd48"), [this]() {
 #ifdef __APPLE__
         sdlutils().soundEffects().at("play_button").play(0, ecs::_channel_UI);
         fade->getComponent<FadeTransitionComponent>()->setFunction([this]() { GameStateMachine::instance()->changeState(new PlayState()); playStateInit = true; sdlutils().musics().at("main_menu_music").fadeOutMusic(100); });
@@ -42,42 +42,73 @@ MainMenuState::MainMenuState() : MenuState() {
         fade->getComponent<FadeTransitionComponent>()->revert();
         playStateInit = true;
 #endif
-    });
+    }));
 
     pos = Vector2D(sdlutils().getWindowDimensions().getX() / 2, 4 * sdlutils().getWindowDimensions().getY() / 7);
-    constructors::button(mngr_, pos, "Cargar", sdlutils().fonts().at("vcr_osd48"), [this]() {
+    buttons.push_back(constructors::button(mngr_, pos, "Cargar", sdlutils().fonts().at("vcr_osd48"), [this]() {
         sdlutils().soundEffects().at("button").play(0, ecs::_channel_UI);
         fade->getComponent<FadeTransitionComponent>()->setFunction([]() { GameStateMachine::instance()->changeState(new PlayState("../resources/saves/temporalUniqueSave.sv")); sdlutils().musics().at("main_menu_music").fadeOutMusic(100); });
         fade->getComponent<FadeTransitionComponent>()->revert();
-    });
+    }));
 
     pos = Vector2D(sdlutils().getWindowDimensions().getX() / 2, 5 * sdlutils().getWindowDimensions().getY() / 7);
-    constructors::button(mngr_, pos, "Opciones", sdlutils().fonts().at("vcr_osd24"), [this]() {
+    buttons.push_back(constructors::button(mngr_, pos, "Opciones", sdlutils().fonts().at("vcr_osd24"), [this]() {
         sdlutils().soundEffects().at("button").play(0, ecs::_channel_UI);
         fade->getComponent<FadeTransitionComponent>()->setFunction([](){ GameStateMachine::instance()->pushState(new OptionsMenuState());});
         fade->getComponent<FadeTransitionComponent>()->revert();
-    });
+    }));
 
     pos = Vector2D(sdlutils().getWindowDimensions().getX() / 2, 6 * sdlutils().getWindowDimensions().getY() / 7);
-    constructors::exitButton(mngr_, pos, []() {
+    buttons.push_back(constructors::exitButton(mngr_, pos, []() {
         sdlutils().soundEffects().at("button").play(0, ecs::_channel_UI);
         sdlutils().musics().at("main_menu_music").haltMusic();
         game().exitGame();
-    });
+    }));
 
     fade->getComponent<FadeTransitionComponent>()->activateWithoutExecute();
     playStateInit = false;
 
     sdlutils().musics().at("main_menu_music").play();
+
+    buttonIndex = 0;
+    formerIndex = 0;
+    detectJoystickActivity = false;
 }
 
 void MainMenuState::update() {
-    GameState::update();
+    MenuState::update();
 	if (SDL_GetTicks() >= animTime) {
 		animFrame = (animFrame + 1) % 2;
         if(!playStateInit) littleOtt->getComponent<FramedImage>()->setCol(animFrame);
 		animTime = SDL_GetTicks() + MAIN_MENU_OTT_ANIM_TIME;
 	}
+}
+
+void MainMenuState::handleInput() {
+    MenuState::handleInput();
+    if (game().getIsJoystick()) {
+        SDL_JoystickUpdate();
+        if (SDL_JoystickGetAxis(game().getJoystick(), 1) <= 29000 && SDL_JoystickGetAxis(game().getJoystick(), 1) >= -29000 && !SDL_JoystickGetButton(game().getJoystick(), SDL_CONTROLLER_BUTTON_A)) detectJoystickActivity = true;
+              
+        if ((SDL_JoystickGetAxis(game().getJoystick(), 1) > 29000 && detectJoystickActivity)) {
+            formerIndex = buttonIndex;
+            buttonIndex++;
+            buttonIndex %= buttons.size();
+            detectJoystickActivity = false;
+        }
+        if (SDL_JoystickGetAxis(game().getJoystick(), 1) < -29000 && detectJoystickActivity) {
+            formerIndex = buttonIndex;
+            buttonIndex--;
+            buttonIndex %= buttons.size();
+            detectJoystickActivity = false;
+        }
+        if (SDL_JoystickGetButton(game().getJoystick(), SDL_CONTROLLER_BUTTON_A) && detectJoystickActivity) {
+            buttons[buttonIndex]->getComponent<Button>()->onClick();
+        }
+             
+        buttons[formerIndex]->getComponent<Button>()->unselect();
+        buttons[buttonIndex]->getComponent<Button>()->select();
+    }
 }
 
 void MainMenuState::changeResolution() {
