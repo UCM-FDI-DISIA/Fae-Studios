@@ -140,22 +140,22 @@
  <objectgroup id="7" name="Enemigos">
   <object id="372" name="2_2_left" class="Melee" x="6721" y="795" width="32" height="64"/>
   <object id="373" name="3_2_left" class="Mushroom" x="8033" y="323" width="32" height="32"/>
-  <object id="376" name="3_2_left" class="Slime" x="8673" y="471" width="32" height="64"/>
-  <object id="377" name="3_2_right" class="Slime" x="8385" y="473" width="32" height="64"/>
+  <object id="376" name="3_2_left_3" class="Slime" x="8673" y="471" width="32" height="64"/>
+  <object id="377" name="3_2_right_3" class="Slime" x="8385" y="473" width="32" height="64"/>
   <object id="378" name="6_2_left" class="Melee" x="7049" y="1435" width="32" height="64"/>
   <object id="379" name="6_2_right" class="Mushroom" x="6145" y="1435" width="32" height="32"/>
-  <object id="380" name="5_2_left" class="Slime" x="6496" y="2173" width="32" height="64"/>
+  <object id="380" name="5_2_left_3" class="Slime" x="6496" y="2173" width="32" height="64"/>
   <object id="381" name="5_2_right" class="Mushroom" x="7331" y="2029" width="32" height="32"/>
   <object id="382" name="5_2_left" class="Melee" x="7265" y="1571" width="32" height="32"/>
   <object id="383" name="5_2_right" class="Melee" x="6143" y="1589" width="32" height="32"/>
-  <object id="384" name="7_2_right" class="Slime" x="5317" y="2235" width="32" height="64"/>
+  <object id="384" name="7_2_right_3" class="Slime" x="5317" y="2235" width="32" height="64"/>
   <object id="385" name="7_2_right" class="Mushroom" x="5281" y="1433" width="32" height="32"/>
   <object id="386" name="7_2_left" class="Melee" x="5761" y="1757" width="32" height="64"/>
   <object id="387" name="9_2_left" class="Melee" x="5089" y="2197" width="32" height="64"/>
-  <object id="388" name="8_2_left" class="Slime" x="4934" y="1757" width="32" height="64"/>
+  <object id="388" name="8_2_left_3" class="Slime" x="4934" y="1757" width="32" height="64"/>
   <object id="389" name="11_2_right" class="Mushroom" x="5249" y="955" width="32" height="32"/>
-  <object id="390" name="12_2_right" class="Slime" x="3779" y="2297" width="32" height="64"/>
-  <object id="391" name="12_2_left" class="Slime" x="4291" y="2305" width="32" height="64"/>
+  <object id="390" name="12_2_right_3" class="Slime" x="3779" y="2297" width="32" height="64"/>
+  <object id="391" name="12_2_left_3" class="Slime" x="4291" y="2305" width="32" height="64"/>
   <object id="548" name="6_2_left" class="Mushroom" x="7121" y="1231.67" width="44" height="47"/>
   <object id="550" name="6_2_right" class="Mushroom" x="6613.33" y="1232.67" width="44" height="47"/>
  </objectgroup>
