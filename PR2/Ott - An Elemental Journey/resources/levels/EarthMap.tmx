@@ -342,12 +342,12 @@
   <object id="425" name="7" type="Sanctuary_2" x="3971.08" y="3202.33" width="88.5"/>
   <object id="426" name="13" type="Sanctuary_3" x="4133.5" y="1376.33" width="88.5"/>
   <object id="528" name="1" type="Element_6" x="2976" y="3040" width="31.75" height="31.75"/>
-  <object id="530" name="12" type="Spike" x="3968" y="2240" width="448" height="32"/>
-  <object id="531" name="0" type="Spike" x="2208" y="1504" width="256" height="32"/>
-  <object id="532" name="3" type="Spike" x="864" y="2240" width="128" height="32"/>
-  <object id="533" name="3" type="Spike" x="1120" y="2240" width="64" height="32"/>
-  <object id="534" name="5" type="Spike" x="1824" y="3232" width="128" height="32"/>
-  <object id="535" name="5" type="Spike" x="2080" y="3232" width="350" height="32"/>
+  <object id="530" name="12" type="Earth_Spike" x="3968" y="2240" width="448" height="32"/>
+  <object id="531" name="0" type="Earth_Spike" x="2208" y="1504" width="256" height="32"/>
+  <object id="532" name="3" type="Earth_Spike" x="864" y="2240" width="128" height="32"/>
+  <object id="533" name="3" type="Earth_Spike" x="1120" y="2240" width="64" height="32"/>
+  <object id="534" name="5" type="Earth_Spike" x="1824" y="3232" width="128" height="32"/>
+  <object id="535" name="5" type="Earth_Spike" x="2080" y="3232" width="350" height="32"/>
  </objectgroup>
  <objectgroup id="8" name="Enemigos">
   <object id="151" name="0_1_left" type="Melee" x="1568" y="1312" width="31.3333" height="86.6667"/>

@@ -591,8 +591,8 @@ void MapComponent::loadMap(std::string path, int nextPos) {
             else if (ot.getClass() == "Spike") {
                 auto roomScale = vectorTiles[std::stoi(ot.getName())].first;
                 auto newSpike = constructors::damageArea(mngr_,
-                    "whiteBox", ecs::Earth, (x_ * scale) * roomScale,
-                    ((y_ * scale - sdlutils().images().at("grass").height()) + h_ * scale) * roomScale,
+                    "spike", ecs::Earth, (x_ * scale) * roomScale,
+                    ((y_ * scale - sdlutils().images().at("spike").height()) + h_ * scale) * roomScale,
                     w_ * scale * roomScale,
                     h_ * scale * roomScale,
                     false);
@@ -605,8 +605,22 @@ void MapComponent::loadMap(std::string path, int nextPos) {
             else if (ot.getClass() == "HangingSpike") {
                 auto roomScale = vectorTiles[std::stoi(ot.getName())].first;
                 auto newSpike = constructors::damageArea(mngr_,
-                    "whiteBox", ecs::Earth, (x_ * scale) * roomScale,
-                    ((y_ * scale - sdlutils().images().at("grass").height()) + h_ * scale) * roomScale,
+                    "hanging_spike", ecs::Earth, (x_ * scale) * roomScale,
+                    ((y_ * scale - sdlutils().images().at("hanging_spike").height()) + h_ * scale) * roomScale,
+                    w_ * scale * roomScale,
+                    h_ * scale * roomScale,
+                    false);
+                interact[std::stoi(ot.getName())].push_back(newSpike);
+                auto v = &interact[std::stoi(ot.getName())];
+                auto it = (--v->end());
+                //newSpike->getComponent<InteractionComponent>()->setIt(it, v);
+                newSpike->setActive(false);
+            }
+            else if (ot.getClass() == "Earth_Spike") {
+                auto roomScale = vectorTiles[std::stoi(ot.getName())].first;
+                auto newSpike = constructors::damageArea(mngr_,
+                    "earth_spike", ecs::Earth, (x_ * scale) * roomScale,
+                    ((y_ * scale - sdlutils().images().at("earth_spike0").height()) + h_ * scale) * roomScale,
                     w_ * scale * roomScale,
                     h_ * scale * roomScale,
                     false);
