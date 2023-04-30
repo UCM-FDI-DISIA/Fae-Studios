@@ -56,21 +56,21 @@ void PhysicsComponent::createCollider() {
 
 void PhysicsComponent::update() {
 	if (!stopped) {
-		
+
 		//ascenso progresivo en el agua cuando tiene otros elementos
 		if (inWater && ent_->getComponent<Health>()->getElement() != ecs::Water)
 		{
 			//ajustes velocidad vertical cuando entra por arriba/lados
 			if (!floating)
 			{
-				if (verticalSpeed > 0) { verticalSpeed = 0.0;}
+				if (verticalSpeed > 0) { verticalSpeed = 0.0; }
 				verticalSpeed += -0.01; if (verticalSpeed < -1.5) { verticalSpeed = -1.5; }
 				velocity_ = Vector2D(velocity_.getX(), verticalSpeed);
 				return;
 			}
 			//solo se asigna la velocidad en floating si no esta intenbtando saltar
-			else if (floating && verticalSpeed < 0) { if(!isJumpingF)verticalSpeed = -0.1; }
-			else {if(!isJumpingF)verticalSpeed = 0.1;}
+			else if (floating && verticalSpeed < 0) { if (!isJumpingF)verticalSpeed = -0.1; }
+			else { if (!isJumpingF)verticalSpeed = 0.1; }
 			//si desciende ya ha terminado el salto en la superficie
 			if (verticalSpeed > 0) { isJumpingF = false; }
 		}
@@ -79,13 +79,11 @@ void PhysicsComponent::update() {
 			grounded = true;
 			velocity_ = Vector2D(velocity_.getX(), dirClimbing);
 		}
-		else if(climbing && ent_->getComponent<Health>()->getHealth() <= 0)velocity_ = Vector2D(velocity_.getX(), MAX_VERTICAL_SPEED);
-		if (!grounded && gravity && (!inWater || (inWater && ent_->getComponent<Health>()->getElement() == ecs::Water))) {
-
-		if (!grounded && gravity && ((!inWater || (inWater && ent_->getComponent<Health>()->getElement() == ecs::Water))||floating)) {
-			if (inWater&&!isJumpingF)
+		else if (climbing && ent_->getComponent<Health>()->getHealth() <= 0)velocity_ = Vector2D(velocity_.getX(), MAX_VERTICAL_SPEED);
+		if (!grounded && gravity && ((!inWater || (inWater && ent_->getComponent<Health>()->getElement() == ecs::Water)) || floating)) {
+			if (inWater && !isJumpingF)
 			{
-				if ((!floating || floating && verticalSpeed > 0)|| ent_->getComponent<Health>()->getElement() == ecs::Water)
+				if ((!floating || floating && verticalSpeed > 0) || ent_->getComponent<Health>()->getElement() == ecs::Water)
 				{
 					verticalSpeed += 0.1;
 				}
@@ -94,9 +92,9 @@ void PhysicsComponent::update() {
 			{
 				if (velocity_.getY() < 0 && !inWater) {
 					auto horSpeed = velocity_.getX();
-					if(horSpeed < 0)
+					if (horSpeed < 0)
 						velocity_ = Vector2D(-jumpingHorizontalSpeed, verticalSpeed);
-					else if (horSpeed > 0) 
+					else if (horSpeed > 0)
 						velocity_ = Vector2D(+jumpingHorizontalSpeed, verticalSpeed);
 				}
 				if (velocity_.getY() > -1 && velocity_.getY() < 0) {
@@ -110,9 +108,9 @@ void PhysicsComponent::update() {
 
 		if (grounded && !inWater) {
 			float horSpeed = velocity_.getX();
-			if(horSpeed != 0)
-				velocity_ = Vector2D(horizontalSpeed * horSpeed/abs(horSpeed), verticalSpeed);
-			
+			if (horSpeed != 0)
+				velocity_ = Vector2D(horizontalSpeed * horSpeed / abs(horSpeed), verticalSpeed);
+
 		}
 
 		if (isKnockback) {
@@ -130,7 +128,6 @@ void PhysicsComponent::update() {
 	}
 	else setVelocity(Vector2D(0, 0));
 }
-
 void PhysicsComponent::jump() {
 	if (!stopped) {
 		if (inWater || floating) { jumpForce = waterJumpForce; }
