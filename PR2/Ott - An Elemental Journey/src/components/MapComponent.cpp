@@ -620,7 +620,7 @@ void MapComponent::loadMap(std::string path, int nextPos) {
                 auto roomScale = vectorTiles[std::stoi(ot.getName())].first;
                 auto newSpike = constructors::damageArea(mngr_,
                     "earth_spike", ecs::Earth, (x_ * scale) * roomScale,
-                    ((y_ * scale - sdlutils().images().at("earth_spike0").height()) + h_ * scale) * roomScale,
+                    ((y_ * scale - sdlutils().images().at("earth_spike").height()) + h_ * scale) * roomScale,
                     w_ * scale * roomScale,
                     h_ * scale * roomScale,
                     false);
