@@ -76,7 +76,7 @@ private:
     //jumpforces
     int jumpForce;
     const int earthJumpForce = -10;
-    const int waterJumpForce = -5;
+    const int waterJumpForce = -7;
     const float offset = 0.9;
     //booleanos de agua
     bool inWater = false, floating = false, inWaterJumpArea = false, isJumpingF = false;

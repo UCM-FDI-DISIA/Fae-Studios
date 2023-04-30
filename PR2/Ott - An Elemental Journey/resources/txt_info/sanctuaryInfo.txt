@@ -1,4 +1,4 @@
 3
 earthMap 5
-waterMap 1
+waterMap 2
 fireMap 2
