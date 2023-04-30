@@ -79,10 +79,8 @@ public:
         if (carteles.size() > 0) {
             for (auto c : carteles) {
                 if (c.size() > 0) {
-                    for (auto cartel : carteles) {
-                        for (auto cart : cartel) {
-                            cart->setAlive(false);
-                        }
+                    for (auto cartel : c) {
+                        cartel->setAlive(false);
                     }
                 }
             }

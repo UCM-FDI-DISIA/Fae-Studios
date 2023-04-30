@@ -44,22 +44,30 @@ void PhysicsComponent::createCollider() {
 void PhysicsComponent::update() {
 	if (!stopped) {
 		//ascenso progresivo en el agua cuando tiene otros elementos
-		if (!floating && inWater && ent_->getComponent<Health>()->getElement() != ecs::Water)
+		if (inWater && ent_->getComponent<Health>()->getElement() != ecs::Water)
 		{
 			//ajustes velocidad vertical cuando entra por arriba/lados
-			if (verticalSpeed > 0) { verticalSpeed = 0.0; }
-			verticalSpeed += -0.01; if (verticalSpeed < -1.5) { verticalSpeed = -1.5; }
-			velocity_ = Vector2D(velocity_.getX(), verticalSpeed);
-			return;
+			if (!floating)
+			{
+				if (verticalSpeed > 0) { verticalSpeed = 0.0;}
+				verticalSpeed += -0.01; if (verticalSpeed < -1.5) { verticalSpeed = -1.5; }
+				velocity_ = Vector2D(velocity_.getX(), verticalSpeed);
+				return;
+			}
+			//solo se asigna la velocidad en floating si no esta intenbtando saltar
+			else if (floating && verticalSpeed < 0) { if(!isJumpingF)verticalSpeed = -0.1; }
+			else {if(!isJumpingF)verticalSpeed = 0.1;}
+			//si desciende ya ha terminado el salto en la superficie
+			if (verticalSpeed > 0) { isJumpingF = false; }
 		}
 
 		if (climbing) {
 			grounded = true;
 			velocity_ = Vector2D(velocity_.getX(), dirClimbing);
 		}
-		if (!grounded && gravity && (!inWater || (inWater && ent_->getComponent<Health>()->getElement() == ecs::Water))) {
+		if (!grounded && gravity && ((!inWater || (inWater && ent_->getComponent<Health>()->getElement() == ecs::Water))||floating)) {
 
-			if (inWater)
+			if (inWater&&!isJumpingF)
 			{
 				if ((!floating || floating && verticalSpeed > 0)|| ent_->getComponent<Health>()->getElement() == ecs::Water)
 				{
@@ -88,6 +96,7 @@ void PhysicsComponent::update() {
 			float horSpeed = velocity_.getX();
 			if(horSpeed != 0)
 				velocity_ = Vector2D(horizontalSpeed * horSpeed/abs(horSpeed), verticalSpeed);
+			
 		}
 
 		if (isKnockback) {
@@ -104,7 +113,7 @@ void PhysicsComponent::update() {
 		}
 	}
 	else setVelocity(Vector2D(0, 0));
-
+	
 }
 
 void PhysicsComponent::jump() {
@@ -112,9 +121,10 @@ void PhysicsComponent::jump() {
 		if (inWater || floating) { jumpForce = waterJumpForce; }
 		else { jumpForce = earthJumpForce; }
 		//condiciones de salto: que este flotamdo o que este en el suelo no escalando y o bien no este en el agua o bien lo este pero sea de elemento de agua
-		if (floating || (grounded && !climbing && ((!inWater) || (inWater && ent_->getComponent<Health>()->getElement() == ecs::Water)))) {
-			verticalSpeed = jumpForce * 4/5;
+		if (inWaterJumpArea || (grounded && !climbing && ((!inWater) || (inWater && ent_->getComponent<Health>()->getElement() == ecs::Water)))) {
+			verticalSpeed = jumpForce * 4 / 5; 
 			velocity_ = Vector2D(velocity_.getX(), verticalSpeed);
+			if (inWaterJumpArea) { std::cout << "SALTE" << std::endl; isJumpingF = true; }
 		}
 	}
 }

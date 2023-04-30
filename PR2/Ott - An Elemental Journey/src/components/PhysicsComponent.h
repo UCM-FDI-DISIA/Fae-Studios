@@ -41,6 +41,7 @@ public:
     inline bool isStopped() { return stopped; }
     inline bool inKnocback()  { return isKnockback; }
     inline bool getGravity() { return gravity; }
+    inline void setJumpWater(bool c) { inWaterJumpArea = c; }
     /*inline void saveLastPos(const SDL_Rect& col)
     {
         int wPlayerRect = getCollider().w;
@@ -78,6 +79,6 @@ private:
     const int waterJumpForce = -5;
     const float offset = 0.9;
     //booleanos de agua
-    bool inWater = false, floating = false;
+    bool inWater = false, floating = false, inWaterJumpArea = false, isJumpingF = false;
 
 };
