@@ -29,14 +29,15 @@ void Acceleration::update()
 
 		if (!waiting) {
 			Vector2D vecAux;
+			if (aux < minDistance) aux = minDistance;
 			//derecha
-			if (physics->getVelocity().getX() > 0.0f )vecAux = { aux / 750,0 };
+			if (physics->getVelocity().getX() > 0.0f )vecAux = { aux / distanceFactor * distanceSpeed,0 };
 			//izquierda
-			else if (physics->getVelocity().getX() < 0.0f )vecAux = { -aux / 750,0 };
+			else if (physics->getVelocity().getX() < 0.0f )vecAux = { -aux / distanceFactor * distanceSpeed,0 };
 			//arriba
-			else if (physics->getVelocity().getY() < 0.0f )vecAux = { 0,-aux / 750 };
+			else if (physics->getVelocity().getY() < 0.0f )vecAux = { 0,-aux / distanceFactor * distanceSpeed };
 			//abajo
-			else if (physics->getVelocity().getY() > 0.0f) vecAux = { 0,aux / 750 };
+			else if (physics->getVelocity().getY() > 0.0f) vecAux = { 0,aux / distanceFactor * distanceSpeed };
 			physics->setVelocity(vecAux);
 		}
 		else {
@@ -49,10 +50,5 @@ void Acceleration::update()
 			waiting = false;
 			physics->setVelocity(speed);
 		}
-	}
-
-	if (transform->getPosition().getX() - playerTransform->getPosition().getX() >= 200)
-	{
-		ent_->setAlive(false);
 	}
 }

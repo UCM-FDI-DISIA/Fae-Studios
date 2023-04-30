@@ -55,6 +55,9 @@ void Pivot::update()
 				//player->getComponent<Acceleration>()->setWaiting(true,2);
 
 			}
+			else if (num == 5) {
+				player->setAlive(false);
+			}
 			active = true;
 		}
 	}

@@ -477,40 +477,47 @@ namespace constructors {
 		//CAMBIAR A QUE SE LEA DE MAPA CUANDO FUNCIONE TODO
 
 		auto box0 = mngr_->addEntity(ecs::_grp_GENERAL);
-		x += 3000;
+		x += 2800;
 		box0->addComponent<Transform>(x, y + 100, 100, 100);
-		//box0->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
+		//box0->addComponent<Image>(&sdlutils().images().at("box"));
 		box0->addComponent<Pivot>(waterBoss, 0);
 
 		box0 = mngr_->addEntity(ecs::_grp_GENERAL);
-		y += 2000;
+		y += 1950;
 		box0->addComponent<Transform>(x, y, 100, 100);
-		//box0->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
+		//box0->addComponent<Image>(&sdlutils().images().at("box"));
 		box0->addComponent<Pivot>(waterBoss, 1);
 
 		box0 = mngr_->addEntity(ecs::_grp_GENERAL);
 		x += 1600;
 		box0->addComponent<Transform>(x, y, 100, 100);
-		//box0->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
+		//box0->addComponent<Image>(&sdlutils().images().at("box"));
 		box0->addComponent<Pivot>(waterBoss, 2);
 
 		box0 = mngr_->addEntity(ecs::_grp_GENERAL);
-		y -= 1600;
+		y -= 1500;
 		box0->addComponent<Transform>(x, y, 100, 100);
-		//box0->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
+		//box0->addComponent<Image>(&sdlutils().images().at("box"));
 		box0->addComponent<Pivot>(waterBoss, 1);
 
 		box0 = mngr_->addEntity(ecs::_grp_GENERAL);
-		x += 1000;
+		x += 900;
 		box0->addComponent<Transform>(x, y, 100, 100);
-		//box0->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
+		//box0->addComponent<Image>(&sdlutils().images().at("box"));
 		box0->addComponent<Pivot>(waterBoss, 3);
 
 		box0 = mngr_->addEntity(ecs::_grp_GENERAL);
-		y -= 550;
+		y -= 600;
 		box0->addComponent<Transform>(x, y, 100, 100);
-		//box0->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
+		//box0->addComponent<Image>(&sdlutils().images().at("box"));
 		box0->addComponent<Pivot>(waterBoss, 4);
+
+
+		box0 = mngr_->addEntity(ecs::_grp_GENERAL);
+		x += 3900;
+		box0->addComponent<Transform>(x, y, 100, 100);
+		//box0->addComponent<Image>(&sdlutils().images().at("box"));
+		box0->addComponent<Pivot>(waterBoss, 5);
 
 		return waterBoss;
 	}
