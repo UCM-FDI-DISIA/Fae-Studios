@@ -81,6 +81,7 @@ namespace ecs {
         _grp_WATER,
         _grp_BUBBLE,
         _grp_BLACKHOLE,
+        _grp_BOSS_FIST,
         _grp_UI, ///< Elementos de la interfaz gráfica
         _grp_FADEOUT,
 

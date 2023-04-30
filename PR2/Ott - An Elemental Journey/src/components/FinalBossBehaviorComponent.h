@@ -2,6 +2,8 @@
 #include "Transform.h"
 #include "MapComponent.h"
 class Health;
+
+const int ATTACK_TIME = 5000;
 class FinalBossBehaviorComponent : public Component
 {
 public:
@@ -18,16 +20,17 @@ private:
 	void spawnBubbles();
 	void spawnFireWall();
 	void spawnFist();
+	void spawnFistTop();
 
 	void spawnBlackHole();
 
 	Transform* bossTransform;
 	Health* bossHealth;
 	MapComponent* map_;
-	int timeBetweenAttacks = 8000, lastAttack = -timeBetweenAttacks;
+	int timeBetweenAttacks;
 	int currentElement;
 	int FIREWALL_HEIGHT = 400, FIREWALL_WIDTH = 30;
-	int FIST_SIZE = 200;
+	int FIST_SIZE = 250;
 
 	std::vector<Entity*> blackHoles;
 	std::vector<Entity*> bubbles;
