@@ -81,7 +81,8 @@ void MapComponent::generateEnemies() {
             game->addEnemy(enemie, roomNum);
         }
         else if (it.getClass() == "Slime") {
-            Entity* enemie = constructors::eSlime(mngr_, path + "Slime", x_ * scale * roomScale, y_ * scale * roomScale, roomScale, elem, lookingRight, roomNum);
+            int gens = std::stoi(split[3]);
+            Entity* enemie = constructors::eSlime(mngr_,path + "Slime", x_ * scale * roomScale, y_ * scale * roomScale, roomScale, elem, lookingRight, roomNum, gens);
             game->addEnemy(enemie, roomNum);
         }
         else if (it.getClass() == "WaterBoss" && loadWaterBoss) {

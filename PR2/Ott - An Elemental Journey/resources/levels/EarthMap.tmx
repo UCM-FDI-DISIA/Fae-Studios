@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="246" height="105" tilewidth="32" tileheight="32" infinite="0" nextlayerid="17" nextobjectid="536">
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="246" height="105" tilewidth="32" tileheight="32" infinite="0" nextlayerid="17" nextobjectid="538">
  <tileset firstgid="1" name="EarthMapTileset" tilewidth="32" tileheight="32" tilecount="680" columns="20">
   <image source="../images/levels/tilesetlevel1.png" width="640" height="1088"/>
  </tileset>
@@ -351,11 +351,11 @@
   <object id="534" name="5" class="Spike" x="1824" y="3232" width="128" height="32"/>
   <object id="535" name="5" class="Spike" x="2080" y="3232" width="350" height="32"/>
  </objectgroup>
- <objectgroup id="8" name="Enemigos" visible="0">
+ <objectgroup id="8" name="Enemigos">
   <object id="150" name="0_1_right" class="Mushroom" x="352.667" y="1369.67" width="31.3333" height="155.333"/>
   <object id="151" name="0_2_left" class="Melee" x="1568" y="1312" width="31.3333" height="86.6667"/>
-  <object id="469" name="6_1_right" class="Slime" x="2997" y="3006" width="31.3333" height="193.333"/>
   <object id="513" name="2_1_left" class="Melee" x="2160.33" y="2276.67" width="31.3333" height="86.6667"/>
+  <object id="536" name="6_1_right_2" class="Slime" x="2975.33" y="3005.83" width="31.3333" height="193.333"/>
  </objectgroup>
  <objectgroup id="7" name="Triggers" visible="0">
   <object id="166" name="0_1" class="01" x="2587.17" y="1244.67" width="32" height="160"/>

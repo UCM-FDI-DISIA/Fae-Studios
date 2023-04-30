@@ -41,6 +41,7 @@ void EnemyMovement::detectPlayer()
 
 void EnemyMovement::FollowPlayer()
 {
+	std::cout << "Enemy Horizontal Speed: " << horizontalSpeed << std::endl;
 	SDL_Rect collider = physics->getCollider();
 	SDL_Rect ott = playerCollider->getCollider();
 	if (eAttack_->getState() == eAttack_->normal && ((physics->getLookDirection() && ott.x - (collider.x + collider.w / 2) > nearDistance) ||
