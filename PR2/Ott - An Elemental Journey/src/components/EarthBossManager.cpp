@@ -25,7 +25,7 @@ void EarthBossManager::initComponent() {
 	//CREAR TRIGGER
 	trigger = mngr_->addEntity(ecs::_grp_TRIGGER);
 	SDL_Rect trigger_Rect;
-	trigger_Rect.x = roomDimensions.x + 200;
+	trigger_Rect.x = 200 + roomDimensions.x;
 	trigger_Rect.y = roomDimensions.y;
 	trigger_Rect.w = 1;
 	trigger_Rect.h = roomDimensions.h;
