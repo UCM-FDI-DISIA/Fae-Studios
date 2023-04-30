@@ -268,7 +268,7 @@ namespace constructors {
 	{
 		auto b= mngr_->addEntity(ecs::_grp_MINIBOSS);
 		b->addComponent<Transform>(Vector2D(x, y), w, h);
-		auto health = b->addComponent<Health>(5, ecs::Light, true); health->initComponent();
+		//auto health = b->addComponent<Health>(5, ecs::Light, true); health->initComponent();
 		b->addComponent<Image>(&sdlutils().images().at("finalBoss"));
 		b->addComponent<FinalBossBehaviorComponent>(map_);
 		return b;
