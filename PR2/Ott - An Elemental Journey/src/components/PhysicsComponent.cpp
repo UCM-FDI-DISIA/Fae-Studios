@@ -21,7 +21,20 @@ PhysicsComponent::PhysicsComponent(colliders::Colliders c) {
 void PhysicsComponent::initComponent() {
 
 }
-
+void PhysicsComponent::saveLastPos(const SDL_Rect& col)
+{
+	int wPlayerRect = getCollider().w;
+	auto tr = ent_->getComponent<Transform>();
+	if (wPlayerRect * offset < col.w)
+	{
+		lastPos = tr->getPosition();
+	}
+}
+void PhysicsComponent::setLastPos()
+{
+	auto tr = ent_->getComponent<Transform>();
+	tr->setPosition(lastPos);
+}
 void PhysicsComponent::createCollider() {
 	auto tr = ent_->getComponent<Transform>();
 	colliderOffset = Vector2D(colliders::collider[typeofCollider].izqPixels / (float)colliders::collider[typeofCollider].totalHorPixels * tr->getWidth(),
