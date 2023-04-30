@@ -68,15 +68,15 @@ const SDL_Color transparente{ 255,255,255,1 };
 const SDL_Color blanco{ 255,255,255 };
 
 namespace constructors {
-	//static inline Entity* damageArea(Manager* mngr_, std::string imageKey, ecs::elements el, int x, int y, int w, int h)
-	//{
-	//	auto a = mngr_->addEntity(ecs::_grp_GENERAL); //crear grupo
-	//	a->addComponent<Transform>(x, y, w, h);
-	//	a->addComponent<Image>(&sdlutils().images().at(imageKey));
-	//	a->addComponent<DamageArea>(el);
+	static inline Entity* damageArea(Manager* mngr_, std::string imageKey, ecs::elements el, int x, int y, int w, int h, bool lava)
+	{
+		auto a = mngr_->addEntity(ecs::_grp_GENERAL); //crear grupo
+		a->addComponent<Transform>(x, y, w, h);
+		if(!lava)a->addComponent<Image>(&sdlutils().images().at(imageKey));
+		a->addComponent<DamageArea>(el, lava);
 
-	//	return a;
-	//}
+		return a;
+	}
 	//static inline Entity* eRanged(Manager* mngr_, std::string imageKey, int x, int y, float scale, ecs::elements el) {
 	static inline Entity* eRanged(Manager* mngr_, std::string imageKey, int x, int y, float scale, ecs::elements el, bool lookingRight) {
 
