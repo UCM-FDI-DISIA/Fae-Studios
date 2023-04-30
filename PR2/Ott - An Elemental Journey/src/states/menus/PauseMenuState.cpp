@@ -71,22 +71,22 @@ void PauseMenuState::handleInput() {
 	}
 
 	if (game().getIsJoystick()) {
-		SDL_JoystickUpdate();
-		if (SDL_JoystickGetAxis(game().getJoystick(), 1) <= 29000 && SDL_JoystickGetAxis(game().getJoystick(), 1) >= -29000 && !SDL_JoystickGetButton(game().getJoystick(), SDL_CONTROLLER_BUTTON_A)) detectJoystickActivity = true;
+		SDL_GameControllerUpdate();
+		if (SDL_GameControllerGetAxis(game().getJoystick(), SDL_CONTROLLER_AXIS_LEFTY) <= 29000 && SDL_GameControllerGetAxis(game().getJoystick(), SDL_CONTROLLER_AXIS_LEFTY) >= -29000 && !SDL_GameControllerGetButton(game().getJoystick(), SDL_CONTROLLER_BUTTON_A)) detectJoystickActivity = true;
 
-		if ((SDL_JoystickGetAxis(game().getJoystick(), 1) > 29000 && detectJoystickActivity)) {
+		if ((SDL_GameControllerGetAxis(game().getJoystick(), SDL_CONTROLLER_AXIS_LEFTY) > 29000 && detectJoystickActivity)) {
 			formerIndex = buttonIndex;
 			buttonIndex++;
 			buttonIndex %= buttons.size();
 			detectJoystickActivity = false;
 		}
-		if (SDL_JoystickGetAxis(game().getJoystick(), 1) < -29000 && detectJoystickActivity) {
+		if (SDL_GameControllerGetAxis(game().getJoystick(), SDL_CONTROLLER_AXIS_LEFTY) < -29000 && detectJoystickActivity) {
 			formerIndex = buttonIndex;
 			buttonIndex--;
 			buttonIndex %= buttons.size();
 			detectJoystickActivity = false;
 		}
-		if (SDL_JoystickGetButton(game().getJoystick(), SDL_CONTROLLER_BUTTON_A) && detectJoystickActivity) {
+		if (SDL_GameControllerGetButton(game().getJoystick(), SDL_CONTROLLER_BUTTON_A) && detectJoystickActivity) {
 			buttons[buttonIndex]->getComponent<Button>()->onClick();
 		}
 
