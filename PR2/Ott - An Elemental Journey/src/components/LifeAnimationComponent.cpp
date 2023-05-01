@@ -1,26 +1,24 @@
 #include "LifeAnimationComponent.h"
 
 void LifeAnimationComponent::update() {
-	if (active_) {
-		if (forward) {
-			timer_++;
-			col = image_->getCurrentCol();
+	if (forward) {
+		timer_++;
+		col = image_->getCurrentCol();
 
-			if (col != 9) col = (timer_ / getTPerFrame()) % getNFrames();
+		if (col != 9) col = (timer_ / getTPerFrame()) % getNFrames();
 
-			image_->setCol(col);
+		image_->setCol(col);
 
-			if (timer_ > getNFrames() * getTPerFrame() + 1) endAnim();
-		}
-		else {
-			timer_--;
-			col = image_->getCurrentCol();
+		if (timer_ > getNFrames() * getTPerFrame() + 1) endAnim();
+	}
+	else {
+		timer_--;
+		col = image_->getCurrentCol();
 
-			if (col != 0) col = (timer_ / getTPerFrame()) % getNFrames() + getColNum();
+		if (col != 0) col = (timer_ / getTPerFrame()) % getNFrames() + getColNum();
 
-			image_->setCol(col);
-			if (timer_ <= 0) endAnim();
-		}
+		image_->setCol(col);
+		if (timer_ <= 0) endAnim();
 	}
 }
 

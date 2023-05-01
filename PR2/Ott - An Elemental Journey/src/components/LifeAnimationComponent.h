@@ -7,7 +7,7 @@ class LifeAnimationComponent : public Component {
 private:
 	int currentAnimation = anims::LIFE_SHARD;
 	void endAnim();
-	bool forward = true, active_ = false;
+	bool forward = true;
 	int timer_ = 0;
 	int col = 0;
 	FramedImage* image_;
@@ -21,6 +21,4 @@ public:
 	virtual ~LifeAnimationComponent() = default;
 	virtual void update();
 	virtual void initComponent();
-	inline void activate() { active_ = true; timer_ = 0; col = 0; forward = true; }
-	inline void deactivate() { active_ = false; timer_ = 0; col = 0; image_->setCol(col); }
 };

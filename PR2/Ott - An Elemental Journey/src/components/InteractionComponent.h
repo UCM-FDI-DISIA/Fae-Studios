@@ -1,6 +1,5 @@
 #pragma once
 #include "LampAnimationComponent.h"
-#include "LifeAnimationComponent.h"
 #include "GrassAnimationComponent.h"
 #include "SanctuaryAnimationComponent.h"
 #include "Health.h"
@@ -30,28 +29,28 @@ public:
 			if (game().getIsJoystick() && SDL_GameControllerHasRumble(game().getJoystick())) {
 				SDL_GameControllerRumble(game().getJoystick(), UINT16_MAX / 2, UINT16_MAX / 2, 1000);
 			}
-				switch (type) {
-					case LAMP_IT:
-						if (mngr_->getPlayer()->getComponent<Health>()->getElement() == ecs::Light) {
-							ent_->getComponent<LampAnimationComponent>()->startOnwardsAnim();
-						}
-						ent_->getComponent<LampAnimationComponent>()->setNear(true);
-						break;
-					case GRASS_IT:
-						ent_->getComponent<GrassAnimationComponent>()->startAnim();
-						break;
-					case SANCTUARY_IT:
-						ent_->getComponent<SanctuaryAnimationComponent>()->start();
-						break;
-					case ELEMENT_IT:
-						ent_->getComponent<LifeAnimationComponent>()->activate();
-						break;
-					case LIFESHARD_IT:
-						ent_->getComponent<LifeAnimationComponent>()->activate();
-						break;
-					default:
-						break;
-				}
+			switch (type) {
+				case LAMP_IT:
+					if (mngr_->getPlayer()->getComponent<Health>()->getElement() == ecs::Light) {
+						ent_->getComponent<LampAnimationComponent>()->startOnwardsAnim();
+					}
+					ent_->getComponent<LampAnimationComponent>()->setNear(true);
+					break;
+				case GRASS_IT:
+					ent_->getComponent<GrassAnimationComponent>()->startAnim();
+					break;
+				case SANCTUARY_IT:
+					ent_->getComponent<SanctuaryAnimationComponent>()->start();
+					break;
+				case ELEMENT_IT:
+					interact();
+					break;
+				case LIFESHARD_IT:
+					interact();
+					break;
+				default:
+					break;
+			}
 				nearPlayer = true;
 		}
 	};
@@ -69,12 +68,6 @@ public:
 					break;
 				case SANCTUARY_IT:
 					ent_->getComponent<SanctuaryAnimationComponent>()->stop();
-					break;
-				case ELEMENT_IT:
-					ent_->getComponent<LifeAnimationComponent>()->deactivate();
-					break;
-				case LIFESHARD_IT:
-					ent_->getComponent<LifeAnimationComponent>()->deactivate();
 					break;
 				default:
 					break;

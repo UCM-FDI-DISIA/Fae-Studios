@@ -305,9 +305,9 @@ void PlayState::checkInteraction() {
         Entity* ents = *it;
         SDL_Rect r2 = ents->getComponent<Transform>()->getRect();
         if (SDL_HasIntersection(&r1, &r2)) {
+			interactionIt = it;
 			ents->getComponent<InteractionComponent>()->OnPlayerNear();
 			input->setCanInteract(true);
-			interactionIt = it;
 		}
 		else { 
 			ents->getComponent<InteractionComponent>()->OnPlayerLeave();
