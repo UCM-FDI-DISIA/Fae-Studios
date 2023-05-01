@@ -58,6 +58,7 @@
 #include "../components/PlatformMovementY.h"
 #include "../components/PlatformMovementX.h"
 #include "../components/FireBossRoom.h"
+#include "../components/LifeShardFeedbackComponent.h"
 #include <string>
 #include <iostream>
 #include <functional>
@@ -605,6 +606,18 @@ namespace constructors {
 		cartelObject->addComponent<FramedImage>(&sdlutils().images().at(numCartel), row, col);
 			//cartelObject->addComponent< GeneralAnimationController>(type,cartelObject);
 		return cartelObject;
+	}
+
+	static inline auto lifeShardFeedbackTextEntity(Manager* mngr_, const Vector2D& position, bool oneHalf) {
+		auto t = mngr_->addEntity(ecs::_grp_UI);
+		std::string txt;
+		if (oneHalf) txt = "1/2";
+		else txt = "2/2";
+		t->addComponent<TextComponent>(txt, sdlutils().fonts().at("press_start16"), blanco, transparente);
+		Vector2D textPos = Vector2D(position.getX(), position.getY() - 10.0f);
+		t->getComponent<TextComponent>()->setPosition(textPos);
+		t->addComponent<LifeShardFeedbackComponent>();
+		return t;
 	}
 }
 
