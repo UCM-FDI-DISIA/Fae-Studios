@@ -756,6 +756,24 @@
 			"file": "../Ott - An Elemental Journey/resources/images/tests/Platform.PNG",
 			"rows": 1,
 			"cols": 1
+		},
+		{
+			"id": "spike",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/Spike.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "earth_spike",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/Earth_Spikes.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "hanging_spike",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/Hanging_Spike.png",
+			"rows": 1,
+			"cols": 1
 		}
 	],
   "messages" : [],
