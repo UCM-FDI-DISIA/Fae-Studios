@@ -19,7 +19,7 @@ void DamageArea::update()
 		{
 			SDL_Rect r3 = f->getComponent<Transform>()->getRect();
 			Bullet* b = f->getComponent<Bullet>();
-			if (SDL_HasIntersection(&r3, &dArea) && b->getInstigator()->hasComponent<PlayerInput>())
+			if (b != nullptr && SDL_HasIntersection(&r3, &dArea) && b->getInstigator()->hasComponent<PlayerInput>())
 			{
 				ent_->setActive(false);
 			}
