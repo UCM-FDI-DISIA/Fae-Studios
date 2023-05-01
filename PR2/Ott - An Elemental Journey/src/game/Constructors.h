@@ -91,7 +91,7 @@ namespace constructors {
 		enemy2->addComponent<Health>(5, el, false);
 		ph2->setVelocity({ 0,0 });
 		ph2->lookDirection(lookingRight);
-		auto eAttack_2 = enemy2->addComponent<EnemyAttack>(1200, 400);
+		auto eAttack_2 = enemy2->addComponent<EnemyAttack>(800, 800);
 		auto eAnim_2 = enemy2->addComponent<EnemyAnimationComponent>(anims::RANGE_ANIM);
 		auto attack_2 = enemy2->addComponent<EnemyShootingAttack>();
 		enemy2->addComponent<EnemyContactDamage>();
