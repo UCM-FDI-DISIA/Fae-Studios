@@ -2,6 +2,7 @@
 #include "../components/Image.h"
 #include "../components/Bullet.h"
 #include "FinalBossBehaviorComponent.h"
+#include "FlipComponent.h"
 WaterBubbleComponent::WaterBubbleComponent(FinalBossBehaviorComponent* bossBehaComp)
 {
 	bossBehaComp_ = bossBehaComp;
@@ -34,8 +35,9 @@ void WaterBubbleComponent::spawnShot()
 	Vector2D shootDir = player->getComponent<Transform>()->getPosition() - tr_->getPosition();
 	bullet->addComponent<PhysicsComponent>(shootDir.normalize());
 	bullet->addComponent<Transform>(tr_->getPosition(), ATTACK_SIZE * tr_->getScale(), ATTACK_SIZE * tr_->getScale());
-	bullet->addComponent<Image>(&sdlutils().images().at("fire_attack"));
+	bullet->addComponent<Image>(&sdlutils().images().at("ShurikenAgua"));
 	bullet->addComponent<Bullet>(ecs::Water, ent_);
+	bullet->addComponent<FlipComponent>();
 }
 
 WaterBubbleComponent::~WaterBubbleComponent()

@@ -56,6 +56,7 @@ namespace ecs {
         _FINALBOSS_ATTACK,
         _BLACK_HOLE_ANIMATION,
         _ATTRACTION,
+        _FLIP,
 
         _LAST_CMP_ID
     };

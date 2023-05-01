@@ -714,7 +714,15 @@
 			"file": "../resources/images/tests/Boss_Fist_Top.png",
 			"rows": 1,
 			"cols": 1
+		},
+		{
+			"id": "ShurikenAgua",
+			"file": "../resources/images/tests/ShurikenAgua.png",
+			"rows": 1,
+			"cols": 1
 		}
+
+		
 	],
 
   "messages" : [],
