@@ -260,6 +260,12 @@
 			"cols": 1
 		},
 		{
+			"id": "sanctuarySheet",
+			"file": "../resources/images/tests/sanctuarySheet.png",
+			"rows": 1,
+			"cols": 18
+		},
+		{
 			"id": "sanctuaryOff",
 			"file": "../resources/images/tests/sanctuaryOff.png",
 			"rows": 1,
@@ -809,6 +815,9 @@
 		{ "id" : "slime_movement", "file" : "../resources/sound/slime_movement.wav"},
 		{ "id" : "slime_attack", "file" : "../resources/sound/slime_attack.wav"},
 		{ "id" : "slime_get_up", "file" : "../resources/sound/slime_getting_up.wav"},
+		{ "id" : "sanctuaryRest", "file" : "../resources/sound/sanctuaryRest.wav"},
+		{ "id" : "sanctuaryStart", "file" : "../resources/sound/sanctuaryStart.wav"},
+		{ "id" : "sanctuaryStop", "file" : "../resources/sound/sanctuaryStop.wav"},
 		{ "id" : "menemy_step", "file" : "../resources/sound/bicho_paso.wav"}
   ],
 

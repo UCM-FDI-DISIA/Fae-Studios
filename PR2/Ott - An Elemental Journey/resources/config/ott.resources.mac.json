@@ -258,6 +258,12 @@
 			"file": "../Ott - An Elemental Journey/resources/images/tests/sanctuary.png",
 			"rows": 1,
 			"cols": 1
+		},		
+		{
+			"id": "sanctuarySheet",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/sanctuarySheet.png",
+			"rows": 1,
+			"cols": 18
 		},
 		{
 			"id": "sanctuaryOff",
@@ -808,6 +814,9 @@
 		{ "id" : "slime_movement", "file" : "../Ott - An Elemental Journey/resources/sound/slime_movement.wav"},
 		{ "id" : "slime_attack", "file" : "../Ott - An Elemental Journey/resources/sound/slime_attack.wav"},
 		{ "id" : "slime_get_up", "file" : "../Ott - An Elemental Journey/resources/sound/slime_getting_up.wav"},
+		{ "id" : "sanctuaryRest", "file" : "../Ott - An Elemental Journey/resources/sound/sanctuaryRest.wav"},
+		{ "id" : "sanctuaryStart", "file" : "../Ott - An Elemental Journey/resources/sound/sanctuaryStart.wav"},
+		{ "id" : "sanctuaryStop", "file" : "../Ott - An Elemental Journey/resources/sound/sanctuaryStop.wav"},
 		{ "id" : "menemy_step", "file" : "../Ott - An Elemental Journey/resources/sound/bicho_paso.wav"}
   ],
 

@@ -8,6 +8,7 @@
 #include <vector>
 #include "../components/PhysicsComponent.h"
 #include "../components/EnemyMovement.h"
+#include "../components/SanctuaryAnimationComponent.h"
 #include "../game/Constructors.h"
 #include "../components/FramedImage.h"
 #include "../components/Generations.h"
@@ -364,10 +365,9 @@ void PlayState::Teleport() {
 
 void PlayState::Save() {
 	map_->playFadeOutAnimation();
-	if(lastSanctuary!=nullptr) lastSanctuary->getComponent<Image>()->changeText(&sdlutils().images().at("sanctuaryOff"));
+	if(lastSanctuary != nullptr) lastSanctuary->getComponent<SanctuaryAnimationComponent>()->deactivate();
 	lastSanctuary = getCurrentInteraction();
-	lastSanctuary->getComponent<Image>()->changeText(&sdlutils().images().at("sanctuary"));
-
+	lastSanctuary->getComponent<SanctuaryAnimationComponent>()->activate();
 }
 
 void PlayState::AddLifeShard(int id) {

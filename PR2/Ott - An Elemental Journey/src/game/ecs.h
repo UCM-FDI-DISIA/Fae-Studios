@@ -59,6 +59,7 @@ namespace ecs {
         _LAMP_ANIM,
         _CHARGED_ATTACK_BAR,
         _SCREEN_DARKENER,
+        _SANCTUARY_ANIM,
         _PLATFORM_MOVEMENT,
         _LORE,
         _DAMAGE_AREA,

@@ -3,6 +3,7 @@
 #include "../ecs/Entity.h"
 #include "../components/Button.h"
 #include "../components/Transform.h"
+#include "../components/SanctuaryAnimationComponent.h"
 #include "../components/FramedImage.h"
 #include "../components/TextComponent.h"
 #include "../components/ElementObject.h"
@@ -427,10 +428,10 @@ namespace constructors {
 
 		auto sanc = mngr_->addEntity(ecs::_grp_INTERACTION);
 		sanc->addComponent<Transform>(position, width, height);
-		sanc->addComponent<Image>(&sdlutils().images().at("sanctuaryOff"));
+		sanc->addComponent<FramedImage>(&sdlutils().images().at("sanctuarySheet"), 1, 18);
+		sanc->addComponent<SanctuaryAnimationComponent>();
 		auto cb = []() {
 			static_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->Save();
-
 		};
 		sanc->addComponent<InteractionComponent>(cb, SANCTUARY_IT, ID, room);
 		return sanc;

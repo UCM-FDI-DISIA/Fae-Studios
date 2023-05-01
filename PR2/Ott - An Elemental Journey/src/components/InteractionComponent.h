@@ -1,6 +1,7 @@
 #pragma once
 #include "LampAnimationComponent.h"
 #include "GrassAnimationComponent.h"
+#include "SanctuaryAnimationComponent.h"
 #include "Health.h"
 #include "../ecs/Component.h"
 #include "../utils/Vector2D.h"
@@ -38,6 +39,9 @@ public:
 					case GRASS_IT:
 						ent_->getComponent<GrassAnimationComponent>()->startAnim();
 						break;
+					case SANCTUARY_IT:
+						ent_->getComponent<SanctuaryAnimationComponent>()->start();
+						break;
 					default:
 						break;
 				}
@@ -55,6 +59,9 @@ public:
 					break;
 				case GRASS_IT:
 					ent_->getComponent<GrassAnimationComponent>()->stopAnim();
+					break;
+				case SANCTUARY_IT:
+					ent_->getComponent<SanctuaryAnimationComponent>()->stop();
 					break;
 				default:
 					break;
