@@ -1,5 +1,6 @@
 #pragma once
 #include "LampAnimationComponent.h"
+#include "LifeAnimationComponent.h"
 #include "GrassAnimationComponent.h"
 #include "SanctuaryAnimationComponent.h"
 #include "Health.h"
@@ -42,6 +43,12 @@ public:
 					case SANCTUARY_IT:
 						ent_->getComponent<SanctuaryAnimationComponent>()->start();
 						break;
+					case ELEMENT_IT:
+						ent_->getComponent<LifeAnimationComponent>()->activate();
+						break;
+					case LIFESHARD_IT:
+						ent_->getComponent<LifeAnimationComponent>()->activate();
+						break;
 					default:
 						break;
 				}
@@ -62,6 +69,12 @@ public:
 					break;
 				case SANCTUARY_IT:
 					ent_->getComponent<SanctuaryAnimationComponent>()->stop();
+					break;
+				case ELEMENT_IT:
+					ent_->getComponent<LifeAnimationComponent>()->deactivate();
+					break;
+				case LIFESHARD_IT:
+					ent_->getComponent<LifeAnimationComponent>()->deactivate();
 					break;
 				default:
 					break;

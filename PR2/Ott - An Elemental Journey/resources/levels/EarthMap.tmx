@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="246" height="105" tilewidth="32" tileheight="32" infinite="0" nextlayerid="17" nextobjectid="559">
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="246" height="105" tilewidth="32" tileheight="32" infinite="0" nextlayerid="17" nextobjectid="562">
  <tileset firstgid="1" name="EarthMapTileset" tilewidth="32" tileheight="32" tilecount="680" columns="20">
   <image source="../images/levels/tilesetlevel1.png" width="640" height="1088"/>
  </tileset>
@@ -351,8 +351,8 @@
   <object id="550" name="1" class="Grass" x="2972.17" y="808.625" width="29.6667" height="248.75"/>
   <object id="553" name="lamp5" class="Lamp_1" x="2752" y="2102.67" width="32" height="-2.27374e-13"/>
   <object id="554" name="lamp5" class="Lamp_1" x="3648" y="2102.67" width="32" height="-2.20268e-13"/>
-  <object id="557" name="2" class="Element_0" x="821.634" y="574.784" width="31.875" height="32.25"/>
-  <object id="558" name="3" class="Element_0" x="885.884" y="574.904" width="31.875" height="31.75"/>
+  <object id="559" name="2" class="Element_7" x="3823.33" y="3087.33" width="62.4488" height="63.1835"/>
+  <object id="561" name="3" class="Element_7" x="4096" y="2976" width="62.4488" height="63.1835"/>
  </objectgroup>
  <objectgroup id="8" name="Enemigos" visible="0">
   <object id="151" name="0_1_left" class="Melee" x="1568" y="1312" width="31.3333" height="86.6667"/>
