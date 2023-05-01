@@ -167,7 +167,7 @@
 			"id": "chargebar",
 			"file": "../Ott - An Elemental Journey/resources/images/ui/charged-bar.png",
 			"rows": 1,
-			"cols": 9
+			"cols": 23
 		},
 		{
 			"id": "hearts",
