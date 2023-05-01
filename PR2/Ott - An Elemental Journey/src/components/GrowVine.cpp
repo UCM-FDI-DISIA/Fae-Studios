@@ -8,7 +8,6 @@ void GrowVine::update() {
         if (orientation == "vertical") {
             if (!reached && dir < 0 && posY > posFinalT.getY() || !reached && dir > 0 && posY < posFinalT.getY()) {
                 tr_->setPosition(Vector2D(posX, posY + (dir * speed)));
-                if (!SoundEffect::isSoundBeingPlayed(ecs::_channel_AMBIENTAL)) sdlutils().soundEffects().at("grow_vine").play(0, ecs::_channel_AMBIENTAL);
             }
             else if (!reached && dir < 0 && posY <= posFinalT.getY() || !reached && dir > 0 && posY >= posFinalT.getY()) {
                 reached = true;
@@ -16,7 +15,6 @@ void GrowVine::update() {
             }
             else if (reached && goesBack && posY != posIni.getY()) {
                 tr_->setPosition(Vector2D(posX, posY + ((-1*dir) * speed)));
-                if (!SoundEffect::isSoundBeingPlayed(ecs::_channel_AMBIENTAL)) sdlutils().soundEffects().at("grow_vine").play(0, ecs::_channel_AMBIENTAL);
             }
             else if (reached && posY == posIni.getY()) {
                 reached = false; grow = false;
@@ -26,7 +24,6 @@ void GrowVine::update() {
         else {
             if (!reached && dir < 0 && posX > posFinalT.getX() || !reached && dir > 0 && posX < posFinalT.getX()) {
                 tr_->setPosition(Vector2D(posX + (dir * speed), posY));
-                if (!SoundEffect::isSoundBeingPlayed(ecs::_channel_AMBIENTAL)) sdlutils().soundEffects().at("grow_vine").play(0, ecs::_channel_AMBIENTAL);
             }
             else if (!reached && dir < 0 && posX <= posFinalT.getX() || !reached && dir > 0 && posX >= posFinalT.getX()) {
                 reached = true;
@@ -34,7 +31,6 @@ void GrowVine::update() {
             }
             else if (reached && goesBack && posX != posIni.getX()) {
                 tr_->setPosition(Vector2D(posX + ((-1*dir) * speed), posY));
-                if (!SoundEffect::isSoundBeingPlayed(ecs::_channel_AMBIENTAL)) sdlutils().soundEffects().at("grow_vine").play(0, ecs::_channel_AMBIENTAL);
             }
             else if (reached && posX == posIni.getX()) {
                 reached = false; grow = false;
@@ -74,8 +70,14 @@ void GrowVine::update() {
         }
     }
 }
+
+void GrowVine::isGrowing(bool g) {
+    grow = g;
+}
 void GrowVine::initComponent()
 {
+    sdlutils().soundEffects().at("grow_vine").setVolume(35);
+    sdlutils().soundEffects().at("grow_vine").play(0, ecs::_channel_AMBIENTAL);
     tr_= ent_->getComponent<Transform>();
     posIni = ent_->getComponent<Transform>()->getPosition();
 }

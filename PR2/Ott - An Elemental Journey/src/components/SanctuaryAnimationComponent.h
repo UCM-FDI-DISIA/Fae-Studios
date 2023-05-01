@@ -6,7 +6,6 @@ class SanctuaryAnimationComponent : public Component
 {
 public:
 	constexpr static ecs::cmpId_type id = ecs::_SANCTUARY_ANIM;
-
 	SanctuaryAnimationComponent() = default;
 	~SanctuaryAnimationComponent() = default;
 	inline void initComponent() override {

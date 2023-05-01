@@ -13,7 +13,7 @@ std::vector<anims::animDescription> anims::ott_anims{
 	{ 100,8,3,0 }, { 300,1,5,2 }, // RUN, JUMP_UP
 	{ 300,2,5,3 }, { 300,1,5,5 }, // PEAK, FALL
 	{ 75,2,5,6 }, { 75,4,6,0 }, // LAND, VANISH
-	{ 200,8,7,0 }, { 100,5,8,3 },// DIE, ATTACK
+	{ 200,8,7,0 }, { 80,5,8,3 },// DIE, ATTACK
 	{ 100,7,9,0}, { 100,7,9,6}, // MAP
 	{ 50,6,10,0}, // CLIMB
 	{ 50,3,11,0}, // LOOKDOWN
@@ -24,7 +24,7 @@ std::vector<anims::animDescription> anims::lifeshard_anims{ {10,10,0,0} };
 // ENEMIGO A RANGO
 std::vector<anims::animDescription> anims::range_anims{ {150,3,0,0}, {150,12,0,10}, {150,3,0,7}, {250,4,0,3} };
 // ENEMIGO SLIME
-std::vector<anims::animDescription> anims::slime_anims{ {300,4,0,0}, {150,4,0,17}, {1000,1,0,10}, {250,6,0,4}, {300,4,0,0}, {100,7,0,10} };
+std::vector<anims::animDescription> anims::slime_anims{ {300,4,0,0}, {150,4,0,17}, {800,1,0,10}, {80,6,0,4}, {300,4,0,0}, {100,7,0,10} };
 
 //FIRE BOSS
 std::vector<anims::animDescription> anims::fireboss_anims{ {200,4, 3,0}, {100,12, 2,0},{150,8,0,5}, {200,13,1,0} };
@@ -54,8 +54,6 @@ std::vector<std::vector<anims::animDescription>> anims::animations{ott_anims,
 			pause_anims,miniPause_anims, water_attack, waterBoss_anims, 
 			lifeshard_anims, movimiento_cartel,lampara_cartel,enredadera_cartel, elemento_cartel, 
 			fireboss_anims, lamp, grass, sanctuary };
-
-// int izqPixels, totalHorPixels, upPixels, totalVertPixels, width, height;
 
 // OTT
 anims::offsetPhysics anims::ott_collider{ 7, 32, 4, 32, 16, 28};

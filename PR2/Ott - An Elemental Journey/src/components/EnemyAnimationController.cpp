@@ -38,9 +38,13 @@ void EnemyAnimationComponent::update() {
 	int state = currentAnimation;
 	timer_++;
 
-	if (damaged) {
+	if (damaged && currentAnimation != DIE_ENEMY) {
 		image->setRow(1);
 		damageTimer_ = SDL_GetTicks() - damageStartTime_;
+		if (damageTimer_ < maxDamagedTimer_ / 5) {
+			sdlutils().soundEffects().at("hitTaken").setVolume(100);
+			sdlutils().soundEffects().at("hitTaken").play(0, ecs::_channel_ENEMY_MELEE);
+		}
 		if (damageTimer_ >= maxDamagedTimer_) {
 			damaged = false;
 		}
@@ -58,18 +62,27 @@ void EnemyAnimationComponent::update() {
 		endAnim();
 	}
 
-	/*
-	if (currentAnimation == ATTACK_ENEMY || currentAnimation == DIE_ENEMY) return;
-	Vector2D vel = ent_->getComponent<PhysicsComponent>()->getVelocity();
-	if (vel.getX() != 0) currentAnimation = WALK_ENEMY;
-	else currentAnimation = IDLE_ENEMY;*/
 	switch (this->eAnims) {
 	case anims::SLIME_ANIM:
-		if (currentAnimation == WALK_ENEMY) sdlutils().soundEffects().at("slime_movement").play(0, ecs::_channel_ENEMY_SLIME);
-		else if(currentAnimation == ATTACK_ENEMY) sdlutils().soundEffects().at("slime_attack").play(0, ecs::_channel_ENEMY_SLIME);
+		if (currentAnimation == WALK_ENEMY) {
+			sdlutils().soundEffects().at("slime_movement").setVolume(30);
+			sdlutils().soundEffects().at("slime_movement").play(0, ecs::_channel_ENEMY_SLIME);
+		}
+		else if (currentAnimation == ATTACK_ENEMY) sdlutils().soundEffects().at("slime_attack").play(0, ecs::_channel_ENEMY_SLIME);
 		break;
 	case anims::MELEE_ANIM:
-		if (currentAnimation == WALK_ENEMY) sdlutils().soundEffects().at("menemy_step").play(0, ecs::_channel_ENEMY_MELEE);
+		if (currentAnimation == WALK_ENEMY) {
+			sdlutils().soundEffects().at("menemy_step").setVolume(30);
+			sdlutils().soundEffects().at("menemy_step").play(0, ecs::_channel_ENEMY_MELEE);
+		}
+		else if (currentAnimation == DIE_ENEMY) {
+			sdlutils().soundEffects().at("menemy_dead").setVolume(50);
+			sdlutils().soundEffects().at("menemy_dead").play(0, ecs::_channel_ENEMY_MELEE);
+		}
+		else if (currentAnimation == ATTACK_ENEMY) {
+			sdlutils().soundEffects().at("menemy_attack").setVolume(50);
+			sdlutils().soundEffects().at("menemy_attack").play(0, ecs::_channel_ENEMY_MELEE);
+		}
 		break;
 	case anims::RANGE_ANIM:
 		if(currentAnimation == ATTACK_ENEMY) sdlutils().soundEffects().at("fireball").play(0, ecs::_channel_ENEMY_RANGE);
