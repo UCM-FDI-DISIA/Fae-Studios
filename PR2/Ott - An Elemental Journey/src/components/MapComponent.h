@@ -106,8 +106,8 @@ private:
 	const int BACKGROUNDS_VECTOR_POS = 8;
 	const int BLACKHOLE_VECTOR_POS = 9;
 	const int BUBBLE_VECTOR_POS = 10;
-	const int SPIKE_VECTOR_POS = 10;
 	const int FINALBOSS_VECTOR_POS = 11;
+	const int SPIKE_VECTOR_POS = 12;
 
 	std::string currentMapKey = "earthMap";
 

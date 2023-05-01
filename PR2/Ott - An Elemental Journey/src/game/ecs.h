@@ -57,6 +57,7 @@ namespace ecs {
         _BLACK_HOLE_ANIMATION,
         _ATTRACTION,
         _FLIP,
+        _DAMAGE_AREA,
 
         _LAST_CMP_ID
     };
@@ -82,6 +83,7 @@ namespace ecs {
         _grp_WATER,
         _grp_BUBBLE,
         _grp_BLACKHOLE,
+        _grp_FINAL_BOSS_SPIKES,
         _grp_BOSS_FIST,
         _grp_UI, ///< Elementos de la interfaz gráfica
         _grp_FADEOUT,

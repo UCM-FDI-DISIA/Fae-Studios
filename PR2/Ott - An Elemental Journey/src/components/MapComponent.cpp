@@ -327,6 +327,9 @@ void MapComponent::loadMap(std::string path, int nextPos) {
                 else if (name == "Burbujas") {
                     vectorObjects[BUBBLE_VECTOR_POS] = objects;
                 }
+                else if (name == "EnredaderasBossFinal") {
+                    vectorObjects[SPIKE_VECTOR_POS] = objects;
+                }
                 else if (name == "bossFinal") {
                     vectorObjects[FINALBOSS_VECTOR_POS] = objects;
                 }
@@ -413,7 +416,7 @@ void MapComponent::loadMap(std::string path, int nextPos) {
         for (auto obj : vectorObjects[SPIKE_VECTOR_POS]) {
             SDL_Rect rect = getSDLRect(obj.getAABB());
 
-            auto roomScale = vectorTiles[std::stoi(obj.getClass())].first;
+            auto roomScale = vectorTiles[std::stoi(obj.getName())].first;
             rect.x *= roomScale;
             rect.y *= roomScale;
             rect.w *= roomScale;

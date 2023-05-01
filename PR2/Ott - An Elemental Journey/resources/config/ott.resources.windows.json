@@ -720,9 +720,15 @@
 			"file": "../resources/images/tests/ShurikenAgua.png",
 			"rows": 1,
 			"cols": 1
+		},
+		{
+			"id": "spike",
+			"file": "../resources/images/tests/Spike.png",
+			"rows": 1,
+			"cols": 1
 		}
 
-		
+
 	],
 
   "messages" : [],

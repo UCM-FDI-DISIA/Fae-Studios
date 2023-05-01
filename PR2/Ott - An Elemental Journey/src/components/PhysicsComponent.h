@@ -40,20 +40,8 @@ public:
     inline void Resume(bool verticalTrigger = false) { stopped = false; if(verticalTrigger) velocity_ = lastSpeed; }
     inline bool isStopped() { return stopped; }
     inline bool inKnocback()  { return isKnockback; }
-    /*inline void saveLastPos(const SDL_Rect& col)
-    {
-        int wPlayerRect = getCollider().w;
-        auto tr = ent_->getComponent<Transform>();
-        if (wPlayerRect * offset < col.w)
-        {
-            lastPos = tr->getPosition();
-        }
-    }*/
-    /*inline void setLastPos()
-    {
-        auto tr = ent_->getComponent<Transform>();
-        tr->setPosition(lastPos);
-    }*/
+    void saveLastPos(const SDL_Rect& col);
+    void setLastPos();
     //virtual void render();
 private:
     SDL_Rect collider;

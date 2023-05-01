@@ -7,6 +7,7 @@
 #include "AttractionComponent.h"
 #include "BlackHoleAnimationComp.h"
 #include "EnemyContactDamage.h"
+#include "DamageArea.h"
 FinalBossBehaviorComponent::FinalBossBehaviorComponent(MapComponent* map) :Component()
 {
 	currentElement = rand() % 6;
@@ -30,9 +31,9 @@ void FinalBossBehaviorComponent::update()
 		//Switch de los diferentes ataques del boss
 		switch (currentElement)
 		{
-		case 0: std::cout << "Ataque tierra boss final" << std::endl; break;
+		case 0: std::cout << "Ataque tierra boss final" << std::endl; spawnSpikes(); break;
 
-		case 1: std::cout << "Ataque agua boss final" << std::endl; spawnBubbles(); break;
+		case 1: std::cout << "Ataque agua boss final" << std::endl; /*spawnBubbles();*/ break;
 		case 2: std::cout << "Ataque fuego boss final" << std::endl; spawnFireWall(); break;
 		case 3: std::cout << "Ataque oscuridad boss final" << std::endl; spawnBlackHole();break;
 		case 4: std::cout << "Ataque puno boss final" << std::endl; spawnFist(); break;
@@ -140,20 +141,21 @@ void FinalBossBehaviorComponent::spawnFistTop() {
 }
 // Ataque de tierra
 void FinalBossBehaviorComponent::spawnSpikes() {
-	int spikesNum = map_->bossSpikesNum();
+ 	int spikesNum = map_->bossSpikesNum();
 
-	// Crea blackHoles y añade componentes
+	// Crea enredaderas y añade componentes
 	for (int i = 0; i < spikesNum; ++i) {
-		spikes.push_back(mngr_->addEntity(ecs::_grp_BLACKHOLE));
-		SDL_Rect rect = map_->getBlackHolePos(i);
+		spikes.push_back(mngr_->addEntity(ecs::_grp_FINAL_BOSS_SPIKES));
+		SDL_Rect rect = map_->getBossSpikesPos(i);
 		spikes[i]->addComponent<Transform>(Vector2D(rect.x, rect.y), rect.w, rect.h);
-		//spikes[i]->addComponent<Image>(&sdlutils().images().at("blackHole"));
-		//spikes[i]->addComponent<DamageArea>();
+		spikes[i]->addComponent<Image>(&sdlutils().images().at("spike"));
+		spikes[i]->addComponent<DamageArea>(ecs::Earth, false);
 	}
 }
 void FinalBossBehaviorComponent::deleteSpikes() {
 	for (auto it = spikes.begin(); it != spikes.end(); ++it) {
 		(*it)->setAlive(false);
+		std::cout << "Spike Seteado a false " << std::endl;
 	}
 	spikes.clear();
 }

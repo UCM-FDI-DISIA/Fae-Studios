@@ -19,5 +19,6 @@ public:
     void initComponent() override;
     virtual void update();
     inline ecs::elements getElem() { return elem; }
+    inline Entity* getInstigator() { return instigator; }
 };
 
