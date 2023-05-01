@@ -15,13 +15,13 @@ public:
 
 	void deleteBlackHoles();
 	void deleteBubbles();
-
+	void deleteSpikes();
 private:
 	void spawnBubbles();
 	void spawnFireWall();
 	void spawnFist();
 	void spawnFistTop();
-
+	void spawnSpikes();
 	void spawnBlackHole();
 
 	Transform* bossTransform;
@@ -34,6 +34,7 @@ private:
 
 	std::vector<Entity*> blackHoles;
 	std::vector<Entity*> bubbles;
+	std::vector<Entity*> spikes;
 };
 
 

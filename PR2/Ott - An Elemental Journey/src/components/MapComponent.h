@@ -55,6 +55,9 @@ private:
 	// Pos agujeros negros sala boss final
 	std::vector< SDL_Rect> blackHolesPos;
 
+	// Pos enredaderas sala boss final
+	std::vector< SDL_Rect> bossSpikePos;
+
 	// En este mapa se guarda:
 	// string -> n�mero de sala
 	// vector -> todos los triggers que hay en esa sala
@@ -103,6 +106,7 @@ private:
 	const int BACKGROUNDS_VECTOR_POS = 8;
 	const int BLACKHOLE_VECTOR_POS = 9;
 	const int BUBBLE_VECTOR_POS = 10;
+	const int SPIKE_VECTOR_POS = 10;
 	const int FINALBOSS_VECTOR_POS = 11;
 
 	std::string currentMapKey = "earthMap";
@@ -157,9 +161,11 @@ public:
 
 	inline int bubblesNum() { return bubblesPos.size(); }
 	inline int blackHolesNum() { return blackHolesPos.size(); }
+	inline int bossSpikesNum() { return bossSpikePos.size(); }
 
 	inline SDL_Rect getBubblePos(int index){ return bubblesPos[index]; }
-	inline SDL_Rect getBlackHolePos(int index){ return blackHolesPos[index]; }
+	inline SDL_Rect getBlackHolePos(int index) { return blackHolesPos[index]; }
+	inline SDL_Rect getBossSpikesPos(int index){ return bossSpikePos[index]; }
 
 	void changeRoom(std::string newRoom, Vector2D newPos, bool verticalTrigger = false);
 

@@ -138,3 +138,22 @@ void FinalBossBehaviorComponent::spawnFistTop() {
 
 
 }
+// Ataque de tierra
+void FinalBossBehaviorComponent::spawnSpikes() {
+	int spikesNum = map_->bossSpikesNum();
+
+	// Crea blackHoles y añade componentes
+	for (int i = 0; i < spikesNum; ++i) {
+		spikes.push_back(mngr_->addEntity(ecs::_grp_BLACKHOLE));
+		SDL_Rect rect = map_->getBlackHolePos(i);
+		spikes[i]->addComponent<Transform>(Vector2D(rect.x, rect.y), rect.w, rect.h);
+		//spikes[i]->addComponent<Image>(&sdlutils().images().at("blackHole"));
+		//spikes[i]->addComponent<DamageArea>();
+	}
+}
+void FinalBossBehaviorComponent::deleteSpikes() {
+	for (auto it = spikes.begin(); it != spikes.end(); ++it) {
+		(*it)->setAlive(false);
+	}
+	spikes.clear();
+}
