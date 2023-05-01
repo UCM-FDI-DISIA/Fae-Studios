@@ -4,15 +4,17 @@
 #include "../states/PlayState.h"
 
 void Image::render() {
-	auto rect = transform->getRect();
-	if (cam != nullptr) {
-		auto camera = cam->camera;
-		rect.x -= camera.x;
-		rect.y -= camera.y;
-		
-	}
+	if (allowRender_) {
+		auto rect = transform->getRect();
+		if (cam != nullptr) {
+			auto camera = cam->camera;
+			rect.x -= camera.x;
+			rect.y -= camera.y;
 
-	texture->render(rect, transform->getRotation());
+		}
+
+		texture->render(rect, transform->getRotation());
+	}
 }
 
 void Image::initComponent() {

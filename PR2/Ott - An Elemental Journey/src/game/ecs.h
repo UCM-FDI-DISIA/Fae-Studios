@@ -14,6 +14,7 @@ namespace ecs {
         _IMAGE, ///< Image y FramedImage
         _TEXT, ///< Text
         _BUTTON,
+        _BUTTON_NEEDLE,
         _SLIDER,
         _SLIDER_NEEDLE,
         _SLIDER_PERCENTAGE,
@@ -58,6 +59,7 @@ namespace ecs {
         _LAMP_ANIM,
         _CHARGED_ATTACK_BAR,
         _SCREEN_DARKENER,
+        _SANCTUARY_ANIM,
         _PLATFORM_MOVEMENT,
         _LORE,
         _DAMAGE_AREA,
@@ -76,10 +78,10 @@ namespace ecs {
         _grp_MINIBOSS,
         _grp_GROUND,
         _grp_VINE,
+        _grp_INTERACTION,
         _grp_CHARACTERS,
         _grp_WATER,
         _grp_MAP,
-        _grp_INTERACTION,
         _grp_CARTEL,
         _grp_TRIGGER,
         _grp_PLATFORMS,

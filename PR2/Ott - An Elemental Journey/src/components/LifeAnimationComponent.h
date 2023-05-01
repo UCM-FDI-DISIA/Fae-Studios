@@ -1,6 +1,7 @@
 #include "../ecs/Component.h"
 #include "../ecs/anims.h"
 #include "FramedImage.h"
+#pragma once
 
 class LifeAnimationComponent : public Component {
 private:

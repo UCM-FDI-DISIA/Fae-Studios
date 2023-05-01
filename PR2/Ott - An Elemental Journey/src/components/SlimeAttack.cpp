@@ -25,7 +25,7 @@ void SlimeAttack::divide()
 	slime->addComponent<Transform>(transform->getPosition(), ent_->getComponent<Generations>()->getGeneration() - 1, ent_->getComponent<Generations>()->getGeneration() - 1);
 	slime->addComponent<PhysicsComponent>(); //Calcular offset
 	slime->addComponent<Generations>(ent_->getComponent<Generations>()->getGeneration() - 1, ent_->getComponent<Generations>()->getRoom());
-	slime->addComponent<EnemyMovement>(); //Calcular trigger
+	slime->addComponent<EnemyMovement>(0.25 * ent_->getComponent<Generations>()->getGeneration()); //Calcular trigger
 	slime->addComponent<EnemyAttack>(1500); //Calcular trigger
 	slime->addComponent<SlimeAttack>();
 }

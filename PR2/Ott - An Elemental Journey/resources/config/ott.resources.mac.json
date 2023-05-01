@@ -258,6 +258,12 @@
 			"file": "../Ott - An Elemental Journey/resources/images/tests/sanctuary.png",
 			"rows": 1,
 			"cols": 1
+		},		
+		{
+			"id": "sanctuarySheet",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/sanctuarySheet.png",
+			"rows": 1,
+			"cols": 18
 		},
 		{
 			"id": "sanctuaryOff",
@@ -756,6 +762,30 @@
 			"file": "../Ott - An Elemental Journey/resources/images/tests/Platform.PNG",
 			"rows": 1,
 			"cols": 1
+		},
+		{
+			"id": "button_needle",
+			"file": "../Ott - An Elemental Journey/resources/images/ui/button_needle.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "spike",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/Spike.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "earth_spike",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/Earth_Spikes.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "hanging_spike",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/Hanging_Spike.png",
+			"rows": 1,
+			"cols": 1
 		}
 	],
   "messages" : [],
@@ -784,6 +814,9 @@
 		{ "id" : "slime_movement", "file" : "../Ott - An Elemental Journey/resources/sound/slime_movement.wav"},
 		{ "id" : "slime_attack", "file" : "../Ott - An Elemental Journey/resources/sound/slime_attack.wav"},
 		{ "id" : "slime_get_up", "file" : "../Ott - An Elemental Journey/resources/sound/slime_getting_up.wav"},
+		{ "id" : "sanctuaryRest", "file" : "../Ott - An Elemental Journey/resources/sound/sanctuaryRest.wav"},
+		{ "id" : "sanctuaryStart", "file" : "../Ott - An Elemental Journey/resources/sound/sanctuaryStart.wav"},
+		{ "id" : "sanctuaryStop", "file" : "../Ott - An Elemental Journey/resources/sound/sanctuaryStop.wav"},
 		{ "id" : "menemy_step", "file" : "../Ott - An Elemental Journey/resources/sound/bicho_paso.wav"}
   ],
 

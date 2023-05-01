@@ -4,6 +4,12 @@
 #include "../sdlutils/InputHandler.h"
 #include "../utils/checkML.h"
 
+
+void ButtonNeedle::initComponent() {
+    transform = ent_->getComponent<Transform>();
+    texture = ent_->getComponent<Image>();
+}
+
 void Button::initComponent() {
 	transform = ent_->getComponent<Transform>();
 	texture = ent_->getComponent<FramedImage>();
@@ -50,4 +56,19 @@ void Button::handleInput() {
 void Button::onClick() {
     InputHandler::instance()->clearState(true);
     callback();
+}
+
+void Button::update() {
+    if (!selected) {
+        if (needle != nullptr) needle->getComponent<ButtonNeedle>()->hide();
+    }
+    else { 
+        if(needle != nullptr) needle->getComponent<ButtonNeedle>()->show(); 
+    }
+}
+
+void Button::setNeedle(Entity* needle) {
+    this->needle = needle;
+    Vector2D position = transform->getPosition() + Vector2D(-50, transform->getHeight() / 2 - needle->getComponent<Transform>()->getHeight() / 2);
+    needle->getComponent<ButtonNeedle>()->setPosition(position);
 }

@@ -40,6 +40,21 @@ public:
     inline bool isStopped() { return stopped; }
     inline bool inKnocback()  { return isKnockback; }
     inline bool getGravity() { return gravity; }
+    inline void setJumpWater(bool c) { inWaterJumpArea = c; }
+    /*inline void saveLastPos(const SDL_Rect& col)
+    {
+        int wPlayerRect = getCollider().w;
+        auto tr = ent_->getComponent<Transform>();
+        if (wPlayerRect * offset < col.w)
+        {
+            lastPos = tr->getPosition();
+        }
+    }*/
+    /*inline void setLastPos()
+    {
+        auto tr = ent_->getComponent<Transform>();
+        tr->setPosition(lastPos);
+    }*/
     void saveLastPos(const SDL_Rect& col);
     void setLastPos();
     //virtual void render();
@@ -62,9 +77,9 @@ private:
     //jumpforces
     int jumpForce;
     const int earthJumpForce = -10;
-    const int waterJumpForce = -5;
+    const int waterJumpForce = -7;
     const float offset = 0.9;
     //booleanos de agua
-    bool inWater = false, floating = false;
+    bool inWater = false, floating = false, inWaterJumpArea = false, isJumpingF = false;
 
 };

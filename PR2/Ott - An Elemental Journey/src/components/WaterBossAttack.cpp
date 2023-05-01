@@ -7,6 +7,7 @@ void WaterBossAttack::initComponent() {
 }
 
 void WaterBossAttack::update() {
+	std::cout << "ESTOY VIVO " << transform->getPosition().getX() << " " << transform->getPosition().getY() << std::endl;
 	SDL_Rect colliderOtt = ottTransform->getRect();
 	SDL_Rect colliderObject = transform->getRect();
 

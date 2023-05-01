@@ -14,9 +14,8 @@ private:
 
 public:
 	constexpr static ecs::cmpId_type id = ecs::_CHARGED_ATTACK_BAR;
-	ChargedAttackBar(Texture* texture) : Component(), hImage_(nullptr), texture_(texture), charges_(0) {}
+	ChargedAttackBar(Texture* texture, HealthImage* image) : Component(), hImage_(image), texture_(texture), charges_(0) {}
 	void render() override;
-	void initComponent() override;
 
 	inline void addCharge(int charges) { 
 		charges_ += charges; 

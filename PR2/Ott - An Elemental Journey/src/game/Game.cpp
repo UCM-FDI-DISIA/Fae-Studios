@@ -14,13 +14,13 @@ Game::Game() {
     SoundEffect::setNumberofChannels(32 * ecs::maxChannelId);
     SoundEffect::groupChannels();
     SDL_GameControllerAddMappingsFromFile("gamecontrollerdb.txt");
-    SDL_JoystickEventState(SDL_ENABLE);
+    SDL_GameControllerEventState(SDL_ENABLE);
     if (SDL_NumJoysticks() < 1)
     {
         printf("Warning: No joysticks connected!\n");
     }
     else {
-        gGameController = SDL_JoystickOpen(0);
+        gGameController = SDL_GameControllerOpen(0);
         joystick = true;
         if (gGameController == NULL)
         {
@@ -56,7 +56,7 @@ void Game::run() {
     }
     if (exit) {
         if(joystick)
-            SDL_JoystickClose(gGameController);
+            SDL_GameControllerClose(gGameController);
         SDLUtils::close(); //Si se acaba el bucle principal con la condición de salida, cerramos la ventana
     } 
 }

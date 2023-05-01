@@ -8,6 +8,7 @@
 #include <vector>
 #include "../components/PhysicsComponent.h"
 #include "../components/EnemyMovement.h"
+#include "../components/SanctuaryAnimationComponent.h"
 #include "../game/Constructors.h"
 #include "../components/FramedImage.h"
 #include "../components/Generations.h"
@@ -100,21 +101,21 @@ PlayState::PlayState(std::string fileName) : GameState(ecs::_state_PLAY) {
 	while (aux != "_") {
 		bool visited;
 		file >> visited;
-		visitedRooms[ecs::EARTH_MAP][std::stoi(aux)] = visited;
+		visitedRooms[ecs::EARTH_MAP].push_back(visited);
 		file >> aux;
 	}
 	file >> aux >> aux;
 	while (aux != "_") {
 		bool visited;
 		file >> visited;
-		visitedRooms[ecs::WATER_MAP][std::stoi(aux)] = visited;
+		visitedRooms[ecs::WATER_MAP].push_back(visited);
 		file >> aux;
 	}
 	file >> aux >> aux;
 	while (aux != "_") {
 		bool visited;
 		file >> visited;
-		visitedRooms[ecs::FIRE_MAP][std::stoi(aux)] = visited;
+		visitedRooms[ecs::FIRE_MAP].push_back(visited);
 		file >> aux;
 	}
 }
@@ -223,17 +224,22 @@ void PlayState::checkCollisions(std::list<Entity*> entities) {
 					physics->setWater(true); ++j;
 					if (health->getElement() != ecs::Water) { physics->setGrounded(false); }
 					//comprobación de si esta en la zona de flote, de momento sin variable de ancho de zona de flote 
-					if (areaColision.y <= r3.y + 2) {
-						physics->setFloating(true);
-						if (areaColision.h < r1.h / 2 && physics->getVelocity().getY() < 0) { physics->setFloating(false); physics->setWater(false); }
+					if (r1.y + r1.h <= r3.y + 300)
+					{
+						physics->setJumpWater(true);
+						if (r1.y+r1.h <= r3.y+100) {
+							physics->setFloating(true);
+							if (areaColision.h < r1.h / 2 && physics->getVelocity().getY() < 0) { physics->setFloating(false); physics->setWater(false); }
+						}
+						else {
+							physics->setFloating(false);
+						}
 					}
-					else {
-						physics->setFloating(false);
-					}
+					else { physics->setJumpWater(false);}
 				}
 			}
 		}
-		if (j == 0) { physics->setWater(false); physics->setFloating(false); }
+		if (j == 0) { physics->setWater(false); physics->setFloating(false);  physics->setJumpWater(false);}
 		aa++;
 		
 		for (Entity* p : mngr_->getEntities(ecs::_grp_MOVING_PLATFORMS)) {
@@ -299,9 +305,9 @@ void PlayState::checkInteraction() {
         Entity* ents = *it;
         SDL_Rect r2 = ents->getComponent<Transform>()->getRect();
         if (SDL_HasIntersection(&r1, &r2)) {
+			interactionIt = it;
 			ents->getComponent<InteractionComponent>()->OnPlayerNear();
 			input->setCanInteract(true);
-			interactionIt = it;
 		}
 		else { 
 			ents->getComponent<InteractionComponent>()->OnPlayerLeave();
@@ -359,10 +365,9 @@ void PlayState::Teleport() {
 
 void PlayState::Save() {
 	map_->playFadeOutAnimation();
-	if(lastSanctuary!=nullptr) lastSanctuary->getComponent<Image>()->changeText(&sdlutils().images().at("sanctuaryOff"));
+	if(lastSanctuary != nullptr) lastSanctuary->getComponent<SanctuaryAnimationComponent>()->deactivate();
 	lastSanctuary = getCurrentInteraction();
-	lastSanctuary->getComponent<Image>()->changeText(&sdlutils().images().at("sanctuary"));
-
+	lastSanctuary->getComponent<SanctuaryAnimationComponent>()->activate();
 }
 
 void PlayState::AddLifeShard(int id) {

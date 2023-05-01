@@ -34,7 +34,7 @@ private:
 
     bool joystick = false;
 
-    SDL_Joystick* gGameController;
+    SDL_GameController* gGameController;
 
     /// Constructora de la clase Game (privada porque es un singleton)
     Game();
@@ -48,7 +48,7 @@ public:
 
     void exitGame() { exit = true; }
 
-    inline SDL_Joystick* getJoystick() { return gGameController; }
+    inline SDL_GameController* getJoystick() { return gGameController; }
 
     inline bool getIsJoystick() { return joystick; }
 };

@@ -23,13 +23,13 @@ private:
 	int nearDistance;
 	double turningOffset = 0.75; //A partir de aquí no entiendo, solo he ctrl c ctrl v
 	int turningError = 3;
-	float horizontalSpeed = 1;
+	float horizontalSpeed = 0.65;
 	void MoveTriggers();
 	bool collided = false;
 	bool moving = false;
 public:
 	constexpr static ecs::cmpId_type id = ecs::_ENEMYMOV;
-	EnemyMovement(float wTrigger = 100.0f, float hTrigger = 100.0f) : Component() {
+	EnemyMovement(float hSpeed, float wTrigger = 100.0f, float hTrigger = 100.0f) : Component() {
 		player = nullptr;
 		trigger.x = 0; trigger.y = 0;
 		trigger.w = wTrigger; trigger.h = hTrigger;
@@ -38,6 +38,7 @@ public:
 		playerCollider = nullptr;
 		playerDetected = false;
 		canMove = true;
+		horizontalSpeed = hSpeed;
 	};
 	void initComponent() override;
 	void detectPlayer();

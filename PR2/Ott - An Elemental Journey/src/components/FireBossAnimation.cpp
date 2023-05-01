@@ -36,6 +36,7 @@ void FireBossAnimation::endAnim()
 		ent_->setAlive(false);
 		sdlutils().musics().at("fire_boss_fight").fadeOutMusic(1000);
 		sdlutils().musics().at("fire_level").fadeInMusic(2000);
+		map->getComponent<MapComponent>()->setBossCompleted(ecs::Fire);
 	}
 	if (currentAnimation == ATTACK_FIREBOSS) currentAnimation = IDLE_FIREBOSS;
 }

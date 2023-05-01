@@ -41,6 +41,7 @@ void EnemyMovement::detectPlayer()
 
 void EnemyMovement::FollowPlayer()
 {
+	std::cout << "Enemy Horizontal Speed: " << horizontalSpeed << std::endl;
 	SDL_Rect collider = physics->getCollider();
 	SDL_Rect ott = playerCollider->getCollider();
 	if (eAttack_->getState() == eAttack_->normal && ((physics->getLookDirection() && ott.x - (collider.x + collider.w / 2) > nearDistance) ||
@@ -102,7 +103,7 @@ void EnemyMovement::update() {
 	if (!health_->isDead()) {
 		MoveTriggers();
 		if (playerDetected && !collided)
-			if (eAttack_->getState() != eAttack_->attacking) FollowPlayer();
+			if (eAttack_->getState() != eAttack_->attacking && eAttack_->getState() != eAttack_->preparing && eAttack_->getState() != eAttack_->laying) FollowPlayer();
 			else physics->setVelocity({ 0,0 });
 		detectPlayer();
 		collided = false;

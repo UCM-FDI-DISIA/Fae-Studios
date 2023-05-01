@@ -49,6 +49,12 @@ void Health::recall(bool rest) {
 				if (lastSanctuary.mapKey == "earthMap") {
 					map->changeMap(ecs::EARTH_MAP, lastSanctuary.mapKey);
 				}
+				else if (lastSanctuary.mapKey == "waterMap") {
+					map->changeMap(ecs::WATER_MAP, lastSanctuary.mapKey);
+				}
+				else if (lastSanctuary.mapKey == "fireMap") {
+					map->changeMap(ecs::FIRE_MAP, lastSanctuary.mapKey);
+				}
 			}
 			map->changeRoom(std::to_string(lastSanctuary.sanct->getComponent<InteractionComponent>()->getRoom()), newPos);
 		}

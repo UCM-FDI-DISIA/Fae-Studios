@@ -217,7 +217,7 @@
   <object id="198" name="Y_575_2112_1" type="Ground" x="1827.33" y="2112.06" width="125.5" height="33.6666"/>
  </objectgroup>
  <objectgroup id="7" name="Ott">
-  <object id="141" name="5" type="5" x="3721.33" y="561.33" width="32" height="32"/>
+  <object id="141" name="0" type="0" x="329.845" y="2078.94" width="32" height="32"/>
  </objectgroup>
  <objectgroup id="6" name="Triggers">
   <object id="111" name="6_1" type="16" x="1499" y="1938.5" width="31.5" height="209.5"/>

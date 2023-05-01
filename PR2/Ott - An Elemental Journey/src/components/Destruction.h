@@ -18,7 +18,8 @@ public:
 	constexpr static ecs::cmpId_type id = ecs::_BOSS_DESTRUCTION;
 	Destruction(std::string room, int index, MapComponent* map, Entity* ent = nullptr) : room(room), index(index), map(map) {
 		boss = ent;
-		if(ent != nullptr) bossTransform = boss->getComponent<Transform>();
+		if (ent != nullptr) bossTransform = boss->getComponent<Transform>();
+		else bossTransform = nullptr;
 	}
 	~Destruction() {}
 	void setBoss(Entity* ent) { bossTransform = ent->getComponent<Transform>(); }
