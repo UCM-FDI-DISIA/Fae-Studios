@@ -85,7 +85,7 @@ void PlayerInput::update()
 					lookingdown = true;
 				}
 				if (state != VANISH) {
-					if (input->isKeyDown(SDLK_z) || (game().getIsJoystick() && SDL_GameControllerGetButton(game().getJoystick(), SDL_CONTROLLER_BUTTON_B)))
+					if (input->isKeyDown(SDLK_r) || (game().getIsJoystick() && SDL_GameControllerGetButton(game().getJoystick(), SDL_CONTROLLER_BUTTON_B)))
 					{
 						//Defensa
 						//image_->shielded(true);
@@ -97,7 +97,7 @@ void PlayerInput::update()
 						attack = true;
 						attackTimer = SDL_GetTicks();
 					}
-					if ((input->isKeyDown(SDLK_a) || (game().getIsJoystick() && SDL_GameControllerGetButton(game().getJoystick(), SDL_CONTROLLER_BUTTON_RIGHTSHOULDER))) && earth && !selectedEarth) {
+					if ((input->isKeyDown(SDLK_2) || (game().getIsJoystick() && SDL_GameControllerGetButton(game().getJoystick(), SDL_CONTROLLER_BUTTON_RIGHTSHOULDER))) && earth && !selectedEarth) {
 						//Cambio elemento
 						anim_->changeElem(ecs::Earth);
 						anim_->setState(VANISH);
@@ -110,7 +110,7 @@ void PlayerInput::update()
 							SDL_GameControllerSetLED(game().getJoystick(), 0, UINT8_MAX, 0);
 						}
 					}
-					if ((input->isKeyDown(SDLK_d) || (game().getIsJoystick() && SDL_GameControllerGetAxis(game().getJoystick(), SDL_CONTROLLER_AXIS_TRIGGERLEFT) > 100)) && water && !selectedWater) {
+					if ((input->isKeyDown(SDLK_3) || (game().getIsJoystick() && SDL_GameControllerGetAxis(game().getJoystick(), SDL_CONTROLLER_AXIS_TRIGGERLEFT) > 100)) && water && !selectedWater) {
 						anim_->changeElem(ecs::Water);
 						anim_->setState(VANISH);
 						selectedEarth = false;
@@ -123,7 +123,7 @@ void PlayerInput::update()
 							SDL_GameControllerSetLED(game().getJoystick(), 0, 0, UINT8_MAX);
 						}
 					}
-					if ((input->isKeyDown(SDLK_w) || (game().getIsJoystick() && SDL_GameControllerGetAxis(game().getJoystick(), SDL_CONTROLLER_AXIS_TRIGGERRIGHT) > 100)) && fire && !selectedFire) {
+					if ((input->isKeyDown(SDLK_4) || (game().getIsJoystick() && SDL_GameControllerGetAxis(game().getJoystick(), SDL_CONTROLLER_AXIS_TRIGGERRIGHT) > 100)) && fire && !selectedFire) {
 						anim_->changeElem(ecs::Fire);
 						anim_->setState(VANISH);
 						selectedEarth = false;
@@ -136,7 +136,7 @@ void PlayerInput::update()
 							SDL_GameControllerSetLED(game().getJoystick(), UINT8_MAX, 0, 0);
 						}
 					}
-					if ((input->isKeyDown(SDLK_s) || (game().getIsJoystick() && SDL_GameControllerGetButton(game().getJoystick(), SDL_CONTROLLER_BUTTON_LEFTSHOULDER))) && !selectedLight) {
+					if ((input->isKeyDown(SDLK_1) || (game().getIsJoystick() && SDL_GameControllerGetButton(game().getJoystick(), SDL_CONTROLLER_BUTTON_LEFTSHOULDER))) && !selectedLight) {
 						anim_->changeElem(ecs::Light);
 						anim_->setState(VANISH);
 						selectedEarth = false;
@@ -188,7 +188,7 @@ void PlayerInput::update()
 						}
 					}
 				}
-				if (input->isKeyJustUp(SDLK_z)) {
+				if (input->isKeyJustUp(SDLK_r)) {
 					//defend = false;
 					//image_->shielded(false);
 					shield_->guardShield();

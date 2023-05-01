@@ -24,9 +24,9 @@ PauseMenuState::PauseMenuState() : MenuState() {
 
 	pos = Vector2D(sdlutils().getWindowDimensions().getX() / 2, 3 * sdlutils().getWindowDimensions().getY() / 7);
 	buttons.push_back(constructors::button(mngr_, pos, "Continuar", sdlutils().fonts().at("vcr_osd24"), [this]() {
-		sdlutils().soundEffects().at("button").play(0, ecs::_channel_UI);
+		sdlutils().soundEffects().at("button").play(0, ecs::_channel_UI); dynamic_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->blockKeyboardInputAfterUnfreeze();
 		fade->getComponent<FadeTransitionComponent>()->setFunction([]() { GameStateMachine::instance()->popState(); });
-		fade->getComponent<FadeTransitionComponent>()->revert();
+		fade->getComponent<FadeTransitionComponent>()->revert(); doNotDetectKeyboardInput = true;
 	}));
 
 	pos = Vector2D(sdlutils().getWindowDimensions().getX() / 2, 4 * sdlutils().getWindowDimensions().getY() / 7);
