@@ -86,6 +86,7 @@
     <ClCompile Include="src\components\LoreRoom.cpp" />
     <ClCompile Include="src\components\FireBossRoom.cpp" />
     <ClCompile Include="src\components\waterDropComponent.cpp" />
+    <ClCompile Include="src\components\AutoDestroy.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\components\Image.h" />
@@ -191,6 +192,7 @@
     <ClInclude Include="src\components\LoreRoom.h" />
     <ClInclude Include="src\components\FireBossRoom.h" />
     <ClInclude Include="src\components\waterDropComponent.h" />
+    <ClInclude Include="src\components\AutoDestroy.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="resources\config\ott.resources.mac.json" />

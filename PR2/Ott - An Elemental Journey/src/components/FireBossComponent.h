@@ -20,6 +20,7 @@ private:
 	void spawnPillars();
 	void shootAtPlayer();
 	void meleePlayer();
+	void startPosition();
 public:
 	FireBossComponent();
 	virtual void initComponent();
@@ -27,7 +28,9 @@ public:
 	void stunBoss();
 	inline bool isStunned() { return stunned; }
 	inline void activateBoss() { start = true; }
+	void resetBoss();
 	inline void setAnimComponent(FireBossAnimation* a) { fAnim_ = a; }
+	
 	constexpr static ecs::cmpId_type id = ecs::_BOSS;
 };
 

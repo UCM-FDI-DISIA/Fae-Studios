@@ -61,7 +61,7 @@ namespace ecs {
         _PLATFORM_MOVEMENT,
         _LORE,
         _DAMAGE_AREA,
-
+        _MANAGEMENT,
         _LAST_CMP_ID
     };
     constexpr cmpId_type maxComponentId = _LAST_CMP_ID;

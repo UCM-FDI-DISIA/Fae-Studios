@@ -11,14 +11,18 @@ FireBossComponent::FireBossComponent()
 
 }
 
+inline void FireBossComponent::startPosition()
+{
+	tr_->setPosition(Vector2D{ tr_->getPosition().getX(), tr_->getPosition().getY() - 2000 });
+}
+
 void FireBossComponent::initComponent()
 {
 	tr_ = ent_->getComponent<Transform>();
 	player = mngr_->getPlayer();
 	endY = tr_->getPosition().getY();
 	startX = tr_->getPosition().getX();
-	tr_->setPosition(Vector2D{ tr_->getPosition().getX(), tr_->getPosition().getY() - 2000 });
-	
+	startPosition();
 }
 
 void FireBossComponent::update()
@@ -40,6 +44,7 @@ void FireBossComponent::update()
 		if (SDL_GetTicks() - stunTimer > timeStunned * 1000) {
 			normalAttackTimer = specialAttackTimer = SDL_GetTicks();
 			stunned = false;
+			ent_->getComponent<Health>()->setInmune(true);
 		}
 		else return;
 	}
@@ -133,6 +138,13 @@ void FireBossComponent::stunBoss()
 {
 	stunned = true; 
 	stunTimer = SDL_GetTicks();
+	ent_->getComponent<Health>()->setInmune(false);
+}
+
+void FireBossComponent::resetBoss() {
+	start = false;
+	ent_->getComponent<Health>()->resetHealth();
+	startPosition();
 }
 
 
