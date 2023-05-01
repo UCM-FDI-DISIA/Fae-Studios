@@ -818,7 +818,10 @@
 		{ "id" : "sanctuaryRest", "file" : "../resources/sound/sanctuaryRest.wav"},
 		{ "id" : "sanctuaryStart", "file" : "../resources/sound/sanctuaryStart.wav"},
 		{ "id" : "sanctuaryStop", "file" : "../resources/sound/sanctuaryStop.wav"},
-		{ "id" : "menemy_step", "file" : "../resources/sound/bicho_paso.wav"}
+		{ "id" : "menemy_step", "file" : "../resources/sound/bicho_paso.wav"},
+		{ "id" : "menemy_attack", "file" : "../resources/sound/bicho_slash.wav"},
+		{ "id" : "hitTaken", "file" : "../resources/sound/hitTaken.wav"},
+		{ "id" : "menemy_dead", "file" : "../resources/sound/bicho_muerte.wav"}
   ],
 
   "musics" : [

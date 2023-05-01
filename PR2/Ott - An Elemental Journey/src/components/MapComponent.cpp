@@ -87,7 +87,7 @@ void MapComponent::generateEnemies() {
         }
         else if (it.getClass() == "WaterBoss" && loadWaterBoss) {
             
-            auto waterBoss = constructors::WaterBoss(mngr_, ent_, x_ * scale * roomScale, y_ * scale * roomScale, 300 * scale * roomScale, 300 * scale * roomScale);
+            auto waterBoss = constructors::WaterBoss(mngr_, ent_, x_ * scale * roomScale, y_ * scale * roomScale, 400 * scale * roomScale, 400 * scale * roomScale);
             eraseEntities.push_back(waterBoss);
 
             for (auto it : mngr_->getEntities(ecs::_grp_GROUND)) {

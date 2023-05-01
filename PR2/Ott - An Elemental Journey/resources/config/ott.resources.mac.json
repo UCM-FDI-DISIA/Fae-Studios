@@ -817,6 +817,9 @@
 		{ "id" : "sanctuaryRest", "file" : "../Ott - An Elemental Journey/resources/sound/sanctuaryRest.wav"},
 		{ "id" : "sanctuaryStart", "file" : "../Ott - An Elemental Journey/resources/sound/sanctuaryStart.wav"},
 		{ "id" : "sanctuaryStop", "file" : "../Ott - An Elemental Journey/resources/sound/sanctuaryStop.wav"},
+		{ "id" : "menemy_dead", "file" : "../Ott - An Elemental Journey/resources/sound/bicho_muerte.wav"},
+		{ "id" : "menemy_attack", "file" : "../Ott - An Elemental Journey/resources/sound/bicho_slash.wav"},
+		{ "id" : "hitTaken", "file" : "../Ott - An Elemental Journey/resources/sound/hitTaken.wav"},
 		{ "id" : "menemy_step", "file" : "../Ott - An Elemental Journey/resources/sound/bicho_paso.wav"}
   ],
 

@@ -33,7 +33,7 @@ void PhysicsComponent::saveLastPos(const SDL_Rect& col)
 void PhysicsComponent::setLastPos()
 {
 	auto tr = ent_->getComponent<Transform>();
-	tr->setPosition(lastPos);
+	tr->setPosition(Vector2D(lastPos.getX(), lastPos.getY() - 10));
 }
 void PhysicsComponent::createCollider() {
 	auto tr = ent_->getComponent<Transform>();

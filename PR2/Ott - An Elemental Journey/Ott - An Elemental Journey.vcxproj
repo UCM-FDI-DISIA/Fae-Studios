@@ -19,7 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\components\SanctuaryAnimationComponent.cpp" />
     <ClCompile Include="src\components\FireBossRoom.cpp" />
     <ClCompile Include="src\components\LoreRoom.cpp" />
     <ClCompile Include="src\components\FireBossAnimation.cpp" />
