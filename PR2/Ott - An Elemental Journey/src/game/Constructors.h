@@ -476,7 +476,7 @@ namespace constructors {
 
 		auto box0 = mngr_->addEntity(ecs::_grp_GENERAL);
 		x += 2800;
-		box0->addComponent<Transform>(x, y + 100, 100, 100);
+		box0->addComponent<Transform>(x, y +  100, 100, 100);
 		//box0->addComponent<Image>(&sdlutils().images().at("box"));
 		box0->addComponent<Pivot>(waterBoss, 0, map);
 
