@@ -6,11 +6,13 @@ class SanctuaryAnimationComponent : public Component
 {
 public:
 	constexpr static ecs::cmpId_type id = ecs::_SANCTUARY_ANIM;
-
 	SanctuaryAnimationComponent() = default;
 	~SanctuaryAnimationComponent() = default;
 	inline void initComponent() override {
 		image_ = ent_->getComponent<FramedImage>();
+		sdlutils().soundEffects().at("sanctuaryStart").setVolume(50);
+		sdlutils().soundEffects().at("sanctuaryStop").setVolume(50);
+		sdlutils().soundEffects().at("sanctuaryRest").setVolume(50);
 		assert(image_ != nullptr);
 	}
 

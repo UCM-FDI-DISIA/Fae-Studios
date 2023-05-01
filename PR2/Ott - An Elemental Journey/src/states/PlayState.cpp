@@ -302,15 +302,17 @@ void PlayState::checkInteraction() {
 	auto itEnd = mngr_->getEntities(ecs::_grp_INTERACTION).end();
 	SDL_Rect r1 = mngr_->getPlayer()->getComponent<Transform>()->getRect();
     while (it != itEnd) {
-        Entity* ents = *it;
-        SDL_Rect r2 = ents->getComponent<Transform>()->getRect();
-        if (SDL_HasIntersection(&r1, &r2)) {
-			interactionIt = it;
-			ents->getComponent<InteractionComponent>()->OnPlayerNear();
-			input->setCanInteract(true);
-		}
-		else { 
-			ents->getComponent<InteractionComponent>()->OnPlayerLeave();
+		if ((*it)->isActive()) {
+			Entity* ents = *it;
+			SDL_Rect r2 = ents->getComponent<Transform>()->getRect();
+			if (SDL_HasIntersection(&r1, &r2)) {
+				interactionIt = it;
+				ents->getComponent<InteractionComponent>()->OnPlayerNear();
+				input->setCanInteract(true);
+			}
+			else { 
+				ents->getComponent<InteractionComponent>()->OnPlayerLeave();
+			}
 		}
 		it++; 
     }
