@@ -91,7 +91,7 @@ void FramedImageOtt::render()
 		shieldRect.y = tr_->getPosition().getY() - camCmpt.y + 40;
 		shieldRect.w = 50; shieldRect.h = 50;
 		if (lookRight) shieldRect.x += 50;
-		shieldTex_->render(shieldRect);
+		shieldTex_->renderFrame(shieldRect, shieldRow, shieldCol);
 	}
 }
 

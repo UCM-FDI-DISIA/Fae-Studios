@@ -7,6 +7,7 @@
 #include "../components/FramedImage.h"
 #include "../components/TextComponent.h"
 #include "../components/ElementObject.h"
+#include "../components/ShieldAnimationComponent.h"
 #include "../components/LampAnimationComponent.h"
 #include "../components/GrassAnimationComponent.h"
 #include "../components/Slider.h"
@@ -346,6 +347,7 @@ namespace constructors {
 		player->addComponent<PlayerAttack>();
 		player->addComponent<AttackCharger>(8, chargedAttackBar);
 		player->addComponent<PlayerInput>();
+		player->addComponent<ShieldAnimationComponent>();
 		player->addComponent<ShieldComponent>();
 		pAnim->initComponent();
 		health->initComponent();

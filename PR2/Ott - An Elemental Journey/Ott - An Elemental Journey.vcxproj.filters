@@ -86,6 +86,8 @@
     <ClCompile Include="src\components\LoreRoom.cpp" />
     <ClCompile Include="src\components\FireBossRoom.cpp" />
     <ClCompile Include="src\components\waterDropComponent.cpp" />
+    <ClCompile Include="src\components\LifeShardFeedbackComponent.cpp" />
+    <ClCompile Include="src\components\ShieldAnimationComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\components\Image.h" />
@@ -192,6 +194,8 @@
     <ClInclude Include="src\components\FireBossRoom.h" />
     <ClInclude Include="src\components\waterDropComponent.h" />
     <ClInclude Include="src\components\SanctuaryAnimationComponent.h" />
+    <ClInclude Include="src\components\LifeShardFeedbackComponent.h" />
+    <ClInclude Include="src\components\ShieldAnimationComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="resources\config\ott.resources.mac.json" />
