@@ -23,7 +23,7 @@ MapComponent::MapComponent(Entity* fadeOut, PlayState* game, int currentMap) : f
     for (int i = 0; i < ecs::LAST_MAP_ID; ++i) {
         mapKeys.push_back({});
     }
-    currentMapKey = "waterMap";
+    currentMapKey = "earthMap";
     tilemap = &sdlutils().images().at(sdlutils().levels().at(currentMapKey).tileset);
 }
 
@@ -621,7 +621,6 @@ void MapComponent::loadMap(std::string path, int nextPos) {
                 auto it = (--v->end());
                 rock->getComponent<InteractionComponent>()->setIt(it, v);
                 rock->setActive(false);
-          
             }
             else if (ot.getClass() == "Spike") {
                 auto roomScale = vectorTiles[std::stoi(ot.getName())].first;

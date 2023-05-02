@@ -310,7 +310,7 @@
 		},
 		{
 			"id": "grass",
-			"file": "../resources/images/tests/grass-sheet.png",
+			"file": "../resources/images/tests/grass-sheet-1.png",
 			"rows": 1,
 			"cols": 4
 		},
