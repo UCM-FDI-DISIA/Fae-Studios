@@ -20,7 +20,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\components\LoreTextAnims.cpp" />
-    <ClCompile Include="src\components\SanctuaryAnimationComponent.cpp" />
     <ClCompile Include="src\components\LifeShardFeedbackComponent.cpp" />
     <ClCompile Include="src\components\FireBossRoom.cpp" />
     <ClCompile Include="src\components\LoreRoom.cpp" />

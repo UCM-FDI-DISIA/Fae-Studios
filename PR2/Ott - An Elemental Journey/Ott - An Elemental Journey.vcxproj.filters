@@ -86,7 +86,6 @@
     <ClCompile Include="src\components\LoreRoom.cpp" />
     <ClCompile Include="src\components\FireBossRoom.cpp" />
     <ClCompile Include="src\components\waterDropComponent.cpp" />
-    <ClCompile Include="src\components\SanctuaryAnimationComponent.cpp" />
     <ClCompile Include="src\components\LoreTextAnims.cpp" />
   </ItemGroup>
   <ItemGroup>

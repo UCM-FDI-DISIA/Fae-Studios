@@ -36,6 +36,8 @@ private:
 
 
     bool start = false;
+    bool PlayingLoreMusic = false;
+    bool PlayingNormalMusic = false;
     int timerAnim;
     int frameAnim = 0;
     Entity* cinema_;

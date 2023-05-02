@@ -378,6 +378,22 @@ void PlayState::update() {
         screenDarkener_->getComponent<ScreenDarkenerComponent>()->undarken();
         isScreenDarkened = false;
     }
+	if (map_->getCurrentRoom() == 10 && currentMap == ecs::EARTH_MAP) {
+		if (!PlayingLoreMusic) {
+			sdlutils().musics().at("earth_level").pauseMusic();
+			sdlutils().musics().at("lore_room").setMusicVolume(70);
+			sdlutils().musics().at("lore_room").play(-1);
+			PlayingLoreMusic = true; PlayingNormalMusic = false;
+		}
+	}
+	else {
+		PlayingLoreMusic = false;
+		if (!PlayingNormalMusic) {
+			sdlutils().musics().at("lore_room").haltMusic();
+			sdlutils().musics().at("earth_level").play();
+			PlayingNormalMusic = true;
+		}
+	}
 }
 
 void PlayState::AddEnredadera() {
