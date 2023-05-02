@@ -131,8 +131,6 @@ void PhysicsComponent::update() {
 		}
 	}
 	else setVelocity(Vector2D(0, 0));
-	if (ent_->hasComponent<PlayerInput>())
-		std::cout << "Physics speed: " << velocity_ << std::endl;
 }
 void PhysicsComponent::jump() {
 	if (!stopped) {

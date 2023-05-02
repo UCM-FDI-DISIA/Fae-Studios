@@ -80,11 +80,11 @@ namespace ecs {
         _grp_GROUND,
         _grp_VINE,
         _grp_INTERACTION,
+        _grp_CARTEL,
         _grp_CHARACTERS,
         _grp_PROYECTILES,
         _grp_WATER,
         _grp_MAP,
-        _grp_CARTEL,
         _grp_TRIGGER,
         _grp_PLATFORMS,
         _grp_UI, ///< Elementos de la interfaz gráfica

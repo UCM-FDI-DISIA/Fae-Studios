@@ -825,10 +825,28 @@
 			"cols": 11
 		},
 		{
+			"id": "ataqueCartel",
+			"file": "../resources/images/carteles/Ataque/ataqueCartel.png",
+			"rows": 1,
+			"cols": 20
+		},
+		{
+			"id": "powerElementoCartel",
+			"file": "../resources/images/carteles/PowerElemento/powerElementCartel.png",
+			"rows": 1,
+			"cols": 19
+		},
+		{
 			"id": "bossTierraCartel",
 			"file": "../resources/images/carteles/BossTierra.png",
 			"rows": 1,
 			"cols": 1
+		},
+		{
+			"id": "lookDownCartel",
+			"file": "../resources/images/carteles/cartellookdown/lookDown_cartel.png",
+			"rows": 1,
+			"cols": 19
 		},
 		{
 			"id": "platform",

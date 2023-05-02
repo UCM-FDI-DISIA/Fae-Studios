@@ -20,7 +20,7 @@ public:
 		SLIME_ANIM, EARTH_ATTACK, EARTHBOSSPRESENT, EARTHBOSSATTACK, 
 		WARNINGEARTH, PAUSE_ANIM, MINIPAUSE_ANIM, WATER_ATTACK, 
 		WATERBOSS_ANIM, LIFE_SHARD, CARTELMOVIMIENTO, CARTELLAMPARA, CARTELENREDADERA, 
-		CARTELELEMENTO, LORE_ANIM, FIREBOSS_ANIM, LAMP_ANIM, GRASS_ANIM, SANCTUARY_ANIM, RELIC};
+		CARTELELEMENTO, CARTELLOOKDOWN, CARTELATAQUE, CARTELPOWERCARTEL, LORE_ANIM, FIREBOSS_ANIM, LAMP_ANIM, GRASS_ANIM, SANCTUARY_ANIM, RELIC};
 	static std::vector<std::vector<animDescription>> animations;
 
 	class offsetPhysics {
@@ -46,6 +46,9 @@ private:
 	static std::vector<animDescription> lampara_cartel;
 	static std::vector<animDescription> enredadera_cartel;
 	static std::vector<animDescription> elemento_cartel;
+	static std::vector<animDescription> lookDown_cartel;
+	static std::vector<animDescription> ataque_cartel;
+	static std::vector<animDescription> powerElemento_cartel;
 	static std::vector<animDescription> texto_lore;
 	//ANIMACIONES RELACIONADAS CON LA BATALLA DEL BOSS DE TIERRA
 	static std::vector<animDescription> earthBossPresent_anims;

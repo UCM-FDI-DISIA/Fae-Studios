@@ -642,6 +642,15 @@ namespace constructors {
 		else if (numCartel == "elementoCartel") {
 			type = anims::CARTELELEMENTO;
 		}
+		else if (numCartel == "lookDownCartel") {
+			type = anims::CARTELLOOKDOWN;
+		}
+		else if (numCartel == "ataqueCartel") {
+			type = anims::CARTELATAQUE;
+		}
+		else if (numCartel == "powerElementoCartel") {
+			type = anims::CARTELPOWERCARTEL;
+		}
 		cartelObject->addComponent<FramedImage>(&sdlutils().images().at(numCartel), row, col);
 		if(numCartel != "bossTierraCartel")
 			cartelObject->addComponent<GeneralAnimationController>(type,cartelObject);

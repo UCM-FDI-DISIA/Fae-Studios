@@ -65,7 +65,6 @@ public:
         enemyIt[room].push_back(enemies[room].begin());
         if (enemy->hasComponent<EnemyAnimationComponent>()) enemy->getComponent<EnemyAnimationComponent>()->setPosInList(enemyIt[room].size() - 1, room);
         else if(enemy->hasComponent<FireBossAnimation>()) enemy->getComponent<FireBossAnimation>()->setPosInList(enemyIt[room].size() - 1, room);
-        
     };
 
     inline void addCarteles(Entity* cartel, int room) {
