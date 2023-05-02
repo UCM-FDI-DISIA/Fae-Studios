@@ -39,14 +39,12 @@ void EnemyAnimationComponent::update() {
 	timer_++;
 
 	if (damaged && currentAnimation != DIE_ENEMY) {
-		image->setRow(1);
+		cout << image->getCurrentRow() << endl;
 		damageTimer_ = SDL_GetTicks() - damageStartTime_;
-		if (damageTimer_ < maxDamagedTimer_ / 5) {
-			sdlutils().soundEffects().at("hitTaken").setVolume(100);
-			sdlutils().soundEffects().at("hitTaken").play(0, ecs::_channel_ENEMY_MELEE);
-		}
-		if (damageTimer_ >= maxDamagedTimer_) {
-			damaged = false;
+		if (damageTimer_ >= maxDamagedTimer_ / 3) {
+			damageStartTime_ = SDL_GetTicks();
+			if (image->getCurrentRow() - damageStrength == 2) damaged = false;
+			else image->setRow(image->getCurrentRow() + 1);
 		}
 	}
 	else { damageStartTime_ = SDL_GetTicks(); image->setRow(0); }
