@@ -77,6 +77,7 @@
     <ClCompile Include="src\components\WaterAnimationController.cpp" />
     <ClCompile Include="src\components\FlipComponent.cpp" />
     <ClCompile Include="src\components\FinalBossAnimation.cpp" />
+    <ClCompile Include="src\components\BubblePop.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\components\BlackHoleAnimationComp.h" />
@@ -176,6 +177,7 @@
     <ClInclude Include="src\components\WaterAnimationController.h" />
     <ClInclude Include="src\components\FlipComponent.h" />
     <ClInclude Include="src\components\FinalBossAnimation.h" />
+    <ClInclude Include="src\components\BubblePop.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="resources\config\ott.resources.mac.json" />

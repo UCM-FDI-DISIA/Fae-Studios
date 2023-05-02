@@ -15,6 +15,7 @@ public:
 
 	void deleteBlackHoles();
 	void deleteBubbles();
+	void deleteBubbleFromVec(Entity* bubble);
 	void deleteSpikes();
 	void deleteSpikeFromVec(Entity* spikes);
 private:

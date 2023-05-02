@@ -35,11 +35,9 @@ void FinalBossBehaviorComponent::update()
 		// Actualizamos 5 seg más
 		timeBetweenAttacks +=ATTACK_TIME;
 		//Switch de los diferentes ataques del boss
-		currentElement = 2;
 		switch (currentElement)
 		{
 		case 0: std::cout << "Ataque tierra boss final" << std::endl; spawnSpikes(); break;
-
 		case 1: std::cout << "Ataque agua boss final" << std::endl; spawnBubbles(); break;
 		case 2: std::cout << "Ataque fuego boss final" << std::endl; spawnFireWall(); break;
 		case 3: std::cout << "Ataque oscuridad boss final" << std::endl; spawnBlackHole();break;
@@ -176,4 +174,11 @@ void FinalBossBehaviorComponent::deleteSpikeFromVec(Entity* s)
 	spikes.erase(std::remove(spikes.begin(), spikes.end(), s), spikes.end());
 	std::cout << "Tam spikesVec: " << spikes.size() << std::endl;
 
+}
+
+void FinalBossBehaviorComponent::deleteBubbleFromVec(Entity* bubble) {
+
+	bubble->setActive(false);
+	spikes.erase(std::remove(bubbles.begin(), bubbles.end(), bubble), bubbles.end());
+	std::cout << "Tam BubblesVec: " << bubbles.size() << std::endl;
 }
