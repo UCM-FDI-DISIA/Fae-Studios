@@ -58,6 +58,7 @@ namespace ecs {
         _ATTRACTION,
         _FLIP,
         _DAMAGE_AREA,
+        _FINAL_BOSS_ANIMATION,
 
         _LAST_CMP_ID
     };

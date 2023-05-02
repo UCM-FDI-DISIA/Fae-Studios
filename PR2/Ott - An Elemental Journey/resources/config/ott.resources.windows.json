@@ -726,6 +726,12 @@
 			"file": "../resources/images/tests/Spike.png",
 			"rows": 1,
 			"cols": 1
+		},
+		{
+			"id":"finalBossSheet",
+			"file":"../resources/images/tests/BossFinal-sheet.png",
+			"rows":5,
+			"cols": 15
 		}
 
 

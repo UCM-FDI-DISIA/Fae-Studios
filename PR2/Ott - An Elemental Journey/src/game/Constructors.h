@@ -45,6 +45,7 @@
 #include "../components/WaterBossAnimationComponent.h"
 #include "../components/ShieldComponent.h"
 #include "../components/FinalBossBehaviorComponent.h"
+#include "../components/FinalBossAnimation.h"
 
 #include <string>
 #include <iostream>
@@ -269,8 +270,9 @@ namespace constructors {
 		auto b= mngr_->addEntity(ecs::_grp_MINIBOSS);
 		b->addComponent<Transform>(Vector2D(x, y), w, h);
 		//auto health = b->addComponent<Health>(5, ecs::Light, true); health->initComponent();
-		b->addComponent<Image>(&sdlutils().images().at("finalBoss"));
+		b->addComponent<FramedImage>(&sdlutils().images().at("finalBossSheet"),5, 15);
 		b->addComponent<FinalBossBehaviorComponent>(map_);
+		b->addComponent<FinalBossAnimation>(anims::FINALBOSS);
 		return b;
 	}
 	static inline Entity* camera(Manager* mngr_, int x, int y, int w, int h) {

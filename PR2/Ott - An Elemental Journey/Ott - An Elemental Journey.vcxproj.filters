@@ -75,6 +75,8 @@
     <ClCompile Include="src\components\VineManager.cpp" />
     <ClCompile Include="src\components\Trigger.cpp" />
     <ClCompile Include="src\components\WaterAnimationController.cpp" />
+    <ClCompile Include="src\components\FlipComponent.cpp" />
+    <ClCompile Include="src\components\FinalBossAnimation.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\components\BlackHoleAnimationComp.h" />
@@ -172,6 +174,8 @@
     <ClInclude Include="src\components\VineManager.h" />
     <ClInclude Include="src\components\Trigger.h" />
     <ClInclude Include="src\components\WaterAnimationController.h" />
+    <ClInclude Include="src\components\FlipComponent.h" />
+    <ClInclude Include="src\components\FinalBossAnimation.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="resources\config\ott.resources.mac.json" />
