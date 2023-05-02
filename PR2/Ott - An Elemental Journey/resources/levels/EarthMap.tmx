@@ -350,8 +350,6 @@
   <object id="535" name="5" type="Earth_Spike" x="2243.74" y="3229.53" width="187.088" height="38.1559"/>
   <object id="553" name="lamp5" type="Lamp_1" x="2752" y="2102.67" width="32" height="-2.27374e-13"/>
   <object id="554" name="lamp5" type="Lamp_1" x="3648" y="2102.67" width="32" height="-2.20268e-13"/>
-  <object id="559" name="2" type="Element_7" x="3823.33" y="3087.33" width="62.4488" height="63.1835"/>
-  <object id="561" name="3" type="Element_7" x="4096" y="2976" width="62.4488" height="63.1835"/>
   <object id="562" name="1" type="Relic_0" x="2301.66" y="831" width="70" height="70"/>
   <object id="566" name="5" type="Earth_Spike" x="2076.37" y="3230.6" width="165.279" height="38.6667"/>
   <object id="567" name="5" type="Earth_Spike" x="4166.46" y="2239.59" width="187.088" height="38.1559"/>
