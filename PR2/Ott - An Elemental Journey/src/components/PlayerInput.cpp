@@ -98,6 +98,13 @@ void PlayerInput::update()
 						attack = true;
 						attackTimer = SDL_GetTicks();
 					}
+					else if (!doingMeterAnim && (input->isKeyJustDown(SDLK_e) || (game().getIsJoystick() && SDL_GameControllerGetButton(game().getJoystick(), SDL_CONTROLLER_BUTTON_X))) && attack ) {
+						AttackCharger* pChargedAttackComp = ent_->getComponent<AttackCharger>();
+						if (pChargedAttackComp->hasChargedAttack()) {
+							pChargedAttackComp->doAnim();
+							doingMeterAnim = true;
+						}
+					}
 					if ((input->isKeyDown(SDLK_2) || (game().getIsJoystick() && SDL_GameControllerGetButton(game().getJoystick(), SDL_CONTROLLER_BUTTON_RIGHTSHOULDER))) && earth && !selectedEarth) {
 						//Cambio elemento
 						anim_->changeElem(ecs::Earth);
@@ -181,12 +188,14 @@ void PlayerInput::update()
 						AttackCharger* pChargedAttackComp = ent_->getComponent<AttackCharger>();
 						bool canChargeAttack = pChargedAttackComp->hasChargedAttack();
 						bool isCharged = (canChargeAttack && SDL_GetTicks() - attackTimer >= chargedAttackTime * 1000);
+
 						anim_->setState(ATTACK);
 						attack_->startAttack(isCharged);
 						if (isCharged) {
 							int& numCharges = pChargedAttackComp->getCharge(); numCharges = 0;
 							pChargedAttackComp->resetCharges();
 						}
+						doingMeterAnim = false;
 					}
 				}
 				if (input->isKeyJustUp(SDLK_r)) {

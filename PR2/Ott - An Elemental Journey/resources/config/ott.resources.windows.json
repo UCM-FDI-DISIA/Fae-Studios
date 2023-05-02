@@ -7,6 +7,7 @@
 		{ "id" : "vcr_osd16", "file" : "../resources/fonts/vcr_osd_mono.ttf", "size": 16 },
 		{ "id" : "vcr_osd24", "file" : "../resources/fonts/vcr_osd_mono.ttf", "size": 24 },
 		{ "id" : "vcr_osd48", "file" : "../resources/fonts/vcr_osd_mono.ttf", "size": 48 },
+		{ "id" : "press_start8", "file" : "../resources/fonts/PressStart2P-Regular.ttf", "size": 8 },
 		{ "id" : "press_start16", "file" : "../resources/fonts/PressStart2P-Regular.ttf", "size": 16 },
 		{ "id" : "press_start24", "file" : "../resources/fonts/PressStart2P-Regular.ttf", "size": 24 },
 		{ "id" : "press_start48", "file" : "../resources/fonts/PressStart2P-Regular.ttf", "size": 48 }
@@ -167,7 +168,7 @@
 			"id": "chargebar",
 			"file": "../resources/images/ui/charged-bar.png",
 			"rows": 1,
-			"cols": 9
+			"cols": 23
 		},
 		{
 			"id": "hearts",

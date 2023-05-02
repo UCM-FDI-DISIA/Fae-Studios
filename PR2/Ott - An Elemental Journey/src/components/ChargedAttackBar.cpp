@@ -6,5 +6,34 @@ void ChargedAttackBar::render() {
 	tmp.x += 90;
 	tmp.w = texture_->getFrameWidth() * 2.25;
 	tmp.h = texture_->getFrameHeight() * 2.25;
-	texture_->renderFrame(tmp, 0, charges_);
+	texture_->renderFrame(tmp, 0, frame_);
+}
+
+void ChargedAttackBar::update() {
+	if (charges_ < 8) {
+		count_ = 1;
+		frame_ = charges_;
+	}
+	else {
+		if (!anim_) {
+			frame_ = charges_ + count_;
+			if (SDL_GetTicks() - FRAME_TIME >= ticks_) {
+				if (glowing_) count_++;
+				else count_--;
+
+				ticks_ = SDL_GetTicks();
+			}
+		}
+		else {
+			frame_ = charges_ + ticksCount_;
+			if (SDL_GetTicks() - FRAME_TIME >= ticks_) {
+				if (ticksCount_ < 14) ticksCount_++;
+				ticks_ = SDL_GetTicks();
+			}
+		}
+	}
+
+
+	if (frame_ == 13) glowing_ = false;
+	else if (frame_ == 9) glowing_ = true;
 }
