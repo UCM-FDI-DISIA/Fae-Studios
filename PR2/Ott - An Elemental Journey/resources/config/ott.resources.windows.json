@@ -883,6 +883,30 @@
 			"file": "../resources/images/tests/ReliquiaFuego.png",
 			"rows": 1,
 			"cols": 8
+		},
+		{
+			"id": "ott_luz_relic",
+			"file": "../resources/images/tests/Ott_Luz_Relic.png",
+			"rows": 12,
+			"cols": 8
+		},
+		{
+			"id": "ott_tree_relic",
+			"file": "../resources/images/tests/Ott_Tree_Relic.png",
+			"rows": 12,
+			"cols": 8
+		},
+		{
+			"id": "ott_water_relic",
+			"file": "../resources/images/tests/Ott_Water_Relic.png",
+			"rows": 12,
+			"cols": 8
+		},
+		{
+			"id": "ott_fire_relic",
+			"file": "../resources/images/tests/Ott_Fire_Relic.png",
+			"rows": 12,
+			"cols": 8
 		}
 	],
 
@@ -918,7 +942,10 @@
 		{ "id" : "menemy_step", "file" : "../resources/sound/bicho_paso.wav"},
 		{ "id" : "menemy_attack", "file" : "../resources/sound/bicho_slash.wav"},
 		{ "id" : "hitTaken", "file" : "../resources/sound/hitTaken.wav"},
-		{ "id" : "menemy_dead", "file" : "../resources/sound/bicho_muerte.wav"}
+		{ "id" : "menemy_dead", "file" : "../resources/sound/bicho_muerte.wav"},
+		{ "id" : "relic_transformation", "file" : "../resources/sound/relic_transformation.wav"},
+		{ "id" : "relic_wink", "file" : "../resources/sound/relic_wink.wav"}
+
   ],
 
   "musics" : [

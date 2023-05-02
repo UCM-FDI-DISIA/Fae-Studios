@@ -793,6 +793,48 @@
 			"file": "../Ott - An Elemental Journey/resources/images/tests/Hanging_Spike.png",
 			"rows": 1,
 			"cols": 1
+		},
+		{
+			"id": "earth_relic",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/ReliquiaTierra.png",
+			"rows": 1,
+			"cols": 8
+		},
+		{
+			"id": "water_relic",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/ReliquiaAgua.png",
+			"rows": 1,
+			"cols": 8
+		},
+		{
+			"id": "fire_relic",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/ReliquiaFuego.png",
+			"rows": 1,
+			"cols": 8
+		},
+		{
+			"id": "ott_luz_relic",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/Ott_Luz_Relic.png",
+			"rows": 12,
+			"cols": 8
+		},
+		{
+			"id": "ott_tree_relic",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/Ott_Tree_Relic.png",
+			"rows": 12,
+			"cols": 8
+		},
+		{
+			"id": "ott_water_relic",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/Ott_Water_Relic.png",
+			"rows": 12,
+			"cols": 8
+		},
+		{
+			"id": "ott_fire_relic",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/Ott_Fire_Relic.png",
+			"rows": 12,
+			"cols": 8
 		}
 	],
   "messages" : [],

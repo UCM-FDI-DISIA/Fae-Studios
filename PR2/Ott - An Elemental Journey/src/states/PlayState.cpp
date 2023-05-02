@@ -30,6 +30,7 @@
 #include "../components/ElementObject.h"
 #include <iostream>
 #include "../components/ScreenDarkenerComponent.h"
+#include "../components/FramedImage.h"
 
 PlayState::PlayState() : GameState(ecs::_state_PLAY) {
 	currentMap = ecs::EARTH_MAP;
@@ -381,9 +382,11 @@ void PlayState::AddLifeShard(int id) {
 }
 
 void PlayState::AddRelic(ecs::elements id) {
+	sdlutils().soundEffects().at("relic_wink").setVolume(100);
+	sdlutils().soundEffects().at("relic_wink").play(1, ecs::_channel_PLAYER);
 	std::cout << "reliquia recogida" << std::endl;
 	relicsCollected++;
-	if(relicsCollected >= 3) std::cout << "todas las reliquias recogidas" << std::endl;
+	if (relicsCollected >= 3) player_->getComponent<FramedImageOtt>()->hasAllRelics();
 }
 
 // AQUÍ SE GUARDA PARTIDA

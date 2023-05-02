@@ -59,6 +59,7 @@
 #include "../components/PlatformMovementX.h"
 #include "../components/FireBossRoom.h"
 #include "../components/LifeShardFeedbackComponent.h"
+#include "../components/GeneralAnimationController.h"
 #include <string>
 #include <iostream>
 #include <functional>
@@ -428,7 +429,7 @@ namespace constructors {
 			break;
 		}
 		relic->addComponent<FramedImage>(&sdlutils().images().at(key), 1, 10);
-		relic->addComponent<LifeAnimationComponent>();
+		relic->addComponent<GeneralAnimationController>(anims::RELIC, relic);
 		//relic->addComponent<ElementObject>(relicType);
 		auto cb = [relicType]() {
 			static_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->AddRelic(relicType);
