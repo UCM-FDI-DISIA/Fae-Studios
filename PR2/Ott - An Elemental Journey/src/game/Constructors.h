@@ -497,11 +497,12 @@ namespace constructors {
 		boss->addComponent<PhysicsComponent>(colliders::OTT);
 		boss->getComponent<PhysicsComponent>()->createCollider();
 		boss->addComponent<FramedImage>(&sdlutils().images().at("fireBoss"), 5, 13);
-		auto healthBar = mngr_->addEntity(ecs::_grp_UI);
-		healthBar->addComponent<BossHealthBar>(boss, (int)ecs::Fire, &sdlutils().images().at("bossHealthBar"), &sdlutils().images().at("bossLife"));
+		//auto healthBar = mngr_->addEntity(ecs::_grp_UI);
+		//healthBar->addComponent<BossHealthBar>(boss, (int)ecs::Fire, &sdlutils().images().at("bossHealthBar"), &sdlutils().images().at("bossLife"));
 		auto anim=boss->addComponent<FireBossAnimation>(anims::FIREBOSS_ANIM, map);
 		boss->getComponent<FireBossComponent>()->setAnimComponent(anim);
-		boss->addComponent<Health>(healthBar->getComponent<BossHealthBar>(), 25, ecs::Fire, false);
+		boss->addComponent<Health>(20, ecs::Fire, false);
+		//boss->addComponent<Health>(healthBar->getComponent<BossHealthBar>(), 25, ecs::Fire, false);
 		return boss;
 	}
 
