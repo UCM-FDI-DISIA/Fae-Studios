@@ -32,6 +32,13 @@ private:
     float gravityValue = 0.2;
 
     bool isScreenDarkened = false;
+    int relicsCollected = 0;
+
+
+    bool start = false;
+    int timerAnim;
+    int frameAnim = 0;
+    Entity* cinema_;
 
 public:
     /// Constructora del estado de juego
@@ -132,6 +139,7 @@ public:
     void AddEnredadera();
     void startLore();
     void AddLifeShard(int id);
+    void AddRelic(ecs::elements relic);
     void Teleport();
     void Save();
     void UnlockElement(ecs::elements elem);
@@ -141,4 +149,6 @@ public:
     inline ecs::maps getCurrentMap() { return currentMap; }
     inline void changeMap(int map) { currentMap = (ecs::maps)map; enemies.clear(); 
         initialEnemies.clear(); enemyIt.clear(); };
+
+    inline void cinematic();
 };

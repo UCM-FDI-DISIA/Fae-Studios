@@ -59,6 +59,8 @@
 #include "../components/PlatformMovementX.h"
 #include "../components/FireBossRoom.h"
 #include "../components/LoreTextAnims.h"
+#include "../components/LifeShardFeedbackComponent.h"
+#include "../components/GeneralAnimationController.h"
 #include <string>
 #include <iostream>
 #include <functional>
@@ -87,12 +89,12 @@ namespace constructors {
 		auto ph2 = enemy2->addComponent<PhysicsComponent>(colliders::RANGE);
 		enemy2->addComponent<Transform>(x, y, 110 * scale, 110 * scale); // 1700 1800 pos para pruebas
 		ph2->createCollider();
-		auto fi = enemy2->addComponent<FramedImage>(&sdlutils().images().at(imageKey), 2, 22);
+		auto fi = enemy2->addComponent<FramedImage>(&sdlutils().images().at(imageKey), 13, 22);
 		fi->flipTexture(!lookingRight);
 		enemy2->addComponent<Health>(5, el, false);
 		ph2->setVelocity({ 0,0 });
 		ph2->lookDirection(lookingRight);
-		auto eAttack_2 = enemy2->addComponent<EnemyAttack>(1200, 400);
+		auto eAttack_2 = enemy2->addComponent<EnemyAttack>(800, 800);
 		auto eAnim_2 = enemy2->addComponent<EnemyAnimationComponent>(anims::RANGE_ANIM);
 		auto attack_2 = enemy2->addComponent<EnemyShootingAttack>();
 		enemy2->addComponent<EnemyContactDamage>();
@@ -107,7 +109,7 @@ namespace constructors {
 		auto ph3 = enemy3->addComponent<PhysicsComponent>(colliders::MELEE);
 		enemy3->addComponent<Transform>(x, y, 230 * scale, 130 * scale);  // 2400 1800 pos para pruebas
 		ph3->createCollider();
-		auto fi = enemy3->addComponent<FramedImage>(&sdlutils().images().at(imageKey), 2, 21);
+		auto fi = enemy3->addComponent<FramedImage>(&sdlutils().images().at(imageKey), 13, 21);
 		fi->flipTexture(!lookingRight);
 		enemy3->addComponent<Health>(5, el, false);
 		float dir = 0;
@@ -151,7 +153,7 @@ namespace constructors {
 		auto ph = enemy->addComponent<PhysicsComponent>(colliders::SLIME);
 		auto tr = enemy->addComponent<Transform>(Vector2D(x, y), 120*gens * scale, 70*gens * scale);
 		ph->createCollider();
-		auto fi = enemy->addComponent<FramedImage>(&sdlutils().images().at(imageKey), 2, 21);
+		auto fi = enemy->addComponent<FramedImage>(&sdlutils().images().at(imageKey), 13, 21);
 		fi->flipTexture(!lookingRight);
 		enemy->addComponent<Health>(5, el, false);
 		float dir = 0;
@@ -197,7 +199,7 @@ namespace constructors {
 		auto ph = enemy->addComponent<PhysicsComponent>(colliders::SLIME);
 		auto tr = enemy->addComponent<Transform>(Vector2D(x, y), 360 * scale, 210 * scale);
 		ph->createCollider();
-		auto fi = enemy->addComponent<FramedImage>(tex, 2, 21);
+		auto fi = enemy->addComponent<FramedImage>(tex, 13, 21);
 		fi->flipTexture(!lookingRight);
 		enemy->addComponent<Health>(lives, el, false);
 		float dir = 0;
@@ -418,6 +420,31 @@ namespace constructors {
 		return element;
 	}
 
+	static inline Entity* relic(Manager* mngr_, int x, int y, int w, int h, ecs::elements relicType, int room) {
+		auto relic = mngr_->addEntity(ecs::_grp_INTERACTION);
+		relic->addComponent<Transform>(Vector2D(x, y), w, h);
+		std::string key;
+		switch (relicType) {
+		case ecs::Earth:
+			key = "earth_relic";
+			break;
+		case ecs::Water:
+			key = "water_relic";
+			break;
+		case ecs::Fire:
+			key = "fire_relic";
+			break;
+		}
+		relic->addComponent<FramedImage>(&sdlutils().images().at(key), 1, 10);
+		relic->addComponent<GeneralAnimationController>(anims::RELIC, relic);
+		//relic->addComponent<ElementObject>(relicType);
+		auto cb = [relicType]() {
+			static_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->AddRelic(relicType);
+		};
+		relic->addComponent<InteractionComponent>(cb, RELIC_IT, relicType, room, true);
+
+		return relic;
+	}
 
 	static inline std::pair<Entity*, Entity*> lamp(Manager* mngr_, int x1, int y1, int w1, int h1, int room1, int x2, int y2, int w2, int h2, int room2, int ID1, int ID2) {
 		auto lamp = mngr_->addEntity(ecs::_grp_INTERACTION);
@@ -494,7 +521,7 @@ namespace constructors {
 
 		auto box0 = mngr_->addEntity(ecs::_grp_GENERAL);
 		x += 2800;
-		box0->addComponent<Transform>(x, y + 100, 100, 100);
+		box0->addComponent<Transform>(x, y +  100, 100, 100);
 		//box0->addComponent<Image>(&sdlutils().images().at("box"));
 		box0->addComponent<Pivot>(waterBoss, 0, map);
 
@@ -619,6 +646,19 @@ namespace constructors {
 		if(numCartel != "bossTierraCartel")
 			cartelObject->addComponent<GeneralAnimationController>(type,cartelObject);
 		return cartelObject;
+	}
+
+	static inline auto lifeShardFeedbackTextEntity(Manager* mngr_, const Vector2D& position, bool oneHalf) {
+		auto t = mngr_->addEntity(ecs::_grp_UI);
+		std::string txt;
+		if (oneHalf) txt = "1/2";
+		else txt = "2/2";
+		SDL_Color rojo = { 255,0,0,255 };
+		t->addComponent<TextComponent>(txt, sdlutils().fonts().at("press_start48"), rojo, transparente);
+		Vector2D textPos = Vector2D(position.getX() - t->getComponent<TextComponent>()->getWidth() / 2, position.getY() - 10.0f);
+		t->getComponent<TextComponent>()->setPosition(textPos);
+		t->addComponent<LifeShardFeedbackComponent>();
+		return t;
 	}
 }
 

@@ -4,6 +4,7 @@
 #include "Transform.h"
 #include "../sdlutils/SDLUtils.h"
 #include "CameraComponent.h"
+#include "PlayerInput.h"
 #include "../states/GameStateMachine.h"
 #include "../states/PlayState.h"
 #include "Health.h"
@@ -58,8 +59,9 @@ void PhysicsComponent::update() {
 	if (!stopped) {
 
 		//ascenso progresivo en el agua cuando tiene otros elementos
-		if (inWater && ent_->getComponent<Health>()->getElement() != ecs::Water)
+		if (!ceiling&&inWater && ent_->getComponent<Health>()->getElement() != ecs::Water)
 		{
+			//if(ent_->hasComponent<PlayerAnimationComponent>())std:cout << ceiling << std::endl;
 			//ajustes velocidad vertical cuando entra por arriba/lados
 			if (!floating)
 			{
@@ -68,13 +70,15 @@ void PhysicsComponent::update() {
 				velocity_ = Vector2D(velocity_.getX(), verticalSpeed);
 				return;
 			}
-			//solo se asigna la velocidad en floating si no esta intenbtando saltar
-			else if (floating && verticalSpeed < 0) { if (!isJumpingF)verticalSpeed = -0.1; }
-			else { if (!isJumpingF)verticalSpeed = 0.1; }
-			//si desciende ya ha terminado el salto en la superficie
-			if (verticalSpeed > 0) { isJumpingF = false; }
-		}
-
+			else
+			{
+				//solo se asigna la velocidad en floating si no esta intenbtando saltar
+				if (floating && verticalSpeed < 0) { if (!isJumpingF) verticalSpeed = -0.1; }
+				else { if (!isJumpingF)verticalSpeed = 0.1; }
+				//si desciende ya ha terminado el salto en la superficie
+				if (verticalSpeed > 0) { isJumpingF = false; }
+			}
+		} 
 		if (climbing && ent_->getComponent<Health>()->getHealth() > 0) {
 			grounded = true;
 			velocity_ = Vector2D(velocity_.getX(), dirClimbing);
@@ -85,7 +89,7 @@ void PhysicsComponent::update() {
 			{
 				if ((!floating || floating && verticalSpeed > 0) || ent_->getComponent<Health>()->getElement() == ecs::Water)
 				{
-					verticalSpeed += 0.07;
+					verticalSpeed += 0.07; 
 				}
 			}
 			else
@@ -100,7 +104,7 @@ void PhysicsComponent::update() {
 				if (velocity_.getY() > -1 && velocity_.getY() < 0) {
 					verticalSpeed += gravityValue / 2;
 				}
-				else verticalSpeed += gravityValue;
+				else { verticalSpeed += gravityValue; }
 			}
 			if (verticalSpeed > MAX_VERTICAL_SPEED) verticalSpeed = MAX_VERTICAL_SPEED;
 			velocity_ = Vector2D(velocity_.getX(), verticalSpeed);
@@ -127,6 +131,8 @@ void PhysicsComponent::update() {
 		}
 	}
 	else setVelocity(Vector2D(0, 0));
+	if (ent_->hasComponent<PlayerInput>())
+		std::cout << "Physics speed: " << velocity_ << std::endl;
 }
 void PhysicsComponent::jump() {
 	if (!stopped) {

@@ -20,7 +20,8 @@ public:
 		SLIME_ANIM, EARTH_ATTACK, EARTHBOSSPRESENT, EARTHBOSSATTACK, 
 		WARNINGEARTH, PAUSE_ANIM, MINIPAUSE_ANIM, WATER_ATTACK, 
 		WATERBOSS_ANIM, LIFE_SHARD, CARTELMOVIMIENTO, CARTELLAMPARA, CARTELENREDADERA, 
-		CARTELELEMENTO, LORE_ANIM, FIREBOSS_ANIM, LAMP_ANIM, GRASS_ANIM, SANCTUARY_ANIM};
+		CARTELELEMENTO, LORE_ANIM, FIREBOSS_ANIM, LAMP_ANIM, GRASS_ANIM, SANCTUARY_ANIM, RELIC};
+		CARTELELEMENTO, FIREBOSS_ANIM, LAMP_ANIM, GRASS_ANIM, SANCTUARY_ANIM, RELIC };
 	static std::vector<std::vector<animDescription>> animations;
 
 	class offsetPhysics {
@@ -35,6 +36,7 @@ public:
 private:
 	static std::vector<animDescription> ott_anims;
 	static std::vector<animDescription> lifeshard_anims;
+	static std::vector<animDescription> relic_anims;
 	static std::vector<animDescription> melee_anims;
 	static std::vector<animDescription> range_anims;
 	static std::vector<animDescription> slime_anims;

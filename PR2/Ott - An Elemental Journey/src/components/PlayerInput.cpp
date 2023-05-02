@@ -7,13 +7,14 @@
 
 PlayerInput::PlayerInput()
 {
-	earth = false;
-	water = false;
-	fire = false;
+	earth = true;
+	water = true;
+	fire = true;
 }
 
 void PlayerInput::initComponent()
 {
+	sdlutils().soundEffects().at("elem_changed").setVolume(30);
 	physics_ = ent_->getComponent<PhysicsComponent>();
 	anim_ = ent_->getComponent<PlayerAnimationComponent>();
 	attack_ = ent_->getComponent<PlayerAttack>();
@@ -60,9 +61,9 @@ void PlayerInput::update()
 					else if (SDL_GameControllerGetButton(game().getJoystick(), SDL_CONTROLLER_BUTTON_B) == 0)
 						physics_->jump();
 				}
-				if (input->isKeyDown(SDLK_q)) {
-					ent_->getComponent<AttackCharger>()->addCharge(8);
-				}
+				//if (input->isKeyDown(SDLK_q)) {
+				//	ent_->getComponent<AttackCharger>()->addCharge(8);
+				//}
 				if (canInteract && (input->isKeyDown(SDLK_f) || (game().getIsJoystick() && SDL_GameControllerGetButton(game().getJoystick(), SDL_CONTROLLER_BUTTON_Y)))) {
 					//Recuperar vidas
 					static_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->interact();
@@ -96,6 +97,13 @@ void PlayerInput::update()
 						//Ataque
 						attack = true;
 						attackTimer = SDL_GetTicks();
+					}
+					else if (!doingMeterAnim && (input->isKeyJustDown(SDLK_e) || (game().getIsJoystick() && SDL_GameControllerGetButton(game().getJoystick(), SDL_CONTROLLER_BUTTON_X))) && attack ) {
+						AttackCharger* pChargedAttackComp = ent_->getComponent<AttackCharger>();
+						if (pChargedAttackComp->hasChargedAttack()) {
+							pChargedAttackComp->doAnim();
+							doingMeterAnim = true;
+						}
 					}
 					if ((input->isKeyDown(SDLK_2) || (game().getIsJoystick() && SDL_GameControllerGetButton(game().getJoystick(), SDL_CONTROLLER_BUTTON_RIGHTSHOULDER))) && earth && !selectedEarth) {
 						//Cambio elemento
@@ -180,12 +188,14 @@ void PlayerInput::update()
 						AttackCharger* pChargedAttackComp = ent_->getComponent<AttackCharger>();
 						bool canChargeAttack = pChargedAttackComp->hasChargedAttack();
 						bool isCharged = (canChargeAttack && SDL_GetTicks() - attackTimer >= chargedAttackTime * 1000);
+
 						anim_->setState(ATTACK);
 						attack_->startAttack(isCharged);
 						if (isCharged) {
 							int& numCharges = pChargedAttackComp->getCharge(); numCharges = 0;
 							pChargedAttackComp->resetCharges();
 						}
+						doingMeterAnim = false;
 					}
 				}
 				if (input->isKeyJustUp(SDLK_r)) {

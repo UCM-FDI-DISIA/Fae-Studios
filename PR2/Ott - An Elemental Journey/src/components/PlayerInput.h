@@ -95,6 +95,7 @@ private:
 	int stunnedTime = 2, timerStunned;
 	bool stopped = false;
 	bool lookingdown = false;
+	bool doingMeterAnim = false;
 };
 
 

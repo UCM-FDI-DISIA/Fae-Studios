@@ -28,11 +28,30 @@ public:
 	inline int getRowNum(int i) { return anims::animations[eAnims][i].rowNum; }
 	inline int getColNum(int i) { return anims::animations[eAnims][i].colNum; }
 	inline bool isDamaged() { return damaged; }
-	inline void damage() { damaged = true; }
+	inline void damage(int strength) { damaged = true; 
+		switch (strength) {
+			case 2:
+				damageStrength = 1;
+				break;
+			case 1:
+				damageStrength = 4;
+				break;
+			case 0:
+				damageStrength = 7;
+				break;
+			case -1:
+				damageStrength = 10;
+				break;
+		}
+		image->setRow(damageStrength);
+
+	}
+
 	inline void setPosInList(int pos, int room) { posInList = pos; roomNum = room; }
 
 private:
 	bool damaged = false;
+	int damageStrength = -1;
 	int currentAnimation = IDLE_ENEMY;
 	anims::Entities eAnims;
 	FramedImage* image;
@@ -43,5 +62,5 @@ private:
 	int posInList, roomNum;
 
 	int damageTimer_, damageStartTime_, timer_ = 0;
-	const int maxDamagedTimer_ = 500, FRAME_ANIMATION_TIME = 6;
+	const int maxDamagedTimer_ = 400, FRAME_ANIMATION_TIME = 6;
 };
