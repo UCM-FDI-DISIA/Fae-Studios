@@ -61,6 +61,7 @@
 #include "../components/FireBossRoom.h"
 #include "../components/LifeShardFeedbackComponent.h"
 #include "../components/GeneralAnimationController.h"
+#include "../components/BossHealthBar.h"
 #include <string>
 #include <iostream>
 #include <functional>
@@ -365,7 +366,8 @@ namespace constructors {
 
 	static inline Entity* grass(Manager* mngr_, Vector2D position, int widthVine, int heightVine, Vector2D posiniVine, Vector2D posfinVine, int ID, int room, int width = 60, int height = 60) {
 		auto grass = mngr_->addEntity(ecs::_grp_INTERACTION);
-		grass->addComponent<Transform>(position, width, height);
+		auto scale = 1.45f;
+		grass->addComponent<Transform>(position - Vector2D(width * scale / 4, height*scale/4), width * scale, height * scale);
 		grass->addComponent<FramedImage>(&sdlutils().images().at("grass"), 1, 4);
 		grass->addComponent<VineManager>(NORMAL, posiniVine, posfinVine, -1, 0, widthVine, heightVine, 2);
 		grass->getComponent<VineManager>()->createVine();
@@ -495,10 +497,11 @@ namespace constructors {
 		boss->addComponent<PhysicsComponent>(colliders::OTT);
 		boss->getComponent<PhysicsComponent>()->createCollider();
 		boss->addComponent<FramedImage>(&sdlutils().images().at("fireBoss"), 5, 13);
-		
+		auto healthBar = mngr_->addEntity(ecs::_grp_UI);
+		healthBar->addComponent<BossHealthBar>(boss, (int)ecs::Fire, &sdlutils().images().at("bossHealthBar"), &sdlutils().images().at("bossLife"));
 		auto anim=boss->addComponent<FireBossAnimation>(anims::FIREBOSS_ANIM, map);
 		boss->getComponent<FireBossComponent>()->setAnimComponent(anim);
-		boss->addComponent<Health>(25, ecs::Fire, false);
+		boss->addComponent<Health>(healthBar->getComponent<BossHealthBar>(), 25, ecs::Fire, false);
 		return boss;
 	}
 

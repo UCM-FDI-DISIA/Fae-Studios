@@ -50,6 +50,10 @@ public:
 	inline void setHealth(int health) { actualLife = health; }
 	inline std::string getLifeShardIDs() { return lifeShardIDs; }
 	inline ecs::elements getElement() { return elem; }
+	inline void setNewInitialPos(Vector2D newPos) {
+		sanctuaryID = -1;
+		ent_->getComponent<Transform>()->setInitialPosition(newPos);
+	}
 	inline void setElement(int newElem) {
 		switch (newElem)
 		{

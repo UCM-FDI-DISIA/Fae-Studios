@@ -6,7 +6,7 @@
 
 class BossHealthBar : public Component
 {
-	enum Boss{Earth = 1, Water = 2, Fire = 3};
+	enum Boss{Earth = 1, Water = 2, Fire = 3, Final = 4};
 public:
 	constexpr static ecs::cmpId_type id = ecs::_HEALTH_IMAGE;
 	BossHealthBar(int actualBoss_, Texture* bar, Texture* life) : actualBoss((Boss)actualBoss_), barTx(bar), lifeTx(life) {}

@@ -26,6 +26,7 @@ public:
 	}
 	inline bool animDone() const { return chargedBar_->animDone(); }
 	inline bool hasChargedAttack() { return currentCharge >= maxCharge; }
+	inline void resetAnim() { chargedBar_->resetChargeBarAnim(); }
 	constexpr static ecs::cmpId_type id = ecs::_CHARGED_ATTACK;
 };
 

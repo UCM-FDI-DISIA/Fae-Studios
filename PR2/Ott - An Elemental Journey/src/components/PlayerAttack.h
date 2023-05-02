@@ -33,16 +33,25 @@ public:
 	inline void deleteEarthAttack()
 	{
 		earthAttackActive = false;
-		tAttack->setAlive(false);
-
-		if (chargedAttack)
-			tAttack2->setAlive(false);
+		if (tAttack != nullptr) {
+			tAttack->setAlive(false);
+			tAttack = nullptr;
+			if (chargedAttack)
+				tAttack2->setAlive(false);
+		}
 	}
 
 	inline void deleteWaterAttack()
 	{
-		waterAttackActive = false;
-		wAttack->setAlive(false);
+		if (wAttack != nullptr) {
+			waterAttackActive = false;
+			wAttack->setAlive(false);
+			wAttack = nullptr;
+		}
+	}
+	inline void deteleAttacks() {
+		deleteEarthAttack();
+		deleteWaterAttack();
 	}
 
 	inline void startAttack(bool charged) {
