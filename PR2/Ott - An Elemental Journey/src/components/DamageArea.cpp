@@ -19,16 +19,18 @@ void DamageArea::update()
 		{
 			SDL_Rect r3 = f->getComponent<Transform>()->getRect();
 			Bullet* b = f->getComponent<Bullet>();
-			if (SDL_HasIntersection(&r3, &dArea) && b->getInstigator()->hasComponent<PlayerInput>())
+			if (b!= nullptr && SDL_HasIntersection(&r3, &dArea) && b->getInstigator()->hasComponent<PlayerInput>())
 			{
-				ent_->setActive(false);
+				if (bossBehaComp_ == nullptr)ent_->setActive(false);
+				else bossBehaComp_->deleteSpikeFromVec(ent_);
+				f->setActive(false);
 			}
 		}
 	}
-	if (SDL_GetTicks() - spawnTime >= lifeTime) {
+	if (bossBehaComp_ != nullptr && SDL_GetTicks() - spawnTime >= lifeTime) {
 
 		//Se mata pasados unos segundos
-		//bossBehaComp_->deleteSpikes();
+		bossBehaComp_->deleteSpikes();
 	}
 }
 void DamageArea::initComponent()

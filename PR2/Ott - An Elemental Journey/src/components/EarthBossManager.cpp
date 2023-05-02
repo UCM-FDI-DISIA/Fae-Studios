@@ -7,7 +7,6 @@
 #include "EarthBossAttack.h"
 #include "Health.h"
 #include <time.h>
-#include "Health.h"
 #include "Trigger.h"
 #include "EnterBossRoom.h"
 void EarthBossManager::initComponent() {

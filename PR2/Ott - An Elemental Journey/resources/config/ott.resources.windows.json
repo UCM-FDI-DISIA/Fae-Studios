@@ -728,9 +728,15 @@
 			"cols": 1
 		},
 		{
-			"id":"finalBossSheet",
-			"file":"../resources/images/tests/BossFinal-sheet.png",
-			"rows":5,
+			"id": "hangingSpike",
+			"file": "../resources/images/tests/Hanging_Spike.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "finalBossSheet",
+			"file": "../resources/images/tests/BossFinal-sheet.png",
+			"rows": 5,
 			"cols": 15
 		}
 

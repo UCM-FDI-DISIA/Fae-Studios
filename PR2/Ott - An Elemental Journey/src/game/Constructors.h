@@ -271,6 +271,11 @@ namespace constructors {
 		b->addComponent<Transform>(Vector2D(x, y), w, h);
 		//auto health = b->addComponent<Health>(5, ecs::Light, true); health->initComponent();
 		b->addComponent<FramedImage>(&sdlutils().images().at("finalBossSheet"),5, 15);
+		/*auto health = */ b->addComponent<Health>(5, ecs::Light, true); //health->initComponent();
+
+		/*auto healthBar = mngr_->addEntity(ecs::_grp_UI);
+		healthBar->addComponent<BossHealthBar>(4, &sdlutils().images().at("bossHealthBar"), &sdlutils().images().at("bossLife"));
+		b->addComponent<Health>(healthBar->getComponent<BossHealthBar>(), 5, ecs::Light, true);*/
 		b->addComponent<FinalBossBehaviorComponent>(map_);
 		b->addComponent<FinalBossAnimation>(anims::FINALBOSS);
 		return b;

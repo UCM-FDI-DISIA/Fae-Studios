@@ -56,7 +56,7 @@ PlayState::PlayState() : GameState(ecs::_state_PLAY) {
 	map_ = constructors::map(mngr_, this, (int)(currentMap))->getComponent<MapComponent>();
 	initialEnemies = enemies;
 
-	auto boss = constructors::boss(mngr_, map_, 700, 1900, 700, 620);
+	//auto boss = constructors::boss(mngr_, map_, 700, 1900, 700, 620);
 }
 
 PlayState::PlayState(std::string fileName) : GameState(ecs::_state_PLAY) {
@@ -189,6 +189,10 @@ void PlayState::checkCollisions(std::list<Entity*> entities) {
 					}
 				}
 				if (mov != nullptr) mov->ChangeDirection(true, areaColision);
+				else if (pAttack != nullptr)
+				{
+					physics->saveLastPos(areaColision);
+				}
 				++i;
 				break;
 			}

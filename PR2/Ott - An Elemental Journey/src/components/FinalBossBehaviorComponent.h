@@ -16,6 +16,7 @@ public:
 	void deleteBlackHoles();
 	void deleteBubbles();
 	void deleteSpikes();
+	void deleteSpikeFromVec(Entity* spikes);
 private:
 	void spawnBubbles();
 	void spawnFireWall();
@@ -31,7 +32,7 @@ private:
 	int currentElement;
 	int FIREWALL_HEIGHT = 400, FIREWALL_WIDTH = 30;
 	int FIST_SIZE = 250;
-
+	int lastElem;
 	std::vector<Entity*> blackHoles;
 	std::vector<Entity*> bubbles;
 	std::vector<Entity*> spikes;
