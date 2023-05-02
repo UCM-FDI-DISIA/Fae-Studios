@@ -5,7 +5,7 @@
 #include <iostream>
 
 const int MAX_CHARGES = 8;
-const int FRAME_TIME = 200;
+const int FRAME_TIME = 120;
 
 class ChargedAttackBar : public Component {
 private:
@@ -18,6 +18,7 @@ private:
 	int ticks_;
 	bool anim_;
 	int ticksCount_;
+	bool reset_;
 
 public:
 	constexpr static ecs::cmpId_type id = ecs::_CHARGED_ATTACK_BAR;
@@ -30,8 +31,9 @@ public:
 		if (charges_ > MAX_CHARGES) charges_ = MAX_CHARGES;
 	}
 	inline void animChargeBar() { anim_ = true; }
+	inline void resetChargeBarAnim() { reset_ = true; }
 	inline bool animDone() const { return !anim_; }
-	inline void resetCharges() { charges_ = 0; ticksCount_ = 6; anim_ = false; }
+	inline void resetCharges() { charges_ = 0; ticksCount_ = 6; anim_ = false; reset_ = false; }
 	inline int numCharges() const { return charges_; }
 };
 
