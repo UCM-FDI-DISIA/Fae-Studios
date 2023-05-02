@@ -23,7 +23,7 @@ private:
 	int nearDistance;
 	double turningOffset = 0.75; //A partir de aquí no entiendo, solo he ctrl c ctrl v
 	int turningError = 3;
-	float horizontalSpeed = 0.65;
+	float horizontalSpeed = 0.1;
 	void MoveTriggers();
 	bool collided = false;
 	bool moving = false;
