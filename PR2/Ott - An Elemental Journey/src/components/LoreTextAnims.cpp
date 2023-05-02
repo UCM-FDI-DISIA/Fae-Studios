@@ -39,7 +39,7 @@ void LoreTextAnims::update() {
 		
 	}
 	if (startInput) {
-		if (input->keyDownEvent() || game().getIsJoystick()) {
+		if (input->keyDownEvent() || game().getIsJoystick() && SDL_GameControllerGetButton(game().getJoystick(), SDL_CONTROLLER_BUTTON_A)) {
 			close();
 			startInput = false;
 			startAnimation = true;
