@@ -418,7 +418,7 @@ void PlayState::AddLifeShard(int id) {
 
 void PlayState::AddRelic(ecs::elements id) {
 	sdlutils().soundEffects().at("relic_wink").setVolume(100);
-	sdlutils().soundEffects().at("relic_wink").play(1, ecs::_channel_PLAYER);
+	sdlutils().soundEffects().at("relic_wink").play(0, ecs::_channel_PLAYER);
 	std::cout << "reliquia recogida" << std::endl;
 	relicsCollected++;
 	if (relicsCollected >= 3) player_->getComponent<FramedImageOtt>()->hasAllRelics();
