@@ -401,7 +401,7 @@
 		{
 			"id": "waterBug",
 			"file": "../resources/images/sprites/WaterBug.png",
-			"rows": 2,
+			"rows": 13,
 			"cols": 21
 		},
 		{
@@ -425,7 +425,7 @@
 		{
 			"id": "waterMushroom",
 			"file": "../resources/images/sprites/WaterMushroom.png",
-			"rows": 2,
+			"rows": 13,
 			"cols": 22
 		},
 		{
