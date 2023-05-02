@@ -192,6 +192,7 @@ void PlayState::checkCollisions(std::list<Entity*> entities) {
 				}
 			}
 		}
+		bool ceiling = false;
 		int i = 0;
 		for (std::pair<SDL_Rect, SDL_Rect> gr : grounds) {
 			auto areaColision = gr.first;
@@ -203,15 +204,23 @@ void PlayState::checkCollisions(std::list<Entity*> entities) {
 					if (!(physics->getWater()) || (physics->getWater() && health->getElement() == ecs::Water))
 					{
 						colVector = Vector2D(colVector.getX(), 0);
+						physics->setVerticalSpeed(0);
 					}
 					physics->setGrounded(true);
 				}
 				else if (!physics->isGrounded()) {
 					//cout << "ceiling touched" << endl;
-					//if (!(physics->getWater()) || (physics->getWater() && health->getElement() == ecs::Water))
+					if ((physics->getWater() && health->getElement() != ecs::Water))
+					{
+						colVector = Vector2D(colVector.getX(), 0);
+						physics->setVerticalSpeed(0);
+						ceiling = true;
+					}
+					else
 					{
 						colVector = Vector2D(colVector.getX(), 1);
 						physics->setVerticalSpeed(1);
+						ceiling = true;
 					}
 				}
 				if (mov != nullptr) mov->ChangeDirection(true, areaColision);
@@ -235,7 +244,7 @@ void PlayState::checkCollisions(std::list<Entity*> entities) {
 				bool interseccion = SDL_IntersectRect(&r1, &r3, &areaColision);
 				if (interseccion)
 				{
-					physics->setWater(true); ++j;
+					physics->setWater(true,ceiling); ++j;
 					if (health->getElement() != ecs::Water) { physics->setGrounded(false); }
 					//comprobación de si esta en la zona de flote, de momento sin variable de ancho de zona de flote 
 					if (r1.y + r1.h <= r3.y + 300)
@@ -243,7 +252,7 @@ void PlayState::checkCollisions(std::list<Entity*> entities) {
 						physics->setJumpWater(true);
 						if (r1.y+r1.h <= r3.y+100) {
 							physics->setFloating(true);
-							if (areaColision.h < r1.h / 2 && physics->getVelocity().getY() < 0) { physics->setFloating(false); physics->setWater(false); }
+							if (areaColision.h < r1.h / 2 && physics->getVelocity().getY() < 0) { physics->setFloating(false); physics->setWater(false, ceiling); }
 						}
 						else {
 							physics->setFloating(false);
@@ -253,7 +262,7 @@ void PlayState::checkCollisions(std::list<Entity*> entities) {
 				}
 			}
 		}
-		if (j == 0) { physics->setWater(false); physics->setFloating(false);  physics->setJumpWater(false);}
+		if (j == 0) { physics->setWater(false, ceiling); physics->setFloating(false);  physics->setJumpWater(false);}
 		aa++;
 		
 		for (Entity* p : mngr_->getEntities(ecs::_grp_MOVING_PLATFORMS)) {
