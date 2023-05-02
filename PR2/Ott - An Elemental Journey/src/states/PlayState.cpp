@@ -378,6 +378,12 @@ void PlayState::AddLifeShard(int id) {
 	map_->addShard(id);
 }
 
+void PlayState::AddRelic(ecs::elements id) {
+	std::cout << "reliquia recogida" << std::endl;
+	relicsCollected++;
+	if(relicsCollected >= 3) std::cout << "todas las reliquias recogidas" << std::endl;
+}
+
 // AQUÍ SE GUARDA PARTIDA
 void PlayState::endRest() {
     player_->getComponent<Health>()->saveSactuary(lastSanctuary);

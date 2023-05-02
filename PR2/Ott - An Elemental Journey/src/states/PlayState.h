@@ -32,6 +32,8 @@ private:
 
     bool isScreenDarkened = false;
 
+    int relicsCollected = 0;
+
 public:
     /// Constructora del estado de juego
     PlayState();
@@ -130,6 +132,7 @@ public:
     void checkInteraction();
     void AddEnredadera();
     void AddLifeShard(int id);
+    void AddRelic(ecs::elements relic);
     void Teleport();
     void Save();
     void UnlockElement(ecs::elements elem);

@@ -18,9 +18,11 @@ std::vector<anims::animDescription> anims::ott_anims{
 	{ 50,6,10,0}, // CLIMB
 	{ 50,3,11,0}, // LOOKDOWN
 	{ 50,3,11,3} }; // LOOKUP
+
+std::vector<anims::animDescription> anims::relic_anims{ {20, 8, 0 ,0} };
+std::vector<anims::animDescription> anims::lifeshard_anims{ {10,10,0,0} };
 // ENEMIGO MELEE
 std::vector<anims::animDescription> anims::melee_anims{ {150,4,0,0}, {150,9,0,12}, {200,4,0,8}, {450,1,0,7}, {100,3,0,4} };
-std::vector<anims::animDescription> anims::lifeshard_anims{ {10,10,0,0} };
 // ENEMIGO A RANGO
 std::vector<anims::animDescription> anims::range_anims{ {75,3,0,0}, {75,12,0,10}, {100,3,0,7}, {75,4,0,3} };
 // ENEMIGO SLIME

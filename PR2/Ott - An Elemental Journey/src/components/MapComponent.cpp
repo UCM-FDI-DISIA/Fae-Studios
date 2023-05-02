@@ -658,6 +658,16 @@ void MapComponent::loadMap(std::string path, int nextPos) {
                     elem->setActive(false);
                 }
             }
+            else if (classSplit[0] == "Relic") {
+                auto room = std::stoi(classSplit[1]);
+                auto roomScale = vectorTiles[room].first;
+                auto relic = constructors::relic(mngr_, (x_ * scale) * roomScale, (y_ * scale) * roomScale, (w_ * scale) * roomScale, (h_ * scale) * roomScale, (ecs::elements)std::stoi(ot.getName()), room);
+                interact[std::stoi(classSplit[1])].push_back(relic);
+                auto v = &interact[std::stoi(classSplit[1])];
+                auto it = (--v->end());
+                relic->getComponent<InteractionComponent>()->setIt(it, v);
+                relic->setActive(false);
+            }
             else if (classSplit[0] == "Lamp") {
                 std::string lampName = ot.getName();
                 int roomNum = std::stoi(classSplit[1]);

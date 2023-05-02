@@ -401,6 +401,31 @@ namespace constructors {
 		return element;
 	}
 
+	static inline Entity* relic(Manager* mngr_, int x, int y, int w, int h, ecs::elements relicType, int room) {
+		auto relic = mngr_->addEntity(ecs::_grp_INTERACTION);
+		relic->addComponent<Transform>(Vector2D(x, y), w, h);
+		std::string key;
+		switch (relicType) {
+		case ecs::Earth:
+			key = "earth_relic";
+			break;
+		case ecs::Water:
+			key = "water_relic";
+			break;
+		case ecs::Fire:
+			key = "fire_relic";
+			break;
+		}
+		relic->addComponent<FramedImage>(&sdlutils().images().at(key), 1, 10);
+		relic->addComponent<LifeAnimationComponent>();
+		//relic->addComponent<ElementObject>(relicType);
+		auto cb = [relicType]() {
+			static_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->AddRelic(relicType);
+		};
+		relic->addComponent<InteractionComponent>(cb, RELIC_IT, relicType, room, true);
+
+		return relic;
+	}
 
 	static inline std::pair<Entity*, Entity*> lamp(Manager* mngr_, int x1, int y1, int w1, int h1, int room1, int x2, int y2, int w2, int h2, int room2, int ID1, int ID2) {
 		auto lamp = mngr_->addEntity(ecs::_grp_INTERACTION);
