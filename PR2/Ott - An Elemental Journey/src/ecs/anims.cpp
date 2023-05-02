@@ -19,7 +19,7 @@ std::vector<anims::animDescription> anims::ott_anims{
 	{ 50,3,11,0}, // LOOKDOWN
 	{ 50,3,11,3} }; // LOOKUP
 
-std::vector<anims::animDescription> anims::relic_anims{ {20, 8, 0 ,0} };
+std::vector<anims::animDescription> anims::relic_anims{ {80, 8, 0 ,0} };
 std::vector<anims::animDescription> anims::lifeshard_anims{ {10,10,0,0} };
 // ENEMIGO MELEE
 std::vector<anims::animDescription> anims::melee_anims{ {150,4,0,0}, {150,9,0,12}, {200,4,0,8}, {450,1,0,7}, {100,3,0,4} };
@@ -54,7 +54,7 @@ std::vector<std::vector<anims::animDescription>> anims::animations{ott_anims,
 			earthBossPresent_anims,earthBoss_anims, warning_anims,
 			pause_anims,miniPause_anims, water_attack, waterBoss_anims, 
 			lifeshard_anims, movimiento_cartel,lampara_cartel,enredadera_cartel, elemento_cartel, 
-			fireboss_anims, lamp, grass, sanctuary };
+			fireboss_anims, lamp, grass, sanctuary, relic_anims };
 
 // OTT
 anims::offsetPhysics anims::ott_collider{ 7, 32, 4, 32, 16, 28};

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="162" height="114" tilewidth="32" tileheight="32" infinite="0" nextlayerid="12" nextobjectid="583">
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="162" height="114" tilewidth="32" tileheight="32" infinite="0" nextlayerid="12" nextobjectid="584">
  <tileset firstgid="1" source="../../../../Ott/TilesLava.tsx"/>
  <layer id="1" name="Capa de patrones 1" width="162" height="114">
   <data encoding="csv">
@@ -339,5 +339,6 @@
   <object id="579" name="6" class="Lava" x="2465" y="3425" width="767" height="32"/>
   <object id="580" name="10" class="Lava" x="1726.67" y="798.667" width="1376" height="29.3333"/>
   <object id="582" name="8" class="Life_8" x="2784.67" y="1399.33" width="28" height="30.6667"/>
+  <object id="583" name="3" class="Relic_6" x="2379" y="2804.33" width="70" height="70"/>
  </objectgroup>
 </map>
