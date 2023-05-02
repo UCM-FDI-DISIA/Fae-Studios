@@ -194,6 +194,12 @@
 			"cols": 1
 		},
 		{
+			"id": "LowLife",
+			"file": "../resources/images/ui/LowLifeFade.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
 			"id": "ott_luz",
 			"file": "../resources/images/tests/Ott_Luz.png",
 			"rows": 12,
@@ -778,7 +784,7 @@
 		{
 			"id": "hanging_spike",
 			"file": "../resources/images/tests/Hanging_Spike.png",
-			"rows": 1,
+			"rows": 1
 			"cols": 1
 		}
 	],

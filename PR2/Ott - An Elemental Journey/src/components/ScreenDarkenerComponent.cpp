@@ -3,14 +3,8 @@
 
 void ScreenDarkenerComponent::render() {
     SDL_Rect tmp;
-    tmp = {transform_->getRect().x, transform_->getRect().y, leftSide->width(), leftSide->height()};
-    leftSide->render(tmp);
-    tmp = {(int)(sdlutils().getWindowDimensions().getX() - rightSide->width()), transform_->getRect().y, rightSide->width(), rightSide->height()};
-    rightSide->render(tmp);
-    tmp = {transform_->getRect().x + leftSide->width(), transform_->getRect().y, topSide->width() - rightSide->width(), topSide->height()};
-    topSide->render(tmp);
-    tmp = {transform_->getRect().x + leftSide->width(), (int)(sdlutils().getWindowDimensions().getY() - bottomSide->height()), bottomSide->width() - rightSide->width(), bottomSide->height()};
-    bottomSide->render(tmp);
+    tmp = {0, 0, (sdlutils().width()), sdlutils().height()};
+    img->render(tmp);
 }
 
 void ScreenDarkenerComponent::initComponent() {
@@ -30,10 +24,7 @@ void ScreenDarkenerComponent::update() {
         changeAlpha = false;
     }
 
-    leftSide->setAlpha(alpha);
-    topSide->setAlpha(alpha);
-    bottomSide->setAlpha(alpha);
-    rightSide->setAlpha(alpha);
+    img->setAlpha(alpha);
 }
 
 void ScreenDarkenerComponent::darken() {

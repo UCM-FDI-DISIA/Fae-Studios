@@ -194,6 +194,12 @@
 			"cols": 1
 		},
 		{
+			"id": "LowLife",
+			"file": "../Ott - An Elemental Journey/resources/images/ui/LowLifeFade.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
 			"id": "ott_luz",
 			"file": "../Ott - An Elemental Journey/resources/images/tests/Ott_Luz.png",
 			"rows": 12,
