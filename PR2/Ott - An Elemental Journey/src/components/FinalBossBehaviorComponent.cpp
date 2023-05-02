@@ -167,6 +167,7 @@ void FinalBossBehaviorComponent::deleteSpikes() {
 	}
 	spikes.clear();
 }
+// Cuando el jugador ataca la zarza, se elimina del vector
 void FinalBossBehaviorComponent::deleteSpikeFromVec(Entity* s)
 {
 	s->setActive(false);

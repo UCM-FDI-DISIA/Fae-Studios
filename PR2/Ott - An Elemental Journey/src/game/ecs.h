@@ -71,7 +71,9 @@ namespace ecs {
     enum grpId : grpId_type {
         _grp_GENERAL, ///< General
         _grp_MINIBOSS,
-        
+        _grp_FINAL_BOSS,
+        _grp_FINAL_BOSS_COLLIDERS,
+
         _grp_GROUND,
         _grp_VINE,
         _grp_MAP,
