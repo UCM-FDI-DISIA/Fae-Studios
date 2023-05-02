@@ -13,9 +13,15 @@ private:
 	Vector2D fwTextPos;
 	bool fwNeedChange = false;
 
+	std::vector<Entity*> buttons;
+	int buttonIndex;
+	int formerIndex;
+	bool detectJoystickActivity;
+
 public:
 	GraphicOptionsMenuState();
 	void update() override;
 	void changeResolution() override;
+	void handleInput() override;
 };
 

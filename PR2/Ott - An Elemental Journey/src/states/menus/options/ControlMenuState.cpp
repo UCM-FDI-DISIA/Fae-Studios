@@ -24,12 +24,44 @@ ControlMenuState::ControlMenuState() : MenuState() {
     img->getComponent<Transform>()->setPosition(npos);
     
     pos = Vector2D(sdlutils().getWindowDimensions().getX() / 2, 6 * sdlutils().getWindowDimensions().getY() / 7);
-    constructors::button(mngr_, pos, "Volver", sdlutils().fonts().at("vcr_osd48"), [this]() {
+    buttons.push_back(constructors::button(mngr_, pos, "Volver", sdlutils().fonts().at("vcr_osd48"), [this]() {
         sdlutils().soundEffects().at("button_back").play(0, ecs::_channel_UI);
         fade->getComponent<FadeTransitionComponent>()->setFunction([]() { GameStateMachine::instance()->popState(); });
         fade->getComponent<FadeTransitionComponent>()->revert();
-    });
+    }));
 
     fade->getComponent<FadeTransitionComponent>()->activateWithoutExecute();
+
+    buttonIndex = 0;
+    formerIndex = 0;
+    detectJoystickActivity = false;
+}
+
+void ControlMenuState::handleInput() {
+    MenuState::handleInput();
+    if (game().getIsJoystick()) {
+        SDL_GameControllerUpdate();
+        if (SDL_GameControllerGetAxis(game().getJoystick(), SDL_CONTROLLER_AXIS_LEFTY) <= 29000 && SDL_GameControllerGetAxis(game().getJoystick(), SDL_CONTROLLER_AXIS_LEFTY) >= -29000 && !SDL_GameControllerGetButton(game().getJoystick(), SDL_CONTROLLER_BUTTON_A)) detectJoystickActivity = true;
+
+        if ((SDL_GameControllerGetAxis(game().getJoystick(), SDL_CONTROLLER_AXIS_LEFTY) > 29000 && detectJoystickActivity)) {
+            formerIndex = buttonIndex;
+            buttonIndex++;
+            buttonIndex %= buttons.size();
+            detectJoystickActivity = false;
+        }
+        if (SDL_GameControllerGetAxis(game().getJoystick(), SDL_CONTROLLER_AXIS_LEFTY) < -29000 && detectJoystickActivity) {
+            formerIndex = buttonIndex;
+            buttonIndex--;
+            buttonIndex %= buttons.size();
+            detectJoystickActivity = false;
+        }
+        if (SDL_GameControllerGetButton(game().getJoystick(), SDL_CONTROLLER_BUTTON_A) && detectJoystickActivity) {
+            buttons[buttonIndex]->getComponent<Button>()->onClick();
+            detectJoystickActivity = false;
+        }
+
+        buttons[formerIndex]->getComponent<Button>()->unselect();
+        buttons[buttonIndex]->getComponent<Button>()->select();
+    }
 }
 

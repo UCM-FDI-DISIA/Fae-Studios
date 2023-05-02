@@ -4,6 +4,12 @@
 #include "../sdlutils/SDLUtils.h"
 #include <math.h>
 
+void SliderSelectionNeedle::initComponent() {
+    transform = ent_->getComponent<Transform>();
+    texture = ent_->getComponent<Image>();
+}
+
+
 void SliderNeedle::initComponent() {
     transform = ent_->getComponent<Transform>();
     texture = ent_->getComponent<FramedImage>();
@@ -24,6 +30,13 @@ float SliderNeedle::move() {
     else if (mousePosition.x > maximumPosition.getX()) return maxValue;
     else if (mousePosition.x < minimumPosition.getX()) return minValue;
 
+}
+
+float SliderNeedle::calculateValueOnPositionChange() {
+    Vector2D travel = maximumPosition - minimumPosition;
+    float range = maxValue - minValue;
+    float increment = travel.getX() / range;
+    return (transform->getPosition() - minimumPosition).getX() / increment;
 }
 
 SliderPercentage::SliderPercentage(std::string text, Font& f, SDL_Color fontColor, SDL_Color bgColor) : f(f), fontColor(fontColor), bgColor(bgColor) {
@@ -113,9 +126,37 @@ void Slider::setNeedle(Entity* needle) {
     this->needle = needle;
     Vector2D initialPos = (transform->getPosition() - Vector2D((this->needle->getComponent<FramedImage>()->getFrameWidth() / 2.5f) / 2, (this->needle->getComponent<FramedImage>()->getFrameHeight() / 2.5f) / 2 + 10));
     Vector2D needlePos = initialPos + Vector2D(currentValue * ((texture->getFrameWidth())/(maxValue - minValue)), 0);
-    this->needle->getComponent<SliderNeedle>()->setPosition(needlePos);
+    this->needle->getComponent<SliderNeedle>()->setInitialPosition(needlePos);
     Vector2D maxNeedlePos = initialPos + Vector2D(texture->getFrameWidth(), 0);
     this->needle->getComponent<SliderNeedle>()->setLimitPositions(initialPos, maxNeedlePos);
     this->needle->getComponent<SliderNeedle>()->setMaxValue(getMaxValue());
     this->needle->getComponent<SliderNeedle>()->setMinValue(getMinValue());
+}
+
+void Slider::update() {
+    if (!selected) {
+        if (selectionNeedle != nullptr) selectionNeedle->getComponent<SliderSelectionNeedle>()->hide();
+    }
+    else {
+        if (selectionNeedle != nullptr) selectionNeedle->getComponent<SliderSelectionNeedle>()->show();
+    }
+}
+
+void Slider::setSelectionNeedle(Entity* needle) {
+    selectionNeedle = needle;
+    Vector2D position = transform->getPosition() + Vector2D(-50, transform->getHeight() / 2 - needle->getComponent<Transform>()->getHeight() / 2);
+    selectionNeedle->getComponent<SliderSelectionNeedle>()->setPosition(position);
+}
+
+void Slider::setValueInSelection(Vector2D& position) {
+    needle->getComponent<SliderNeedle>()->setPosition(position);
+    
+    currentValue = needle->getComponent<SliderNeedle>()->calculateValueOnPositionChange();
+    
+    std::string valueText = std::to_string((int)std::ceil(currentValue)) + "%";
+    percentageText->changeText(valueText);
+    Vector2D percentagePosition = Vector2D(transform->getPosition().getX() + (transform->getWidth() - percentageText->getWidth()) / 2, transform->getPosition().getY() + (transform->getHeight() - percentageText->getHeight()) / 2 - 5);
+    percentageText->setPosition(percentagePosition);
+
+    callback(currentValue);
 }
