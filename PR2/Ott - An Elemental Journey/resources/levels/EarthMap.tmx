@@ -397,6 +397,6 @@
   <object id="413" name="8_12" class="812" x="4573.65" y="2124.69" width="21.8586" height="113.293"/>
  </objectgroup>
  <objectgroup id="16" name="Ott">
-  <object id="527" name="10" class="10" x="4224" y="2624" width="32" height="96"/>
+  <object id="527" name="0" class="0" x="504" y="1432" width="32" height="96"/>
  </objectgroup>
 </map>
