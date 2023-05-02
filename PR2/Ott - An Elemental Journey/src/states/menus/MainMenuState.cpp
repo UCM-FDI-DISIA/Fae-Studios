@@ -104,6 +104,7 @@ void MainMenuState::handleInput() {
         }
         if (SDL_GameControllerGetButton(game().getJoystick(), SDL_CONTROLLER_BUTTON_A) && detectJoystickActivity) {
             buttons[buttonIndex]->getComponent<Button>()->onClick();
+            detectJoystickActivity = false;
         }
              
         buttons[formerIndex]->getComponent<Button>()->unselect();
@@ -116,6 +117,7 @@ void MainMenuState::changeResolution() {
         auto ents = mngr_->getEntities(i);
         for(auto e : ents) e->setAlive(false);
     }
+    for (int i = 0; i < buttons.size(); ++i) buttons.pop_back();
 
     SDL_Color yellow{ 255,217,102 };
     Vector2D pos;
@@ -139,7 +141,7 @@ void MainMenuState::changeResolution() {
     littleOtt->addComponent<FramedImage>(&sdlutils().images().at("ott_luz"), 9, 8);
 
     pos = Vector2D(sdlutils().getWindowDimensions().getX() / 2, 3 * sdlutils().getWindowDimensions().getY() / 7);
-    constructors::button(mngr_, pos, "Jugar", sdlutils().fonts().at("vcr_osd48"), [this]() {
+    buttons.push_back(constructors::button(mngr_, pos, "Jugar", sdlutils().fonts().at("vcr_osd48"), [this]() {
 #ifdef __APPLE__
         sdlutils().soundEffects().at("play_button").play(0, ecs::_channel_UI);
         fade->getComponent<FadeTransitionComponent>()->setFunction([this]() { GameStateMachine::instance()->changeState(new PlayState()); playStateInit = true; sdlutils().musics().at("main_menu_music").fadeOutMusic(100); });
@@ -151,28 +153,28 @@ void MainMenuState::changeResolution() {
         fade->getComponent<FadeTransitionComponent>()->revert();
         playStateInit = true;
 #endif
-    });
+    }));
 
     pos = Vector2D(sdlutils().getWindowDimensions().getX() / 2, 4 * sdlutils().getWindowDimensions().getY() / 7);
-    constructors::button(mngr_, pos, "Cargar", sdlutils().fonts().at("vcr_osd48"), [this]() {
+    buttons.push_back(constructors::button(mngr_, pos, "Cargar", sdlutils().fonts().at("vcr_osd48"), [this]() {
         sdlutils().soundEffects().at("button").play(0, ecs::_channel_UI);
         fade->getComponent<FadeTransitionComponent>()->setFunction([]() { GameStateMachine::instance()->changeState(new PlayState("../resources/saves/temporalUniqueSave.sv")); sdlutils().musics().at("main_menu_music").fadeOutMusic(100); });
         fade->getComponent<FadeTransitionComponent>()->revert();
-    });
+    }));
 
     pos = Vector2D(sdlutils().getWindowDimensions().getX() / 2, 5 * sdlutils().getWindowDimensions().getY() / 7);
-    constructors::button(mngr_, pos, "Opciones", sdlutils().fonts().at("vcr_osd24"), [this]() {
+    buttons.push_back(constructors::button(mngr_, pos, "Opciones", sdlutils().fonts().at("vcr_osd24"), [this]() {
         sdlutils().soundEffects().at("button").play(0, ecs::_channel_UI);
         fade->getComponent<FadeTransitionComponent>()->setFunction([](){ GameStateMachine::instance()->pushState(new OptionsMenuState());});
         fade->getComponent<FadeTransitionComponent>()->revert();
-    });
+    }));
 
     pos = Vector2D(sdlutils().getWindowDimensions().getX() / 2, 6 * sdlutils().getWindowDimensions().getY() / 7);
-    constructors::exitButton(mngr_, pos, []() {
+    buttons.push_back(constructors::exitButton(mngr_, pos, []() {
         sdlutils().soundEffects().at("button").play(0, ecs::_channel_UI);
         sdlutils().musics().at("main_menu_music").haltMusic();
         game().exitGame();
-    });
+    }));
 
     fade->getComponent<FadeTransitionComponent>()->activateWithoutExecute();
     playStateInit = false;

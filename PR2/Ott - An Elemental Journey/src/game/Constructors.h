@@ -264,7 +264,7 @@ namespace constructors {
 	}
 	
 
-	static inline void slider(Manager* mngr_, Vector2D& position, std::string title, float minValue, float maxValue, float currentValue, std::function<void(int)> const& callback) {
+	static inline auto slider(Manager* mngr_, Vector2D& position, std::string title, float minValue, float maxValue, float currentValue, std::function<void(int)> const& callback) {
 		auto s = mngr_->addEntity(ecs::_grp_UI);
 		s->addComponent<Transform>(position, 50, 50);
 		s->addComponent<FramedImage>(&sdlutils().images().at("slider"), 3, 1);
@@ -284,6 +284,18 @@ namespace constructors {
 		needle->addComponent<SliderNeedle>();
 
 		s->getComponent<Slider>()->setNeedle(needle);
+
+		if (game().getIsJoystick()) {
+			auto ned = mngr_->addEntity(ecs::_grp_UI);
+			ned->addComponent<Transform>(Vector2D(0, 0), 50, 50);
+			ned->addComponent<Image>(&sdlutils().images().at("button_needle"));
+			ned->getComponent<Transform>()->setWidth(ned->getComponent<Image>()->getWidth() / 2.5f);
+			ned->getComponent<Transform>()->setHeight(ned->getComponent<Image>()->getHeight() / 2.5f);
+			ned->addComponent<SliderSelectionNeedle>();
+			s->getComponent<Slider>()->setSelectionNeedle(ned);
+		}
+
+		return s;
 	}
 
 	static inline auto background(Manager* mngr_, Texture* t) {
