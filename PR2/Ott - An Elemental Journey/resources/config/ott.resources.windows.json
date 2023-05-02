@@ -738,6 +738,12 @@
 			"file": "../resources/images/tests/BossFinal-sheet.png",
 			"rows": 5,
 			"cols": 15
+		},
+		{
+			"id": "finalBossFireWall",
+			"file": "../resources/images/tests/fireWall.png",
+			"rows": 1,
+			"cols": 14
 		}
 
 

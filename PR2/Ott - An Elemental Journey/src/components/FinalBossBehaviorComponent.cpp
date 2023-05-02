@@ -35,6 +35,7 @@ void FinalBossBehaviorComponent::update()
 		// Actualizamos 5 seg más
 		timeBetweenAttacks +=ATTACK_TIME;
 		//Switch de los diferentes ataques del boss
+		currentElement = 2;
 		switch (currentElement)
 		{
 		case 0: std::cout << "Ataque tierra boss final" << std::endl; spawnSpikes(); break;
@@ -101,7 +102,8 @@ void FinalBossBehaviorComponent::spawnFireWall() //Ataque fuego
 	Entity* fireW = mngr_->addEntity(ecs::_grp_PROYECTILES);
 
 	fireW->addComponent<Transform>(spawnPos - Vector2D(0, FIREWALL_HEIGHT / 2), FIREWALL_WIDTH * pTransf->getScale(), FIREWALL_HEIGHT * pTransf->getScale());
-	fireW->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
+	//fireW->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
+	fireW->addComponent<FramedImage>(&sdlutils().images().at("finalBossFireWall"), 1, 14);
 	fireW->addComponent<FireWallComponent>(Vector2D(1, 0));
 }
 

@@ -15,5 +15,6 @@ private:
 	Entity* p;
 	Transform* tr_;
 	Transform* player;
+	class FramedImage* image;
 	int initialXPos, maxDistance = 2000;
 };

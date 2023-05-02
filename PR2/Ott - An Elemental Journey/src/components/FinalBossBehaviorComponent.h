@@ -30,7 +30,7 @@ private:
 	MapComponent* map_;
 	int timeBetweenAttacks;
 	int currentElement;
-	int FIREWALL_HEIGHT = 400, FIREWALL_WIDTH = 30;
+	int FIREWALL_HEIGHT = 400, FIREWALL_WIDTH = 90;
 	int FIST_SIZE = 250;
 	int lastElem;
 	std::vector<Entity*> blackHoles;
