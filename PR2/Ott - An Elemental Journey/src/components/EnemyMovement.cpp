@@ -23,7 +23,7 @@ void EnemyMovement::initComponent()
 void EnemyMovement::MoveTriggers()
 {
 	SDL_Rect collider = physics->getCollider();
-	if (physics->getVelocity().getX() > 0) // Ajuste del trigger en función del movimiento del enemigo
+	if (physics->getVelocity().getX() > 0) // Ajuste del trigger en funciï¿½n del movimiento del enemigo
 		trigger.x = collider.x + collider.w;
 	else
 		trigger.x = collider.x - trigger.w;
@@ -33,7 +33,7 @@ void EnemyMovement::MoveTriggers()
 
 void EnemyMovement::detectPlayer()
 {
-	if (player != nullptr) {
+	if (player != nullptr && eAttack_->getState()!= eAttack_->attacking && eAttack_->getState() != eAttack_->preparing && eAttack_->getState() != eAttack_->laying) {
 		SDL_Rect playerRect = playerCollider->getCollider();
 		if (SDL_HasIntersection(&trigger, &playerRect)) playerDetected = true;
 	}
@@ -68,33 +68,35 @@ void EnemyMovement::FollowPlayer()
 
 void EnemyMovement::ChangeDirection(bool ground, const SDL_Rect& result)
 {
-	if (!playerDetected) {
-		if (!ground) {
-			int dir;
-			if (physics->getLookDirection()) dir = -1;
-			else dir = 1;
-			physics->getVelocity() = { (float)dir, physics->getVelocity().getY() };
-			image_->flipTexture(physics->getLookDirection());
-			physics->lookDirection(!physics->getLookDirection());
-		}
-		else if (result.w < physics->getCollider().w * turningOffset)
-		{
-			if (abs(result.x - physics->getCollider().x) < turningError) {
-				physics->setVelocity({ -horizontalSpeed, physics->getVelocity().getY() });
-				physics->lookDirection(false);
-				image_->flipTexture(true);
-			}
-			else {
-				physics->setVelocity({ horizontalSpeed, physics->getVelocity().getY() });
-				physics->lookDirection(true);
-				image_->flipTexture(false);
-			}
-		}
-	}
-	else if (!ground) {
-		collided = true;
-		playerDetected = false;
-	}
+    if(eAttack_->getState() != eAttack_->attacking && eAttack_->getState() != eAttack_->preparing && eAttack_->getState() != eAttack_->laying){
+	    if (!playerDetected) {
+		    if (!ground) {
+			    int dir;
+			    if (physics->getLookDirection()) dir = -1;
+			    else dir = 1;
+			    physics->getVelocity() = { (float)dir, physics->getVelocity().getY() };
+			    image_->flipTexture(physics->getLookDirection());
+			    physics->lookDirection(!physics->getLookDirection());
+		    }
+		    else if (result.w < physics->getCollider().w * turningOffset)
+		    {
+			    if (abs(result.x - physics->getCollider().x) < turningError) {
+				    physics->setVelocity({ -horizontalSpeed, physics->getVelocity().getY() });
+				    physics->lookDirection(false);
+				    image_->flipTexture(true);
+			    }
+			    else {
+				    physics->setVelocity({ horizontalSpeed, physics->getVelocity().getY() });
+				    physics->lookDirection(true);
+				    image_->flipTexture(false);
+			    }
+		    }
+	    }
+	    else if (!ground) {
+		    collided = true;
+		    playerDetected = false;
+	    }
+    }
 }
 
 
@@ -102,7 +104,7 @@ void EnemyMovement::update() {
 	if (!health_->isDead()) {
 		MoveTriggers();
 		if (playerDetected && !collided)
-			if (eAttack_->getState() != eAttack_->attacking) FollowPlayer();
+			if (eAttack_->getState() != eAttack_->attacking && eAttack_->getState() != eAttack_->preparing && eAttack_->getState() != eAttack_->laying) FollowPlayer();
 			else physics->setVelocity({ 0,0 });
 		detectPlayer();
 		collided = false;
