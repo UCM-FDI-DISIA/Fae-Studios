@@ -8,7 +8,7 @@
 #include <functional>
 #include"../game/Game.h"
 
-enum Interaction {LAMP_IT, SANCTUARY_IT, LIFESHARD_IT, GRASS_IT, ELEMENT_IT };
+enum Interaction {LAMP_IT, SANCTUARY_IT, LIFESHARD_IT, GRASS_IT, ELEMENT_IT, VINE_IT, RELIC_IT, ROCK_IT};
 
 class InteractionComponent : public Component
 {
@@ -46,6 +46,9 @@ public:
 					interact();
 					break;
 				case LIFESHARD_IT:
+					interact();
+					break;
+				case RELIC_IT:
 					interact();
 					break;
 				default:

@@ -30,6 +30,7 @@
 #include "../components/ElementObject.h"
 #include <iostream>
 #include "../components/ScreenDarkenerComponent.h"
+#include "../components/FramedImage.h"
 
 PlayState::PlayState() : GameState(ecs::_state_PLAY) {
 	currentMap = ecs::EARTH_MAP;
@@ -60,6 +61,15 @@ PlayState::PlayState() : GameState(ecs::_state_PLAY) {
 
 	map_ = constructors::map(mngr_, this, (int)(currentMap))->getComponent<MapComponent>();
 	initialEnemies = enemies;
+
+	if (!start) {
+		cinema_ = mngr_->addEntity(ecs::_grp_UI);
+		cinema_->addComponent<Transform>(mngr_->getCamera()->getComponent<Transform>()->getPosition() - Vector2D(329, 1), WINDOW_WIDTH, WINDOW_HEIGHT);
+		cinema_->addComponent<Image>(&sdlutils().images().at("cin_0"));
+
+		player_->setActive(false);
+		timerAnim = SDL_GetTicks() + 1000;
+	}
 }
 
 PlayState::PlayState(std::string fileName) : GameState(ecs::_state_PLAY) {
@@ -118,6 +128,9 @@ PlayState::PlayState(std::string fileName) : GameState(ecs::_state_PLAY) {
 		visitedRooms[ecs::FIRE_MAP].push_back(visited);
 		file >> aux;
 	}
+
+	start = true;
+
 }
 
 
@@ -133,13 +146,14 @@ void PlayState::blockKeyboardInputAfterUnfreeze() {
 }
 
 void PlayState::handleInput() {
+	
     GameState::handleInput();
 	if (doNotDetectKeyboardInput && InputHandler::instance()->allKeysUp()) {
 		doNotDetectKeyboardInput = false;
 	}
 	
 	if (!doNotDetectKeyboardInput) {
-		if (InputHandler::instance()->isKeyJustDown(SDLK_ESCAPE)) {
+		if (InputHandler::instance()->isKeyJustDown(SDLK_ESCAPE) && start) {
 			fade->getComponent<FadeTransitionComponent>()->setFunction(
                     [this]() {
                         sdlutils().musics().at(sdlutils().levels().at(map_->getCurrentLevel()).bgsong).pauseMusic();
@@ -327,10 +341,32 @@ void PlayState::checkInteraction() {
     }
 }
 
+void PlayState::cinematic() {
+
+	if (SDL_GetTicks() > timerAnim)
+	{
+		if (frameAnim < 223) {
+			frameAnim++;
+			timerAnim = SDL_GetTicks() + 100;
+			string cin = "cin_" + to_string(frameAnim);
+			cinema_->getComponent<Image>()->changeText(&sdlutils().images().at(cin));
+
+		}
+		else {
+			start = true;
+			player_->setActive(true);
+			cinema_->setAlive(false);
+		}
+	}
+}
+
 void PlayState::update() {
+	
+	if (!start)cinematic();
+
 	checkInteraction();
 	checkCollisions({ player_ });
-	checkCollisions(enemies[map_->getCurrentRoom()]);
+	checkCollisions(enemies[map_->getCurrentRoom()]);	
 	GameState::update();
 
     if(!isScreenDarkened && player_->getComponent<Health>()->getHealth() == 1) {
@@ -383,8 +419,18 @@ void PlayState::Save() {
 
 void PlayState::AddLifeShard(int id) {
 	player_->getComponent<Health>()->addLifeShard(id);
-	constructors::lifeShardFeedbackTextEntity(mngr_, Vector2D(player_->getComponent<Transform>()->getPosition() - camera_->getComponent<Transform>()->getPosition()), !(player_->getComponent<Health>()->getNumShards() % 2 == 0));
+	cout << player_->getComponent<Health>()->getNumShards() << endl;
+	//Vector2D(player_->getComponent<Transform>()->getPosition() - camera_->getComponent<Transform>()->getPosition())
+	constructors::lifeShardFeedbackTextEntity(mngr_,Vector2D(sdlutils().width() / 2, sdlutils().height() / 2 - 100), !(player_->getComponent<Health>()->getNumShards() % 2 == 0));
 	map_->addShard(id);
+}
+
+void PlayState::AddRelic(ecs::elements id) {
+	sdlutils().soundEffects().at("relic_wink").setVolume(100);
+	sdlutils().soundEffects().at("relic_wink").play(0, ecs::_channel_PLAYER);
+	std::cout << "reliquia recogida" << std::endl;
+	relicsCollected++;
+	if (relicsCollected >= 3) player_->getComponent<FramedImageOtt>()->hasAllRelics();
 }
 
 // AQUÍ SE GUARDA PARTIDA

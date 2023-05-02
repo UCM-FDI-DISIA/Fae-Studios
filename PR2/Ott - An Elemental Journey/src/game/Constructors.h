@@ -59,6 +59,7 @@
 #include "../components/PlatformMovementX.h"
 #include "../components/FireBossRoom.h"
 #include "../components/LifeShardFeedbackComponent.h"
+#include "../components/GeneralAnimationController.h"
 #include <string>
 #include <iostream>
 #include <functional>
@@ -361,6 +362,17 @@ namespace constructors {
 		grass->addComponent<GrassAnimationComponent>();
 		return grass;
 	}
+	static inline Entity* rockLore(Manager* mngr_, Vector2D position, int width, int height, int ID, int room) {
+		auto rock = mngr_->addEntity(ecs::_grp_INTERACTION);
+		rock->addComponent<Transform>(position, width, height);
+		rock->addComponent<Image>(&sdlutils().images().at("loreRock"));
+		auto cb = []() {
+			static_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->startLore();
+		};
+		rock->addComponent<InteractionComponent>(cb, ROCK_IT, ID, room);
+		//rock->addComponent<GeneralAnimationController>();
+		return rock;
+	}
 
 	static inline Entity* LifeShard(Manager* mngr_, int x, int y, int w, int h, int ID, int room) {
 		auto shard = mngr_->addEntity(ecs::_grp_INTERACTION);
@@ -401,6 +413,31 @@ namespace constructors {
 		return element;
 	}
 
+	static inline Entity* relic(Manager* mngr_, int x, int y, int w, int h, ecs::elements relicType, int room) {
+		auto relic = mngr_->addEntity(ecs::_grp_INTERACTION);
+		relic->addComponent<Transform>(Vector2D(x, y), w, h);
+		std::string key;
+		switch (relicType) {
+		case ecs::Earth:
+			key = "earth_relic";
+			break;
+		case ecs::Water:
+			key = "water_relic";
+			break;
+		case ecs::Fire:
+			key = "fire_relic";
+			break;
+		}
+		relic->addComponent<FramedImage>(&sdlutils().images().at(key), 1, 10);
+		relic->addComponent<GeneralAnimationController>(anims::RELIC, relic);
+		//relic->addComponent<ElementObject>(relicType);
+		auto cb = [relicType]() {
+			static_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->AddRelic(relicType);
+		};
+		relic->addComponent<InteractionComponent>(cb, RELIC_IT, relicType, room, true);
+
+		return relic;
+	}
 
 	static inline std::pair<Entity*, Entity*> lamp(Manager* mngr_, int x1, int y1, int w1, int h1, int room1, int x2, int y2, int w2, int h2, int room2, int ID1, int ID2) {
 		auto lamp = mngr_->addEntity(ecs::_grp_INTERACTION);
@@ -604,7 +641,8 @@ namespace constructors {
 			type = anims::CARTELELEMENTO;
 		}
 		cartelObject->addComponent<FramedImage>(&sdlutils().images().at(numCartel), row, col);
-			//cartelObject->addComponent< GeneralAnimationController>(type,cartelObject);
+		if(numCartel != "bossTierraCartel")
+			cartelObject->addComponent<GeneralAnimationController>(type,cartelObject);
 		return cartelObject;
 	}
 
@@ -613,7 +651,8 @@ namespace constructors {
 		std::string txt;
 		if (oneHalf) txt = "1/2";
 		else txt = "2/2";
-		t->addComponent<TextComponent>(txt, sdlutils().fonts().at("press_start8"), blanco, transparente);
+		SDL_Color rojo = { 255,0,0,255 };
+		t->addComponent<TextComponent>(txt, sdlutils().fonts().at("press_start48"), rojo, transparente);
 		Vector2D textPos = Vector2D(position.getX() - t->getComponent<TextComponent>()->getWidth() / 2, position.getY() - 10.0f);
 		t->getComponent<TextComponent>()->setPosition(textPos);
 		t->addComponent<LifeShardFeedbackComponent>();
