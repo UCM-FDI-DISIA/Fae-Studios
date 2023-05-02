@@ -34,7 +34,7 @@ private:
     int relicsCollected = 0;
 
 
-    bool start = false;
+    bool start = true;
     int timerAnim;
     int frameAnim = 0;
     Entity* cinema_;

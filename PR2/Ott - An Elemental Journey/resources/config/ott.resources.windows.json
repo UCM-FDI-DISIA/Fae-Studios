@@ -327,22 +327,10 @@
 			"cols": 1
 		},
 		{
-			"id": "sanctuary",
-			"file": "../resources/images/tests/sanctuary.png",
-			"rows": 1,
-			"cols": 1
-		},
-		{
 			"id": "sanctuarySheet",
 			"file": "../resources/images/tests/sanctuarySheet.png",
 			"rows": 1,
 			"cols": 18
-		},
-		{
-			"id": "sanctuaryOff",
-			"file": "../resources/images/tests/sanctuaryOff.png",
-			"rows": 1,
-			"cols": 1
 		},
 		{
 			"id": "level1bg",
@@ -370,9 +358,9 @@
 		},
 		{
 			"id": "shield",
-			"file": "../resources/images/levels/Shield.png",
+			"file": "../resources/images/tests/lightShield.png",
 			"rows": 1,
-			"cols": 1
+			"cols": 17
 		},
 		{
 			"id": "whip",
@@ -382,21 +370,21 @@
 		},
 		{
 			"id": "waterShield",
-			"file": "../resources/images/levels/waterShield.png",
+			"file": "../resources/images/tests/waterShield.png",
 			"rows": 1,
-			"cols": 1
+			"cols": 17
 		},
 		{
 			"id": "earthShield",
-			"file": "../resources/images/levels/earthShield.png",
+			"file": "../resources/images/tests/earthShield.png",
 			"rows": 1,
-			"cols": 1
+			"cols": 17
 		},
 		{
 			"id": "fireShield",
-			"file": "../resources/images/levels/fireShield.png",
+			"file": "../resources/images/tests/fireShield.png",
 			"rows": 1,
-			"cols": 1
+			"cols": 17
 		},
 		{
 			"id": "enemy",
@@ -2290,8 +2278,10 @@
 		{ "id" : "hitTaken", "file" : "../resources/sound/hitTaken.wav"},
 		{ "id" : "menemy_dead", "file" : "../resources/sound/bicho_muerte.wav"},
 		{ "id" : "relic_transformation", "file" : "../resources/sound/relic_transformation.wav"},
-		{ "id" : "relic_wink", "file" : "../resources/sound/relic_wink.wav"}
-
+		{ "id" : "relic_wink", "file" : "../resources/sound/relic_wink.wav"},
+		{ "id" : "shield_block", "file" : "../resources/sound/shield_block.wav"},
+		{ "id" : "shield_broken", "file" : "../resources/sound/shield_broken.wav"},
+		{ "id" : "menemy_dead", "file" : "../resources/sound/bicho_muerte.wav"}
   ],
 
   "musics" : [

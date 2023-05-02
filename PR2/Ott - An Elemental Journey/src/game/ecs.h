@@ -51,6 +51,7 @@ namespace ecs {
         _ENTERBOSS,
         _FADEOUTANIM,
         _EARTH_ATTACK_ANIM,
+        _SHIELD_ANIM,
         _EARTHMNGR,
         _WATER_ATTACK_ANIM,
         _GET_ELEMENT,

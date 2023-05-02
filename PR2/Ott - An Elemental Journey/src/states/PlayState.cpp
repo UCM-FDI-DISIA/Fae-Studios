@@ -428,8 +428,8 @@ void PlayState::AddRelic(ecs::elements id) {
 void PlayState::endRest() {
     player_->getComponent<Health>()->saveSactuary(lastSanctuary);
 	// Guardar datos en archivo
-	std::string hola = "../resources/saves/temporalUniqueSave.sv";
-	std::ofstream saveFile(hola);
+	std::string fileName = "../resources/saves/temporalUniqueSave.sv";
+	std::ofstream saveFile(fileName);
 
 	player_->getComponent<Health>()->saveToFile(saveFile);
 	player_->getComponent<PlayerInput>()->saveToFile(saveFile);
