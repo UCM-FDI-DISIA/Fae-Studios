@@ -1,0 +1,22 @@
+@keyframes animTitulo {
+    from {color:black;}
+    to {color:rgba(255,217,102, 1);}
+}
+
+@keyframes animTitulo2 {
+    from {color:rgba(255,217,102, 1);}
+    to {color:black;}
+}
+
+.titulo:hover {
+    animation-name:animTitulo;
+    animation-duration: 1s;
+    color:rgba(255,217,102, 1);
+}
+.titulo:not(:hover) {
+    animation-name:animTitulo2;
+    animation-duration: 1s;
+}
+.preload {
+    animation-name:none !important;
+}
