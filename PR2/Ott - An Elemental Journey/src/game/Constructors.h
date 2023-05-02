@@ -360,6 +360,17 @@ namespace constructors {
 		grass->addComponent<GrassAnimationComponent>();
 		return grass;
 	}
+	static inline Entity* rockLore(Manager* mngr_, Vector2D position, int width, int height, int ID, int room) {
+		auto rock = mngr_->addEntity(ecs::_grp_INTERACTION);
+		rock->addComponent<Transform>(position, width, height);
+		rock->addComponent<Image>(&sdlutils().images().at("loreRock"));
+		auto cb = []() {
+			static_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->startLore();
+		};
+		rock->addComponent<InteractionComponent>(cb, ROCK_IT, ID, room);
+		//rock->addComponent<GeneralAnimationController>();
+		return rock;
+	}
 
 	static inline Entity* LifeShard(Manager* mngr_, int x, int y, int w, int h, int ID, int room) {
 		auto shard = mngr_->addEntity(ecs::_grp_INTERACTION);
@@ -603,7 +614,8 @@ namespace constructors {
 			type = anims::CARTELELEMENTO;
 		}
 		cartelObject->addComponent<FramedImage>(&sdlutils().images().at(numCartel), row, col);
-			//cartelObject->addComponent< GeneralAnimationController>(type,cartelObject);
+		if(numCartel != "bossTierraCartel")
+			cartelObject->addComponent<GeneralAnimationController>(type,cartelObject);
 		return cartelObject;
 	}
 }

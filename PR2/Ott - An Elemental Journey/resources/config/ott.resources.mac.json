@@ -258,7 +258,7 @@
 			"file": "../Ott - An Elemental Journey/resources/images/tests/sanctuary.png",
 			"rows": 1,
 			"cols": 1
-		},		
+		},
 		{
 			"id": "sanctuarySheet",
 			"file": "../Ott - An Elemental Journey/resources/images/tests/sanctuarySheet.png",
@@ -778,6 +778,12 @@
 		{
 			"id": "earth_spike",
 			"file": "../Ott - An Elemental Journey/resources/images/tests/Earth_Spikes.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "loreRock",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/loreRock.png",
 			"rows": 1,
 			"cols": 1
 		},

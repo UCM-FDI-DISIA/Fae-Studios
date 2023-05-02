@@ -8,12 +8,16 @@ GeneralAnimationController::GeneralAnimationController(anims::Entities e, Entity
 {
 	eAnims = e;
 	image = e1->getComponent<FramedImage>();
-	
 }
 
 void GeneralAnimationController::update() {
 	timer_++;
 	int col = image->getCurrentCol();
-	col = (timer_ / getTPerFrame()) % getNFrames() + getColNum();
-	image->setCol(col);
+	int row = image->getCurrentRow();
+	int c = (timer_ / getTPerFrame()) % getNFrames() + getColNum();
+	col = c % image->getTexture()->getNumCols();
+	if (col == 0) {
+		row = (c / image->getTexture()->getNumCols());
+	}
+	image->setCol(col); image->setRow(row);
 }

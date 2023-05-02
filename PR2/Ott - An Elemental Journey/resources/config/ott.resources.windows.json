@@ -854,6 +854,12 @@
 			"cols": 1
 		},
 		{
+			"id": "loreRock",
+			"file": "../resources/images/tests/loreRock.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
 			"id": "hanging_spike",
 			"file": "../resources/images/tests/Hanging_Spike.png",
 			"rows": 1,
