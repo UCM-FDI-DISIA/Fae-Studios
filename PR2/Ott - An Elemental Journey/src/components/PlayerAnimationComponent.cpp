@@ -67,8 +67,8 @@ void PlayerAnimationComponent::update()
 			else setState(IDLE); // idle
 		}
 		else if (physics->isClimbing())  state_ = CLIMB;
-		else if (vel.getY() == 0 && !physics->isGrounded()) { setState(PEAK); } // si no se mueve en la Y y no está en suelo, se pone PEAK
-		else if (vel.getY() < 0) { setState(JUMP_UP); } // salto 
+		else if ((vel.getY() <0.15&&vel.getY()>-0.15) && !physics->isGrounded()){	setState(PEAK); } // si no se mueve en la Y y no está en suelo, se pone PEAK
+		else if (vel.getY() < 0) { setState(JUMP_UP);} // salto 
 		else { setState(FALL); } // caída
 		if (invincible && SDL_GetTicks() - damageTimer >= invencibilityTime * 1000) invincible = false; // invencibilidad. CAMBIAR
 	}
