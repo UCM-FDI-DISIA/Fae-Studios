@@ -362,6 +362,10 @@ void PlayState::Teleport() {
 		sdlutils().soundEffects().at("teleport").play(0, ecs::_channel_ALERTS);
 	}
 }
+void PlayState::startLore() {
+	Entity* aux = *interactionIt;
+	aux->getComponent<LoreRoom>()->startLore();
+}
 
 void PlayState::Save() {
 	map_->playFadeOutAnimation();

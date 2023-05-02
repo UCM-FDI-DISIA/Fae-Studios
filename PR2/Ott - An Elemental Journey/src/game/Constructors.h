@@ -58,6 +58,7 @@
 #include "../components/PlatformMovementY.h"
 #include "../components/PlatformMovementX.h"
 #include "../components/FireBossRoom.h"
+#include "../components/LoreTextAnims.h"
 #include <string>
 #include <iostream>
 #include <functional>
@@ -360,7 +361,7 @@ namespace constructors {
 		grass->addComponent<GrassAnimationComponent>();
 		return grass;
 	}
-	static inline Entity* rockLore(Manager* mngr_, Vector2D position, int width, int height, int ID, int room) {
+	static inline Entity* rockLore(Manager* mngr_, Vector2D position, int width, int height, int ID, int room, std::string name, Vector2D posText) {
 		auto rock = mngr_->addEntity(ecs::_grp_INTERACTION);
 		rock->addComponent<Transform>(position, width, height);
 		rock->addComponent<Image>(&sdlutils().images().at("loreRock"));
@@ -368,7 +369,13 @@ namespace constructors {
 			static_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->startLore();
 		};
 		rock->addComponent<InteractionComponent>(cb, ROCK_IT, ID, room);
-		//rock->addComponent<GeneralAnimationController>();
+		auto text = mngr_->addEntity(ecs::_grp_UI);
+		
+		text->addComponent<Transform>(posText, width*8, height*1.2);
+		text->addComponent<FramedImage>(&sdlutils().images().at(name), 3, 12);
+		text->addComponent<LoreTextAnims>(name, anims::LORE_ANIM, text);
+		rock->addComponent<LoreRoom>(text);
+	
 		return rock;
 	}
 
@@ -590,11 +597,6 @@ namespace constructors {
 
 		return pObject;
 	}
-	/*static inline void vine(Manager* mngr_, Vector2D position, int width, int height, Texture* t) {
-		auto vine = mngr_->addEntity(ecs::_grp_VINE);
-		vine->addComponent<Transform>(position.getX(), position.getY(), width, height);
-		vine->addComponent<Image>(&sdlutils().images().at("enredadera"));
-	}*/
 
 	static inline Entity* Cartel(Manager* mngr_, int x, int y, int w, int h, std::string numCartel) {
 		Entity* cartelObject = mngr_->addEntity(ecs::_grp_CARTEL);

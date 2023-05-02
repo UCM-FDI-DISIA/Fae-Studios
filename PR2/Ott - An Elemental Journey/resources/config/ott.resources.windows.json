@@ -860,6 +860,12 @@
 			"cols": 1
 		},
 		{
+			"id": "loreText1",
+			"file": "../resources/images/tests/Lore_1.png",
+			"rows": 12,
+			"cols": 3
+		},
+		{
 			"id": "hanging_spike",
 			"file": "../resources/images/tests/Hanging_Spike.png",
 			"rows": 1,

@@ -5,6 +5,7 @@
 #include "../components/MapComponent.h"
 #include "../components/EnemyAnimationController.h"
 #include "../components/FireBossAnimation.h"
+#include "../components/LoreRoom.h"
 #include "../components/InteractionComponent.h"
 #include <list>
 #include <vector>
@@ -129,7 +130,7 @@ public:
     inline float getGravityValue() const { return gravityValue; }
     void checkInteraction();
     void AddEnredadera();
-    void startLore() { std::cout << "Te cuento el lore hehe" << std::endl; };
+    void startLore();
     void AddLifeShard(int id);
     void Teleport();
     void Save();
