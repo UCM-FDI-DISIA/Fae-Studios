@@ -224,6 +224,10 @@ void MapComponent::update() {
 }
 
 void MapComponent::setPlayerInRoom(Vector2D newPlayerPos, int newRoom) {
+    auto bullets = mngr_->getEntities(ecs::_grp_PROYECTILES);
+    for (auto it : bullets) {
+        it->setAlive(false);
+    }
     cam->setPos(newPlayerPos); // settear la nueva posición de la cámara
     activateObjectsInRoom(currentRoom, false); // desactivar los objetos de la sala actual
     setCurrentRoom(newRoom); // settear la nueva sala
@@ -259,8 +263,9 @@ void MapComponent::changeMap(int newMap, std::string key, int nextPos) {
     for (auto it : interact) {
         for (auto ot : it) {
             if (!ot->hasComponent<InteractionComponent>()) ot->setAlive(false);
-            else if(ot->getComponent<InteractionComponent>()->getType() != SANCTUARY_IT)
+            else if (ot->getComponent<InteractionComponent>()->getType() != SANCTUARY_IT)
                 ot->setAlive(false);
+            else ot->setActive(false);
         }
     }
     for (auto it : waterObjects) {
@@ -279,11 +284,18 @@ void MapComponent::changeMap(int newMap, std::string key, int nextPos) {
     for (auto it : mngr_->getEntities(ecs::_grp_TRIGGER)) {
         it->setAlive(false);
     }
+    for (auto it : backgrounds) {
+        if(it != nullptr)
+            it->setAlive(false);
+    }
     interact.clear();
     eraseEntities.clear();
     mngr_->refresh();
     ps->changeMap(newMap);
 
+    backgrounds.clear();
+
+    backgrounds = {};
     currentMapKey = key;
     ground = {};
     destructible = {};
@@ -587,6 +599,17 @@ void MapComponent::loadMap(std::string path, int nextPos) {
                 auto it = (--v->end());
                 newGrass->getComponent<InteractionComponent>()->setIt(it, v);
                 newGrass->setActive(false);
+
+                auto vine = newGrass->getComponent<VineManager>()->getVine();
+                auto cb = []() {
+
+                };
+                vine->addComponent<InteractionComponent>(cb, VINE_IT, 0, std::stoi(ot.getName()));
+                interact[std::stoi(ot.getName())].push_back(vine);
+                v = &interact[std::stoi(ot.getName())];
+                it = (--v->end());
+                vine->getComponent<InteractionComponent>()->setIt(it, v);
+                vine->setActive(false);
             }
             else if (ot.getClass() == "Spike") {
                 auto roomScale = vectorTiles[std::stoi(ot.getName())].first;

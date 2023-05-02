@@ -18,11 +18,14 @@ void EnemyShootingAttack::Attack() {
 	if (enemyAttack->requestAttack() && playerHealth->getHealth() > 0) {
 		auto bullet = mngr_->addEntity(ecs::_grp_PROYECTILES);
 		auto pc = bullet->addComponent<PhysicsComponent>();
+		auto tr_ = ent_->getComponent<Transform>();
 		if (ent_->getComponent<PhysicsComponent>()->getLookDirection())
-			bullet->addComponent<Transform>(ent_->getComponent<Transform>()->getPosition().getX() + ent_->getComponent<Transform>()->getWidth() / 3, ent_->getComponent<Transform>()->getPosition().getY() + ent_->getComponent<Transform>()->getHeight() / 2, 30, 30);
+			bullet->addComponent<Transform>(tr_->getPosition().getX() + tr_->getWidth() / 3, 
+				tr_->getPosition().getY() + tr_->getHeight() / 2, 30 * tr_->getScale(), 30 * tr_->getScale());
 		else
-			bullet->addComponent<Transform>(ent_->getComponent<Transform>()->getPosition().getX(), ent_->getComponent<Transform>()->getPosition().getY() + ent_->getComponent<Transform>()->getHeight() / 2, 30, 30);
-		if (player->getComponent<Transform>()->getPosition().getX() > ent_->getComponent<Transform>()->getPosition().getX())
+			bullet->addComponent<Transform>(tr_->getPosition().getX(), tr_->getPosition().getY() + tr_->getHeight() / 2,
+				30 * tr_->getScale(), 30 * tr_->getScale());
+		if (player->getComponent<Transform>()->getPosition().getX() >tr_->getPosition().getX())
 			pc->setVelocity(Vector2D(3, 0));
 		else
 			pc->setVelocity(Vector2D(-3, 0));

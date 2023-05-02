@@ -638,7 +638,8 @@ namespace constructors {
 		std::string txt;
 		if (oneHalf) txt = "1/2";
 		else txt = "2/2";
-		t->addComponent<TextComponent>(txt, sdlutils().fonts().at("press_start8"), blanco, transparente);
+		SDL_Color rojo = { 255,0,0,255 };
+		t->addComponent<TextComponent>(txt, sdlutils().fonts().at("press_start48"), rojo, transparente);
 		Vector2D textPos = Vector2D(position.getX() - t->getComponent<TextComponent>()->getWidth() / 2, position.getY() - 10.0f);
 		t->getComponent<TextComponent>()->setPosition(textPos);
 		t->addComponent<LifeShardFeedbackComponent>();
