@@ -96,7 +96,7 @@ bool Health::recieveDamage(ecs::elements el, bool dir) {
 	else {
 		if (!dead) {
 			actualLife -= ecs::matrix[el][elem];
-			if(ent_->hasComponent<EnemyAnimationComponent>()) ent_->getComponent<EnemyAnimationComponent>()->damage();
+			if(ent_->hasComponent<EnemyAnimationComponent>()) ent_->getComponent<EnemyAnimationComponent>()->damage(ecs::ottMatrix[el][elem]);
 		}
 	}
 	std::cout << "LIFE (HEALTH): " << actualLife << std::endl;

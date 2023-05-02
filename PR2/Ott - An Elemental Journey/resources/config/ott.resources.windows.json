@@ -347,7 +347,7 @@
 		{
 			"id": "earthBug",
 			"file": "../resources/images/sprites/EarthBug.png",
-			"rows": 2,
+			"rows": 13,
 			"cols": 21
 		},
 		{
@@ -371,7 +371,7 @@
 		{
 			"id": "earthMushroom",
 			"file": "../resources/images/sprites/EarthMushroom.png",
-			"rows": 2,
+			"rows": 13,
 			"cols": 22
 		},
 		{
@@ -395,7 +395,7 @@
 		{
 			"id": "earthSlime",
 			"file": "../resources/images/sprites/EarthSlime.png",
-			"rows": 2,
+			"rows": 13,
 			"cols": 21
 		},
 		{
