@@ -388,9 +388,10 @@ void PlayState::AddEnredadera() {
 }
 
 void PlayState::UnlockElement(ecs::elements elem) {
-	player_->getComponent<PlayerInput>()->unlockElement((* interactionIt)->getComponent<ElementObject>()->getElement());
-	player_->getComponent<PlayerAnimationComponent>()->changeElem((*interactionIt)->getComponent<ElementObject>()->getElement());
+	player_->getComponent<PlayerInput>()->unlockElement(elem);
+	player_->getComponent<PlayerAnimationComponent>()->changeElem(elem);
 	player_->getComponent<PlayerAnimationComponent>()->setState(VANISH);
+	player_->getComponent<Health>()->setNewInitialPos((*interactionIt)->getComponent<Transform>()->getPosition());
 	map_->unlockElement(elem);
 }
 
