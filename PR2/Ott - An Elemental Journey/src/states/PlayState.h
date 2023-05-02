@@ -32,7 +32,15 @@ private:
 
     bool isScreenDarkened = false;
 
+<<<<<<< Updated upstream
     int relicsCollected = 0;
+=======
+
+    bool start = false;
+    int timerAnim;
+    int frameAnim = 0;
+    Entity* cinema_;
+>>>>>>> Stashed changes
 
 public:
     /// Constructora del estado de juego
@@ -143,4 +151,6 @@ public:
     inline ecs::maps getCurrentMap() { return currentMap; }
     inline void changeMap(int map) { currentMap = (ecs::maps)map; enemies.clear(); 
         initialEnemies.clear(); enemyIt.clear(); };
+
+    inline void cinematic();
 };
