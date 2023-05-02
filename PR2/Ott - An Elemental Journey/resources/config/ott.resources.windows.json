@@ -784,7 +784,13 @@
 		{
 			"id": "hanging_spike",
 			"file": "../resources/images/tests/Hanging_Spike.png",
-			"rows": 1
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "spikeBall",
+			"file": "../resources/images/tests/spikeBall.png",
+			"rows": 1,
 			"cols": 1
 		}
 	],

@@ -780,6 +780,12 @@
 			"file": "../Ott - An Elemental Journey/resources/images/tests/Hanging_Spike.png",
 			"rows": 1,
 			"cols": 1
+		},
+		{
+			"id": "spikeBall",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/spikeBall.png",
+			"rows": 1,
+			"cols": 1
 		}
 	],
   "messages" : [],

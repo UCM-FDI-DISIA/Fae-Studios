@@ -113,11 +113,13 @@ void FireBossComponent::spawnPillars()
 void FireBossComponent::shootAtPlayer()
 {
 	if (fAnim_->getState() != DIE_FIREBOSS) fAnim_->setState(ATTACK_FIREBOSS);
-	Vector2D position = tr_->getPosition();
+
+	Vector2D position = ent_->getComponent<Transform>()->getPosition();
 	Transform* pTr = player->getComponent<Transform>();
-	Vector2D direction = pTr->getPosition() - position;
-	direction = direction.normalize() * 2;
-	constructors::bullet(mngr_, "fire_attack", position.getX()+tr_->getWidth()/2, position.getY() + tr_->getHeight()/2, 80, direction, ent_, ecs::Fire, 1);
+	Vector2D pPos = pTr->getPosition();
+	Vector2D direction = pPos - position;
+	direction = direction.normalize()*2;
+	constructors::bullet(mngr_, "spikeBall", position.getX()+tr_->getWidth()/2, position.getY() + tr_->getHeight()/2, 50, direction, ent_, ecs::Fire, 1);
 	normalAttackTimer = SDL_GetTicks();
 }
 
