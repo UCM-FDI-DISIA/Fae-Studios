@@ -131,6 +131,7 @@ public:
     inline float getGravityValue() const { return gravityValue; }
     void checkInteraction();
     void AddEnredadera();
+    void startLore() { std::cout << "Te cuento el lore hehe" << std::endl; };
     void AddLifeShard(int id);
     void AddRelic(ecs::elements relic);
     void Teleport();

@@ -611,6 +611,18 @@ void MapComponent::loadMap(std::string path, int nextPos) {
                 vine->getComponent<InteractionComponent>()->setIt(it, v);
                 vine->setActive(false);
             }
+            else if (ot.getClass() == "Lore_Rock") {
+                auto roomScale = vectorTiles[std::stoi(ot.getName())].first;
+                auto rock = constructors::rockLore(mngr_, 
+                    Vector2D((x_ * scale) * roomScale, (y_ * scale) * roomScale),
+                    (w_ * scale) * roomScale, (h_ * scale) * roomScale, 0, std::stoi(ot.getName()));
+                interact[std::stoi(ot.getName())].push_back(rock);
+                auto v = &interact[std::stoi(ot.getName())];
+                auto it = (--v->end());
+                rock->getComponent<InteractionComponent>()->setIt(it, v);
+                rock->setActive(false);
+          
+            }
             else if (ot.getClass() == "Spike") {
                 auto roomScale = vectorTiles[std::stoi(ot.getName())].first;
                 auto newSpike = constructors::damageArea(mngr_,
@@ -772,25 +784,7 @@ void MapComponent::loadMap(std::string path, int nextPos) {
                 earthBossPlatforms->setActive(false);
                 eraseEntities.push_back(earthBossPlatforms);
             }
-            else if (ot.getClass() == "lore_Trigger") {
-                int roomNum = std::stoi(ot.getName());
-                auto roomScale = vectorTiles[roomNum].first;
-                SDL_Rect trigger;
-                trigger.x = x_ * scale * roomScale;
-                trigger.y = y_ * scale * roomScale;
-                trigger.w = w_ * scale * roomScale;
-                trigger.h = h_ * scale * roomScale;
-                Entity* triggerLore = mngr_->addEntity(ecs::_grp_GENERAL);
-                triggerLore->addComponent<Transform>(trigger);
-                triggerLore->addComponent<LoreRoom>(player_);
-                triggerLore->addComponent<Trigger>();
-            
-                interact[roomNum].push_back(triggerLore);
-                auto v = &interact[roomNum];
-                auto it = (--v->end());
-                triggerLore->getComponent<InteractionComponent>()->setIt(it, v);
-                triggerLore->setActive(false);
-            }
+          
             else if (classSplit[0] == "Life") {
                 auto lifeSharIDSplit = strSplit(pickedLifeShards, ' ');
                 bool dontCreate = false;

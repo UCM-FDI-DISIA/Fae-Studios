@@ -105,6 +105,78 @@
 			"cols": 1
 		},
 		{
+			"id": "Sala0_fuego",
+			"file": "../resources/images/backgrounds/Sala0_fuego.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "Sala1_fuego",
+			"file": "../resources/images/backgrounds/Sala1_fuego.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "Sala2_fuego",
+			"file": "../resources/images/backgrounds/Sala2_fuego.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "Sala3_fuego",
+			"file": "../resources/images/backgrounds/Sala3_fuego.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "Sala4_fuego",
+			"file": "../resources/images/backgrounds/Sala4_fuego.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "Sala5_fuego",
+			"file": "../resources/images/backgrounds/Sala5_fuego.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "Sala6_fuego",
+			"file": "../resources/images/backgrounds/Sala6_fuego.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "Sala7_fuego",
+			"file": "../resources/images/backgrounds/Sala7_fuego.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "Sala8_fuego",
+			"file": "../resources/images/backgrounds/Sala8_fuego.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "Sala9_fuego",
+			"file": "../resources/images/backgrounds/Sala9_fuego.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "Sala10_fuego",
+			"file": "../resources/images/backgrounds/Sala10_fuego.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "Sala11_fuego",
+			"file": "../resources/images/backgrounds/Sala11_fuego.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
 			"id": "mainmenubackground",
 			"file": "../resources/images/backgrounds/mainmenubg.png",
 			"rows": 1,
@@ -783,6 +855,12 @@
 			"cols": 1
 		},
 		{
+			"id": "loreRock",
+			"file": "../resources/images/tests/loreRock.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
 			"id": "hanging_spike",
 			"file": "../resources/images/tests/Hanging_Spike.png",
 			"rows": 1,
@@ -856,7 +934,7 @@
   "maps": [
 		{ "id" : "earthMap", "file" : "../resources/levels/EarthMap.tmx", "cols" : 246, "tileset" : "level1tileset", "background" : "level1bg", "music" : "earth_level" },
 		{ "id" : "waterMap", "file" : "../resources/levels/WaterMap.tmx", "cols" : 289, "tileset" : "waterTileset", "background" : "level1bg", "music" : "water_level" },
-		{ "id" : "fireMap", "file" : "../resources/levels/FireMap.tmx", "cols" : 162, "tileset" : "fireTileset", "background" : "level1bg", "music" : "water_level" },
+		{ "id" : "fireMap", "file" : "../resources/levels/FireMap2.tmx", "cols" : 162, "tileset" : "fireTileset", "background" : "level1bg", "music" : "water_level" },
 		{ "id" : "waterBossMap", "file" : "../resources/levels/WaterBossMap.tmx", "cols" : 211, "tileset" : "waterTileset", "background" : "level1bg", "music" : "water_boss_fight" },
 		{"id": "QA", "file" : "../resources/levels/MapaQA.tmx", "cols" : 83, "tileset":  "waterTileset", "background" :"level1bg", "music": "earth_level" }
   ]
