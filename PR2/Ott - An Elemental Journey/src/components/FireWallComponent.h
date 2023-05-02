@@ -12,7 +12,8 @@ public:
 private:
 	void update() override;
 	Vector2D dir;
-	Entity* player;
+	Entity* p;
 	Transform* tr_;
-	int initialXPos, maxDistance = 900;
+	Transform* player;
+	int initialXPos, maxDistance = 2000;
 };

@@ -27,7 +27,6 @@ void FinalBossBehaviorComponent::update()
 	//Temporizador de ataque
 	if (SDL_GetTicks() > timeBetweenAttacks) {
 		timeBetweenAttacks +=ATTACK_TIME;
-
 		//Switch de los diferentes ataques del boss
 		switch (currentElement)
 		{
@@ -90,10 +89,11 @@ void FinalBossBehaviorComponent::spawnFireWall() //Ataque fuego
 {
 	// Transform del boss
 	auto pTransf = ent_->getComponent<Transform>();
+	Vector2D spawnPos = pTransf->getPosition() + Vector2D(0, pTransf->getHeight() / 2);
 	// Burguja
 	Entity* fireW = mngr_->addEntity(ecs::_grp_PROYECTILES);
 
-	fireW->addComponent<Transform>(pTransf->getPosition() - Vector2D(200, FIREWALL_HEIGHT / 2), FIREWALL_WIDTH * pTransf->getScale(), FIREWALL_HEIGHT * pTransf->getScale());
+	fireW->addComponent<Transform>(spawnPos - Vector2D(0, FIREWALL_HEIGHT / 2), FIREWALL_WIDTH * pTransf->getScale(), FIREWALL_HEIGHT * pTransf->getScale());
 	fireW->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
 	fireW->addComponent<FireWallComponent>(Vector2D(1, 0));
 }
