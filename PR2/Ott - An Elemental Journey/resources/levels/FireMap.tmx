@@ -239,7 +239,7 @@
   <object id="196" name="0_7" type="07" x="785.25" y="1299.42" width="12.3333" height="141.667"/>
   <object id="197" name="7_0" type="07" x="797.869" y="1299.53" width="8.66667" height="141.667"/>
  </objectgroup>
- <objectgroup id="3" name="Enemigos" visible="0">
+ <objectgroup id="3" name="Enemigos">
   <object id="133" name="3_1_left" type="Melee" x="3493.5" y="2481.83" width="32" height="94"/>
   <object id="134" name="3_3_left" type="Melee" x="3275.33" y="2493.67" width="31" height="93.5"/>
   <object id="135" name="6_3_right" type="Mushroom" x="1056.67" y="2494.67" width="44.5" height="47.5"/>
@@ -250,7 +250,7 @@
   <object id="140" name="1_3_right" type="Mushroom" x="1616" y="538.091" width="55" height="60.5"/>
   <object id="164" name="5_3_left" type="fireBoss" x="4465.45" y="1088.09" width="36" height="22"/>
  </objectgroup>
- <objectgroup id="4" name="Objetos interactuables">
+ <objectgroup id="4" name="Objetos interactuables" visible="0">
   <object id="75" name="1" type="Sanctuary_2" x="1556.33" y="2149.33" width="75" height="5.5"/>
   <object id="76" name="4" type="Sanctuary_3" x="3487.67" y="674.67" width="119.667" height="6.33333"/>
   <object id="88" name="Lamp1" type="Lamp_1" x="1747.66" y="2147" width="42" height="5.33333"/>

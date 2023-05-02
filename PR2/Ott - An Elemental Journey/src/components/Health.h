@@ -16,21 +16,21 @@ private:
 	BossHealthBar* bar = nullptr;
 	PlayerAnimationComponent* pAnim_;
 	std::string lifeShardIDs = " ";
-	bool dead = false;
+	bool dead = false, inmune = false;
 	int numShards = 0;
 	inline void increaseMaxLife() { maxLife++; actualLife = maxLife; image->increaseLife(); };
 
 public:
 	constexpr static ecs::cmpId_type id = ecs::_HEALTH;
-	Health(int h, ecs::elements e, bool player = false) : Component(), elem(e) { // ENEMIGOS
+	Health(int h, ecs::elements e, bool player = false, bool i = false) : Component(), elem(e), inmune(i) { // ENEMIGOS
 		maxLife = 2 * h; actualLife = 2 * h; 
 	};
 
-	Health(int h, ecs::elements e, HealthImage* image) : Component(), elem(e), image(image) { // JUGADOR
+	Health(int h, ecs::elements e, HealthImage* image, bool i = false) : Component(), elem(e), image(image), inmune(i) { // JUGADOR
 		maxLife = h; actualLife = h;
 	};
 
-	Health(BossHealthBar* bar_, int h, ecs::elements e, bool player = false) : Component(), elem(e) {
+	Health(BossHealthBar* bar_, int h, ecs::elements e, bool player = false, bool i = false) : Component(), elem(e), inmune(i) {
 		bar = bar_;
 		bar->setBossLife(h);
 		if (player) { maxLife = h; actualLife = h; }
@@ -72,7 +72,7 @@ public:
 	lifeShardIDs += (std::to_string(id) + " "); }
 	inline int getNumShards() const { return numShards; }
 	inline void killHealth() { actualLife = 0; image->die(); die(); }
-
+	inline void setInmune(bool v) { inmune = v; }
 	virtual void saveToFile(std::ofstream& file);
 	virtual void loadFromFile(std::ifstream& file);
 };

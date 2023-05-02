@@ -13,15 +13,17 @@ private:
 	class FramedImage* image;
 
 	Entity* camera = nullptr;
+	void resetFight();
 public:
 	FireBossRoom();
 	virtual ~FireBossRoom();
 	virtual void initComponent();
 	virtual void update();
 	anims::Entities eAnims = anims::MELEE_ANIM;
+	Entity* endWall;
 	Entity* minion;
 	int currentAnim, startTime;
 	bool entered = false;
-	constexpr static ecs::cmpId_type id = ecs::_grp_TRIGGER;
+	constexpr static ecs::cmpId_type id = ecs::_TRIGGER;
 };
 

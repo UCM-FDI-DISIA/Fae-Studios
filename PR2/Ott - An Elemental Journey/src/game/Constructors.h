@@ -181,7 +181,7 @@ namespace constructors {
 
 		auto waterVine = mngr_->addEntity(ecs::_grp_MAP);
 		waterVine->addComponent<Transform>(Vector2D(0, 0), 30 * scale, 300 * scale);
-		waterVine->addComponent<Image>(&sdlutils().images().at("enredadera"));
+		waterVine->addComponent<Image>(&sdlutils().images().at("vine"));
 		waterVine->addComponent<WaterVineComponent>(waterC);
 
 		return { waterC, waterVine };
@@ -501,7 +501,7 @@ namespace constructors {
 		//healthBar->addComponent<BossHealthBar>(boss, (int)ecs::Fire, &sdlutils().images().at("bossHealthBar"), &sdlutils().images().at("bossLife"));
 		auto anim=boss->addComponent<FireBossAnimation>(anims::FIREBOSS_ANIM, map);
 		boss->getComponent<FireBossComponent>()->setAnimComponent(anim);
-		boss->addComponent<Health>(20, ecs::Fire, false);
+		boss->addComponent<Health>(20, ecs::Fire, false, true);
 		//boss->addComponent<Health>(healthBar->getComponent<BossHealthBar>(), 25, ecs::Fire, false);
 		return boss;
 	}

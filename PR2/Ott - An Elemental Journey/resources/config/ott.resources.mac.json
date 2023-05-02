@@ -823,6 +823,12 @@
 			"file": "../Ott - An Elemental Journey/resources/images/tests/Ott_Fire_Relic.png",
 			"rows": 12,
 			"cols": 8
+		},
+		{
+			"id": "spikeBall",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/spikeBall.png",
+			"rows": 1,
+			"cols": 1
 		}
 	],
   "messages" : [],

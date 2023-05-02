@@ -3,7 +3,7 @@
 class WaterContainerComponent :public Component
 {
 private:
-	float fillRate = 0.08f, currentFill = 0;
+	float fillRate = 0.03f, currentFill = 0;
 	int originalHeight, originalYpos;
 	class Transform* tr;
 public:
