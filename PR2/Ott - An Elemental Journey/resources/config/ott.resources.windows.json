@@ -736,8 +736,8 @@
 		{
 			"id": "finalBossSheet",
 			"file": "../resources/images/tests/BossFinal-sheet.png",
-			"rows": 5,
-			"cols": 15
+			"rows": 7,
+			"cols": 14
 		},
 		{
 			"id": "finalBossFireWall",
