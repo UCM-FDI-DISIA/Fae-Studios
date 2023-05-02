@@ -374,7 +374,7 @@ void PlayState::Save() {
 
 void PlayState::AddLifeShard(int id) {
 	player_->getComponent<Health>()->addLifeShard(id);
-	constructors::lifeShardFeedbackTextEntity(mngr_, player_->getComponent<Transform>()->getPosition(), true);
+	constructors::lifeShardFeedbackTextEntity(mngr_, Vector2D(player_->getComponent<Transform>()->getPosition() - camera_->getComponent<Transform>()->getPosition()), !(player_->getComponent<Health>()->getNumShards() % 2 == 0));
 	map_->addShard(id);
 }
 

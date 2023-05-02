@@ -64,8 +64,9 @@ public:
 	void saveSactuary(Entity* sanct);
 	inline int getSanctuaryID() { return sanctuaryID; }
 	inline void setSanctuaryID(int ID) { sanctuaryID = ID; }
-	inline void addLifeShard(int id) { numShards++; if (numShards > 1 && numShards % 2 == 0) increaseMaxLife(); 
+	inline void addLifeShard(int id) { numShards++; if (numShards > 1 && numShards % 2 == 0) increaseMaxLife();
 	lifeShardIDs += (std::to_string(id) + " "); }
+	inline int getNumShards() const { return numShards; }
 	inline void killHealth() { actualLife = 0; image->die(); die(); }
 
 	virtual void saveToFile(std::ofstream& file);
