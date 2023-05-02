@@ -19,8 +19,12 @@ public:
 	}
     inline void resetCharges() {
         currentCharge = 0;
-        chargedBar_->resetCharges();
+		chargedBar_->resetCharges();
     }
+	inline void doAnim() {
+		chargedBar_->animChargeBar();
+	}
+	inline bool animDone() const { return chargedBar_->animDone(); }
 	inline bool hasChargedAttack() { return currentCharge >= maxCharge; }
 	constexpr static ecs::cmpId_type id = ecs::_CHARGED_ATTACK;
 };

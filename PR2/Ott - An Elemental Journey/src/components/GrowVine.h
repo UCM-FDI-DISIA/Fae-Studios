@@ -30,7 +30,7 @@ public:
 	void initComponent() override;
 	void update() override;
 	inline void startUngrowing() { ungrow = true; reached = false; };
-	inline void isGrowing(bool g) { grow = g; }
+	void isGrowing(bool g);
 	inline bool getUngrow() { return ungrow; }
 	inline bool getGrow() { return grow; }
 };

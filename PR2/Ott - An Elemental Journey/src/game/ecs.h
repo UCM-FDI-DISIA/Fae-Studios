@@ -63,6 +63,7 @@ namespace ecs {
         _PLATFORM_MOVEMENT,
         _LORE,
         _DAMAGE_AREA,
+        _LIFE_SHARD_FEEDBACK,
 
         _LAST_CMP_ID
     };

@@ -58,6 +58,7 @@
 #include "../components/PlatformMovementY.h"
 #include "../components/PlatformMovementX.h"
 #include "../components/FireBossRoom.h"
+#include "../components/LifeShardFeedbackComponent.h"
 #include <string>
 #include <iostream>
 #include <functional>
@@ -86,12 +87,12 @@ namespace constructors {
 		auto ph2 = enemy2->addComponent<PhysicsComponent>(colliders::RANGE);
 		enemy2->addComponent<Transform>(x, y, 110 * scale, 110 * scale); // 1700 1800 pos para pruebas
 		ph2->createCollider();
-		auto fi = enemy2->addComponent<FramedImage>(&sdlutils().images().at(imageKey), 2, 22);
+		auto fi = enemy2->addComponent<FramedImage>(&sdlutils().images().at(imageKey), 13, 22);
 		fi->flipTexture(!lookingRight);
 		enemy2->addComponent<Health>(5, el, false);
 		ph2->setVelocity({ 0,0 });
 		ph2->lookDirection(lookingRight);
-		auto eAttack_2 = enemy2->addComponent<EnemyAttack>(1200, 400);
+		auto eAttack_2 = enemy2->addComponent<EnemyAttack>(800, 800);
 		auto eAnim_2 = enemy2->addComponent<EnemyAnimationComponent>(anims::RANGE_ANIM);
 		auto attack_2 = enemy2->addComponent<EnemyShootingAttack>();
 		enemy2->addComponent<EnemyContactDamage>();
@@ -106,7 +107,7 @@ namespace constructors {
 		auto ph3 = enemy3->addComponent<PhysicsComponent>(colliders::MELEE);
 		enemy3->addComponent<Transform>(x, y, 230 * scale, 130 * scale);  // 2400 1800 pos para pruebas
 		ph3->createCollider();
-		auto fi = enemy3->addComponent<FramedImage>(&sdlutils().images().at(imageKey), 2, 21);
+		auto fi = enemy3->addComponent<FramedImage>(&sdlutils().images().at(imageKey), 13, 21);
 		fi->flipTexture(!lookingRight);
 		enemy3->addComponent<Health>(5, el, false);
 		float dir = 0;
@@ -150,7 +151,7 @@ namespace constructors {
 		auto ph = enemy->addComponent<PhysicsComponent>(colliders::SLIME);
 		auto tr = enemy->addComponent<Transform>(Vector2D(x, y), 120*gens * scale, 70*gens * scale);
 		ph->createCollider();
-		auto fi = enemy->addComponent<FramedImage>(&sdlutils().images().at(imageKey), 2, 21);
+		auto fi = enemy->addComponent<FramedImage>(&sdlutils().images().at(imageKey), 13, 21);
 		fi->flipTexture(!lookingRight);
 		enemy->addComponent<Health>(5, el, false);
 		float dir = 0;
@@ -196,7 +197,7 @@ namespace constructors {
 		auto ph = enemy->addComponent<PhysicsComponent>(colliders::SLIME);
 		auto tr = enemy->addComponent<Transform>(Vector2D(x, y), 360 * scale, 210 * scale);
 		ph->createCollider();
-		auto fi = enemy->addComponent<FramedImage>(tex, 2, 21);
+		auto fi = enemy->addComponent<FramedImage>(tex, 13, 21);
 		fi->flipTexture(!lookingRight);
 		enemy->addComponent<Health>(lives, el, false);
 		float dir = 0;
@@ -476,7 +477,7 @@ namespace constructors {
 
 		auto box0 = mngr_->addEntity(ecs::_grp_GENERAL);
 		x += 2800;
-		box0->addComponent<Transform>(x, y + 100, 100, 100);
+		box0->addComponent<Transform>(x, y +  100, 100, 100);
 		//box0->addComponent<Image>(&sdlutils().images().at("box"));
 		box0->addComponent<Pivot>(waterBoss, 0, map);
 
@@ -605,6 +606,18 @@ namespace constructors {
 		cartelObject->addComponent<FramedImage>(&sdlutils().images().at(numCartel), row, col);
 			//cartelObject->addComponent< GeneralAnimationController>(type,cartelObject);
 		return cartelObject;
+	}
+
+	static inline auto lifeShardFeedbackTextEntity(Manager* mngr_, const Vector2D& position, bool oneHalf) {
+		auto t = mngr_->addEntity(ecs::_grp_UI);
+		std::string txt;
+		if (oneHalf) txt = "1/2";
+		else txt = "2/2";
+		t->addComponent<TextComponent>(txt, sdlutils().fonts().at("press_start8"), blanco, transparente);
+		Vector2D textPos = Vector2D(position.getX() - t->getComponent<TextComponent>()->getWidth() / 2, position.getY() - 10.0f);
+		t->getComponent<TextComponent>()->setPosition(textPos);
+		t->addComponent<LifeShardFeedbackComponent>();
+		return t;
 	}
 }
 

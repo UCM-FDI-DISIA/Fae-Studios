@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\components\SanctuaryAnimationComponent.cpp" />
+    <ClCompile Include="src\components\LifeShardFeedbackComponent.cpp" />
     <ClCompile Include="src\components\FireBossRoom.cpp" />
     <ClCompile Include="src\components\LoreRoom.cpp" />
     <ClCompile Include="src\components\FireBossAnimation.cpp" />
@@ -103,6 +103,7 @@
     <ClCompile Include="src\components\WaterBossAnimationComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\components\LifeShardFeedbackComponent.h" />
     <ClInclude Include="src\components\SanctuaryAnimationComponent.h" />
     <ClInclude Include="src\components\FireBossRoom.h" />
     <ClInclude Include="src\components\LoreRoom.h" />

@@ -302,15 +302,17 @@ void PlayState::checkInteraction() {
 	auto itEnd = mngr_->getEntities(ecs::_grp_INTERACTION).end();
 	SDL_Rect r1 = mngr_->getPlayer()->getComponent<Transform>()->getRect();
     while (it != itEnd) {
-        Entity* ents = *it;
-        SDL_Rect r2 = ents->getComponent<Transform>()->getRect();
-        if (SDL_HasIntersection(&r1, &r2)) {
-			interactionIt = it;
-			ents->getComponent<InteractionComponent>()->OnPlayerNear();
-			input->setCanInteract(true);
-		}
-		else { 
-			ents->getComponent<InteractionComponent>()->OnPlayerLeave();
+		if ((*it)->isActive()) {
+			Entity* ents = *it;
+			SDL_Rect r2 = ents->getComponent<Transform>()->getRect();
+			if (SDL_HasIntersection(&r1, &r2)) {
+				interactionIt = it;
+				ents->getComponent<InteractionComponent>()->OnPlayerNear();
+				input->setCanInteract(true);
+			}
+			else { 
+				ents->getComponent<InteractionComponent>()->OnPlayerLeave();
+			}
 		}
 		it++; 
     }
@@ -372,6 +374,7 @@ void PlayState::Save() {
 
 void PlayState::AddLifeShard(int id) {
 	player_->getComponent<Health>()->addLifeShard(id);
+	constructors::lifeShardFeedbackTextEntity(mngr_, Vector2D(player_->getComponent<Transform>()->getPosition() - camera_->getComponent<Transform>()->getPosition()), !(player_->getComponent<Health>()->getNumShards() % 2 == 0));
 	map_->addShard(id);
 }
 

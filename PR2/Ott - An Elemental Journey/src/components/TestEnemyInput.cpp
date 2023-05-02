@@ -19,7 +19,7 @@ void TestEnemyInput::update() {
 	if (input_->isKeyJustDown(SDLK_l)) {
 		anim_->setState(DIE_ENEMY);
 	}
-	if (input_->isKeyJustDown(SDLK_h)) {
+	/*if (input_->isKeyJustDown(SDLK_h)) {
 		anim_->damage();
-	}
+	}*/
 }
