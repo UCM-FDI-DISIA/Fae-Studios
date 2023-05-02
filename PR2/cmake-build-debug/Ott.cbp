@@ -1,0 +1,614 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="Ott"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/almasso/Documents/GitHub/Fae-Studios/PR2/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/almasso/Documents/GitHub/Fae-Studios/PR2/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/almasso/Documents/GitHub/Fae-Studios/PR2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/almasso/Documents/GitHub/Fae-Studios/PR2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Ott">
+				<Option output="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/cmake-build-debug/Ott" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Library/Frameworks/SDL2.framework/Headers"/>
+					<Add directory="/Library/Frameworks/SDL2_image.framework/Headers"/>
+					<Add directory="/Library/Frameworks/SDL2_ttf.framework/Headers"/>
+					<Add directory="/Library/Frameworks/SDL2_mixer.framework/Headers"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/bin/../include/c++/v1"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/lib/clang/14.0.3/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/almasso/Documents/GitHub/Fae-Studios/PR2/cmake-build-debug/Makefile&quot;  VERBOSE=1 Ott"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/almasso/Documents/GitHub/Fae-Studios/PR2/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/almasso/Documents/GitHub/Fae-Studios/PR2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/almasso/Documents/GitHub/Fae-Studios/PR2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Ott/fast">
+				<Option output="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/cmake-build-debug/Ott" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Library/Frameworks/SDL2.framework/Headers"/>
+					<Add directory="/Library/Frameworks/SDL2_image.framework/Headers"/>
+					<Add directory="/Library/Frameworks/SDL2_ttf.framework/Headers"/>
+					<Add directory="/Library/Frameworks/SDL2_mixer.framework/Headers"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/bin/../include/c++/v1"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/lib/clang/14.0.3/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/almasso/Documents/GitHub/Fae-Studios/PR2/cmake-build-debug/Makefile&quot;  VERBOSE=1 Ott/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/almasso/Documents/GitHub/Fae-Studios/PR2/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/almasso/Documents/GitHub/Fae-Studios/PR2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/almasso/Documents/GitHub/Fae-Studios/PR2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/almasso/Documents/GitHub/Fae-Studios/PR2/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/almasso/Documents/GitHub/Fae-Studios/PR2/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/almasso/Documents/GitHub/Fae-Studios/PR2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/almasso/Documents/GitHub/Fae-Studios/PR2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/almasso/Documents/GitHub/Fae-Studios/PR2/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/almasso/Documents/GitHub/Fae-Studios/PR2/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/almasso/Documents/GitHub/Fae-Studios/PR2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/almasso/Documents/GitHub/Fae-Studios/PR2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/Acceleration.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/Acceleration.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/ActiveWater.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/ActiveWater.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/AutoDestroy.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/AutoDestroy.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/BossDoor.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/BossDoor.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/BossHealthBar.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/BossHealthBar.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/Bullet.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/Bullet.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/Button.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/Button.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/CameraComponent.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/CameraComponent.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/ChargedAttackBar.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/ChargedAttackBar.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/ColliderVine.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/ColliderVine.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/DamageArea.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/DamageArea.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/Destruction.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/Destruction.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/EarthBossAnimationController.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/EarthBossAnimationController.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/EarthBossAttack.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/EarthBossAttack.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/EarthBossManager.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/EarthBossManager.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/EnemyAnimationController.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/EnemyAnimationController.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/EnemyAttack.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/EnemyAttack.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/EnemyContactDamage.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/EnemyContactDamage.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/EnemyMeleeAttack.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/EnemyMeleeAttack.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/EnemyMovement.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/EnemyMovement.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/EnemyShootingAttack.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/EnemyShootingAttack.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/EnterBossRoom.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/EnterBossRoom.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/FadeOutAnimationComponent.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/FadeOutAnimationComponent.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/FadeTransitionComponent.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/FadeTransitionComponent.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/FireBossAnimation.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/FireBossAnimation.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/FireBossComponent.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/FireBossComponent.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/FireBossRoom.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/FireBossRoom.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/FirePillarComponent.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/FirePillarComponent.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/FramedImage.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/FramedImage.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/GeneralAnimationController.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/GeneralAnimationController.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/Generations.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/Generations.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/GrowVine.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/GrowVine.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/Health.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/Health.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/HealthImage.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/HealthImage.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/Image.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/Image.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/ImageVine.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/ImageVine.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/LampAnimationComponent.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/LampAnimationComponent.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/LifeAnimationComponent.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/LifeAnimationComponent.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/LoreRoom.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/LoreRoom.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/MapComponent.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/MapComponent.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/PhysicsComponent.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/PhysicsComponent.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/Pivot.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/Pivot.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/PlatformMovementX.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/PlatformMovementX.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/PlatformMovementY.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/PlatformMovementY.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/PlayerAnimationComponent.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/PlayerAnimationComponent.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/PlayerAttack.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/PlayerAttack.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/PlayerInput.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/PlayerInput.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/ScreenDarkenerComponent.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/ScreenDarkenerComponent.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/ShieldComponent.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/ShieldComponent.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/Slider.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/Slider.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/SlimeAttack.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/SlimeAttack.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/SlimeStates.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/SlimeStates.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/TestEnemyInput.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/TestEnemyInput.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/TextComponent.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/TextComponent.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/Trigger.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/Trigger.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/VineManager.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/VineManager.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/WaterAnimationController.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/WaterAnimationController.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/WaterBossAnimationComponent.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/WaterBossAnimationComponent.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/WaterBossAttack.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/WaterBossAttack.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/WaterContainerComponent.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/WaterContainerComponent.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/WaterVineComponent.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/WaterVineComponent.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/earthAnimationController.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/earthAnimationController.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/waterDropComponent.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/components/waterDropComponent.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/ecs/Manager.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/ecs/Manager.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/ecs/anims.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/ecs/anims.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/ecs/colliders.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/ecs/colliders.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/game/Game.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/game/Game.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/json/JSON.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/json/JSON.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/json/JSONValue.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/json/JSONValue.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/main.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/sdlutils/Music.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/sdlutils/Music.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/sdlutils/SDLUtils.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/sdlutils/SDLUtils.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/sdlutils/SoundEffect.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/sdlutils/SoundEffect.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/sdlutils/Texture.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/sdlutils/Texture.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/states/GameStateMachine.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/states/GameStateMachine.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/states/MapState.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/states/MapState.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/states/PlayState.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/states/PlayState.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/states/menus/MainMenuState.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/states/menus/MainMenuState.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/states/menus/PauseMenuState.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/states/menus/PauseMenuState.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/states/menus/options/ControlMenuState.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/states/menus/options/ControlMenuState.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/states/menus/options/GraphicsOptionsMenuState.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/states/menus/options/GraphicsOptionsMenuState.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/states/menus/options/MusicOptionsMenuState.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/states/menus/options/MusicOptionsMenuState.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/states/menus/options/OptionsMenuState.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/states/menus/options/OptionsMenuState.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/utils/Collisions.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/utils/Collisions.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/utils/Vector2D.cpp">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott - An Elemental Journey/src/utils/Vector2D.h">
+			<Option target="Ott"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/FindSDL2.cmake">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/FindSDL2_image.cmake">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/FindSDL2_mixer.cmake">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/Users/almasso/Documents/GitHub/Fae-Studios/PR2/FindSDL2_ttf.cmake">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

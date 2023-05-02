@@ -73,6 +73,12 @@ add_executable(Ott
         "Ott - An Elemental Journey/src/components/LampAnimationComponent.cpp"
         "Ott - An Elemental Journey/src/components/ScreenDarkenerComponent.cpp"
         "Ott - An Elemental Journey/src/components/GeneralAnimationController.cpp"
+        "Ott - An Elemental Journey/src/components/AutoDestroy.cpp"
+        "Ott - An Elemental Journey/src/components/FireBossRoom.cpp"
+        "Ott - An Elemental Journey/src/components/LoreRoom.cpp"
+        "Ott - An Elemental Journey/src/components/PlatformMovementY.cpp"
+        "Ott - An Elemental Journey/src/components/PlatformMovementX.cpp"
+        "Ott - An Elemental Journey/src/components/waterDropComponent.cpp"
 
         #ECS
         "Ott - An Elemental Journey/src/ecs/Manager.cpp"
