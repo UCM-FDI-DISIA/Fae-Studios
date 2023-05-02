@@ -22,7 +22,7 @@ std::vector<anims::animDescription> anims::ott_anims{
 std::vector<anims::animDescription> anims::melee_anims{ {150,4,0,0}, {150,9,0,12}, {200,4,0,8}, {450,1,0,7}, {100,3,0,4} };
 std::vector<anims::animDescription> anims::lifeshard_anims{ {10,10,0,0} };
 // ENEMIGO A RANGO
-std::vector<anims::animDescription> anims::range_anims{ {75,3,0,0}, {75,12,0,10}, {100,3,0,7}, {75,4,0,3} };
+std::vector<anims::animDescription> anims::range_anims{ {130,3,0,0}, {75,12,0,10}, {100,3,0,7}, {75,4,0,3} };
 // ENEMIGO SLIME
 std::vector<anims::animDescription> anims::slime_anims{ {300,4,0,0}, {150,4,0,17}, {1000,1,0,10}, {80,6,0,4}, {800,4,0,0}, {100,7,0,10} };
 //FIRE BOSS
