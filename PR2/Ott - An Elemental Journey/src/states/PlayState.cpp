@@ -30,6 +30,7 @@
 #include "../components/ElementObject.h"
 #include <iostream>
 #include "../components/ScreenDarkenerComponent.h"
+#include "../components/FramedImage.h"
 
 PlayState::PlayState() : GameState(ecs::_state_PLAY) {
 	currentMap = ecs::EARTH_MAP;
@@ -60,6 +61,15 @@ PlayState::PlayState() : GameState(ecs::_state_PLAY) {
 
 	map_ = constructors::map(mngr_, this, (int)(currentMap))->getComponent<MapComponent>();
 	initialEnemies = enemies;
+
+	if (!start) {
+		cinema_ = mngr_->addEntity(ecs::_grp_UI);
+		cinema_->addComponent<Transform>(mngr_->getCamera()->getComponent<Transform>()->getPosition() - Vector2D(329, 1), WINDOW_WIDTH, WINDOW_HEIGHT);
+		cinema_->addComponent<Image>(&sdlutils().images().at("cin_0"));
+
+		player_->setActive(false);
+		timerAnim = SDL_GetTicks() + 1000;
+	}
 }
 
 PlayState::PlayState(std::string fileName) : GameState(ecs::_state_PLAY) {
@@ -118,6 +128,9 @@ PlayState::PlayState(std::string fileName) : GameState(ecs::_state_PLAY) {
 		visitedRooms[ecs::FIRE_MAP].push_back(visited);
 		file >> aux;
 	}
+
+	start = true;
+
 }
 
 
@@ -133,13 +146,14 @@ void PlayState::blockKeyboardInputAfterUnfreeze() {
 }
 
 void PlayState::handleInput() {
+	
     GameState::handleInput();
 	if (doNotDetectKeyboardInput && InputHandler::instance()->allKeysUp()) {
 		doNotDetectKeyboardInput = false;
 	}
 	
 	if (!doNotDetectKeyboardInput) {
-		if (InputHandler::instance()->isKeyJustDown(SDLK_ESCAPE)) {
+		if (InputHandler::instance()->isKeyJustDown(SDLK_ESCAPE) && start) {
 			fade->getComponent<FadeTransitionComponent>()->setFunction(
                     [this]() {
                         sdlutils().musics().at(sdlutils().levels().at(map_->getCurrentLevel()).bgsong).pauseMusic();
@@ -178,6 +192,7 @@ void PlayState::checkCollisions(std::list<Entity*> entities) {
 				}
 			}
 		}
+		bool ceiling = false;
 		int i = 0;
 		for (std::pair<SDL_Rect, SDL_Rect> gr : grounds) {
 			auto areaColision = gr.first;
@@ -189,15 +204,23 @@ void PlayState::checkCollisions(std::list<Entity*> entities) {
 					if (!(physics->getWater()) || (physics->getWater() && health->getElement() == ecs::Water))
 					{
 						colVector = Vector2D(colVector.getX(), 0);
+						physics->setVerticalSpeed(0);
 					}
 					physics->setGrounded(true);
 				}
 				else if (!physics->isGrounded()) {
 					//cout << "ceiling touched" << endl;
-					//if (!(physics->getWater()) || (physics->getWater() && health->getElement() == ecs::Water))
+					if ((physics->getWater() && health->getElement() != ecs::Water))
+					{
+						colVector = Vector2D(colVector.getX(), 0);
+						physics->setVerticalSpeed(0);
+						ceiling = true;
+					}
+					else
 					{
 						colVector = Vector2D(colVector.getX(), 1);
 						physics->setVerticalSpeed(1);
+						ceiling = true;
 					}
 				}
 				if (mov != nullptr) mov->ChangeDirection(true, areaColision);
@@ -221,7 +244,7 @@ void PlayState::checkCollisions(std::list<Entity*> entities) {
 				bool interseccion = SDL_IntersectRect(&r1, &r3, &areaColision);
 				if (interseccion)
 				{
-					physics->setWater(true); ++j;
+					physics->setWater(true,ceiling); ++j;
 					if (health->getElement() != ecs::Water) { physics->setGrounded(false); }
 					//comprobación de si esta en la zona de flote, de momento sin variable de ancho de zona de flote 
 					if (r1.y + r1.h <= r3.y + 300)
@@ -229,7 +252,7 @@ void PlayState::checkCollisions(std::list<Entity*> entities) {
 						physics->setJumpWater(true);
 						if (r1.y+r1.h <= r3.y+100) {
 							physics->setFloating(true);
-							if (areaColision.h < r1.h / 2 && physics->getVelocity().getY() < 0) { physics->setFloating(false); physics->setWater(false); }
+							if (areaColision.h < r1.h / 2 && physics->getVelocity().getY() < 0) { physics->setFloating(false); physics->setWater(false, ceiling); }
 						}
 						else {
 							physics->setFloating(false);
@@ -239,7 +262,7 @@ void PlayState::checkCollisions(std::list<Entity*> entities) {
 				}
 			}
 		}
-		if (j == 0) { physics->setWater(false); physics->setFloating(false);  physics->setJumpWater(false);}
+		if (j == 0) { physics->setWater(false, ceiling); physics->setFloating(false);  physics->setJumpWater(false);}
 		aa++;
 		
 		for (Entity* p : mngr_->getEntities(ecs::_grp_MOVING_PLATFORMS)) {
@@ -318,10 +341,32 @@ void PlayState::checkInteraction() {
     }
 }
 
+void PlayState::cinematic() {
+
+	if (SDL_GetTicks() > timerAnim)
+	{
+		if (frameAnim < 223) {
+			frameAnim++;
+			timerAnim = SDL_GetTicks() + 100;
+			string cin = "cin_" + to_string(frameAnim);
+			cinema_->getComponent<Image>()->changeText(&sdlutils().images().at(cin));
+
+		}
+		else {
+			start = true;
+			player_->setActive(true);
+			cinema_->setAlive(false);
+		}
+	}
+}
+
 void PlayState::update() {
+	
+	if (!start)cinematic();
+
 	checkInteraction();
 	checkCollisions({ player_ });
-	checkCollisions(enemies[map_->getCurrentRoom()]);
+	checkCollisions(enemies[map_->getCurrentRoom()]);	
 	GameState::update();
 
     if(!isScreenDarkened && player_->getComponent<Health>()->getHealth() == 1) {
@@ -374,16 +419,26 @@ void PlayState::Save() {
 
 void PlayState::AddLifeShard(int id) {
 	player_->getComponent<Health>()->addLifeShard(id);
-	constructors::lifeShardFeedbackTextEntity(mngr_, Vector2D(player_->getComponent<Transform>()->getPosition() - camera_->getComponent<Transform>()->getPosition()), !(player_->getComponent<Health>()->getNumShards() % 2 == 0));
+	cout << player_->getComponent<Health>()->getNumShards() << endl;
+	//Vector2D(player_->getComponent<Transform>()->getPosition() - camera_->getComponent<Transform>()->getPosition())
+	constructors::lifeShardFeedbackTextEntity(mngr_,Vector2D(sdlutils().width() / 2, sdlutils().height() / 2 - 100), !(player_->getComponent<Health>()->getNumShards() % 2 == 0));
 	map_->addShard(id);
+}
+
+void PlayState::AddRelic(ecs::elements id) {
+	sdlutils().soundEffects().at("relic_wink").setVolume(100);
+	sdlutils().soundEffects().at("relic_wink").play(0, ecs::_channel_PLAYER);
+	std::cout << "reliquia recogida" << std::endl;
+	relicsCollected++;
+	if (relicsCollected >= 3) player_->getComponent<FramedImageOtt>()->hasAllRelics();
 }
 
 // AQUÍ SE GUARDA PARTIDA
 void PlayState::endRest() {
     player_->getComponent<Health>()->saveSactuary(lastSanctuary);
 	// Guardar datos en archivo
-	std::string hola = "../resources/saves/temporalUniqueSave.sv";
-	std::ofstream saveFile(hola);
+	std::string fileName = "../resources/saves/temporalUniqueSave.sv";
+	std::ofstream saveFile(fileName);
 
 	player_->getComponent<Health>()->saveToFile(saveFile);
 	player_->getComponent<PlayerInput>()->saveToFile(saveFile);

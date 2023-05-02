@@ -31,7 +31,7 @@ public:
     inline float getHorizontalSpeed() { return horizontalSpeed; };
     void jump();
     void createCollider();
-    inline void setWater(bool value) { inWater = value; }
+    inline void setWater(bool value, bool ceilingTouched) { inWater = value; ceiling = ceilingTouched; }
     inline bool getWater() { return inWater; }
     inline void setFloating(bool value) { floating = value; }
     inline bool getFloating() { return floating; }
@@ -80,6 +80,6 @@ private:
     const int waterJumpForce = -7;
     const float offset = 0.9;
     //booleanos de agua
-    bool inWater = false, floating = false, inWaterJumpArea = false, isJumpingF = false;
+    bool inWater = false, floating = false, inWaterJumpArea = false, isJumpingF = false, ceiling = false;
 
 };

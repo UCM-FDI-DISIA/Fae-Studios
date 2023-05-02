@@ -91,26 +91,40 @@ void FramedImageOtt::render()
 		shieldRect.y = tr_->getPosition().getY() - camCmpt.y + 40;
 		shieldRect.w = 50; shieldRect.h = 50;
 		if (lookRight) shieldRect.x += 50;
-		shieldTex_->render(shieldRect);
+		shieldTex_->renderFrame(shieldRect, shieldRow, shieldCol);
 	}
+}
+
+void FramedImageOtt::hasAllRelics() {
+	sdlutils().soundEffects().at("relic_transformation").setVolume(50);
+	sdlutils().soundEffects().at("relic_transformation").play(0, ecs::_channel_PLAYER);
+	hasRelics = true; 
+	if(mngr_->getPlayer()->getComponent<Health>()->getElement() == ecs::Light) tex_ = &sdlutils().images().at("ott_luz_relic");
+	if (mngr_->getPlayer()->getComponent<Health>()->getElement() == ecs::Earth) tex_ = &sdlutils().images().at("ott_tree_relic");
+	if (mngr_->getPlayer()->getComponent<Health>()->getElement() == ecs::Water) tex_ = &sdlutils().images().at("ott_water_relic");
+	if (mngr_->getPlayer()->getComponent<Health>()->getElement() == ecs::Fire) tex_ = &sdlutils().images().at("ott_fire_relic");
 }
 
 void FramedImageOtt::changeElement(ecs::elements newElem)
 {
 	if (newElem == ecs::Light) {
-		tex_ = &sdlutils().images().at("ott_luz");
+		if(hasRelics) tex_ = &sdlutils().images().at("ott_luz_relic");
+		else tex_ = &sdlutils().images().at("ott_luz");
 		shieldTex_ = &sdlutils().images().at("shield");
 	}
 	else if (newElem == ecs::Earth) {
-		tex_ = &sdlutils().images().at("ott_tree");
+		if (hasRelics) tex_ = &sdlutils().images().at("ott_tree_relic");
+		else tex_ = &sdlutils().images().at("ott_tree");
 		shieldTex_ = &sdlutils().images().at("earthShield");
 	}
 	else if (newElem == ecs::Water) {
-		tex_ = &sdlutils().images().at("ott_water");
+		if (hasRelics) tex_ = &sdlutils().images().at("ott_water_relic");
+		else tex_ = &sdlutils().images().at("ott_water");
 		shieldTex_ = &sdlutils().images().at("waterShield");
 	}
 	else if (newElem == ecs::Fire) {
-		tex_ = &sdlutils().images().at("ott_fire");
+		if (hasRelics) tex_ = &sdlutils().images().at("ott_fire_relic");
+		else tex_ = &sdlutils().images().at("ott_fire");
 		shieldTex_ = &sdlutils().images().at("fireShield");
 	}
 }

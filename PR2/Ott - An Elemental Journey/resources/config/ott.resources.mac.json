@@ -255,22 +255,10 @@
 			"cols": 1
 		},
 		{
-			"id": "sanctuary",
-			"file": "../Ott - An Elemental Journey/resources/images/tests/sanctuary.png",
-			"rows": 1,
-			"cols": 1
-		},		
-		{
 			"id": "sanctuarySheet",
 			"file": "../Ott - An Elemental Journey/resources/images/tests/sanctuarySheet.png",
 			"rows": 1,
 			"cols": 18
-		},
-		{
-			"id": "sanctuaryOff",
-			"file": "../Ott - An Elemental Journey/resources/images/tests/sanctuaryOff.png",
-			"rows": 1,
-			"cols": 1
 		},
 		{
 			"id": "level1bg",
@@ -298,7 +286,7 @@
 		},
 		{
 			"id": "shield",
-			"file": "../Ott - An Elemental Journey/resources/images/levels/Shield.png",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/lightShield.png",
 			"rows": 1,
 			"cols": 1
 		},
@@ -310,19 +298,19 @@
 		},
 		{
 			"id": "waterShield",
-			"file": "../Ott - An Elemental Journey/resources/images/levels/waterShield.png",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/waterShield.png",
 			"rows": 1,
 			"cols": 1
 		},
 		{
 			"id": "earthShield",
-			"file": "../Ott - An Elemental Journey/resources/images/levels/earthShield.png",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/earthShield.png",
 			"rows": 1,
 			"cols": 1
 		},
 		{
 			"id": "fireShield",
-			"file": "../Ott - An Elemental Journey/resources/images/levels/fireShield.png",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/fireShield.png",
 			"rows": 1,
 			"cols": 1
 		},
@@ -748,7 +736,7 @@
 		},
 		{
 			"id": "bossTierraCartel",
-			"file": "../resources/images/carteles/BossTierra.png",
+			"file": "../Ott - An Elemental Journey/resources/images/carteles/BossTierra.png",
 			"rows": 1,
 			"cols": 1
 		},
@@ -783,10 +771,58 @@
 			"cols": 1
 		},
 		{
+			"id": "loreRock",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/loreRock.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
 			"id": "hanging_spike",
 			"file": "../Ott - An Elemental Journey/resources/images/tests/Hanging_Spike.png",
 			"rows": 1,
 			"cols": 1
+		},
+		{
+			"id": "earth_relic",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/ReliquiaTierra.png",
+			"rows": 1,
+			"cols": 8
+		},
+		{
+			"id": "water_relic",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/ReliquiaAgua.png",
+			"rows": 1,
+			"cols": 8
+		},
+		{
+			"id": "fire_relic",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/ReliquiaFuego.png",
+			"rows": 1,
+			"cols": 8
+		},
+		{
+			"id": "ott_luz_relic",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/Ott_Luz_Relic.png",
+			"rows": 12,
+			"cols": 8
+		},
+		{
+			"id": "ott_tree_relic",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/Ott_Tree_Relic.png",
+			"rows": 12,
+			"cols": 8
+		},
+		{
+			"id": "ott_water_relic",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/Ott_Water_Relic.png",
+			"rows": 12,
+			"cols": 8
+		},
+		{
+			"id": "ott_fire_relic",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/Ott_Fire_Relic.png",
+			"rows": 12,
+			"cols": 8
 		}
 	],
   "messages" : [],
@@ -821,6 +857,11 @@
 		{ "id" : "menemy_dead", "file" : "../Ott - An Elemental Journey/resources/sound/bicho_muerte.wav"},
 		{ "id" : "menemy_attack", "file" : "../Ott - An Elemental Journey/resources/sound/bicho_slash.wav"},
 		{ "id" : "hitTaken", "file" : "../Ott - An Elemental Journey/resources/sound/hitTaken.wav"},
+		{ "id" : "menemy_step", "file" : "../Ott - An Elemental Journey/resources/sound/bicho_paso.wav"},
+		{ "id" : "relic_transformation", "file" : "../Ott - An Elemental Journey/resources/sound/relic_transformation.wav"},
+		{ "id" : "relic_wink", "file" : "../Ott - An Elemental Journey/resources/sound/relic_wink.wav"},
+		{ "id" : "shield_block", "file" : "../Ott - An Elemental Journey/resources/sound/shield_block.wav"},
+		{ "id" : "shield_broken", "file" : "../Ott - An Elemental Journey/resources/sound/shield_broken.wav"},
 		{ "id" : "menemy_step", "file" : "../Ott - An Elemental Journey/resources/sound/bicho_paso.wav"}
   ],
 

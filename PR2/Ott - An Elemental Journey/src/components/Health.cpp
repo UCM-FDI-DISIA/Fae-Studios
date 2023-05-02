@@ -80,10 +80,10 @@ bool Health::recieveDamage(ecs::elements el, bool dir) {
 		if (ent_->getComponent<ShieldComponent>()->hasShield()) damage = ent_->getComponent<ShieldComponent>()->checkDamage(damage, dir);
 		if (damage != -1) {
 			
-			pAnim_->playerDamaged();
 			if (damage == 0) {
 				if (image->setWeak()) damage = 1;
 			}
+			else pAnim_->playerDamaged();
 			actualLife -= damage;
 			image->damage(damage);
 		}

@@ -60,6 +60,9 @@ public:
     inline int getCurRow() { return row; }
     inline void setRow(int r) { row = r; }
     inline void setCol(int c) { col = c; }
+    void hasAllRelics();
+    inline void setShieldCol(int c) { shieldCol = c; }
+    inline void setShieldRow(int r) { shieldRow = r; }
     void changeElement(ecs::elements newElem);
     inline void shielded(bool b) { isShielded = b; }
     inline void setLookingRight(bool l) { lookingRight = l; }
@@ -73,9 +76,10 @@ private:
     Texture* shieldTex_;
     PlayerAnimationComponent* pAnim;
     int numRows_, numCols_;
-    int row = 0, col = 0;
+    int row = 0, col = 0, shieldCol = 0, shieldRow = 0;
     int tPerFrame;
-    bool isShielded = false, lookingRight = true;;
+    bool isShielded = false, lookingRight = true;
+    bool hasRelics = false;
 };
 
 #endif //TPV2_FRAMEDIMAGE_H
