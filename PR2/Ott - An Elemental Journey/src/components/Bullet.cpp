@@ -29,7 +29,7 @@ void Bullet::update()
                 bool dir = true;
                 if (result.x + result.w > rect.x + rect.w / 2) dir = false;
                 else dir = true;
-                e->getComponent<Health>()->recieveDamage(instigator->getComponent<Health>()->getElement(), dir);
+                e->getComponent<Health>()->recieveDamage(elem, dir);
                 ent_->setAlive(false);
             }
         }
