@@ -61,13 +61,14 @@ PlayState::PlayState() : GameState(ecs::_state_PLAY) {
 	map_ = constructors::map(mngr_, this, (int)(currentMap))->getComponent<MapComponent>();
 	initialEnemies = enemies;
 
+	if (!start) {
+		cinema_ = mngr_->addEntity(ecs::_grp_UI);
+		cinema_->addComponent<Transform>(mngr_->getCamera()->getComponent<Transform>()->getPosition() - Vector2D(329, 1), WINDOW_WIDTH, WINDOW_HEIGHT);
+		cinema_->addComponent<Image>(&sdlutils().images().at("cin_0"));
 
-	cinema_ = mngr_->addEntity(ecs::_grp_UI);
-	cinema_->addComponent<Transform>(mngr_->getPlayer()->getComponent<Transform>()->getPosition()-Vector2D(WINDOW_WIDTH/2-50,WINDOW_HEIGHT/2),WINDOW_WIDTH, WINDOW_HEIGHT);
-	cinema_->addComponent<Image>(&sdlutils().images().at("cin_0"));
-
-	player_->setActive(false);
-	timerAnim = SDL_GetTicks() + 1000;
+		player_->setActive(false);
+		timerAnim = SDL_GetTicks() + 1000;
+	}
 }
 
 PlayState::PlayState(std::string fileName) : GameState(ecs::_state_PLAY) {

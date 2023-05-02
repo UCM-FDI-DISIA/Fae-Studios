@@ -31,16 +31,13 @@ private:
     float gravityValue = 0.2;
 
     bool isScreenDarkened = false;
-
-<<<<<<< Updated upstream
     int relicsCollected = 0;
-=======
+
 
     bool start = false;
     int timerAnim;
     int frameAnim = 0;
     Entity* cinema_;
->>>>>>> Stashed changes
 
 public:
     /// Constructora del estado de juego

@@ -866,7 +866,7 @@
 			"rows": 1,
 			"cols": 1
 		},
-<<<<<<< Updated upstream
+
 		{
 			"id": "earth_relic",
 			"file": "../resources/images/tests/ReliquiaTierra.png",
@@ -884,10 +884,7 @@
 			"file": "../resources/images/tests/ReliquiaFuego.png",
 			"rows": 1,
 			"cols": 8
-=======
-
-
-
+		},
 		{
 			"id": "cin_0",
 			"file": "../resources/images/cinematic/frame (1).jpg",
@@ -2231,7 +2228,6 @@
 			"file": "../resources/images/cinematic/frame (224).jpg",
 			"rows": 1,
 			"cols": 1
->>>>>>> Stashed changes
 		}
 
 	],
