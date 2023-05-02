@@ -128,6 +128,8 @@ PlayState::PlayState(std::string fileName) : GameState(ecs::_state_PLAY) {
 		file >> aux;
 	}
 
+	start = true;
+
 }
 
 
