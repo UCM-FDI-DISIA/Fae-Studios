@@ -910,6 +910,7 @@ CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/ecs/Manager.cpp.o: \
   /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/ecs/../game/../components/WaterAnimationController.h \
   /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/ecs/../game/../components/AttackCharger.h \
   /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/ecs/../game/../components/ShieldComponent.h \
+  /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/ecs/../game/../components/ShieldAnimationComponent.h \
   /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/ecs/../game/../components/LampAnimationComponent.h \
   /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/ecs/../game/../components/GrassAnimationComponent.h \
   /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/ecs/../game/../components/Slider.h \

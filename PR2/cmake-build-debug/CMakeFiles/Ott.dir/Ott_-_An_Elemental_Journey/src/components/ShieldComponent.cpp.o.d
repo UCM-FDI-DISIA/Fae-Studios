@@ -899,4 +899,5 @@ CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/ShieldComponent.cpp
   /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/components/PlayerAttack.h \
   /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/components/earthAnimationController.h \
   /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/components/WaterAnimationController.h \
-  /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/components/AttackCharger.h
+  /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/components/AttackCharger.h \
+  /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/components/ShieldAnimationComponent.h

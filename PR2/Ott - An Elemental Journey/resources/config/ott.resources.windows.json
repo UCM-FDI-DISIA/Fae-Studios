@@ -177,6 +177,102 @@
 			"cols": 1
 		},
 		{
+			"id": "Sala0_Agua",
+			"file": "../resources/images/backgrounds/Sala0_Agua.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "Sala1_Agua",
+			"file": "../resources/images/backgrounds/Sala1_Agua.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "Sala2_Agua",
+			"file": "../resources/images/backgrounds/Sala2_Agua.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "Sala3_Agua",
+			"file": "../resources/images/backgrounds/Sala3_Agua.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "Sala4_Agua",
+			"file": "../resources/images/backgrounds/Sala4_Agua.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "Sala5_Agua",
+			"file": "../resources/images/backgrounds/Sala5_Agua.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "Sala6_Agua",
+			"file": "../resources/images/backgrounds/Sala6_Agua.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "Sala7_Agua",
+			"file": "../resources/images/backgrounds/Sala7_Agua.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "Sala8_Agua",
+			"file": "../resources/images/backgrounds/Sala8_Agua.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "Sala9_Agua",
+			"file": "../resources/images/backgrounds/Sala9_Agua.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "Sala10_Agua",
+			"file": "../resources/images/backgrounds/Sala10_Agua.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "Sala11_Agua",
+			"file": "../resources/images/backgrounds/Sala11_Agua.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "Sala12_Agua",
+			"file": "../resources/images/backgrounds/Sala12_Agua.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "Sala13_Agua",
+			"file": "../resources/images/backgrounds/Sala13_Agua.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "Sala14_Agua",
+			"file": "../resources/images/backgrounds/Sala14_Agua.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "Sala15_Agua",
+			"file": "../resources/images/backgrounds/Sala15_Agua.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
 			"id": "mainmenubackground",
 			"file": "../resources/images/backgrounds/mainmenubg.png",
 			"rows": 1,
@@ -419,7 +515,7 @@
 		{
 			"id": "darkBug",
 			"file": "../resources/images/sprites/DarkBug.png",
-			"rows": 2,
+			"rows": 13,
 			"cols": 21
 		},
 		{
@@ -443,13 +539,13 @@
 		{
 			"id": "darkMushroom",
 			"file": "../resources/images/sprites/DarkMushroom.png",
-			"rows": 2,
+			"rows": 13,
 			"cols": 22
 		},
 		{
 			"id": "waterSlime",
 			"file": "../resources/images/sprites/WaterSlime.png",
-			"rows": 2,
+			"rows": 13,
 			"cols": 21
 		},
 		{
@@ -467,7 +563,7 @@
 		{
 			"id": "darkSlime",
 			"file": "../resources/images/sprites/DarkSlime.png",
-			"rows": 2,
+			"rows": 13,
 			"cols": 21
 		},
 		{
@@ -2282,6 +2378,12 @@
 			"file": "../resources/images/cinematic/frame (224).jpg",
 			"rows": 1,
 			"cols": 1
+		},
+		{
+			"id": "LowFade",
+			"file": "../resources/images/ui/LowLifeFade.png",
+			"rows": 1,
+			"cols": 1
 		}
 
 	],
@@ -2323,7 +2425,10 @@
 		{ "id" : "relic_wink", "file" : "../resources/sound/relic_wink.wav"},
 		{ "id" : "shield_block", "file" : "../resources/sound/shield_block.wav"},
 		{ "id" : "shield_broken", "file" : "../resources/sound/shield_broken.wav"},
-		{ "id" : "menemy_dead", "file" : "../resources/sound/bicho_muerte.wav"}
+		{ "id" : "menemy_dead", "file" : "../resources/sound/bicho_muerte.wav"},
+	  	{ "id" : "useless_attack", "file" : "../resources/sound/Ataque_Inutil.mp3"},
+	  	{ "id" : "hard_attack", "file" : "../resources/sound/Ataque_Fuerte.wav"},
+	  	{ "id" : "soft_attack", "file" : "../resources/sound/Ataque_Debil.wav"}
   ],
 
   "musics" : [

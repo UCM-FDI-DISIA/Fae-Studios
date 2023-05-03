@@ -105,6 +105,102 @@
 			"cols": 1
 		},
 		{
+			"id": "Sala0_Agua",
+			"file": "../Ott - An Elemental Journey/resources/images/backgrounds/Sala0_Agua.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "Sala1_Agua",
+			"file": "../Ott - An Elemental Journey/resources/images/backgrounds/Sala1_Agua.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "Sala2_Agua",
+			"file": "../Ott - An Elemental Journey/resources/images/backgrounds/Sala2_Agua.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "Sala3_Agua",
+			"file": "../Ott - An Elemental Journey/resources/images/backgrounds/Sala3_Agua.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "Sala4_Agua",
+			"file": "../Ott - An Elemental Journey/resources/images/backgrounds/Sala4_Agua.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "Sala5_Agua",
+			"file": "../Ott - An Elemental Journey/resources/images/backgrounds/Sala5_Agua.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "Sala6_Agua",
+			"file": "../Ott - An Elemental Journey/resources/images/backgrounds/Sala6_Agua.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "Sala7_Agua",
+			"file": "../Ott - An Elemental Journey/resources/images/backgrounds/Sala7_Agua.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "Sala8_Agua",
+			"file": "../Ott - An Elemental Journey/resources/images/backgrounds/Sala8_Agua.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "Sala9_Agua",
+			"file": "../Ott - An Elemental Journey/resources/images/backgrounds/Sala9_Agua.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "Sala10_Agua",
+			"file": "../Ott - An Elemental Journey/resources/images/backgrounds/Sala10_Agua.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "Sala11_Agua",
+			"file": "../Ott - An Elemental Journey/resources/images/backgrounds/Sala11_Agua.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "Sala12_Agua",
+			"file": "../Ott - An Elemental Journey/resources/images/backgrounds/Sala12_Agua.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "Sala13_Agua",
+			"file": "../Ott - An Elemental Journey/resources/images/backgrounds/Sala13_Agua.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "Sala14_Agua",
+			"file": "../Ott - An Elemental Journey/resources/images/backgrounds/Sala14_Agua.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "Sala15_Agua",
+			"file": "../Ott - An Elemental Journey/resources/images/backgrounds/Sala15_Agua.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
 			"id": "mainmenubackground",
 			"file": "../Ott - An Elemental Journey/resources/images/backgrounds/mainmenubg.png",
 			"rows": 1,
@@ -859,6 +955,12 @@
 			"file": "../Ott - An Elemental Journey/resources/images/tests/spikeBall.png",
 			"rows": 1,
 			"cols": 1
+		},
+		{
+			"id": "LowFade",
+			"file": "../Ott - An Elemental Journey/resources/images/ui/LowLifeFade.png",
+			"rows": 1,
+			"cols": 1
 		}
 	],
   "messages" : [],
@@ -898,7 +1000,10 @@
 		{ "id" : "relic_wink", "file" : "../Ott - An Elemental Journey/resources/sound/relic_wink.wav"},
 		{ "id" : "shield_block", "file" : "../Ott - An Elemental Journey/resources/sound/shield_block.wav"},
 		{ "id" : "shield_broken", "file" : "../Ott - An Elemental Journey/resources/sound/shield_broken.wav"},
-		{ "id" : "menemy_step", "file" : "../Ott - An Elemental Journey/resources/sound/bicho_paso.wav"}
+		{ "id" : "menemy_step", "file" : "../Ott - An Elemental Journey/resources/sound/bicho_paso.wav"},
+	  	{ "id" : "useless_attack", "file" : "../Ott - An Elemental Journey/resources/sound/Ataque_Inutil.mp3"},
+	  	{ "id" : "hard_attack", "file" : "../Ott - An Elemental Journey/resources/sound/Ataque_Fuerte.wav"},
+	  	{ "id" : "soft_attack", "file" : "../Ott - An Elemental Journey/resources/sound/Ataque_Debil.wav"}
   ],
 
   "musics" : [

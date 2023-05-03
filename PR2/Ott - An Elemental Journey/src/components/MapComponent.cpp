@@ -1,4 +1,5 @@
-﻿#include "MapComponent.h"
+﻿#pragma once
+#include "MapComponent.h"
 #include "../sdlutils/SDLUtils.h"
 #include "../ecs/Manager.h"
 #include "../ecs/Entity.h"
@@ -24,7 +25,7 @@ MapComponent::MapComponent(Entity* fadeOut, PlayState* game, int currentMap) : f
     for (int i = 0; i < ecs::LAST_MAP_ID; ++i) {
         mapKeys.push_back({});
     }
-    currentMapKey = "earthMap";
+    currentMapKey = "waterMap";
     tilemap = &sdlutils().images().at(sdlutils().levels().at(currentMapKey).tileset);
 }
 
@@ -69,6 +70,9 @@ void MapComponent::generateEnemies() {
         }
         else if (elem == ecs::Fire) {
             path = "fire";
+        }
+        else if (elem == ecs::Dark) {
+            path = "dark";
         }
         int roomNum = std::stoi(split[0]);
         float roomScale = vectorTiles[roomNum].first;

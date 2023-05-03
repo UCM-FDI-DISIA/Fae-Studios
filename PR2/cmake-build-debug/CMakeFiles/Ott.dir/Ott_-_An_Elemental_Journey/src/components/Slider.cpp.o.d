@@ -889,4 +889,6 @@ CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/Slider.cpp.o: \
   /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/components/../sdlutils/VirtualTimer.h \
   /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/components/CameraComponent.h \
   /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/components/TextComponent.h \
+  /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/components/Image.h \
+  /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/components/../game/ecs.h \
   /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/components/../sdlutils/InputHandler.h
