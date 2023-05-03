@@ -59,6 +59,7 @@
 #include "../components/PlatformMovementY.h"
 #include "../components/PlatformMovementX.h"
 #include "../components/FireBossRoom.h"
+#include "../components/LoreTextAnims.h"
 #include "../components/LifeShardFeedbackComponent.h"
 #include "../components/GeneralAnimationController.h"
 #include "../components/BossHealthBar.h"
@@ -181,7 +182,7 @@ namespace constructors {
 
 		auto waterVine = mngr_->addEntity(ecs::_grp_MAP);
 		waterVine->addComponent<Transform>(Vector2D(0, 0), 30 * scale, 300 * scale);
-		waterVine->addComponent<Image>(&sdlutils().images().at("enredadera"));
+		waterVine->addComponent<Image>(&sdlutils().images().at("vine"));
 		waterVine->addComponent<WaterVineComponent>(waterC);
 
 		return { waterC, waterVine };
@@ -378,7 +379,7 @@ namespace constructors {
 		grass->addComponent<GrassAnimationComponent>();
 		return grass;
 	}
-	static inline Entity* rockLore(Manager* mngr_, Vector2D position, int width, int height, int ID, int room) {
+	static inline Entity* rockLore(Manager* mngr_, Vector2D position, int width, int height, int ID, int room, std::string name, Vector2D posText) {
 		auto rock = mngr_->addEntity(ecs::_grp_INTERACTION);
 		rock->addComponent<Transform>(position, width, height);
 		rock->addComponent<Image>(&sdlutils().images().at("loreRock"));
@@ -386,7 +387,13 @@ namespace constructors {
 			static_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->startLore();
 		};
 		rock->addComponent<InteractionComponent>(cb, ROCK_IT, ID, room);
-		//rock->addComponent<GeneralAnimationController>();
+		auto text = mngr_->addEntity(ecs::_grp_UI);
+		
+		text->addComponent<Transform>(posText, width*8, height*1.2);
+		text->addComponent<FramedImage>(&sdlutils().images().at(name), 3, 12);
+		text->addComponent<LoreTextAnims>(name, anims::LORE_ANIM, text);
+		rock->addComponent<LoreRoom>(text);
+	
 		return rock;
 	}
 
@@ -497,11 +504,12 @@ namespace constructors {
 		boss->addComponent<PhysicsComponent>(colliders::OTT);
 		boss->getComponent<PhysicsComponent>()->createCollider();
 		boss->addComponent<FramedImage>(&sdlutils().images().at("fireBoss"), 5, 13);
-		auto healthBar = mngr_->addEntity(ecs::_grp_UI);
-		healthBar->addComponent<BossHealthBar>(boss, (int)ecs::Fire, &sdlutils().images().at("bossHealthBar"), &sdlutils().images().at("bossLife"));
+		//auto healthBar = mngr_->addEntity(ecs::_grp_UI);
+		//healthBar->addComponent<BossHealthBar>(boss, (int)ecs::Fire, &sdlutils().images().at("bossHealthBar"), &sdlutils().images().at("bossLife"));
 		auto anim=boss->addComponent<FireBossAnimation>(anims::FIREBOSS_ANIM, map);
 		boss->getComponent<FireBossComponent>()->setAnimComponent(anim);
-		boss->addComponent<Health>(healthBar->getComponent<BossHealthBar>(), 25, ecs::Fire, false);
+		boss->addComponent<Health>(20, ecs::Fire, false, true);
+		//boss->addComponent<Health>(healthBar->getComponent<BossHealthBar>(), 25, ecs::Fire, false);
 		return boss;
 	}
 
@@ -634,11 +642,19 @@ namespace constructors {
 
 		return pObject;
 	}
-	/*static inline void vine(Manager* mngr_, Vector2D position, int width, int height, Texture* t) {
-		auto vine = mngr_->addEntity(ecs::_grp_VINE);
-		vine->addComponent<Transform>(position.getX(), position.getY(), width, height);
-		vine->addComponent<Image>(&sdlutils().images().at("enredadera"));
-	}*/
+	
+	static inline auto lifeShardFeedbackTextEntity(Manager* mngr_, const Vector2D& position, bool oneHalf) {
+		auto t = mngr_->addEntity(ecs::_grp_UI);
+		std::string txt;
+		if (oneHalf) txt = "1/2";
+		else txt = "2/2";
+		SDL_Color rojo = { 255,0,0,255 };
+		t->addComponent<TextComponent>(txt, sdlutils().fonts().at("press_start48"), rojo, transparente);
+		Vector2D textPos = Vector2D(position.getX() - t->getComponent<TextComponent>()->getWidth() / 2, position.getY() - 10.0f);
+		t->getComponent<TextComponent>()->setPosition(textPos);
+		t->addComponent<LifeShardFeedbackComponent>();
+		return t;
+	}
 
 	static inline Entity* Cartel(Manager* mngr_, int x, int y, int w, int h, std::string numCartel) {
 		Entity* cartelObject = mngr_->addEntity(ecs::_grp_CARTEL);
@@ -657,23 +673,23 @@ namespace constructors {
 		else if (numCartel == "elementoCartel") {
 			type = anims::CARTELELEMENTO;
 		}
+		else if (numCartel == "mapaCartel") {
+			type = anims::CARTELMOVIMIENTO;
+		}
+		else if (numCartel == "lookDownCartel") {
+			type = anims::CARTELLOOKDOWN;
+		}
+		else if (numCartel == "ataqueCartel") {
+			type = anims::CARTELATAQUE;
+		}
+		else if (numCartel == "powerElementoCartel") {
+			type = anims::CARTELPOWERCARTEL;
+		}
 		cartelObject->addComponent<FramedImage>(&sdlutils().images().at(numCartel), row, col);
-		if(numCartel != "bossTierraCartel")
-			cartelObject->addComponent<GeneralAnimationController>(type,cartelObject);
+		if (numCartel != "bossTierraCartel")
+			cartelObject->addComponent<GeneralAnimationController>(type, cartelObject);
 		return cartelObject;
+		}
 	}
 
-	static inline auto lifeShardFeedbackTextEntity(Manager* mngr_, const Vector2D& position, bool oneHalf) {
-		auto t = mngr_->addEntity(ecs::_grp_UI);
-		std::string txt;
-		if (oneHalf) txt = "1/2";
-		else txt = "2/2";
-		SDL_Color rojo = { 255,0,0,255 };
-		t->addComponent<TextComponent>(txt, sdlutils().fonts().at("press_start48"), rojo, transparente);
-		Vector2D textPos = Vector2D(position.getX() - t->getComponent<TextComponent>()->getWidth() / 2, position.getY() - 10.0f);
-		t->getComponent<TextComponent>()->setPosition(textPos);
-		t->addComponent<LifeShardFeedbackComponent>();
-		return t;
-	}
-}
 

@@ -401,7 +401,7 @@
 		{
 			"id": "waterBug",
 			"file": "../resources/images/sprites/WaterBug.png",
-			"rows": 2,
+			"rows": 13,
 			"cols": 21
 		},
 		{
@@ -425,7 +425,7 @@
 		{
 			"id": "waterMushroom",
 			"file": "../resources/images/sprites/WaterMushroom.png",
-			"rows": 2,
+			"rows": 13,
 			"cols": 22
 		},
 		{
@@ -449,7 +449,7 @@
 		{
 			"id": "waterSlime",
 			"file": "../resources/images/sprites/WaterSlime.png",
-			"rows": 2,
+			"rows": 13,
 			"cols": 21
 		},
 		{
@@ -795,6 +795,12 @@
 			"cols": 14
 		},
 		{
+			"id": "mapaCartel",
+			"file": "../resources/images/carteles/Mapa/cartelMapaAnimation.png",
+			"rows": 1,
+			"cols": 14
+		},
+		{
 			"id": "lamparaCartel",
 			"file": "../resources/images/carteles/Lampara/cartelLamparaAnimation.png",
 			"rows": 2,
@@ -813,10 +819,28 @@
 			"cols": 11
 		},
 		{
+			"id": "ataqueCartel",
+			"file": "../resources/images/carteles/Ataque/ataqueCartel.png",
+			"rows": 1,
+			"cols": 20
+		},
+		{
+			"id": "powerElementoCartel",
+			"file": "../resources/images/carteles/PowerElemento/powerElementCartel.png",
+			"rows": 1,
+			"cols": 19
+		},
+		{
 			"id": "bossTierraCartel",
 			"file": "../resources/images/carteles/BossTierra.png",
 			"rows": 1,
 			"cols": 1
+		},
+		{
+			"id": "lookDownCartel",
+			"file": "../resources/images/carteles/cartellookdown/lookDown_cartel.png",
+			"rows": 1,
+			"cols": 19
 		},
 		{
 			"id": "platform",
@@ -847,6 +871,12 @@
 			"file": "../resources/images/tests/loreRock.png",
 			"rows": 1,
 			"cols": 1
+		},
+		{
+			"id": "loreText1",
+			"file": "../resources/images/tests/Lore_1.png",
+			"rows": 12,
+			"cols": 3
 		},
 		{
 			"id": "hanging_spike",
@@ -896,6 +926,12 @@
 			"file": "../resources/images/tests/Ott_Fire_Relic.png",
 			"rows": 12,
 			"cols": 8
+		},
+		{
+			"id": "spikeBall",
+			"file": "../resources/images/tests/spikeBall.png",
+			"rows": 1,
+			"cols": 1
 		},
 		{
 			"id": "cin_0",
@@ -2240,6 +2276,12 @@
 			"file": "../resources/images/cinematic/frame (224).jpg",
 			"rows": 1,
 			"cols": 1
+		},
+		{
+			"id": "LowFade",
+			"file": "../resources/images/ui/LowLifeFade.png",
+			"rows": 1,
+			"cols": 1
 		}
 
 	],
@@ -2291,7 +2333,8 @@
 	  {"id" :  "water_boss_fight", "file" :  "../resources/music/boss_agua.wav"},
 	  {"id" :  "earth_boss_fight", "file" :  "../resources/music/gusano.wav"},
 	  {"id" :  "water_level", "file" :  "../resources/music/mundo_agua.wav"},
-	  {"id" :  "fire_level", "file" :  "../resources/music/fuego.wav"}
+	  {"id" :  "fire_level", "file" :  "../resources/music/fuego.wav"},
+	  {"id" :  "lore_room", "file" :  "../resources/music/lore_room_music.wav"}
   ],
   
   "maps": [

@@ -19,7 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\components\AutoDestroy.cpp" />
     <ClCompile Include="src\components\ShieldAnimationComponent.cpp" />
+    <ClCompile Include="src\components\LoreTextAnims.cpp" />
     <ClCompile Include="src\components\LifeShardFeedbackComponent.cpp" />
     <ClCompile Include="src\components\FireBossRoom.cpp" />
     <ClCompile Include="src\components\LoreRoom.cpp" />
@@ -104,7 +106,9 @@
     <ClCompile Include="src\components\WaterBossAnimationComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\components\AutoDestroy.h" />
     <ClInclude Include="src\components\ShieldAnimationComponent.h" />
+    <ClInclude Include="src\components\LoreTextAnims.h" />
     <ClInclude Include="src\components\LifeShardFeedbackComponent.h" />
     <ClInclude Include="src\components\SanctuaryAnimationComponent.h" />
     <ClInclude Include="src\components\FireBossRoom.h" />

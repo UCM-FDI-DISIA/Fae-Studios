@@ -922,6 +922,7 @@ CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/states/menus/options/GraphicsO
   /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/states/menus/options/../../../components/WaterAnimationController.h \
   /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/states/menus/options/../../../components/AttackCharger.h \
   /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/states/menus/options/../../../components/ShieldComponent.h \
+  /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/states/menus/options/../../../ecs/../game/../components/ShieldAnimationComponent.h \
   /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/states/menus/options/../../../ecs/../game/../components/LampAnimationComponent.h \
   /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/states/menus/options/../../../ecs/../game/../components/GrassAnimationComponent.h \
   /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/states/menus/options/../../../ecs/../game/../components/Slider.h \
@@ -1011,4 +1012,5 @@ CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/states/menus/options/GraphicsO
   /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/states/menus/options/../../../ecs/../game/../components/PlatformMovementY.h \
   /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/states/menus/options/../../../ecs/../game/../components/PlatformMovementX.h \
   /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/states/menus/options/../../../ecs/../game/../components/FireBossRoom.h \
-  /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/states/menus/options/../../../ecs/../game/../components/LifeShardFeedbackComponent.h
+  /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/states/menus/options/../../../ecs/../game/../components/LifeShardFeedbackComponent.h \
+  /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/states/menus/options/../../../ecs/../game/../components/BossHealthBar.h

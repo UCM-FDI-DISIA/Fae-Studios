@@ -17,10 +17,13 @@ void FireBossComponent::initComponent()
 	player = mngr_->getPlayer();
 	endY = tr_->getPosition().getY();
 	startX = tr_->getPosition().getX();
-	tr_->setPosition(Vector2D{ tr_->getPosition().getX(), tr_->getPosition().getY() - 2000 });
+	startPosition();
 	
 }
-
+void FireBossComponent::startPosition()
+{
+	tr_->setPosition(Vector2D{ tr_->getPosition().getX(), tr_->getPosition().getY() - 2000 });
+}
 void FireBossComponent::update()
 {
 	//Casos donde el boss no puede hacer nada (cuando cae en la presentación, cuando se muere, y si está estuneado)
@@ -39,6 +42,7 @@ void FireBossComponent::update()
 	if (stunned) {
 		if (SDL_GetTicks() - stunTimer > timeStunned * 1000) {
 			normalAttackTimer = specialAttackTimer = SDL_GetTicks();
+			ent_->getComponent<Health>()->setInmune(true);
 			stunned = false;
 		}
 		else return;
@@ -112,7 +116,7 @@ void FireBossComponent::shootAtPlayer()
 	Transform* pTr = player->getComponent<Transform>();
 	Vector2D direction = pTr->getPosition() - position;
 	direction = direction.normalize() * 2;
-	constructors::bullet(mngr_, "fire_attack", position.getX()+tr_->getWidth()/2, position.getY() + tr_->getHeight()/2, 80, direction, ent_, ecs::Fire, 1);
+	constructors::bullet(mngr_, "spikeBall", position.getX()+tr_->getWidth()/2, position.getY() + tr_->getHeight()/2, 50, direction, ent_, ecs::Fire, 1);
 	normalAttackTimer = SDL_GetTicks();
 }
 
@@ -133,7 +137,12 @@ void FireBossComponent::stunBoss()
 {
 	stunned = true; 
 	stunTimer = SDL_GetTicks();
+	ent_->getComponent<Health>()->setInmune(false);
 }
-
+void FireBossComponent::resetBoss() {
+	start = false;
+	ent_->getComponent<Health>()->resetHealth();
+	startPosition();
+}
 
 

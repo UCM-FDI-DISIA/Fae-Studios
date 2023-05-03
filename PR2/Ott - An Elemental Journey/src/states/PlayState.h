@@ -5,6 +5,7 @@
 #include "../components/MapComponent.h"
 #include "../components/EnemyAnimationController.h"
 #include "../components/FireBossAnimation.h"
+#include "../components/LoreRoom.h"
 #include "../components/InteractionComponent.h"
 #include <list>
 #include <vector>
@@ -35,6 +36,8 @@ private:
 
 
     bool start = true;
+    bool PlayingLoreMusic = false;
+    bool PlayingNormalMusic = false;
     int timerAnim;
     int frameAnim = 0;
     Entity* cinema_;
@@ -62,7 +65,6 @@ public:
         enemyIt[room].push_back(enemies[room].begin());
         if (enemy->hasComponent<EnemyAnimationComponent>()) enemy->getComponent<EnemyAnimationComponent>()->setPosInList(enemyIt[room].size() - 1, room);
         else if(enemy->hasComponent<FireBossAnimation>()) enemy->getComponent<FireBossAnimation>()->setPosInList(enemyIt[room].size() - 1, room);
-        
     };
 
     inline void addCarteles(Entity* cartel, int room) {
@@ -136,7 +138,7 @@ public:
     inline float getGravityValue() const { return gravityValue; }
     void checkInteraction();
     void AddEnredadera();
-    void startLore() { std::cout << "Te cuento el lore hehe" << std::endl; };
+    void startLore();
     void AddLifeShard(int id);
     void AddRelic(ecs::elements relic);
     void Teleport();

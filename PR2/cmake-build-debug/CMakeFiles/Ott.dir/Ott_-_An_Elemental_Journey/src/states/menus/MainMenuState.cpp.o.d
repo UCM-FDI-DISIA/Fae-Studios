@@ -957,6 +957,7 @@ CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/states/menus/MainMenuState.cpp
   /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/states/menus/../../components/WaterAnimationController.h \
   /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/states/menus/../../components/AttackCharger.h \
   /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/states/menus/../../components/ShieldComponent.h \
+  /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/states/menus/../../ecs/../game/../components/ShieldAnimationComponent.h \
   /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/states/menus/../../ecs/../game/../components/LampAnimationComponent.h \
   /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/states/menus/../../ecs/../game/../components/GrassAnimationComponent.h \
   /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/states/menus/../../ecs/../game/../components/Slider.h \
@@ -1016,4 +1017,5 @@ CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/states/menus/MainMenuState.cpp
   /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/states/menus/../../ecs/../game/../components/PlatformMovementX.h \
   /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/states/menus/../../ecs/../game/../components/FireBossRoom.h \
   /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/states/menus/../../ecs/../game/../components/LifeShardFeedbackComponent.h \
+  /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/states/menus/../../ecs/../game/../components/BossHealthBar.h \
   /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/states/menus/../../game/Game.h

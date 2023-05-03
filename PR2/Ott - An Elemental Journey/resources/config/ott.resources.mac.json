@@ -717,6 +717,12 @@
 			"cols": 14
 		},
 		{
+			"id": "mapaCartel",
+			"file": "../Ott - An Elemental Journey/resources/images/carteles/Mapa/cartelMapaAnimation.png",
+			"rows": 1,
+			"cols": 14
+		},
+		{
 			"id": "lamparaCartel",
 			"file": "../Ott - An Elemental Journey/resources/images/carteles/Lampara/cartelLamparaAnimation.png",
 			"rows": 2,
@@ -739,6 +745,24 @@
 			"file": "../Ott - An Elemental Journey/resources/images/carteles/BossTierra.png",
 			"rows": 1,
 			"cols": 1
+		},
+		{
+			"id": "lookDownCartel",
+			"file": "../Ott - An Elemental Journey/resources/images/carteles/cartellookdown/lookDown_cartel.png",
+			"rows": 1,
+			"cols": 19
+		},
+		{
+			"id": "ataqueCartel",
+			"file": "../Ott - An Elemental Journey/resources/images/carteles/Ataque/ataqueCartel.png",
+			"rows": 1,
+			"cols": 20
+		},
+		{
+			"id": "powerElementoCartel",
+			"file": "../Ott - An Elemental Journey/resources/images/carteles/PowerElemento/powerElementCartel.png",
+			"rows": 1,
+			"cols": 19
 		},
 		{
 			"id": "water",
@@ -775,6 +799,12 @@
 			"file": "../Ott - An Elemental Journey/resources/images/tests/loreRock.png",
 			"rows": 1,
 			"cols": 1
+		},
+		{
+			"id": "loreText1",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/Lore_1.png",
+			"rows": 12,
+			"cols": 3
 		},
 		{
 			"id": "hanging_spike",
@@ -823,6 +853,18 @@
 			"file": "../Ott - An Elemental Journey/resources/images/tests/Ott_Fire_Relic.png",
 			"rows": 12,
 			"cols": 8
+		},
+		{
+			"id": "spikeBall",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/spikeBall.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "LowFade",
+			"file": "../Ott - An Elemental Journey/resources/images/ui/LowLifeFade.png",
+			"rows": 1,
+			"cols": 1
 		}
 	],
   "messages" : [],

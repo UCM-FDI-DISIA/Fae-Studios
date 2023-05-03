@@ -1,4 +1,5 @@
-﻿#include "MapComponent.h"
+﻿#pragma once
+#include "MapComponent.h"
 #include "../sdlutils/SDLUtils.h"
 #include "../ecs/Manager.h"
 #include "../ecs/Entity.h"
@@ -8,6 +9,7 @@
 #include "../states/PlayState.h"
 #include "../states/GameStateMachine.h"
 #include "../game/Constructors.h"
+#include "../components/LoreTextAnims.h"
 #include <algorithm>
 
 MapComponent::MapComponent(Entity* fadeOut, PlayState* game, int currentMap) : fadeOut(fadeOut), game(game), currentMap(currentMap) {
@@ -23,7 +25,7 @@ MapComponent::MapComponent(Entity* fadeOut, PlayState* game, int currentMap) : f
     for (int i = 0; i < ecs::LAST_MAP_ID; ++i) {
         mapKeys.push_back({});
     }
-    currentMapKey = "fireMap";
+    currentMapKey = "earthMap";
     tilemap = &sdlutils().images().at(sdlutils().levels().at(currentMapKey).tileset);
 }
 
@@ -235,6 +237,7 @@ void MapComponent::setPlayerInRoom(Vector2D newPlayerPos, int newRoom) {
     mngr_->getPlayer()->getComponent<Transform>()->setPosition(newPlayerPos); // settear la posición del jugador
     mngr_->getPlayer()->getComponent<Transform>()->setScale(getCurrentRoomScale()); // settear su escala
     mngr_->getPlayer()->getComponent<Health>()->setDead(false); // decirle al jugador que no está muerto
+    mngr_->getPlayer()->getComponent<PlayerAttack>()->deteleAttacks();
     activateObjectsInRoom(currentRoom, true); // activar los objetos de la nueva sala
 }
 
@@ -611,17 +614,21 @@ void MapComponent::loadMap(std::string path, int nextPos) {
                 vine->getComponent<InteractionComponent>()->setIt(it, v);
                 vine->setActive(false);
             }
-            else if (ot.getClass() == "Lore_Rock") {
-                auto roomScale = vectorTiles[std::stoi(ot.getName())].first;
+            else if (classSplit[0] == "Lore") {
+                int roomNum = std::stoi(classSplit[1]);
+                auto roomScale = vectorTiles[roomNum].first;
+                Vector2D posText = Vector2D((x_ * scale) * roomScale -300, (y_ * scale) * roomScale - 100);
+               
                 auto rock = constructors::rockLore(mngr_, 
                     Vector2D((x_ * scale) * roomScale, (y_ * scale) * roomScale),
-                    (w_ * scale) * roomScale, (h_ * scale) * roomScale, 0, std::stoi(ot.getName()));
-                interact[std::stoi(ot.getName())].push_back(rock);
-                auto v = &interact[std::stoi(ot.getName())];
+                    (w_ * scale) * roomScale, (h_ * scale) * roomScale, 0, roomNum, ot.getName(), posText);
+                interact[std::stoi(classSplit[1])].push_back(rock);
+                auto v = &interact[std::stoi(classSplit[1])];
                 auto it = (--v->end());
                 rock->getComponent<InteractionComponent>()->setIt(it, v);
                 rock->setActive(false);
             }
+          
             else if (ot.getClass() == "Spike") {
                 auto roomScale = vectorTiles[std::stoi(ot.getName())].first;
                 auto newSpike = constructors::damageArea(mngr_,
@@ -749,6 +756,7 @@ void MapComponent::loadMap(std::string path, int nextPos) {
                 sanct->getComponent<InteractionComponent>()->setIt(it, v);
                 if (std::stoi(classSplit[1]) == player_->getComponent<Health>()->getSanctuaryID()) {
                     playerSanctuary = sanct;
+                    playerSanctuary->addComponent<SanctuaryAnimationComponent>()->activate();
                     playerSanctuaryID = ID;
                     playerSanctuaryRoom = std::stoi(ot.getName());
                 }

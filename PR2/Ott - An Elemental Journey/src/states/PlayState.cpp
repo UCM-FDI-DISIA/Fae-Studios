@@ -378,6 +378,22 @@ void PlayState::update() {
         screenDarkener_->getComponent<ScreenDarkenerComponent>()->undarken();
         isScreenDarkened = false;
     }
+	if (map_->getCurrentRoom() == 10 && currentMap == ecs::EARTH_MAP) {
+		if (!PlayingLoreMusic) {
+			sdlutils().musics().at("earth_level").pauseMusic();
+			sdlutils().musics().at("lore_room").setMusicVolume(70);
+			sdlutils().musics().at("lore_room").play(-1);
+			PlayingLoreMusic = true; PlayingNormalMusic = false;
+		}
+	}
+	else {
+		PlayingLoreMusic = false;
+		if (!PlayingNormalMusic) {
+			sdlutils().musics().at("lore_room").haltMusic();
+			sdlutils().musics().at("earth_level").play();
+			PlayingNormalMusic = true;
+		}
+	}
 }
 
 void PlayState::AddEnredadera() {
@@ -388,9 +404,10 @@ void PlayState::AddEnredadera() {
 }
 
 void PlayState::UnlockElement(ecs::elements elem) {
-	player_->getComponent<PlayerInput>()->unlockElement((* interactionIt)->getComponent<ElementObject>()->getElement());
-	player_->getComponent<PlayerAnimationComponent>()->changeElem((*interactionIt)->getComponent<ElementObject>()->getElement());
+	player_->getComponent<PlayerInput>()->unlockElement(elem);
+	player_->getComponent<PlayerAnimationComponent>()->changeElem(elem);
 	player_->getComponent<PlayerAnimationComponent>()->setState(VANISH);
+	player_->getComponent<Health>()->setNewInitialPos((*interactionIt)->getComponent<Transform>()->getPosition());
 	map_->unlockElement(elem);
 }
 
@@ -408,6 +425,10 @@ void PlayState::Teleport() {
 		player_->getComponent<PlayerAnimationComponent>()->startTP(newPos);
 		sdlutils().soundEffects().at("teleport").play(0, ecs::_channel_ALERTS);
 	}
+}
+void PlayState::startLore() {
+	Entity* aux = *interactionIt;
+	aux->getComponent<LoreRoom>()->startLore();
 }
 
 void PlayState::Save() {
