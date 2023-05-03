@@ -717,6 +717,12 @@
 			"cols": 14
 		},
 		{
+			"id": "mapaCartel",
+			"file": "../Ott - An Elemental Journey/resources/images/carteles/Mapa/cartelMapaAnimation.png",
+			"rows": 1,
+			"cols": 14
+		},
+		{
 			"id": "lamparaCartel",
 			"file": "../Ott - An Elemental Journey/resources/images/carteles/Lampara/cartelLamparaAnimation.png",
 			"rows": 2,

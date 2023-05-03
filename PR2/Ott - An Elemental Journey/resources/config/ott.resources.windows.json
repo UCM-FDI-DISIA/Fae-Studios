@@ -795,6 +795,12 @@
 			"cols": 14
 		},
 		{
+			"id": "mapaCartel",
+			"file": "../resources/images/carteles/Mapa/cartelMapaAnimation.png",
+			"rows": 1,
+			"cols": 14
+		},
+		{
 			"id": "lamparaCartel",
 			"file": "../resources/images/carteles/Lampara/cartelLamparaAnimation.png",
 			"rows": 2,
