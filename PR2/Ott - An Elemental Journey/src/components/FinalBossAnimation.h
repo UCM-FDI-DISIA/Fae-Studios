@@ -45,5 +45,6 @@ private:
 	int moveTimer_ = 0,MOVE_TIME;
 	const int  FRAME_ANIMATION_TIME = 6;
 	int col, row, frames;
+	bool alive=true;
 
 };
