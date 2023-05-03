@@ -1065,6 +1065,18 @@
 			"cols": 19
 		},
 		{
+			"id": "ataqueCargadoCartel",
+			"file": "../resources/images/carteles/cartelCargadoSheet.png",
+			"rows": 1,
+			"cols": 7
+		},
+		{
+			"id": "fireCartel",
+			"file": "../resources/images/carteles/cartelfirekingdom1-sheet.png",
+			"rows": 1,
+			"cols": 2
+		},
+		{
 			"id": "platform",
 			"file": "../resources/images/tests/Platform.PNG",
 			"rows": 1,
@@ -1131,7 +1143,13 @@
 			"cols": 3
 		},
 		{
-			"id": "hangingSpike",
+			"id": "loreText2",
+			"file": "../resources/images/tests/Lore_2.png",
+			"rows": 12,
+			"cols": 3
+		},
+		{
+			"id": "hanging_spike",
 			"file": "../resources/images/tests/Hanging_Spike.png",
 			"rows": 1,
 			"cols": 1

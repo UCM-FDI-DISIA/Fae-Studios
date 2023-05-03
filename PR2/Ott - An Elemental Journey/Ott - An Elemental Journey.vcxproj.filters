@@ -282,6 +282,7 @@
     <ClInclude Include="src\components\FireBossRoom.h" />
     <ClInclude Include="src\components\waterDropComponent.h" />
     <ClInclude Include="src\components\SanctuaryAnimationComponent.h" />
+    <ClInclude Include="src\components\LoreTextAnims.h" />
     <ClInclude Include="src\components\LifeShardFeedbackComponent.h" />
     <ClInclude Include="src\components\ShieldAnimationComponent.h" />
     <ClInclude Include="src\components\LoreTextAnims.h" />

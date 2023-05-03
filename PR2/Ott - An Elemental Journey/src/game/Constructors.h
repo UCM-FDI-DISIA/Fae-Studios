@@ -405,10 +405,14 @@ namespace constructors {
 		};
 		rock->addComponent<InteractionComponent>(cb, ROCK_IT, ID, room);
 		auto text = mngr_->addEntity(ecs::_grp_UI);
-		
-		text->addComponent<Transform>(posText, width*8, height*1.2);
+		if (name == "loreText1") {
+			text->addComponent<Transform>(posText, width * 8, height * 1.2);
+		}
+		else if (name == "loreText2") {
+			text->addComponent<Transform>(posText, width*7, height);
+		}
 		text->addComponent<FramedImage>(&sdlutils().images().at(name), 3, 12);
-		text->addComponent<LoreTextAnims>(name, anims::LORE_ANIM, text);
+		text->addComponent<LoreTextAnims>("loreText1", anims::LORE_ANIM, text);
 		rock->addComponent<LoreRoom>(text);
 	
 		return rock;
@@ -659,7 +663,56 @@ namespace constructors {
 
 		return pObject;
 	}
-	
+
+	static inline Entity* Cartel(Manager* mngr_, int x, int y, int w, int h, std::string numCartel) {
+		Entity* cartelObject;
+		if (numCartel == "bossTierraCartel") {
+			cartelObject = mngr_->addEntity(ecs::_grp_BOSSCARTEL);
+			cartelObject->addComponent<Transform>(x, y, w, h);
+			int row = sdlutils().images().at(numCartel).getNumRows(), col = sdlutils().images().at(numCartel).getNumCols();
+			cartelObject->addComponent<FramedImage>(&sdlutils().images().at(numCartel), row, col);
+		}
+		else {
+			cartelObject = mngr_->addEntity(ecs::_grp_CARTEL);
+			cartelObject->addComponent<Transform>(x, y, w, h);
+			int row = sdlutils().images().at(numCartel).getNumRows(), col = sdlutils().images().at(numCartel).getNumCols();
+			anims::Entities type;
+			if (numCartel == "movimientoCartel") {
+				type = anims::CARTELMOVIMIENTO;
+			}
+			else if (numCartel == "lamparaCartel") {
+				type = anims::CARTELLAMPARA;
+			}
+			else if (numCartel == "enredaderaCartel") {
+				type = anims::CARTELENREDADERA;
+			}
+			else if (numCartel == "elementoCartel") {
+				type = anims::CARTELELEMENTO;
+			}
+			else if (numCartel == "lookDownCartel") {
+				type = anims::CARTELLOOKDOWN;
+			}
+			else if (numCartel == "ataqueCartel") {
+				type = anims::CARTELATAQUE;
+			}
+			else if (numCartel == "powerElementoCartel") {
+				type = anims::CARTELPOWERCARTEL;
+			}
+			else if (numCartel == "mapaCartel") {
+				type = anims::CARTELMOVIMIENTO;
+			}
+			else if (numCartel == "ataqueCargadoCartel") {
+				type = anims::CARTELATAQUECARGADO;
+			}
+			else if (numCartel == "fireCartel") {
+				type = anims::CARTELFUEGO;
+			}
+			cartelObject->addComponent<FramedImage>(&sdlutils().images().at(numCartel), row, col);
+			cartelObject->addComponent<GeneralAnimationController>(type,cartelObject);
+		}
+		return cartelObject;
+	}
+
 	static inline auto lifeShardFeedbackTextEntity(Manager* mngr_, const Vector2D& position, bool oneHalf) {
 		auto t = mngr_->addEntity(ecs::_grp_UI);
 		std::string txt;
@@ -672,41 +725,5 @@ namespace constructors {
 		t->addComponent<LifeShardFeedbackComponent>();
 		return t;
 	}
-
-	static inline Entity* Cartel(Manager* mngr_, int x, int y, int w, int h, std::string numCartel) {
-		Entity* cartelObject = mngr_->addEntity(ecs::_grp_CARTEL);
-		cartelObject->addComponent<Transform>(x, y, w, h);
-		int row = sdlutils().images().at(numCartel).getNumRows(), col = sdlutils().images().at(numCartel).getNumCols();
-		anims::Entities type;
-		if (numCartel == "movimientoCartel") {
-			type = anims::CARTELMOVIMIENTO;
-		}
-		else if (numCartel == "lamparaCartel") {
-			type = anims::CARTELLAMPARA;
-		}
-		else if (numCartel == "enredaderaCartel") {
-			type = anims::CARTELENREDADERA;
-		}
-		else if (numCartel == "elementoCartel") {
-			type = anims::CARTELELEMENTO;
-		}
-		else if (numCartel == "mapaCartel") {
-			type = anims::CARTELMOVIMIENTO;
-		}
-		else if (numCartel == "lookDownCartel") {
-			type = anims::CARTELLOOKDOWN;
-		}
-		else if (numCartel == "ataqueCartel") {
-			type = anims::CARTELATAQUE;
-		}
-		else if (numCartel == "powerElementoCartel") {
-			type = anims::CARTELPOWERCARTEL;
-		}
-		cartelObject->addComponent<FramedImage>(&sdlutils().images().at(numCartel), row, col);
-		if (numCartel != "bossTierraCartel")
-			cartelObject->addComponent<GeneralAnimationController>(type, cartelObject);
-		return cartelObject;
-		}
-	}
-
+}
 

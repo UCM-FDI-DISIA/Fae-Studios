@@ -705,8 +705,13 @@ void MapComponent::loadMap(std::string path, int nextPos) {
             else if (classSplit[0] == "Lore") {
                 int roomNum = std::stoi(classSplit[1]);
                 auto roomScale = vectorTiles[roomNum].first;
-                Vector2D posText = Vector2D((x_ * scale) * roomScale -300, (y_ * scale) * roomScale - 100);
-               
+                Vector2D posText;
+                if (ot.getName() == "loreText1") {
+                    posText = Vector2D((x_ * scale) * roomScale - 300, (y_ * scale) * roomScale - 100);
+                }
+                else if(ot.getName() == "loreText2") {
+                    posText = Vector2D((x_ * scale) * roomScale - 500, (y_ * scale) * roomScale - 100);
+                }
                 auto rock = constructors::rockLore(mngr_, 
                     Vector2D((x_ * scale) * roomScale, (y_ * scale) * roomScale),
                     (w_ * scale) * roomScale, (h_ * scale) * roomScale, 0, roomNum, ot.getName(), posText);
