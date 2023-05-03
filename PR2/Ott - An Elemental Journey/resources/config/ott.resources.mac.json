@@ -747,6 +747,24 @@
 			"cols": 1
 		},
 		{
+			"id": "lookDownCartel",
+			"file": "../Ott - An Elemental Journey/resources/images/carteles/cartellookdown/lookDown_cartel.png",
+			"rows": 1,
+			"cols": 19
+		},
+		{
+			"id": "ataqueCartel",
+			"file": "../Ott - An Elemental Journey/resources/images/carteles/Ataque/ataqueCartel.png",
+			"rows": 1,
+			"cols": 20
+		},
+		{
+			"id": "powerElementoCartel",
+			"file": "../Ott - An Elemental Journey/resources/images/carteles/PowerElemento/powerElementCartel.png",
+			"rows": 1,
+			"cols": 19
+		},
+		{
 			"id": "water",
 			"file": "../Ott - An Elemental Journey/resources/images/tests/Water.png",
 			"rows": 1,
@@ -781,6 +799,12 @@
 			"file": "../Ott - An Elemental Journey/resources/images/tests/loreRock.png",
 			"rows": 1,
 			"cols": 1
+		},
+		{
+			"id": "loreText1",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/Lore_1.png",
+			"rows": 12,
+			"cols": 3
 		},
 		{
 			"id": "hanging_spike",

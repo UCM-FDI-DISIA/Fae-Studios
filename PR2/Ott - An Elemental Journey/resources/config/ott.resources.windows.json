@@ -819,10 +819,28 @@
 			"cols": 11
 		},
 		{
+			"id": "ataqueCartel",
+			"file": "../resources/images/carteles/Ataque/ataqueCartel.png",
+			"rows": 1,
+			"cols": 20
+		},
+		{
+			"id": "powerElementoCartel",
+			"file": "../resources/images/carteles/PowerElemento/powerElementCartel.png",
+			"rows": 1,
+			"cols": 19
+		},
+		{
 			"id": "bossTierraCartel",
 			"file": "../resources/images/carteles/BossTierra.png",
 			"rows": 1,
 			"cols": 1
+		},
+		{
+			"id": "lookDownCartel",
+			"file": "../resources/images/carteles/cartellookdown/lookDown_cartel.png",
+			"rows": 1,
+			"cols": 19
 		},
 		{
 			"id": "platform",
@@ -853,6 +871,12 @@
 			"file": "../resources/images/tests/loreRock.png",
 			"rows": 1,
 			"cols": 1
+		},
+		{
+			"id": "loreText1",
+			"file": "../resources/images/tests/Lore_1.png",
+			"rows": 12,
+			"cols": 3
 		},
 		{
 			"id": "hanging_spike",
@@ -2303,7 +2327,8 @@
 	  {"id" :  "water_boss_fight", "file" :  "../resources/music/boss_agua.wav"},
 	  {"id" :  "earth_boss_fight", "file" :  "../resources/music/gusano.wav"},
 	  {"id" :  "water_level", "file" :  "../resources/music/mundo_agua.wav"},
-	  {"id" :  "fire_level", "file" :  "../resources/music/fuego.wav"}
+	  {"id" :  "fire_level", "file" :  "../resources/music/fuego.wav"},
+	  {"id" :  "lore_room", "file" :  "../resources/music/lore_room_music.wav"}
   ],
   
   "maps": [
