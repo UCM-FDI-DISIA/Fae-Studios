@@ -1,3 +1,13 @@
+body::-webkit-scrollbar {
+    display: none;
+}
+body {
+  -ms-overflow-style: none;
+  scrollbar-width: none;  
+}
+#navBar {
+    background-color:rgba(0,0,0,0.3);
+}
 #titulo {
     color: black;
     transition: 0.7s;
@@ -14,5 +24,9 @@
     color:black;
 }
 #divImagen {
-    background-image: url(../images/mainmenubg.png);
+    background-image: url("./../images/mainmenubg.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100vw;
+    height: 100vh;
 }
