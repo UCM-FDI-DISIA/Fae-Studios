@@ -63,6 +63,9 @@
 #include "../components/LifeShardFeedbackComponent.h"
 #include "../components/GeneralAnimationController.h"
 #include "../components/BossHealthBar.h"
+#include "../components/FinalBossBehaviorComponent.h"
+#include "../components/FinalBossAnimation.h"
+
 #include <string>
 #include <iostream>
 #include <functional>
@@ -356,7 +359,21 @@ namespace constructors {
 		ph->createCollider();	
 		return player;
 	}
+	static inline Entity* boss(Manager* mngr_, MapComponent* map_, int x, int y, int w, int h)
+	{
+		auto b= mngr_->addEntity(ecs::_grp_FINAL_BOSS);
+		b->addComponent<Transform>(Vector2D(x, y), w, h);
+		//auto health = b->addComponent<Health>(5, ecs::Light, true); health->initComponent();
+		b->addComponent<FramedImage>(&sdlutils().images().at("finalBossSheet"),7, 14);
+		///*auto health = */ b->addComponent<Health>(5, ecs::Light, true); //health->initComponent();
 
+		auto healthBar = mngr_->addEntity(ecs::_grp_UI);
+		healthBar->addComponent<BossHealthBar>(b, 4, &sdlutils().images().at("bossHealthBar"), &sdlutils().images().at("bossLife"));
+		b->addComponent<Health>(healthBar->getComponent<BossHealthBar>(), 10, ecs::Dark, false);
+		b->addComponent<FinalBossAnimation>(anims::FINALBOSS);
+		b->addComponent<FinalBossBehaviorComponent>(map_);
+		return b;
+	}
 	static inline Entity* camera(Manager* mngr_, int x, int y, int w, int h) {
 		auto camera = mngr_->addEntity(ecs::_grp_GENERAL);
 		camera->addComponent<Transform>(Vector2D(x, y), w, h);

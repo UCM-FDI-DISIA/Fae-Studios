@@ -380,6 +380,7 @@
 			"rows": 3,
 			"cols": 4
 		},
+		{ "id": "finalBossTileset", "file": "../Ott - An Elemental Journey/resources/images/levels/Tiles_Oscuridad.png", "rows": 34, "cols": 20},
 		{
 			"id": "shield",
 			"file": "../Ott - An Elemental Journey/resources/images/tests/lightShield.png",
@@ -808,7 +809,13 @@
 		},
 		{
 			"id": "movimientoCartel",
-			"file": "../Ott - An Elemental Journey/resources/images/carteles/Movimiento/cartelMovimientoAnimation.png",
+			"file": "../Ott - An Elemental Journey/resources/images/carteles/Movimiento/cartelMovimientoAnimation.png", "rows":1, "cols":4},
+		{ "id": "attackBubble",	"file": "../Ott - An Elemental Journey/resources/images/sprites/attackBubble.png", "rows": 1, "cols": 1	},
+		{ "id": "blackHole", "file": "../Ott - An Elemental Journey/resources/images/tests/BlackHole.png", "rows": 1,	"cols": 4},
+		{ "id": "ShurikenAgua", "file": "../Ott - An Elemental Journey/resources/images/tests/ShurikenAgua.png", "rows": 1, "cols": 1},
+		{
+			"id": "finalBossFireWall",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/fireWall.png",
 			"rows": 1,
 			"cols": 14
 		},
@@ -959,6 +966,12 @@
 		{
 			"id": "LowFade",
 			"file": "../Ott - An Elemental Journey/resources/images/ui/LowLifeFade.png",
+			"rows" : 1,
+			"cols" : 5
+		},
+		{
+			"id": "Sala0_FinalBoss",
+			"file": "../Ott - An Elemental Journey/resources/images/backgrounds/Sala0_FinalBoss.png",
 			"rows": 1,
 			"cols": 1
 		}
@@ -1021,6 +1034,7 @@
 		{ "id" : "waterMap", "file" : "../Ott - An Elemental Journey/resources/levels/WaterMap.tmx", "cols" : 180, "tileset" : "waterTileset", "background" : "level1bg", "music" : "water_level" },
 		{ "id" : "fireMap", "file" : "../Ott - An Elemental Journey/resources/levels/FireMap.tmx", "cols" : 162, "tileset" : "fireTileset", "background" : "level1bg", "music" : "water_level" },
 		{ "id" : "waterBossMap", "file" : "../Ott - An Elemental Journey/resources/levels/WaterBossMap.tmx", "cols" : 211, "tileset" : "waterTileset", "background" : "level1bg", "music" : "water_boss_fight" },
-		{"id": "QA", "file" : "../Ott - An Elemental Journey/resources/levels/MapaQA.tmx", "cols" : 83, "tileset":  "waterTileset", "background" :"level1bg", "music": "earth_level" }
-  ]
+		{"id": "QA", "file" : "../Ott - An Elemental Journey/resources/levels/MapaQA.tmx", "cols" : 83, "tileset":  "waterTileset", "background" :"level1bg", "music": "earth_level" },
+		{ "id" : "finalBossMap", "file" : "../Ott - An Elemental Journey/resources/levels/finalBossMap.tmx", "cols" : 35, "tileset" : "finalBossTileset", "background" : "level1bg", "music" : "water_boss_fight" }
+	]
 }

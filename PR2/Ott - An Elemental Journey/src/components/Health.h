@@ -73,6 +73,14 @@ public:
 	inline int getNumShards() const { return numShards; }
 	inline void killHealth() { actualLife = 0; image->die(); die(); }
 	inline void setInmune(bool v) { inmune = v; }
+	inline void cureHealth()
+	{
+		if (actualLife < maxLife)
+		{
+			actualLife += 2;
+			if (bar != nullptr) bar->cure();
+		}
+	}
 	virtual void saveToFile(std::ofstream& file);
 	virtual void loadFromFile(std::ifstream& file);
 };

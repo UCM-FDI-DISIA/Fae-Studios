@@ -15,6 +15,7 @@ public:
 	bool getIsDead() { return isDead; }
 	void setBossLife(int n) { BossLife = n; }
 	void damage(int n);
+	void cure();
 	void reset();
 	void die();
 	virtual void render();

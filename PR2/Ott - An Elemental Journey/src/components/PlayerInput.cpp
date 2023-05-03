@@ -7,9 +7,6 @@
 
 PlayerInput::PlayerInput()
 {
-	//earth = true;
-	water = true;
-	//fire = true;
 }
 
 void PlayerInput::initComponent()

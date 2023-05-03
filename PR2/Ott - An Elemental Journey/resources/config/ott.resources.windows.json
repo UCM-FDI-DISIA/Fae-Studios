@@ -441,6 +441,12 @@
 			"cols": 20
 		},
 		{
+			"id": "finalBossTileset",
+			"file": "../resources/images/levels/Tiles_Oscuridad.png",
+			"rows": 34,
+			"cols": 20
+		},
+		{
 			"id": "waterTileset",
 			"file": "../resources/images/levels/Tiles_Agua_Bosque.png",
 			"rows": 34,
@@ -1043,6 +1049,12 @@
 		{
 			"id": "bossTierraCartel",
 			"file": "../resources/images/carteles/BossTierra.png",
+			"rows":1,
+			"cols":1
+		},
+		{
+			"id": "attackBubble",
+			"file": "../resources/images/sprites/attackBubble.png",
 			"rows": 1,
 			"cols": 1
 		},
@@ -1059,8 +1071,38 @@
 			"cols": 1
 		},
 		{
+			"id": "finalBoss",
+			"file": "../resources/images/tests/BossFinal.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
 			"id": "button_needle",
 			"file": "../resources/images/ui/button_needle.png",
+			"rows": 1,
+			"cols": 4
+		},
+		{
+			"id": "blackHole",
+			"file": "../resources/images/tests/BlackHole.png",
+			"rows": 1,
+			"cols": 4
+		},
+		{
+			"id": "BossFist",
+			"file": "../resources/images/tests/Boss_Fist.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "BossFistTop",
+			"file": "../resources/images/tests/Boss_Fist_Top.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "ShurikenAgua",
+			"file": "../resources/images/tests/ShurikenAgua.png",
 			"rows": 1,
 			"cols": 1
 		},
@@ -1089,8 +1131,26 @@
 			"cols": 3
 		},
 		{
-			"id": "hanging_spike",
+			"id": "hangingSpike",
 			"file": "../resources/images/tests/Hanging_Spike.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "finalBossSheet",
+			"file": "../resources/images/tests/BossFinal-sheet.png",
+			"rows": 7,
+			"cols": 14
+		},
+		{
+			"id": "finalBossFireWall",
+			"file": "../resources/images/tests/fireWall.png",
+			"rows": 1,
+			"cols": 14
+		},
+		{
+			"id": "Sala0_FinalBoss",
+			"file": "../resources/images/backgrounds/Sala0_FinalBoss.png",
 			"rows": 1,
 			"cols": 1
 		},
@@ -2555,6 +2615,7 @@
 		{ "id" : "waterMap", "file" : "../resources/levels/WaterMap.tmx", "cols" : 289, "tileset" : "waterTileset", "background" : "level1bg", "music" : "water_level" },
 		{ "id" : "fireMap", "file" : "../resources/levels/FireMap2.tmx", "cols" : 208, "tileset" : "fireTileset", "background" : "level1bg", "music" : "water_level" },
 		{ "id" : "waterBossMap", "file" : "../resources/levels/WaterBossMap.tmx", "cols" : 211, "tileset" : "waterTileset", "background" : "level1bg", "music" : "water_boss_fight" },
-		{"id": "QA", "file" : "../resources/levels/MapaQA.tmx", "cols" : 83, "tileset":  "waterTileset", "background" :"level1bg", "music": "earth_level" }
-  ]
+		{"id": "QA", "file" : "../resources/levels/MapaQA.tmx", "cols" : 83, "tileset":  "waterTileset", "background" :"level1bg", "music": "earth_level" },
+		{ "id" : "finalBossMap", "file" : "../resources/levels/finalBossMap.tmx", "cols" : 35, "tileset" : "finalBossTileset", "background" : "level1bg", "music" : "water_boss_fight" }
+	]
 }

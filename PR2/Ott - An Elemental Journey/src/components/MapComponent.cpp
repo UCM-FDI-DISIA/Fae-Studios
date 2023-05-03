@@ -372,7 +372,10 @@ void MapComponent::loadMap(std::string path, int nextPos) {
                     platforms.reserve(numRooms);
                     for (int i = 0; i < numRooms; ++i) {
                         platforms.push_back(std::vector<Entity*>());
-                        platforms[i].reserve(5);
+                        platforms[i].reserve(5);}   
+                    for (int i = 0; i < numRooms; ++i) {
+                        waterObjects[i].push_back({});
+                    }
                     }
 
                     if (mapKeys[currentMap].size() != numRooms) {
@@ -417,6 +420,22 @@ void MapComponent::loadMap(std::string path, int nextPos) {
                 else if (name == "Plataformas") {
                     vectorObjects[PLATFORMS_VECTOR_POS] = objects;
                 }
+                else if (name == "Agujeros Negros") {
+                    vectorObjects[BLACKHOLE_VECTOR_POS] = objects;
+                }
+                else if (name == "Burbujas") {
+                    vectorObjects[BUBBLE_VECTOR_POS] = objects;
+                }
+                else if (name == "EnredaderasBossFinal") {
+                    vectorObjects[SPIKE_VECTOR_POS] = objects;
+                }
+                else if (name == "PuntosDebiles") {
+                    vectorObjects[WEAK_SPOT_VECTOR_POS] = objects;
+                }
+                else if (name == "bossFinal") {
+                    vectorObjects[FINALBOSS_VECTOR_POS] = objects;
+                }
+                
             }
             #pragma endregion
         }
@@ -467,6 +486,69 @@ void MapComponent::loadMap(std::string path, int nextPos) {
                 eraseEntities.push_back(constructors::DestructibleTile(mngr_, rect.x, rect.y, rect.w, rect.h, obj.getName(), index, this));
             }
             else ground[obj.getName()].push_back(rect);
+        }
+
+        // BLACKHOLES SALA FINAL BOSS
+        for (auto obj : vectorObjects[BLACKHOLE_VECTOR_POS]) {
+            SDL_Rect rect = getSDLRect(obj.getAABB());
+
+            auto roomScale = vectorTiles[std::stoi(obj.getClass())].first;
+            rect.x *= roomScale;
+            rect.y *= roomScale;
+            rect.w *= roomScale;
+            rect.h *= roomScale;
+        
+            blackHolesPos.push_back(rect);
+        }
+
+        // BURBUJAS SALA FINAL BOSS
+        for (auto obj : vectorObjects[BUBBLE_VECTOR_POS]) {
+            SDL_Rect rect = getSDLRect(obj.getAABB());
+
+            auto roomScale = vectorTiles[std::stoi(obj.getClass())].first;
+            rect.x *= roomScale;
+            rect.y *= roomScale;
+            rect.w *= roomScale;
+            rect.h *= roomScale;
+
+            bubblesPos.push_back(rect);
+        }
+
+        // ENREDADERAS SALA FINAL BOSS
+        for (auto obj : vectorObjects[SPIKE_VECTOR_POS]) {
+            SDL_Rect rect = getSDLRect(obj.getAABB());
+
+            auto roomScale = vectorTiles[std::stoi(obj.getName())].first;
+            rect.x *= roomScale;
+            rect.y *= roomScale;
+            rect.w *= roomScale;
+            rect.h *= roomScale;
+
+            bossSpikePos.push_back(rect);
+        }
+        // PUNTOS DEBILES SALA FINAL BOSS
+        for (auto obj : vectorObjects[WEAK_SPOT_VECTOR_POS]) {
+            SDL_Rect rect = getSDLRect(obj.getAABB());
+
+            auto roomScale = vectorTiles[std::stoi(obj.getName())].first;
+            rect.x *= roomScale;
+            rect.y *= roomScale;
+            rect.w *= roomScale;
+            rect.h *= roomScale;
+
+            bossWeakSpotsPos.push_back(rect);
+        }
+        // BOSS SALA FINAL BOSS
+        for (auto obj : vectorObjects[FINALBOSS_VECTOR_POS]) {
+            SDL_Rect rect = getSDLRect(obj.getAABB());
+
+            auto roomScale = vectorTiles[std::stoi(obj.getClass())].first;
+            rect.x *= roomScale;
+            rect.y *= roomScale;
+            rect.w *= roomScale;
+            rect.h *= roomScale;
+
+            mngr_->getPlayer()->getComponent<PlayerAttack>()->setFinalBoss(constructors::boss(mngr_, this, rect.x, rect.y, rect.w, rect.h));
         }
 
         for (auto obj : vectorObjects[WATER_VECTOR_POS]) {
@@ -936,7 +1018,6 @@ void MapComponent::render() {
     int offsetY = camPos.y;
     int room = currentRoom;
     auto roomScale = vectorTiles[room].first;
-
     for (int i = 0; i < vectorTiles[room].second.size(); i++) {
         auto it = vectorTiles[room].second[i].first;
         auto ot = vectorTiles[room].second[i].second;

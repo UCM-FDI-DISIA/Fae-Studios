@@ -20,7 +20,7 @@ public:
 		WARNINGEARTH, PAUSE_ANIM, MINIPAUSE_ANIM, WATER_ATTACK, 
 		WATERBOSS_ANIM, LIFE_SHARD, CARTELMOVIMIENTO, CARTELLAMPARA, CARTELENREDADERA, 
 		CARTELELEMENTO, CARTELLOOKDOWN, CARTELATAQUE, CARTELPOWERCARTEL, LORE_ANIM,
-		 FIREBOSS_ANIM, LAMP_ANIM, GRASS_ANIM, SANCTUARY_ANIM, SHIELD_ANIM, RELIC };
+		 FIREBOSS_ANIM, LAMP_ANIM, GRASS_ANIM, SANCTUARY_ANIM, SHIELD_ANIM, RELIC,FINALBOSS };
 	static std::vector<std::vector<animDescription>> animations;
 
 	class offsetPhysics {
@@ -56,6 +56,7 @@ private:
 	static std::vector<animDescription> warning_anims;
 	static std::vector<animDescription> pause_anims;
 	static std::vector<animDescription> miniPause_anims;
+	static std::vector<animDescription> finalBoss_anims;
 	//ATAQUE AGUA
 	static std::vector<animDescription> water_attack;
 	// LAMP

@@ -12,7 +12,6 @@ void Image::render() {
 			rect.y -= camera.y;
 
 		}
-
 		texture->render(rect, transform->getRotation());
 	}
 }

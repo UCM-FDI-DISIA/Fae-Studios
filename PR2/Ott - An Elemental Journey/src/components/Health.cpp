@@ -11,6 +11,7 @@
 #include "EarthBossManager.h"
 #include "EarthBossAttack.h"
 #include "InteractionComponent.h"
+#include "FinalBossBehaviorComponent.h"
 #include "ShieldComponent.h"
 #include "AttackCharger.h"
 #include "AutoDestroy.h"
@@ -116,7 +117,7 @@ bool Health::recieveDamage(ecs::elements el, bool dir) {
 			image->damage(damage);
 		}
 	}
-	else if (ent_->hasComponent<EarthBossAttack>() && bar != nullptr) {
+	else if ((ent_->hasComponent<EarthBossAttack>() || ent_->hasComponent<FinalBossBehaviorComponent>()) && bar != nullptr) {
 		int damage = elementsInfo::ottMatrix[el][elem];
 
         switch (damage){

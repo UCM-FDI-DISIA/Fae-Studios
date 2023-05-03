@@ -1,6 +1,7 @@
 #include "GrowVine.h"
 #include "../sdlutils/SoundEffect.h"
 #include "../sdlutils/SDLUtils.h"
+#include"VineManager.h"
 
 void GrowVine::update() {
     if (grow) {
@@ -46,12 +47,20 @@ void GrowVine::update() {
             }
             else if (!reached && dir < 0 && posY > posIni.getY() || !reached && dir > 0 && posY < posIni.getY()) {
                 reached = true;
+                vManager->setHasVine();
+                //ent_->setAlive(false);
+                ent_->removeComponent<ColliderVine>();
             }
             else if (reached && goesBack && posY != posFinalT.getY()) {
                 tr_->setPosition(Vector2D(posX, posY - ((-1 * dir) * speed)));
+                vManager->setHasVine();
+                ent_->setAlive(false);
+       
             }
             else if (reached && posY == posFinalT.getY()) {
                 reached = false; grow = false;
+                vManager->setHasVine();
+                ent_->setAlive(false);
             }
         }
         else {
@@ -63,9 +72,11 @@ void GrowVine::update() {
             }
             else if (reached && goesBack && posX != posFinalT.getX()) {
                 tr_->setPosition(Vector2D(posX - ((-1 * dir) * speed), posY));
+                ent_->setActive(false);
             }
             else if (reached && posX == posFinalT.getX()) {
                 reached = false; grow = false;
+                ent_->setActive(false);
             }
         }
     }

@@ -55,13 +55,25 @@ private:
 	std::vector<std::vector<Entity*>> waterObjects;
 	std::vector<std::vector<Entity*>> platforms;
 
+	// Pos burbujas sala boss final
+	std::vector< SDL_Rect> bubblesPos;
+
+	// Pos agujeros negros sala boss final
+	std::vector< SDL_Rect> blackHolesPos;
+
+	// Pos enredaderas sala boss final
+	std::vector< SDL_Rect> bossSpikePos;
+
+	// Pos colliders (pts debiles) sala boss final
+	std::vector< SDL_Rect> bossWeakSpotsPos;
+
 	// En este mapa se guarda:
 	// string -> n�mero de sala
 	// vector -> todos los triggers que hay en esa sala
 	// pair<string, SDL_Rect> -> 
 		// string: la sala a la que lleva ese trigger; 
 		// SDL_Rect: su colisi�n
-	std::unordered_map<std::string, std::vector<std::pair<std::string, std::pair<SDL_Rect,SDL_Rect>>>> triggers;
+	std::unordered_map<std::string, std::vector<std::pair<std::string, std::pair<SDL_Rect, SDL_Rect>>>> triggers;
 
 
 	struct positionsInfo {
@@ -72,7 +84,7 @@ private:
 	std::unordered_map<int, positionsInfo> positions;
 
 
-	struct changeMapTriggerInfo{
+	struct changeMapTriggerInfo {
 		int map;
 		std::string key;
 		int nextPos;
@@ -89,7 +101,7 @@ private:
 	Entity* earthBoss;
 	Entity* fadeOut;
 	PlayState* game;
-	
+
 	// std::vector<Texture*> textures;
 
 	const int ROOM_VECTOR_POS = 0;
@@ -103,6 +115,11 @@ private:
 	const int BACKGROUNDS_VECTOR_POS = 8;
 	const int CARTELES_VECTOR_POS = 9;
 	const int PLATFORMS_VECTOR_POS = 10;
+	const int BLACKHOLE_VECTOR_POS = 11;
+	const int BUBBLE_VECTOR_POS = 12;
+	const int FINALBOSS_VECTOR_POS = 13;
+	const int SPIKE_VECTOR_POS = 14;
+	const int WEAK_SPOT_VECTOR_POS = 15;
 
 	std::string currentMapKey = "earthMap";
 
@@ -120,8 +137,8 @@ private:
 
 public:
 	constexpr static ecs::cmpId_type id = ecs::_MAP;
-	
-	MapComponent(Entity* fadeOut, PlayState* game, int currentMap, std::ifstream & file);
+
+	MapComponent(Entity* fadeOut, PlayState* game, int currentMap, std::ifstream& file);
 	MapComponent(Entity* fadeOut, PlayState* game, int currentMap);
 	void initComponent();
 	virtual void render();
@@ -138,9 +155,9 @@ public:
 	void addCollision(std::string sala, SDL_Rect newCol);
 
 	void deleteCollision(std::string sala);
-	
+
 	void playFadeOutAnimation() { anim_->startFadeOut(); }
-	
+
 	inline std::string getCurrentLevel() { return currentMapKey; }
 
 	void generateEnemies();
@@ -169,13 +186,23 @@ public:
 
 	inline void destroyTile(std::string room, int index) { destructible[room][index].first = false; }
 
+	inline int bubblesNum() { return bubblesPos.size(); }
+	inline int blackHolesNum() { return blackHolesPos.size(); }
+	inline int bossSpikesNum() { return bossSpikePos.size(); }
+	inline int bossWeakSpotsNum() { return bossWeakSpotsPos.size(); }
+
+	inline SDL_Rect getBubblePos(int index){ return bubblesPos[index]; }
+	inline SDL_Rect getBlackHolePos(int index) { return blackHolesPos[index]; }
+	inline SDL_Rect getBossSpikesPos(int index) { return bossSpikePos[index]; }
+	inline SDL_Rect getBossWeakSpotsPos(int index){ return bossWeakSpotsPos[index]; }
+
 	void changeRoom(std::string newRoom, Vector2D newPos, bool verticalTrigger = false);
 
 	std::vector<std::vector<Object>> getObjects() { return vectorObjects; }
 	inline float tileScale() { return (float)usedTileSize / (float)realTileSize; }
 
 	// L�mites de la c�mara en X sala
-	inline SDL_Rect getCamBounds() { 
+	inline SDL_Rect getCamBounds() {
 		SDL_Rect rect = getSDLRect(vectorObjects[ROOM_VECTOR_POS][currentRoom].getAABB());
 		auto scale = vectorTiles[currentRoom].first;
 		rect.x *= scale;
@@ -185,16 +212,17 @@ public:
 		return rect;
 	}
 
+
 	// recibe un FloatRecy se convierte a SDL_Rect, multiplic�ndolo tambi�n por la escala de las Tiles
 	inline SDL_Rect getSDLRect(FloatRect rect) {
 		SDL_Rect sdlRect = { (int)(rect.left * tileScale()), (int)(rect.top * tileScale()),
-                             (int)(rect.width * tileScale()), (int)(rect.height * tileScale()) };
+							 (int)(rect.width * tileScale()), (int)(rect.height * tileScale()) };
 		return sdlRect;
 	}
 
 	virtual void saveToFile(std::ofstream& file);
 	inline void addShard(int id) { pickedLifeShards += std::to_string(id) + " "; };
-	inline void unlockElement(ecs::elements e) { 
+	inline void unlockElement(ecs::elements e) {
 		if (e == ecs::Fire) loadFireElem = false;
 		else if (e == ecs::Water) loadWaterElem = false;
 		else if (e == ecs::Earth) loadEarthElem = false;

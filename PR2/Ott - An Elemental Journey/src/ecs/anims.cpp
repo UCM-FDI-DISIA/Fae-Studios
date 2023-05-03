@@ -39,6 +39,8 @@ std::vector<anims::animDescription> anims::earthBoss_anims{ {100, 1,0,0} };
 std::vector<anims::animDescription> anims::warning_anims{ {60, 27,1,0} };
 std::vector<anims::animDescription> anims::pause_anims{ {5000, 1,0,0} };
 std::vector<anims::animDescription> anims::miniPause_anims{ {1000, 1,0,0} };
+std::vector<anims::animDescription> anims::finalBoss_anims{ {300, 60,0,8}, {400,8,0,0},{300, 3, 6, 0}, {300, 10, 5, 4}, {300, 9,6, 3} };
+
 
 std::vector<anims::animDescription> anims::water_attack{ {100,7,0,0}, {100,7,1,6} };
 std::vector<anims::animDescription> anims::lamp{ {100,1,0,0}, {50, 3, 0, 1},{100,1,0,4} };
@@ -60,7 +62,7 @@ std::vector<std::vector<anims::animDescription>> anims::animations{ott_anims,
 			pause_anims,miniPause_anims, water_attack, waterBoss_anims, 
 			lifeshard_anims, movimiento_cartel,lampara_cartel,enredadera_cartel, elemento_cartel, 
 			lookDown_cartel,ataque_cartel, powerElemento_cartel,texto_lore,
-			fireboss_anims, lamp, grass, sanctuary,shield, relic_anims };
+			fireboss_anims, lamp, grass, sanctuary,shield, relic_anims, finalBoss_anims };
 
 // OTT
 anims::offsetPhysics anims::ott_collider{ 7, 32, 4, 32, 16, 28};

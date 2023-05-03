@@ -8,7 +8,7 @@ void DamageArea::update()
 	SDL_Rect dArea = tr->getRect();
 	if (SDL_HasIntersection(&pCol, &dArea))
 	{
-		//necesita la dirección de algo
+		//necesita la direcciï¿½n de algo
 		pHe->recieveDamage(element, !(pPhysics->getLookDirection()));
 		pPhysics->setLastPos();
 	}
@@ -23,12 +23,22 @@ void DamageArea::update()
 			{
 				ent_->setActive(false);
 			}
+			if (b!= nullptr && SDL_HasIntersection(&r3, &dArea) && b->getInstigator()->hasComponent<PlayerInput>() && b->getElem()==ecs::Fire)
+			{
+				if (bossBehaComp_ == nullptr)ent_->setAlive(false);
+				else bossBehaComp_->deleteSpikeFromVec(ent_);
+				f->setAlive(false);
+			}
 		}
-	}
+		if (bossBehaComp_ != nullptr && SDL_GetTicks() - spawnTime >= lifeTime) {
+			//Se mata pasados unos segundos
+			bossBehaComp_->deleteSpikes();
+		}
 }
 void DamageArea::initComponent()
 {
 	tr = ent_->getComponent<Transform>();
 	pPhysics = mngr_->getPlayer()->getComponent<PhysicsComponent>();
 	pHe = mngr_->getPlayer()->getComponent<Health>();
+	spawnTime = SDL_GetTicks();
 }

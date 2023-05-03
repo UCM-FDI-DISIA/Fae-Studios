@@ -9,6 +9,7 @@
 #include "Transform.h"
 #include "ColliderVine.h"
 
+class VineManager;
 class GrowVine : public Component
 {
 private:
@@ -16,6 +17,7 @@ private:
 	Vector2D posFinalT;
 	Transform* tr_;
 	std::string orientation;
+	VineManager* vManager;
 	bool goesBack;
 	bool reached = false;
 	int speed;
@@ -23,7 +25,9 @@ private:
 	bool grow = true;
 	bool ungrow = false;
 public:
-	inline GrowVine(Vector2D posT, int s, int d, std::string o, bool back) : posFinalT(posT), speed(s), dir(d), orientation(o), goesBack(back), tr_(nullptr) {
+	GrowVine(Vector2D posT, int s, int d, std::string o, bool back, VineManager* v) : posFinalT(posT), speed(s), dir(d), orientation(o), goesBack(back), tr_(nullptr), vManager(v) {
+	}
+	GrowVine(Vector2D posT, int s, int d, std::string o, bool back) : posFinalT(posT), speed(s), dir(d), orientation(o), goesBack(back), tr_(nullptr), vManager(nullptr) {
 	}
 	virtual ~GrowVine() {}
 	constexpr static ecs::cmpId_type id = ecs::_GROWVINE;

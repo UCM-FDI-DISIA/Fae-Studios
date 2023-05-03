@@ -59,6 +59,10 @@ public:
 		canAttack = true;
 		chargedAttack = charged;
 	}
+	inline void setFinalBoss(Entity* e)
+	{
+		finalBoss_ = e;
+	}
 	constexpr static ecs::cmpId_type id = ecs::_PLAYERATTACK;
 private:
 	// Metodos
@@ -77,6 +81,7 @@ private:
 	Health* health_;
 	PlayerAnimationComponent* anim_;
 	PhysicsComponent* physics;
+	Entity* finalBoss_;
 	bool canAttack, chargedAttack;
 	int startAttackingTime, lastFireBallTime, timeBetweenFireBalls = 250, remainingAttacks = 0;
 	const int AttackTime = 200;

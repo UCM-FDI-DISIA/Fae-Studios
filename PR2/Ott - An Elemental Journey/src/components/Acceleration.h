@@ -19,7 +19,7 @@ private:
 
 public:
 	constexpr static ecs::cmpId_type id = ecs::_BOSS_PIVOT;
-	Acceleration() {}
+	Acceleration():Component() {}
 	~Acceleration() {}
 	void initComponent() override;
 	void update() override;

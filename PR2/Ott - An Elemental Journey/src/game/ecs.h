@@ -66,6 +66,14 @@ namespace ecs {
         _DAMAGE_AREA,
         _LIFE_SHARD_FEEDBACK,
         _MANAGEMENT,
+        _FINALBOSS,
+        _FINALBOSS_ATTACK,
+        _BLACK_HOLE_ANIMATION,
+        _ATTRACTION,
+        _FLIP,
+        _DAMAGE_AREA,
+        _FINAL_BOSS_ANIMATION,
+        _BUBBLE_POP,
 
         _LAST_CMP_ID
     };
@@ -79,6 +87,9 @@ namespace ecs {
         _grp_BACKGROUNDS,
         _grp_GENERAL, ///< General
         _grp_MINIBOSS,
+        _grp_FINAL_BOSS,
+        _grp_FINAL_BOSS_COLLIDERS,
+
         _grp_GROUND,
         _grp_VINE,
         _grp_INTERACTION,
@@ -86,6 +97,10 @@ namespace ecs {
         _grp_CHARACTERS,
         _grp_PROYECTILES,
         _grp_WATER,
+        _grp_BUBBLE,
+        _grp_BLACKHOLE,
+        _grp_FINAL_BOSS_SPIKES,
+        _grp_BOSS_FIST,
         _grp_MAP,
         _grp_TRIGGER,
         _grp_PLATFORMS,

@@ -40,8 +40,8 @@ PlayState::PlayState() : GameState(ecs::_state_PLAY) {
 	player_ = mngr_->getPlayer();
 	camera_ = mngr_->getCamera();
 
-    fade = mngr_->addEntity(ecs::_grp_FADEOUT);
-	fade->addComponent<FadeTransitionComponent>(true);
+	fade = mngr_->addEntity(ecs::_grp_FADEOUT);
+	fade->addComponent<FadeTransitionComponent>(true, 1);
 	fade->getComponent<FadeTransitionComponent>()->setFunction([this]() {doNotDetectKeyboardInput = false; sdlutils().musics().at(sdlutils().levels().at(map_->getCurrentLevel()).bgsong).play(); });
 	fade->getComponent<FadeTransitionComponent>()->activate();
 
@@ -80,6 +80,8 @@ PlayState::PlayState(std::string fileName) : GameState(ecs::_state_PLAY) {
 	player_ = mngr_->getPlayer();
 	camera_ = mngr_->getCamera();
 
+	constructors::lamp(mngr_, 300, 1500, 20, 50, 0, 100, 100, 20, 50, 1, 40, 40);
+
 	std::ifstream file(fileName);
 
 	player_->getComponent<Health>()->loadFromFile(file);
@@ -104,8 +106,8 @@ PlayState::PlayState(std::string fileName) : GameState(ecs::_state_PLAY) {
 	}
 	map_ = constructors::map(mngr_, this, (int)ecs::EARTH_MAP, file)->getComponent<MapComponent>();
 
-	currentMap = (ecs::maps) map_->getCurrentMap();
-	initialEnemies = enemies;	
+	currentMap = (ecs::maps)map_->getCurrentMap();
+	initialEnemies = enemies;
 	std::string aux;
 	file >> aux >> aux;
 	while (aux != "_") {
@@ -141,17 +143,16 @@ PlayState::~PlayState() {
 }
 
 void PlayState::blockKeyboardInputAfterUnfreeze() {
-    doNotDetectKeyboardInput = true;
     fade->getComponent<FadeTransitionComponent>()->revertWithoutExecute();
+	doNotDetectKeyboardInput = true;
 }
 
 void PlayState::handleInput() {
-	
-    GameState::handleInput();
+	GameState::handleInput();
 	if (doNotDetectKeyboardInput && InputHandler::instance()->allKeysUp()) {
 		doNotDetectKeyboardInput = false;
 	}
-	
+
 	if (!doNotDetectKeyboardInput) {
 		if (InputHandler::instance()->isKeyJustDown(SDLK_ESCAPE) && start) {
 			fade->getComponent<FadeTransitionComponent>()->setFunction(
@@ -232,7 +233,8 @@ void PlayState::checkCollisions(std::list<Entity*> entities) {
 				break;
 			}
 		}
-		
+
+		if (i == 0) physics->setGrounded(false);
 
 		//colisiones con el material de agua 
 		int j = 0;
@@ -286,6 +288,40 @@ void PlayState::checkCollisions(std::list<Entity*> entities) {
 			}
 		}
 		if(i == 0) physics->setGrounded(false);
+	}
+}
+
+void PlayState::checkBubblesCollisions() {
+
+	auto vines = mngr_->getEntities(ecs::_grp_VINE);
+	auto bubbles = mngr_->getEntities(ecs::_grp_BUBBLE);
+
+	for (Entity* v : vines) {
+
+		SDL_Rect vRect = v->getComponent<Transform>()->getRect();
+
+		bool col = false;
+
+		auto it = bubbles.begin();
+		while (it != bubbles.end() && !col) {
+
+			SDL_Rect bRect = (*it)->getComponent<Transform>()->getRect();
+
+			SDL_Rect areaColision;
+
+			col = SDL_IntersectRect(&vRect, &bRect, &areaColision);
+			if (col) {
+
+				// Destroy bubble
+				auto finalBoss = mngr_->getEntities(ecs::_grp_FINAL_BOSS);
+
+				auto bossBehaviour = finalBoss[0]->getComponent<FinalBossBehaviorComponent>();
+				bossBehaviour->deleteBubbleFromVec((*it));
+				v->getComponent<GrowVine>()->startUngrowing();
+			}
+
+			++it;
+		}
 	}
 }
 
@@ -456,7 +492,7 @@ void PlayState::AddRelic(ecs::elements id) {
 
 // AQUÍ SE GUARDA PARTIDA
 void PlayState::endRest() {
-    player_->getComponent<Health>()->saveSactuary(lastSanctuary);
+	player_->getComponent<Health>()->saveSactuary(lastSanctuary);
 	// Guardar datos en archivo
 	std::string fileName = "../resources/saves/temporalUniqueSave.sv";
 	std::ofstream saveFile(fileName);
