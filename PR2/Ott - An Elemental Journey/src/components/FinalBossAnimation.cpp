@@ -1,6 +1,7 @@
 #include "FinalBossAnimation.h"
 #include "../states/PlayState.h"
 #include "../states/GameStateMachine.h"
+#include "Health.h"
 
 //FinalBossAnimation::~FinalBossAnimation()
 //{
@@ -20,6 +21,7 @@ void FinalBossAnimation::initComponent()
 
 void FinalBossAnimation::update()
 {
+	std::cout << currentAnimation << std::endl;
 	if (currentAnimation == IDLE_BOSS) 
 	{ 
 		int state = currentAnimation;
@@ -39,12 +41,21 @@ void FinalBossAnimation::update()
 	else
 	{
 		int state = currentAnimation;
-		int col = (timer_ / getTPerFrame(state)) % getNFrames(state) + getColNum(state);
-		int c = getColNum(currentAnimation);
+
+		if(state==DAMAGE_BOSS) 
+		{
+			image->setCol(getColNum(currentAnimation));
+			image->setRow(getRowNum(currentAnimation));
+		}
+		else
+		{
+			int col = (timer_ / getTPerFrame(state)) % getNFrames(state) + getColNum(state);
+			int c = getColNum(currentAnimation);
+			image->setCol(col);
+			image->setRow(getRowNum(state));
+		}
 		timer_++;
 	
-		image->setCol(col);
-		image->setRow(getRowNum(state));
 		if ((timer_ > (getTPerFrame(state) * getNFrames(state)) + 1)) {
 			endAnim();													
 		}
@@ -69,10 +80,11 @@ void FinalBossAnimation::setState(int newState)
 void FinalBossAnimation::endAnim()
 {
 	if (currentAnimation == DIE_BOSS) {
+		ent_->getComponent<Health>()->die();
 		ent_->setAlive(false);
 	}
-	//else if (currentAnimation == STUN_BOSS) setState(IDLE_BOSS2);
 	else if (currentAnimation == IDLE_BOSS) setState(IDLE_BOSS2);
+	else if (currentAnimation == DAMAGE_BOSS)setState(STUN_BOSS);
 	else
 	{
 		timer_ = 0; row = getColNum(currentAnimation);
