@@ -668,6 +668,7 @@ namespace constructors {
 		}
 		else if (numCartel == "powerElementoCartel") {
 			type = anims::CARTELPOWERCARTEL;
+		}
 		else if (numCartel == "mapaCartel") {
 			type = anims::CARTELMOVIMIENTO;
 		}
