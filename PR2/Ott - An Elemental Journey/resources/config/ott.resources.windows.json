@@ -515,7 +515,7 @@
 		{
 			"id": "darkBug",
 			"file": "../resources/images/sprites/DarkBug.png",
-			"rows": 2,
+			"rows": 13,
 			"cols": 21
 		},
 		{
@@ -539,7 +539,7 @@
 		{
 			"id": "darkMushroom",
 			"file": "../resources/images/sprites/DarkMushroom.png",
-			"rows": 2,
+			"rows": 13,
 			"cols": 22
 		},
 		{
@@ -563,7 +563,7 @@
 		{
 			"id": "darkSlime",
 			"file": "../resources/images/sprites/DarkSlime.png",
-			"rows": 2,
+			"rows": 13,
 			"cols": 21
 		},
 		{
@@ -2419,7 +2419,10 @@
 		{ "id" : "relic_wink", "file" : "../resources/sound/relic_wink.wav"},
 		{ "id" : "shield_block", "file" : "../resources/sound/shield_block.wav"},
 		{ "id" : "shield_broken", "file" : "../resources/sound/shield_broken.wav"},
-		{ "id" : "menemy_dead", "file" : "../resources/sound/bicho_muerte.wav"}
+		{ "id" : "menemy_dead", "file" : "../resources/sound/bicho_muerte.wav"},
+	  	{ "id" : "useless_attack", "file" : "../resources/sound/Ataque_Inutil.mp3"},
+	  	{ "id" : "hard_attack", "file" : "../resources/sound/Ataque_Fuerte.wav"},
+	  	{ "id" : "soft_attack", "file" : "../resources/sound/Ataque_Debil.wav"}
   ],
 
   "musics" : [

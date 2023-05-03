@@ -1000,7 +1000,10 @@
 		{ "id" : "relic_wink", "file" : "../Ott - An Elemental Journey/resources/sound/relic_wink.wav"},
 		{ "id" : "shield_block", "file" : "../Ott - An Elemental Journey/resources/sound/shield_block.wav"},
 		{ "id" : "shield_broken", "file" : "../Ott - An Elemental Journey/resources/sound/shield_broken.wav"},
-		{ "id" : "menemy_step", "file" : "../Ott - An Elemental Journey/resources/sound/bicho_paso.wav"}
+		{ "id" : "menemy_step", "file" : "../Ott - An Elemental Journey/resources/sound/bicho_paso.wav"},
+	  	{ "id" : "useless_attack", "file" : "../Ott - An Elemental Journey/resources/sound/Ataque_Inutil.mp3"},
+	  	{ "id" : "hard_attack", "file" : "../Ott - An Elemental Journey/resources/sound/Ataque_Fuerte.wav"},
+	  	{ "id" : "soft_attack", "file" : "../Ott - An Elemental Journey/resources/sound/Ataque_Debil.wav"}
   ],
 
   "musics" : [
