@@ -6,7 +6,7 @@
 #include "FramedImage.h"
 // LIMPIO
 
-enum FinalBossAnims {IDLE_BOSS, IDLE_BOSS2, HEALTH_BOSS, STUN_BOSS, DIE_BOSS };
+enum FinalBossAnims {IDLE_BOSS, IDLE_BOSS2, HEALTH_BOSS, STUN_BOSS, DIE_BOSS, DAMAGE_BOSS };
 
 class Health;
 class FramedImage;
