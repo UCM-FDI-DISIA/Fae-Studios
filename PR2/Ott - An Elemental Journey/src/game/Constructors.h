@@ -508,7 +508,7 @@ namespace constructors {
 		//healthBar->addComponent<BossHealthBar>(boss, (int)ecs::Fire, &sdlutils().images().at("bossHealthBar"), &sdlutils().images().at("bossLife"));
 		auto anim=boss->addComponent<FireBossAnimation>(anims::FIREBOSS_ANIM, map);
 		boss->getComponent<FireBossComponent>()->setAnimComponent(anim);
-		boss->addComponent<Health>(20, ecs::Fire, false, true);
+		boss->addComponent<Health>(1, ecs::Fire, false, true);
 		//boss->addComponent<Health>(healthBar->getComponent<BossHealthBar>(), 25, ecs::Fire, false);
 		return boss;
 	}

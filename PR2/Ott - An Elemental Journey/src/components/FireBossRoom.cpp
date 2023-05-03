@@ -64,13 +64,15 @@ void FireBossRoom::update()
 			player->setPosition(Vector2D(colisionEnd - player->getWidth(), player->getPosition().getY()));
 		}
 	}
-	if (endWall && mngr_->getFireBoss()->getComponent<Health>()->getHealth() <= 0) {
-		endWall->setActive(false); endWall = nullptr;
+	if (endWall != nullptr && mngr_->getFireBoss()->hasComponent<Health>() && mngr_->getFireBoss()->getComponent<Health>()->getHealth() <= 0) {
+		endWall->setAlive(false); 
+		endWall = nullptr;
+		ent_->setAlive(false);
 	}
 	
 	if (currentAnim == DIE_MINION && ((SDL_GetTicks()-startTime) > (anims::animations[eAnims][currentAnim].tPerFrame * anims::animations[eAnims][currentAnim].numFrames) + 1)) {
 		camera->getComponent<CameraComponent>()->cameraShake(false);
-		minion->setActive(false);
+		minion->setAlive(false);
 	}
 }
 
