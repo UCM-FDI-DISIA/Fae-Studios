@@ -35,7 +35,7 @@ private:
     int relicsCollected = 0;
 
 
-    bool start = false;
+    bool start = true;
     bool PlayingLoreMusic = false;
     bool PlayingNormalMusic = false;
     int timerAnim;

@@ -72,6 +72,7 @@ public:
 		}
 	}
 	inline void stunStart() {
+		sdlutils().soundEffects().at("shield_broken").play(0, ecs::_channel_PLAYER);
 		stunned = true; timerStunned = SDL_GetTicks();
 	}
 	void finishedLookingDown();

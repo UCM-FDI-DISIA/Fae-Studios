@@ -26,9 +26,9 @@ void EnemyShootingAttack::Attack() {
 			bullet->addComponent<Transform>(tr_->getPosition().getX(), tr_->getPosition().getY() + tr_->getHeight() / 2,
 				30 * tr_->getScale(), 30 * tr_->getScale());
 		if (player->getComponent<Transform>()->getPosition().getX() >tr_->getPosition().getX())
-			pc->setVelocity(Vector2D(3, 0));
+			pc->setVelocity(Vector2D(2.2f, 0));
 		else
-			pc->setVelocity(Vector2D(-3, 0));
+			pc->setVelocity(Vector2D(-2.2f, 0));
 		pc->setGravity(false);
 		bullet->addComponent<Image>(&sdlutils().images().at("spores")); 
 		bullet->addComponent<Bullet>(health->getElement(), ent_);

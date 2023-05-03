@@ -310,7 +310,7 @@
 		},
 		{
 			"id": "grass",
-			"file": "../resources/images/tests/grass-sheet.png",
+			"file": "../resources/images/tests/grass-sheet-1.png",
 			"rows": 1,
 			"cols": 4
 		},
@@ -327,22 +327,10 @@
 			"cols": 1
 		},
 		{
-			"id": "sanctuary",
-			"file": "../resources/images/tests/sanctuary.png",
-			"rows": 1,
-			"cols": 1
-		},
-		{
 			"id": "sanctuarySheet",
 			"file": "../resources/images/tests/sanctuarySheet.png",
 			"rows": 1,
 			"cols": 18
-		},
-		{
-			"id": "sanctuaryOff",
-			"file": "../resources/images/tests/sanctuaryOff.png",
-			"rows": 1,
-			"cols": 1
 		},
 		{
 			"id": "level1bg",
@@ -370,9 +358,9 @@
 		},
 		{
 			"id": "shield",
-			"file": "../resources/images/levels/Shield.png",
+			"file": "../resources/images/tests/lightShield.png",
 			"rows": 1,
-			"cols": 1
+			"cols": 17
 		},
 		{
 			"id": "whip",
@@ -382,21 +370,21 @@
 		},
 		{
 			"id": "waterShield",
-			"file": "../resources/images/levels/waterShield.png",
+			"file": "../resources/images/tests/waterShield.png",
 			"rows": 1,
-			"cols": 1
+			"cols": 17
 		},
 		{
 			"id": "earthShield",
-			"file": "../resources/images/levels/earthShield.png",
+			"file": "../resources/images/tests/earthShield.png",
 			"rows": 1,
-			"cols": 1
+			"cols": 17
 		},
 		{
 			"id": "fireShield",
-			"file": "../resources/images/levels/fireShield.png",
+			"file": "../resources/images/tests/fireShield.png",
 			"rows": 1,
-			"cols": 1
+			"cols": 17
 		},
 		{
 			"id": "enemy",
@@ -413,7 +401,7 @@
 		{
 			"id": "waterBug",
 			"file": "../resources/images/sprites/WaterBug.png",
-			"rows": 2,
+			"rows": 13,
 			"cols": 21
 		},
 		{
@@ -425,7 +413,7 @@
 		{
 			"id": "fireBug",
 			"file": "../resources/images/sprites/FireBug.png",
-			"rows": 2,
+			"rows": 13,
 			"cols": 21
 		},
 		{
@@ -437,7 +425,7 @@
 		{
 			"id": "waterMushroom",
 			"file": "../resources/images/sprites/WaterMushroom.png",
-			"rows": 2,
+			"rows": 13,
 			"cols": 22
 		},
 		{
@@ -449,7 +437,7 @@
 		{
 			"id": "fireMushroom",
 			"file": "../resources/images/sprites/FireMushroom.png",
-			"rows": 2,
+			"rows": 13,
 			"cols": 22
 		},
 		{
@@ -473,7 +461,7 @@
 		{
 			"id": "fireSlime",
 			"file": "../resources/images/sprites/FireSlime.png",
-			"rows": 2,
+			"rows": 13,
 			"cols": 21
 		},
 		{
@@ -807,6 +795,12 @@
 			"cols": 14
 		},
 		{
+			"id": "mapaCartel",
+			"file": "../resources/images/carteles/Mapa/cartelMapaAnimation.png",
+			"rows": 1,
+			"cols": 14
+		},
+		{
 			"id": "lamparaCartel",
 			"file": "../resources/images/carteles/Lampara/cartelLamparaAnimation.png",
 			"rows": 2,
@@ -932,6 +926,12 @@
 			"file": "../resources/images/tests/Ott_Fire_Relic.png",
 			"rows": 12,
 			"cols": 8
+		},
+		{
+			"id": "spikeBall",
+			"file": "../resources/images/tests/spikeBall.png",
+			"rows": 1,
+			"cols": 1
 		},
 		{
 			"id": "cin_0",
@@ -2314,8 +2314,10 @@
 		{ "id" : "hitTaken", "file" : "../resources/sound/hitTaken.wav"},
 		{ "id" : "menemy_dead", "file" : "../resources/sound/bicho_muerte.wav"},
 		{ "id" : "relic_transformation", "file" : "../resources/sound/relic_transformation.wav"},
-		{ "id" : "relic_wink", "file" : "../resources/sound/relic_wink.wav"}
-
+		{ "id" : "relic_wink", "file" : "../resources/sound/relic_wink.wav"},
+		{ "id" : "shield_block", "file" : "../resources/sound/shield_block.wav"},
+		{ "id" : "shield_broken", "file" : "../resources/sound/shield_broken.wav"},
+		{ "id" : "menemy_dead", "file" : "../resources/sound/bicho_muerte.wav"}
   ],
 
   "musics" : [

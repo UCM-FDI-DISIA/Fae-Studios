@@ -18,7 +18,7 @@ GraphicOptionsMenuState::GraphicOptionsMenuState() : MenuState() {
 	fade->addComponent<FadeTransitionComponent>(true);
 
 	pos = Vector2D(sdlutils().getWindowDimensions().getX() / 2, 2 * sdlutils().getWindowDimensions().getY() / 7);
-	constructors::button(mngr_, pos, "Pantalla completa", sdlutils().fonts().at("vcr_osd16"), [this]() {
+	buttons.push_back(constructors::button(mngr_, pos, "Pantalla completa", sdlutils().fonts().at("vcr_osd16"), [this]() {
 		sdlutils().soundEffects().at("button").play(0, ecs::_channel_UI);
 		if (s == SDLUtils::WINDOWED) s = SDLUtils::FULLSCREEN;
 		else if (s == SDLUtils::FULLSCREEN) s = SDLUtils::WINDOWED;
@@ -26,7 +26,7 @@ GraphicOptionsMenuState::GraphicOptionsMenuState() : MenuState() {
 		fwNeedChange = true;
         stateMachine().resChanged();
         changeResolution();
-	});
+	}));
 
 	fsTextPos = Vector2D(sdlutils().getWindowDimensions().getX() / 2, 2 * sdlutils().getWindowDimensions().getY() / 7 + 60);
 	switch (sdlutils().getCurrentScreenMode()) {
@@ -36,13 +36,17 @@ GraphicOptionsMenuState::GraphicOptionsMenuState() : MenuState() {
 	fsText = constructors::normalText(mngr_, txt, fsTextPos, sdlutils().fonts().at("vcr_osd24"), c);
 
 	pos = Vector2D(sdlutils().getWindowDimensions().getX() / 2, 6 * sdlutils().getWindowDimensions().getY() / 7);
-	constructors::button(mngr_, pos, "Volver", sdlutils().fonts().at("vcr_osd48"), [this]() {
+	buttons.push_back(constructors::button(mngr_, pos, "Volver", sdlutils().fonts().at("vcr_osd48"), [this]() {
 		sdlutils().soundEffects().at("button_back").play(0, ecs::_channel_UI);
 		fade->getComponent<FadeTransitionComponent>()->setFunction([]() { GameStateMachine::instance()->popState(); });
 		fade->getComponent<FadeTransitionComponent>()->revert();
-	});
+	}));
 
 	fade->getComponent<FadeTransitionComponent>()->activateWithoutExecute();
+
+    buttonIndex = 0;
+    formerIndex = 0;
+    detectJoystickActivity = false;
 }
 
 void GraphicOptionsMenuState::update() {
@@ -70,6 +74,7 @@ void GraphicOptionsMenuState::changeResolution() {
         auto ents = mngr_->getEntities(i);
         for(auto e : ents) e->setAlive(false);
     }
+    for (int i = 0; i < buttons.size(); ++i) buttons.pop_back();
 
     Vector2D pos;
     std::string txt;
@@ -80,13 +85,13 @@ void GraphicOptionsMenuState::changeResolution() {
     fade->addComponent<FadeTransitionComponent>(true);
 
     pos = Vector2D(sdlutils().getWindowDimensions().getX() / 2, 2 * sdlutils().getWindowDimensions().getY() / 7);
-    constructors::button(mngr_, pos, "Pantalla completa", sdlutils().fonts().at("vcr_osd16"), [this]() {
+    buttons.push_back(constructors::button(mngr_, pos, "Pantalla completa", sdlutils().fonts().at("vcr_osd16"), [this]() {
         sdlutils().soundEffects().at("button").play(0, ecs::_channel_UI);
         if (s == SDLUtils::WINDOWED) s = SDLUtils::FULLSCREEN;
         else if (s == SDLUtils::FULLSCREEN) s = SDLUtils::WINDOWED;
         sdlutils().toggleFullScreen(s);
         fwNeedChange = true;
-    });
+    }));
 
     fsTextPos = Vector2D(sdlutils().getWindowDimensions().getX() / 2, 2 * sdlutils().getWindowDimensions().getY() / 7 + 60);
     switch (sdlutils().getCurrentScreenMode()) {
@@ -96,11 +101,39 @@ void GraphicOptionsMenuState::changeResolution() {
     fsText = constructors::normalText(mngr_, txt, fsTextPos, sdlutils().fonts().at("vcr_osd24"), c);
 
     pos = Vector2D(sdlutils().getWindowDimensions().getX() / 2, 6 * sdlutils().getWindowDimensions().getY() / 7);
-    constructors::button(mngr_, pos, "Volver", sdlutils().fonts().at("vcr_osd48"), [this]() {
+    buttons.push_back(constructors::button(mngr_, pos, "Volver", sdlutils().fonts().at("vcr_osd48"), [this]() {
         sdlutils().soundEffects().at("button_back").play(0, ecs::_channel_UI);
         fade->getComponent<FadeTransitionComponent>()->setFunction([]() { GameStateMachine::instance()->popState(); });
         fade->getComponent<FadeTransitionComponent>()->revert();
-    });
+    }));
 
     fade->getComponent<FadeTransitionComponent>()->activateWithoutExecute();
+}
+
+void GraphicOptionsMenuState::handleInput() {
+	MenuState::handleInput();
+    if (game().getIsJoystick()) {
+        SDL_GameControllerUpdate();
+        if (SDL_GameControllerGetAxis(game().getJoystick(), SDL_CONTROLLER_AXIS_LEFTY) <= 29000 && SDL_GameControllerGetAxis(game().getJoystick(), SDL_CONTROLLER_AXIS_LEFTY) >= -29000 && !SDL_GameControllerGetButton(game().getJoystick(), SDL_CONTROLLER_BUTTON_A)) detectJoystickActivity = true;
+
+        if ((SDL_GameControllerGetAxis(game().getJoystick(), SDL_CONTROLLER_AXIS_LEFTY) > 29000 && detectJoystickActivity)) {
+            formerIndex = buttonIndex;
+            buttonIndex++;
+            buttonIndex %= buttons.size();
+            detectJoystickActivity = false;
+        }
+        if (SDL_GameControllerGetAxis(game().getJoystick(), SDL_CONTROLLER_AXIS_LEFTY) < -29000 && detectJoystickActivity) {
+            formerIndex = buttonIndex;
+            buttonIndex--;
+            buttonIndex %= buttons.size();
+            detectJoystickActivity = false;
+        }
+        if (SDL_GameControllerGetButton(game().getJoystick(), SDL_CONTROLLER_BUTTON_A) && detectJoystickActivity) {
+            buttons[buttonIndex]->getComponent<Button>()->onClick();
+            detectJoystickActivity = false;
+        }
+
+        buttons[formerIndex]->getComponent<Button>()->unselect();
+        buttons[buttonIndex]->getComponent<Button>()->select();
+    }
 }
