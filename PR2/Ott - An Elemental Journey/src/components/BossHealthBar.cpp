@@ -1,6 +1,7 @@
 #include "BossHealthBar.h"
 #include "EarthBossManager.h"
 #include "Health.h"
+#include "FireBossRoom.h"
 
 void BossHealthBar::initComponent() {
 	posBar = { offset * 2, sdlutils().height() - (offset * 2), sdlutils().width() - (offset * 4), offset * 2 };
@@ -23,14 +24,20 @@ void BossHealthBar::die() {
 }
 
 void BossHealthBar::render() {
-	if (!isDead && bossManager->getComponent<EarthBossManager>()->getShowBar()) {
+	if (!isDead && actualBoss == Fire && mngr_->getFireBoss()->getComponent<Health>()->getHealth() <= 0) isDead = true;
+
+	if (!isDead && actualBoss == Earth && bossManager->getComponent<EarthBossManager>()->getShowBar()) {
 		if (mngr_->getPlayer()->getComponent<Health>()->getHealth() <= 0) {
 			reset();
 		}
 		barTx->render(posBar);
 		lifeTx->render(posLife);
 	}
-	else if(!isDead && actualBoss != Earth) {
+	else if (!isDead && mngr_->getFireBoss()->getComponent<Health>()->getHealth() > 0 && actualBoss == Fire && mngr_->getFireBossRoom()->getComponent<FireBossRoom>()->getShowBar()) {
+		barTx->render(posBar);
+		lifeTx->render(posLife);
+	}
+	else if(!isDead && actualBoss != Earth && actualBoss != Fire) {
 		barTx->render(posBar);
 		lifeTx->render(posLife);
 	}

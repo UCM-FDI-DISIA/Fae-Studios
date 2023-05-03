@@ -75,6 +75,7 @@ PlayState::PlayState() : GameState(ecs::_state_PLAY) {
 PlayState::PlayState(std::string fileName) : GameState(ecs::_state_PLAY) {
 	currentMap = ecs::EARTH_MAP;
 
+	//mngr_->setFireBossRoom(constructors::fireBossRoom(mngr_, ))
 	mngr_->setPlayer(constructors::player(mngr_, 700, 1500, 100, 120));
 	mngr_->setCamera(constructors::camera(mngr_, 700, 2000, sdlutils().width(), sdlutils().height()));
 	player_ = mngr_->getPlayer();
