@@ -71,6 +71,9 @@ void MapComponent::generateEnemies() {
         else if (elem == ecs::Fire) {
             path = "fire";
         }
+        else if (elem == ecs::Dark) {
+            path = "dark";
+        }
         int roomNum = std::stoi(split[0]);
         float roomScale = vectorTiles[roomNum].first;
 

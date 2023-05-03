@@ -419,7 +419,7 @@
 		{
 			"id": "darkBug",
 			"file": "../resources/images/sprites/DarkBug.png",
-			"rows": 2,
+			"rows": 13,
 			"cols": 21
 		},
 		{
@@ -443,7 +443,7 @@
 		{
 			"id": "darkMushroom",
 			"file": "../resources/images/sprites/DarkMushroom.png",
-			"rows": 2,
+			"rows": 13,
 			"cols": 22
 		},
 		{
@@ -467,7 +467,7 @@
 		{
 			"id": "darkSlime",
 			"file": "../resources/images/sprites/DarkSlime.png",
-			"rows": 2,
+			"rows": 13,
 			"cols": 21
 		},
 		{
