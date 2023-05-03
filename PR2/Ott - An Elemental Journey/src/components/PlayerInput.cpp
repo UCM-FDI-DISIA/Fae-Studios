@@ -77,7 +77,7 @@ void PlayerInput::update()
 					openingMap = true;
 					physics_->setVelocity(Vector2D(0, physics_->getVelocity().getY()));
 				}
-				if (input->isKeyDown(SDLK_DOWN) && !lookingdown && mngr_->getCamera()->getComponent<CameraComponent>()->canLookDown()) {
+				if (input->isKeyDown(SDLK_DOWN)&& !physics_->isClimbing() && physics_->isGrounded() && !lookingdown && mngr_->getCamera()->getComponent<CameraComponent>()->canLookDown()) {
 					anim_->setState(LOOKDOWN);
 					ent_->getComponent<PlayerInput>()->Stop();
 					physics_->setVelocity(Vector2D(0, mngr_->getPlayer()->getComponent<PhysicsComponent>()->getVelocity().getY()));

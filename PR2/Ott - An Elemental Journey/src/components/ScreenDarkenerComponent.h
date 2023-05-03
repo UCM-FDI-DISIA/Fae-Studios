@@ -14,19 +14,13 @@ private:
     bool changeAlpha;
     bool isDark;
     Transform* transform_;
-    Texture* leftSide;
-    Texture* rightSide;
-    Texture* topSide;
-    Texture* bottomSide;
+    Texture* img;
 
 public:
     constexpr static ecs::cmpId_type id = ecs::_SCREEN_DARKENER;
 
     ScreenDarkenerComponent() : Component(), alpha(0.0f), changeAlpha(false), isDark(false) {
-        leftSide = &sdlutils().images().at("screendarkenside");
-        rightSide = &sdlutils().images().at("screendarkenside");
-        topSide = &sdlutils().images().at("screendarkentop");
-        bottomSide = &sdlutils().images().at("screendarkentop");
+        img = &sdlutils().images().at("LowFade");
     }
 
     void render() override;

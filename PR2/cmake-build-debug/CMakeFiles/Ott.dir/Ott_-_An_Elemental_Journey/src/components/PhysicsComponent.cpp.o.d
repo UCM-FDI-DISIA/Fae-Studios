@@ -885,6 +885,19 @@ CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/PhysicsComponent.cp
   /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/components/../sdlutils/../game/ecs.h \
   /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/components/../sdlutils/VirtualTimer.h \
   /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/components/CameraComponent.h \
+  /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/components/PlayerInput.h \
+  /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/components/../sdlutils/InputHandler.h \
+  /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/components/PlayerAnimationComponent.h \
+  /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/components/Health.h \
+  /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/components/HealthImage.h \
+  /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/components/BossHealthBar.h \
+  /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/components/ChargedAttackBar.h \
+  /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/components/FramedImage.h \
+  /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/components/PlayerAttack.h \
+  /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/components/earthAnimationController.h \
+  /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/components/WaterAnimationController.h \
+  /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/components/AttackCharger.h \
+  /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/components/ShieldComponent.h \
   /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/components/../states/GameStateMachine.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk/usr/include/c++/v1/deque \
   /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/components/../states/GameState.h \
@@ -909,8 +922,6 @@ CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/PhysicsComponent.cp
   /usr/local/include/tmxlite/LayerGroup.hpp \
   /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk/usr/include/c++/v1/list \
   /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/components/FadeOutAnimationComponent.h \
-  /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/components/FramedImage.h \
-  /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/components/PlayerAnimationComponent.h \
   /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/components/../components/ActiveWater.h \
   /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/components/MapComponent.h \
   /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/components/../states/../components/EnemyAnimationController.h \
@@ -920,10 +931,6 @@ CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/components/PhysicsComponent.cp
   /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/components/FireBossComponent.h \
   /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/components/../states/../components/InteractionComponent.h \
   /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/components/LampAnimationComponent.h \
-  /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/components/Health.h \
-  /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/components/HealthImage.h \
-  /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/components/BossHealthBar.h \
-  /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/components/ChargedAttackBar.h \
   /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/components/GrassAnimationComponent.h \
   /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/components/SanctuaryAnimationComponent.h \
   /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/components/../game/Game.h \
