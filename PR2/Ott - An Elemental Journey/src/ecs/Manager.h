@@ -22,6 +22,7 @@ private:
     Entity* camera_ = nullptr;
     Entity* earthBoss_ = nullptr;
     Entity* fireBoss_ = nullptr;
+    Entity* fireBossRoom_ = nullptr;
     Entity* map_ = nullptr;
 
 public:
@@ -69,6 +70,9 @@ public:
 
     Entity* getFireBoss() { return fireBoss_; }
     void setFireBoss(Entity* e) { fireBoss_ = e; }
+
+    Entity* getFireBossRoom() { return fireBossRoom_; }
+    void setFireBossRoom(Entity* e) { fireBossRoom_ = e; }
 
     inline void setDelete() { deleted = true; }
 

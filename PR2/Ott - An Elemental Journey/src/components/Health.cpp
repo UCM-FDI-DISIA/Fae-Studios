@@ -16,6 +16,8 @@
 #include "AttackCharger.h"
 #include "AutoDestroy.h"
 #include "Image.h"
+#include "FireBossComponent.h"
+
 void Health::die()
 {
 	if (ent_->hasComponent<PlayerAnimationComponent>()) ent_->getComponent<PlayerAnimationComponent>()->setState(DIE);
@@ -24,7 +26,7 @@ void Health::die()
         mngr_->getPlayer()->getComponent<AttackCharger>()->addCharge(elementsInfo::ottMatrix[getElement()][mngr_->getPlayer()->getComponent<Health>()->getElement()] + 1);
     }
 	else if ((ent_->hasComponent<FireBossAnimation>())) ent_->getComponent<FireBossAnimation>()->setState(DIE_FIREBOSS);
-	else if (bar != nullptr &&(ent_->hasComponent<EarthBossAttack>()|| ent_->hasComponent<FinalBossBehaviorComponent>())) bar->die();
+	else if (bar != nullptr && (ent_->hasComponent<EarthBossAttack>() || ent_->hasComponent<FireBossComponent>() || ent_->hasComponent<FinalBossBehaviorComponent>())) bar->die();
 	else if(ent_->hasComponent<EnemyAnimationComponent>()) ent_->getComponent<EnemyAnimationComponent>()->setState(DIE_ENEMY);
 	else ent_->setAlive(false);
 	auto gen = ent_->getComponent<Generations>();

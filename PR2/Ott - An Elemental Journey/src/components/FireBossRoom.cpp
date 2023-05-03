@@ -47,6 +47,7 @@ void FireBossRoom::update()
 	
 	if (!entered) {
 		if ((player->getPosition().getX() > tr_->getPosition().getX() && (player->getPosition().getX() + player->getWidth() / 2) < tr_->getPosition().getX() + tr_->getWidth() && player->getPosition().getY() + player->getHeight() > tr_->getPosition().getY() && player->getPosition().getY() < tr_->getPosition().getY() + tr_->getHeight())) {
+			showBar = true;
 			currentAnim = DIE_MINION;
 			col = anims::animations[eAnims][currentAnim].colNum;
 			startTime = SDL_GetTicks();
@@ -66,11 +67,13 @@ void FireBossRoom::update()
 		}
 	}
 	if (endWall != nullptr && mngr_->getFireBoss()->hasComponent<Health>() && mngr_->getFireBoss()->getComponent<Health>()->getHealth() <= 0) {
+		showBar = false;
 		endWall->setAlive(false); 
 		endWall = nullptr;
 		ent_->setAlive(false);
 	}
 	if (restartTimer == -1 && p->getComponent<Health>()->getHealth() <= 0) {
+		showBar = false;
 		mngr_->getFireBoss()->getComponent<FireBossComponent>()->resetBoss();
 		resetFight();
 	}

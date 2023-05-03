@@ -26,7 +26,6 @@ MapComponent::MapComponent(Entity* fadeOut, PlayState* game, int currentMap) : f
         mapKeys.push_back({});
     }
     currentMapKey = "fireMap";
-    loadFireBoss = false;
     tilemap = &sdlutils().images().at(sdlutils().levels().at(currentMapKey).tileset);
 }
 

@@ -13,12 +13,14 @@ private:
 	class FramedImage* image;
 
 	Entity* camera = nullptr;
+	bool showBar = false;
 	void resetFight();
 public:
 	FireBossRoom();
 	virtual ~FireBossRoom();
 	virtual void initComponent();
 	virtual void update();
+	inline bool getShowBar() { return showBar; }
 	anims::Entities eAnims = anims::MELEE_ANIM;
 	Entity* endWall;
 	Entity* minion;
