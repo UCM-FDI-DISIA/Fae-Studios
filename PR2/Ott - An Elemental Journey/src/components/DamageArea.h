@@ -22,7 +22,7 @@ private:
 	Transform* tr;
 	PhysicsComponent* pPhysics;
 	Health* pHe;
-	FinalBossBehaviorComponent* bossBehaComp_;
+	FinalBossBehaviorComponent* bossBehaComp_ = nullptr;
 	ecs::elements element;
 	bool lava;
 	int lifeTime = 10000,
