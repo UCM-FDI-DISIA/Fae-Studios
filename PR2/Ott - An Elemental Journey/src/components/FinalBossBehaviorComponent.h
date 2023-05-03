@@ -1,6 +1,7 @@
 #pragma once
 #include "Transform.h"
 #include "MapComponent.h"
+#include "FinalBossAnimation.h"
 class Health;
 
 const int ATTACK_TIME = 5000;
@@ -33,6 +34,8 @@ private:
 	Transform* bossTransform;
 	Health* bossHealth;
 	MapComponent* map_;
+	FinalBossAnimation* bossAnim;
+
 	int timeBetweenAttacks;
 	int timeStunned;
 	int timeCure;

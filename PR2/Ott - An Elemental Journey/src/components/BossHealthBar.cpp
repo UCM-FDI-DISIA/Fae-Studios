@@ -1,5 +1,6 @@
 #include "BossHealthBar.h"
 #include "EarthBossManager.h"
+#include "FinalBossAnimation.h"
 #include "Health.h"
 
 void BossHealthBar::initComponent() {
@@ -28,7 +29,7 @@ void BossHealthBar::reset() {
 void BossHealthBar::die() {
 	isDead = true;
 	if (actualBoss == Earth) bossManager->getComponent<EarthBossManager>()->die();
-	else if (actualBoss == Final); bossManager->setAlive(false);
+	else if (actualBoss == Final); bossManager->getComponent<FinalBossAnimation>()->setState(DIE_BOSS);
 }
 
 void BossHealthBar::render() {

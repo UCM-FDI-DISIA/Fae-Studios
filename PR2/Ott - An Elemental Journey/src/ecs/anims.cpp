@@ -33,7 +33,7 @@ std::vector<anims::animDescription> anims::earthBoss_anims{ {100, 1,0,0} };
 std::vector<anims::animDescription> anims::warning_anims{ {60, 27,1,0} };
 std::vector<anims::animDescription> anims::pause_anims{ {5000, 1,0,0} };
 std::vector<anims::animDescription> anims::miniPause_anims{ {1000, 1,0,0} };
-std::vector<anims::animDescription> anims::finalBoss_anims{ {300, 60,0,8}, {400,8,0,0},{300, 3, 6, 0}, {300, 10, 5, 4} };
+std::vector<anims::animDescription> anims::finalBoss_anims{ {300, 60,0,8}, {400,8,0,0},{300, 3, 6, 0}, {300, 10, 5, 4}, {300, 9,6, 3} };
 
 
 std::vector<anims::animDescription> anims::water_attack{ {100,7,0,0}, {100,7,1,6} };
