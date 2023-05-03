@@ -23,6 +23,7 @@ void FinalBossBehaviorComponent::initComponent()
 {
 	bossHealth = ent_->getComponent<Health>();
 	bossTransform = ent_->getComponent<Transform>();
+	bossAnim = ent_->getComponent<FinalBossAnimation>();
 }
 
 void FinalBossBehaviorComponent::update()
@@ -34,6 +35,7 @@ void FinalBossBehaviorComponent::update()
 			std::cout << "stunned" << std::endl;
 			spawnWeakPoints();
 			isWeakPoints = true;
+			bossAnim->setState(STUN_BOSS);
 		}
 		else if (SDL_GetTicks() > timeStunned)
 		{
@@ -41,6 +43,7 @@ void FinalBossBehaviorComponent::update()
 			deleteWeakPoints();
 			stunned = false;
 			isWeakPoints = false;
+			bossAnim->setState(IDLE_BOSS2);
 		}
 	}
 	else
@@ -50,6 +53,7 @@ void FinalBossBehaviorComponent::update()
 			std::cout << "me curo" << std::endl;
 			bossHealth->cureHealth();
 			timeCure += CURE_TIME;
+			
 		}
 		//Temporizador de ataque (ataca cada 5 segundos)
 		else if (SDL_GetTicks() > timeBetweenAttacks) {
@@ -58,8 +62,8 @@ void FinalBossBehaviorComponent::update()
 			//Switch de los diferentes ataques del boss
 			switch (currentElement)
 			{
-			case 0: std::cout << "Ataque tierra boss final" << std::endl; spawnSpikes(); break;
-
+			case 0: std::cout << "Ataque tierra boss final" << std::endl; spawnSpikes(); bossAnim->setState(HEALTH_BOSS); break;
+			
 			case 1: std::cout << "Ataque agua boss final" << std::endl; spawnBubbles(); break;
 			case 2: std::cout << "Ataque fuego boss final" << std::endl; spawnFireWall(); break;
 			case 3: std::cout << "Ataque oscuridad boss final" << std::endl; spawnBlackHole();break;
@@ -194,6 +198,7 @@ void FinalBossBehaviorComponent::deleteSpikes() {
 		std::cout << "Spike Seteado a false " << std::endl;
 	}
 	spikes.clear();
+	bossAnim->setState(IDLE_BOSS2);
 }
 // Cuando el jugador ataca la zarza, se elimina del vector
 void FinalBossBehaviorComponent::deleteSpikeFromVec(Entity* s)

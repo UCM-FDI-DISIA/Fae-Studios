@@ -276,8 +276,8 @@ namespace constructors {
 		auto healthBar = mngr_->addEntity(ecs::_grp_UI);
 		healthBar->addComponent<BossHealthBar>(b, 4, &sdlutils().images().at("bossHealthBar"), &sdlutils().images().at("bossLife"));
 		b->addComponent<Health>(healthBar->getComponent<BossHealthBar>(), 10, ecs::Dark, false);
-		b->addComponent<FinalBossBehaviorComponent>(map_);
 		b->addComponent<FinalBossAnimation>(anims::FINALBOSS);
+		b->addComponent<FinalBossBehaviorComponent>(map_);
 		return b;
 	}
 	static inline Entity* camera(Manager* mngr_, int x, int y, int w, int h) {
