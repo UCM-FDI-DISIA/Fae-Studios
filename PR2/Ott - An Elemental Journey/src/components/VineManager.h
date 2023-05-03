@@ -28,6 +28,7 @@ public:
     virtual ~VineManager() { vine->setAlive(false); }
     void createVine();
     void addVine();
+    inline void setHasVine() { hasVine = false; }
     inline Vector2D getIniPos() {
         return iniPos;
     }
