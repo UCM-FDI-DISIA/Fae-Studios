@@ -32,7 +32,7 @@ void PlayerInput::update()
 			else return;
 		}
 
-		if (!physics_->isStopped()) {
+		if (!physics_->isStopped() || bossAttack) {
 			Vector2D& playerV = physics_->getVelocity();
 			auto input = InputHandler::instance();
 			auto state = anim_->getState();
