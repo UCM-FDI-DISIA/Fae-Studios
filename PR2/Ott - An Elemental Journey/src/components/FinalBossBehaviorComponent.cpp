@@ -71,6 +71,7 @@ void FinalBossBehaviorComponent::update()
 			//Cambia de elemento aleatoriamente
 			lastElem = currentElement;
 			do {
+				srand((unsigned)time(NULL));
 				currentElement = rand() % 6;
 			} while (lastElem == currentElement);
 
