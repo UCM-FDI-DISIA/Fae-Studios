@@ -55,8 +55,6 @@ PlayState::PlayState() : GameState(ecs::_state_PLAY) {
 
 	map_ = constructors::map(mngr_, this, (int)(currentMap))->getComponent<MapComponent>();
 	initialEnemies = enemies;
-
-	//auto boss = constructors::boss(mngr_, map_, 700, 1900, 700, 620);
 }
 
 PlayState::PlayState(std::string fileName) : GameState(ecs::_state_PLAY) {
@@ -235,21 +233,27 @@ void PlayState::checkBubblesCollisions() {
 
 		SDL_Rect vRect = v->getComponent<Transform>()->getRect();
 
-		for (Entity* b : bubbles) {
+		bool col = false;
 
-			SDL_Rect bRect = b->getComponent<Transform>()->getRect();
+		auto it = bubbles.begin();
+		while (it != bubbles.end() && !col) {
+
+			SDL_Rect bRect = (*it)->getComponent<Transform>()->getRect();
 
 			SDL_Rect areaColision;
-			/*bool interseccion =*/ 
-			if (SDL_IntersectRect(&vRect, &bRect, &areaColision)) {
-				// Destroy bubble
 
+			col = SDL_IntersectRect(&vRect, &bRect, &areaColision);
+			if (col) {
+
+				// Destroy bubble
 				auto finalBoss = mngr_->getEntities(ecs::_grp_FINAL_BOSS);
 
 				auto bossBehaviour = finalBoss[0]->getComponent<FinalBossBehaviorComponent>();
-				bossBehaviour->deleteBubbleFromVec(b);
-
+				bossBehaviour->deleteBubbleFromVec((*it));
+				v->getComponent<GrowVine>()->startUngrowing();
 			}
+
+			++it;
 		}
 	}
 }

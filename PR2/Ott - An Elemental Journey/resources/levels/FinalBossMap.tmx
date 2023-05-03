@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.1" orientation="orthogonal" renderorder="right-down" width="35" height="27" tilewidth="32" tileheight="32" infinite="0" nextlayerid="13" nextobjectid="44">
+<map version="1.10" tiledversion="1.10.1" orientation="orthogonal" renderorder="right-down" width="35" height="27" tilewidth="32" tileheight="32" infinite="0" nextlayerid="13" nextobjectid="45">
  <tileset firstgid="1" source="TilesssOscuridad.tsx"/>
  <layer id="1" name="Mapa" width="35" height="27">
   <data encoding="csv">
@@ -60,9 +60,10 @@
   <object id="42" name="0" type="WeakSpot" x="482" y="255" width="127" height="143"/>
   <object id="43" name="0" type="WeakSpot" x="504" y="443" width="84" height="74"/>
  </objectgroup>
- <objectgroup id="3" name="Objetos interactuables" visible="0">
+ <objectgroup id="3" name="Objetos interactuables">
   <object id="24" name="0" type="Grass" x="254" y="128" width="20" height="385"/>
   <object id="25" name="0" type="Grass" x="640" y="128" width="26" height="386"/>
+  <object id="44" name="1" type="Element_0" x="457" y="462" width="21" height="30"/>
  </objectgroup>
  <objectgroup id="11" name="EnredaderasBossFinal">
   <object id="40" name="0" type="BossSpike" x="344.25" y="82.625" width="65" height="199.5"/>

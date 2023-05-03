@@ -6,7 +6,6 @@
 
 PlayerInput::PlayerInput()
 {
-	earth = true;
 }
 
 void PlayerInput::initComponent()

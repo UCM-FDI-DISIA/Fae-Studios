@@ -77,6 +77,8 @@ void FinalBossBehaviorComponent::deleteBubbles() {
 
 void FinalBossBehaviorComponent::spawnBubbles() //Ataque de agua 
 {
+	//bubbles.clear(); // Esto me lo he inventado por la cara
+
 	int bubblesNum = map_->bubblesNum();
 
 	// Crea bubbles y añade componentes
@@ -170,7 +172,7 @@ void FinalBossBehaviorComponent::deleteSpikes() {
 // Cuando el jugador ataca la zarza, se elimina del vector
 void FinalBossBehaviorComponent::deleteSpikeFromVec(Entity* s)
 {
-	s->setActive(false);
+	s->setAlive(false);
 	spikes.erase(std::remove(spikes.begin(), spikes.end(), s), spikes.end());
 	std::cout << "Tam spikesVec: " << spikes.size() << std::endl;
 
@@ -178,7 +180,7 @@ void FinalBossBehaviorComponent::deleteSpikeFromVec(Entity* s)
 
 void FinalBossBehaviorComponent::deleteBubbleFromVec(Entity* bubble) {
 
-	bubble->setActive(false);
-	spikes.erase(std::remove(bubbles.begin(), bubbles.end(), bubble), bubbles.end());
+	bubble->setAlive(false);
+	bubbles.erase(std::remove(bubbles.begin(), bubbles.end(), bubble), bubbles.end());
 	std::cout << "Tam BubblesVec: " << bubbles.size() << std::endl;
 }
