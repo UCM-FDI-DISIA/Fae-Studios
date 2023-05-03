@@ -33,7 +33,7 @@ public:
 	constexpr static ecs::cmpId_type id = ecs::_GROWVINE;
 	void initComponent() override;
 	void update() override;
-	inline void startUngrowing() { ungrow = true; reached = false; };
+	inline void startUngrowing() { ungrow = true; reached = false; grow = false; };
 	void isGrowing(bool g);
 	inline bool getUngrow() { return ungrow; }
 	inline bool getGrow() { return grow; }
