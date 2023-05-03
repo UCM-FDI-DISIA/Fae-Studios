@@ -12,6 +12,8 @@
 class PlayState : public GameState {
 private:    
     void checkCollisions(std::list<Entity*> entities);
+    void checkBubblesCollisions();
+
     std::vector<Entity*>::const_iterator interactionIt;
     std::vector<std::vector<bool>> visitedRooms;
 

@@ -38,7 +38,7 @@ PlayState::PlayState() : GameState(ecs::_state_PLAY) {
 	player_ = mngr_->getPlayer();
 	camera_ = mngr_->getCamera();
 
-    fade = mngr_->addEntity(ecs::_grp_FADEOUT);
+	fade = mngr_->addEntity(ecs::_grp_FADEOUT);
 	fade->addComponent<FadeTransitionComponent>(true, 1);
 	fade->getComponent<FadeTransitionComponent>()->setFunction([this]() {doNotDetectKeyboardInput = false; sdlutils().musics().at(sdlutils().levels().at(map_->getCurrentLevel()).bgsong).play(); });
 	fade->getComponent<FadeTransitionComponent>()->activate();
@@ -89,8 +89,8 @@ PlayState::PlayState(std::string fileName) : GameState(ecs::_state_PLAY) {
 	}
 	map_ = constructors::map(mngr_, this, (int)ecs::EARTH_MAP, file)->getComponent<MapComponent>();
 
-	currentMap = (ecs::maps) map_->getCurrentMap();
-	initialEnemies = enemies;	
+	currentMap = (ecs::maps)map_->getCurrentMap();
+	initialEnemies = enemies;
 	std::string aux;
 	file >> aux >> aux;
 	while (aux != "_") {
@@ -123,15 +123,15 @@ PlayState::~PlayState() {
 }
 
 void PlayState::blockKeyboardInputAfterUnfreeze() {
-    doNotDetectKeyboardInput = true;
+	doNotDetectKeyboardInput = true;
 }
 
 void PlayState::handleInput() {
-    GameState::handleInput();
+	GameState::handleInput();
 	if (doNotDetectKeyboardInput && InputHandler::instance()->allKeysUp()) {
 		doNotDetectKeyboardInput = false;
 	}
-	
+
 	if (!doNotDetectKeyboardInput) {
 		if (InputHandler::instance()->isKeyJustDown(SDLK_ESCAPE)) {
 			fade->getComponent<FadeTransitionComponent>()->setFunction([this]() { sdlutils().musics().at(sdlutils().levels().at(map_->getCurrentLevel()).bgsong).pauseMusic(); SoundEffect::haltChannel(); GameStateMachine::instance()->pushState(new PauseMenuState()); });
@@ -197,8 +197,8 @@ void PlayState::checkCollisions(std::list<Entity*> entities) {
 				break;
 			}
 		}
-		
-		if(i == 0) physics->setGrounded(false);
+
+		if (i == 0) physics->setGrounded(false);
 
 		//colisiones con el material de agua 
 		int j = 0;
@@ -223,6 +223,34 @@ void PlayState::checkCollisions(std::list<Entity*> entities) {
 		}
 		if (j == 0) { physics->setWater(false); physics->setFloating(false); }
 		aa++;
+	}
+}
+
+void PlayState::checkBubblesCollisions() {
+
+	auto vines = mngr_->getEntities(ecs::_grp_VINE);
+	auto bubbles = mngr_->getEntities(ecs::_grp_BUBBLE);
+
+	for (Entity* v : vines) {
+
+		SDL_Rect vRect = v->getComponent<Transform>()->getRect();
+
+		for (Entity* b : bubbles) {
+
+			SDL_Rect bRect = b->getComponent<Transform>()->getRect();
+
+			SDL_Rect areaColision;
+			/*bool interseccion =*/ 
+			if (SDL_IntersectRect(&vRect, &bRect, &areaColision)) {
+				// Destroy bubble
+
+				auto finalBoss = mngr_->getEntities(ecs::_grp_FINAL_BOSS);
+
+				auto bossBehaviour = finalBoss[0]->getComponent<FinalBossBehaviorComponent>();
+				bossBehaviour->deleteBubbleFromVec(b);
+
+			}
+		}
 	}
 }
 
@@ -256,14 +284,14 @@ std::pair<bool, bool> PlayState::checkCollisionWithVine() {
 }
 
 void PlayState::checkInteraction() {
-    bool interact = false;
-    interactionIt = mngr_->getEntities(ecs::_grp_INTERACTION).begin();
+	bool interact = false;
+	interactionIt = mngr_->getEntities(ecs::_grp_INTERACTION).begin();
 	auto itEnd = mngr_->getEntities(ecs::_grp_INTERACTION).end();
 	SDL_Rect r1 = mngr_->getPlayer()->getComponent<Transform>()->getRect();
-    while (!interact && interactionIt != itEnd) {
-        Entity* ents = *interactionIt;
-        SDL_Rect r2 = ents->getComponent<Transform>()->getRect();
-        if (SDL_HasIntersection(&r1, &r2)) {
+	while (!interact && interactionIt != itEnd) {
+		Entity* ents = *interactionIt;
+		SDL_Rect r2 = ents->getComponent<Transform>()->getRect();
+		if (SDL_HasIntersection(&r1, &r2)) {
 			if (ents->hasComponent<ElementObject>()) {
 				mngr_->getPlayer()->getComponent<PlayerInput>()->unlockElement(ents->getComponent<ElementObject>()->getElement());
 				mngr_->getPlayer()->getComponent<PlayerAnimationComponent>()->changeElem(ents->getComponent<ElementObject>()->getElement());
@@ -273,17 +301,18 @@ void PlayState::checkInteraction() {
 			}
 			else
 				ents->getComponent<InteractionComponent>()->interact();
-            interact = true;
+			interact = true;
 			std::cout << "interacción" << std::endl;
-        }
-        interactionIt++;
-    }
+		}
+		interactionIt++;
+	}
 }
 
 void PlayState::update() {
 	checkCollisions({ player_ });
 	checkCollisions(enemies[map_->getCurrentRoom()]);
-	
+	checkBubblesCollisions();
+
 	GameState::update();
 }
 
@@ -322,7 +351,7 @@ void PlayState::AddLifeShard(int id) {
 
 // AQUÍ SE GUARDA PARTIDA
 void PlayState::endRest() {
-    player_->getComponent<Health>()->saveSactuary(lastSanctuary);
+	player_->getComponent<Health>()->saveSactuary(lastSanctuary);
 	// Guardar datos en archivo
 	std::string hola = "../resources/saves/temporalUniqueSave.sv";
 	std::ofstream saveFile(hola);

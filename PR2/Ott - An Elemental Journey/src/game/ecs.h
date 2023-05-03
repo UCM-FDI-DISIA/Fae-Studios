@@ -59,6 +59,7 @@ namespace ecs {
         _FLIP,
         _DAMAGE_AREA,
         _FINAL_BOSS_ANIMATION,
+        _BUBBLE_POP,
 
         _LAST_CMP_ID
     };

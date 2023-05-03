@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\components\BubblePop.cpp" />
     <ClCompile Include="src\components\FinalBossAnimation.cpp" />
     <ClCompile Include="src\components\FlipComponent.cpp" />
     <ClCompile Include="src\components\BlackHoleAnimationComp.cpp" />
@@ -94,6 +95,7 @@
     <ClCompile Include="src\components\WaterBossAnimationComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\components\BubblePop.h" />
     <ClInclude Include="src\components\FinalBossAnimation.h" />
     <ClInclude Include="src\components\FlipComponent.h" />
     <ClInclude Include="src\components\BlackHoleAnimationComp.h" />

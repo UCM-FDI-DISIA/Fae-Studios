@@ -270,7 +270,7 @@ namespace constructors {
 		auto b= mngr_->addEntity(ecs::_grp_FINAL_BOSS);
 		b->addComponent<Transform>(Vector2D(x, y), w, h);
 		//auto health = b->addComponent<Health>(5, ecs::Light, true); health->initComponent();
-		b->addComponent<FramedImage>(&sdlutils().images().at("finalBossSheet"),5, 15);
+		b->addComponent<FramedImage>(&sdlutils().images().at("finalBossSheet"),7, 14);
 		///*auto health = */ b->addComponent<Health>(5, ecs::Light, true); //health->initComponent();
 
 		auto healthBar = mngr_->addEntity(ecs::_grp_UI);

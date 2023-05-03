@@ -365,7 +365,13 @@
 		{ "id" : "fire_attack", "file" : "../Ott - An Elemental Journey/resources/images/tests/fire_attack.png", "rows": 1, "cols": 1},
 		{ "id": "attackBubble",	"file": "../Ott - An Elemental Journey/resources/images/sprites/attackBubble.png", "rows": 1, "cols": 1	},
 		{ "id": "blackHole", "file": "../Ott - An Elemental Journey/resources/images/tests/BlackHole.png", "rows": 1,	"cols": 4},
-		{ "id": "ShurikenAgua", "file": "../Ott - An Elemental Journey/resources/images/tests/ShurikenAgua.png", "rows": 1, "cols": 1}
+		{ "id": "ShurikenAgua", "file": "../Ott - An Elemental Journey/resources/images/tests/ShurikenAgua.png", "rows": 1, "cols": 1},
+		{
+			"id": "finalBossFireWall",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/fireWall.png",
+			"rows": 1,
+			"cols": 14
+		}
 	],
 
 	"messages" : [],

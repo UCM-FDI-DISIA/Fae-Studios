@@ -17,6 +17,7 @@ public:
 
 	void deleteBlackHoles();
 	void deleteBubbles();
+	void deleteBubbleFromVec(Entity* bubble);
 	void deleteSpikes();
 	void deleteSpikeFromVec(Entity* spikes);
 	void deleteWeakPoints();
@@ -36,7 +37,7 @@ private:
 	int timeStunned;
 	int timeCure;
 	int currentElement;
-	int FIREWALL_HEIGHT = 400, FIREWALL_WIDTH = 30;
+	int FIREWALL_HEIGHT = 400, FIREWALL_WIDTH = 90;
 	int FIST_SIZE = 250;
 	int lastElem;
 	bool stunned, isWeakPoints;

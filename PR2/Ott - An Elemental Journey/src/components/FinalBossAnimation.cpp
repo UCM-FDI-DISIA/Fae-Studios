@@ -11,9 +11,11 @@ void FinalBossAnimation::initComponent()
 {
 	image = ent_->getComponent<FramedImage>();
 	//health_ = ent_->getComponent<Health>();
-	setState(IDLE_BOSS);
+	setState(IDLE_BOSS2);
 	image->setCol(0); image->setRow(0);
 	row = 0;
+	moveTimer_ = SDL_GetTicks();
+	MOVE_TIME = (getNFrames(IDLE_BOSS2) * getTPerFrame(IDLE_BOSS2) )* 30;
 }
 
 void FinalBossAnimation::update()
@@ -23,10 +25,10 @@ void FinalBossAnimation::update()
 		int state = currentAnimation;
 		int c = (timer_ / getTPerFrame(state)) % getNFrames(state) + getColNum(state);
 		timer_++;
-		col = c % 15;
+		col = c % 14;
 		if (col==0)
 		{
-			row = (c / 15);
+			row = (c / 14);
 		}
 		image->setRow(row); image->setCol(col); 
 		if ((timer_ > (getTPerFrame(state) * getNFrames(state)) + 1)) {
@@ -46,7 +48,11 @@ void FinalBossAnimation::update()
 		if ((timer_ > (getTPerFrame(state) * getNFrames(state)) + 1)) {
 			endAnim();													
 		}
-
+	}
+	
+	if (IDLE_BOSS2)
+	{
+		if( SDL_GetTicks()  -moveTimer_> MOVE_TIME) { setState(IDLE_BOSS); }
 	}
 }
 
@@ -55,6 +61,7 @@ void FinalBossAnimation::setState(int newState)
 	if (currentAnimation != newState) {
 		currentAnimation = newState;
 		timer_ = 0;
+		if(newState==IDLE_BOSS2){ moveTimer_ = SDL_GetTicks(); }
 	}
 }
 
@@ -63,6 +70,12 @@ void FinalBossAnimation::endAnim()
 	if (currentAnimation == DIE_BOSS) {
 		ent_->setAlive(false);
 	}
-	if (currentAnimation == STUN_BOSS) currentAnimation = IDLE_BOSS;
-	if (currentAnimation == IDLE_BOSS) { timer_ = 0; }
+	else if (currentAnimation == STUN_BOSS) setState(IDLE_BOSS2);
+	else if (currentAnimation == IDLE_BOSS) setState(IDLE_BOSS2);
+	else
+	{
+		timer_ = 0; row = getColNum(currentAnimation);
+	}
+	
+
 }

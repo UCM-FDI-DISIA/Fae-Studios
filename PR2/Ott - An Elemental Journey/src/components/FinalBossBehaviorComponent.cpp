@@ -124,7 +124,8 @@ void FinalBossBehaviorComponent::spawnFireWall() //Ataque fuego
 	Entity* fireW = mngr_->addEntity(ecs::_grp_PROYECTILES);
 
 	fireW->addComponent<Transform>(spawnPos - Vector2D(0, FIREWALL_HEIGHT / 2), FIREWALL_WIDTH * pTransf->getScale(), FIREWALL_HEIGHT * pTransf->getScale());
-	fireW->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
+	//fireW->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
+	fireW->addComponent<FramedImage>(&sdlutils().images().at("finalBossFireWall"), 1, 14);
 	fireW->addComponent<FireWallComponent>(Vector2D(1, 0));
 }
 
@@ -218,4 +219,11 @@ void FinalBossBehaviorComponent::deleteWeakPoints() {
 		std::cout << "Spot Seteado a false " << std::endl;
 	}
 	weakPoints.clear();
+}
+
+void FinalBossBehaviorComponent::deleteBubbleFromVec(Entity* bubble) {
+
+	bubble->setActive(false);
+	spikes.erase(std::remove(bubbles.begin(), bubbles.end(), bubble), bubbles.end());
+	std::cout << "Tam BubblesVec: " << bubbles.size() << std::endl;
 }

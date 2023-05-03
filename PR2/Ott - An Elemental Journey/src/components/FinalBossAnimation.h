@@ -6,7 +6,7 @@
 #include "FramedImage.h"
 // LIMPIO
 
-enum FinalBossAnims { IDLE_BOSS, STUN_BOSS, DIE_BOSS };
+enum FinalBossAnims {IDLE_BOSS, IDLE_BOSS2, HEALTH_BOSS, STUN_BOSS, DIE_BOSS };
 
 class Health;
 class FramedImage;
@@ -42,6 +42,8 @@ private:
 	//int posInList, roomNum;
 
 	int timer_ = 0;
+	int moveTimer_ = 0,MOVE_TIME;
 	const int  FRAME_ANIMATION_TIME = 6;
 	int col, row, frames;
+
 };
