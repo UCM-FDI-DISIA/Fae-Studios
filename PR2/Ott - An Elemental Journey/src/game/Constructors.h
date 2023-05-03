@@ -644,37 +644,45 @@ namespace constructors {
 	}
 
 	static inline Entity* Cartel(Manager* mngr_, int x, int y, int w, int h, std::string numCartel) {
-		Entity* cartelObject = mngr_->addEntity(ecs::_grp_CARTEL);
-		cartelObject->addComponent<Transform>(x, y, w, h);
-		int row = sdlutils().images().at(numCartel).getNumRows(), col = sdlutils().images().at(numCartel).getNumCols();
-		anims::Entities type;
-		if (numCartel == "movimientoCartel") {
-			type = anims::CARTELMOVIMIENTO;
+		Entity* cartelObject;
+		if (numCartel == "bossTierraCartel") {
+			cartelObject = mngr_->addEntity(ecs::_grp_BOSSCARTEL);
+			cartelObject->addComponent<Transform>(x, y, w, h);
+			int row = sdlutils().images().at(numCartel).getNumRows(), col = sdlutils().images().at(numCartel).getNumCols();
+			cartelObject->addComponent<FramedImage>(&sdlutils().images().at(numCartel), row, col);
 		}
-		else if (numCartel == "lamparaCartel") {
-			type = anims::CARTELLAMPARA;
-		}
-		else if (numCartel == "enredaderaCartel") {
-			type = anims::CARTELENREDADERA;
-		}
-		else if (numCartel == "elementoCartel") {
-			type = anims::CARTELELEMENTO;
-		}
-		else if (numCartel == "lookDownCartel") {
-			type = anims::CARTELLOOKDOWN;
-		}
-		else if (numCartel == "ataqueCartel") {
-			type = anims::CARTELATAQUE;
-		}
-		else if (numCartel == "powerElementoCartel") {
-			type = anims::CARTELPOWERCARTEL;
-		}
-		else if (numCartel == "mapaCartel") {
-			type = anims::CARTELMOVIMIENTO;
-		}
-		cartelObject->addComponent<FramedImage>(&sdlutils().images().at(numCartel), row, col);
-		if(numCartel != "bossTierraCartel")
+		else {
+			cartelObject = mngr_->addEntity(ecs::_grp_CARTEL);
+			cartelObject->addComponent<Transform>(x, y, w, h);
+			int row = sdlutils().images().at(numCartel).getNumRows(), col = sdlutils().images().at(numCartel).getNumCols();
+			anims::Entities type;
+			if (numCartel == "movimientoCartel") {
+				type = anims::CARTELMOVIMIENTO;
+			}
+			else if (numCartel == "lamparaCartel") {
+				type = anims::CARTELLAMPARA;
+			}
+			else if (numCartel == "enredaderaCartel") {
+				type = anims::CARTELENREDADERA;
+			}
+			else if (numCartel == "elementoCartel") {
+				type = anims::CARTELELEMENTO;
+			}
+			else if (numCartel == "lookDownCartel") {
+				type = anims::CARTELLOOKDOWN;
+			}
+			else if (numCartel == "ataqueCartel") {
+				type = anims::CARTELATAQUE;
+			}
+			else if (numCartel == "powerElementoCartel") {
+				type = anims::CARTELPOWERCARTEL;
+			}
+			else if (numCartel == "mapaCartel") {
+				type = anims::CARTELMOVIMIENTO;
+			}
+			cartelObject->addComponent<FramedImage>(&sdlutils().images().at(numCartel), row, col);
 			cartelObject->addComponent<GeneralAnimationController>(type,cartelObject);
+		}
 		return cartelObject;
 	}
 

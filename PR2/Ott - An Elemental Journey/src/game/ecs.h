@@ -91,6 +91,7 @@ namespace ecs {
         _grp_PLATFORMS,
         _grp_UI, ///< Elementos de la interfaz gráfica
         _grp_FADEOUT,
+        _grp_BOSSCARTEL,
         _grp_MOVING_PLATFORMS,
 
         _LAST_GRP_ID

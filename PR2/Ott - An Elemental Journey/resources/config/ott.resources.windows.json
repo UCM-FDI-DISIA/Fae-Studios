@@ -879,6 +879,12 @@
 			"cols": 3
 		},
 		{
+			"id": "loreText2",
+			"file": "../resources/images/tests/Lore_2.png",
+			"rows": 12,
+			"cols": 3
+		},
+		{
 			"id": "hanging_spike",
 			"file": "../resources/images/tests/Hanging_Spike.png",
 			"rows": 1,
