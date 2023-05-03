@@ -116,10 +116,10 @@
 48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,119,0,0,105,66,66,66,66,66,66,66,66,111,0,0,85,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98
 </data>
  </layer>
- <objectgroup id="13" name="Backgrounds" visible="0">
+ <objectgroup id="13" name="Backgrounds">
   <object id="430" name="0" class="Sala0" x="0" y="518" width="2600.97" height="1184.12"/>
   <object id="431" name="1" class="Sala1" x="2660.69" y="770.79" width="1140.91" height="1372.85"/>
-  <object id="432" name="13" class="Sala13" x="3855.36" y="700.04" width="2075.28" height="796.606"/>
+  <object id="432" name="13" class="Sala13" x="3855.36" y="665.707" width="4005.28" height="861.606"/>
   <object id="433" name="12" class="Sala12" x="3817.38" y="1824.95" width="744.546" height="490.12"/>
   <object id="434" name="8" class="Sala8" x="4577.07" y="1853.49" width="818.546" height="1376.12"/>
   <object id="435" name="11" class="Sala11" x="5414.04" y="1856" width="716.546" height="490.12"/>
@@ -132,7 +132,7 @@
   <object id="443" name="3" class="Sala3" x="361.8" y="1681.63" width="1161.64" height="710.57"/>
   <object id="444" name="4" class="Sala4" x="369.168" y="2431.9" width="1128.97" height="605.237"/>
  </objectgroup>
- <objectgroup id="6" name="Salas" visible="0">
+ <objectgroup id="6" name="Salas">
   <object id="61" name="0_earth_room" class="1" x="0" y="747.878" width="2600.97" height="944.12"/>
   <object id="73" name="1_earth_room" class="1" x="2660.76" y="761.88" width="1140.91" height="1372.85"/>
   <object id="74" name="2_earth_room" class="1.2" x="1555.85" y="1737.33" width="1051.97" height="1102.79"/>
@@ -152,7 +152,7 @@
   <object id="458" name="6" class="Activo" x="3157.5" y="3207.5" width="88" height="149.5"/>
   <object id="460" name="6" class="Activo" x="2773.5" y="3208" width="86.5" height="147.5"/>
  </objectgroup>
- <objectgroup id="14" name="Carteles">
+ <objectgroup id="14" name="Carteles" visible="0">
   <object id="465" name="0_0" class="movimientoCartel" x="391.333" y="1160"/>
   <object id="468" name="13_0" class="bossTierraCartel" x="5027" y="976"/>
   <object id="570" name="0_1" class="lamparaCartel" x="1017.19" y="1404.31"/>
@@ -317,7 +317,7 @@
   <object id="339" name="6" class="0" x="2785.85" y="3237.27" width="19.5" height="52.75"/>
   <object id="464" name="6" class="1" x="3167.25" y="3240.29" width="19.5" height="52.75"/>
  </objectgroup>
- <objectgroup id="3" name="Objetos interactuables">
+ <objectgroup id="3" name="Objetos interactuables" visible="0">
   <object id="27" name="lamp1" class="Lamp_9" x="5887" y="3000.75" width="32"/>
   <object id="55" class="Ott" x="416" y="1536" width="32"/>
   <object id="176" name="lamp1" class="Lamp_3" x="640" y="2110.5" width="32"/>
@@ -362,7 +362,7 @@
   <object id="567" name="12" class="Earth_Spike" x="4166.46" y="2239.59" width="187.088" height="38.1559"/>
   <object id="568" name="loreText1" class="Lore_10" x="3965" y="2637.5" width="64" height="89"/>
  </objectgroup>
- <objectgroup id="8" name="Enemigos">
+ <objectgroup id="8" name="Enemigos" visible="0">
   <object id="151" name="0_1_left" class="Melee" x="1328" y="1349" width="31.3333" height="86.6667"/>
   <object id="513" name="2_1_left" class="Melee" x="2125.66" y="2270" width="31.3333" height="86.6667"/>
   <object id="536" name="6_1_right_2" class="Slime" x="2975.33" y="3005.83" width="31.3333" height="193.333"/>
@@ -405,6 +405,6 @@
   <object id="413" name="8_12" class="812" x="4573.65" y="2124.69" width="21.8586" height="113.293"/>
  </objectgroup>
  <objectgroup id="16" name="Ott">
-  <object id="527" name="0" class="0" x="2300" y="1206" width="32" height="96"/>
+  <object id="527" name="0" class="0" x="416" y="1430" width="32" height="96"/>
  </objectgroup>
 </map>

@@ -30,7 +30,7 @@ void BossHealthBar::render() {
 		barTx->render(posBar);
 		lifeTx->render(posLife);
 	}
-	else if(!isDead) {
+	else if(!isDead && actualBoss != Earth) {
 		barTx->render(posBar);
 		lifeTx->render(posLife);
 	}

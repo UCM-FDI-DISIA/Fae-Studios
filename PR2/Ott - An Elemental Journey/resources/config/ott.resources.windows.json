@@ -177,6 +177,102 @@
 			"cols": 1
 		},
 		{
+			"id": "Sala0_Agua",
+			"file": "../resources/images/backgrounds/Sala0_Agua.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "Sala1_Agua",
+			"file": "../resources/images/backgrounds/Sala1_Agua.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "Sala2_Agua",
+			"file": "../resources/images/backgrounds/Sala2_Agua.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "Sala3_Agua",
+			"file": "../resources/images/backgrounds/Sala3_Agua.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "Sala4_Agua",
+			"file": "../resources/images/backgrounds/Sala4_Agua.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "Sala5_Agua",
+			"file": "../resources/images/backgrounds/Sala5_Agua.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "Sala6_Agua",
+			"file": "../resources/images/backgrounds/Sala6_Agua.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "Sala7_Agua",
+			"file": "../resources/images/backgrounds/Sala7_Agua.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "Sala8_Agua",
+			"file": "../resources/images/backgrounds/Sala8_Agua.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "Sala9_Agua",
+			"file": "../resources/images/backgrounds/Sala9_Agua.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "Sala10_Agua",
+			"file": "../resources/images/backgrounds/Sala10_Agua.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "Sala11_Agua",
+			"file": "../resources/images/backgrounds/Sala11_Agua.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "Sala12_Agua",
+			"file": "../resources/images/backgrounds/Sala12_Agua.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "Sala13_Agua",
+			"file": "../resources/images/backgrounds/Sala13_Agua.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "Sala14_Agua",
+			"file": "../resources/images/backgrounds/Sala14_Agua.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "Sala15_Agua",
+			"file": "../resources/images/backgrounds/Sala15_Agua.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
 			"id": "mainmenubackground",
 			"file": "../resources/images/backgrounds/mainmenubg.png",
 			"rows": 1,
