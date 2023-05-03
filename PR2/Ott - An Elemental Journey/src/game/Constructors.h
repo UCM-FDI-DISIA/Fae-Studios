@@ -642,6 +642,19 @@ namespace constructors {
 
 		return pObject;
 	}
+	
+	static inline auto lifeShardFeedbackTextEntity(Manager* mngr_, const Vector2D& position, bool oneHalf) {
+		auto t = mngr_->addEntity(ecs::_grp_UI);
+		std::string txt;
+		if (oneHalf) txt = "1/2";
+		else txt = "2/2";
+		SDL_Color rojo = { 255,0,0,255 };
+		t->addComponent<TextComponent>(txt, sdlutils().fonts().at("press_start48"), rojo, transparente);
+		Vector2D textPos = Vector2D(position.getX() - t->getComponent<TextComponent>()->getWidth() / 2, position.getY() - 10.0f);
+		t->getComponent<TextComponent>()->setPosition(textPos);
+		t->addComponent<LifeShardFeedbackComponent>();
+		return t;
+	}
 
 	static inline Entity* Cartel(Manager* mngr_, int x, int y, int w, int h, std::string numCartel) {
 		Entity* cartelObject = mngr_->addEntity(ecs::_grp_CARTEL);
@@ -662,6 +675,7 @@ namespace constructors {
 		}
 		else if (numCartel == "mapaCartel") {
 			type = anims::CARTELMOVIMIENTO;
+		}
 		else if (numCartel == "lookDownCartel") {
 			type = anims::CARTELLOOKDOWN;
 		}
@@ -672,22 +686,10 @@ namespace constructors {
 			type = anims::CARTELPOWERCARTEL;
 		}
 		cartelObject->addComponent<FramedImage>(&sdlutils().images().at(numCartel), row, col);
-		if(numCartel != "bossTierraCartel")
-			cartelObject->addComponent<GeneralAnimationController>(type,cartelObject);
+		if (numCartel != "bossTierraCartel")
+			cartelObject->addComponent<GeneralAnimationController>(type, cartelObject);
 		return cartelObject;
+		}
 	}
 
-	static inline auto lifeShardFeedbackTextEntity(Manager* mngr_, const Vector2D& position, bool oneHalf) {
-		auto t = mngr_->addEntity(ecs::_grp_UI);
-		std::string txt;
-		if (oneHalf) txt = "1/2";
-		else txt = "2/2";
-		SDL_Color rojo = { 255,0,0,255 };
-		t->addComponent<TextComponent>(txt, sdlutils().fonts().at("press_start48"), rojo, transparente);
-		Vector2D textPos = Vector2D(position.getX() - t->getComponent<TextComponent>()->getWidth() / 2, position.getY() - 10.0f);
-		t->getComponent<TextComponent>()->setPosition(textPos);
-		t->addComponent<LifeShardFeedbackComponent>();
-		return t;
-	}
-}
 

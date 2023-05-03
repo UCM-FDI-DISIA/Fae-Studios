@@ -1,4 +1,5 @@
-﻿#include "MapComponent.h"
+﻿#pragma once
+#include "MapComponent.h"
 #include "../sdlutils/SDLUtils.h"
 #include "../ecs/Manager.h"
 #include "../ecs/Entity.h"
