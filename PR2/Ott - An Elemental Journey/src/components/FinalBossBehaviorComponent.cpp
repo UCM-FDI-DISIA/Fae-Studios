@@ -15,6 +15,8 @@ FinalBossBehaviorComponent::FinalBossBehaviorComponent(MapComponent* map) :Compo
 	bossTransform = nullptr; bossHealth = nullptr;
 	map_ = map;
 	timeBetweenAttacks = SDL_GetTicks() + ATTACK_TIME;
+	stunned = false;
+	isWeakPoints = false;
 }
 
 void FinalBossBehaviorComponent::initComponent()
@@ -25,35 +27,56 @@ void FinalBossBehaviorComponent::initComponent()
 
 void FinalBossBehaviorComponent::update()
 {
-	// maybe lastElem no hace falta (spikes > 0 solo cuando el elem es tierra)
-	if (spikes.size() > 0  && SDL_GetTicks() < timeBetweenAttacks)
+	if (stunned /*&& SDL_GetTicks() < timeStunned*/)
 	{
-		bossHealth->cureHealth();
-	}
-	//Temporizador de ataque (ataca cada 5 segundos)
-	else if (SDL_GetTicks() > timeBetweenAttacks) {
-		// Actualizamos 5 seg más
-		timeBetweenAttacks +=ATTACK_TIME;
-		//Switch de los diferentes ataques del boss
-		switch (currentElement)
+		if (!isWeakPoints)
+		{	
+			std::cout << "stunned" << std::endl;
+			spawnWeakPoints();
+			isWeakPoints = true;
+		}
+		else if (SDL_GetTicks() > timeStunned)
 		{
-		case 0: std::cout << "Ataque tierra boss final" << std::endl; spawnSpikes(); break;
+			std::cout << "NO stunned" << std::endl;
+			deleteWeakPoints();
+			stunned = false;
+			isWeakPoints = false;
+		}
+	}
+	else
+	{
+		if (spikes.size() > 0  && SDL_GetTicks() < timeBetweenAttacks && SDL_GetTicks() > timeCure)
+		{
+			std::cout << "me curo" << std::endl;
+			bossHealth->cureHealth();
+			timeCure += CURE_TIME;
+		}
+		//Temporizador de ataque (ataca cada 5 segundos)
+		else if (SDL_GetTicks() > timeBetweenAttacks) {
+			// Actualizamos 5 seg más
+			timeBetweenAttacks +=ATTACK_TIME;
+			//Switch de los diferentes ataques del boss
+			switch (currentElement)
+			{
+			case 0: std::cout << "Ataque tierra boss final" << std::endl; spawnSpikes(); break;
 
-		case 1: std::cout << "Ataque agua boss final" << std::endl; spawnBubbles(); break;
-		case 2: std::cout << "Ataque fuego boss final" << std::endl; spawnFireWall(); break;
-		case 3: std::cout << "Ataque oscuridad boss final" << std::endl; spawnBlackHole();break;
-		case 4: std::cout << "Ataque puno boss final" << std::endl; spawnFist(); break;
-		case 5: std::cout << "Ataque punoTop boss final" << std::endl; spawnFistTop(); break;
-		default: std::cout << "Ataque generico boss final" << std::endl; spawnFist(); break;
+			case 1: std::cout << "Ataque agua boss final" << std::endl; spawnBubbles(); break;
+			case 2: std::cout << "Ataque fuego boss final" << std::endl; spawnFireWall(); break;
+			case 3: std::cout << "Ataque oscuridad boss final" << std::endl; spawnBlackHole();break;
+			case 4: std::cout << "Ataque puno boss final" << std::endl; spawnFist(); break;
+			case 5: std::cout << "Ataque punoTop boss final" << std::endl; spawnFistTop(); break;
+			default: std::cout << "Ataque generico boss final" << std::endl; spawnFist(); break;
+
+			}
+			//Cambia de elemento aleatoriamente
+			lastElem = currentElement;
+			do {
+				currentElement = rand() % 6;
+			} while (lastElem == currentElement);
 
 		}
-		//Cambia de elemento aleatoriamente
-		lastElem = currentElement;
-		do {
-			currentElement = rand() % 6;
-		} while (lastElem == currentElement);
-
 	}
+		
 }
 
 // Mata agujeros negros y elimina del vector
@@ -151,13 +174,14 @@ void FinalBossBehaviorComponent::spawnSpikes() {
  	int spikesNum = map_->bossSpikesNum();
 
 	// Crea enredaderas y añade componentes
-	for (int i = 0; i < spikesNum; ++i) {
+ 	for (int i = 0; i < spikesNum; ++i) {
 		spikes.push_back(mngr_->addEntity(ecs::_grp_FINAL_BOSS_SPIKES));
 		SDL_Rect rect = map_->getBossSpikesPos(i);
 		spikes[i]->addComponent<Transform>(Vector2D(rect.x, rect.y), rect.w, rect.h);
 		spikes[i]->addComponent<Image>(&sdlutils().images().at("hangingSpike"));
 		spikes[i]->addComponent<DamageArea>(ecs::Earth, false, this);
 	}
+	timeCure = SDL_GetTicks() + CURE_TIME;
 
 }
 void FinalBossBehaviorComponent::deleteSpikes() {
@@ -174,4 +198,24 @@ void FinalBossBehaviorComponent::deleteSpikeFromVec(Entity* s)
 	spikes.erase(std::remove(spikes.begin(), spikes.end(), s), spikes.end());
 	std::cout << "Tam spikesVec: " << spikes.size() << std::endl;
 
+	if (spikes.size() == 0) stunned = true; timeStunned = SDL_GetTicks() + STUNNED_TIME;
+}
+// Puntos débiles cuando está stuneado
+void FinalBossBehaviorComponent::spawnWeakPoints() {
+	int weakPointsNum = map_->bossWeakSpotsNum();
+
+	// Crea enredaderas y añade componentes
+	for (int i = 0; i < weakPointsNum; ++i) {
+		weakPoints.push_back(mngr_->addEntity(ecs::_grp_FINAL_BOSS_COLLIDERS));
+		SDL_Rect rect = map_->getBossWeakSpotsPos(i);
+		weakPoints[i]->addComponent<Transform>(Vector2D(rect.x, rect.y), rect.w, rect.h);
+	}
+
+}
+void FinalBossBehaviorComponent::deleteWeakPoints() {
+	for (auto it = weakPoints.begin(); it != weakPoints.end(); ++it) {
+		(*it)->setAlive(false);
+		std::cout << "Spot Seteado a false " << std::endl;
+	}
+	weakPoints.clear();
 }

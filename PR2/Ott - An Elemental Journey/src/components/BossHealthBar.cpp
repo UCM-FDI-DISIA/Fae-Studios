@@ -13,6 +13,14 @@ void BossHealthBar::damage(int n) {
 	/*for(int i = 0; i < n; ++i)*/ posLife.w -= hit; // yo me rindo ya 
 }
 
+void BossHealthBar::cure() {
+	int hit = maxWidth / BossLife;
+	if (posLife.w < maxWidth)
+	{
+		posLife.w += hit;
+	}
+}
+
 void BossHealthBar::reset() {
 	posLife.w = posBar.w;
 }
@@ -20,6 +28,7 @@ void BossHealthBar::reset() {
 void BossHealthBar::die() {
 	isDead = true;
 	if (actualBoss == Earth) bossManager->getComponent<EarthBossManager>()->die();
+	else if (actualBoss == Final); bossManager->setAlive(false);
 }
 
 void BossHealthBar::render() {

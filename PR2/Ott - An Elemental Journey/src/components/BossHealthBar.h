@@ -14,6 +14,7 @@ public:
 	void initComponent() override;
 	void setBossLife(int n) { BossLife = n; }
 	void damage(int n);
+	void cure();
 	void reset();
 	void die();
 	virtual void render();

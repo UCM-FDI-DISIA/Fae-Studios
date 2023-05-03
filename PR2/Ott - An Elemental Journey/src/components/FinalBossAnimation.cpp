@@ -2,10 +2,10 @@
 #include "../states/PlayState.h"
 #include "../states/GameStateMachine.h"
 
-FinalBossAnimation::~FinalBossAnimation()
-{
-	if (!ent_->isAlive())static_cast<PlayState*>(GameStateMachine::instance()->currentState())->eraseEnemy(posInList, roomNum);
-}
+//FinalBossAnimation::~FinalBossAnimation()
+//{
+//	if (!ent_->isAlive())static_cast<PlayState*>(GameStateMachine::instance()->currentState())->eraseEnemy(posInList, roomNum);
+//}
 
 void FinalBossAnimation::initComponent()
 {
