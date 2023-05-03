@@ -207,19 +207,19 @@
   <object id="203" name="5" type="Ground" x="4218.67" y="390.606" width="50.545" height="255.151"/>
   <object id="204" name="5" type="Ground" x="4689.88" y="381.515" width="50.545" height="255.151"/>
  </objectgroup>
- <objectgroup id="9" name="Trigger de cambio de mapa">
+ <objectgroup id="9" name="Trigger de cambio de mapa" visible="0">
   <object id="206" name="0" type="waterBossMap_2_2" x="7.5" y="2025.5" width="44.5" height="115"/>
  </objectgroup>
- <objectgroup id="10" name="Posiciones">
+ <objectgroup id="10" name="Posiciones" visible="0">
   <object id="207" name="0" type="0" x="92" y="2058" width="47.5" height="78.5"/>
  </objectgroup>
- <objectgroup id="8" name="Plataformas">
+ <objectgroup id="8" name="Plataformas" visible="0">
   <object id="198" name="Y_575_2112_1" type="Ground" x="1827.33" y="2112.06" width="125.5" height="33.6666"/>
  </objectgroup>
- <objectgroup id="7" name="Ott">
+ <objectgroup id="7" name="Ott" visible="0">
   <object id="141" name="0" type="0" x="329.845" y="2078.94" width="32" height="32"/>
  </objectgroup>
- <objectgroup id="6" name="Triggers">
+ <objectgroup id="6" name="Triggers" visible="0">
   <object id="111" name="6_1" type="16" x="1499" y="1938.5" width="31.5" height="209.5"/>
   <object id="112" name="1_6" type="16" x="1533" y="1935" width="30.5" height="214"/>
   <object id="113" name="7_1" type="17" x="1519.33" y="1298.33" width="9.33337" height="142.333"/>
@@ -250,7 +250,7 @@
   <object id="140" name="1_3_right" type="Mushroom" x="1616" y="538.091" width="55" height="60.5"/>
   <object id="164" name="5_3_left" type="fireBoss" x="4465.45" y="1088.09" width="36" height="22"/>
  </objectgroup>
- <objectgroup id="4" name="Objetos interactuables">
+ <objectgroup id="4" name="Objetos interactuables" visible="0">
   <object id="75" name="1" type="Sanctuary_2" x="1556.33" y="2149.33" width="75" height="5.5"/>
   <object id="76" name="4" type="Sanctuary_3" x="3487.67" y="674.67" width="119.667" height="6.33333"/>
   <object id="88" name="Lamp1" type="Lamp_1" x="1747.66" y="2147" width="42" height="5.33333"/>
@@ -278,7 +278,7 @@
   <object id="225" name="1" type="Lava" x="1790.5" y="2239.5" width="227.5" height="37.5"/>
   <object id="226" name="4" type="Lava" x="2398" y="735" width="1093" height="39"/>
  </objectgroup>
- <objectgroup id="5" name="Salas">
+ <objectgroup id="5" name="Salas" visible="0">
   <object id="79" name="2" type="1.3" x="1533.73" y="2517.3" width="703" height="1072.06"/>
   <object id="80" name="0" type="1.2" x="-2.333" y="1090.43" width="804" height="1601.24"/>
   <object id="85" name="1" type="1.5" x="1532.06" y="450.09" width="701.909" height="1849.64"/>

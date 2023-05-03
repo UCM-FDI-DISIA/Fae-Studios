@@ -11,7 +11,13 @@ private:
 	void miscVolume(int value);
 	void masterVolume(int value);
 
+	std::vector<Entity*> buttons;
+	int buttonIndex;
+	int formerIndex;
+	bool detectJoystickActivity;
+
 public:
 	MusicOptionsMenuState();
+	void handleInput() override;
 };
 

@@ -404,9 +404,10 @@ void PlayState::AddEnredadera() {
 }
 
 void PlayState::UnlockElement(ecs::elements elem) {
-	player_->getComponent<PlayerInput>()->unlockElement((* interactionIt)->getComponent<ElementObject>()->getElement());
-	player_->getComponent<PlayerAnimationComponent>()->changeElem((*interactionIt)->getComponent<ElementObject>()->getElement());
+	player_->getComponent<PlayerInput>()->unlockElement(elem);
+	player_->getComponent<PlayerAnimationComponent>()->changeElem(elem);
 	player_->getComponent<PlayerAnimationComponent>()->setState(VANISH);
+	player_->getComponent<Health>()->setNewInitialPos((*interactionIt)->getComponent<Transform>()->getPosition());
 	map_->unlockElement(elem);
 }
 
@@ -457,8 +458,8 @@ void PlayState::AddRelic(ecs::elements id) {
 void PlayState::endRest() {
     player_->getComponent<Health>()->saveSactuary(lastSanctuary);
 	// Guardar datos en archivo
-	std::string hola = "../resources/saves/temporalUniqueSave.sv";
-	std::ofstream saveFile(hola);
+	std::string fileName = "../resources/saves/temporalUniqueSave.sv";
+	std::ofstream saveFile(fileName);
 
 	player_->getComponent<Health>()->saveToFile(saveFile);
 	player_->getComponent<PlayerInput>()->saveToFile(saveFile);

@@ -13,7 +13,8 @@
 #include "InteractionComponent.h"
 #include "ShieldComponent.h"
 #include "AttackCharger.h"
-
+#include "AutoDestroy.h"
+#include "Image.h"
 void Health::die()
 {
 	if (ent_->hasComponent<PlayerAnimationComponent>()) ent_->getComponent<PlayerAnimationComponent>()->setState(DIE);
@@ -70,6 +71,22 @@ void Health::recall(bool rest) {
 }
 
 bool Health::recieveDamage(ecs::elements el, bool dir) {
+	if (inmune) {
+		/*auto inm = mngr_->addEntity(ecs::_grp_UI);
+		auto tr = ent_->getComponent<Transform>();
+		Vector2D middlePos = tr->getPosition() + Vector2D(tr->getHeight() / 2, tr->getWidth() / 2);
+		inm->addComponent<Transform>(middlePos, tr->getWidth() * 0.3, tr->getWidth() * 0.3);
+		switch (elem)
+		{
+		case ecs::Earth: inm->addComponent<Image>(&sdlutils().images().at("earthShield")); break;
+		case ecs::Water: inm->addComponent<Image>(&sdlutils().images().at("waterShield")); break;
+		case ecs::Fire: inm->addComponent<Image>(&sdlutils().images().at("fireShield")); break;
+		default: inm->addComponent<Image>(&sdlutils().images().at("shield")); break;
+		}
+		inm->addComponent<AutoDestroy>(0.1);*/
+		sdlutils().soundEffects().at("shield_block").play(0, ecs::_channel_PLAYER);
+		return false;
+	}
 	if (ent_->hasComponent<PlayerAnimationComponent>()) {
 		if (pAnim_->isInvincible()) return false;
 		//si dir == true, knockback derecha
@@ -80,10 +97,10 @@ bool Health::recieveDamage(ecs::elements el, bool dir) {
 		if (ent_->getComponent<ShieldComponent>()->hasShield()) damage = ent_->getComponent<ShieldComponent>()->checkDamage(damage, dir);
 		if (damage != -1) {
 			
-			pAnim_->playerDamaged();
 			if (damage == 0) {
 				if (image->setWeak()) damage = 1;
 			}
+			else pAnim_->playerDamaged();
 			actualLife -= damage;
 			image->damage(damage);
 		}

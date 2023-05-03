@@ -7,6 +7,7 @@
 #include "../components/FramedImage.h"
 #include "../components/TextComponent.h"
 #include "../components/ElementObject.h"
+#include "../components/ShieldAnimationComponent.h"
 #include "../components/LampAnimationComponent.h"
 #include "../components/GrassAnimationComponent.h"
 #include "../components/Slider.h"
@@ -61,6 +62,7 @@
 #include "../components/LoreTextAnims.h"
 #include "../components/LifeShardFeedbackComponent.h"
 #include "../components/GeneralAnimationController.h"
+#include "../components/BossHealthBar.h"
 #include <string>
 #include <iostream>
 #include <functional>
@@ -180,7 +182,7 @@ namespace constructors {
 
 		auto waterVine = mngr_->addEntity(ecs::_grp_MAP);
 		waterVine->addComponent<Transform>(Vector2D(0, 0), 30 * scale, 300 * scale);
-		waterVine->addComponent<Image>(&sdlutils().images().at("enredadera"));
+		waterVine->addComponent<Image>(&sdlutils().images().at("vine"));
 		waterVine->addComponent<WaterVineComponent>(waterC);
 
 		return { waterC, waterVine };
@@ -266,7 +268,7 @@ namespace constructors {
 	}
 	
 
-	static inline void slider(Manager* mngr_, Vector2D& position, std::string title, float minValue, float maxValue, float currentValue, std::function<void(int)> const& callback) {
+	static inline auto slider(Manager* mngr_, Vector2D& position, std::string title, float minValue, float maxValue, float currentValue, std::function<void(int)> const& callback) {
 		auto s = mngr_->addEntity(ecs::_grp_UI);
 		s->addComponent<Transform>(position, 50, 50);
 		s->addComponent<FramedImage>(&sdlutils().images().at("slider"), 3, 1);
@@ -286,6 +288,18 @@ namespace constructors {
 		needle->addComponent<SliderNeedle>();
 
 		s->getComponent<Slider>()->setNeedle(needle);
+
+		if (game().getIsJoystick()) {
+			auto ned = mngr_->addEntity(ecs::_grp_UI);
+			ned->addComponent<Transform>(Vector2D(0, 0), 50, 50);
+			ned->addComponent<Image>(&sdlutils().images().at("button_needle"));
+			ned->getComponent<Transform>()->setWidth(ned->getComponent<Image>()->getWidth() / 2.5f);
+			ned->getComponent<Transform>()->setHeight(ned->getComponent<Image>()->getHeight() / 2.5f);
+			ned->addComponent<SliderSelectionNeedle>();
+			s->getComponent<Slider>()->setSelectionNeedle(ned);
+		}
+
+		return s;
 	}
 
 	static inline auto background(Manager* mngr_, Texture* t) {
@@ -335,6 +349,7 @@ namespace constructors {
 		player->addComponent<PlayerAttack>();
 		player->addComponent<AttackCharger>(8, chargedAttackBar);
 		player->addComponent<PlayerInput>();
+		player->addComponent<ShieldAnimationComponent>();
 		player->addComponent<ShieldComponent>();
 		pAnim->initComponent();
 		health->initComponent();
@@ -352,7 +367,8 @@ namespace constructors {
 
 	static inline Entity* grass(Manager* mngr_, Vector2D position, int widthVine, int heightVine, Vector2D posiniVine, Vector2D posfinVine, int ID, int room, int width = 60, int height = 60) {
 		auto grass = mngr_->addEntity(ecs::_grp_INTERACTION);
-		grass->addComponent<Transform>(position, width, height);
+		auto scale = 1.45f;
+		grass->addComponent<Transform>(position - Vector2D(width * scale / 4, height*scale/4), width * scale, height * scale);
 		grass->addComponent<FramedImage>(&sdlutils().images().at("grass"), 1, 4);
 		grass->addComponent<VineManager>(NORMAL, posiniVine, posfinVine, -1, 0, widthVine, heightVine, 2);
 		grass->getComponent<VineManager>()->createVine();
@@ -488,10 +504,12 @@ namespace constructors {
 		boss->addComponent<PhysicsComponent>(colliders::OTT);
 		boss->getComponent<PhysicsComponent>()->createCollider();
 		boss->addComponent<FramedImage>(&sdlutils().images().at("fireBoss"), 5, 13);
-		
+		//auto healthBar = mngr_->addEntity(ecs::_grp_UI);
+		//healthBar->addComponent<BossHealthBar>(boss, (int)ecs::Fire, &sdlutils().images().at("bossHealthBar"), &sdlutils().images().at("bossLife"));
 		auto anim=boss->addComponent<FireBossAnimation>(anims::FIREBOSS_ANIM, map);
 		boss->getComponent<FireBossComponent>()->setAnimComponent(anim);
-		boss->addComponent<Health>(25, ecs::Fire, false);
+		boss->addComponent<Health>(20, ecs::Fire, false, true);
+		//boss->addComponent<Health>(healthBar->getComponent<BossHealthBar>(), 25, ecs::Fire, false);
 		return boss;
 	}
 
@@ -650,6 +668,9 @@ namespace constructors {
 		}
 		else if (numCartel == "powerElementoCartel") {
 			type = anims::CARTELPOWERCARTEL;
+		}
+		else if (numCartel == "mapaCartel") {
+			type = anims::CARTELMOVIMIENTO;
 		}
 		cartelObject->addComponent<FramedImage>(&sdlutils().images().at(numCartel), row, col);
 		if(numCartel != "bossTierraCartel")

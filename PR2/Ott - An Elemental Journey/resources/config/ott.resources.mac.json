@@ -238,7 +238,7 @@
 		},
 		{
 			"id": "grass",
-			"file": "../Ott - An Elemental Journey/resources/images/tests/grass-sheet.png",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/grass-sheet-1.png",
 			"rows": 1,
 			"cols": 4
 		},
@@ -255,22 +255,10 @@
 			"cols": 1
 		},
 		{
-			"id": "sanctuary",
-			"file": "../Ott - An Elemental Journey/resources/images/tests/sanctuary.png",
-			"rows": 1,
-			"cols": 1
-		},
-		{
 			"id": "sanctuarySheet",
 			"file": "../Ott - An Elemental Journey/resources/images/tests/sanctuarySheet.png",
 			"rows": 1,
 			"cols": 18
-		},
-		{
-			"id": "sanctuaryOff",
-			"file": "../Ott - An Elemental Journey/resources/images/tests/sanctuaryOff.png",
-			"rows": 1,
-			"cols": 1
 		},
 		{
 			"id": "level1bg",
@@ -298,7 +286,7 @@
 		},
 		{
 			"id": "shield",
-			"file": "../Ott - An Elemental Journey/resources/images/levels/Shield.png",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/lightShield.png",
 			"rows": 1,
 			"cols": 1
 		},
@@ -310,19 +298,19 @@
 		},
 		{
 			"id": "waterShield",
-			"file": "../Ott - An Elemental Journey/resources/images/levels/waterShield.png",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/waterShield.png",
 			"rows": 1,
 			"cols": 1
 		},
 		{
 			"id": "earthShield",
-			"file": "../Ott - An Elemental Journey/resources/images/levels/earthShield.png",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/earthShield.png",
 			"rows": 1,
 			"cols": 1
 		},
 		{
 			"id": "fireShield",
-			"file": "../Ott - An Elemental Journey/resources/images/levels/fireShield.png",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/fireShield.png",
 			"rows": 1,
 			"cols": 1
 		},
@@ -729,6 +717,12 @@
 			"cols": 14
 		},
 		{
+			"id": "mapaCartel",
+			"file": "../Ott - An Elemental Journey/resources/images/carteles/Mapa/cartelMapaAnimation.png",
+			"rows": 1,
+			"cols": 14
+		},
+		{
 			"id": "lamparaCartel",
 			"file": "../Ott - An Elemental Journey/resources/images/carteles/Lampara/cartelLamparaAnimation.png",
 			"rows": 2,
@@ -859,6 +853,12 @@
 			"file": "../Ott - An Elemental Journey/resources/images/tests/Ott_Fire_Relic.png",
 			"rows": 12,
 			"cols": 8
+		},
+		{
+			"id": "spikeBall",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/spikeBall.png",
+			"rows": 1,
+			"cols": 1
 		}
 	],
   "messages" : [],
@@ -895,7 +895,10 @@
 		{ "id" : "hitTaken", "file" : "../Ott - An Elemental Journey/resources/sound/hitTaken.wav"},
 		{ "id" : "menemy_step", "file" : "../Ott - An Elemental Journey/resources/sound/bicho_paso.wav"},
 		{ "id" : "relic_transformation", "file" : "../Ott - An Elemental Journey/resources/sound/relic_transformation.wav"},
-		{ "id" : "relic_wink", "file" : "../Ott - An Elemental Journey/resources/sound/relic_wink.wav"}
+		{ "id" : "relic_wink", "file" : "../Ott - An Elemental Journey/resources/sound/relic_wink.wav"},
+		{ "id" : "shield_block", "file" : "../Ott - An Elemental Journey/resources/sound/shield_block.wav"},
+		{ "id" : "shield_broken", "file" : "../Ott - An Elemental Journey/resources/sound/shield_broken.wav"},
+		{ "id" : "menemy_step", "file" : "../Ott - An Elemental Journey/resources/sound/bicho_paso.wav"}
   ],
 
   "musics" : [

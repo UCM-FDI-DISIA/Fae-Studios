@@ -25,11 +25,24 @@ void ChargedAttackBar::update() {
 			}
 		}
 		else {
-			frame_ = charges_ + ticksCount_;
-			if (SDL_GetTicks() - FRAME_TIME >= ticks_) {
-				if (ticksCount_ < 14) ticksCount_++;
-				ticks_ = SDL_GetTicks();
+			if (!reset_) {
+				frame_ = charges_ + ticksCount_;
+				if (SDL_GetTicks() - FRAME_TIME >= ticks_) {
+					if (ticksCount_ < 14) ticksCount_++;
+					ticks_ = SDL_GetTicks();
+				}
 			}
+			else {
+				frame_ = charges_ + ticksCount_;
+				if (SDL_GetTicks() - FRAME_TIME >= ticks_) {
+					if (ticksCount_ > 5) ticksCount_--;
+					else {
+						anim_ = false;
+						reset_ = false;
+					}
+					ticks_ = SDL_GetTicks();
+				}
+			}	
 		}
 	}
 

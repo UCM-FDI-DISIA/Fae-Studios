@@ -52,14 +52,15 @@ std::vector<anims::animDescription> anims::lookDown_cartel{ {60,19,0,0} };
 std::vector<anims::animDescription> anims::ataque_cartel{ {60,20,0,0} };
 std::vector<anims::animDescription> anims::powerElemento_cartel{ {60, 19,0,0} };
 std::vector<anims::animDescription> anims::texto_lore{ {100,36,0,0} };
+std::vector<anims::animDescription> anims::shield{ {100,1,0,0}, {100,8,0,8 }, {100,8,0,1} };
 // vector con todas las animaciones definidas. se accede a �l por un enum llamado Entities
 std::vector<std::vector<anims::animDescription>> anims::animations{ott_anims, 
 			melee_anims, range_anims, slime_anims, earth_attack, 
 			earthBossPresent_anims,earthBoss_anims, warning_anims,
 			pause_anims,miniPause_anims, water_attack, waterBoss_anims, 
 			lifeshard_anims, movimiento_cartel,lampara_cartel,enredadera_cartel, elemento_cartel,lookDown_cartel,ataque_cartel, powerElemento_cartel,texto_lore,
-			fireboss_anims, lamp, grass, sanctuary, relic_anims };
- // OTT
+			fireboss_anims, lamp, grass, sanctuary,shield, relic_anims };
+ 
 anims::offsetPhysics anims::ott_collider{ 7, 32, 4, 32, 16, 28};
 // ENEMIGO MELEE
 anims::offsetPhysics anims::melee_collider{ 25, 65, 5, 32, 16, 27};

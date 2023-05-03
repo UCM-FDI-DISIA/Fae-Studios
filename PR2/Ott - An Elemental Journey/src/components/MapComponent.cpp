@@ -236,6 +236,7 @@ void MapComponent::setPlayerInRoom(Vector2D newPlayerPos, int newRoom) {
     mngr_->getPlayer()->getComponent<Transform>()->setPosition(newPlayerPos); // settear la posición del jugador
     mngr_->getPlayer()->getComponent<Transform>()->setScale(getCurrentRoomScale()); // settear su escala
     mngr_->getPlayer()->getComponent<Health>()->setDead(false); // decirle al jugador que no está muerto
+    mngr_->getPlayer()->getComponent<PlayerAttack>()->deteleAttacks();
     activateObjectsInRoom(currentRoom, true); // activar los objetos de la nueva sala
 }
 
@@ -625,7 +626,6 @@ void MapComponent::loadMap(std::string path, int nextPos) {
                 auto it = (--v->end());
                 rock->getComponent<InteractionComponent>()->setIt(it, v);
                 rock->setActive(false);
-          
             }
           
             else if (ot.getClass() == "Spike") {
@@ -755,6 +755,7 @@ void MapComponent::loadMap(std::string path, int nextPos) {
                 sanct->getComponent<InteractionComponent>()->setIt(it, v);
                 if (std::stoi(classSplit[1]) == player_->getComponent<Health>()->getSanctuaryID()) {
                     playerSanctuary = sanct;
+                    playerSanctuary->addComponent<SanctuaryAnimationComponent>()->activate();
                     playerSanctuaryID = ID;
                     playerSanctuaryRoom = std::stoi(ot.getName());
                 }
