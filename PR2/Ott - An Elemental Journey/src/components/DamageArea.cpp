@@ -19,10 +19,6 @@ void DamageArea::update()
 		{
 			SDL_Rect r3 = f->getComponent<Transform>()->getRect();
 			Bullet* b = f->getComponent<Bullet>();
-			if (SDL_HasIntersection(&r3, &dArea) && b->getInstigator()->hasComponent<PlayerInput>())
-			{
-				ent_->setActive(false);
-			}
 			if (b != nullptr && SDL_HasIntersection(&r3, &dArea) && b->getInstigator()->hasComponent<PlayerInput>() && b->getElem() == ecs::Fire)
 			{
 				if (bossBehaComp_ == nullptr)ent_->setAlive(false);
