@@ -28,17 +28,18 @@ void FireBossRoom::resetFight()
 	image->setRow(0);
 	currentAnim = IDLE_MINION;
 	entered = false;
+	restartTimer = SDL_GetTicks();
 }
 void FireBossRoom::update()
 {
+
 	Entity* p = mngr_->getPlayer();
 	Transform* player = p->getComponent<Transform>();
-	if (p->getComponent<Health>()->getHealth() <= 0) {
-		if (entered) {
-			mngr_->getFireBoss()->getComponent<FireBossComponent>()->resetBoss();
-			resetFight();
+	if (restartTimer != -1) {
+		if (SDL_GetTicks() - restartTimer <= timeRestart * 1000) return;
+		else {
+			restartTimer = -1;
 		}
-		return;
 	}
 	int c = anims::animations[eAnims][currentAnim].colNum;
 	int col = (SDL_GetTicks() / anims::animations[eAnims][currentAnim].tPerFrame) % anims::animations[eAnims][currentAnim].numFrames + anims::animations[eAnims][currentAnim].colNum;
@@ -69,7 +70,10 @@ void FireBossRoom::update()
 		endWall = nullptr;
 		ent_->setAlive(false);
 	}
-	
+	if (restartTimer == -1 && p->getComponent<Health>()->getHealth() <= 0) {
+		mngr_->getFireBoss()->getComponent<FireBossComponent>()->resetBoss();
+		resetFight();
+	}
 	if (currentAnim == DIE_MINION && ((SDL_GetTicks()-startTime) > (anims::animations[eAnims][currentAnim].tPerFrame * anims::animations[eAnims][currentAnim].numFrames) + 1)) {
 		camera->getComponent<CameraComponent>()->cameraShake(false);
 		minion->setAlive(false);

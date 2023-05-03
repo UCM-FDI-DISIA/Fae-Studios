@@ -97,7 +97,7 @@ void FireBossComponent::update()
 		}
 		else {
 			fAnim_->setState(IDLE_FIREBOSS);
-			if(pTr->getPosition().getX() < tr_->getPosition().getX()) fImg->flipTexture(true); 
+			if(pTr->getPosition().getX() < tr_->getPosition().getX() + tr_->getWidth()/2) fImg->flipTexture(true); 
 		}
 	}
 }
