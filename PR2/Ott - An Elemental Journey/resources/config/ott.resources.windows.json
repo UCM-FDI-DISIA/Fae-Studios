@@ -744,6 +744,12 @@
 			"file": "../resources/images/tests/fireWall.png",
 			"rows": 1,
 			"cols": 14
+		},
+		{
+			"id": "Sala0_FinalBoss",
+			"file": "../resources/images/backgrounds/Sala0_FinalBoss.png",
+			"rows": 1,
+			"cols": 1
 		}
 
 

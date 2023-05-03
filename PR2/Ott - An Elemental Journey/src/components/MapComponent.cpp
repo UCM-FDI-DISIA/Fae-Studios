@@ -721,7 +721,7 @@ void MapComponent::render() {
     int offsetY = camPos.y;
     int room = currentRoom;
     auto roomScale = vectorTiles[room].first;
-    if (currentMapKey == "earthMap") {
+    /*if (currentMapKey == "earthMap") {
         SDL_Rect imageRect = backgrounds[room].second;
         imageRect.x *= roomScale;
         imageRect.y *= roomScale;
@@ -730,7 +730,7 @@ void MapComponent::render() {
         imageRect.x -= offsetX;
         imageRect.y -= offsetY;
         sdlutils().images().at(backgrounds[room].first).render(imageRect);
-    }
+    }*/
     for (int i = 0; i < vectorTiles[room].second.size(); i++) {
         auto it = vectorTiles[room].second[i].first;
         auto ot = vectorTiles[room].second[i].second;
@@ -748,11 +748,11 @@ void MapComponent::render() {
         tilemap->renderFrame(ot, row, col);
     }
 
-    for (auto it : ground[std::to_string(room)]) {
+ /*   for (auto it : ground[std::to_string(room)]) {
         it.x -= cam->camera.x;
         it.y -= cam->camera.y;
         sdlutils().images().at("pixel").render(it);
-    }
+    }*/
 }
 
 void MapComponent::saveToFile(std::ofstream& file) {
