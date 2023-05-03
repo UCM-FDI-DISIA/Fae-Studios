@@ -12,6 +12,7 @@ void BossHealthBar::initComponent() {
 void BossHealthBar::damage(int n) {
 	int hit = maxWidth / BossLife;
 	/*for(int i = 0; i < n; ++i)*/ posLife.w -= hit; // yo me rindo ya 
+	if (actualBoss == Final) { bossManager->getComponent<FinalBossAnimation>()->setState(DAMAGE_BOSS); }
 }
 
 void BossHealthBar::cure() {
