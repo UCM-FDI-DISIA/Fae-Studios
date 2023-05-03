@@ -23,7 +23,7 @@ void DamageArea::update()
 			{
 				ent_->setActive(false);
 			}
-			if (b!= nullptr && SDL_HasIntersection(&r3, &dArea) && b->getInstigator()->hasComponent<PlayerInput>() && b->getElem()==ecs::Fire)
+			if (b != nullptr && SDL_HasIntersection(&r3, &dArea) && b->getInstigator()->hasComponent<PlayerInput>() && b->getElem() == ecs::Fire)
 			{
 				if (bossBehaComp_ == nullptr)ent_->setAlive(false);
 				else bossBehaComp_->deleteSpikeFromVec(ent_);
@@ -34,6 +34,7 @@ void DamageArea::update()
 			//Se mata pasados unos segundos
 			bossBehaComp_->deleteSpikes();
 		}
+	}
 }
 void DamageArea::initComponent()
 {

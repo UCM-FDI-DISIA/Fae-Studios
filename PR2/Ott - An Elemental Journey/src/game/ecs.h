@@ -71,7 +71,6 @@ namespace ecs {
         _BLACK_HOLE_ANIMATION,
         _ATTRACTION,
         _FLIP,
-        _DAMAGE_AREA,
         _FINAL_BOSS_ANIMATION,
         _BUBBLE_POP,
 

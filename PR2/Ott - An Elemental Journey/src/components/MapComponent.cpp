@@ -276,7 +276,7 @@ void MapComponent::changeMap(int newMap, std::string key, int nextPos) {
     }
     for (auto it : waterObjects) {
         for (auto ot : it) {
-            ot->setAlive(false);
+            if(ot != nullptr) ot->setAlive(false);
         }
     }
     for (auto it : platforms) {
@@ -375,7 +375,6 @@ void MapComponent::loadMap(std::string path, int nextPos) {
                         platforms[i].reserve(5);}   
                     for (int i = 0; i < numRooms; ++i) {
                         waterObjects[i].push_back({});
-                    }
                     }
 
                     if (mapKeys[currentMap].size() != numRooms) {
@@ -965,7 +964,7 @@ void MapComponent::activateObjectsInRoom(int room, bool activate) {
         it->setActive(activate);
     }
     for (auto it : waterObjects[room]) {
-        it->setActive(activate);
+        if(it != nullptr) it->setActive(activate);
     }
 
     if (enemies_.size() != 0) {
