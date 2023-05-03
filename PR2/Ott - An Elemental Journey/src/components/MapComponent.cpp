@@ -25,7 +25,8 @@ MapComponent::MapComponent(Entity* fadeOut, PlayState* game, int currentMap) : f
     for (int i = 0; i < ecs::LAST_MAP_ID; ++i) {
         mapKeys.push_back({});
     }
-    currentMapKey = "finalBossMap";
+    currentMapKey = "fireMap";
+    loadFireBoss = false;
     tilemap = &sdlutils().images().at(sdlutils().levels().at(currentMapKey).tileset);
 }
 
@@ -62,6 +63,9 @@ void MapComponent::generateEnemies() {
         if (split[2] == "left") lookingRight = false;
         auto elem = (ecs::elements)std::stoi(split[1]);
         std::string path;
+        if (generateDarkEnemies && sdlutils().rand().nextInt(0, 100) > 50) {
+            elem = ecs::Dark;
+        }
         if (elem == ecs::Earth) {
             path = "earth";
         }
@@ -945,6 +949,7 @@ void MapComponent::loadMap(std::string path, int nextPos) {
         cam->setPos(playerTr_->getPosition());
 
         if(currentMapKey == "earthMap" && loadEarthBoss) mngr_->getEarthBoss()->getComponent<EarthBossManager>()->addPlatforms(platformEarthBoss);
+        generateDarkEnemies = !loadFireBoss;
         generateEnemies();
         activateObjectsInRoom(currentRoom);
         for (auto pl : platforms[currentRoom]) {

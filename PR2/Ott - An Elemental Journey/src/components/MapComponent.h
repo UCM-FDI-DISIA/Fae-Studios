@@ -134,6 +134,7 @@ private:
 	std::string pickedLifeShards = "";
 	bool loadEarthBoss = true, loadWaterBoss = true, loadFireBoss = true;
 	bool loadEarthElem = true, loadWaterElem = true, loadFireElem = true;
+	bool generateDarkEnemies = false;
 
 public:
 	constexpr static ecs::cmpId_type id = ecs::_MAP;
