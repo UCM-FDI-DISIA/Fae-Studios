@@ -939,6 +939,18 @@
 			"cols": 19
 		},
 		{
+			"id": "ataqueCargadoCartel",
+			"file": "../resources/images/carteles/cartelCargadoSheet.png",
+			"rows": 1,
+			"cols": 7
+		},
+		{
+			"id": "fireCartel",
+			"file": "../resources/images/carteles/cartelfirekingdom1-sheet.png",
+			"rows": 1,
+			"cols": 2
+		},
+		{
 			"id": "platform",
 			"file": "../resources/images/tests/Platform.PNG",
 			"rows": 1,

@@ -861,6 +861,18 @@
 			"cols": 19
 		},
 		{
+			"id": "ataqueCargadoCartel",
+			"file": "../Ott - An Elemental Journey/resources/images/carteles/cartelCargadoSheet.png",
+			"rows": 1,
+			"cols": 7
+		},
+		{
+			"id": "fireCartel",
+			"file": "../Ott - An Elemental Journey/resources/images/carteles/cartelfirekingdom1-sheet.png",
+			"rows": 1,
+			"cols": 2
+		},
+		{
 			"id": "water",
 			"file": "../Ott - An Elemental Journey/resources/images/tests/Water.png",
 			"rows": 1,
@@ -899,6 +911,12 @@
 		{
 			"id": "loreText1",
 			"file": "../Ott - An Elemental Journey/resources/images/tests/Lore_1.png",
+			"rows": 12,
+			"cols": 3
+		},
+		{
+			"id": "loreText2",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/Lore_2.png",
 			"rows": 12,
 			"cols": 3
 		},

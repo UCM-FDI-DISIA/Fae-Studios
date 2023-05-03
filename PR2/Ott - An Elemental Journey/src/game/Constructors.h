@@ -388,10 +388,14 @@ namespace constructors {
 		};
 		rock->addComponent<InteractionComponent>(cb, ROCK_IT, ID, room);
 		auto text = mngr_->addEntity(ecs::_grp_UI);
-		
-		text->addComponent<Transform>(posText, width*8, height*1.2);
+		if (name == "loreText1") {
+			text->addComponent<Transform>(posText, width * 8, height * 1.2);
+		}
+		else if (name == "loreText2") {
+			text->addComponent<Transform>(posText, width*7, height);
+		}
 		text->addComponent<FramedImage>(&sdlutils().images().at(name), 3, 12);
-		text->addComponent<LoreTextAnims>(name, anims::LORE_ANIM, text);
+		text->addComponent<LoreTextAnims>("loreText1", anims::LORE_ANIM, text);
 		rock->addComponent<LoreRoom>(text);
 	
 		return rock;
@@ -679,6 +683,12 @@ namespace constructors {
 			}
 			else if (numCartel == "mapaCartel") {
 				type = anims::CARTELMOVIMIENTO;
+			}
+			else if (numCartel == "ataqueCargadoCartel") {
+				type = anims::CARTELATAQUECARGADO;
+			}
+			else if (numCartel == "fireCartel") {
+				type = anims::CARTELFUEGO;
 			}
 			cartelObject->addComponent<FramedImage>(&sdlutils().images().at(numCartel), row, col);
 			cartelObject->addComponent<GeneralAnimationController>(type,cartelObject);
