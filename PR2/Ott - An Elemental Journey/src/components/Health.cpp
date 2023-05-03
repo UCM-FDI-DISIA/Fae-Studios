@@ -53,6 +53,9 @@ void Health::recall(bool rest) {
 				else if (lastSanctuary.mapKey == "waterMap") {
 					map->changeMap(ecs::WATER_MAP, lastSanctuary.mapKey);
 				}
+				else if (lastSanctuary.mapKey == "waterBossMap") {
+					map->changeMap(ecs::WATER_BOSS_MAP, lastSanctuary.mapKey);
+				}
 				else if (lastSanctuary.mapKey == "fireMap") {
 					map->changeMap(ecs::FIRE_MAP, lastSanctuary.mapKey);
 				}

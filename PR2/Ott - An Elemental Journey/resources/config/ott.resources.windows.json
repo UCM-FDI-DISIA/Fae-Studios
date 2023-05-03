@@ -633,6 +633,30 @@
 			"cols": 1
 		},
 		{
+			"id": "10_earth_room",
+			"file": "../resources/images/map_rooms/10_earth_map.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "11_earth_room",
+			"file": "../resources/images/map_rooms/11_earth_map.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "12_earth_room",
+			"file": "../resources/images/map_rooms/12_earth_map.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "13_earth_room",
+			"file": "../resources/images/map_rooms/13_earth_map.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
 			"id": "0_water_room",
 			"file": "../resources/images/map_rooms/0_water_map.png",
 			"rows": 1,
@@ -711,6 +735,96 @@
 			"cols": 1
 		},
 		{
+			"id": "13_water_room",
+			"file": "../resources/images/map_rooms/13_water_map.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "14_water_room",
+			"file": "../resources/images/map_rooms/14_water_map.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "15_water_room",
+			"file": "../resources/images/map_rooms/15_water_map.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "0_fire_room",
+			"file": "../resources/images/map_rooms/0_fire_map.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "1_fire_room",
+			"file": "../resources/images/map_rooms/1_fire_map.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "2_fire_room",
+			"file": "../resources/images/map_rooms/2_fire_map.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "3_fire_room",
+			"file": "../resources/images/map_rooms/3_fire_map.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "4_fire_room",
+			"file": "../resources/images/map_rooms/4_fire_map.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "5_fire_room",
+			"file": "../resources/images/map_rooms/5_fire_map.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "6_fire_room",
+			"file": "../resources/images/map_rooms/6_fire_map.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "7_fire_room",
+			"file": "../resources/images/map_rooms/7_fire_map.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "8_fire_room",
+			"file": "../resources/images/map_rooms/8_fire_map.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "9_fire_room",
+			"file": "../resources/images/map_rooms/9_fire_map.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "10_fire_room",
+			"file": "../resources/images/map_rooms/10_fire_map.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "11_fire_room",
+			"file": "../resources/images/map_rooms/11_fire_map.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
 			"id": "0_water_boss_map",
 			"file": "../resources/images/map_rooms/0_water_boss_map.png",
 			"rows": 1,
@@ -718,7 +832,7 @@
 		},
 		{
 			"id": "mapBG",
-			"file": "../resources/images/map_rooms/mapBg.png",
+			"file": "../resources/images/tests/map.png",
 			"rows": 1,
 			"cols": 1
 		},

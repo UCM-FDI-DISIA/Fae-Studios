@@ -10,15 +10,17 @@ MapState::MapState(PlayState* ps) : GameState(ecs::_state_MAP) {
 	auto ent = mngr_->addEntity(ecs::_grp_GENERAL);
 	ent->addComponent<Transform>(0, 0, window.getX(), window.getY());
 	ent->addComponent<Image>(&(sdlutils().images().at("mapBG")));
-	std::string key = map->getMapKey(ps->getCurrentMap(), i);
-	while (key != " ") {
-		if (ps->isVisited(ps->getCurrentMap(), i)) {
-			auto ent = mngr_->addEntity(ecs::_grp_GENERAL);
-			ent->addComponent<Transform>(0, 0, window.getX(), window.getY());
-			ent->addComponent<Image>(&(sdlutils().images().at(key)));
+	if (ps->getCurrentMap() != ecs::WATER_BOSS_MAP) {
+		std::string key = map->getMapKey(ps->getCurrentMap(), i);
+		while (key != " " && key != "") {
+			if (ps->isVisited(ps->getCurrentMap(), i)) {
+				auto ent = mngr_->addEntity(ecs::_grp_GENERAL);
+				ent->addComponent<Transform>(window.getX() / 8.5, window.getY() / 8, window.getX() - window.getX() / 8.5 * 2, window.getY() - window.getY() / 7 * 2);
+				ent->addComponent<Image>(&(sdlutils().images().at(key)));
+			}
+			++i;
+			key = map->getMapKey(ps->getCurrentMap(), i);
 		}
-		++i;
-		key = map->getMapKey(ps->getCurrentMap(), i);
 	}
 }
 

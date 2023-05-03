@@ -111,21 +111,21 @@ PlayState::PlayState(std::string fileName) : GameState(ecs::_state_PLAY) {
 	while (aux != "_") {
 		bool visited;
 		file >> visited;
-		visitedRooms[ecs::EARTH_MAP].push_back(visited);
+		visitedRooms[ecs::EARTH_MAP][std::stoi(aux)] = visited;
 		file >> aux;
 	}
 	file >> aux >> aux;
 	while (aux != "_") {
 		bool visited;
 		file >> visited;
-		visitedRooms[ecs::WATER_MAP].push_back(visited);
+		visitedRooms[ecs::WATER_MAP][std::stoi(aux)] = visited;
 		file >> aux;
 	}
 	file >> aux >> aux;
 	while (aux != "_") {
 		bool visited;
 		file >> visited;
-		visitedRooms[ecs::FIRE_MAP].push_back(visited);
+		visitedRooms[ecs::FIRE_MAP][std::stoi(aux)] = visited;
 		file >> aux;
 	}
 
