@@ -94,6 +94,14 @@ bool Health::recieveDamage(ecs::elements el, bool dir) {
 		//if() A�adir da�o dependiendo de la entidad
 		int damage = elementsInfo::ottMatrix[el][elem];
 
+        switch (damage){
+            case 2: sdlutils().soundEffects().at("hard_attack").play(0, ecs::_channel_PLAYER); break;
+            case 1: sdlutils().soundEffects().at("hitTaken").play(0, ecs::_channel_PLAYER); break;
+            case 0: sdlutils().soundEffects().at("soft_attack").play(0, ecs::_channel_PLAYER); break;
+            case -1: sdlutils().soundEffects().at("useless_attack").play(0, ecs::_channel_PLAYER); break;
+            default: sdlutils().soundEffects().at("hitTaken").play(0, ecs::_channel_PLAYER); break;
+        }
+
 		if (ent_->getComponent<ShieldComponent>()->hasShield()) damage = ent_->getComponent<ShieldComponent>()->checkDamage(damage, dir);
 		if (damage != -1) {
 			
@@ -107,11 +115,37 @@ bool Health::recieveDamage(ecs::elements el, bool dir) {
 	}
 	else if (ent_->hasComponent<EarthBossAttack>() && bar != nullptr) {
 		int damage = elementsInfo::ottMatrix[el][elem];
+
+        switch (damage){
+            case 2: sdlutils().soundEffects().at("hard_attack").play(0, ecs::_channel_PLAYER); break;
+            case 1: sdlutils().soundEffects().at("hitTaken").play(0, ecs::_channel_PLAYER); break;
+            case 0: sdlutils().soundEffects().at("soft_attack").play(0, ecs::_channel_PLAYER); break;
+            case -1: sdlutils().soundEffects().at("useless_attack").play(0, ecs::_channel_PLAYER); break;
+            default: sdlutils().soundEffects().at("hitTaken").play(0, ecs::_channel_PLAYER); break;
+        }
+
 		actualLife -= (2*damage);
 		bar->damage(damage);
 	}
 	else {
 		if (!dead) {
+            switch(ecs::matrix[el][elem]) {
+                case 4:
+                    sdlutils().soundEffects().at("hard_attack").play(0, ecs::_channel_PLAYER);
+                    break;
+                case 2:
+                    sdlutils().soundEffects().at("hitTaken").play(0, ecs::_channel_PLAYER);
+                    break;
+                case 1:
+                    sdlutils().soundEffects().at("soft_attack").play(0, ecs::_channel_PLAYER);
+                    break;
+                case 0:
+                    sdlutils().soundEffects().at("useless_attack").play(0, ecs::_channel_PLAYER);
+                    break;
+                default:
+                    sdlutils().soundEffects().at("hitTaken").play(0, ecs::_channel_PLAYER);
+                    break;
+            }
 			actualLife -= ecs::matrix[el][elem];
 			if(ent_->hasComponent<EnemyAnimationComponent>()) ent_->getComponent<EnemyAnimationComponent>()->damage(ecs::ottMatrix[el][elem]);
 		}

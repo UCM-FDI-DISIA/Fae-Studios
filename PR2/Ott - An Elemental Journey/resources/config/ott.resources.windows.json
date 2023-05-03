@@ -2323,7 +2323,10 @@
 		{ "id" : "relic_wink", "file" : "../resources/sound/relic_wink.wav"},
 		{ "id" : "shield_block", "file" : "../resources/sound/shield_block.wav"},
 		{ "id" : "shield_broken", "file" : "../resources/sound/shield_broken.wav"},
-		{ "id" : "menemy_dead", "file" : "../resources/sound/bicho_muerte.wav"}
+		{ "id" : "menemy_dead", "file" : "../resources/sound/bicho_muerte.wav"},
+	  	{ "id" : "useless_attack", "file" : "../resources/sound/Ataque_Inutil.mp3"},
+	  	{ "id" : "hard_attack", "file" : "../resources/sound/Ataque_Fuerte.wav"},
+	  	{ "id" : "soft_attack", "file" : "../resources/sound/Ataque_Debil.wav"}
   ],
 
   "musics" : [
