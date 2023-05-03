@@ -48,19 +48,16 @@ void GrowVine::update() {
             else if (!reached && dir < 0 && posY > posIni.getY() || !reached && dir > 0 && posY < posIni.getY()) {
                 reached = true;
                 vManager->setHasVine();
-                //ent_->setAlive(false);
                 ent_->removeComponent<ColliderVine>();
             }
             else if (reached && goesBack && posY != posFinalT.getY()) {
                 tr_->setPosition(Vector2D(posX, posY - ((-1 * dir) * speed)));
                 vManager->setHasVine();
-                ent_->setAlive(false);
        
             }
             else if (reached && posY == posFinalT.getY()) {
                 reached = false; grow = false;
                 vManager->setHasVine();
-                ent_->setAlive(false);
             }
         }
         else {

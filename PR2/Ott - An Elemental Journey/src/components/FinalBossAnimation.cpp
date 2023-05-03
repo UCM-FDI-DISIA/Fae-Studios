@@ -21,6 +21,9 @@ void FinalBossAnimation::initComponent()
 
 void FinalBossAnimation::update()
 {
+	if (alive)
+	{
+
 	std::cout << currentAnimation << std::endl;
 	if (currentAnimation == IDLE_BOSS) 
 	{ 
@@ -66,6 +69,7 @@ void FinalBossAnimation::update()
 		if( SDL_GetTicks()  -moveTimer_> MOVE_TIME) { setState(IDLE_BOSS); }
 	}
 	
+	}
 }
 
 void FinalBossAnimation::setState(int newState)
@@ -80,8 +84,8 @@ void FinalBossAnimation::setState(int newState)
 void FinalBossAnimation::endAnim()
 {
 	if (currentAnimation == DIE_BOSS) {
-		ent_->getComponent<Health>()->die();
 		ent_->setAlive(false);
+		alive = false;
 	}
 	else if (currentAnimation == IDLE_BOSS) setState(IDLE_BOSS2);
 	else if (currentAnimation == DAMAGE_BOSS)setState(STUN_BOSS);

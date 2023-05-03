@@ -403,6 +403,7 @@ void PlayState::update() {
 	checkInteraction();
 	checkCollisions({ player_ });
 	checkCollisions(enemies[map_->getCurrentRoom()]);	
+	checkBubblesCollisions();
 	GameState::update();
 
     if(!isScreenDarkened && player_->getComponent<Health>()->getHealth() == 1) {

@@ -104,8 +104,7 @@ public:
     /// Llama al update de todos los componentes de una entidad
     inline void update() {
         if (active_) {
-            auto n = currCmps_.size();
-            for (auto i = 0u; i < n; i++)
+            for (auto i = 0u; i < currCmps_.size(); i++)
                 currCmps_[i]->update();
         }
     }
