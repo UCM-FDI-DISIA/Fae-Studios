@@ -449,7 +449,7 @@
 		{
 			"id": "waterSlime",
 			"file": "../resources/images/sprites/WaterSlime.png",
-			"rows": 2,
+			"rows": 13,
 			"cols": 21
 		},
 		{
