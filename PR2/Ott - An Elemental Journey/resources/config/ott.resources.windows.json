@@ -2276,6 +2276,12 @@
 			"file": "../resources/images/cinematic/frame (224).jpg",
 			"rows": 1,
 			"cols": 1
+		},
+		{
+			"id": "LowFade",
+			"file": "../resources/images/ui/LowLifeFade.png",
+			"rows": 1,
+			"cols": 1
 		}
 
 	],

@@ -952,6 +952,7 @@ CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/states/PlayState.cpp.o: \
   /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/states/../components/WaterAnimationController.h \
   /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/states/../components/AttackCharger.h \
   /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/states/../components/ShieldComponent.h \
+  /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/states/../components/../ecs/../game/../components/ShieldAnimationComponent.h \
   /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/states/../components/../ecs/../game/../components/LampAnimationComponent.h \
   /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/states/../components/../ecs/../game/../components/GrassAnimationComponent.h \
   /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/states/../components/../ecs/../game/../components/Slider.h \
@@ -1011,6 +1012,7 @@ CMakeFiles/Ott.dir/Ott_-_An_Elemental_Journey/src/states/PlayState.cpp.o: \
   /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/states/../components/../ecs/../game/../components/PlatformMovementX.h \
   /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/states/../components/../ecs/../game/../components/FireBossRoom.h \
   /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/states/../components/../ecs/../game/../components/LifeShardFeedbackComponent.h \
+  /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/states/../components/../ecs/../game/../components/BossHealthBar.h \
   /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/states/../components/SlimeStates.h \
   /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/states/../components/Pivot.h \
   /Users/almasso/Documents/GitHub/Fae-Studios/PR2/Ott\ -\ An\ Elemental\ Journey/src/states/../components/EnemyContactDamage.h \

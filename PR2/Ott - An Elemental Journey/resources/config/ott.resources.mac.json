@@ -859,6 +859,12 @@
 			"file": "../Ott - An Elemental Journey/resources/images/tests/spikeBall.png",
 			"rows": 1,
 			"cols": 1
+		},
+		{
+			"id": "LowFade",
+			"file": "../Ott - An Elemental Journey/resources/images/ui/LowLifeFade.png",
+			"rows": 1,
+			"cols": 1
 		}
 	],
   "messages" : [],
