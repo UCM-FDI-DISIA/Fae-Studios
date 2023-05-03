@@ -119,6 +119,7 @@ namespace ecs {
         _state_MENU, ///< Menú
         _state_PLAY, ///< Estado de juego
         _state_MAP, ///< Estado de juego
+        _state_CREDITS, ///< Créditos finales
 
         _LAST_STATE_ID
     };
