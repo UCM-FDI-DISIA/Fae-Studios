@@ -61,7 +61,7 @@ public:
 
     Entity* getEarthBoss() { return earthBoss_; }
     void setEarthBoss(Entity* e) { earthBoss_ = e; }
-
+    
     inline void setDelete() { deleted = true; }
 
     inline bool isDeleted() { return deleted; }

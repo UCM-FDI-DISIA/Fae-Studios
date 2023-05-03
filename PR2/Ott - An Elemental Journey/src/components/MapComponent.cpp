@@ -330,6 +330,9 @@ void MapComponent::loadMap(std::string path, int nextPos) {
                 else if (name == "EnredaderasBossFinal") {
                     vectorObjects[SPIKE_VECTOR_POS] = objects;
                 }
+                else if (name == "PuntosDebiles") {
+                    vectorObjects[WEAK_SPOT_VECTOR_POS] = objects;
+                }
                 else if (name == "bossFinal") {
                     vectorObjects[FINALBOSS_VECTOR_POS] = objects;
                 }
@@ -424,6 +427,18 @@ void MapComponent::loadMap(std::string path, int nextPos) {
 
             bossSpikePos.push_back(rect);
         }
+        // PUNTOS DEBILES SALA FINAL BOSS
+        for (auto obj : vectorObjects[WEAK_SPOT_VECTOR_POS]) {
+            SDL_Rect rect = getSDLRect(obj.getAABB());
+
+            auto roomScale = vectorTiles[std::stoi(obj.getName())].first;
+            rect.x *= roomScale;
+            rect.y *= roomScale;
+            rect.w *= roomScale;
+            rect.h *= roomScale;
+
+            bossWeakSpotsPos.push_back(rect);
+        }
         // BOSS SALA FINAL BOSS
         for (auto obj : vectorObjects[FINALBOSS_VECTOR_POS]) {
             SDL_Rect rect = getSDLRect(obj.getAABB());
@@ -434,7 +449,7 @@ void MapComponent::loadMap(std::string path, int nextPos) {
             rect.w *= roomScale;
             rect.h *= roomScale;
 
-            constructors::boss(mngr_, this, rect.x, rect.y, rect.w, rect.h);
+            mngr_->getPlayer()->getComponent<PlayerAttack>()->setFinalBoss(constructors::boss(mngr_, this, rect.x, rect.y, rect.w, rect.h));
         }
 
         for (auto obj : vectorObjects[WATER_VECTOR_POS]) {

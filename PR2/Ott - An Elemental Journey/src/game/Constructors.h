@@ -274,8 +274,8 @@ namespace constructors {
 		///*auto health = */ b->addComponent<Health>(5, ecs::Light, true); //health->initComponent();
 
 		auto healthBar = mngr_->addEntity(ecs::_grp_UI);
-		healthBar->addComponent<BossHealthBar>(4, &sdlutils().images().at("bossHealthBar"), &sdlutils().images().at("bossLife"));
-		b->addComponent<Health>(healthBar->getComponent<BossHealthBar>(), 5, ecs::Light, true);
+		healthBar->addComponent<BossHealthBar>(b, 4, &sdlutils().images().at("bossHealthBar"), &sdlutils().images().at("bossLife"));
+		b->addComponent<Health>(healthBar->getComponent<BossHealthBar>(), 10, ecs::Dark, false);
 		b->addComponent<FinalBossBehaviorComponent>(map_);
 		b->addComponent<FinalBossAnimation>(anims::FINALBOSS);
 		return b;

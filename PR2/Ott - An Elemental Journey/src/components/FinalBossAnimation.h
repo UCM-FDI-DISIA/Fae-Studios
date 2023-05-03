@@ -16,7 +16,7 @@ public:
 	constexpr static ecs::cmpId_type id = ecs::_FINAL_BOSS_ANIMATION;
 
 	FinalBossAnimation(anims::Entities e) : eAnims(e) {};
-	virtual ~FinalBossAnimation();
+	//virtual ~FinalBossAnimation();
 	void initComponent();
 	virtual void update();
 	inline int getState() { return currentAnimation; }
@@ -28,7 +28,7 @@ public:
 	inline int getColNum(int i) { return anims::animations[eAnims][i].colNum; }
 	inline bool isDamaged() { return damaged; }
 	inline void damage() { damaged = true; }
-	inline void setPosInList(int pos, int room) { posInList = pos; roomNum = room; }
+	//inline void setPosInList(int pos, int room) { posInList = pos; roomNum = room; }
 
 private:
 	bool damaged = false;
@@ -39,7 +39,7 @@ private:
 	
 
 	Entity* map;//fa falta per recarga de cambres?
-	int posInList, roomNum;
+	//int posInList, roomNum;
 
 	int timer_ = 0;
 	int moveTimer_ = 0,MOVE_TIME;

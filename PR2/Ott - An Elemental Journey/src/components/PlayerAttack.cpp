@@ -376,7 +376,21 @@ bool PlayerAttack::attackEnemy(SDL_Rect& attackZone) {
 	bool attack = false;
 	auto miniboss = mngr_->getEntities(ecs::_grp_MINIBOSS);
 	auto enemiesGrp = mngr_->getEntities(ecs::_grp_CHARACTERS);
+	auto collidersFinalBossGrp = mngr_->getEntities(ecs::_grp_FINAL_BOSS_COLLIDERS);
+	
+	for (auto m : collidersFinalBossGrp) {
+		SDL_Rect rect = m->getComponent<Transform>()->getRect();
 
+		// Si enemigo y ataque interseccionan
+		SDL_Rect result;
+		if (SDL_IntersectRect(&rect, &attackZone, &result)) {
+			std::cout << "au" << std::endl;
+			attack = true;
+			// Hace da�o a enemigo dependiendo del elemento
+			finalBoss_->getComponent<Health>()->recieveDamage(health_->getElement(), true);
+			break;
+		}
+	}
 	for (auto m : miniboss) {
 		SDL_Rect rect = m->getComponent<Transform>()->getRect();
 

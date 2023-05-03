@@ -21,9 +21,9 @@ void DamageArea::update()
 			Bullet* b = f->getComponent<Bullet>();
 			if (b!= nullptr && SDL_HasIntersection(&r3, &dArea) && b->getInstigator()->hasComponent<PlayerInput>())
 			{
-				if (bossBehaComp_ == nullptr)ent_->setActive(false);
+				if (bossBehaComp_ == nullptr)ent_->setAlive(false);
 				else bossBehaComp_->deleteSpikeFromVec(ent_);
-				f->setActive(false);
+				f->setAlive(false);
 			}
 		}
 	}

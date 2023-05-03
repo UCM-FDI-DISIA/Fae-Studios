@@ -66,7 +66,8 @@ public:
 	{
 		if (actualLife < maxLife)
 		{
-			actualLife++;
+			actualLife += 2;
+			if (bar != nullptr) bar->cure();
 		}
 	}
 	virtual void saveToFile(std::ofstream& file);

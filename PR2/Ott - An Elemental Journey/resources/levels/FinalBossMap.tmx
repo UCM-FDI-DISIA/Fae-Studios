@@ -56,7 +56,7 @@
   <object id="19" name="0" type="Ground" x="1018" y="78" width="34" height="268"/>
   <object id="20" name="0" type="Ground" x="6" y="-2" width="1046" height="80"/>
  </objectgroup>
- <objectgroup id="12" name="PuntosDébiles">
+ <objectgroup id="12" name="PuntosDebiles">
   <object id="42" name="0" type="WeakSpot" x="482" y="255" width="127" height="143"/>
   <object id="43" name="0" type="WeakSpot" x="504" y="443" width="84" height="74"/>
  </objectgroup>
