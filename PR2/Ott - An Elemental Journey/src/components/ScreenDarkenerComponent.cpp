@@ -4,7 +4,7 @@
 void ScreenDarkenerComponent::render() {
     SDL_Rect tmp;
     tmp = {0, 0, sdlutils().width(), sdlutils().height()};
-
+    img->render(tmp);
 }
 
 void ScreenDarkenerComponent::initComponent() {
