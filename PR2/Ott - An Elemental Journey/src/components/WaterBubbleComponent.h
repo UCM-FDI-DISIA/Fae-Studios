@@ -21,5 +21,5 @@ private:
 	FinalBossBehaviorComponent* bossBehaComp_;
 	Entity* player;
 	Transform* tr_;
-	int timeBetweenShots = 2500, lastTimeShot = 0, lifeTime = 5000, spawnTime;
+	int timeBetweenShots = 3000, lastTimeShot = 0, lifeTime = 7000, spawnTime;
 };

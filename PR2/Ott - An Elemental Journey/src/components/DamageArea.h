@@ -25,7 +25,7 @@ private:
 	FinalBossBehaviorComponent* bossBehaComp_;
 	ecs::elements element;
 	bool lava;
-	int lifeTime = 5000,
+	int lifeTime = 10000,
 		spawnTime;
 
 };

@@ -10,7 +10,7 @@
 #include "DamageArea.h"
 FinalBossBehaviorComponent::FinalBossBehaviorComponent(MapComponent* map) :Component()
 {
-	currentElement = rand() % 6;
+	currentElement = rand() % 5;
 	lastElem = currentElement;
 	bossTransform = nullptr; bossHealth = nullptr;
 	map_ = map;
@@ -56,28 +56,40 @@ void FinalBossBehaviorComponent::update()
 			
 		}
 		//Temporizador de ataque (ataca cada 5 segundos)
-		else if (SDL_GetTicks() > timeBetweenAttacks) {
+		else if (SDL_GetTicks() > timeBetweenAttacks ) {
 			// Actualizamos 5 seg más
 			timeBetweenAttacks +=ATTACK_TIME;
 			//Switch de los diferentes ataques del boss
-			switch (currentElement)
-			{
-			case 0: std::cout << "Ataque tierra boss final" << std::endl; spawnSpikes(); bossAnim->setState(HEALTH_BOSS); break;
-			
-			case 1: std::cout << "Ataque agua boss final" << std::endl; spawnBubbles(); break;
-			case 2: std::cout << "Ataque fuego boss final" << std::endl; spawnFireWall(); break;
-			case 3: std::cout << "Ataque oscuridad boss final" << std::endl; spawnBlackHole();break;
-			case 4: std::cout << "Ataque puno boss final" << std::endl; spawnFist(); break;
-			case 5: std::cout << "Ataque punoTop boss final" << std::endl; spawnFistTop(); break;
-			default: std::cout << "Ataque generico boss final" << std::endl; spawnFist(); break;
 
+			if (numAttacks < 5) {
+
+				switch (currentElement)
+				{			
+				case 0: std::cout << "Ataque punoTop boss final" << std::endl; spawnFistTop(); break;
+				case 1: std::cout << "Ataque agua boss final" << std::endl; spawnBubbles(); break;
+				case 2: std::cout << "Ataque fuego boss final" << std::endl; spawnFireWall(); break;
+				case 3: std::cout << "Ataque oscuridad boss final" << std::endl; spawnBlackHole();break;
+				case 4: std::cout << "Ataque puno boss final" << std::endl; spawnFist(); break;
+				default: std::cout << "Ataque generico boss final" << std::endl; spawnFist(); break;
+
+				}
+				numAttacks++;
+
+				//Cambia de elemento aleatoriamente
+				lastElem = currentElement;
+				do {
+					srand((unsigned)time(NULL));
+					currentElement = rand() % 5;
+				} while (lastElem == currentElement);
 			}
-			//Cambia de elemento aleatoriamente
-			lastElem = currentElement;
-			do {
-				srand((unsigned)time(NULL));
-				currentElement = rand() % 6;
-			} while (lastElem == currentElement);
+			else {
+
+				timeBetweenAttacks += ATTACK_TIME + STUNNED_TIME;
+				numAttacks = 0;
+				std::cout << "Ataque tierra boss final" << std::endl; 
+				spawnSpikes(); 
+				bossAnim->setState(HEALTH_BOSS); 
+			}
 
 		}
 	}
@@ -189,7 +201,6 @@ void FinalBossBehaviorComponent::spawnSpikes() {
 		spikes[i]->addComponent<Image>(&sdlutils().images().at("hangingSpike"));
 		spikes[i]->addComponent<DamageArea>(ecs::Earth, false, this);
 	}
-	timeCure = SDL_GetTicks() + CURE_TIME;
 
 }
 void FinalBossBehaviorComponent::deleteSpikes() {

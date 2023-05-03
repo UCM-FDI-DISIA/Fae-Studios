@@ -5,8 +5,8 @@
 class Health;
 
 const int ATTACK_TIME = 5000;
-const int STUNNED_TIME = 3000;
-const int CURE_TIME = 1000;
+const int STUNNED_TIME = 5000;
+const int CURE_TIME = 3000;
 class FinalBossBehaviorComponent : public Component
 {
 public:
@@ -43,6 +43,8 @@ private:
 	int FIREWALL_HEIGHT = 400, FIREWALL_WIDTH = 90;
 	int FIST_SIZE = 250;
 	int lastElem;
+
+	int numAttacks = 0;
 	bool stunned, isWeakPoints;
 	std::vector<Entity*> blackHoles;
 	std::vector<Entity*> bubbles;
