@@ -112,9 +112,9 @@ bool Health::recieveDamage(ecs::elements el, bool dir) {
 			if (damage == 0) {
 				if (image->setWeak()) damage = 1;
 			}
-			else pAnim_->playerDamaged();
 			actualLife -= damage;
 			image->damage(damage);
+			pAnim_->playerDamaged();
 		}
 	}
 	else if ((ent_->hasComponent<EarthBossAttack>() || ent_->hasComponent<FinalBossBehaviorComponent>()) && bar != nullptr) {
