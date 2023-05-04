@@ -37,16 +37,48 @@ body {
     box-shadow: 0 3px 10px rgba(0,0,0,0.2);
 }
 hr {
-    overflow: visible; /* For IE */
-    padding: 0;
-    border: none;
-    border-top: medium double #333;
-    color: #000000;
-    text-align: center;
+    font-family: Arial, sans-serif; /* choose the font you like */
+    text-align: center; /* horizontal centering */
+    line-height: 1px; /* vertical centering */
+    height: 1px; /* gap between the lines */
+    font-size: 1em; /* choose font size you like */
+    border-width: 1px 0; /* top and bottom borders */
+    border-style: solid;
+    border-color: #676767;
+    margin: 20px 10px; /* 20px space above/below, 10px left/right */
+    overflow: visible;
+  
+    /* ensure 1px gap between borders */
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    -ms-box-sizing: content-box;
+    -o-box-sizing: content-box;
+    box-sizing: content-box;
 }
 hr#planta:after {
     content: url("../images/ElementoTierra-1.png");
-    position: relative;
-    top: -1.4em;
-    font-size: 1.5em;
+    display: block;
+    margin: auto; /* Center the image horizontally */
+    width: 50%; /* Set a width to the image */
+    height: auto; /* Set height to auto to preserve aspect ratio */
+    position: relative; /* Set position to relative for vertical centering */
+    top: 50%; /* Move the image down by 50% of its height */
+    transform: translateY(-50%); /* Move the image up by 50% of its height */
+    text-align: center;
+    padding: 0;
 }
+hr#agua:after {
+    content: url("../images/ElementoAgua-1.png");
+    display: block;
+    margin: auto; /* Center the image horizontally */
+    width: 50%; /* Set a width to the image */
+    height: auto; /* Set height to auto to preserve aspect ratio */
+    position: relative; /* Set position to relative for vertical centering */
+    top: 50%; /* Move the image down by 50% of its height */
+    transform: translateY(-50%); /* Move the image up by 50% of its height */
+    text-align: center;
+    padding: 0;
+}
+x:-o-prefocus, hr:after {
+    content: "";
+  }
