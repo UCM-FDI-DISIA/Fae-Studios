@@ -75,6 +75,8 @@ public:
 		sdlutils().soundEffects().at("shield_broken").play(0, ecs::_channel_PLAYER);
 		stunned = true; timerStunned = SDL_GetTicks();
 	}
+	inline bool isLight() { return selectedLight; }
+	inline void setBoolAttack(bool attack) { bossAttack = attack; }
 	void finishedLookingDown();
 private:
 	Transform* tr_;
@@ -97,6 +99,8 @@ private:
 	bool stopped = false;
 	bool lookingdown = false;
 	bool doingMeterAnim = false;
+
+	bool bossAttack = false;
 };
 
 

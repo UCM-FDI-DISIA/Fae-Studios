@@ -99,10 +99,10 @@ namespace ecs {
         _grp_BUBBLE,
         _grp_BLACKHOLE,
         _grp_FINAL_BOSS_SPIKES,
-        _grp_BOSS_FIST,
         _grp_MAP,
         _grp_TRIGGER,
         _grp_PLATFORMS,
+        _grp_BOSS_FIST,
         _grp_UI, ///< Elementos de la interfaz gráfica
         _grp_FADEOUT,
         _grp_BOSSCARTEL,
@@ -120,6 +120,7 @@ namespace ecs {
         _state_MENU, ///< Menú
         _state_PLAY, ///< Estado de juego
         _state_MAP, ///< Estado de juego
+        _state_CREDITS, ///< Créditos finales
 
         _LAST_STATE_ID
     };
