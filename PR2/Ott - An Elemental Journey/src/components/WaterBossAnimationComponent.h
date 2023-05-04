@@ -7,7 +7,7 @@
 #include "FramedImage.h"
 // LIMPIO
 
-enum WaterBossAnims { IDLE_WATERBOSS };
+enum WaterBossAnims { IDLE_WATERBOSS, DIE_WATERBOSS, ATTACK_WATERBOSS, PREPARE_ATTACK_WATERBOSS, WALK_WATERBOSS, AFTER_ATTACK_WATERBOSS };
 
 class Health;
 class FramedImage;

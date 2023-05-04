@@ -10,6 +10,11 @@
 // LIMPIO
 
 void WaterBossAnimationComponent::setState(int newState) {
+	if (!health_->isDead() && currentAnimation != DIE_WATERBOSS) {
+		currentAnimation = newState;
+		timer_ = 0;
+		image->setCol(getColNum(currentAnimation));
+	}
 }
 
 
@@ -20,7 +25,7 @@ void WaterBossAnimationComponent::initComponent() {
 }
 
 void WaterBossAnimationComponent::update() {
-	int state = IDLE_WATERBOSS;
+	int state = currentAnimation;
 	timer_++;
 
 	int col = image->getCurrentCol();
@@ -36,6 +41,13 @@ void WaterBossAnimationComponent::update() {
 }
 
 void WaterBossAnimationComponent::endAnim() {
+	if (currentAnimation == PREPARE_ATTACK_WATERBOSS)
+	{
+	}
+	else if (currentAnimation == ATTACK_WATERBOSS && ent_->hasComponent<Generations>()) setState(AFTER_ATTACK_WATERBOSS);
+	else if (currentAnimation != DIE_WATERBOSS || currentAnimation == ATTACK) setState(IDLE_WATERBOSS);
+	else ent_->setAlive(false);
+	timer_ = 0;
 	timer_ = 0;
 	currentAnimation = IDLE_WATERBOSS;
 }

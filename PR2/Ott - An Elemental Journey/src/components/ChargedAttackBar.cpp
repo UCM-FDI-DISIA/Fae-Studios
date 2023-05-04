@@ -10,6 +10,7 @@ void ChargedAttackBar::render() {
 }
 
 void ChargedAttackBar::update() {
+	charges_ = 8;
 	if (charges_ < 8) {
 		count_ = 1;
 		frame_ = charges_;

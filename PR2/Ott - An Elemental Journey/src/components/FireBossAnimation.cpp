@@ -24,7 +24,6 @@ void FireBossAnimation::update()
 	if ((timer_ > (getTPerFrame(state) * getNFrames(state)) + 1)) {// si el timer ha superado al tiempo de cada frame * los frames 
 		endAnim();													// que tiene la animación actual, se llama a endAnim();
 	}
-
 }
 
 FireBossAnimation::~FireBossAnimation() { if (!ent_->isAlive())static_cast<PlayState*>(GameStateMachine::instance()->currentState())->eraseEnemy(posInList, roomNum); };

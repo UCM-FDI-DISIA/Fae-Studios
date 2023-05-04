@@ -51,7 +51,10 @@ void FireBossRoom::update()
 			currentAnim = DIE_MINION;
 			col = anims::animations[eAnims][currentAnim].colNum;
 			startTime = SDL_GetTicks();
-			camera->getComponent<CameraComponent>()->cameraShake(true);
+			auto pos = camera->getComponent<Transform>()->getPosition();
+			auto cam = camera->getComponent<CameraComponent>();
+			// cam->setPos(Vector2D(0, 150) + pos);
+			cam->cameraShake(true);
 			auto mTr = minion->getComponent<Transform>();
 			mngr_->getFireBoss()->getComponent<FireBossComponent>()->activateBoss();
 			entered = true;

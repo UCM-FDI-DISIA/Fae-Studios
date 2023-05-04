@@ -14,7 +14,6 @@ public:
 			currentCharge = maxCharge;
 		}
 		else currentCharge += n;
-
         chargedBar_->addCharge(n);
 	}
     inline void resetCharges() {

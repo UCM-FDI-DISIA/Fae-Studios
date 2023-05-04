@@ -31,4 +31,3 @@ private:
 	SDL_Rect posBar = {0, 0, 0, 0};
 	SDL_Rect posLife = { 0, 0, 0, 0 };
 };
-

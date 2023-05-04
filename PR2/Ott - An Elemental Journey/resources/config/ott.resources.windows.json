@@ -1149,7 +1149,7 @@
 			"cols": 3
 		},
 		{
-			"id": "hanging_spike",
+			"id": "hangingSpike",
 			"file": "../resources/images/tests/Hanging_Spike.png",
 			"rows": 1,
 			"cols": 1

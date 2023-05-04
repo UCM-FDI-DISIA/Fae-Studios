@@ -30,7 +30,7 @@ std::vector<anims::animDescription> anims::slime_anims{ {300,4,0,0}, {150,4,0,17
 //FIRE BOSS
 std::vector<anims::animDescription> anims::fireboss_anims{ {200,4, 3,0}, {100,12, 2,0},{150,8,0,5}, {200,13,1,0} };
 // WATER BOSS
-std::vector<anims::animDescription> anims::waterBoss_anims{ {300,6,0,0} };
+std::vector<anims::animDescription> anims::waterBoss_anims{ {100,6,0,0},{100,6,0,0},{100,6,0,0},{100,6,0,0},{100,6,0,0},{100,6,0,0} };
 std::vector<anims::animDescription> anims::earth_attack{ {50,7,0,0}, {50,7,0,6} };
 //MINI BOSS TIERRA
 std::vector<anims::animDescription> anims::earthBossPresent_anims{ {100, 8, 0, 0} };
