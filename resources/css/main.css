@@ -93,4 +93,7 @@ hr#fuego:after {
 }
 x:-o-prefocus, hr:after {
     content: "";
-  }
+}
+.enlaces:visited, .enlaces:active, .enlaces:hover, .enlaces {
+    color:inherit;
+}
