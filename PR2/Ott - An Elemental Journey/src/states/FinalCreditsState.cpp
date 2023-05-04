@@ -9,8 +9,8 @@
 
 void FinalCreditsState::createNextName()
 {
-	Entity* n = mngr_->addEntity(ecs::_grp_UI);
-	auto txt = n->addComponent<TextComponent>(names.top(), sdlutils().fonts().at("press_start16"), white, transparent);
+	lastName = mngr_->addEntity(ecs::_grp_UI);
+	auto txt = lastName->addComponent<TextComponent>(names.top(), sdlutils().fonts().at("press_start16"), white, transparent);
 	Vector2D pos = Vector2D((sdlutils().width() / 2) - (txt->getWidth() / 2), -txt->getHeight());
 	txt->setPosition(pos);
 	names.pop();
@@ -19,7 +19,6 @@ void FinalCreditsState::createNextName()
 void FinalCreditsState::namesManager()
 {
 	for (Entity* t : mngr_->getEntities(ecs::_grp_UI)) {
-		if (t->isAlive()) {
 			TextComponent* txt = t->getComponent<TextComponent>();
 			if (t != endText && txt->getPosition().getY() >= sdlutils().height())
 				t->setAlive(false);
@@ -34,16 +33,13 @@ void FinalCreditsState::namesManager()
 						aux = n->addComponent<TextComponent>("Presiona Start para salir al menú principal", sdlutils().fonts().at("press_start16"), white, transparent);
 					else
 						aux = n->addComponent<TextComponent>("Presiona Espacio para salir al menú principal", sdlutils().fonts().at("press_start16"), white, transparent);
-					Vector2D pos = Vector2D((sdlutils().width() / 2) - (aux->getWidth() / 2), -aux->getHeight());
+					Vector2D pos = Vector2D(0, 0);
 					aux->setPosition(pos);
 				}
 			}
+
 			Vector2D pos = Vector2D(txt->getPosition() + speed);
 			txt->setPosition(pos);
-			if (end && t != endText) {
-				Vector2D aux = Vector2D(txt->getPosition() + Vector2D(0, 1));
-			}
-		}
 	}
 }
 
@@ -64,23 +60,24 @@ FinalCreditsState::FinalCreditsState() : GameState(ecs::_state_CREDITS)
 	timer = SDL_GetTicks() + NEXT_NAME;
 	endText = nullptr;
 	speed = Vector2D(0, 1);
+	createNextName();
 }
 
 void FinalCreditsState::update()
 {
 	GameState::update();
-	if (names.size() > 0 && SDL_GetTicks() > timer) {
+	if (names.size() > 0 && /*SDL_GetTicks() > timer*/ lastName->getComponent<TextComponent>()->getPosition().getY() >= sdlutils().height() / 4) {
 		createNextName();
 		timer = SDL_GetTicks() + NEXT_NAME;
 	}
-	else if (endText == nullptr && names.size() == 0 && SDL_GetTicks() > timer) {
+	else if (endText == nullptr && names.size() == 0 && /*SDL_GetTicks() > timer*/lastName->getComponent<TextComponent>()->getPosition().getY() >= sdlutils().height()) {
 		endText = mngr_->addEntity(ecs::_grp_UI);
 		auto txt = endText->addComponent<TextComponent>("GRACIAS POR JUGAR!", sdlutils().fonts().at("press_start16"), white, transparent);
 		Vector2D pos = Vector2D((sdlutils().width() / 2) - (txt->getWidth() / 2), -txt->getHeight());
 		txt->setPosition(pos);
 	}
-
-	namesManager();
+	if(!end)
+		namesManager();
 }
 
 void FinalCreditsState::handleInput()

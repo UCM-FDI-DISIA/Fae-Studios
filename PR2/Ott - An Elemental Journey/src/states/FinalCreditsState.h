@@ -11,6 +11,7 @@ private:
 	std::stack<std::string> names;
 	int timer;
 	Entity* endText;
+	Entity* lastName;
 	bool end = false;
 	Vector2D speed;
 
