@@ -742,7 +742,7 @@ void MapComponent::loadMap(std::string path, int nextPos) {
             else if (ot.getClass() == "HangingSpike") {
                 auto roomScale = vectorTiles[std::stoi(ot.getName())].first;
                 auto newSpike = constructors::damageArea(mngr_,
-                    "hangingspike", ecs::Earth, (x_ * scale) * roomScale,
+                    "hangingSpike", ecs::Earth, (x_ * scale) * roomScale,
                     ((y_ * scale - sdlutils().images().at("hangingSpike").height()) + h_ * scale) * roomScale,
                     w_ * scale * roomScale,
                     h_ * scale * roomScale,
