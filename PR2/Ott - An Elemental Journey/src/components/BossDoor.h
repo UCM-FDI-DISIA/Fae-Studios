@@ -9,6 +9,7 @@ private:
 	bool earth = false;
 	bool water = false;
 	bool fire = false;
+
 	bool open = false;
 
 public:
@@ -17,6 +18,7 @@ public:
 	~BossDoor() {}
 	void initComponent() override;
 	void unlockElem(ecs::elements elem);
+	bool isDoorOpened() { return open;}
 };
 
 
