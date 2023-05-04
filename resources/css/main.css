@@ -2,6 +2,7 @@ body::-webkit-scrollbar {
     display: none;
 }
 body {
+    background-color:rgba(255,255,255,1);
   -ms-overflow-style: none;
   scrollbar-width: none;  
 }
@@ -34,4 +35,18 @@ body {
 .navbar-scrolled {
     background-color:rgba(255,255,255,1) !important;
     box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+}
+hr {
+    overflow: visible; /* For IE */
+    padding: 0;
+    border: none;
+    border-top: medium double #333;
+    color: #000000;
+    text-align: center;
+}
+hr#planta:after {
+    content: url("../images/ElementoTierra-1.png");
+    position: relative;
+    top: -1.4em;
+    font-size: 1.5em;
 }
