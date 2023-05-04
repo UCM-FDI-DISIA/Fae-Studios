@@ -24,6 +24,7 @@ private:
     Entity* fireBoss_ = nullptr;
     Entity* fireBossRoom_ = nullptr;
     Entity* map_ = nullptr;
+    Entity* bossDoor = nullptr;
 
 public:
     /// Constructora de la clase Manager
@@ -73,6 +74,9 @@ public:
 
     Entity* getFireBossRoom() { return fireBossRoom_; }
     void setFireBossRoom(Entity* e) { fireBossRoom_ = e; }
+
+    Entity* getBossDoor() { return bossDoor; }
+    void setBossDoor(Entity* e) { bossDoor = e; }
 
     inline void setDelete() { deleted = true; }
 

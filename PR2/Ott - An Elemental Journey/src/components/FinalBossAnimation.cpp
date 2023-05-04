@@ -24,50 +24,49 @@ void FinalBossAnimation::update()
 	if (alive)
 	{
 
-	std::cout << currentAnimation << std::endl;
-	if (currentAnimation == IDLE_BOSS) 
-	{ 
-		int state = currentAnimation;
-		int c = (timer_ / getTPerFrame(state)) % getNFrames(state) + getColNum(state);
-		timer_++;
-		col = c % 14;
-		if (col==0)
-		{
-			row = (c / 14);
-		}
-		image->setRow(row); image->setCol(col); 
-		if ((timer_ > (getTPerFrame(state) * getNFrames(state)) + 1)) {
-			endAnim(); row = getRowNum(IDLE_BOSS);
-		}
-		//std::cout << col << " " << row << std::endl;
-	}
-	else
-	{
-		int state = currentAnimation;
-
-		if(state==DAMAGE_BOSS) 
-		{
-			image->setCol(getColNum(currentAnimation));
-			image->setRow(getRowNum(currentAnimation));
+		if (currentAnimation == IDLE_BOSS) 
+		{ 
+			int state = currentAnimation;
+			int c = (timer_ / getTPerFrame(state)) % getNFrames(state) + getColNum(state);
+			timer_++;
+			col = c % 14;
+			if (col==0)
+			{
+				row = (c / 14);
+			}
+			image->setRow(row); image->setCol(col); 
+			if ((timer_ > (getTPerFrame(state) * getNFrames(state)) + 1)) {
+				endAnim(); row = getRowNum(IDLE_BOSS);
+			}
+			//std::cout << col << " " << row << std::endl;
 		}
 		else
 		{
-			int col = (timer_ / getTPerFrame(state)) % getNFrames(state) + getColNum(state);
-			int c = getColNum(currentAnimation);
-			image->setCol(col);
-			image->setRow(getRowNum(state));
-		}
-		timer_++;
+			int state = currentAnimation;
+
+			if(state==DAMAGE_BOSS) 
+			{
+				image->setCol(getColNum(currentAnimation));
+				image->setRow(getRowNum(currentAnimation));
+			}
+			else
+			{
+				int col = (timer_ / getTPerFrame(state)) % getNFrames(state) + getColNum(state);
+				int c = getColNum(currentAnimation);
+				image->setCol(col);
+				image->setRow(getRowNum(state));
+			}
+			timer_++;
 	
-		if ((timer_ > (getTPerFrame(state) * getNFrames(state)) + 1)) {
-			endAnim();													
+			if ((timer_ > (getTPerFrame(state) * getNFrames(state)) + 1)) {
+				endAnim();													
+			}
 		}
-	}
 	
-	if (currentAnimation==IDLE_BOSS2)
-	{
-		if( SDL_GetTicks()  -moveTimer_> MOVE_TIME) { setState(IDLE_BOSS); }
-	}
+		if (currentAnimation==IDLE_BOSS2)
+		{
+			if( SDL_GetTicks()  -moveTimer_> MOVE_TIME) { setState(IDLE_BOSS); }
+		}
 	
 	}
 }

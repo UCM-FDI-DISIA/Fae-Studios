@@ -73,6 +73,7 @@ namespace ecs {
         _FLIP,
         _FINAL_BOSS_ANIMATION,
         _BUBBLE_POP,
+        _BOSS_DOOR,
 
         _LAST_CMP_ID
     };

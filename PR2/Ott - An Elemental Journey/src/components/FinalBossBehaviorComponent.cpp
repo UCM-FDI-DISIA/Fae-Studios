@@ -76,11 +76,11 @@ void FinalBossBehaviorComponent::update()
 						{			
 					
 						case 0: std::cout << "Ataque punoTop boss final" << std::endl; spawnFistTop(); break;
-						case 1: std::cout << "Ataque agua boss final" << std::endl; spawnBubbles(); break;/*
+						case 1: std::cout << "Ataque agua boss final" << std::endl; spawnBubbles(); break;
 						case 2: std::cout << "Ataque fuego boss final" << std::endl; spawnFireWall(); break;
 						case 3: std::cout << "Ataque oscuridad boss final" << std::endl; spawnBlackHole();break;
 						case 4: std::cout << "Ataque puno boss final" << std::endl; spawnFist(); break;
-						default: std::cout << "Ataque generico boss final" << std::endl; spawnFist(); break;*/
+						default: std::cout << "Ataque generico boss final" << std::endl; spawnFist(); break;
 					
 						}
 						numAttacks++;

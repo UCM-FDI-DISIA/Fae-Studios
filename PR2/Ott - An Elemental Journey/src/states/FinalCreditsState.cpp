@@ -40,7 +40,7 @@ void FinalCreditsState::namesManager()
 					ott = mngr_->addEntity(ecs::_grp_UI);
 					ott->addComponent<Transform>(Vector2D(sdlutils().width() / 2 - sdlutils().images().at("ott_dark").getFrameWidth() - 50, 3 * sdlutils().height() / 4 - sdlutils().images().at("ott_dark").height() / 2), 200, 240);
 					auto img = ott->addComponent<FramedImage>(&sdlutils().images().at("ott_dark"), 9, 8);
-					img->setCol(0); img->setRow(0);
+					img->setCol(col); img->setRow(row);
 					timer = SDL_GetTicks() + FRAME_RATE;
 				}
 			}
@@ -86,8 +86,58 @@ void FinalCreditsState::update()
 		namesManager();
 	else {
 		if (SDL_GetTicks() >= timer) {
-			timer = SDL_GetTicks() + FRAME_RATE;
-			ott->getComponent<FramedImage>()->setCol((ott->getComponent<FramedImage>()->getCurrentCol() + 1) % 2);
+			if (fade)
+			{
+				if (col > 0)
+				{
+					timer = SDL_GetTicks() + FRAME_RATE / 4;
+					ott->getComponent<FramedImage>()->setCol((ott->getComponent<FramedImage>()->getCurrentCol() - 1));
+					col--;
+				}
+				else {
+					fade = false;
+					fall = true;
+					row = 7;
+					col = 0;
+					ott->getComponent<FramedImage>()->setCol(col);
+					ott->getComponent<FramedImage>()->setRow(row);	
+				}
+			}
+			else if (fall) {
+				if (col < 7)
+				{
+					timer = SDL_GetTicks() + FRAME_RATE / 2;
+					ott->getComponent<FramedImage>()->setCol((ott->getComponent<FramedImage>()->getCurrentCol() + 1));
+					col++;
+				}
+				else {
+					fall = false;
+					wake = true;
+					timer = SDL_GetTicks() + FRAME_RATE * 4;
+				}
+			}
+			else if (wake) {
+				if (col >0)
+				{
+					timer = SDL_GetTicks() + FRAME_RATE / 2;
+					ott->getComponent<FramedImage>()->setCol((ott->getComponent<FramedImage>()->getCurrentCol() - 1));
+					col--;
+				}
+				else {
+					wake = false;
+					idle = true;
+					row = 0;
+					col = 0;
+					ott->getComponent<FramedImage>()->setCol(col);
+					ott->getComponent<FramedImage>()->setRow(row);
+				}
+			}
+			else if (idle)
+			{
+				timer = SDL_GetTicks() + FRAME_RATE;
+				ott->getComponent<FramedImage>()->setCol((ott->getComponent<FramedImage>()->getCurrentCol() + 1) %2);
+			}
+
 		}
 	}
 }

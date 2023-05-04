@@ -20,6 +20,7 @@ private:
     std::vector<Entity*>::const_iterator interactionIt;
     std::vector<std::vector<bool>> visitedRooms;
 
+
     Entity* player_;
     Entity* camera_;
     Entity* earthBoss_;

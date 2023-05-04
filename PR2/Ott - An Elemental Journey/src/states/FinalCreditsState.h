@@ -17,6 +17,14 @@ private:
 	Vector2D speed;
 	Entity* ott;
 
+	int col = 3;
+	int row = 6;
+	bool fade = true;
+	bool wake = false;
+	bool idle = false;
+	bool fall = false;
+	
+
 	void createNextName();
 	void namesManager();
 public:
