@@ -315,6 +315,12 @@
 			"cols": 8
 		},
 		{
+			"id": "ott_dark",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/Oscuridad.png",
+			"rows": 9,
+			"cols": 8
+		},
+		{
 			"id": "fadeOut",
 			"file": "../Ott - An Elemental Journey/resources/images/tests/fadeOut.png",
 			"rows": 1,
@@ -380,7 +386,12 @@
 			"rows": 3,
 			"cols": 4
 		},
-		{ "id": "finalBossTileset", "file": "../Ott - An Elemental Journey/resources/images/levels/Tiles_Oscuridad.png", "rows": 34, "cols": 20},
+		{
+			"id": "finalBossTileset",
+			"file": "../Ott - An Elemental Journey/resources/images/levels/Tiles_Oscuridad.png",
+			"rows": 34,
+			"cols": 20
+		},
 		{
 			"id": "shield",
 			"file": "../Ott - An Elemental Journey/resources/images/tests/lightShield.png",
@@ -809,10 +820,28 @@
 		},
 		{
 			"id": "movimientoCartel",
-			"file": "../Ott - An Elemental Journey/resources/images/carteles/Movimiento/cartelMovimientoAnimation.png", "rows":1, "cols":4},
-		{ "id": "attackBubble",	"file": "../Ott - An Elemental Journey/resources/images/sprites/attackBubble.png", "rows": 1, "cols": 1	},
-		{ "id": "blackHole", "file": "../Ott - An Elemental Journey/resources/images/tests/BlackHole.png", "rows": 1,	"cols": 4},
-		{ "id": "ShurikenAgua", "file": "../Ott - An Elemental Journey/resources/images/tests/ShurikenAgua.png", "rows": 1, "cols": 1},
+			"file": "../Ott - An Elemental Journey/resources/images/carteles/Movimiento/cartelMovimientoAnimation.png",
+			"rows": 1,
+			"cols": 4
+		},
+		{
+			"id": "attackBubble",
+			"file": "../Ott - An Elemental Journey/resources/images/sprites/attackBubble.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
+			"id": "blackHole",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/BlackHole.png",
+			"rows": 1,
+			"cols": 4
+		},
+		{
+			"id": "ShurikenAgua",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/ShurikenAgua.png",
+			"rows": 1,
+			"cols": 1
+		},
 		{
 			"id": "finalBossFireWall",
 			"file": "../Ott - An Elemental Journey/resources/images/tests/fireWall.png",
@@ -984,8 +1013,8 @@
 		{
 			"id": "LowFade",
 			"file": "../Ott - An Elemental Journey/resources/images/ui/LowLifeFade.png",
-			"rows" : 1,
-			"cols" : 5
+			"rows": 1,
+			"cols": 5
 		},
 		{
 			"id": "Sala0_FinalBoss",

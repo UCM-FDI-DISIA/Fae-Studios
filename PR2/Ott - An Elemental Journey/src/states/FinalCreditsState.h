@@ -1,10 +1,11 @@
 #pragma once
 #include "GameState.h"
 #include "../ecs/Entity.h"
-#include<stack>
+
+#include <stack>
 class FinalCreditsState : public GameState
 {
-	const int NEXT_NAME = 500;
+	const int FRAME_RATE = 500;
 	const SDL_Color white{ 255, 255, 255 };
 	const SDL_Color transparent{ 255,255,255,1 };
 private:
@@ -14,6 +15,7 @@ private:
 	Entity* lastName;
 	bool end = false;
 	Vector2D speed;
+	Entity* ott;
 
 	void createNextName();
 	void namesManager();
