@@ -17,7 +17,7 @@
     </head>
 
     <body>
-        <nav class="navbar navbar-default fixed-top navbar-expand-lg border-bottom shadow navbar-scroll" id="navBar">
+        <nav class="navbar navbar-default fixed-top navbar-expand-lg border-bottom shadow" id="navBar">
             <div class="container-fluid d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3">
                 <div class="col-md-4 mb-2 mb-md-0">
                     <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
@@ -65,7 +65,7 @@
                 TEXTOTEXTOTEXTOTEXTOTEXTOTEXTOTEXTOTEXTOTEXTOTEXTOTEXTOTEXTOTEXTOTEXTOTEXTOTEXTO
             </p>
         </div>
-        <div class="container-fluid my-5 expand-lg text-white align-items-center" style="background-color:rgba(50,50,50,1); width: 100vw; height:100vh; font-family:'Press Start 2P', cursive;">
+        <div class="container-fluid my-5 expand-lg text-white align-items-center border-bottom" style="background-color:rgba(50,50,50,1); width: 100vw; height:200vh; font-family:'Press Start 2P', cursive;">
             <h1 class="py-5 text-success border-bottom" style="text-align:center">Descripción del juego</h1>
             <div class="container my-5" style="font-family:'Press Start 2P', cursive;">
                 <p> 
@@ -75,10 +75,65 @@
                     SI HA ESTADO ATENTO Y SABE LA RESPUESTA LLAME AHORA AL 905 447 001 O ENVÍE UN SMS CON LA PALABRA SABER Y LA RESPUESTA.
                     EL MENSAJE LE COSTARÁ 1,23, LA LLAMADA 1,45 DESDE FIJO Y 2 EUROS DESDE MÓVIL. LLAME AHORA, HAY 3000 EUROS EN JUEGO CADA SEMANA.
                 </p>
-                <img src="./resources/images/placeholder.jpg">
-                <img src="./resources/images/placeholder.jpg">
+                <div class="container-fluid align-items-center text-center">
+                    <img class="center-block" src="./resources/images/placeholder.jpg">
+                    <img class="center-block" src="./resources/images/placeholder.jpg">
+                </div>
+            </div>
+            <div class="container my-5" style="font-family:'Press Start 2P', cursive;">
+                <p> 
+                    JESÚS DE CRISTO POR FAVOR SÁLVAME ESTOY CANSADO DE SEGUIR ESCRIBIENDO PLACEHOLDERS
+                    ALGUIEN QUE ME COPIE Y ME PEGUE AQUÍ UN LOREM IPSUM DOLOR SIT AMET O COMO NARICES
+                    SE ESCRIBA ESA CHOTADA, NO SOY ROMANO, NO SÉ ESCRIBIR LATÍN INVENTADO DIOS MÍO
+                </p>
+                <div class="container-fluid align-items-center text-center">
+                    <img class="center-block" src="./resources/images/placeholder.jpg">
+                    <img class="center-block" src="./resources/images/placeholder.jpg">
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluid my-5 expand-lg text-white align-items-center" style="background-color:rgba(255,255,255,1); width: 100vw; height:100vh; font-family:'Press Start 2P', cursive;">
+            <h1 class="py-5 text-primary border-bottom" style="text-align:center">Capturas del juego</h1>
+            <div class="container my-5" style="font-family:'Press Start 2P', cursive;">
+                <div id="carouselExampleIndicators" class="carousel slide w-75 mb-2" data-bs-ride="true">
+                    <div class="carousel-indicators">
+                      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                    </div>
+                    <div class="carousel-inner">
+                      <div class="carousel-item active">
+                        <img src="./resources/images/placeholder.jpg" class="d-block w-100" alt="...">
+                      </div>
+                      <div class="carousel-item">
+                        <img src="./resources/images/placeholder.jpg" class="d-block w-100" alt="...">
+                      </div>
+                      <div class="carousel-item">
+                        <img src="./resources/images/placeholder.jpg" class="d-block w-100" alt="...">
+                      </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Next</span>
+                    </button>
+                  </div>
             </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+        <script>
+            let navbar = document.querySelector('.navbar');
+            window.addEventListener('scroll', () => {
+                if(window.scrollY >= 56) {
+                    navbar.classList.add('navbar-scrolled');
+                } else if(window.scrollY < 56) {
+                    navbar.classList.remove('navbar-scrolled');
+                }
+            });
+        </script>
     </body>
 </html>

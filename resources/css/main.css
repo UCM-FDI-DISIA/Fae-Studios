@@ -6,7 +6,8 @@ body {
   scrollbar-width: none;  
 }
 #navBar {
-    background-color:rgba(0,0,0,0.3);
+    background-color:rgba(0,0,0,0.1);
+    transition: all 0.7s;
 }
 #titulo {
     color: black;
@@ -29,4 +30,8 @@ body {
     background-size: cover;
     width: 100vw;
     height: 100vh;
+}
+.navbar-scrolled {
+    background-color:rgba(255,255,255,1) !important;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
 }
