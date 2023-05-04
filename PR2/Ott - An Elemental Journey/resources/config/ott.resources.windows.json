@@ -933,6 +933,12 @@
 			"cols": 1
 		},
 		{
+			"id": "12_fire_room",
+			"file": "../resources/images/map_rooms/12_fire_map.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
 			"id": "0_water_boss_map",
 			"file": "../resources/images/map_rooms/0_water_boss_map.png",
 			"rows": 1,

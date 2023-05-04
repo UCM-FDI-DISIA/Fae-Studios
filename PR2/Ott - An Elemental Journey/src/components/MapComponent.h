@@ -121,6 +121,8 @@ private:
 	const int SPIKE_VECTOR_POS = 14;
 	const int WEAK_SPOT_VECTOR_POS = 15;
 
+	const int maxRooms = 20;
+
 	std::string currentMapKey = "earthMap";
 
 	int realTileSize = 32;

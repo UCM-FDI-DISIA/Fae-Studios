@@ -24,9 +24,17 @@ MapComponent::MapComponent(Entity* fadeOut, PlayState* game, int currentMap) : f
     mapKeys.reserve(ecs::LAST_MAP_ID);
     for (int i = 0; i < ecs::LAST_MAP_ID; ++i) {
         mapKeys.push_back({});
+        for (int j = 0; j < maxRooms; ++j) {
+            mapKeys[i].push_back({});
+        }
     }
-    currentMapKey = "fireMap";
+    currentMapKey = "earthMap";
     tilemap = &sdlutils().images().at(sdlutils().levels().at(currentMapKey).tileset);
+
+    game->initVisitedRooms(maxRooms, ecs::EARTH_MAP);
+    game->initVisitedRooms(maxRooms, ecs::FIRE_MAP);
+    game->initVisitedRooms(maxRooms, ecs::WATER_BOSS_MAP);
+    game->initVisitedRooms(maxRooms, ecs::WATER_MAP);
 }
 
 std::vector<std::string> strSplit(std::string s, char c) {
@@ -132,10 +140,22 @@ MapComponent::MapComponent(Entity* fadeOut, PlayState* game, int currentMap, std
         vectorTiles.push_back({});
         interact.push_back({});
     }
+
     mapKeys.reserve(ecs::LAST_MAP_ID);
     for (int i = 0; i < ecs::LAST_MAP_ID; ++i) {
-        mapKeys.push_back({ "NULL", {0,0,0,0} });
+        mapKeys.push_back({});
+        for (int j = 0; j < maxRooms; ++j) {
+            mapKeys[i].push_back({});
+        }
     }
+    currentMapKey = "earthMap";
+    tilemap = &sdlutils().images().at(sdlutils().levels().at(currentMapKey).tileset);
+
+    game->initVisitedRooms(maxRooms, ecs::EARTH_MAP);
+    game->initVisitedRooms(maxRooms, ecs::FIRE_MAP);
+    game->initVisitedRooms(maxRooms, ecs::WATER_BOSS_MAP);
+    game->initVisitedRooms(maxRooms, ecs::WATER_MAP);
+
     loadFromFile(file);
     tilemap = &sdlutils().images().at(sdlutils().levels().at(currentMapKey).tileset);
 }
@@ -379,17 +399,6 @@ void MapComponent::loadMap(std::string path, int nextPos) {
                         platforms[i].reserve(5);}   
                     for (int i = 0; i < numRooms; ++i) {
                         waterObjects[i].push_back({});
-                    }
-
-                    if (mapKeys[currentMap].size() != numRooms) {
-                        mapKeys[currentMap].reserve(numRooms);
-                        for (int i = 0; i < numRooms; ++i) {
-                            mapKeys[currentMap].push_back({});
-                        }
-                        game->initVisitedRooms(numRooms, ecs::EARTH_MAP);
-                        game->initVisitedRooms(numRooms, ecs::FIRE_MAP);
-                        game->initVisitedRooms(numRooms, ecs::WATER_BOSS_MAP);
-                        game->initVisitedRooms(numRooms, ecs::WATER_MAP);
                     }
                 }
                 else if (name == "Objetos interactuables") {
