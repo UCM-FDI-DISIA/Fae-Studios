@@ -25,7 +25,7 @@ MapComponent::MapComponent(Entity* fadeOut, PlayState* game, int currentMap) : f
     for (int i = 0; i < ecs::LAST_MAP_ID; ++i) {
         mapKeys.push_back({});
     }
-    currentMapKey = "earthMap";
+    currentMapKey = "fireMap";
     tilemap = &sdlutils().images().at(sdlutils().levels().at(currentMapKey).tileset);
 }
 
@@ -742,7 +742,7 @@ void MapComponent::loadMap(std::string path, int nextPos) {
             else if (ot.getClass() == "HangingSpike") {
                 auto roomScale = vectorTiles[std::stoi(ot.getName())].first;
                 auto newSpike = constructors::damageArea(mngr_,
-                    "hanging_spike", ecs::Earth, (x_ * scale) * roomScale,
+                    "hangingspike", ecs::Earth, (x_ * scale) * roomScale,
                     ((y_ * scale - sdlutils().images().at("hangingSpike").height()) + h_ * scale) * roomScale,
                     w_ * scale * roomScale,
                     h_ * scale * roomScale,
