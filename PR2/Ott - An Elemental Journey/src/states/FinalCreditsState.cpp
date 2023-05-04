@@ -4,6 +4,7 @@
 #include "../components/Transform.h"
 #include "../components/TextComponent.h"
 #include "../components/PhysicsComponent.h"
+#include "../components/FramedImage.h"
 #include "../sdlutils/InputHandler.h"
 #include "GameStateMachine.h"
 
@@ -30,11 +31,17 @@ void FinalCreditsState::namesManager()
 					Entity* n = mngr_->addEntity(ecs::_grp_UI);
 					TextComponent* aux;
 					if(game().getIsJoystick())
-						aux = n->addComponent<TextComponent>("Presiona Start para salir al menú principal", sdlutils().fonts().at("press_start16"), white, transparent);
+						aux = n->addComponent<TextComponent>("Presiona Start para salir al menu principal", sdlutils().fonts().at("press_start16"), white, transparent);
 					else
-						aux = n->addComponent<TextComponent>("Presiona Espacio para salir al menú principal", sdlutils().fonts().at("press_start16"), white, transparent);
+						aux = n->addComponent<TextComponent>("Presiona Espacio para salir al menu principal", sdlutils().fonts().at("press_start16"), white, transparent);
 					Vector2D pos = Vector2D(0, 0);
 					aux->setPosition(pos);
+
+					ott = mngr_->addEntity(ecs::_grp_UI);
+					ott->addComponent<Transform>(Vector2D(sdlutils().width() / 2 - sdlutils().images().at("ott_dark").getFrameWidth() - 50, 3 * sdlutils().height() / 4 - sdlutils().images().at("ott_dark").height() / 2), 200, 240);
+					auto img = ott->addComponent<FramedImage>(&sdlutils().images().at("ott_dark"), 9, 8);
+					img->setCol(0); img->setRow(0);
+					timer = SDL_GetTicks() + FRAME_RATE;
 				}
 			}
 
@@ -57,8 +64,8 @@ FinalCreditsState::FinalCreditsState() : GameState(ecs::_state_CREDITS)
 	names.push("NAHIA IGLESIAS CALVO");
 	names.push("EVA FELIU AREJOLA");
 
-	timer = SDL_GetTicks() + NEXT_NAME;
 	endText = nullptr;
+	ott = nullptr;
 	speed = Vector2D(0, 1);
 	createNextName();
 }
@@ -66,18 +73,23 @@ FinalCreditsState::FinalCreditsState() : GameState(ecs::_state_CREDITS)
 void FinalCreditsState::update()
 {
 	GameState::update();
-	if (names.size() > 0 && /*SDL_GetTicks() > timer*/ lastName->getComponent<TextComponent>()->getPosition().getY() >= sdlutils().height() / 4) {
+	if (names.size() > 0 && lastName->getComponent<TextComponent>()->getPosition().getY() >= sdlutils().height() / 4) {
 		createNextName();
-		timer = SDL_GetTicks() + NEXT_NAME;
 	}
-	else if (endText == nullptr && names.size() == 0 && /*SDL_GetTicks() > timer*/lastName->getComponent<TextComponent>()->getPosition().getY() >= sdlutils().height()) {
+	else if (endText == nullptr && names.size() == 0 && lastName->getComponent<TextComponent>()->getPosition().getY() >= sdlutils().height()) {
 		endText = mngr_->addEntity(ecs::_grp_UI);
-		auto txt = endText->addComponent<TextComponent>("GRACIAS POR JUGAR!", sdlutils().fonts().at("press_start16"), white, transparent);
+		auto txt = endText->addComponent<TextComponent>("FIN?", sdlutils().fonts().at("press_start16"), white, transparent);
 		Vector2D pos = Vector2D((sdlutils().width() / 2) - (txt->getWidth() / 2), -txt->getHeight());
 		txt->setPosition(pos);
 	}
 	if(!end)
 		namesManager();
+	else {
+		if (SDL_GetTicks() >= timer) {
+			timer = SDL_GetTicks() + FRAME_RATE;
+			ott->getComponent<FramedImage>()->setCol((ott->getComponent<FramedImage>()->getCurrentCol() + 1) % 2);
+		}
+	}
 }
 
 void FinalCreditsState::handleInput()

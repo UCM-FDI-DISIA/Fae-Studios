@@ -387,6 +387,12 @@
 			"cols": 8
 		},
 		{
+			"id": "ott_dark",
+			"file": "../resources/images/tests/Oscuridad.png",
+			"rows": 9,
+			"cols": 8
+		},
+		{
 			"id": "fadeOut",
 			"file": "../resources/images/tests/fadeOut.png",
 			"rows": 1,
