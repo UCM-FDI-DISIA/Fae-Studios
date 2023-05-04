@@ -155,4 +155,5 @@ public:
         initialEnemies.clear(); enemyIt.clear(); };
 
     inline void cinematic();
+    void DoorInteract();
 };

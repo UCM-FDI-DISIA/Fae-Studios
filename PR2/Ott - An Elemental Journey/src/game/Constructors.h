@@ -608,7 +608,7 @@ namespace constructors {
 		return waterBoss;
 	}
 
-	static inline Entity* map(Manager* mngr_, PlayState* game, int currentMap) {
+	static inline pair<Entity*, Entity*> map(Manager* mngr_, PlayState* game, int currentMap) {
 		// auto bgrd = mngr_->addEntity(ecs::_grp_MAP);
 		auto e = mngr_->addEntity(ecs::_grp_MAP);
 		auto fadeOut = mngr_->addEntity(ecs::_grp_FADEOUT);
@@ -621,11 +621,11 @@ namespace constructors {
 		//bgrd->addComponent<BackgroundImage>(Vector2D(0, 0), &sdlutils().images().at("level1bg"), scale, scale);
 		//bgrd->addComponent<BackgroundImage>(Vector2D(0, 0), game->getTexture("level1bg", PLAY_STATE), scale, scale);
 		auto a = e->getComponent<MapComponent>()->getObjects();
-		return e;
+		return make_pair(e, fadeOut);
 		//bgrd->addComponent<Image>(game->getTexture("level1bg", PLAY_STATE));
 	}
 
-	static inline Entity* map(Manager* mngr_, PlayState* game, int level, std::ifstream& fileName) {
+	static inline pair<Entity*, Entity*> map(Manager* mngr_, PlayState* game, int level, std::ifstream& fileName) {
 		// auto bgrd = mngr_->addEntity(ecs::_grp_MAP);
 		auto e = mngr_->addEntity(ecs::_grp_MAP);
 		auto fadeOut = mngr_->addEntity(ecs::_grp_FADEOUT);
@@ -638,7 +638,7 @@ namespace constructors {
 		//bgrd->addComponent<BackgroundImage>(Vector2D(0, 0), &sdlutils().images().at("level1bg"), scale, scale);
 		//bgrd->addComponent<BackgroundImage>(Vector2D(0, 0), game->getTexture("level1bg", PLAY_STATE), scale, scale);
 		auto a = e->getComponent<MapComponent>()->getObjects();
-		return e;
+		return make_pair(e, fadeOut);
 		//bgrd->addComponent<Image>(game->getTexture("level1bg", PLAY_STATE));
 	}
 
@@ -728,6 +728,20 @@ namespace constructors {
 		t->getComponent<TextComponent>()->setPosition(textPos);
 		t->addComponent<LifeShardFeedbackComponent>();
 		return t;
+	}
+
+	static inline Entity* bossDoor(Manager* mngr_, const Vector2D position, int width = 100, int height = 200) {
+		auto door = mngr_->addEntity(ecs::_grp_INTERACTION);
+		mngr_->setBossDoor(door);
+		door->addComponent<Transform>(position, width, height);
+		door->addComponent<Image>(&sdlutils().images().at("BossDoor"));
+		door->addComponent<BossDoor>();
+		auto cb = []() {
+			static_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->DoorInteract();
+		};
+		door->addComponent<InteractionComponent>(cb, DOOR_IT, 0, 0);
+		return door;
+
 	}
 }
 

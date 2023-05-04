@@ -150,7 +150,7 @@ namespace ecs {
 
     static enum elements { Light, Earth, Water, Fire, Dark };
     
-    enum maps { EARTH_MAP, WATER_MAP, WATER_BOSS_MAP, FIRE_MAP, LAST_MAP_ID };
+    enum maps { EARTH_MAP, WATER_MAP, WATER_BOSS_MAP, FIRE_MAP, FINAL_BOSS_MAP, LAST_MAP_ID };
 
     static const int numElems = 5;
     // Representación interna doblada

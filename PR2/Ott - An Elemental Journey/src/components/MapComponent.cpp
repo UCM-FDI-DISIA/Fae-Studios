@@ -24,17 +24,14 @@ MapComponent::MapComponent(Entity* fadeOut, PlayState* game, int currentMap) : f
     mapKeys.reserve(ecs::LAST_MAP_ID);
     for (int i = 0; i < ecs::LAST_MAP_ID; ++i) {
         mapKeys.push_back({});
+        game->initVisitedRooms(maxRooms, (ecs::maps)i);
+
         for (int j = 0; j < maxRooms; ++j) {
             mapKeys[i].push_back({});
         }
     }
     currentMapKey = "earthMap";
     tilemap = &sdlutils().images().at(sdlutils().levels().at(currentMapKey).tileset);
-
-    game->initVisitedRooms(maxRooms, ecs::EARTH_MAP);
-    game->initVisitedRooms(maxRooms, ecs::FIRE_MAP);
-    game->initVisitedRooms(maxRooms, ecs::WATER_BOSS_MAP);
-    game->initVisitedRooms(maxRooms, ecs::WATER_MAP);
 }
 
 std::vector<std::string> strSplit(std::string s, char c) {
@@ -144,18 +141,14 @@ MapComponent::MapComponent(Entity* fadeOut, PlayState* game, int currentMap, std
     mapKeys.reserve(ecs::LAST_MAP_ID);
     for (int i = 0; i < ecs::LAST_MAP_ID; ++i) {
         mapKeys.push_back({});
+        game->initVisitedRooms(maxRooms, (ecs::maps)i);
+
         for (int j = 0; j < maxRooms; ++j) {
             mapKeys[i].push_back({});
         }
     }
     currentMapKey = "earthMap";
     tilemap = &sdlutils().images().at(sdlutils().levels().at(currentMapKey).tileset);
-
-    game->initVisitedRooms(maxRooms, ecs::EARTH_MAP);
-    game->initVisitedRooms(maxRooms, ecs::FIRE_MAP);
-    game->initVisitedRooms(maxRooms, ecs::WATER_BOSS_MAP);
-    game->initVisitedRooms(maxRooms, ecs::WATER_MAP);
-
     loadFromFile(file);
     tilemap = &sdlutils().images().at(sdlutils().levels().at(currentMapKey).tileset);
 }
@@ -930,6 +923,17 @@ void MapComponent::loadMap(std::string path, int nextPos) {
                 interact[std::stoi(ot.getName())].push_back(fireRoom);
                 eraseEntities.push_back(fireRoom);
                 fireRoom->setActive(false);
+            }
+            else if (classSplit[0] == "BossDoor") {
+                auto roomScale = vectorTiles[std::stoi(ot.getName())].first;
+                auto door = constructors::bossDoor(mngr_, Vector2D(x_ * scale * roomScale, y_ * scale * roomScale), w_ * scale * roomScale, h_ * scale * roomScale);
+                interact[std::stoi(ot.getName())].push_back(door);
+                eraseEntities.push_back(door);
+                auto doorMngr = door->getComponent<BossDoor>();
+                if (!loadEarthBoss) doorMngr->unlockElem(ecs::Earth);
+                if (!loadWaterBoss) doorMngr->unlockElem(ecs::Water);
+                if (!loadFireBoss) doorMngr->unlockElem(ecs::Fire);
+                door->setActive(false);
             }
         }
 

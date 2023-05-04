@@ -241,11 +241,9 @@ public:
 				break;
 			case ecs::Water:
 				loadWaterBoss = false;
-				mngr_->getBossDoor()->getComponent<BossDoor>()->unlockElem(ecs::Water);
 				break;
 			case ecs::Fire:
 				loadFireBoss = false;
-				mngr_->getBossDoor()->getComponent<BossDoor>()->unlockElem(ecs::Fire);
 				break;
 		}
 	}

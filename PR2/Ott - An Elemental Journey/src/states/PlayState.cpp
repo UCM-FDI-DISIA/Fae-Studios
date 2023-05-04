@@ -59,7 +59,12 @@ PlayState::PlayState() : GameState(ecs::_state_PLAY) {
 		visitedRooms.push_back({});
 	}
 
-	map_ = constructors::map(mngr_, this, (int)(currentMap))->getComponent<MapComponent>();
+	auto pair = constructors::map(mngr_, this, (int)(currentMap));
+	auto map = pair.first;
+	mngr_->setMap(map);
+	map_ = map->getComponent<MapComponent>();
+	auto fadeOut = pair.second;
+	mngr_->setFadeOut(fadeOut);
 	initialEnemies = enemies;
 
 	if (!start) {
@@ -105,7 +110,12 @@ PlayState::PlayState(std::string fileName) : GameState(ecs::_state_PLAY) {
 	for (int i = 0; i < ecs::LAST_MAP_ID; ++i) {
 		visitedRooms.push_back({});
 	}
-	map_ = constructors::map(mngr_, this, (int)ecs::EARTH_MAP, file)->getComponent<MapComponent>();
+	auto pair = constructors::map(mngr_, this, (int)(currentMap), file);
+	auto map = pair.first;
+	mngr_->setMap(map);
+	map_ = map->getComponent<MapComponent>();
+	auto fadeOut = pair.second;
+	mngr_->setFadeOut(fadeOut);
 
 	currentMap = (ecs::maps)map_->getCurrentMap();
 	initialEnemies = enemies;
@@ -522,4 +532,12 @@ void PlayState::endRest() {
 	}
 	saveFile << "fire_map_rooms " << rooms << "_" << std::endl;
 	if (saveFile.fail()) std::cout << "FALLÉ GENTE" << std::endl;
+}
+
+void PlayState::DoorInteract() {
+	auto door = mngr_->getBossDoor();
+	if (door->getComponent<BossDoor>()->isDoorOpened()) {
+		auto fadeOut = mngr_->getFadeOut();
+		fadeOut->getComponent<FadeOutMapComponent>()->startFadeOut(ecs::FINAL_BOSS_MAP, "finalBossMap", 0);
+	}
 }
