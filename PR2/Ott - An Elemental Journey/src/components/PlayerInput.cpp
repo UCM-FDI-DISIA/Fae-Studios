@@ -58,9 +58,6 @@ void PlayerInput::update()
 					else if (SDL_GameControllerGetButton(game().getJoystick(), SDL_CONTROLLER_BUTTON_B) == 0)
 						physics_->jump();
 				}
-				if (input->isKeyDown(SDLK_q)) {
-					ent_->getComponent<AttackCharger>()->addCharge(8);
-				}
 				if (canInteract && (input->isKeyDown(SDLK_f) || (game().getIsJoystick() && SDL_GameControllerGetButton(game().getJoystick(), SDL_CONTROLLER_BUTTON_Y)))) {
 					//Recuperar vidas
 					static_cast<PlayState*>(GameStateMachine::instance()->getPlayState())->interact();

@@ -88,7 +88,7 @@ private:
 	float horizontalSpeed = 0;
 	int attackTimer, chargedAttackTime = 1;
 	bool attack = false;
-	bool earth = true, water = true, fire = true;
+	bool earth = false, water = false, fire = false;
 	bool selectedEarth = false, selectedWater = false, selectedFire = false, selectedLight = true;
 	bool openingMap = false;
 	bool canInteract = false;

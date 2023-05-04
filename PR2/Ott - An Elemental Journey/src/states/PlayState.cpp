@@ -131,9 +131,7 @@ PlayState::PlayState(std::string fileName) : GameState(ecs::_state_PLAY) {
 		visitedRooms[ecs::FIRE_MAP][std::stoi(aux)] = visited;
 		file >> aux;
 	}
-
 	start = true;
-
 }
 
 
@@ -446,6 +444,7 @@ void PlayState::UnlockElement(ecs::elements elem) {
 	player_->getComponent<PlayerAnimationComponent>()->changeElem(elem);
 	player_->getComponent<PlayerAnimationComponent>()->setState(VANISH);
 	player_->getComponent<Health>()->setNewInitialPos((*interactionIt)->getComponent<Transform>()->getPosition());
+	player_->getComponent<Transform>()->setInitialRoom((*interactionIt)->getComponent<InteractionComponent>()->getRoom());
 	map_->unlockElement(elem);
 }
 

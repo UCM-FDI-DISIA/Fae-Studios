@@ -67,9 +67,10 @@ void Health::recall(bool rest) {
 		}
 	}
 	else { 
-		newPos = ent_->getComponent<Transform>()->getInitialPosition();
+		auto tr_ = ent_->getComponent<Transform>();
+		newPos = tr_->getInitialPosition();
 		static_cast<PlayState*>(GameStateMachine::instance()->currentState())->getMap()
-			->changeRoom("0", newPos);
+			->changeRoom(std::to_string(tr_->getInitialRoom()), newPos);
 	}
 	image->reset();
 	actualLife = maxLife;

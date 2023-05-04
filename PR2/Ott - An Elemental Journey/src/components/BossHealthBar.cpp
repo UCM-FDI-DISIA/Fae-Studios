@@ -44,7 +44,7 @@ void BossHealthBar::render() {
 		barTx->render(posBar);
 		lifeTx->render(posLife);
 	}
-	else if (!isDead && mngr_->getFireBoss()->getComponent<Health>()->getHealth() > 0 && actualBoss == Fire && mngr_->getFireBossRoom()->getComponent<FireBossRoom>()->getShowBar()) {
+	else if (!isDead && actualBoss == Fire && mngr_->getFireBoss()->getComponent<Health>()->getHealth() > 0 && mngr_->getFireBossRoom()->getComponent<FireBossRoom>()->getShowBar()) {
 		barTx->render(posBar);
 		lifeTx->render(posLife);
 	}

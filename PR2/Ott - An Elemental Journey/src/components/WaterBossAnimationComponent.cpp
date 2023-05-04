@@ -10,11 +10,6 @@
 // LIMPIO
 
 void WaterBossAnimationComponent::setState(int newState) {
-	if (!health_->isDead() && currentAnimation != DIE_WATERBOSS) {
-		currentAnimation = newState;
-		timer_ = 0;
-		image->setCol(getColNum(currentAnimation));
-	}
 }
 
 
@@ -25,21 +20,8 @@ void WaterBossAnimationComponent::initComponent() {
 }
 
 void WaterBossAnimationComponent::update() {
-	/*if (currentAnimation == IDLE_WATERBOSS && eMovement_ != nullptr && eMovement_->isMoving()) setState(WALK_WATERBOSS);
-	else if (currentAnimation == WALK_WATERBOSS && !eMovement_->isMoving()) setState(IDLE_WATERBOSS);*/
-
-
-	int state = currentAnimation;
+	int state = IDLE_WATERBOSS;
 	timer_++;
-
-	//if (damaged) {
-	//	image->setRow(1);
-	//	damageTimer_ = SDL_GetTicks() - damageStartTime_;
-	//	if (damageTimer_ >= maxDamagedTimer_) {
-	//		damaged = false;
-	//	}
-	//}
-	//else { damageStartTime_ = SDL_GetTicks(); image->setRow(0); }
 
 	int col = image->getCurrentCol();
 
@@ -54,11 +36,6 @@ void WaterBossAnimationComponent::update() {
 }
 
 void WaterBossAnimationComponent::endAnim() {
-	if (currentAnimation == PREPARE_ATTACK_WATERBOSS)
-	{
-	}
-	else if (currentAnimation == ATTACK_WATERBOSS && ent_->hasComponent<Generations>()) setState(AFTER_ATTACK_WATERBOSS);
-	else if (currentAnimation != DIE_WATERBOSS || currentAnimation == ATTACK) setState(IDLE_WATERBOSS);
-	else ent_->setAlive(false);
 	timer_ = 0;
+	currentAnimation = IDLE_WATERBOSS;
 }

@@ -30,8 +30,7 @@ std::vector<anims::animDescription> anims::slime_anims{ {300,4,0,0}, {150,4,0,17
 //FIRE BOSS
 std::vector<anims::animDescription> anims::fireboss_anims{ {200,4, 3,0}, {100,12, 2,0},{150,8,0,5}, {200,13,1,0} };
 // WATER BOSS
-std::vector<anims::animDescription> anims::waterBoss_anims{ {300,6,0,0}, {300,6,0,0}, {300,6,0,0}, {300,6,0,0}, {300,6,0,0}, {300,6,0,0} };
-// ATAQUE TIERRA
+std::vector<anims::animDescription> anims::waterBoss_anims{ {300,6,0,0} };
 std::vector<anims::animDescription> anims::earth_attack{ {50,7,0,0}, {50,7,0,6} };
 //MINI BOSS TIERRA
 std::vector<anims::animDescription> anims::earthBossPresent_anims{ {100, 8, 0, 0} };
@@ -40,7 +39,6 @@ std::vector<anims::animDescription> anims::warning_anims{ {60, 27,1,0} };
 std::vector<anims::animDescription> anims::pause_anims{ {5000, 1,0,0} };
 std::vector<anims::animDescription> anims::miniPause_anims{ {1000, 1,0,0} };
 std::vector<anims::animDescription> anims::finalBoss_anims{ {300, 60,0,8}, {400,8,0,0},{300, 3, 6, 0}, {300, 10, 5, 4}, {300, 9,6, 3}, {1000, 1, 6, 13} };
-
 
 std::vector<anims::animDescription> anims::water_attack{ {100,7,0,0}, {100,7,1,6} };
 std::vector<anims::animDescription> anims::lamp{ {100,1,0,0}, {50, 3, 0, 1},{100,1,0,4} };

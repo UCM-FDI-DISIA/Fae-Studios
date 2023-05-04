@@ -99,11 +99,12 @@ public:
         carteles.clear();
     }
 
-    inline void initVisitedRooms(int numRooms) {
-        visitedRooms[currentMap].reserve(numRooms);
-        visitedRooms[currentMap].push_back(true);
+    inline void initVisitedRooms(int numRooms, ecs::maps mapKey_) {
+        numRooms = 20; // código feo a cambiar
+        visitedRooms[mapKey_].reserve(numRooms);
+        visitedRooms[mapKey_].push_back(true);
         for (int i = 1; i < numRooms; ++i) {
-            visitedRooms[currentMap].push_back(false);
+            visitedRooms[mapKey_].push_back(false);
         }
     }
 

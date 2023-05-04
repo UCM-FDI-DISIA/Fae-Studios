@@ -13,6 +13,7 @@ private:
 	float height;
 	float initWidth, initHeight;
 	float scale = 1.0f;
+	int initialRoom = 0;
 	PhysicsComponent* physics_;
 
 public:
@@ -53,6 +54,8 @@ public:
 	inline void setRotation(float r) { rotation += r; };
 	inline Vector2D getPosition() const { return position; };
 	inline Vector2D getInitialPosition() const { return initialPos; };
+	inline int getInitialRoom() const { return initialRoom; };
+	inline void setInitialRoom(int i) { initialRoom = i; };
 	inline void setInitialPosition(Vector2D ini) { initialPos = ini; };
 	inline void setPosition(Vector2D newPos) { position = newPos; };
 	inline void setWidth(float w) { width = w; }

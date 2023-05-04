@@ -1,4 +1,5 @@
-3
+4
 earthMap 5
 waterMap 2
+waterBossMap 0
 fireMap 2

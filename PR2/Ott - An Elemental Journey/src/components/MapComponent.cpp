@@ -25,7 +25,7 @@ MapComponent::MapComponent(Entity* fadeOut, PlayState* game, int currentMap) : f
     for (int i = 0; i < ecs::LAST_MAP_ID; ++i) {
         mapKeys.push_back({});
     }
-    currentMapKey = "fireMap";
+    currentMapKey = "earthMap";
     tilemap = &sdlutils().images().at(sdlutils().levels().at(currentMapKey).tileset);
 }
 
@@ -338,6 +338,7 @@ void MapComponent::changeMap(int newMap, std::string key, int nextPos) {
 void MapComponent::loadMap(std::string path, int nextPos) {
     if (map.load(path))
     {
+        game->changeMap(currentMap);
         tmx::Object playerPos;
         Entity* playerSanctuary = nullptr;
         int playerSanctuaryID = -1;
@@ -385,7 +386,10 @@ void MapComponent::loadMap(std::string path, int nextPos) {
                         for (int i = 0; i < numRooms; ++i) {
                             mapKeys[currentMap].push_back({});
                         }
-                        game->initVisitedRooms(numRooms);
+                        game->initVisitedRooms(numRooms, ecs::EARTH_MAP);
+                        game->initVisitedRooms(numRooms, ecs::FIRE_MAP);
+                        game->initVisitedRooms(numRooms, ecs::WATER_BOSS_MAP);
+                        game->initVisitedRooms(numRooms, ecs::WATER_MAP);
                     }
                 }
                 else if (name == "Objetos interactuables") {
