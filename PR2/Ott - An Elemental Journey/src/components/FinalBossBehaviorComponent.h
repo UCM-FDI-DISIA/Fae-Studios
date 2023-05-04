@@ -15,6 +15,7 @@ public:
 	~FinalBossBehaviorComponent() { deleteWeakPoints(); }
 	void initComponent() override;
 	void update() override;
+	void reset();
 
 	void deleteBlackHoles();
 	void deleteBubbles();
@@ -35,6 +36,7 @@ private:
 	Health* bossHealth;
 	MapComponent* map_;
 	FinalBossAnimation* bossAnim;
+	Entity* player;
 
 	int timeBetweenAttacks;
 	int timeStunned;
@@ -45,7 +47,7 @@ private:
 	int lastElem;
 
 	int numAttacks = 0;
-	bool stunned, isWeakPoints;
+	bool stunned, isWeakPoints, waitingForReset;
 	std::vector<Entity*> blackHoles;
 	std::vector<Entity*> bubbles;
 	std::vector<Entity*> spikes;
