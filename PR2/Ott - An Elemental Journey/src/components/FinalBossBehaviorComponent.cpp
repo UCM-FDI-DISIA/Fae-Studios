@@ -17,6 +17,7 @@ FinalBossBehaviorComponent::FinalBossBehaviorComponent(MapComponent* map) :Compo
 	timeBetweenAttacks = SDL_GetTicks() + ATTACK_TIME;
 	stunned = false;
 	isWeakPoints = false;
+	waitingForReset = false;
 }
 
 void FinalBossBehaviorComponent::initComponent()
@@ -24,81 +25,102 @@ void FinalBossBehaviorComponent::initComponent()
 	bossHealth = ent_->getComponent<Health>();
 	bossTransform = ent_->getComponent<Transform>();
 	bossAnim = ent_->getComponent<FinalBossAnimation>();
+	player = mngr_->getPlayer();
 }
 
 void FinalBossBehaviorComponent::update()
 {
 	if (!bossHealth->isDead())
 	{
-
-	if (stunned /*&& SDL_GetTicks() < timeStunned*/)
-	{
-		if (!isWeakPoints)
-		{	
-			std::cout << "stunned" << std::endl;
-			spawnWeakPoints();
-			isWeakPoints = true;
-			bossAnim->setState(STUN_BOSS);
-		}
-		else if (SDL_GetTicks() > timeStunned)
+		if (player->getComponent<Health>()->isDead()) { waitingForReset = true;  }
+		else
 		{
-			std::cout << "NO stunned" << std::endl;
-			deleteWeakPoints();
-			stunned = false;
-			isWeakPoints = false;
-			bossAnim->setState(IDLE_BOSS2);
-		}
-	}
-	else
-	{
-		if (spikes.size() > 0  && SDL_GetTicks() < timeBetweenAttacks && SDL_GetTicks() > timeCure)
-		{
-			std::cout << "me curo" << std::endl;
-			bossHealth->cureHealth();
-			timeCure += CURE_TIME;
-			
-		}
-		//Temporizador de ataque (ataca cada 5 segundos)
-		else if (SDL_GetTicks() > timeBetweenAttacks ) {
-			// Actualizamos 5 seg más
-			timeBetweenAttacks +=ATTACK_TIME;
-			//Switch de los diferentes ataques del boss
-
-			if (numAttacks < 5) {
-
-				switch (currentElement)
-				{			
-					
-				case 0: std::cout << "Ataque punoTop boss final" << std::endl; spawnFistTop(); break;
-				case 1: std::cout << "Ataque agua boss final" << std::endl; spawnBubbles(); break;
-				case 2: std::cout << "Ataque fuego boss final" << std::endl; spawnFireWall(); break;
-				case 3: std::cout << "Ataque oscuridad boss final" << std::endl; spawnBlackHole();break;
-				case 4: std::cout << "Ataque puno boss final" << std::endl; spawnFist(); break;
-				default: std::cout << "Ataque generico boss final" << std::endl; spawnFist(); break;
-					
+			if (waitingForReset) { reset(); waitingForReset = false; }
+		
+			if (stunned /*&& SDL_GetTicks() < timeStunned*/)
+			{
+				if (!isWeakPoints)
+				{	
+					std::cout << "stunned" << std::endl;
+					spawnWeakPoints();
+					isWeakPoints = true;
+					bossAnim->setState(STUN_BOSS);
 				}
-				numAttacks++;
-
-				//Cambia de elemento aleatoriamente
-				lastElem = currentElement;
-				do {
-					srand((unsigned)time(NULL));
-					currentElement = rand() % 5;
-				} while (lastElem == currentElement);
+				else if (SDL_GetTicks() > timeStunned)
+				{
+					std::cout << "NO stunned" << std::endl;
+					deleteWeakPoints();
+					stunned = false;
+					isWeakPoints = false;
+					bossAnim->setState(IDLE_BOSS2);
+				}
 			}
-			else {
+			else
+			{
+				if (spikes.size() > 0  && SDL_GetTicks() < timeBetweenAttacks && SDL_GetTicks() > timeCure)
+				{
+					std::cout << "me curo" << std::endl;
+					bossHealth->cureHealth();
+					timeCure += CURE_TIME;
+			
+				}
+				//Temporizador de ataque (ataca cada 5 segundos)
+				else if (SDL_GetTicks() > timeBetweenAttacks ) {
+					// Actualizamos 5 seg más
+					timeBetweenAttacks +=ATTACK_TIME;
+					//Switch de los diferentes ataques del boss
 
-				timeBetweenAttacks += ATTACK_TIME + STUNNED_TIME;
-				numAttacks = 0;
-				std::cout << "Ataque tierra boss final" << std::endl; 
-				spawnSpikes(); 
-				bossAnim->setState(HEALTH_BOSS); 
+					if (numAttacks < 5) {
+
+						switch (currentElement)
+						{			
+					
+						case 0: std::cout << "Ataque punoTop boss final" << std::endl; spawnFistTop(); break;
+						case 1: std::cout << "Ataque agua boss final" << std::endl; spawnBubbles(); break;
+						case 2: std::cout << "Ataque fuego boss final" << std::endl; spawnFireWall(); break;
+						case 3: std::cout << "Ataque oscuridad boss final" << std::endl; spawnBlackHole();break;
+						case 4: std::cout << "Ataque puno boss final" << std::endl; spawnFist(); break;
+						default: std::cout << "Ataque generico boss final" << std::endl; spawnFist(); break;
+					
+						}
+						numAttacks++;
+
+						//Cambia de elemento aleatoriamente
+						lastElem = currentElement;
+						do {
+							srand((unsigned)time(NULL));
+							currentElement = rand() % 5;
+						} while (lastElem == currentElement);
+					}
+					else {
+
+						timeBetweenAttacks += ATTACK_TIME + STUNNED_TIME;
+						numAttacks = 0;
+						std::cout << "Ataque tierra boss final" << std::endl; 
+						spawnSpikes(); 
+						bossAnim->setState(HEALTH_BOSS); 
+					}
+
+				}
 			}
-
-		}
 		}
 	}
 		
+}
+
+void FinalBossBehaviorComponent::reset()
+{
+	//boss
+	bossHealth->resetHealth();
+	bossAnim->setState(IDLE_BOSS2);
+	//ataques
+	deleteBlackHoles();
+	deleteBubbles();
+	deleteWeakPoints();
+	deleteSpikes();
+	//timers
+	timeBetweenAttacks = SDL_GetTicks() + ATTACK_TIME;
+
 }
 
 // Mata agujeros negros y elimina del vector
