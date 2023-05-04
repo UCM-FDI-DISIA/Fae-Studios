@@ -17,6 +17,7 @@
 #include "CameraComponent.h"
 #include "FadeOutAnimationComponent.h"
 #include "../components/ActiveWater.h"
+#include "../components/BossDoor.h"
 
 using namespace tmx;
 
@@ -234,12 +235,15 @@ public:
 		switch (e) {
 			case ecs::Earth:
 				loadEarthBoss = false;
+				mngr_->getBossDoor()->getComponent<BossDoor>()->unlockElem(ecs::Earth);
 				break;
 			case ecs::Water:
 				loadWaterBoss = false;
+				mngr_->getBossDoor()->getComponent<BossDoor>()->unlockElem(ecs::Water);
 				break;
 			case ecs::Fire:
 				loadFireBoss = false;
+				mngr_->getBossDoor()->getComponent<BossDoor>()->unlockElem(ecs::Fire);
 				break;
 		}
 	}

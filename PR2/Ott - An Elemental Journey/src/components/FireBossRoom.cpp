@@ -74,6 +74,7 @@ void FireBossRoom::update()
 		endWall->setAlive(false); 
 		endWall = nullptr;
 		ent_->setAlive(false);
+		mngr_->getMap()->getComponent<MapComponent>()->setBossCompleted(ecs::Fire);
 	}
 	if (restartTimer == -1 && p->getComponent<Health>()->getHealth() <= 0) {
 		showBar = false;
