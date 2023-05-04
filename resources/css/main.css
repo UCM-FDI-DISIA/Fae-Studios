@@ -79,6 +79,18 @@ hr#agua:after {
     text-align: center;
     padding: 0;
 }
+hr#fuego:after {
+    content: url("../images/ElementoFuego-1.png");
+    display: block;
+    margin: auto; /* Center the image horizontally */
+    width: 50%; /* Set a width to the image */
+    height: auto; /* Set height to auto to preserve aspect ratio */
+    position: relative; /* Set position to relative for vertical centering */
+    top: 50%; /* Move the image down by 50% of its height */
+    transform: translateY(-50%); /* Move the image up by 50% of its height */
+    text-align: center;
+    padding: 0;
+}
 x:-o-prefocus, hr:after {
     content: "";
   }
