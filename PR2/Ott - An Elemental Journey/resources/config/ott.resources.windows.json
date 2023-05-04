@@ -1055,8 +1055,8 @@
 		{
 			"id": "bossTierraCartel",
 			"file": "../resources/images/carteles/BossTierra.png",
-			"rows":1,
-			"cols":1
+			"rows": 1,
+			"cols": 1
 		},
 		{
 			"id": "attackBubble",
@@ -1151,6 +1151,12 @@
 		{
 			"id": "loreText2",
 			"file": "../resources/images/tests/Lore_2.png",
+			"rows": 12,
+			"cols": 3
+		},
+		{
+			"id": "loreText3",
+			"file": "../resources/images/tests/Lore_3.png",
 			"rows": 12,
 			"cols": 3
 		},

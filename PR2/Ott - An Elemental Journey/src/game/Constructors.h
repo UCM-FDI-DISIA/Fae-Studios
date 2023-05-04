@@ -412,8 +412,11 @@ namespace constructors {
 		else if (name == "loreText2") {
 			text->addComponent<Transform>(posText, width*7, height);
 		}
+		else if (name == "loreText3") {
+			text->addComponent<Transform>(posText, width * 8, height * 1.2);
+		}
 		text->addComponent<FramedImage>(&sdlutils().images().at(name), 3, 12);
-		text->addComponent<LoreTextAnims>("loreText1", anims::LORE_ANIM, text);
+		text->addComponent<LoreTextAnims>(name, anims::LORE_ANIM, text);
 		rock->addComponent<LoreRoom>(text);
 	
 		return rock;

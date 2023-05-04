@@ -957,6 +957,12 @@
 			"cols": 3
 		},
 		{
+			"id": "loreText3",
+			"file": "../Ott - An Elemental Journey/resources/images/tests/Lore_3.png",
+			"rows": 12,
+			"cols": 3
+		},
+		{
 			"id": "hanging_spike",
 			"file": "../Ott - An Elemental Journey/resources/images/tests/Hanging_Spike.png",
 			"rows": 1,
