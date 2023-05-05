@@ -345,14 +345,97 @@ Cada zona del juego dispondrá de 1 jefe propio, con sus mecánicas únicas y do
 Los tres tipos de enemigos estarán presentes en todos los reinos, pudiendo ser de todos los elementos disponibles, excepto oscuridad. De manera que para poder enfrentarse a ellos facilmente, se tendrá que hacer un buen uso de la jerarquía de elementos. (véase [***Elementos***](#31---elementos)).
 
 ## **9 - Recursos utilizados**
-#### Recursos propios
-- Shuriken de agua (Basado en https://www.nicepng.com/ourpic/u2y3q8t4t4e6y3e6_water-shuriken-water-pixel-art/)
-- Ataque de fuego de Ott
-- SpriteSheet Ott escalando (Basado en SpriteSheet de Ott)
-- Elementos
 
-#### Créditos
-- Música del boss final --> Riding Dragons - https://www.boris-sandor.com/
+### Recursos públicos
+  - [StringStar fields](https://trixelized.itch.io/starstring-fields) (itch.io), Trixie
+  - [Oak Woods](https://brullov.itch.io/oak-woods) (itch.io), brullov
+  - [Pixel effects pack](https://codemanu.itch.io/pixelart-effect-pack) (itch.io), CodeManu
+  - [Hooded protagonist](https://penzilla.itch.io/hooded-protagonist) (itch.io, editado), Penzilla
+  - [Fantasy swamp forest tileset](https://theflavare.itch.io/forest-nature-fantasy-tileset) (itch.io), The Flavare
+  - [Fire column pixel art effect](https://sanctumpixel.itch.io/fire-column-pixel-art-effect) (itch.io), sanctumpixel
+  - [Red Shroom](https://caz-creates-games.itch.io/red-shroom) (itch.io, editado), Caz Creates Games
+  - [Fire pixel effect](https://xyezawr.itch.io/free) (itch.io), XYEzawr
+  - [Soap bubble burst animation](https://in.pinterest.com/pin/398427898278282138/) (pinterest, editado), vectorStock
+  - [Gothicvania Volcanic Area](https://ansimuz.itch.io/gothicvania-volcanic-area) (itch.io), ansimuz
+  - [Animated pixel art skeleton](https://astrobob.itch.io/animated-pixel-art-skeleton) (itch.io), AstroBob
+  - [Pixel art bug hulk](https://lil-cthulhu.itch.io/pixel-art-bug-hulk) (itch.io, editado), Lil Cthulhu
+  - [Free pixel art forest](https://edermunizz.itch.io/free-pixel-art-forest) (itch.io), edermunizz
+  - [Pixel art caves](https://assetstore.unity.com/packages/2d/environments/pixel-caves-136235#asset_quality) (unity asset store) GAZIELLE
+  - [Warning Boss Tierra](https://pixyfantasystudios.itch.io/warning-sign) (itch.io) Warning Sign Animation
+  - [Enredaderas](https://itch.io/queue/c/3117256/p2-assets?game_id=1045084) (itch.io) Plants&Nature Sprites
+  - [Gusano MiniBoss Tierra](https://www.aigei.com/item/trap_pack_30_f.html)(aigei, inspiración)陷阱包! 30 免费动画陷阱(Trap Pack! 30 Free Animated Traps)
+	
+### Música
+  - [Fantasy RPG music](https://alkakrab.itch.io/free-25-fantasy-rpg-game-tracks-no-copyright-vol-2) (itch.io), alkakrab
+  - [Plant Growing](https://freesound.org/people/IENBA/sounds/648958/) (freesound.org), IENBA
+  - [Grass Step Left](https://freesound.org/people/spycrah/sounds/535220/) (freesound.org), spycrah
+  - [Page_Turn_24.wav](https://freesound.org/people/Koops/sounds/20258/) (freesound.org), Koops
+  - [Story Logo](https://freesound.org/people/SergeQuadrado/sounds/460658/) (freesound.org), SergeQuadrado
+  - [Another magic wand spell tinkle.flac](https://freesound.org/people/Timbre/sounds/221683/) (freesound.org), Timbre
+  - [Fireball Cast 1](https://freesound.org/people/LiamG_SFX/sounds/334234/) (freesound.org), LiamG_SFX
+  - [Whip Crack.m4a](https://freesound.org/people/SciFiSounds/sounds/529925/) (freesound.org), SciFiSounds
+  - [Rocks Sliding](https://freesound.org/people/yatoimtop/sounds/400858/) (freesound.org), yatoimtop
+  - [SFX_SQUELCH_slayer_06.wav](https://freesound.org/people/MrFossy/sounds/589627/) (freesound.org), MrFossy
+  - [Slime Stomp - Pulse 2 - RR9](https://freesound.org/people/voxlab/sounds/663155/) (freesound.org), voxlab
+  - [Hard Stomp Sound](https://freesound.org/people/philRacoIndie/sounds/512483/) (freesound.org), philRacoIndie
+  - [Fantasy UI Sound Effects](https://ateliermagicae.itch.io/fantasy-ui-sound-effects) (itch.io), AtelierMagicae
+  - [Monster Screech | Sound Effect](https://www.youtube.com/watch?v=zq_I79z2iI0) (YouTube), iZone
+  - [Essentials Series - Free Sound Effect](https://nox-sound.itch.io/essentials-series-sfx-nox-sound) (itch.io), Nox Sound
+  - [TRANSITION.wav](https://freesound.org/people/djfroyd/sounds/466085/) (freesound.org), djfroyd
+  - [Swoosh.wav](https://freesound.org/people/berglindsi/sounds/402977/) (freesound.org), berglindsi
+  - [Fantasy Sound Effects Library](https://opengameart.org/content/fantasy-sound-effects-library) (OpenGameArt), Little Robot Sound Factory
+  - [Wind, hit, time morph](https://opengameart.org/content/wind-hit-time-morph) (OpenGameArt), qubodup
+  - Shield Broken (mixkit), RedlistFC
+  - Shield Block (mixkit), no figura
+  - Ataque Debil 
+  - Ataque Fuerte 
+  - Ataque Inutil, Yap Audio Production
+  - Ataque Ott
+  - Ataque Tierra
+  - Bicho Muerte
+  - Bicho Slash
+  - Botón
+  - Botón atrás
+  - Cambio de elemento
+  - Ott Golpeado
+  - Activación Lámpara
+  - Abrir Mapa
+  - Coger elemento
+  - Botón de Jugar
+  - Transformación Reliquia
+  - Coger Reliquia
+  - Descansar en Santuario
+  - Acercarse a Santuario
+  - Alejarse de Santuario
+
+### Recursos propios
+  - Shuriken de agua (Basado en https://www.nicepng.com/ourpic/u2y3q8t4t4e6y3e6_water-shuriken-water-pixel-art/)
+  - Ataque de fuego de Ott
+  - SpriteSheet Ott escalando (Basado en SpriteSheet de Ott)
+  - Elementos
+  - El resto de assets son nuestros, estos son:
+  - Santuarios
+  - Puerta del boss final
+  - Proyectil de la seta
+  - Diseño del jefe final
+  - Ataques de oscuridad del jefe final.
+  - Elementos de la UI: sliders, botones, vida, indicador de ataque cargado
+  - Enemigo slime
+  - Fragmentos de vida (velas)
+  - Orbes elementales
+  - Reliquias
+  - Lámparas de vida
+  - Barras de vida
+  - Oscurecedor de pantalla con poca vida
+  - Zarzas oscuras
+  - Carteles
+  - Escudo
+  - Gran árbol del mundo de tierra
+  - Sonido Ataque de Agua
+  - Plataforma con enredadera del earth miniboss
+
+### Créditos
+  - Música del boss final --> Riding Dragons - https://www.boris-sandor.com/
 
 
 ## **10 - Referencias**
