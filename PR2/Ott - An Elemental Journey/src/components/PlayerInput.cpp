@@ -156,9 +156,6 @@ void PlayerInput::update()
 				if (input->isKeyDown(SDLK_UP)) {
 					//Trepar
 				}
-				if (input->isKeyDown(SDLK_q)) {
-					mngr_->getPlayer()->getComponent<AttackCharger>()->addCharge(8);
-				}
 				if (input->isKeyDown(SDLK_DOWN)) {
 					//Agacharse?
 				}

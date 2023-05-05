@@ -812,14 +812,28 @@ void MapComponent::loadMap(std::string path, int nextPos) {
                 }
             }
             else if (classSplit[0] == "Relic") {
-                auto room = std::stoi(classSplit[1]);
-                auto roomScale = vectorTiles[room].first;
-                auto relic = constructors::relic(mngr_, (x_ * scale) * roomScale, (y_ * scale) * roomScale, (w_ * scale) * roomScale, (h_ * scale) * roomScale, (ecs::elements)std::stoi(ot.getName()), room);
-                interact[std::stoi(classSplit[1])].push_back(relic);
-                auto v = &interact[std::stoi(classSplit[1])];
-                auto it = (--v->end());
-                relic->getComponent<InteractionComponent>()->setIt(it, v);
-                relic->setActive(false);
+                bool load = true;
+                switch ((ecs::elements)std::stoi(ot.getName())) {
+                    case ecs::Earth:
+                        load = loadEarthRelic;
+                        break;
+                    case ecs::Water:
+                        load = loadWaterRelic;
+                        break;
+                    case ecs::Fire:
+                        load = loadFireRelic;
+                        break;
+                }
+                if (load) {
+                    auto room = std::stoi(classSplit[1]);
+                    auto roomScale = vectorTiles[room].first;
+                    auto relic = constructors::relic(mngr_, (x_ * scale) * roomScale, (y_ * scale) * roomScale, (w_ * scale) * roomScale, (h_ * scale) * roomScale, (ecs::elements)std::stoi(ot.getName()), room);
+                    interact[std::stoi(classSplit[1])].push_back(relic);
+                    auto v = &interact[std::stoi(classSplit[1])];
+                    auto it = (--v->end());
+                    relic->getComponent<InteractionComponent>()->setIt(it, v);
+                    relic->setActive(false);
+                }
             }
             else if (classSplit[0] == "Lamp") {
                 std::string lampName = ot.getName();
@@ -947,6 +961,7 @@ void MapComponent::loadMap(std::string path, int nextPos) {
                 door->setActive(false);
             }
         }
+
 
         SDL_Rect playerRect = getSDLRect(playerPos.getAABB());
         
@@ -1077,9 +1092,12 @@ void MapComponent::render() {
 
 void MapComponent::saveToFile(std::ofstream& file) {
     file << "map_key " << currentMapKey << " " << currentMap << std::endl
-        << "earth_boss " << loadEarthBoss << std::endl 
+        << "earth_boss " << loadEarthBoss << std::endl
         << "water_boss " << loadWaterBoss << std::endl
-        << "fire_boss " << loadFireBoss << std::endl;
+        << "fire_boss " << loadFireBoss << std::endl
+        << "earth_relic " << loadEarthRelic<< std::endl
+        << "water_relic " << loadWaterRelic << std::endl
+        << "fire_relic " << loadFireRelic << std::endl;
 }
 
 void MapComponent::loadFromFile(std::ifstream& file) {
@@ -1089,5 +1107,6 @@ void MapComponent::loadFromFile(std::ifstream& file) {
     loadEarthElem = !pInput->hasElement(ecs::Earth);
     loadWaterElem = !pInput->hasElement(ecs::Water);
     loadFireElem = !pInput->hasElement(ecs::Fire);
+    file >> aux >> loadEarthRelic >> aux >> loadWaterRelic >> aux >> loadFireRelic;
     pickedLifeShards = game->getPlayer()->getComponent<Health>()->getLifeShardIDs();
 }
