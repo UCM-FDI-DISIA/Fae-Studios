@@ -2,6 +2,9 @@
 #include "../states/PlayState.h"
 #include "../states/GameStateMachine.h"
 #include "Health.h"
+#include "../states/GameStateMachine.h"
+#include "../states/FinalCreditsState.h"
+#include "../states/PlayState.h"
 
 //FinalBossAnimation::~FinalBossAnimation()
 //{
@@ -84,6 +87,7 @@ void FinalBossAnimation::endAnim()
 {
 	if (currentAnimation == DIE_BOSS) {
 		ent_->setAlive(false);
+		static_cast<PlayState*>(stateMachine().getPlayState())->endGame();
 		alive = false;
 	}
 	else if (currentAnimation == IDLE_BOSS) setState(IDLE_BOSS2);

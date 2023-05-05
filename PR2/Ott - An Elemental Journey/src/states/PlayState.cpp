@@ -31,6 +31,8 @@
 #include <iostream>
 #include "../components/ScreenDarkenerComponent.h"
 #include "../components/FramedImage.h"
+#include "../states/FinalCreditsState.h"
+
 
 PlayState::PlayState() : GameState(ecs::_state_PLAY) {
 	currentMap = ecs::EARTH_MAP;
@@ -440,6 +442,8 @@ void PlayState::update() {
 			PlayingNormalMusic = true;
 		}
 	}
+
+	if (end) startCredits();
 }
 
 void PlayState::AddEnredadera() {
@@ -540,4 +544,9 @@ void PlayState::DoorInteract() {
 		auto fadeOut = mngr_->getFadeOut();
 		fadeOut->getComponent<FadeOutMapComponent>()->startFadeOut(ecs::FINAL_BOSS_MAP, "finalBossMap", 0);
 	}
+}
+
+
+void  PlayState::startCredits() {
+	stateMachine().changeState(new FinalCreditsState());
 }

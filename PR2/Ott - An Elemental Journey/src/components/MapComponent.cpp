@@ -556,7 +556,10 @@ void MapComponent::loadMap(std::string path, int nextPos) {
             rect.w *= roomScale;
             rect.h *= roomScale;
 
-            mngr_->getPlayer()->getComponent<PlayerAttack>()->setFinalBoss(constructors::boss(mngr_, this, rect.x, rect.y, rect.w, rect.h));
+            auto boss = constructors::boss(mngr_, this, rect.x, rect.y, rect.w, rect.h);
+            mngr_->getPlayer()->getComponent<PlayerAttack>()->setFinalBoss(boss.first);
+            eraseEntities.push_back(boss.first);
+            eraseEntities.push_back(boss.second);
         }
 
         for (auto obj : vectorObjects[WATER_VECTOR_POS]) {

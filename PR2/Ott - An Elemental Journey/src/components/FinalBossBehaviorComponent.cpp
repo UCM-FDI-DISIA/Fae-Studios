@@ -8,6 +8,9 @@
 #include "BlackHoleAnimationComp.h"
 #include "EnemyContactDamage.h"
 #include "DamageArea.h"
+
+
+
 FinalBossBehaviorComponent::FinalBossBehaviorComponent(MapComponent* map) :Component()
 {
 	currentElement = rand() % 5;
@@ -18,6 +21,17 @@ FinalBossBehaviorComponent::FinalBossBehaviorComponent(MapComponent* map) :Compo
 	stunned = false;
 	isWeakPoints = false;
 	waitingForReset = false;
+}
+
+FinalBossBehaviorComponent::~FinalBossBehaviorComponent() {
+	deleteWeakPoints();
+	deleteBlackHoles();
+	deleteBubbles();
+	deleteSpikes();
+	for (auto f : fists) {
+		f->getComponent<FistComponent>()->notErase();
+		f->setAlive(false);
+	}
 }
 
 void FinalBossBehaviorComponent::initComponent()
@@ -169,7 +183,7 @@ void FinalBossBehaviorComponent::spawnFireWall() //Ataque fuego
 	// Burguja
 	Entity* fireW = mngr_->addEntity(ecs::_grp_PROYECTILES);
 
-	fireW->addComponent<Transform>(spawnPos - Vector2D(0, FIREWALL_HEIGHT / 2), FIREWALL_WIDTH * pTransf->getScale(), FIREWALL_HEIGHT * pTransf->getScale());
+	fireW->addComponent<Transform>(spawnPos - Vector2D(0,FIREWALL_HEIGHT / 3), FIREWALL_WIDTH * pTransf->getScale(), FIREWALL_HEIGHT * pTransf->getScale());
 	//fireW->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
 	fireW->addComponent<FramedImage>(&sdlutils().images().at("finalBossFireWall"), 1, 14);
 	fireW->addComponent<FireWallComponent>(Vector2D(1, 0));
@@ -199,8 +213,9 @@ void FinalBossBehaviorComponent::spawnFist() {
 
 	fist->addComponent<Transform>(Vector2D(mngr_->getPlayer()->getComponent<Transform>()->getPosition().getX()-1000, mngr_->getPlayer()->getComponent<Transform>()->getPosition().getY()), FIST_SIZE, FIST_SIZE);
 	fist->addComponent<Image>(&sdlutils().images().at("BossFist"));
-	fist->addComponent<FistComponent>(0);
-
+	fists.push_back(fist);
+	auto it = --(fists.end());
+	fist->addComponent<FistComponent>(0, it, &fists);
 }
 
 void FinalBossBehaviorComponent::spawnFistTop() {
@@ -212,9 +227,9 @@ void FinalBossBehaviorComponent::spawnFistTop() {
 
 	fist->addComponent<Transform>(Vector2D(mngr_->getPlayer()->getComponent<Transform>()->getPosition().getX(), mngr_->getPlayer()->getComponent<Transform>()->getPosition().getY()-1000), FIST_SIZE, FIST_SIZE);
 	fist->addComponent<Image>(&sdlutils().images().at("BossFistTop"));
-	fist->addComponent<FistComponent>(1);
-
-
+	fists.push_back(fist);
+	auto it = --(fists.end());
+	fist->addComponent<FistComponent>(1, it, &fists);
 }
 // Ataque de tierra
 void FinalBossBehaviorComponent::spawnSpikes() {

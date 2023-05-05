@@ -44,6 +44,7 @@ private:
     int timerAnim;
     int frameAnim = 0;
     Entity* cinema_;
+    bool end = false;
 
 public:
     /// Constructora del estado de juego
@@ -156,4 +157,8 @@ public:
 
     inline void cinematic();
     void DoorInteract();
+    inline void endGame() {
+        end = true;
+    }
+    void startCredits();
 };
