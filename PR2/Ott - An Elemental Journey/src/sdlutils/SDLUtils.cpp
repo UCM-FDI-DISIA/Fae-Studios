@@ -42,7 +42,7 @@ void SDLUtils::initWindow() {
 
 #ifdef _DEBUG
 	std::
-		<< "Initializing SDL" << std::endl;
+		cout << "Initializing SDL" << std::endl;
 #endif
 
 	// initialise SDL
