@@ -120,7 +120,7 @@ bool Health::recieveDamage(ecs::elements el, bool dir) {
 			pAnim_->playerDamaged();
 		}
 	}
-	else if ((ent_->hasComponent<EarthBossAttack>() || ent_->hasComponent<FinalBossBehaviorComponent>()) && bar != nullptr) {
+	else if ((ent_->hasComponent<EarthBossAttack>() || ent_->hasComponent<FinalBossBehaviorComponent>() || ent_->hasComponent<FireBossAnimation>()) && bar != nullptr) {
 		int damage = elementsInfo::ottMatrix[el][elem];
 
         switch (damage){

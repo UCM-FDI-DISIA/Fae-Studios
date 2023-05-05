@@ -3,6 +3,7 @@
 #include <vector>
 #include "../ecs/Component.h"
 #include "../ecs/Entity.h"
+class Health;
 
 class BossHealthBar : public Component
 {
@@ -15,7 +16,7 @@ public:
 	bool getIsDead() { return isDead; }
 	void setBossLife(int n) { BossLife = n; }
 	void damage(int n);
-	void cure();
+	void cure(int n);
 	void reset();
 	void die();
 	virtual void render();

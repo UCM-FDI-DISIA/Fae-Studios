@@ -69,10 +69,10 @@ void FinalBossBehaviorComponent::update()
 			}
 			else
 			{
-				if (spikes.size() > 0  && SDL_GetTicks() < timeBetweenAttacks && SDL_GetTicks() > timeCure)
+				if (spikes.size() > 0  && SDL_GetTicks() < timeBetweenAttacks && SDL_GetTicks() - timeCure > CURE_TIME)
 				{
-					bossHealth->cureHealth();
-					timeCure += CURE_TIME;
+					bossHealth->cureHealth(1);
+					timeCure = SDL_GetTicks();
 			
 				}
 				//Temporizador de ataque (ataca cada 5 segundos)
@@ -108,6 +108,7 @@ void FinalBossBehaviorComponent::update()
 						timeBetweenAttacks += ATTACK_TIME + STUNNED_TIME;
 						numAttacks = 0;
 						spawnSpikes(); 
+						timeCure = SDL_GetTicks();
 						bossAnim->setState(HEALTH_BOSS); 
 					}
 

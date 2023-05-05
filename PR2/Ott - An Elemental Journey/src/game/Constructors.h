@@ -370,7 +370,7 @@ namespace constructors {
 
 		auto healthBar = mngr_->addEntity(ecs::_grp_UI);
 		healthBar->addComponent<BossHealthBar>(b, 4, &sdlutils().images().at("bossHealthBar"), &sdlutils().images().at("bossLife"));
-		b->addComponent<Health>(healthBar->getComponent<BossHealthBar>(), 1, ecs::Dark, false);
+		b->addComponent<Health>(healthBar->getComponent<BossHealthBar>(), 10, ecs::Dark, false);
 		b->addComponent<FinalBossAnimation>(anims::FINALBOSS);
 		b->addComponent<FinalBossBehaviorComponent>(map_);
 		return make_pair(b, healthBar);
@@ -536,8 +536,7 @@ namespace constructors {
 		healthBar->addComponent<BossHealthBar>(boss, (int)ecs::Fire, &sdlutils().images().at("bossHealthBar"), &sdlutils().images().at("bossLife"));
 		auto anim=boss->addComponent<FireBossAnimation>(anims::FIREBOSS_ANIM, map);
 		boss->getComponent<FireBossComponent>()->setAnimComponent(anim);
-		boss->addComponent<Health>(1, ecs::Fire, false, true);
-		//boss->addComponent<Health>(healthBar->getComponent<BossHealthBar>(), 25, ecs::Fire, false);
+		boss->addComponent<Health>(healthBar->getComponent<BossHealthBar>(), 25, ecs::Fire, false);
 		return boss;
 	}
 
