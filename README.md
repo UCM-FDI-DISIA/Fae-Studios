@@ -178,26 +178,27 @@ El mapa también es capaz de registrar constantemente la posición de Ott durant
 <table>
     <tr>
         <td><b>Hierba</b>
+        <br>
         <img src="./gdd-assets/grass.png"></br>
         </td>
         <td>Habilitan la creación de <b>enredaderas</b> sobre ellas usando el poder elemental de tierra/planta</td>
     </tr>
     <tr>
         <td><b>Enredaderas</b> 
-        <img src="./gdd-assets/enredadera.png"></br>
+        <br><img src="./gdd-assets/enredadera.png"></br>
         </td>
         <td>Hojas dispuestas verticalmente; permiten a Ott <b>subir por ellas</b>.</td>
     </tr>
     <tr>
         <td><b>Zarzas</b><br> 
-        <img src="./gdd-assets/hangingSpike.png"></br>
+        <br><img src="./gdd-assets/hangingSpike.png"></br>
         </td>
         <td><b>Bloquean</b> el camino. Pueden <b>romperse</b> usando el poder elemental del <b>fuego</b></td>
     </tr>
     <tr>
         <td><b>Zonas profundas de agua</b> 
-        <br> Representadas mediante un filtro azul por encima del personaje
-        <img src="./gdd-assets/deepWater.png"></br>
+        Representadas mediante un filtro azul por encima del personaje
+        <br> <img src="./gdd-assets/deepWater.png"></br>
         </td>
         <td>Habrá que pasar por ellas <b>buceando</b> con el poder del agua. Al usarlo, el personaje es capaz de llegar hasta el fondo del agua, pudiendo caminar por él. Su salto y movimiento se verán ligeramente ralentizados. Al cambiar de elemento bajo el agua, el personaje ascenderá lentamente.</td>
     </tr>
@@ -219,16 +220,15 @@ El mapa también es capaz de registrar constantemente la posición de Ott durant
 ### **3.8 - Cámara**
 La cámara sigue al jugador, manteniéndolo en el centro en todo momento excepto al llegar al borde de una sala, momento en que los bordes de la sala coincidirían con el borde de la cámara, causando que el jugador deje de estar en el centro. Cuando se pase de una sala a otra la cámara hace un efecto de fundido en negro, antes de pasar a la siguiente  sala.
 
-
 ## **4 - Diseño de nivel**
 El diseño gira entorno al plataformeo y al movimiento del personaje por las ‘salas’, que contienen múltiples plataformas de diferentes tipos, aparte de caminos en un primer lugar bloqueados o inaccesibles debido a la falta de habilidades del personaje que controlamos; y también destaca la presencia múltiples en enemigos.  
 Todos los reinos cuentan con los siguientes puntos en común:
-  - **Tres tipos de enemigos** que no se comparten entre los reinos.
-  - Un **elemento** guardado por enemigos de oscuridad.
-  - Un **Boss final** que nos dará un fragmento de vida.
-  - Uno o varios **fragmentos de vida oculto** en alguna sala
+  - **Tres tipos de enemigos**, que pueden ser de los 4 elementos (tierra, agua, fuego y oscuridad).
+  - Un **elemento**.
+  - Un **Miniboss**.
+  - Dos **fragmentos de vida ocultos** repartidos entre dos salas.
   - Una **reliquia** única.
-  - Salas sin peligros donde se cuenta el lore a través de escritos en las paredes.
+  - Salas sin peligros donde se cuenta el lore a través de escritos en rocas.
   
 De esta forma es posible aumentar la vida máxima en 1 en cada uno de los reinos (para un total de **8 vidas**) siempre y cuando se exploren casi en su totalidad. 
 
