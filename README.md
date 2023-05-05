@@ -269,7 +269,7 @@ Los personajes de cada elemento portarán los colores de su reino, excepto aquel
 
 **Las paletas de cada zona serán las siguientes:**
 
-<img src="./gdd-assets/paletas.png">
+<img src="./gdd-assets/paletas.PNG">
 
 Algunas capturas del resultado final de las zonas:
 
@@ -302,11 +302,38 @@ Los siguientes ítems se encontrarán repartidos a lo largo de los 3 mapas explo
 <table>
     <tr>
         <td><b>Elemento</b>
-        <br><img src="./gdd-assets/bug.png"></br>
+        <br><img src="./gdd-assets/elements.png"></br>
         </td>
         <td>
             <ul>
                 <li> Son el objeto que permitirá a Ott desbloquear las nuevas habilidades. Son 3, únicos y repartidos cada uno en un mapa distinto. </li>
+                <li> Una vez se coja uno de ellos, el <i>spawn-point</i> de Ott se setteará a la posición del elemento.</li>
+            </ul>
+        </td>
+    </tr>
+        <tr>
+        <td><b>Fragmento de Vida</b>
+        <br><img src="./gdd-assets/lifeShards.png"></br>
+        </td>
+        <td>
+            <ul>
+                <li> Dan al jugador la oportunidad de aumentar su vida máxima en 1 cuando coge dos de estos fragmentos. </li>
+                <li> Hay un total de 6: 2 en cada mapa explorable.</li>
+                <li> Se encuentran ocultos a lo largo de los mismos.</li>
+                <li> Al ser recogidos un texto en el centro de la pantalla muestra cuánto se tienen: 1/2 o 2/2</li>
+            </ul>
+        </td>
+    </tr>
+        <tr>
+        <td><b>Reliquia</b>
+        <br><img src="./gdd-assets/earthRelic.png"></br>
+        <br><img src="./gdd-assets/waterRelic.png"></br>
+        <br><img src="./gdd-assets/fireRelic.png"></br>
+        </td>
+        <td>
+            <ul>
+                <li> Son el objeto que permitirá a Ott desbloquear las nuevas habilidades. Son 3, únicos y repartidos cada uno en un mapa distinto. </li>
+                <li> Una vez se coja uno de ellos, el <i>spawn-point</i> de Ott se setteará a la posición del elemento.</li>
             </ul>
         </td>
     </tr>
