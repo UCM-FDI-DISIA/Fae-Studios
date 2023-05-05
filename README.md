@@ -16,9 +16,11 @@
   - [**5 - HUD**](#5---hud)
   - [**6 - Visual**](#6---visual)
   - [**7 - Menús y flujo de juego**](#7---menús-y-flujo-de-juego)
-  - [**8 - Contenido**](#8---contenido)
+  - [**8 - UML**](#8---uml)
+  - [**9 - Contenido**](#9---contenido)
     - [**Personajes y enemigos**](#personajes-y-enemigos)
-  - [**9 - Referencias**](#9---referencias)
+  - [**10 - Recursos**](#10---recursos-utilizados)
+  - [**11 - Referencias**](#11---referencias)
 
 
 ## **1 - Ficha técnica**
@@ -178,26 +180,27 @@ El mapa también es capaz de registrar constantemente la posición de Ott durant
 <table>
     <tr>
         <td><b>Hierba</b>
+        <br>
         <img src="./gdd-assets/grass.png"></br>
         </td>
         <td>Habilitan la creación de <b>enredaderas</b> sobre ellas usando el poder elemental de tierra/planta</td>
     </tr>
     <tr>
         <td><b>Enredaderas</b> 
-        <img src="./gdd-assets/enredadera.png"></br>
+        <br><img src="./gdd-assets/enredadera.png"></br>
         </td>
         <td>Hojas dispuestas verticalmente; permiten a Ott <b>subir por ellas</b>.</td>
     </tr>
     <tr>
         <td><b>Zarzas</b><br> 
-        <img src="./gdd-assets/hangingSpike.png"></br>
+        <br><img src="./gdd-assets/hangingSpike.png"></br>
         </td>
         <td><b>Bloquean</b> el camino. Pueden <b>romperse</b> usando el poder elemental del <b>fuego</b></td>
     </tr>
     <tr>
         <td><b>Zonas profundas de agua</b> 
-        <br> Representadas mediante un filtro azul por encima del personaje
-        <img src="./gdd-assets/deepWater.png"></br>
+        Representadas mediante un filtro azul por encima del personaje
+        <br> <img src="./gdd-assets/deepWater.png"></br>
         </td>
         <td>Habrá que pasar por ellas <b>buceando</b> con el poder del agua. Al usarlo, el personaje es capaz de llegar hasta el fondo del agua, pudiendo caminar por él. Su salto y movimiento se verán ligeramente ralentizados. Al cambiar de elemento bajo el agua, el personaje ascenderá lentamente.</td>
     </tr>
@@ -219,26 +222,21 @@ El mapa también es capaz de registrar constantemente la posición de Ott durant
 ### **3.8 - Cámara**
 La cámara sigue al jugador, manteniéndolo en el centro en todo momento excepto al llegar al borde de una sala, momento en que los bordes de la sala coincidirían con el borde de la cámara, causando que el jugador deje de estar en el centro. Cuando se pase de una sala a otra la cámara hace un efecto de fundido en negro, antes de pasar a la siguiente  sala.
 
-
 ## **4 - Diseño de nivel**
 El diseño gira entorno al plataformeo y al movimiento del personaje por las ‘salas’, que contienen múltiples plataformas de diferentes tipos, aparte de caminos en un primer lugar bloqueados o inaccesibles debido a la falta de habilidades del personaje que controlamos; y también destaca la presencia múltiples en enemigos.  
 Todos los reinos cuentan con los siguientes puntos en común:
-  - **Tres tipos de enemigos** que no se comparten entre los reinos.
-  - Un **elemento** guardado por enemigos de oscuridad.
-  - Un **Boss final** que nos dará un fragmento de vida.
-  - Uno o varios **fragmentos de vida oculto** en alguna sala
+  - **Tres tipos de enemigos**, que pueden ser de los 4 elementos (tierra, agua, fuego y oscuridad).
+  - Un **elemento**.
+  - Un **Miniboss**.
+  - Dos **fragmentos de vida ocultos** repartidos entre dos salas.
   - Una **reliquia** única.
-  - Salas sin peligros donde se cuenta el lore a través de escritos en las paredes.
+  - Salas sin peligros donde se cuenta el lore a través de escritos en rocas.
   
 De esta forma es posible aumentar la vida máxima en 1 en cada uno de los reinos (para un total de **8 vidas**) siempre y cuando se exploren casi en su totalidad. 
 
 ### Bosque
 Se trata de la **primera zona del juego**. Trata de introducir las mecánicas de movimiento y tiene **enemigos** muy **sencillos**, que intentan introducir las mecánicas de ataque y defensa de forma liviana.
 El juego comienza con el jugador observando la gigantesca puerta del **Boss Final**, a quien se tendrá que enfrentar para rematar su aventura. Esta puerta muestra **4 luces**, todas **apagadas**, excepto 1, que se encenderá en cuanto el jugador pueda tomar control de Ott. Estas luces representan los diferentes elementos, y la que se enciende al comenzar la aventura representa la luz.
-
-<img src="./gdd-assets/boceto-mapa.png">
-
-**Figura 1**: *Primer boceto del mapa con la región de tierra entera y el comienzo de la región de agua.*
 
 ### Zona acuática
 La segunda zona del juego estará sumergida en su mayor parte. Para poder desplazarse Ott tendrá que cambiar entre el poncho de agua y el resto de elementos para poder descender y ascender a voluntad por el nivel. Este nivel está muy centrado al rededor de esta mecánica de movimiento, presentando así salas a modo de laberinto y algún que otro puzzle.
@@ -254,13 +252,13 @@ La interfaz ocupará el menor espacio posible en pantalla, ya que la informació
 
 Justo al lado de la barra de vida aparecerá un medidor circular dividido en ocho fragmentos que indicará el número de cargas obtenidas para el **ataque cargado**.
 
- <img src="./gdd-assets/hud-vida-cargada.png">
+ <img src="./gdd-assets/hudLife.png">
 
- **Figura 1**: *boceto de HUD con la mayoria de vida.*
+ **Figura 1**: *HUD con 2 puntos de vida y elemento de Tierra (las lámparas cambian de color según tu elemento).*
 
-<img src="./gdd-assets/hud-poca-vida.png">
+<img src="./gdd-assets/darkenedScreen.png">
 
-**Figura 2**: *Boceto de cómo se vería el oscurecimiento de pantalla si Ott tuviera un valor muy bajo de vida.*
+**Figura 2**: *Oscurecimiento cuando Ott tiene 1 punto de vida.*
 
 ## **6 - Visual**
 La estética del juego será Pixel Art 2D. El juego está ambientado en un mundo fantástico basado en tres elementos. La parte visual tendrá una estética suave, atrayente y colorida, que contraste la temática más bélica/dramática.  
@@ -271,25 +269,57 @@ Los personajes de cada elemento portarán los colores de su reino, excepto aquel
 
 **Las paletas de cada zona serán las siguientes:**
 
-<img src="./gdd-assets/paletas.PNG">
+<img src="./gdd-assets/paletas.png">
+
+Algunas capturas del resultado final de las zonas:
+
+<img src="./gdd-assets/paletterEarth.png">
+
+<img src="./gdd-assets/paletteWater.png">
+
+<img src="./gdd-assets/paletteFire.png">
 
 ## **7 - Menús y flujo de juego**
 El juego contará con un menú principal donde poder crear una **partida nueva**, **cargar partida**, **acceder a ajustes** o **salir** de la aplicación. 
-Al acceder al submenú de ajustes se podrán encontrar mayoritariamente ajustes de sonido.
+Al acceder al submenú de ajustes se podrán encontrar mayoritariamente ajustes de sonido, ajustes para pantalla completa y los controles.
 
-<img src="./gdd-assets/menus.png">
+<img src="./gdd-assets/mainMenu.png">
+<img src="./gdd-assets/optionsMenu.png">
 
-Una vez se haya accedido a una partida, el juego podrá **pausarse** pulsando la tecla ESC (teclado) || Botón Options (PS) || Botón Start (XBOX). Esto hará que toda la ejecución del juego, excepto la música, se detenga. En este menú podremos entrar a **ajustes**, **salir al menú** o **salir al escritorio**.
+Una vez se haya accedido a una partida, el juego podrá **pausarse** pulsando la tecla ESC (teclado) || Botón Options (PS) || Botón Start (XBOX). Esto hará que toda la ejecución del juego, excepto la música, se detenga. En este menú podremos entrar a **ajustes**, **salir al menú**, **salir al escritorio** y, por supuesto, **reanudar el juego**.
 
 <img src="./gdd-assets/flujos-menu.png">
 
+## **8 - UML**
+<br>[<img src="./gdd-assets/UML_Ott an elemental journey.jpeg">](https://lucid.app/lucidchart/5c136751-1505-4317-a7f1-b268ce52882c/edit?viewport_loc=-6666%2C-1142%2C15541%2C7967%2C0_0&invitationId=inv_d6f180e9-018e-4347-a559-ed718dc08576)</br>
 
-## **8 - Contenido**
+## **9 - Contenido**
+
+
+### **Items Recolectables**
+Los siguientes ítems se encontrarán repartidos a lo largo de los 3 mapas explorables y serán recolectados de forma instantánea al colisionar con ellos:
+
+<table>
+    <tr>
+        <td><b>Elemento</b>
+        <br><img src="./gdd-assets/bug.png"></br>
+        </td>
+        <td>
+            <ul>
+                <li> Son el objeto que permitirá a Ott desbloquear las nuevas habilidades. Son 3, únicos y repartidos cada uno en un mapa distinto. </li>
+            </ul>
+        </td>
+    </tr>
+
+</table>
+
 ### **Personajes y enemigos**
 Cada zona del juego (Bosque, Lago - Fondo del lago, Volcán y Oscuridad) tendrán 3 tipos de enemigos (débil, medio y fuerte) descrito más adelante. De esta forma, el enemigo débil del bosque no será el mismo que el del Volcán, por ejemplo.
 <table>
     <tr>
-        <td><b>Bug</b></td>
+        <td><b>Escarabajo</b>
+        <br><img src="./gdd-assets/bug.png"></br>
+        </td>
         <td>
             <ul>
                 <li>Patrón de movimiento "<b>centinela</b>": al ver al jugador le perseguirá hasta poder ejecutar su ataque.</li>
@@ -297,16 +327,20 @@ Cada zona del juego (Bosque, Lago - Fondo del lago, Volcán y Oscuridad) tendrá
         </td>
     </tr>
     <tr>
-        <td><b>Seta lanzaesporas</b></td>
+        <td><b>Seta lanzaesporas</b>
+        <br><img src="./gdd-assets/mushroom.png"></br>
+        </td>
         <td>
             <ul>
                 <li><b>Estático</b>.</li>
-                <li><b>Lanza esporas</b> hacia el jugador cada X segundos.</li>
+                <li><b>Lanza esporas</b> hacia el jugador cada poco tiempo.</li>
             </ul>
         </td>
     </tr>
     <tr>
-        <td><b>Slime de Roca</b></td>
+        <td><b>Slime de Roca</b>
+        <br><img src="./gdd-assets/slime.png"></br>
+        </td>
         <td>
             <ul>
                 <li>Ataca <b>acercándose</b> al <b>jugador</b> y <b>cayendo</b> hacia él. En ese momento se queda vulnerable al no poder moverse. Al morir, se <b>divide en 2</b>.</li>
@@ -315,11 +349,15 @@ Cada zona del juego (Bosque, Lago - Fondo del lago, Volcán y Oscuridad) tendrá
     </tr>
 </table>
 
+Los tres tipos de enemigos estarán presentes en todos los reinos, pudiendo ser de todos los elementos disponibles, excepto oscuridad (estos solo aparecerán al tratar de volver hacia el Boss Final, cuya puerta se encuentra bloqueada en la primera sala del juego hasta que se consigue derrotar a los tres minibosses). De manera que para poder enfrentarse a ellos facilmente, se tendrá que hacer un buen uso de la jerarquía de elementos. (véase [***Elementos***](#31---elementos)).
+
 ### **Jefes**
 Cada zona del juego dispondrá de 1 jefe propio, con sus mecánicas únicas y donde se tendrá que hacer uso de las habilidades aprendidas en ese reino y los anteriores para poder derrotarlo.
 <table>
     <tr>
-        <td><b>Gusano de tierra</b></td>
+        <td><b>Gusano de tierra</b>
+        <br><img src="./gdd-assets/bigWorm.png"></br>
+        </td>
         <td>
             <ul>
                 <li>En la sala del jefe habrá varias enrredaderas que podrá crear el jugador para poder moverse verticalmente y subir a las plataformas presentes.</li>
@@ -330,7 +368,9 @@ Cada zona del juego dispondrá de 1 jefe propio, con sus mecánicas únicas y do
         </td>
     </tr>
     <tr>
-        <td><b>Monstruo Marino</b></td>
+        <td><b>Monstruo Marino</b>
+        <br><img src="./gdd-assets/waterBoss.png"></br>
+        </td>
         <td>
             <ul>
                 <li>Cuando el jugador llegue a su sala, el mostruo empezará a perseguirle</li>
@@ -341,7 +381,9 @@ Cada zona del juego dispondrá de 1 jefe propio, con sus mecánicas únicas y do
         </td>
     </tr>
     <tr>
-        <td><b>Esqueleto</b></td>
+        <td><b>Esqueleto</b>
+        <br><img src="./gdd-assets/fireBoss.png"></br>
+        </td>
         <td>
             <ul>
                 <li>El jefe aparecerá cuando Ott entre en su arena de combate</li>
@@ -352,7 +394,9 @@ Cada zona del juego dispondrá de 1 jefe propio, con sus mecánicas únicas y do
         </td>
     </tr>
     <tr>
-        <td><b>Urk, jefe oscuro</b></td>
+        <td><b>Urk, jefe oscuro</b>
+        <br><img src="./gdd-assets/finalBoss.png"></br>
+        </td>
         <td>
             <ul>
                 <li>Este jefe a utiliza varios ataques de todos los elementos.</li>
@@ -366,9 +410,7 @@ Cada zona del juego dispondrá de 1 jefe propio, con sus mecánicas únicas y do
     </tr>
 </table>
 
-Los tres tipos de enemigos estarán presentes en todos los reinos, pudiendo ser de todos los elementos disponibles, excepto oscuridad. De manera que para poder enfrentarse a ellos facilmente, se tendrá que hacer un buen uso de la jerarquía de elementos. (véase [***Elementos***](#31---elementos)).
-
-## **9 - Recursos utilizados**
+## **10 - Recursos utilizados**
 
 ### Recursos públicos
   - [StringStar fields](https://trixelized.itch.io/starstring-fields) (itch.io), Trixie
@@ -462,6 +504,6 @@ Los tres tipos de enemigos estarán presentes en todos los reinos, pudiendo ser 
   - Música del boss final --> Riding Dragons - https://www.boris-sandor.com/
 
 
-## **10 - Referencias**
+## **11 - Referencias**
  - **Historia**: *The Legend of Zelda: Breath of the Wild*, *Hollow Knight*
  - **Género**: *CastleVania*, *Hollow Knight*
