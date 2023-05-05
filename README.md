@@ -254,13 +254,13 @@ La interfaz ocupará el menor espacio posible en pantalla, ya que la informació
 
 Justo al lado de la barra de vida aparecerá un medidor circular dividido en ocho fragmentos que indicará el número de cargas obtenidas para el **ataque cargado**.
 
- <img src="./gdd-assets/hud-vida-cargada.png">
+ <img src="./gdd-assets/hudLife.png">
 
- **Figura 1**: *boceto de HUD con la mayoria de vida.*
+ **Figura 1**: *HUD con 2 puntos de vida y elemento de Tierra (las lámparas cambian de color según tu elemento).*
 
-<img src="./gdd-assets/hud-poca-vida.png">
+<img src="./gdd-assets/darkenedScreen.png">
 
-**Figura 2**: *Boceto de cómo se vería el oscurecimiento de pantalla si Ott tuviera un valor muy bajo de vida.*
+**Figura 2**: *Oscurecimiento cuando Ott tiene 1 punto de vida.*
 
 ## **6 - Visual**
 La estética del juego será Pixel Art 2D. El juego está ambientado en un mundo fantástico basado en tres elementos. La parte visual tendrá una estética suave, atrayente y colorida, que contraste la temática más bélica/dramática.  
@@ -273,23 +273,31 @@ Los personajes de cada elemento portarán los colores de su reino, excepto aquel
 
 <img src="./gdd-assets/paletas.PNG">
 
+Algunas capturas del resultado final de las zonas:
+
+<img src="./gdd-assets/paletteEarth.PNG">
+<img src="./gdd-assets/paletteWater.PNG">
+<img src="./gdd-assets/paletteFire.PNG">
+
 ## **7 - Menús y flujo de juego**
 El juego contará con un menú principal donde poder crear una **partida nueva**, **cargar partida**, **acceder a ajustes** o **salir** de la aplicación. 
-Al acceder al submenú de ajustes se podrán encontrar mayoritariamente ajustes de sonido.
+Al acceder al submenú de ajustes se podrán encontrar mayoritariamente ajustes de sonido, ajustes para pantalla completa y los controles.
 
-<img src="./gdd-assets/menus.png">
+<img src="./gdd-assets/mainMenu.png">
+<img src="./gdd-assets/optionsMenu.png">
 
-Una vez se haya accedido a una partida, el juego podrá **pausarse** pulsando la tecla ESC (teclado) || Botón Options (PS) || Botón Start (XBOX). Esto hará que toda la ejecución del juego, excepto la música, se detenga. En este menú podremos entrar a **ajustes**, **salir al menú** o **salir al escritorio**.
+Una vez se haya accedido a una partida, el juego podrá **pausarse** pulsando la tecla ESC (teclado) || Botón Options (PS) || Botón Start (XBOX). Esto hará que toda la ejecución del juego, excepto la música, se detenga. En este menú podremos entrar a **ajustes**, **salir al menú**, **salir al escritorio** y, por supuesto, **reanudar el juego**.
 
 <img src="./gdd-assets/flujos-menu.png">
-
 
 ## **8 - Contenido**
 ### **Personajes y enemigos**
 Cada zona del juego (Bosque, Lago - Fondo del lago, Volcán y Oscuridad) tendrán 3 tipos de enemigos (débil, medio y fuerte) descrito más adelante. De esta forma, el enemigo débil del bosque no será el mismo que el del Volcán, por ejemplo.
 <table>
     <tr>
-        <td><b>Bug</b></td>
+        <td><b>Escarabajo</b>
+        <br><img src="./gdd-assets/bug.png"></br>
+        </td>
         <td>
             <ul>
                 <li>Patrón de movimiento "<b>centinela</b>": al ver al jugador le perseguirá hasta poder ejecutar su ataque.</li>
@@ -297,16 +305,20 @@ Cada zona del juego (Bosque, Lago - Fondo del lago, Volcán y Oscuridad) tendrá
         </td>
     </tr>
     <tr>
-        <td><b>Seta lanzaesporas</b></td>
+        <td><b>Seta lanzaesporas</b>
+        <br><img src="./gdd-assets/mushroom.png"></br>
+        </td>
         <td>
             <ul>
                 <li><b>Estático</b>.</li>
-                <li><b>Lanza esporas</b> hacia el jugador cada X segundos.</li>
+                <li><b>Lanza esporas</b> hacia el jugador cada poco tiempo.</li>
             </ul>
         </td>
     </tr>
     <tr>
-        <td><b>Slime de Roca</b></td>
+        <td><b>Slime de Roca</b>
+        <br><img src="./gdd-assets/slime.png"></br>
+        </td>
         <td>
             <ul>
                 <li>Ataca <b>acercándose</b> al <b>jugador</b> y <b>cayendo</b> hacia él. En ese momento se queda vulnerable al no poder moverse. Al morir, se <b>divide en 2</b>.</li>
@@ -319,7 +331,9 @@ Cada zona del juego (Bosque, Lago - Fondo del lago, Volcán y Oscuridad) tendrá
 Cada zona del juego dispondrá de 1 jefe propio, con sus mecánicas únicas y donde se tendrá que hacer uso de las habilidades aprendidas en ese reino y los anteriores para poder derrotarlo.
 <table>
     <tr>
-        <td><b>Gusano de tierra</b></td>
+        <td><b>Gusano de tierra</b>
+        <br><img src="./gdd-assets/bigWorm.png"></br>
+        </td>
         <td>
             <ul>
                 <li>En la sala del jefe habrá varias enrredaderas que podrá crear el jugador para poder moverse verticalmente y subir a las plataformas presentes.</li>
@@ -330,7 +344,9 @@ Cada zona del juego dispondrá de 1 jefe propio, con sus mecánicas únicas y do
         </td>
     </tr>
     <tr>
-        <td><b>Monstruo Marino</b></td>
+        <td><b>Monstruo Marino</b>
+        <br><img src="./gdd-assets/waterBoss.png"></br>
+        </td>
         <td>
             <ul>
                 <li>Cuando el jugador llegue a su sala, el mostruo empezará a perseguirle</li>
@@ -341,7 +357,9 @@ Cada zona del juego dispondrá de 1 jefe propio, con sus mecánicas únicas y do
         </td>
     </tr>
     <tr>
-        <td><b>Esqueleto</b></td>
+        <td><b>Esqueleto</b>
+        <br><img src="./gdd-assets/fireBoss.png"></br>
+        </td>
         <td>
             <ul>
                 <li>El jefe aparecerá cuando Ott entre en su arena de combate</li>
@@ -352,7 +370,9 @@ Cada zona del juego dispondrá de 1 jefe propio, con sus mecánicas únicas y do
         </td>
     </tr>
     <tr>
-        <td><b>Urk, jefe oscuro</b></td>
+        <td><b>Urk, jefe oscuro</b>
+        <br><img src="./gdd-assets/finalBoss.png"></br>
+        </td>
         <td>
             <ul>
                 <li>Este jefe a utiliza varios ataques de todos los elementos.</li>
