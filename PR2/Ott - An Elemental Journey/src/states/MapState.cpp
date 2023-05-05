@@ -10,7 +10,7 @@ MapState::MapState(PlayState* ps) : GameState(ecs::_state_MAP) {
 	auto ent = mngr_->addEntity(ecs::_grp_GENERAL);
 	ent->addComponent<Transform>(0, 0, window.getX(), window.getY());
 	ent->addComponent<Image>(&(sdlutils().images().at("mapBG")));
-	if (ps->getCurrentMap() != ecs::WATER_BOSS_MAP) {
+	if (ps->getCurrentMap() != ecs::WATER_BOSS_MAP && ps->getCurrentMap() != ecs::FINAL_BOSS_MAP) {
 		std::string key = map->getMapKey(ps->getCurrentMap(), i);
 		while (key != " " && key != "") {
 			if (ps->isVisited(ps->getCurrentMap(), i)) {
