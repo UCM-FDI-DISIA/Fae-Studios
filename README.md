@@ -31,7 +31,7 @@
   - Un jugador: Campaña.
   
 ## **2 - Descripción**
-Ott, el protagonista, tiene por destino salvar al mundo de la oscuridad que lo asola. Viajará por tres regiones diferenciadas por las fuerzas de la naturaleza que ejercen sus dominios sobre ellas: El Reino del Fuego, del Agua y de la Tierra. En estos lugares, Ott se encontrará con habitantes corruptos por la oscuridad que tratarán de evitar que cumpla su sino. Durante sus viajes conseguirá dominar los diferentes elementos para derrocar al mal de su tierra natal. Estos elementos le proporcionarán nuevas habilidades con las que explorar zonas antes cerradas para elle, permitiéndole volver atrás en sus pasos y descubrir pequeños secretos que estas tierras ocultan.
+Ott, el protagonista, tiene por destino salvar al mundo de la oscuridad que lo asola. Viajará por tres regiones diferenciadas por las fuerzas de la naturaleza que ejercen sus dominios sobre ellas: El Reino de la Tierra, del Agua y del Fuego. En estos lugares, Ott se encontrará con habitantes corruptos por la oscuridad que tratarán de evitar que cumpla su sino. Durante sus viajes conseguirá dominar los diferentes elementos para derrocar al mal de su tierra natal. Estos elementos le proporcionarán nuevas habilidades con las que explorar zonas antes cerradas para elle, permitiéndole volver atrás en sus pasos y descubrir pequeños secretos que estas tierras ocultan.
 
 ## **3 - Jugabilidad**
 ### **3.1 - Elementos**
@@ -117,34 +117,33 @@ El elemento básico que incluye el personaje es luz, a lo largo del juego podrá
         <td>Igual que el básico pero con doble de daño y un mayor rango</td>
         <td><b>Teletransporte</b> entre determinados focos de luz del mundo</td>
     </tr>
+        <tr>
+        <td>Tierra</td>
+        <td><b>Látigo</b> de medio alcance hacia una dirección.  <br> <img src="./gdd-assets/earth_Attack.png"> <br></td>
+        <td>Látigo que se tira en ambos lados, creando daño en el área delimitada por su alcance.</td>
+        <td><b>Enredadera</b>: puede escalarse y crece verticalmente cuando interactúa con las zonas de hierba.</td>
+    </tr>
     <tr>
         <td>Agua</td>
-        <td><b>Chorro de agua</b> (de más rango que el básico, pero con menor daño) <br> <img src="./gdd-assets/chorro.png"> <br> El rectángulo representa el ataque. El jugador lanza un ataque que se detiene al golpear a un enemigo.</td>
+        <td><b>Chorro de agua</b> (de más rango que el básico, pero con menor daño) <br> <img src="./gdd-assets/water_Attack.png"> <br> El rectángulo representa el ataque. El jugador lanza un ataque que se detiene al golpear a un enemigo.</td>
         <td>La versión cargada permanece activa durante un tiempo, dañando a todos los enemigos que entran en contacto por ticks, Ott puede moverse y el ataque le sigue.</td>
         <td><b>Buceo</b>: sustituye al movimiento básico de Ott al estar bajo el agua. Con el resto de elementos, Ott subirá hacia la superficie al estar sumergido.</td>
     </tr>
     <tr>
         <td>Fuego</td>
-        <td><b>Bola de fuego</b>: con un alto rango que se dispara en la dirección que mira el jugador.</td>
+        <td><b>Bola de fuego</b>: con un alto rango que se dispara en la dirección que mira el jugador. <br> <img src="./gdd-assets/fire_Attack.png"> <br> </td>
         <td><b>Bolas de fuego</b>: igual que la bola de fuego normal, pero se lanzan tres seguidas.</td>
         <td><b>Quemar</b> objetos como raíces</td>
-    </tr>
-    <tr>
-        <td>Tierra</td>
-        <td><b>Látigo</b> de medio alcance hacia una dirección.</td>
-        <td>Látigo que se tira en ambos lados, creando daño en el área delimitada por su alcance.</td>
-        <td><b>Enredadera</b>: puede escalarse y crece verticalmente cuando interactúa con las zonas de hierba.</td>
     </tr>
 </table>
 
 ### **3.4 - Defensa**
 Ott es capaz de usar un escudo que le permitirá mitigar completamente el daño que vaya a recibir. Cuando tiene el escudo en alto su velocidad de movimiento se ve bastante reducida. Este método de defensa tiene 3 formas de actuar según el elemento que haya atacado a Ott respecto al elemento escogido actualmente:
-- **Elemento débil**: Si Ott ha bloqueado un ataque a *melee*, el atacante será *stunneado* X tiempo.
-- **Elemento neutro**: Ningún efecto añadido.
+
+- **Elemento débil**: Si Ott ha bloqueado un ataque de esta forma, no recibirá daño.
+- **Elemento neutro**: Se le pondrá una vida **débil**
 - **Elemento fuerte**: Ott queda *stunneado* durante pocos segundos por lo que no podrá realizar ningún tipo de acción hasta que termine el efecto.
-
-Todos los proyectiles que golpeen el escudo se destruyen.
-
+<img src="./gdd-assets/lightShield.png">
 ### **3.5 - Sistema de vida**
 Se empezará con 5 puntos de vida que puede perder cuando recibe un ataque de un enemigo, si entra en contacto con algún enemigo o con algún elemento del dañino entorno (pinchos, zarzas, cristales…).   
 El sistema de vida también se ve afectada por el sistema de elementos. Según el tipo de daño elemental que reciba Ott, se recibe una cantidad de daño variable:
@@ -346,6 +345,15 @@ Cada zona del juego dispondrá de 1 jefe propio, con sus mecánicas únicas y do
 Los tres tipos de enemigos estarán presentes en todos los reinos, pudiendo ser de todos los elementos disponibles, excepto oscuridad. De manera que para poder enfrentarse a ellos facilmente, se tendrá que hacer un buen uso de la jerarquía de elementos. (véase [***Elementos***](#31---elementos)).
 
 ## **9 - Recursos utilizados**
+#### Recursos propios
+- Shuriken de agua (Basado en https://www.nicepng.com/ourpic/u2y3q8t4t4e6y3e6_water-shuriken-water-pixel-art/)
+- Ataque de fuego de Ott
+- SpriteSheet Ott escalando (Basado en SpriteSheet de Ott)
+- Elementos
+
+#### Créditos
+- Música del boss final --> Riding Dragons - https://www.boris-sandor.com/
+
 
 ## **10 - Referencias**
  - **Historia**: *The Legend of Zelda: Breath of the Wild*, *Hollow Knight*
