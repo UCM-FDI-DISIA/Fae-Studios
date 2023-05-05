@@ -138,6 +138,7 @@ private:
 	bool loadEarthBoss = true, loadWaterBoss = true, loadFireBoss = true;
 	bool loadEarthElem = true, loadWaterElem = true, loadFireElem = true;
 	bool generateDarkEnemies = false;
+	bool darkEnemiesGenerated = false;
 
 public:
 	constexpr static ecs::cmpId_type id = ecs::_MAP;
@@ -244,6 +245,7 @@ public:
 				break;
 			case ecs::Fire:
 				loadFireBoss = false;
+				generateDarkEnemies = true;
 				break;
 		}
 	}

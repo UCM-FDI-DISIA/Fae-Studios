@@ -55,6 +55,7 @@ std::vector<std::string> strSplit(std::string s, char c) {
 
 void MapComponent::generateEnemies() {
     auto scale = tileScale();
+    if (generateDarkEnemies) darkEnemiesGenerated = true;
     game->initEnemies(vectorObjects[ROOM_VECTOR_POS].size());
     for (auto it : vectorObjects[ENEMIES_VECTOR_POS]) {
         float x_ = it.getAABB().left;
@@ -67,10 +68,11 @@ void MapComponent::generateEnemies() {
         if (split[2] == "left") lookingRight = false;
         auto elem = (ecs::elements)std::stoi(split[1]);
         std::string path;
-        if (generateDarkEnemies && sdlutils().rand().nextInt(0, 100) > 50) {
+        if (generateDarkEnemies && sdlutils().rand().nextInt(0, 100) > 70) {
             elem = ecs::Dark;
+            path = "dark";
         }
-        if (elem == ecs::Earth) {
+        else if (elem == ecs::Earth) {
             path = "earth";
         }
         else if (elem == ecs::Water) {
@@ -269,6 +271,11 @@ void MapComponent::WaterSetActive(bool c)
 
 void MapComponent::changeRoom(std::string newRoom, Vector2D newPos, bool verticalTrigger) {
     // std::stoi -> String TO Int
+    if (generateDarkEnemies && !darkEnemiesGenerated) {
+        PlayState* ps = static_cast<PlayState*>(GameStateMachine::instance()->getPlayState());
+        ps->resetEnemies();
+        generateEnemies();
+    }
     anim_->startFadeOut(newPos, std::stoi(newRoom), verticalTrigger);
     game->setVisited(std::stoi(newRoom));
 }
