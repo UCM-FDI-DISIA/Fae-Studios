@@ -2,6 +2,9 @@
 #include "../states/PlayState.h"
 #include "../states/GameStateMachine.h"
 #include "Health.h"
+#include "../states/GameStateMachine.h"
+#include "../states/FinalCreditsState.h"
+#include "../states/PlayState.h"
 
 //FinalBossAnimation::~FinalBossAnimation()
 //{
@@ -38,7 +41,6 @@ void FinalBossAnimation::update()
 			if ((timer_ > (getTPerFrame(state) * getNFrames(state)) + 1)) {
 				endAnim(); row = getRowNum(IDLE_BOSS);
 			}
-			//std::cout << col << " " << row << std::endl;
 		}
 		else
 		{
@@ -84,6 +86,7 @@ void FinalBossAnimation::endAnim()
 {
 	if (currentAnimation == DIE_BOSS) {
 		ent_->setAlive(false);
+		static_cast<PlayState*>(stateMachine().getPlayState())->endGame();
 		alive = false;
 	}
 	else if (currentAnimation == IDLE_BOSS) setState(IDLE_BOSS2);

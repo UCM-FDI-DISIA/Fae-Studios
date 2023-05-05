@@ -20,7 +20,6 @@ void FireBossAnimation::update()
 	int col = (timer_ / getTPerFrame(state)) % getNFrames(state) + getColNum(state);
 	image->setCol(col);
 	image->setRow(getRowNum(state));
-	//std::cout << currentAnimation << std::endl;
 	if ((timer_ > (getTPerFrame(state) * getNFrames(state)) + 1)) {// si el timer ha superado al tiempo de cada frame * los frames 
 		endAnim();													// que tiene la animación actual, se llama a endAnim();
 	}

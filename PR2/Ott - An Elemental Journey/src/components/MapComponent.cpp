@@ -55,6 +55,7 @@ std::vector<std::string> strSplit(std::string s, char c) {
 
 void MapComponent::generateEnemies() {
     auto scale = tileScale();
+    if (generateDarkEnemies) darkEnemiesGenerated = true;
     game->initEnemies(vectorObjects[ROOM_VECTOR_POS].size());
     for (auto it : vectorObjects[ENEMIES_VECTOR_POS]) {
         float x_ = it.getAABB().left;
@@ -67,10 +68,11 @@ void MapComponent::generateEnemies() {
         if (split[2] == "left") lookingRight = false;
         auto elem = (ecs::elements)std::stoi(split[1]);
         std::string path;
-        if (generateDarkEnemies && sdlutils().rand().nextInt(0, 100) > 50) {
+        if (generateDarkEnemies && sdlutils().rand().nextInt(0, 100) > 70) {
             elem = ecs::Dark;
+            path = "dark";
         }
-        if (elem == ecs::Earth) {
+        else if (elem == ecs::Earth) {
             path = "earth";
         }
         else if (elem == ecs::Water) {
@@ -269,6 +271,11 @@ void MapComponent::WaterSetActive(bool c)
 
 void MapComponent::changeRoom(std::string newRoom, Vector2D newPos, bool verticalTrigger) {
     // std::stoi -> String TO Int
+    if (generateDarkEnemies && !darkEnemiesGenerated) {
+        PlayState* ps = static_cast<PlayState*>(GameStateMachine::instance()->getPlayState());
+        ps->resetEnemies();
+        generateEnemies();
+    }
     anim_->startFadeOut(newPos, std::stoi(newRoom), verticalTrigger);
     game->setVisited(std::stoi(newRoom));
 }
@@ -359,7 +366,6 @@ void MapComponent::loadMap(std::string path, int nextPos) {
         const auto& layers2 = map.getLayers();
         std::unordered_map<std::string, std::pair<Vector2D,int>> lamps;
         std::vector<Entity*> platformEarthBoss;
-        //cout << "Map has " << layers2.size() << " layers" << endl;
         for (const auto& layer : layers2)
         {
             #pragma region Objects
@@ -556,7 +562,10 @@ void MapComponent::loadMap(std::string path, int nextPos) {
             rect.w *= roomScale;
             rect.h *= roomScale;
 
-            mngr_->getPlayer()->getComponent<PlayerAttack>()->setFinalBoss(constructors::boss(mngr_, this, rect.x, rect.y, rect.w, rect.h));
+            auto boss = constructors::boss(mngr_, this, rect.x, rect.y, rect.w, rect.h);
+            mngr_->getPlayer()->getComponent<PlayerAttack>()->setFinalBoss(boss.first);
+            eraseEntities.push_back(boss.first);
+            eraseEntities.push_back(boss.second);
         }
 
         for (auto obj : vectorObjects[WATER_VECTOR_POS]) {
@@ -567,7 +576,6 @@ void MapComponent::loadMap(std::string path, int nextPos) {
             rect.w *= roomScale;
             rect.h *= roomScale;
             Entity* waterW = constructors::Water(mngr_, rect.x, rect.y, rect.w, rect.h, obj.getClass());
-            std::cout << obj.getUID() << std::endl;
             waterObjects[std::stoi(obj.getName())].push_back(waterW);
             //WaterSetActive(true);
 

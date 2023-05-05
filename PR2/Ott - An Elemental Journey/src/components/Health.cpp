@@ -131,8 +131,10 @@ bool Health::recieveDamage(ecs::elements el, bool dir) {
             default: sdlutils().soundEffects().at("hitTaken").play(0, ecs::_channel_PLAYER); break;
         }
 
-		actualLife -= (2*damage);
-		bar->damage(damage);
+		if (damage != -1) {
+			actualLife -= (2 * damage);
+			bar->damage(damage);
+		}
 	}
 	else {
 		if (!dead) {
@@ -157,7 +159,6 @@ bool Health::recieveDamage(ecs::elements el, bool dir) {
 			if(ent_->hasComponent<EnemyAnimationComponent>()) ent_->getComponent<EnemyAnimationComponent>()->damage(ecs::ottMatrix[el][elem]);
 		}
 	}
-	std::cout << "LIFE (HEALTH): " << actualLife << std::endl;
 	//startDamagedTime = SDL_GetTicks();
 	if (!dead && actualLife <= 0) {
 		die();

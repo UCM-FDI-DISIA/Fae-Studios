@@ -94,8 +94,6 @@ bool CameraComponent::canLookDown() {
 	return (camera.y + camera.h / 2) <= bounds.y + bounds.h - tr_->getHeight();
 }
 void CameraComponent::startLookingDown() {
-	std::cout <<"PosFin: " << posFin << std::endl;
-	std::cout <<"PosIni: " << posIni << std::endl;
 	posFin = camera.y + (camera.h / 2);
 	posIni = camera.y;
 }

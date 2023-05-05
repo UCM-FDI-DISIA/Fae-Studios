@@ -394,7 +394,6 @@ bool PlayerAttack::attackEnemy(SDL_Rect& attackZone) {
 		// Si enemigo y ataque interseccionan
 		SDL_Rect result;
 		if (SDL_IntersectRect(&rect, &attackZone, &result)) {
-			std::cout << "au" << std::endl;
 			attack = true;
 			// Hace da�o a enemigo dependiendo del elemento
 			finalBoss_->getComponent<Health>()->recieveDamage(health_->getElement(), true);

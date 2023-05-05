@@ -360,7 +360,7 @@ namespace constructors {
 		ph->createCollider();	
 		return player;
 	}
-	static inline Entity* boss(Manager* mngr_, MapComponent* map_, int x, int y, int w, int h)
+	static inline pair<Entity*, Entity*> boss(Manager* mngr_, MapComponent* map_, int x, int y, int w, int h)
 	{
 		auto b= mngr_->addEntity(ecs::_grp_FINAL_BOSS);
 		b->addComponent<Transform>(Vector2D(x, y), w, h);
@@ -370,10 +370,10 @@ namespace constructors {
 
 		auto healthBar = mngr_->addEntity(ecs::_grp_UI);
 		healthBar->addComponent<BossHealthBar>(b, 4, &sdlutils().images().at("bossHealthBar"), &sdlutils().images().at("bossLife"));
-		b->addComponent<Health>(healthBar->getComponent<BossHealthBar>(), 10, ecs::Dark, false);
+		b->addComponent<Health>(healthBar->getComponent<BossHealthBar>(), 1, ecs::Dark, false);
 		b->addComponent<FinalBossAnimation>(anims::FINALBOSS);
 		b->addComponent<FinalBossBehaviorComponent>(map_);
-		return b;
+		return make_pair(b, healthBar);
 	}
 	static inline Entity* camera(Manager* mngr_, int x, int y, int w, int h) {
 		auto camera = mngr_->addEntity(ecs::_grp_GENERAL);

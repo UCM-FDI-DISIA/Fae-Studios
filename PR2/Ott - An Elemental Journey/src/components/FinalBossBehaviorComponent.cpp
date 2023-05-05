@@ -8,6 +8,9 @@
 #include "BlackHoleAnimationComp.h"
 #include "EnemyContactDamage.h"
 #include "DamageArea.h"
+
+
+
 FinalBossBehaviorComponent::FinalBossBehaviorComponent(MapComponent* map) :Component()
 {
 	currentElement = rand() % 5;
@@ -18,6 +21,17 @@ FinalBossBehaviorComponent::FinalBossBehaviorComponent(MapComponent* map) :Compo
 	stunned = false;
 	isWeakPoints = false;
 	waitingForReset = false;
+}
+
+FinalBossBehaviorComponent::~FinalBossBehaviorComponent() {
+	deleteWeakPoints();
+	deleteBlackHoles();
+	deleteBubbles();
+	deleteSpikes();
+	for (auto f : fists) {
+		f->getComponent<FistComponent>()->notErase();
+		f->setAlive(false);
+	}
 }
 
 void FinalBossBehaviorComponent::initComponent()
@@ -41,14 +55,12 @@ void FinalBossBehaviorComponent::update()
 			{
 				if (!isWeakPoints)
 				{	
-					std::cout << "stunned" << std::endl;
 					spawnWeakPoints();
 					isWeakPoints = true;
 					bossAnim->setState(STUN_BOSS);
 				}
 				else if (SDL_GetTicks() > timeStunned)
 				{
-					std::cout << "NO stunned" << std::endl;
 					deleteWeakPoints();
 					stunned = false;
 					isWeakPoints = false;
@@ -59,7 +71,6 @@ void FinalBossBehaviorComponent::update()
 			{
 				if (spikes.size() > 0  && SDL_GetTicks() < timeBetweenAttacks && SDL_GetTicks() > timeCure)
 				{
-					std::cout << "me curo" << std::endl;
 					bossHealth->cureHealth();
 					timeCure += CURE_TIME;
 			
@@ -75,12 +86,12 @@ void FinalBossBehaviorComponent::update()
 						switch (currentElement)
 						{			
 					
-						case 0: std::cout << "Ataque punoTop boss final" << std::endl; spawnFistTop(); break;
-						case 1: std::cout << "Ataque agua boss final" << std::endl; spawnBubbles(); break;
-						case 2: std::cout << "Ataque fuego boss final" << std::endl; spawnFireWall(); break;
-						case 3: std::cout << "Ataque oscuridad boss final" << std::endl; spawnBlackHole();break;
-						case 4: std::cout << "Ataque puno boss final" << std::endl; spawnFist(); break;
-						default: std::cout << "Ataque generico boss final" << std::endl; spawnFist(); break;
+						case 0: spawnFistTop(); break;
+						case 1: spawnBubbles(); break;
+						case 2: spawnFireWall(); break;
+						case 3: spawnBlackHole();break;
+						case 4: spawnFist(); break;
+						default: spawnFist(); break;
 					
 						}
 						numAttacks++;
@@ -96,7 +107,6 @@ void FinalBossBehaviorComponent::update()
 
 						timeBetweenAttacks += ATTACK_TIME + STUNNED_TIME;
 						numAttacks = 0;
-						std::cout << "Ataque tierra boss final" << std::endl; 
 						spawnSpikes(); 
 						bossAnim->setState(HEALTH_BOSS); 
 					}
@@ -136,7 +146,6 @@ void FinalBossBehaviorComponent::deleteBubbles() {
 	int i = 1;
 	for (auto it = bubbles.begin(); it != bubbles.end(); ++it) {
 		(*it)->setAlive(false);
-		std::cout << "Seteado a false " << i << std::endl;
 
 		++i;
 	}
@@ -169,7 +178,7 @@ void FinalBossBehaviorComponent::spawnFireWall() //Ataque fuego
 	// Burguja
 	Entity* fireW = mngr_->addEntity(ecs::_grp_PROYECTILES);
 
-	fireW->addComponent<Transform>(spawnPos - Vector2D(0, FIREWALL_HEIGHT / 2), FIREWALL_WIDTH * pTransf->getScale(), FIREWALL_HEIGHT * pTransf->getScale());
+	fireW->addComponent<Transform>(spawnPos - Vector2D(0,FIREWALL_HEIGHT / 3), FIREWALL_WIDTH * pTransf->getScale(), FIREWALL_HEIGHT * pTransf->getScale());
 	//fireW->addComponent<Image>(&sdlutils().images().at("pixelWhite"));
 	fireW->addComponent<FramedImage>(&sdlutils().images().at("finalBossFireWall"), 1, 14);
 	fireW->addComponent<FireWallComponent>(Vector2D(1, 0));
@@ -199,8 +208,9 @@ void FinalBossBehaviorComponent::spawnFist() {
 
 	fist->addComponent<Transform>(Vector2D(mngr_->getPlayer()->getComponent<Transform>()->getPosition().getX()-1000, mngr_->getPlayer()->getComponent<Transform>()->getPosition().getY()), FIST_SIZE, FIST_SIZE);
 	fist->addComponent<Image>(&sdlutils().images().at("BossFist"));
-	fist->addComponent<FistComponent>(0);
-
+	fists.push_back(fist);
+	auto it = --(fists.end());
+	fist->addComponent<FistComponent>(0, it, &fists);
 }
 
 void FinalBossBehaviorComponent::spawnFistTop() {
@@ -212,9 +222,9 @@ void FinalBossBehaviorComponent::spawnFistTop() {
 
 	fist->addComponent<Transform>(Vector2D(mngr_->getPlayer()->getComponent<Transform>()->getPosition().getX(), mngr_->getPlayer()->getComponent<Transform>()->getPosition().getY()-1000), FIST_SIZE, FIST_SIZE);
 	fist->addComponent<Image>(&sdlutils().images().at("BossFistTop"));
-	fist->addComponent<FistComponent>(1);
-
-
+	fists.push_back(fist);
+	auto it = --(fists.end());
+	fist->addComponent<FistComponent>(1, it, &fists);
 }
 // Ataque de tierra
 void FinalBossBehaviorComponent::spawnSpikes() {
@@ -233,7 +243,6 @@ void FinalBossBehaviorComponent::spawnSpikes() {
 void FinalBossBehaviorComponent::deleteSpikes() {
 	for (auto it = spikes.begin(); it != spikes.end(); ++it) {
 		(*it)->setAlive(false);
-		std::cout << "Spike Seteado a false " << std::endl;
 	}
 	spikes.clear();
 	bossAnim->setState(IDLE_BOSS2);
@@ -243,7 +252,6 @@ void FinalBossBehaviorComponent::deleteSpikeFromVec(Entity* s)
 {
 	s->setAlive(false);
 	spikes.erase(std::remove(spikes.begin(), spikes.end(), s), spikes.end());
-	std::cout << "Tam spikesVec: " << spikes.size() << std::endl;
 
 	if (spikes.size() == 0) stunned = true; timeStunned = SDL_GetTicks() + STUNNED_TIME;
 }
@@ -262,7 +270,6 @@ void FinalBossBehaviorComponent::spawnWeakPoints() {
 void FinalBossBehaviorComponent::deleteWeakPoints() {
 	for (auto it = weakPoints.begin(); it != weakPoints.end(); ++it) {
 		(*it)->setAlive(false);
-		std::cout << "Spot Seteado a false " << std::endl;
 	}
 	weakPoints.clear();
 }
@@ -271,5 +278,4 @@ void FinalBossBehaviorComponent::deleteBubbleFromVec(Entity* bubble) {
 
 	bubble->setAlive(false);
 	bubbles.erase(std::remove(bubbles.begin(), bubbles.end(), bubble), bubbles.end());
-	std::cout << "Tam BubblesVec: " << bubbles.size() << std::endl;
 }

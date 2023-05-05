@@ -107,14 +107,12 @@ void MusicOptionsMenuState::handleInput() {
 			detectJoystickActivity = false;
 		}
 		if (SDL_GameControllerGetAxis(game().getJoystick(), SDL_CONTROLLER_AXIS_LEFTX) > 29000) {
-			//cout << "> 29000" << endl;
 			if (buttons[buttonIndex]->hasComponent<Slider>()) {
 				Vector2D newPos = buttons[buttonIndex]->getComponent<Slider>()->getNeedlePosition() + Vector2D(0.1, 0);
 				buttons[buttonIndex]->getComponent<Slider>()->setValueInSelection(newPos);
 			}
 		}
 		if (SDL_GameControllerGetAxis(game().getJoystick(), SDL_CONTROLLER_AXIS_LEFTX) < -29000) {
-			//cout << "< -29000" << endl;
 			if (buttons[buttonIndex]->hasComponent<Slider>()) {
 				Vector2D newPos = buttons[buttonIndex]->getComponent<Slider>()->getNeedlePosition() + Vector2D(-0.1, 0);
 				buttons[buttonIndex]->getComponent<Slider>()->setValueInSelection(newPos);
