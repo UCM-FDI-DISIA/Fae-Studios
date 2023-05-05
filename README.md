@@ -236,10 +236,6 @@ De esta forma es posible aumentar la vida máxima en 1 en cada uno de los reinos
 Se trata de la **primera zona del juego**. Trata de introducir las mecánicas de movimiento y tiene **enemigos** muy **sencillos**, que intentan introducir las mecánicas de ataque y defensa de forma liviana.
 El juego comienza con el jugador observando la gigantesca puerta del **Boss Final**, a quien se tendrá que enfrentar para rematar su aventura. Esta puerta muestra **4 luces**, todas **apagadas**, excepto 1, que se encenderá en cuanto el jugador pueda tomar control de Ott. Estas luces representan los diferentes elementos, y la que se enciende al comenzar la aventura representa la luz.
 
-<img src="./gdd-assets/boceto-mapa.png">
-
-**Figura 1**: *Primer boceto del mapa con la región de tierra entera y el comienzo de la región de agua.*
-
 ### Zona acuática
 La segunda zona del juego estará sumergida en su mayor parte. Para poder desplazarse Ott tendrá que cambiar entre el poncho de agua y el resto de elementos para poder descender y ascender a voluntad por el nivel. Este nivel está muy centrado al rededor de esta mecánica de movimiento, presentando así salas a modo de laberinto y algún que otro puzzle.
 
@@ -271,13 +267,15 @@ Los personajes de cada elemento portarán los colores de su reino, excepto aquel
 
 **Las paletas de cada zona serán las siguientes:**
 
-<img src="./gdd-assets/paletas.PNG">
+<img src="./gdd-assets/paletas.png">
 
 Algunas capturas del resultado final de las zonas:
 
-<img src="./gdd-assets/paletteEarth.PNG">
-<img src="./gdd-assets/paletteWater.PNG">
-<img src="./gdd-assets/paletteFire.PNG">
+<img src="./gdd-assets/paletterEarth.png">
+
+<img src="./gdd-assets/paletteWater.png">
+
+<img src="./gdd-assets/paletteFire.png">
 
 ## **7 - Menús y flujo de juego**
 El juego contará con un menú principal donde poder crear una **partida nueva**, **cargar partida**, **acceder a ajustes** o **salir** de la aplicación. 
@@ -291,6 +289,24 @@ Una vez se haya accedido a una partida, el juego podrá **pausarse** pulsando la
 <img src="./gdd-assets/flujos-menu.png">
 
 ## **8 - Contenido**
+
+### **Items Recolectables**
+Los siguientes ítems se encontrarán repartidos a lo largo de los 3 mapas explorables y serán recolectados de forma instantánea al colisionar con ellos:
+
+<table>
+    <tr>
+        <td><b>Elemento</b>
+        <br><img src="./gdd-assets/bug.png"></br>
+        </td>
+        <td>
+            <ul>
+                <li> Son el objeto que permitirá a Ott desbloquear las nuevas habilidades. Son 3, únicos y repartidos cada uno en un mapa distinto. </li>
+            </ul>
+        </td>
+    </tr>
+
+</table>
+
 ### **Personajes y enemigos**
 Cada zona del juego (Bosque, Lago - Fondo del lago, Volcán y Oscuridad) tendrán 3 tipos de enemigos (débil, medio y fuerte) descrito más adelante. De esta forma, el enemigo débil del bosque no será el mismo que el del Volcán, por ejemplo.
 <table>
@@ -326,6 +342,8 @@ Cada zona del juego (Bosque, Lago - Fondo del lago, Volcán y Oscuridad) tendrá
         </td>
     </tr>
 </table>
+
+Los tres tipos de enemigos estarán presentes en todos los reinos, pudiendo ser de todos los elementos disponibles, excepto oscuridad (estos solo aparecerán al tratar de volver hacia el Boss Final, cuya puerta se encuentra bloqueada en la primera sala del juego hasta que se consigue derrotar a los tres minibosses). De manera que para poder enfrentarse a ellos facilmente, se tendrá que hacer un buen uso de la jerarquía de elementos. (véase [***Elementos***](#31---elementos)).
 
 ### **Jefes**
 Cada zona del juego dispondrá de 1 jefe propio, con sus mecánicas únicas y donde se tendrá que hacer uso de las habilidades aprendidas en ese reino y los anteriores para poder derrotarlo.
@@ -385,8 +403,6 @@ Cada zona del juego dispondrá de 1 jefe propio, con sus mecánicas únicas y do
         </td>
     </tr>
 </table>
-
-Los tres tipos de enemigos estarán presentes en todos los reinos, pudiendo ser de todos los elementos disponibles, excepto oscuridad. De manera que para poder enfrentarse a ellos facilmente, se tendrá que hacer un buen uso de la jerarquía de elementos. (véase [***Elementos***](#31---elementos)).
 
 ## **9 - Recursos utilizados**
 
