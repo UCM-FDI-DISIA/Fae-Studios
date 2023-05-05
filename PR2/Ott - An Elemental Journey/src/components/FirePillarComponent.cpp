@@ -38,7 +38,6 @@ void FirePillarComponent::update()
 		if(r1.x < r2.x) dir = false;
 		p->getComponent<Health>()->recieveDamage(ecs::Fire,dir);
 	}
-	std::cout << ent_->getComponent<FramedImage>()->getCurrentCol() << std::endl;
 	int c = ent_->getComponent<FramedImage>()->getCurrentCol();
 	c++;
 	ent_->getComponent<FramedImage>()->setCol((SDL_GetTicks()/100)&5);

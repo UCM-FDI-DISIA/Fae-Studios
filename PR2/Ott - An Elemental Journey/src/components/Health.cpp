@@ -159,7 +159,6 @@ bool Health::recieveDamage(ecs::elements el, bool dir) {
 			if(ent_->hasComponent<EnemyAnimationComponent>()) ent_->getComponent<EnemyAnimationComponent>()->damage(ecs::ottMatrix[el][elem]);
 		}
 	}
-	std::cout << "LIFE (HEALTH): " << actualLife << std::endl;
 	//startDamagedTime = SDL_GetTicks();
 	if (!dead && actualLife <= 0) {
 		die();

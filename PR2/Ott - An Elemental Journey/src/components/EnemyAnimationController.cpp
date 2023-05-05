@@ -39,7 +39,6 @@ void EnemyAnimationComponent::update() {
 	timer_++;
 
 	if (damaged && currentAnimation != DIE_ENEMY) {
-		cout << image->getCurrentRow() << endl;
 		damageTimer_ = SDL_GetTicks() - damageStartTime_;
 		if (damageTimer_ >= maxDamagedTimer_ / 3) {
 			damageStartTime_ = SDL_GetTicks();

@@ -188,7 +188,6 @@ void PlayState::checkCollisions(std::list<Entity*> entities) {
 		SDL_Rect r1 = physics->getCollider();
 		r1.x += physics->getVelocity().getX();
 		r1.y += physics->getVelocity().getY();
-		// std::cout << r1.x << " " << r1.y << std::endl;
 		Vector2D& colVector = physics->getVelocity();
 
 		auto mov = e->getComponent<EnemyMovement>();
@@ -212,7 +211,6 @@ void PlayState::checkCollisions(std::list<Entity*> entities) {
 			if (areaColision.w >= areaColision.h) {
 
 				if (!physics->isGrounded() && areaColision.y > r1.y + r1.w / 2) {
-					//cout << "ground touched" << endl;
 					if (!(physics->getWater()) || (physics->getWater() && health->getElement() == ecs::Water))
 					{
 						colVector = Vector2D(colVector.getX(), 0);
@@ -221,7 +219,6 @@ void PlayState::checkCollisions(std::list<Entity*> entities) {
 					physics->setGrounded(true);
 				}
 				else if (!physics->isGrounded()) {
-					//cout << "ceiling touched" << endl;
 					if ((physics->getWater() && health->getElement() != ecs::Water))
 					{
 						colVector = Vector2D(colVector.getX(), 0);
@@ -291,7 +288,6 @@ void PlayState::checkCollisions(std::list<Entity*> entities) {
 					//physics->setVerticalSpeed(p->getComponent<PhysicsComponent>()->getVelocity().getY());
 					physics->setGrounded(true);
 					++i;
-					std::cout << "si" << std::endl;
 				}
 				else if (r1.y >= result.y + result.w / 2) {
 					colVector = Vector2D(colVector.getX(), 0);
@@ -491,7 +487,6 @@ void PlayState::Save() {
 
 void PlayState::AddLifeShard(int id) {
 	player_->getComponent<Health>()->addLifeShard(id);
-	cout << player_->getComponent<Health>()->getNumShards() << endl;
 	//Vector2D(player_->getComponent<Transform>()->getPosition() - camera_->getComponent<Transform>()->getPosition())
 	constructors::lifeShardFeedbackTextEntity(mngr_,Vector2D(sdlutils().width() / 2, sdlutils().height() / 2 - 100), !(player_->getComponent<Health>()->getNumShards() % 2 == 0));
 	map_->addShard(id);
@@ -500,7 +495,6 @@ void PlayState::AddLifeShard(int id) {
 void PlayState::AddRelic(ecs::elements id) {
 	sdlutils().soundEffects().at("relic_wink").setVolume(100);
 	sdlutils().soundEffects().at("relic_wink").play(0, ecs::_channel_PLAYER);
-	std::cout << "reliquia recogida" << std::endl;
 	relicsCollected++;
 	if (relicsCollected >= 3) player_->getComponent<FramedImageOtt>()->hasAllRelics();
 }

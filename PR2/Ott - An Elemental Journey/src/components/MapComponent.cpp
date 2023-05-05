@@ -359,7 +359,6 @@ void MapComponent::loadMap(std::string path, int nextPos) {
         const auto& layers2 = map.getLayers();
         std::unordered_map<std::string, std::pair<Vector2D,int>> lamps;
         std::vector<Entity*> platformEarthBoss;
-        //cout << "Map has " << layers2.size() << " layers" << endl;
         for (const auto& layer : layers2)
         {
             #pragma region Objects
@@ -570,7 +569,6 @@ void MapComponent::loadMap(std::string path, int nextPos) {
             rect.w *= roomScale;
             rect.h *= roomScale;
             Entity* waterW = constructors::Water(mngr_, rect.x, rect.y, rect.w, rect.h, obj.getClass());
-            std::cout << obj.getUID() << std::endl;
             waterObjects[std::stoi(obj.getName())].push_back(waterW);
             //WaterSetActive(true);
 

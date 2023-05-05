@@ -41,7 +41,6 @@ void FinalBossAnimation::update()
 			if ((timer_ > (getTPerFrame(state) * getNFrames(state)) + 1)) {
 				endAnim(); row = getRowNum(IDLE_BOSS);
 			}
-			//std::cout << col << " " << row << std::endl;
 		}
 		else
 		{
