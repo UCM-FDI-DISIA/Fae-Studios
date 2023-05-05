@@ -1079,7 +1079,8 @@
 	  {"id" :  "water_boss_fight", "file" :  "../Ott - An Elemental Journey/resources/music/boss_agua.wav"},
 	  {"id" :  "earth_boss_fight", "file" :  "../Ott - An Elemental Journey/resources/music/gusano.wav"},
 	  {"id" :  "water_level", "file" :  "../Ott - An Elemental Journey/resources/music/mundo_agua.wav"},
-	  {"id" :  "fire_level", "file" :  "../Ott - An Elemental Journey/resources/music/fuego.wav"}
+	  {"id" :  "fire_level", "file" :  "../Ott - An Elemental Journey/resources/music/fuego.wav"},
+	  {"id" :  "final_boss_fight", "file" :  "../Ott - An Elemental Journey/resources/music/boss_final.wav"}
   ],
   
   "maps": [
@@ -1088,6 +1089,6 @@
 		{ "id" : "fireMap", "file" : "../Ott - An Elemental Journey/resources/levels/FireMap.tmx", "cols" : 162, "tileset" : "fireTileset", "background" : "level1bg", "music" : "water_level" },
 		{ "id" : "waterBossMap", "file" : "../Ott - An Elemental Journey/resources/levels/WaterBossMap.tmx", "cols" : 211, "tileset" : "waterTileset", "background" : "level1bg", "music" : "water_boss_fight" },
 		{"id": "QA", "file" : "../Ott - An Elemental Journey/resources/levels/MapaQA.tmx", "cols" : 83, "tileset":  "waterTileset", "background" :"level1bg", "music": "earth_level" },
-		{ "id" : "finalBossMap", "file" : "../Ott - An Elemental Journey/resources/levels/finalBossMap.tmx", "cols" : 35, "tileset" : "finalBossTileset", "background" : "level1bg", "music" : "water_boss_fight" }
+		{ "id" : "finalBossMap", "file" : "../Ott - An Elemental Journey/resources/levels/finalBossMap.tmx", "cols" : 35, "tileset" : "finalBossTileset", "background" : "level1bg", "music" : "final_boss_fight" }
 	]
 }

@@ -2265,7 +2265,8 @@
 	  {"id" :  "earth_boss_fight", "file" :  "../resources/music/gusano.wav"},
 	  {"id" :  "water_level", "file" :  "../resources/music/mundo_agua.wav"},
 	  {"id" :  "fire_level", "file" :  "../resources/music/fuego.wav"},
-	  {"id" :  "lore_room", "file" :  "../resources/music/lore_room_music.wav"}
+	  {"id" :  "lore_room", "file" :  "../resources/music/lore_room_music.wav"},
+	  {"id" :  "final_boss_fight", "file" :  "../resources/music/boss_final.wav"}
   ],
   
   "maps": [
@@ -2274,6 +2275,6 @@
 		{ "id" : "fireMap", "file" : "../resources/levels/FireMap2.tmx", "cols" : 208, "tileset" : "fireTileset", "background" : "level1bg", "music" : "water_level" },
 		{ "id" : "waterBossMap", "file" : "../resources/levels/WaterBossMap.tmx", "cols" : 211, "tileset" : "waterTileset", "background" : "level1bg", "music" : "water_boss_fight" },
 		{"id": "QA", "file" : "../resources/levels/MapaQA.tmx", "cols" : 83, "tileset":  "waterTileset", "background" :"level1bg", "music": "earth_level" },
-		{ "id" : "finalBossMap", "file" : "../resources/levels/finalBossMap.tmx", "cols" : 35, "tileset" : "finalBossTileset", "background" : "level1bg", "music" : "water_boss_fight" }
+		{ "id" : "finalBossMap", "file" : "../resources/levels/finalBossMap.tmx", "cols" : 35, "tileset" : "finalBossTileset", "background" : "level1bg", "music" : "final_boss_fight" }
 	]
 }
