@@ -144,6 +144,7 @@ Ott es capaz de usar un escudo que le permitirá mitigar completamente el daño 
 - **Elemento neutro**: Se le pondrá una vida **débil**
 - **Elemento fuerte**: Ott queda *stunneado* durante pocos segundos por lo que no podrá realizar ningún tipo de acción hasta que termine el efecto.
 <img src="./gdd-assets/lightShield.png">
+
 ### **3.5 - Sistema de vida**
 
 Se empezará con 5 puntos de vida que puede perder cuando recibe un ataque de un enemigo, si entra en contacto con algún enemigo o con algún elemento del dañino entorno (pinchos, zarzas, cristales…).   
@@ -158,8 +159,8 @@ El sistema de vida también se ve afectada por el sistema de elementos. Según e
 Si en algún momento el valor de vida llega a 0, Ott morirá y volverá a aparecer en el último **Punto de Teletransporte** que atravesará, haciendo que los enemigos que haya vencido durante su última vida reaparezcan.  
 El máximo de puntos de vida puede ser ampliado mediante fragmentos de vida, que podrán obtenerse explorando el mapa de forma exhaustiva y haciendo un buen uso del mapa de Ott (Véase [***MAPA***](#36---mapa) para la representación de este sistema).
 
-<br> Spritesheet que representan los fragmentos de vida en el juego: 
-<img src="./gdd-assets/lifeShards.png"></br>
+Spritesheet que representan los fragmentos de vida en el juego: 
+<br> <img src="./gdd-assets/lifeshards.png"></br>
 
 Al obtener 2 de estos, la vida máxima de Ott aumenta en 1 permanentemente. 
 
@@ -168,8 +169,8 @@ Al obtener 2 de estos, la vida máxima de Ott aumenta en 1 permanentemente.
 ### **3.6 - Mapa**
 A medida que Ott atraviesa las diferentes salas que conforman el mundo, el pequeño las irá dibujando de una forma esquemática en un mapa, los Santuarios que hayan sido descubiertos aparecen marcados en el mapa. Este mapa será accesible en cualquier momento por el jugador.
 
-<br> Ejemplo: Mapa de Agua semi-completo: 
-<img src="./gdd-assets/lifeShards.png"></br>>
+Ejemplo: Mapa de Agua semi-completo: 
+<br><img src="./gdd-assets/mapImage.png"></br>
 
 El mapa también es capaz de registrar constantemente la posición de Ott durante su recorrido. Véase [***HUD***](#5---hud) para la representación del mapa.
 
@@ -177,38 +178,38 @@ El mapa también es capaz de registrar constantemente la posición de Ott durant
 <table>
     <tr>
         <td><b>Hierba</b>
-        <img src="./gdd-assets/grass.png"></br>>
+        <img src="./gdd-assets/grass.png"></br>
         </td>
         <td>Habilitan la creación de <b>enredaderas</b> sobre ellas usando el poder elemental de tierra/planta</td>
     </tr>
     <tr>
         <td><b>Enredaderas</b> 
-        <img src="./gdd-assets/enredadera.png"></br>>
+        <img src="./gdd-assets/enredadera.png"></br>
         </td>
         <td>Hojas dispuestas verticalmente; permiten a Ott <b>subir por ellas</b>.</td>
     </tr>
     <tr>
         <td><b>Zarzas</b><br> 
-        <img src="./gdd-assets/hangingSpike.png"></br>>
+        <img src="./gdd-assets/hangingSpike.png"></br>
         </td>
         <td><b>Bloquean</b> el camino. Pueden <b>romperse</b> usando el poder elemental del <b>fuego</b></td>
     </tr>
     <tr>
         <td><b>Zonas profundas de agua</b> 
         <br> Representadas mediante un filtro azul por encima del personaje
-        <img src="./gdd-assets/deepWater.png"></br>>
+        <img src="./gdd-assets/deepWater.png"></br>
         </td>
         <td>Habrá que pasar por ellas <b>buceando</b> con el poder del agua. Al usarlo, el personaje es capaz de llegar hasta el fondo del agua, pudiendo caminar por él. Su salto y movimiento se verán ligeramente ralentizados. Al cambiar de elemento bajo el agua, el personaje ascenderá lentamente.</td>
     </tr>
     <tr>
         <td><b>Lámparas de teletransporte</b>
-        <br> <img src="./gdd-assets/lamp.png"></br>>
+        <br> <img src="./gdd-assets/lamp.png"></br>
         </td>
         <td>Siempre son 2 lámparas que están relacionadas: Funcionan de forma similar a las <b>Tuberías</b> de <i>Mario Bros</i>, donde puedes interactuar con cualquiera de los dos extremos y este moverá a tu personaje al otro extremo.</td>
     </tr>
     <tr>
         <td><b>Santuarios</b>
-        <br> <img src="./gdd-assets/sanctuary.png"></br>>
+        <br> <img src="./gdd-assets/sanctuary.png"></br>
         </td>
         <td><b>Referencia</b> rápida: Bancos de <i>Hollow Knight</i>; Hogueras de <i>Dark Souls</i> y similares.<br>
         Actúan como <b>zonas de descanso</b> y <b>puntos de guardado</b> para el jugador. Serán su punto de <b>reaparición</b> al morir y al volver a cargar una partida. Al interactuar con ellos <b>recuperas</b> completamente tus <b>puntos de vida</b>, haciendo que los <b>enemigos</b> a tu alrededor <b>reaparezcan</b> si habían sido derrotados y guardando la partida.</td>
