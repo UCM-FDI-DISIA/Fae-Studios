@@ -346,6 +346,14 @@ Cada zona del juego dispondrá de 1 jefe propio, con sus mecánicas únicas y do
 Los tres tipos de enemigos estarán presentes en todos los reinos, pudiendo ser de todos los elementos disponibles, excepto oscuridad. De manera que para poder enfrentarse a ellos facilmente, se tendrá que hacer un buen uso de la jerarquía de elementos. (véase [***Elementos***](#31---elementos)).
 
 ## **9 - Recursos utilizados**
+#### Recursos propios
+- Shuriken de agua (Basado en https://www.nicepng.com/ourpic/u2y3q8t4t4e6y3e6_water-shuriken-water-pixel-art/)
+- Ataque de fuego de Ott
+- SpriteSheet Ott escalando (Basado en SpriteSheet de Ott)
+
+#### Créditos
+- Música del boss final --> Riding Dragons - https://www.boris-sandor.com/
+
 
 ## **10 - Referencias**
  - **Historia**: *The Legend of Zelda: Breath of the Wild*, *Hollow Knight*
