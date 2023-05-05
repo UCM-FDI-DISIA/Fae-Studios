@@ -350,6 +350,7 @@ Los tres tipos de enemigos estarán presentes en todos los reinos, pudiendo ser 
 - Shuriken de agua (Basado en https://www.nicepng.com/ourpic/u2y3q8t4t4e6y3e6_water-shuriken-water-pixel-art/)
 - Ataque de fuego de Ott
 - SpriteSheet Ott escalando (Basado en SpriteSheet de Ott)
+- Elementos
 
 #### Créditos
 - Música del boss final --> Riding Dragons - https://www.boris-sandor.com/
