@@ -16,9 +16,11 @@
   - [**5 - HUD**](#5---hud)
   - [**6 - Visual**](#6---visual)
   - [**7 - Menús y flujo de juego**](#7---menús-y-flujo-de-juego)
-  - [**8 - Contenido**](#8---contenido)
+  - [**8 - UML**](#8---uml)
+  - [**9 - Contenido**](#9---contenido)
     - [**Personajes y enemigos**](#personajes-y-enemigos)
-  - [**9 - Referencias**](#9---referencias)
+  - [**10 - Recursos**](#10---recursos-utilizados)
+  - [**11 - Referencias**](#11---referencias)
 
 
 ## **1 - Ficha técnica**
@@ -288,7 +290,11 @@ Una vez se haya accedido a una partida, el juego podrá **pausarse** pulsando la
 
 <img src="./gdd-assets/flujos-menu.png">
 
-## **8 - Contenido**
+## **8 - UML**
+<br>[<img src="./gdd-assets/UML_Ott an elemental journey.jpeg">](https://lucid.app/lucidchart/5c136751-1505-4317-a7f1-b268ce52882c/edit?viewport_loc=-6666%2C-1142%2C15541%2C7967%2C0_0&invitationId=inv_d6f180e9-018e-4347-a559-ed718dc08576)</br>
+
+## **9 - Contenido**
+
 
 ### **Items Recolectables**
 Los siguientes ítems se encontrarán repartidos a lo largo de los 3 mapas explorables y serán recolectados de forma instantánea al colisionar con ellos:
@@ -404,7 +410,7 @@ Cada zona del juego dispondrá de 1 jefe propio, con sus mecánicas únicas y do
     </tr>
 </table>
 
-## **9 - Recursos utilizados**
+## **10 - Recursos utilizados**
 
 ### Recursos públicos
   - [StringStar fields](https://trixelized.itch.io/starstring-fields) (itch.io), Trixie
@@ -498,6 +504,6 @@ Cada zona del juego dispondrá de 1 jefe propio, con sus mecánicas únicas y do
   - Música del boss final --> Riding Dragons - https://www.boris-sandor.com/
 
 
-## **10 - Referencias**
+## **11 - Referencias**
  - **Historia**: *The Legend of Zelda: Breath of the Wild*, *Hollow Knight*
  - **Género**: *CastleVania*, *Hollow Knight*
