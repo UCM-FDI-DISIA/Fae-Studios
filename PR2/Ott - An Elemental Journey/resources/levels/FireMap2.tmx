@@ -297,16 +297,16 @@
   <object id="644" name="10" class="Ground" x="3456" y="3105.33" width="30.6667" height="445.333"/>
   <object id="645" name="10" class="Ground" x="4322" y="3102.67" width="30.6667" height="445.333"/>
   <object id="646" name="10" class="Ground" x="3467.33" y="3082.67" width="890.667" height="35.9997"/>
-  <object id="682" name="12" class="FireBossRoom" x="5525.1" y="962.53" width="301.606" height="28.5453"/>
-  <object id="683" name="12" class="FireBossRoom" x="5427.8" y="931.257" width="102.273" height="32.0453"/>
-  <object id="684" name="12" class="FireBossRoom" x="5329.96" y="898.923" width="104.773" height="33.0453"/>
-  <object id="685" name="12" class="FireBossRoom" x="5824.13" y="930.757" width="99.7727" height="34.5453"/>
-  <object id="686" name="12" class="FireBossRoom" x="5921.63" y="898.591" width="100.273" height="35.0453"/>
-  <object id="687" name="12" class="FireBossRoom" x="6018.46" y="866.923" width="169.273" height="34.5453"/>
+  <object id="682" name="12" class="FireBossRoom" x="5525.1" y="959.864" width="301.606" height="31.212"/>
+  <object id="683" name="12" class="FireBossRoom" x="5427.8" y="927.924" width="105.939" height="35.3786"/>
+  <object id="684" name="12" class="FireBossRoom" x="5329.96" y="895.59" width="107.106" height="36.3786"/>
+  <object id="685" name="12" class="FireBossRoom" x="5824.13" y="928.424" width="99.7727" height="36.8786"/>
+  <object id="686" name="12" class="FireBossRoom" x="5920.29" y="895.925" width="101.606" height="37.712"/>
+  <object id="687" name="12" class="FireBossRoom" x="6016.12" y="863.923" width="171.606" height="37.5453"/>
   <object id="688" name="12" class="FireBossRoom" x="6125.8" y="472.924" width="61.9397" height="391.545"/>
   <object id="689" name="12" class="FireBossRoom" x="5254.77" y="348.924" width="889.667" height="136.545"/>
   <object id="690" name="12" class="FireBossRoom" x="5161.6" y="461.257" width="116" height="280.545"/>
-  <object id="691" name="12" class="FireBossRoom" x="5125.7" y="867.227" width="212.606" height="30.5453"/>
+  <object id="691" name="12" class="FireBossRoom" x="5125.7" y="864.727" width="215.606" height="33.0453"/>
  </objectgroup>
  <objectgroup id="9" name="Trigger de cambio de mapa" visible="0">
   <object id="206" name="0" class="waterBossMap_2_2" x="7.5" y="2025.5" width="44.5" height="115"/>
@@ -317,7 +317,6 @@
  </objectgroup>
  <objectgroup id="8" name="Plataformas" visible="0"/>
  <objectgroup id="7" name="Ott" class="0">
-  <object id="635" name="1" class="1" x="1770.97" y="1178.12" width="32" height="32"/>
   <object id="663" name="12" class="12" x="5242" y="774" width="32" height="32"/>
  </objectgroup>
  <objectgroup id="6" name="Triggers">

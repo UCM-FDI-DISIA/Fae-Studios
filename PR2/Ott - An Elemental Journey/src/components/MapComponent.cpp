@@ -728,6 +728,9 @@ void MapComponent::loadMap(std::string path, int nextPos) {
                 else if (ot.getName() == "loreText3") {
                     posText = Vector2D((x_ * scale) * roomScale - 1000, (y_ * scale) * roomScale - 100);
                 }
+                else if (ot.getName() == "loreText4") {
+                    posText = Vector2D((x_ * scale) * roomScale - 700, (y_ * scale) * roomScale - 70);
+                }
                 auto rock = constructors::rockLore(mngr_, 
                     Vector2D((x_ * scale) * roomScale, (y_ * scale) * roomScale),
                     (w_ * scale) * roomScale, (h_ * scale) * roomScale, 0, roomNum, ot.getName(), posText);
