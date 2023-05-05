@@ -30,7 +30,7 @@ MapComponent::MapComponent(Entity* fadeOut, PlayState* game, int currentMap) : f
             mapKeys[i].push_back({});
         }
     }
-    currentMapKey = "earthMap";
+    currentMapKey = "fireMap";
     tilemap = &sdlutils().images().at(sdlutils().levels().at(currentMapKey).tileset);
 }
 

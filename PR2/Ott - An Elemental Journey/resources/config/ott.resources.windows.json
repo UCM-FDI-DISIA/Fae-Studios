@@ -177,6 +177,12 @@
 			"cols": 1
 		},
 		{
+			"id": "Sala12_fuego",
+			"file": "../resources/images/backgrounds/Sala12_fuego.png",
+			"rows": 1,
+			"cols": 1
+		},
+		{
 			"id": "Sala0_Agua",
 			"file": "../resources/images/backgrounds/Sala0_Agua.png",
 			"rows": 1,
@@ -1163,6 +1169,12 @@
 		{
 			"id": "loreText3",
 			"file": "../resources/images/tests/Lore_3.png",
+			"rows": 12,
+			"cols": 3
+		},
+		{
+			"id": "loreText4",
+			"file": "../resources/images/tests/Lore_4.png",
 			"rows": 12,
 			"cols": 3
 		},
