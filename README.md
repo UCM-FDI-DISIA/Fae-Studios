@@ -706,10 +706,11 @@ El input del cambio de elemento de cambio de WASD a 1, 2, 3, 4 para su mejor con
 Además las plataformas que presentaban dificultades fueron ajustadas para el salto de Ott. Aquellas salas que tenían problemas de colisiones se arreglaron. Las caídas son observables con el control de look down (tecla '↓').
 Por último, se arregló el diseño de la sala del boss de agua para que el jugador no pudiese quedar detrás de este y en el boss de fuego se ajustó su velocidad y vida.
 
-## **12 - Web y redes asociadas**
+## **12 - Web, redes asociadas y vídeo comentario**
  - **Twitter**: [**@Fae_Studios_**](https://twitter.com/Fae_Studios_)
  - **Instagram**: [**@fae_studios_**](https://www.instagram.com/fae_studios_/)
  - **Web del juego**: [**ucm-fdi-disia.github.io/Fae-Studios/**](ucm-fdi-disia.github.io/Fae-Studios/)
+ - **Vídeo resumen Cometnado**: [**https://www.youtube.com/watch?v=lBDfgKcBZd0**](https://www.youtube.com/watch?v=lBDfgKcBZd0)
 
 ## **13 - Referencias**
  - **Historia**: *The Legend of Zelda: Breath of the Wild*, *Hollow Knight*
