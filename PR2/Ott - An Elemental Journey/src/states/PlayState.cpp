@@ -71,7 +71,7 @@ PlayState::PlayState() : GameState(ecs::_state_PLAY) {
 
 	if (!start) {
 		cinema_ = mngr_->addEntity(ecs::_grp_UI);
-		cinema_->addComponent<Transform>(mngr_->getCamera()->getComponent<Transform>()->getPosition() + Vector2D(150, 0), WINDOW_WIDTH, WINDOW_HEIGHT*2);
+		cinema_->addComponent<Transform>(mngr_->getCamera()->getComponent<Transform>()->getPosition(), sdlutils().width() + sdlutils().width()/12, sdlutils().height() * 2);
 		cinema_->addComponent<Image>(&sdlutils().images().at("cin_0"));
 
 		player_->setActive(false);
@@ -390,7 +390,7 @@ void PlayState::checkInteraction() {
 }
 
 void PlayState::cinematic() {
-
+	cinema_->getComponent<Transform>()->setPosition(camera_->getComponent<Transform>()->getPosition());
 	if (SDL_GetTicks() > timerAnim)
 	{
 		if (frameAnim < 158) {
