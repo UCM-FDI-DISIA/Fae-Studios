@@ -239,6 +239,8 @@ De esta forma es posible aumentar la vida máxima en 1 en cada uno de los reinos
 Se trata de la **primera zona del juego**. Trata de introducir las mecánicas de movimiento y tiene poca cantidad de enemigos.
 El juego comienza con el jugador observando la puerta del **Boss Final**, a quien se tendrá que enfrentar para rematar su aventura. Esta puerta muestra **4 luces**, todas **apagadas**, excepto 1, estará encendida desde el primero momento. Estas luces representan los diferentes elementos, y la que se enciende al comenzar la aventura representa la luz.
 
+<br> <img src="./gdd-assets/earthKingdom.png"></br>
+
 #### Dinámica
 
 En este mundo, pretendemos que el jugador aprenda a usar las mecánicas básicas, como movimiento, ataque, teleportación y guardado, por lo que el mapa es lo más intuitivo posible, pero manteniendo un número elevado de salas. 
@@ -259,6 +261,8 @@ En resumen, es un mapa bastante asumible para todos los jugadores y no pretende 
 ### Zona acuática
 La segunda zona del juego estará sumergida en su mayor parte. Para poder desplazarse Ott tendrá que cambiar entre el elemento de agua y el resto para poder descender y ascender a voluntad por el nivel. Este nivel está muy centrado alrededor de esta mecánica de movimiento, presentando así salas a modo de laberinto.
 
+<br> <img src="./gdd-assets/waterKingdom.png"></br>
+
 #### Dinámica
 
 Al contrario que en el anterior mapa, aquí ya damos por hecho que el jugador ha absorbido las lecciones inculcadas, por lo que la dificultad aumenta de forma considerable, con muchos menos **Santuarios** y muchos más enemigos.
@@ -275,6 +279,8 @@ El boss de este mapa, también aumenta en dificultad respecto al anterior. Se tr
 ### Volcán
 
 Es la zona final y más difícil del juego. Presenta gran cantidad de enemigos y una estética saturada y hostil. Se ha querido hacer un nivel ligeramtente lioso donde el minimapa puede no ser una ayuda tan grande, pues las salas están repartidas y no comparten conexiones. La memoria del jugador jugará un papel fundamental en este nivel.
+
+<br> <img src="./gdd-assets/fireKingdom.png"></br>
 
 #### Dinámica
 
