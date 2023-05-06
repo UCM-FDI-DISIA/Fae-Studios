@@ -595,7 +595,7 @@ Por desgracia, no hemos conseguido encontrar algunas de las referencias de los s
 
 ### Objetivos y preguntas de investigación
 Nuestro objetivo principal es evaluar la curva de aprendizaje de las mecánicas, dinámicas y el transcurso y funcionamiento de los mapas. 
-Las observaciones a tener en cuenta se encuentran en [PREGUNTAS QA])(https://github.com/UCM-FDI-DISIA/Fae-Studios/blob/main/qa-resources/PREGUNTAS%20QA.pdf).
+Las observaciones a tener en cuenta se encuentran en [PREGUNTAS QA](https://github.com/UCM-FDI-DISIA/Fae-Studios/blob/main/qa-resources/PREGUNTAS%20QA.pdf).
 
 ### Duración y entorno de realización
 El entorno de realización será dónde vea oportuno el evaluador. El periodo de pruebas durará 20 minutos y, en caso de que el jugador necesite más, se le proporcionará 5 minutos más. Después se realizará un cuestionario, de aproximadamente 5 minutos, para obtener feedback sobre aspectos concretos del juego.
@@ -631,7 +631,7 @@ Por tanto, se dividirá el grupo de testers en tres: una para cada prueba. Tras 
 (->Agua->Tierra->Fuego->)
 
 En todas las pruebas, los investigadores apuntarán sus reacciones, comentarios y observaciones sobre sus decisiones tomadas, donde se atascan.
-Al pasar los 20 minutos se les proporcionará un cuestionario con las siguientes preguntas: [Formulario](https://forms.gle/7G37kqVuJU9uzi9f6)
+Al pasar los 20 minutos se les proporcionará un cuestionario con las siguientes preguntas: [formulario](https://forms.gle/7G37kqVuJU9uzi9f6)
 
 ### Observaciones 
 Todos los miembros del equipo realizaron como mínimo una prueba, sacando al final 24 QA’S. Los testers variaron entre noveles y no noveles, lo que nos ofreció una mejor perspectiva del juego. 
@@ -675,6 +675,7 @@ En esta sala los jugadores hicieron uso de todas las habilidades posibles con Ot
 
 #### Formulario
 Aunque no todos los usuarios pudieron rellenar el formulario, obtuvimos bastante información.
+
 <img src="./qa-resources/Pregunta1.png">
 <img src="./qa-resources/Pregunta2.png">
 <img src="./qa-resources/Pregunta3.png">
