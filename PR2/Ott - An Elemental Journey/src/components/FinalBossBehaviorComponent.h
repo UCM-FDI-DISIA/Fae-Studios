@@ -7,6 +7,7 @@ class Health;
 const int ATTACK_TIME = 5000;
 const int STUNNED_TIME = 5000;
 const int CURE_TIME = 3000;
+const int TIME_DIFF = 500;
 class FinalBossBehaviorComponent : public Component
 {
 public:
@@ -45,6 +46,7 @@ private:
 	int FIREWALL_HEIGHT = 600, FIREWALL_WIDTH = 90;
 	int FIST_SIZE = 250;
 	int lastElem;
+	int lastTime;
 
 	int numAttacks = 0;
 	bool stunned, isWeakPoints, waitingForReset;
