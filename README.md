@@ -269,7 +269,7 @@ Los personajes de cada elemento portarán los colores de su reino, excepto aquel
 
 **Las paletas de cada zona serán las siguientes:**
 
-<img src="./gdd-assets/paletas.png">
+<img src="./gdd-assets/paletas.PNG">
 
 Algunas capturas del resultado final de las zonas:
 
@@ -302,11 +302,39 @@ Los siguientes ítems se encontrarán repartidos a lo largo de los 3 mapas explo
 <table>
     <tr>
         <td><b>Elemento</b>
-        <br><img src="./gdd-assets/bug.png"></br>
+        <br><img src="./gdd-assets/elements.png"></br>
         </td>
         <td>
             <ul>
                 <li> Son el objeto que permitirá a Ott desbloquear las nuevas habilidades. Son 3, únicos y repartidos cada uno en un mapa distinto. </li>
+                <li> Una vez se coja uno de ellos, el <i>spawn-point</i> de Ott se setteará a la posición del elemento.</li>
+            </ul>
+        </td>
+    </tr>
+        <tr>
+        <td><b>Fragmento de Vida</b>
+        <br><img src="./gdd-assets/lifeshards.png"></br>
+        </td>
+        <td>
+            <ul>
+                <li> Dan al jugador la oportunidad de aumentar su vida máxima en 1 cuando coge dos de estos fragmentos. </li>
+                <li> Hay un total de 6: 2 en cada mapa explorable.</li>
+                <li> Se encuentran ocultos a lo largo de los mismos.</li>
+                <li> Al ser recogidos un texto en el centro de la pantalla muestra cuánto se tienen: 1/2 o 2/2</li>
+            </ul>
+        </td>
+    </tr>
+        <tr>
+        <td><b>Reliquia</b>
+        <br><img src="./gdd-assets/earthRelic.png"></br>
+        <br><img src="./gdd-assets/waterRelic.png"></br>
+        <br><img src="./gdd-assets/fireRelic.png"></br>
+        </td>
+        <td>
+            <ul>
+                <li> Al igual que los elementos, hay 1 por mapa. </li>
+                <li> Al recoger las 3 reliquias se desbloquea una corona, un <b>blush</b> en las mejillas y zapatitos. No tienen efecto mecánico, solo estético. </li>
+                <li> Están ciertamente escondidas o detrás de algún reto en cada uno de los mapas. </li>
             </ul>
         </td>
     </tr>
@@ -401,10 +429,10 @@ Cada zona del juego dispondrá de 1 jefe propio, con sus mecánicas únicas y do
             <ul>
                 <li>Este jefe a utiliza varios ataques de todos los elementos.</li>
                 <li>El ataque de oscuridad, crea un agujero negro que atrae a Ott hacia él a menos que lleve el elemento de luz, igualmente, crea puños que se moverán horizontalmente o verticalmente.</li>
-              <li>El ataque de fuego, crea paredes que se desplazan horizontalmente, y dañarán a Ott si entra en contacto con ellas. La única manera de evitarlas es con el elemento de Agua, buceando en unos surco que hay a la altura del suelo.</li>
-              <li>El ataque de agua crea 2 burbujas que dispararán a Ott. Estas burbujas permanecen activas durante bastante tiempo, y la única forma de destruirlas antes es creando unas enrredaderas que las exploten./li>
-              <li>El jefe puede hacer uso de su habilidad de planta, gracias al cual empezará a curarse. Si Ott utiliza sus ataques de fuego para cortar las raíces que le curan, empezará la fase de daño.</li>
-              <li>La fase de daño será de tiempo limitado. Durante el tiempo que esté activa, Ott puede dañar al jefe golpeándole en la cara.</li>
+              <li><b>El ataque de fuego</b>, crea paredes que se desplazan horizontalmente, y dañarán a Ott si entra en contacto con ellas. La única manera de evitarlas es con el elemento de Agua, buceando en unos surco que hay a la altura del suelo.</li>
+              <li><b>El ataque de agua</b> crea 2 burbujas que dispararán a Ott. Estas burbujas permanecen activas durante bastante tiempo, y la única forma de destruirlas antes es creando unas enrredaderas que las exploten./li>
+              <li>El jefe puede hacer uso de su <b>habilidad de planta</b>, gracias al cual empezará a curarse. Si Ott utiliza sus ataques de fuego para cortar las raíces que le curan, empezará la fase de daño.</li>
+              <li><b>La fase de daño</b> será de tiempo limitado. Durante el tiempo que esté activa, Ott puede dañar al jefe golpeándole en la cara.</li>
             </ul>
         </td>
     </tr>
@@ -413,6 +441,9 @@ Cada zona del juego dispondrá de 1 jefe propio, con sus mecánicas únicas y do
 ## **10 - Recursos utilizados**
 
 ### Recursos públicos
+
+Por desgracia, no hemos conseguido encontrar algunas de las referencias de los sonidos utilizados a continuación, pero sí podemos afirmar que son todos sacados de páginas web con licencias de uso libre y ninguno de pago.
+
   - [StringStar fields](https://trixelized.itch.io/starstring-fields) (itch.io), Trixie
   - [Oak Woods](https://brullov.itch.io/oak-woods) (itch.io), brullov
   - [Pixel effects pack](https://codemanu.itch.io/pixelart-effect-pack) (itch.io), CodeManu
