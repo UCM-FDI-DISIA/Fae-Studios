@@ -20,8 +20,9 @@
   - [**9 - Contenido**](#9---contenido)
     - [**Personajes y enemigos**](#personajes-y-enemigos)
   - [**10 - Recursos**](#10---recursos-utilizados)
-  - [**11 - Web y redes asociadas**](#11---web-y-redes-asociadas)
-  - [**12 - Referencias**](#12---referencias)
+  - [**11 - QA**](#11---qa)
+  - [**12 - Web y redes asociadas**](#12---web-y-redes-asociadas)
+  - [**13 - Referencias**](#13---referencias)
 
 
 ## **1 - Ficha técnica**
@@ -562,6 +563,8 @@ Por desgracia, no hemos conseguido encontrar algunas de las referencias de los s
 ### Recursos propios
   - Shuriken de agua (Basado en https://www.nicepng.com/ourpic/u2y3q8t4t4e6y3e6_water-shuriken-water-pixel-art/)
   - Ataque de fuego de Ott
+  - Ataque de planta de Ott
+  - Ataque de agua de Ott
   - SpriteSheet Ott escalando (Basado en SpriteSheet de Ott)
   - Elementos
   - El resto de assets son nuestros, estos son:
@@ -588,11 +591,119 @@ Por desgracia, no hemos conseguido encontrar algunas de las referencias de los s
 ### Créditos
   - Música del boss final --> Riding Dragons - https://www.boris-sandor.com/
 
-## **11 - Web y redes asociadas**
+## **11 - QA**
+
+### Objetivos y preguntas de investigación
+Nuestro objetivo principal es evaluar la curva de aprendizaje de las mecánicas, dinámicas y el transcurso y funcionamiento de los mapas. 
+Las observaciones a tener en cuenta se encuentran en [PREGUNTAS QA](https://github.com/UCM-FDI-DISIA/Fae-Studios/blob/main/qa-resources/PREGUNTAS%20QA.pdf).
+
+### Duración y entorno de realización
+El entorno de realización será dónde vea oportuno el evaluador. El periodo de pruebas durará 20 minutos y, en caso de que el jugador necesite más, se le proporcionará 5 minutos más. Después se realizará un cuestionario, de aproximadamente 5 minutos, para obtener feedback sobre aspectos concretos del juego.
+
+Se seleccionarán probadores que puedan ofrecernos resultados variados para mayor precisión, elegidos de forma individual y personal. Serán jóvenes, sin importar su experiencia previa en juegos de acción.
+
+### Descripción de las tareas del probador
+El probador deberá explorar el mundo proporcionado, luchando contra enemigos e interactuando con su entorno, hasta llegar a la la sala del boss, donde deberá derrotarlo. 
+
+Para la última prueba, el jugador deberá hacer uso de los poderes de los elementos correctamente para poder enfrentarse de manera efectiva a los enemigos repartidos por la sala.
+
+### Instrucciones iniciales 
+Cada investigador realizará la prueba a 3 personas distintas mínimo, la primera tendrá el mapa de tierra, la segunda el de agua, y la tercera el de fuego, con sus bosses y la prueba de cambio de elementos.
+
+Al comienzo de la prueba se indicarán las siguientes instrucciones:
+Se le proporcionará un nivel de los tres que tenemos y el nivel de prueba de elementos.
+
+A todos ellos se les explicará también que es una prueba en la que el investigador no interviene y que el objetivo no es pasarse el juego, si no probarlo.
+
+En el caso de las personas que tengan el mapa de agua o de fuego, se les explicarán las mecánicas de la enredadera y ataques de tierra.
+
+A las que tengan el de fuego, se les explicarán también los ataques de agua.
+
+### Comportamiento del investigador
+El investigador se posicionará detrás del probador para observar su evolución sin intervenir en ningún momento. 
+No se revelará información acerca de la resolución de los niveles ya que nos ayudará a determinar si es excesivamente difícil para un jugador casual.
+
+### Diseño de la evaluación
+Las únicas herramientas que se utilizarán durante este ejercicio serán la observación de los usuarios, un cronómetro, un papel para anotar su comportamiento y un pequeño cuestionario. 
+Habrá tres tipos de pruebas: Agua, Tierra y Fuego. Cada una representa un mundo del juego y consiste en explorar y derrotar a su miniboss.
+
+Por tanto, se dividirá el grupo de testers en tres: una para cada prueba. Tras realizarla, a todos se les proporcionará otra mini prueba final. Esta consistirá en una sala adaptada específicamente para el uso de elementos, cambio entre ellos y peleas teniendo en cuenta el ciclo de poder. 
+(->Agua->Tierra->Fuego->)
+
+En todas las pruebas, los investigadores apuntarán sus reacciones, comentarios y observaciones sobre sus decisiones tomadas, donde se atascan.
+Al pasar los 20 minutos se les proporcionará un cuestionario con las siguientes preguntas: [formulario](https://forms.gle/7G37kqVuJU9uzi9f6)
+
+### Observaciones 
+Todos los miembros del equipo realizaron como mínimo una prueba, sacando al final 24 QA’S. Los testers variaron entre noveles y no noveles, lo que nos ofreció una mejor perspectiva del juego. 
+
+#### General
+
+En los aspectos generales el juego pudimos observar una mecánica y comportamientos básicos esperados por parte de los probadores. Todos supieron acceder al menú y los controles, además del minimapa. Rápidamente, controlaron los input generales de Ott (lateral, salto y ataque).
+	
+La interacción con los objetos no fue tan intuitiva. La mayoría de jugadores tardaron en ver el funcionamiento de las lámparas (teletransporte), santuarios (guardado y respawn), enredaderas y elementos. La tecla ‘F’ no era perceptible.
+Cuando conseguían interactuar con los objetos rápidamente entendían el comportamiento y funcionamiento de estos.
+Algunos jugadores pensaban que al conseguir el elemento nuevo y cambiar al de luz perdían el nuevo poder (no sabían cambiar de elemento tras varios intentos).
+En cuanto a los enemigos se apreció el comportamiento esperado en el diseño de nivel. De media, los jugadores necesitaban derribar a los enemigos necesarios y, con el tiempo, iban ignorando aquellos que no suponían un problema.
+Se observó que el ataque de la seta era demasiado pequeño para verlo desde el principio.
+No obstante, no entendían el sistema de vidas según el elemento portado y el del rival. Los jugadores apreciaban el quesito subir de carga, mas no sabían para qué podría ser su uso. Se observó la ausencia del uso del ataque cargado en todos los usuarios.  
+Lo mismo pasa con el escudo. Aunque algunos jugadores descubrieron o vieron el control de la defensa, nadie entendió cómo usarla.
+Los jugadores que cogían un solo fragmento de vida no sabían para qué era.
+Por el lado contrario, los que cogían dos apreciaban el aumento de vida.
+
+Los usuarios lograron pasar los mapas satisfactoriamente. Los jugadores más experimentos tardaron una media de 10 minutos, mientras que los demás llegaron a una media de menos de 20 minutos. 
+
+#### Mapa de Tierra
+La mayoría de usuarios tuvieron problemas a la hora de saltar y alcanzar ciertas plataformas. Las caídas de las salas quedaban dudosas al no saber qué había al fondo, por lo que no saltaban a la siguiente sala.
+
+Muchos jugadores pasaron desapercibida la enredadera los primeros minutos de juego. A algunos hubo que darles pistas
+
+El boss, a pesar de que casi ningún jugador se percató del cartel, fue fácil de llevar. La dinámica principal de esquivar y pegar se entendió desde el principio. Ningún jugador sobrepasó los 3 minutos de juego. Muy pocos, los menos experimentados, llegaron a morir únicamente 2 veces.
+
+#### Mapa de Agua
+Todos los jugadores aprendieron rápidamente la mecánica del elemento de agua.
+Se observó algún fallo de colisiones con las paredes en la sala del laberinto y un fallo de diseño de nivel: el jugador podía atravesar medio mapa retrocediendo una sala después de coger el elemento (la sala no estaba hecha para retroceder).
+
+En cuanto al boss todos entendieron perfectamente su dinámica principal. Todos huyeron de él y, aunque algunos trataron de pegarle, al ver que no recibían daño, seguían con la carrera. Se observó un fallo de diseño; el jugador podía quedarse detrás del boss. Además, faltaba implementar el reset del boss.
+
+#### Mapa de Fuego 
+Solo un par de usuarios pudieron probar el mapa de fuego implementado. Al haber agregado los cambios de los QA’S anteriores y tener el diseño del mapa refinado lo más relevante a observar fue el boss.
+
+En el boss de fuego se apreció que el tanque de agua no era muy intuitivo y no se llegó bien. Además, el enemigo estaba bastante desbalanceado y era bastante difícil de derrotar: muy rápido y mucha vida.
+
+#### Sala Elementos 
+En esta sala los jugadores hicieron uso de todas las habilidades posibles con Ott. A pesar de que la mayoría probaba con todos los elementos, casi nada percibía cambios en el efecto de los ataques en los distintos enemigos, por lo que al final optaban por usar el ataque de fuego ya que es más seguro en cuanto a rango y efectividad.
+
+#### Formulario
+Aunque no todos los usuarios pudieron rellenar el formulario, obtuvimos bastante información.
+
+<img src="./qa-resources/Pregunta1.png">
+<img src="./qa-resources/Pregunta2.png">
+<img src="./qa-resources/Pregunta3.png">
+<img src="./qa-resources/Pregunta4.png">
+<img src="./qa-resources/Pregunta5.png">
+
+
+#### Conclusiones y cambios
+Principalmente se pudo observar la falta de feedback que había para el jugador. Nada indicaba qué objetos eran interactuables o con qué se accedía a ellos. Por tanto, ese fue el primer cambio a tener en cuenta. Para ello implementamos:
+
+- Brillo y sonido en las lámparas y santuarios.
+- Indicador de fragmentos restantes de vida.
+- Efecto de ataque en los enemigos según el elemento de Ott.
+- Animación del quesito.
+- Carteles de tutorial inicial que guían al jugador al principio del juego.
+- Sonido de los ataques de Ott según su efectividad.
+- Cambio del sprite del escudo.
+
+En cuanto a los enemigos se cambió el sprite del ataque de la seta y se cambiaron algunos de ellos por la salas para el fácil/fluido enfrentamiento del jugador.
+El input del cambio de elemento de cambio de WASD a 1, 2, 3, 4 para su mejor control a la hora de jugar.
+Además las plataformas que presentaban dificultades fueron ajustadas para el salto de Ott. Aquellas salas que tenían problemas de colisiones se arreglaron. Las caídas son observables con el control de look down (tecla “↓”).
+Por último, se arregló el diseño de la sala del boss de agua para que el jugador no pudiese quedar detrás de este y en el boss de fuego se ajustó su velocidad y vida.
+
+## **12 - Web y redes asociadas**
  - **Twitter**: [**@Fae_Studios_**](https://twitter.com/Fae_Studios_)
  - **Instagram**: [**@fae_studios_**](https://www.instagram.com/fae_studios_/)
  - **Web del juego**: [**ucm-fdi-disia.github.io/Fae-Studios/**](ucm-fdi-disia.github.io/Fae-Studios/)
 
-## **12 - Referencias**
+## **13 - Referencias**
  - **Historia**: *The Legend of Zelda: Breath of the Wild*, *Hollow Knight*
  - **Género**: *CastleVania*, *Hollow Knight*
