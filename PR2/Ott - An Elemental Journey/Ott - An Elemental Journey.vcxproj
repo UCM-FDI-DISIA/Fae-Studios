@@ -115,6 +115,7 @@
     <ClCompile Include="src\components\WaterBossAnimationComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="resource.h" />
     <ClInclude Include="src\components\LoreTextAnims.h" />
     <ClInclude Include="src\components\AutoDestroy.h" />
     <ClInclude Include="src\components\ShieldAnimationComponent.h" />
@@ -248,6 +249,7 @@
     <ClInclude Include="src\components\WaterAnimationController.h" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\..\..\..\asas\ElementoTierra.ico" />
     <Image Include="resources\images\carteles\BossTierra.png" />
     <Image Include="resources\images\carteles\Movimiento\Untitled-Artwork-1.png" />
     <Image Include="resources\images\carteles\Movimiento\Untitled-Artwork-10.png" />
@@ -263,6 +265,9 @@
     <Image Include="resources\images\carteles\Movimiento\Untitled-Artwork-7.png" />
     <Image Include="resources\images\carteles\Movimiento\Untitled-Artwork-8.png" />
     <Image Include="resources\images\carteles\Movimiento\Untitled-Artwork-9.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Ott - An Elemental Journey.rc" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
