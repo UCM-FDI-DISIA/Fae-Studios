@@ -20,7 +20,8 @@
   - [**9 - Contenido**](#9---contenido)
     - [**Personajes y enemigos**](#personajes-y-enemigos)
   - [**10 - Recursos**](#10---recursos-utilizados)
-  - [**11 - Referencias**](#11---referencias)
+  - [**11 - Web y redes asociadas**](#11---web-y-redes-asociadas)
+  - [**12 - Referencias**](#12---referencias)
 
 
 ## **1 - Ficha técnica**
@@ -585,7 +586,11 @@ Por desgracia, no hemos conseguido encontrar algunas de las referencias de los s
 ### Créditos
   - Música del boss final --> Riding Dragons - https://www.boris-sandor.com/
 
+## **11 - Web y redes asociadas**
+ - **Twitter**: [**@Fae_Studios_**](https://twitter.com/Fae_Studios_)
+ - **Instagram**: [**@fae_studios_**](https://www.instagram.com/fae_studios_/)
+ - **Web del juego**: [**ucm-fdi-disia.github.io/Fae-Studios/**](ucm-fdi-disia.github.io/Fae-Studios/)
 
-## **11 - Referencias**
+## **12 - Referencias**
  - **Historia**: *The Legend of Zelda: Breath of the Wild*, *Hollow Knight*
  - **Género**: *CastleVania*, *Hollow Knight*
