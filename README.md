@@ -106,6 +106,9 @@ El elemento básico que incluye el personaje es luz, a lo largo del juego podrá
 </table>
 
 ### **3.3 - Ataque**
+
+Ott tiene dos formas de atacar: **Simple** y **Cargada**. Su *ataque simple* no tiene limitación de uso, mientras que el *cargado* requiere de rellenar un pequeño indicador (situado al lado de las vidas en el HUD) matando enemigos. Con esto, se trata de incentivar al jugador a matar a los enemigos y no a huir de ellos. Cada enemigo da una cantidad X de cargas del indicar de ataque cargado (máximo de 8).
+
 <table>
     <tr>
         <th>Elemento</th>
@@ -301,15 +304,15 @@ La interfaz ocupará el menor espacio posible en pantalla, ya que la informació
   - Mediante una *barra de vida* que toma valores discretos.
   - Oscureciendo la pantalla ligeramente cuando quede poca vida.
 
-Justo al lado de la barra de vida aparecerá un medidor circular dividido en ocho fragmentos que indicará el número de cargas obtenidas para el **ataque cargado**.
+Justo al lado de la barra de vida aparecerá un medidor circular dividido en ocho fragmentos que indicará el número de cargas obtenidas para el **ataque cargado** (mencionado en la sección [***3.3 - Ataque***](#33---ataque)). 
 
- <img src="./gdd-assets/hudLife.png">
+<img src="./gdd-assets/hudLife.png">
 
- **Figura 1**: *HUD con 2 puntos de vida y elemento de Tierra (las lámparas cambian de color según tu elemento).*
+*HUD con 2 puntos de vida y elemento de Tierra (las lámparas cambian de color según tu elemento).*
 
 <img src="./gdd-assets/darkenedScreen.png">
 
-**Figura 2**: *Oscurecimiento cuando Ott tiene 1 punto de vida.*
+*Oscurecimiento cuando Ott tiene 1 punto de vida.*
 
 ## **6 - Visual**
 La estética del juego será Pixel Art 2D. El juego está ambientado en un mundo fantástico basado en tres elementos. La parte visual tendrá una estética suave, atrayente y colorida, que contraste la temática más bélica/dramática.  
@@ -345,7 +348,6 @@ Una vez se haya accedido a una partida, el juego podrá **pausarse** pulsando la
 <br>[<img src="./gdd-assets/UML_Ott an elemental journey.jpeg">](https://lucid.app/lucidchart/5c136751-1505-4317-a7f1-b268ce52882c/edit?viewport_loc=-6666%2C-1142%2C15541%2C7967%2C0_0&invitationId=inv_d6f180e9-018e-4347-a559-ed718dc08576)</br>
 
 ## **9 - Contenido**
-
 
 ### **Items Recolectables**
 Los siguientes ítems se encontrarán repartidos a lo largo de los 3 mapas explorables y serán recolectados de forma instantánea al colisionar con ellos:
