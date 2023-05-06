@@ -20,8 +20,9 @@
   - [**9 - Contenido**](#9---contenido)
     - [**Personajes y enemigos**](#personajes-y-enemigos)
   - [**10 - Recursos**](#10---recursos-utilizados)
-  - [**11 - Web y redes asociadas**](#11---web-y-redes-asociadas)
-  - [**12 - Referencias**](#12---referencias)
+  - [**11 - QA**](#10---qa)
+  - [**12 - Web y redes asociadas**](#11---web-y-redes-asociadas)
+  - [**13 - Referencias**](#12---referencias)
 
 
 ## **1 - Ficha técnica**
@@ -562,6 +563,8 @@ Por desgracia, no hemos conseguido encontrar algunas de las referencias de los s
 ### Recursos propios
   - Shuriken de agua (Basado en https://www.nicepng.com/ourpic/u2y3q8t4t4e6y3e6_water-shuriken-water-pixel-art/)
   - Ataque de fuego de Ott
+  - Ataque de planta de Ott
+  - Ataque de agua de Ott
   - SpriteSheet Ott escalando (Basado en SpriteSheet de Ott)
   - Elementos
   - El resto de assets son nuestros, estos son:
@@ -588,11 +591,13 @@ Por desgracia, no hemos conseguido encontrar algunas de las referencias de los s
 ### Créditos
   - Música del boss final --> Riding Dragons - https://www.boris-sandor.com/
 
-## **11 - Web y redes asociadas**
+## **11 - QA**
+
+## **12 - Web y redes asociadas**
  - **Twitter**: [**@Fae_Studios_**](https://twitter.com/Fae_Studios_)
  - **Instagram**: [**@fae_studios_**](https://www.instagram.com/fae_studios_/)
  - **Web del juego**: [**ucm-fdi-disia.github.io/Fae-Studios/**](ucm-fdi-disia.github.io/Fae-Studios/)
 
-## **12 - Referencias**
+## **13 - Referencias**
  - **Historia**: *The Legend of Zelda: Breath of the Wild*, *Hollow Knight*
  - **Género**: *CastleVania*, *Hollow Knight*
