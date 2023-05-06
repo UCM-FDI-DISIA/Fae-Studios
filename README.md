@@ -28,7 +28,7 @@
 - **Género**: Metroidvania
 - **Target**: Jugadores no noveles exploradores
 - **Rating**: PEGI 7
-- **Plataforma**: PC (Windows/Mac)
+- **Plataforma**: PC (Windows)
 - **Modos de juego**: 
   - Un jugador: Campaña.
   
