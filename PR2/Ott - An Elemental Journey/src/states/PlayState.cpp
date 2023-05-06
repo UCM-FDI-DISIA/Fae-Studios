@@ -91,6 +91,8 @@ PlayState::PlayState(std::string fileName) : GameState(ecs::_state_PLAY) {
 	constructors::lamp(mngr_, 300, 1500, 20, 50, 0, 100, 100, 20, 50, 1, 40, 40);
 
 	std::ifstream file(fileName);
+	std::string aux;
+	file >> aux;
 
 	player_->getComponent<Health>()->loadFromFile(file);
 	player_->getComponent<PlayerInput>()->loadFromFile(file);
@@ -126,7 +128,6 @@ PlayState::PlayState(std::string fileName) : GameState(ecs::_state_PLAY) {
 
 	currentMap = (ecs::maps)map_->getCurrentMap();
 	initialEnemies = enemies;
-	std::string aux;
 	file >> aux >> aux;
 	while (aux != "_") {
 		bool visited;
@@ -511,6 +512,7 @@ void PlayState::endRest() {
 	// Guardar datos en archivo
 	std::string fileName = "../resources/saves/temporalUniqueSave.sv";
 	std::ofstream saveFile(fileName);
+	saveFile << "SAVED" << std::endl;
 
 	player_->getComponent<Health>()->saveToFile(saveFile);
 	player_->getComponent<PlayerInput>()->saveToFile(saveFile);

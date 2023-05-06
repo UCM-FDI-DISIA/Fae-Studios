@@ -48,8 +48,14 @@ MainMenuState::MainMenuState() : MenuState() {
     buttons.push_back(constructors::button(mngr_, pos, "Cargar", sdlutils().fonts().at("vcr_osd48"), [this]() {
         sdlutils().soundEffects().at("button").play(0, ecs::_channel_UI);
         std::ifstream file("../resources/saves/temporalUniqueSave.sv");
-        if(!file.fail()) fade->getComponent<FadeTransitionComponent>()->setFunction([]() { GameStateMachine::instance()->changeState(new PlayState("../resources/saves/temporalUniqueSave.sv")); sdlutils().musics().at("main_menu_music").fadeOutMusic(100); });
+        std::string saved;
+        file >> saved;
+        if (!file.fail() && saved == "SAVED") {
+            file.close();
+            fade->getComponent<FadeTransitionComponent>()->setFunction([]() { GameStateMachine::instance()->changeState(new PlayState("../resources/saves/temporalUniqueSave.sv")); sdlutils().musics().at("main_menu_music").fadeOutMusic(100); });
+        }
         else {
+            file.close();
             fade->getComponent<FadeTransitionComponent>()->setFunction([]() { GameStateMachine::instance()->changeState(new PlayState()); sdlutils().musics().at("main_menu_music").fadeOutMusic(100); });
             playStateInit = true;
         }
