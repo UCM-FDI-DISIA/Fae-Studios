@@ -16,10 +16,10 @@
   - [**5 - HUD**](#5---hud)
   - [**6 - Visual**](#6---visual)
   - [**7 - Menús y flujo de juego**](#7---menús-y-flujo-de-juego)
-  - [**8 - UML**](#8---uml)
-  - [**9 - Contenido**](#9---contenido)
+  - [**8 - Contenido**](#8---contenido)
     - [**Personajes y enemigos**](#personajes-y-enemigos)
-  - [**10 - Recursos**](#10---recursos-utilizados)
+  - [**9 - Recursos**](#9---recursos-utilizados)
+  - [**10 - Arquitectura**](#10---arquitectura)
   - [**11 - QA**](#11---qa)
     - [**11.1 - Objetivos y preguntas de investigación**](#111---objetivos-y-preguntas-de-investigación)
     - [**11.2 - Duración y entorno de realización**](#112---duración-y-entorno-de-realización)
@@ -354,10 +354,7 @@ Una vez se haya accedido a una partida, el juego podrá **pausarse** pulsando la
 
 <img src="./gdd-assets/flujos-menu.png">
 
-## **8 - UML**
-<br>[<img src="./gdd-assets/UML_Ott an elemental journey.jpeg">](https://lucid.app/lucidchart/5c136751-1505-4317-a7f1-b268ce52882c/edit?viewport_loc=-6666%2C-1142%2C15541%2C7967%2C0_0&invitationId=inv_d6f180e9-018e-4347-a559-ed718dc08576)</br>
-
-## **9 - Contenido**
+## **8 - Contenido**
 
 ### **Items Recolectables**
 Los siguientes ítems se encontrarán repartidos a lo largo de los 3 mapas explorables y serán recolectados de forma instantánea al colisionar con ellos:
@@ -501,7 +498,7 @@ Cada zona del juego dispondrá de 1 jefe propio, con sus mecánicas únicas y do
     </tr>
 </table>
 
-## **10 - Recursos utilizados**
+## **9 - Recursos utilizados**
 
 ### Recursos públicos
 
@@ -598,6 +595,20 @@ Por desgracia, no hemos conseguido encontrar algunas de las referencias de los s
 
 ### Créditos
   - Música del boss final --> Riding Dragons - https://www.boris-sandor.com/
+
+
+## **10 - Arquitectura**
+<br>[<img src="./gdd-assets/UML_Ott an elemental journey.jpeg">](https://lucid.app/lucidchart/5c136751-1505-4317-a7f1-b268ce52882c/edit?viewport_loc=-6666%2C-1142%2C15541%2C7967%2C0_0&invitationId=inv_d6f180e9-018e-4347-a559-ed718dc08576)</br>
+
+La arquitectura del juego está basado en un sencillo sistema de componentes que incluye una máquina de estados para el manejo de las diferentes escenas. En concreto, nuestro juego comienza en un *Game*, donde se lanza la aplicación SDL y se añade un estado inicial *MainMenu*. A partir de esta estado podemos pasar al menú de *opciones*, al *juego* como tal o cerrar la aplicación. La zona de opciones tiene un funcionamiento prácticamente idéntico a este estado de menú: botones que llevan a otras opciones. En cambio, el botón de juego lanza el estado más importante de todo el juego: *PlayState*. Este, en su constructora, se encargará de crear únicamente 3 entidades (y guardar refencias a ellas): El jugador, la Cámara y el Mapa.
+
+La entidad del Mapa será la encargada de crear literalmente todas las otras entidades del juego y gestionarlas. Tiene la información sobre qué enemigos están en qué sala, qué fondos corresponden en este momento, qué objetos interactuables están activos, etc. Toda esa información la guarda el MapComponent.
+Estas entidades se crearán según se lean de un archivo .tmx (se ha usado la aplicación Tiled y la librería tmxlite para SDL en este proyecto), ya que, según la clase y nombre del objeto leído, será de un tipo o de otro. Todas las entidades van en función de salas. Las que no necesiten estar activas en ese momento (Ott no comparte habitación con ellas) serán desactivadas durante el cambio de mapa / habitación, tratando de reducir el número de llamadas a entidades al mínimo. 
+Lo mismo sucede con las colisiones y las Tiles, que son guardadas en vectores según su sala (e ID en caso de las Tiles), por lo que solo se renderiza la sala donde se encuentra Ott, por la misma razón que antes: reducir número de llamadas y bucles innecesarios. 
+
+No existe ningún tipo de herencia en nuestro proyecto, aunque sí habría sido muy útil para los AnimationComponent que tenemos a lo largo de todas las entidades, pues comparten muchos métodos y no hemos podido optimizarlo por falta de tiempo y gestión.
+
+En resumen: El MapComponent es el que guarda toda la información del juego y el que tiene el control de qué se activa en qué lugar y cuándo. Tiene acceso a todas las entidades que el juego tiene en pantalla (excepto las de UI) y todas dependen de él, ya que toda la información de es leída desde un archivo .tmx.
 
 ## **11 - QA**
 
