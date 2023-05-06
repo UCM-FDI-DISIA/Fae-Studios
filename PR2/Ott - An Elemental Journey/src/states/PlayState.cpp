@@ -118,6 +118,11 @@ PlayState::PlayState(std::string fileName) : GameState(ecs::_state_PLAY) {
 	map_ = map->getComponent<MapComponent>();
 	auto fadeOut = pair.second;
 	mngr_->setFadeOut(fadeOut);
+	auto vec = map_->checkRelics();
+	for (auto b : vec) {
+		if (!b) relicsCollected++;
+	}
+	if (relicsCollected >= 3) player_->getComponent<FramedImageOtt>()->hasAllRelics(false);
 
 	currentMap = (ecs::maps)map_->getCurrentMap();
 	initialEnemies = enemies;
@@ -496,6 +501,7 @@ void PlayState::AddRelic(ecs::elements id) {
 	sdlutils().soundEffects().at("relic_wink").setVolume(100);
 	sdlutils().soundEffects().at("relic_wink").play(0, ecs::_channel_PLAYER);
 	relicsCollected++;
+	mngr_->getMap()->getComponent<MapComponent>()->setRelicPicked(id);
 	if (relicsCollected >= 3) player_->getComponent<FramedImageOtt>()->hasAllRelics();
 }
 

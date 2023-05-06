@@ -137,6 +137,7 @@ private:
 	std::string pickedLifeShards = "";
 	bool loadEarthBoss = true, loadWaterBoss = true, loadFireBoss = true;
 	bool loadEarthElem = true, loadWaterElem = true, loadFireElem = true;
+	bool loadEarthRelic = true, loadWaterRelic = true, loadFireRelic = true;
 	bool generateDarkEnemies = false;
 	bool darkEnemiesGenerated = false;
 
@@ -162,6 +163,10 @@ public:
 	void deleteCollision(std::string sala);
 
 	void playFadeOutAnimation() { anim_->startFadeOut(); }
+
+	inline std::vector<bool> checkRelics() {
+		return { loadEarthRelic, loadWaterRelic, loadFireRelic };
+	}
 
 	inline std::string getCurrentLevel() { return currentMapKey; }
 
@@ -247,6 +252,20 @@ public:
 				loadFireBoss = false;
 				generateDarkEnemies = true;
 				break;
+		}
+	}
+
+	void setRelicPicked(ecs::elements e) {
+		switch (e) {
+		case ecs::Earth:
+			loadEarthRelic = false;
+			break;
+		case ecs::Water:
+			loadWaterRelic = false;
+			break;
+		case ecs::Fire:
+			loadFireRelic = false;
+			break;
 		}
 	}
 };

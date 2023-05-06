@@ -95,9 +95,11 @@ void FramedImageOtt::render()
 	}
 }
 
-void FramedImageOtt::hasAllRelics() {
-	sdlutils().soundEffects().at("relic_transformation").setVolume(50);
-	sdlutils().soundEffects().at("relic_transformation").play(0, ecs::_channel_PLAYER);
+void FramedImageOtt::hasAllRelics(bool sounds) {
+	if (sounds) {
+		sdlutils().soundEffects().at("relic_transformation").setVolume(50);
+		sdlutils().soundEffects().at("relic_transformation").play(0, ecs::_channel_PLAYER);
+	}
 	hasRelics = true; 
 	if(mngr_->getPlayer()->getComponent<Health>()->getElement() == ecs::Light) tex_ = &sdlutils().images().at("ott_luz_relic");
 	if (mngr_->getPlayer()->getComponent<Health>()->getElement() == ecs::Earth) tex_ = &sdlutils().images().at("ott_tree_relic");

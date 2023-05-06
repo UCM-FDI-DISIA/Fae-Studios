@@ -60,7 +60,7 @@ public:
     inline int getCurRow() { return row; }
     inline void setRow(int r) { row = r; }
     inline void setCol(int c) { col = c; }
-    void hasAllRelics();
+    void hasAllRelics(bool sounds = true);
     inline void setShieldCol(int c) { shieldCol = c; }
     inline void setShieldRow(int r) { shieldRow = r; }
     void changeElement(ecs::elements newElem);

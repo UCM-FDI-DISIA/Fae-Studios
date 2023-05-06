@@ -42,7 +42,7 @@ Ott, el protagonista, tiene por destino salvar al mundo de la oscuridad que lo a
 El elemento básico que incluye el personaje es luz, a lo largo del juego podrás conseguir el resto de elementos, cada uno en su reino correspondiente, exceptuando la oscuridad, que es la representación del enemigo y superior en fuerza al resto de elementos (no ante luz) tal y como se muestra en el diagrama.
 
 ### **3.2 - Mecánicas de Ott**
-<img src="./gdd-assets/controles.png">
+<img src="./gdd-assets/controls.jpg">
 <table>
     <tr>
         <th>Input</th>
@@ -51,7 +51,7 @@ El elemento básico que incluye el personaje es luz, a lo largo del juego podrá
     <tr>
         <td>Flechas laterales (teclado) <br> Mover joystick izquierdo (mando)</td>
         <td><b>Desplazamiento izquierda o derecha</b>. Velocidad constante.
-        También se permite movimiento durante el salto a una velocidad reducida.
+        También se permite movimiento durante el salto a una velocidad ligeramente aumentada.
         </td>
     </tr>
     <tr>
@@ -127,7 +127,7 @@ El elemento básico que incluye el personaje es luz, a lo largo del juego podrá
     </tr>
     <tr>
         <td>Agua</td>
-        <td><b>Chorro de agua</b> (de más rango que el básico, pero con menor daño) <br> <img src="./gdd-assets/water_Attack.png"> <br> El rectángulo representa el ataque. El jugador lanza un ataque que se detiene al golpear a un enemigo.</td>
+        <td><b>Chorro de agua</b> (de más rango que el básico) <br> <img src="./gdd-assets/water_Attack.png"> <br> El jugador lanza un ataque que se detiene al golpear a un enemigo.</td>
         <td>La versión cargada permanece activa durante un tiempo, dañando a todos los enemigos que entran en contacto por ticks, Ott puede moverse y el ataque le sigue.</td>
         <td><b>Buceo</b>: sustituye al movimiento básico de Ott al estar bajo el agua. Con el resto de elementos, Ott subirá hacia la superficie al estar sumergido.</td>
     </tr>
@@ -140,26 +140,27 @@ El elemento básico que incluye el personaje es luz, a lo largo del juego podrá
 </table>
 
 ### **3.4 - Defensa**
-Ott es capaz de usar un escudo que le permitirá mitigar completamente el daño que vaya a recibir. Cuando tiene el escudo en alto su velocidad de movimiento se ve bastante reducida. Este método de defensa tiene 3 formas de actuar según el elemento que haya atacado a Ott respecto al elemento escogido actualmente:
+Ott es capaz de usar un escudo que le permitirá mitigar el daño que vaya a recibir. Cuando tiene el escudo en alto su velocidad de movimiento se ve bastante reducida. Este método de defensa tiene 3 formas de actuar según el elemento que haya atacado a Ott respecto al elemento escogido actualmente:
 
-- **Elemento débil**: Si Ott ha bloqueado un ataque de esta forma, no recibirá daño.
+- **Elemento débil**: Ott no recibirá daño.
 - **Elemento neutro**: Se le pondrá una vida **débil**
 - **Elemento fuerte**: Ott queda *stunneado* durante pocos segundos por lo que no podrá realizar ningún tipo de acción hasta que termine el efecto.
 <img src="./gdd-assets/lightShield.png">
 
 ### **3.5 - Sistema de vida**
 
-Se empezará con 5 puntos de vida que puede perder cuando recibe un ataque de un enemigo, si entra en contacto con algún enemigo o con algún elemento del dañino entorno (pinchos, zarzas, cristales…).   
+Se empezará con 5 puntos de vida que puede perder cuando recibe un ataque de un enemigo, si entra en contacto con algún enemigo o con algún elemento dañino del entorno (pinchos, zarzas, cristales…).   
 El sistema de vida también se ve afectada por el sistema de elementos. Según el tipo de daño elemental que reciba Ott, se recibe una cantidad de daño variable:
 - **Elemento débil**: Ott recibe "media vida" de daño, de manera que si no recibe ningún daño en un corto margen de tiempo, recuperará esa vida. De lo contrario, si recibe otro daño debil, perderá la vida por completo, pero si recibe daño neutro o fuerte, además de perder las vidas correspondientes, su vida media pasará a la última vida entera que tenga.
 - **Elemento neutro**: Perderá una vida.
 - **Elemento fuerte**: Ott recibe un impacto crítico por lo que pierde 2 vidas.
 
-<br> Spritesheet que representan la vida de Ott en la UI: 
-<img src="./gdd-assets/lamps.png"></br>
+Spritesheet que representan la vida de Ott en la UI: 
+<br> <img src="./gdd-assets/lamps.png"></br>
+LLENA / VACÍA / DÉBIL
 
-Si en algún momento el valor de vida llega a 0, Ott morirá y volverá a aparecer en el último **Punto de Teletransporte** que atravesará, haciendo que los enemigos que haya vencido durante su última vida reaparezcan.  
-El máximo de puntos de vida puede ser ampliado mediante fragmentos de vida, que podrán obtenerse explorando el mapa de forma exhaustiva y haciendo un buen uso del mapa de Ott (Véase [***MAPA***](#36---mapa) para la representación de este sistema).
+Si en algún momento el valor de vida llega a 0, Ott morirá y volverá a aparecer en el último **Zona de Guardado** en la que Ott haya guardado el juego (habiendo cogido un *elemento* o descansando en un *Santuario*), haciendo que los enemigos que haya vencido durante su última vida reaparezcan.  
+El máximo de puntos de vida puede ser ampliado mediante fragmentos de vida, que podrán obtenerse explorando los diferentes reinos de forma exhaustiva y haciendo un buen uso del mapa de Ott (Véase [***MAPA***](#36---mapa) para la representación de este sistema).
 
 Spritesheet que representan los fragmentos de vida en el juego: 
 <br> <img src="./gdd-assets/lifeshards.png"></br>
@@ -235,14 +236,58 @@ Todos los reinos cuentan con los siguientes puntos en común:
 De esta forma es posible aumentar la vida máxima en 1 en cada uno de los reinos (para un total de **8 vidas**) siempre y cuando se exploren casi en su totalidad. 
 
 ### Bosque
-Se trata de la **primera zona del juego**. Trata de introducir las mecánicas de movimiento y tiene **enemigos** muy **sencillos**, que intentan introducir las mecánicas de ataque y defensa de forma liviana.
-El juego comienza con el jugador observando la gigantesca puerta del **Boss Final**, a quien se tendrá que enfrentar para rematar su aventura. Esta puerta muestra **4 luces**, todas **apagadas**, excepto 1, que se encenderá en cuanto el jugador pueda tomar control de Ott. Estas luces representan los diferentes elementos, y la que se enciende al comenzar la aventura representa la luz.
+Se trata de la **primera zona del juego**. Trata de introducir las mecánicas de movimiento y tiene poca cantidad de enemigos.
+El juego comienza con el jugador observando la puerta del **Boss Final**, a quien se tendrá que enfrentar para rematar su aventura. Esta puerta muestra **4 luces**, todas **apagadas**, excepto 1, estará encendida desde el primero momento. Estas luces representan los diferentes elementos, y la que se enciende al comenzar la aventura representa la luz.
+
+#### Dinámica
+
+En este mundo, pretendemos que el jugador aprenda a usar las mecánicas básicas, como movimiento, ataque, teleportación y guardado, por lo que el mapa es lo más intuitivo posible, pero manteniendo un número elevado de salas. 
+
+La parte de abajo del mapa es circular, por lo que no importa el lado por el que el jugador elija bajar, llegará a la sala del elemento, donde, al igual que en el resto del mapa, verá un cartel explicativo de cómo usar su nuevo poder: **las enredaderas**.
+
+A lo largo del mapa el jugador encontrará enemigos de no mucha complejidad, como setas y cucarachas de agua o de tierra, es decir, o neutrales o débiles respecto a los elementos que pudiera tener en ese punto, para que se familiarice con el combate de forma mas segura.
+
+El boss también tiene una complejidad media/baja, con bastantes indicadores de por donde van a venir los ataques, y cual es la mejor estrategia para derrotarlo (por medio de un cartel). (Véase [***HUD***](#jefes) para una explicación más profunda).
+
+Para tratar de inculcar la reexploración del mapa como algo importante, se le muestra al jugador en su primera sala una enredadera en el centro de una plataforma por la que obligatoriamente Ott tendrá que pasar. Este objeto interactivo lleva a la *primera reliquia del juego*. 
+
+Se ha colocado el cartel del mapa en una zona que sea imposible saltarse: en la sala principal de este nivel. Este cartel incita al jugador a abrir el mapa y descubrir que Ott ha sido capaz de pintar todo lo recorrido hasta ahora. 
+Al ver este mapa, planteamos que el jugador sea consciente de que esta Sala 1 tiene una abertura en la parte superior a la que el jugador todavía no podrá llegar, al igual que una por la parte derecha. De esta forma el jugador tratará de prestar atención a lo que aparece en el mapa porque revela información muy útil.
+
+En resumen, es un mapa bastante asumible para todos los jugadores y no pretende perderlos ni frustrarlos, sino guiarlos en su primer encuentro con el juego, e ir implantando ideas como el beneficio de volver atrás para reexplorar zonas con nuevas habilidades o la importancia de guardar o manejar los elementos. 
 
 ### Zona acuática
-La segunda zona del juego estará sumergida en su mayor parte. Para poder desplazarse Ott tendrá que cambiar entre el poncho de agua y el resto de elementos para poder descender y ascender a voluntad por el nivel. Este nivel está muy centrado al rededor de esta mecánica de movimiento, presentando así salas a modo de laberinto y algún que otro puzzle.
+La segunda zona del juego estará sumergida en su mayor parte. Para poder desplazarse Ott tendrá que cambiar entre el elemento de agua y el resto para poder descender y ascender a voluntad por el nivel. Este nivel está muy centrado alrededor de esta mecánica de movimiento, presentando así salas a modo de laberinto.
+
+#### Dinámica
+
+Al contrario que en el anterior mapa, aquí ya damos por hecho que el jugador ha absorbido las lecciones inculcadas, por lo que la dificultad aumenta de forma considerable, con muchos menos **Santuarios** y muchos más enemigos.
+
+Al principio, el 90% del mapa queda bloqueado al jugador hasta que consiga el elemento de agua, ya que el resto de elementos no pueden sumergirse en esta, lo que hace que esta primera parte sea completamente lineal. Una vez conseguido el elemento sin embargo, la cosa cambia. 
+Para obligar al jugador a aprender la nueva mecánica de movimiento añadida con este elemento, se ha diseñado esta primera zona lineal, en la que, una vez se coge el elemento de la zona, su única salida sea por la piscina de agua que se sitúa en la parte inferior de la sala 3, donde podrá aprender que puede llegar al fondo del agua con este elemento. La habitación contigua es un laberinto que fuerza al jugador a cambiar de elemento para entender la mecánica a la perfección.
+
+La principal dinámica de este mapa es lo laberíntico que es: es el mapa más grande en cuanto a superficie y tiene el mayor número de salas, lo que hace que sea muy fácil para el jugador perderse y desorientarse. En caso de que el jugador no haya encontrado utilidad al minimapa, este se convertirá en una de sus más valiosas herramientas a la hora de superar este mundo.
+
+Además, una vez que el jugador consiga el elemento de agua y pueda sumergirse en las profundidades, se verá obligado a cambiar de elemento constantemente para poder desplazarse por las diferentes salas, por lo que de nuevo se pretende acostumbrar al jugador a no estancarse en uno de ellos. 
+
+El boss de este mapa, también aumenta en dificultad respecto al anterior. Se trata de una tensa persecución, difícilmente superable en un primer intento, que pretende frustrar, ya que el más mínimo fallo y mala reacción puede suponer la muerte de Ott, haciendo que el jugador tenga que repetir toda la batalla hasta perfeccionar mecánica de cambio de elemento en el agua.
 
 ### Volcán
-La última zona del juego, ambientada un desolado y peligroso ambiente volcánico. En este segmento del juego desta una distribución menos lineal de las salas, brindando más libertad al jugador. El parkour juega un rol importante en el nivel, la lava sustituye a los pinchos del principio, y las plataformas son más pequeñas. Además algunas raíces bloquean el paso del jugador que tendrá que buscar una manera de destruirlas para abrirse paso.
+
+Es la zona final y más difícil del juego. Presenta gran cantidad de enemigos y una estética saturada y hostil. Se ha querido hacer un nivel ligeramtente lioso donde el minimapa puede no ser una ayuda tan grande, pues las salas están repartidas y no comparten conexiones. La memoria del jugador jugará un papel fundamental en este nivel.
+
+#### Dinámica
+
+Por último, el mapa de fuego sigue la tendencia de cambiar por completo la experiencia de navegación en cada mapa, esta vez basando sobre todo la exploración en el teletransporte con lámparas.
+
+En este mapa se da casi total libertad al jugador de ir hacia donde quiera y no se le fuerza a coger el elemento antes de poder explorar. No obstante, algunas partes importantes del mapa, como el acceso al Miniboss de la zona, se mantienen bloqueadas por zarzas que impiden el paso y dañarán al jugador en caso de que intente atravesarlas. Estos objetos solo pueden ser eliminados con el ataque del elemento de fuego.
+
+Inspirados por las **mansiones de Boo de Mario Bros**, que incluyen una gran cantidad de puertas para confundir al jugador y que pueden guiarle tanto a recompensas como a salas repletas de enemigos, cada una de las lámparas de este mapa tiene un destino sorpresa para el jugador, lo que hace que la exploración se sienta mucho más arriesgada.
+
+El boss de este mapa requiere algo de astucia, ya que para poder derrotarlo, el jugador deberá darse cuenta de que es completamente inmune a cualquier ataque, y posteriormente ponerse creativo buscando formas de derrotarlo. 
+Si es perspicaz, se dará cuenta de que hay un depósito de agua por encima del boss, del que cuelga una zarza, y solo después de eliminarla, el agua caerá sobre el jefe y empezará la batalla de verdad, ya que el jefe podrá recibir vida a partir de entonces.
+
+Es una pelea muy dura, que puede que desesperar a muchos, pero no deja de ser el último miniboss del juego, y el jugador ya cuenta con todos los elementos disponibles para derrotarlo.
 
 ## **5 - HUD**
 La interfaz ocupará el menor espacio posible en pantalla, ya que la información acerca del estado del jugador se presentará de forma diegética (integrada en el mundo).  
@@ -269,7 +314,7 @@ Los personajes de cada elemento portarán los colores de su reino, excepto aquel
 
 **Las paletas de cada zona serán las siguientes:**
 
-<img src="./gdd-assets/paletas.png">
+<img src="./gdd-assets/paletas.PNG">
 
 Algunas capturas del resultado final de las zonas:
 
@@ -302,11 +347,39 @@ Los siguientes ítems se encontrarán repartidos a lo largo de los 3 mapas explo
 <table>
     <tr>
         <td><b>Elemento</b>
-        <br><img src="./gdd-assets/bug.png"></br>
+        <br><img src="./gdd-assets/elements.png"></br>
         </td>
         <td>
             <ul>
                 <li> Son el objeto que permitirá a Ott desbloquear las nuevas habilidades. Son 3, únicos y repartidos cada uno en un mapa distinto. </li>
+                <li> Una vez se coja uno de ellos, el <i>spawn-point</i> de Ott se setteará a la posición del elemento.</li>
+            </ul>
+        </td>
+    </tr>
+        <tr>
+        <td><b>Fragmento de Vida</b>
+        <br><img src="./gdd-assets/lifeshards.png"></br>
+        </td>
+        <td>
+            <ul>
+                <li> Dan al jugador la oportunidad de aumentar su vida máxima en 1 cuando coge dos de estos fragmentos. </li>
+                <li> Hay un total de 6: 2 en cada mapa explorable.</li>
+                <li> Se encuentran ocultos a lo largo de los mismos.</li>
+                <li> Al ser recogidos un texto en el centro de la pantalla muestra cuánto se tienen: 1/2 o 2/2</li>
+            </ul>
+        </td>
+    </tr>
+        <tr>
+        <td><b>Reliquia</b>
+        <br><img src="./gdd-assets/earthRelic.png"></br>
+        <br><img src="./gdd-assets/waterRelic.png"></br>
+        <br><img src="./gdd-assets/fireRelic.png"></br>
+        </td>
+        <td>
+            <ul>
+                <li> Al igual que los elementos, hay 1 por mapa. </li>
+                <li> Al recoger las 3 reliquias se desbloquea una corona, un <b>blush</b> en las mejillas y zapatitos. No tienen efecto mecánico, solo estético. </li>
+                <li> Están ciertamente escondidas o detrás de algún reto en cada uno de los mapas. </li>
             </ul>
         </td>
     </tr>
@@ -401,10 +474,10 @@ Cada zona del juego dispondrá de 1 jefe propio, con sus mecánicas únicas y do
             <ul>
                 <li>Este jefe a utiliza varios ataques de todos los elementos.</li>
                 <li>El ataque de oscuridad, crea un agujero negro que atrae a Ott hacia él a menos que lleve el elemento de luz, igualmente, crea puños que se moverán horizontalmente o verticalmente.</li>
-              <li>El ataque de fuego, crea paredes que se desplazan horizontalmente, y dañarán a Ott si entra en contacto con ellas. La única manera de evitarlas es con el elemento de Agua, buceando en unos surco que hay a la altura del suelo.</li>
-              <li>El ataque de agua crea 2 burbujas que dispararán a Ott. Estas burbujas permanecen activas durante bastante tiempo, y la única forma de destruirlas antes es creando unas enrredaderas que las exploten./li>
-              <li>El jefe puede hacer uso de su habilidad de planta, gracias al cual empezará a curarse. Si Ott utiliza sus ataques de fuego para cortar las raíces que le curan, empezará la fase de daño.</li>
-              <li>La fase de daño será de tiempo limitado. Durante el tiempo que esté activa, Ott puede dañar al jefe golpeándole en la cara.</li>
+              <li><b>El ataque de fuego</b>, crea paredes que se desplazan horizontalmente, y dañarán a Ott si entra en contacto con ellas. La única manera de evitarlas es con el elemento de Agua, buceando en unos surco que hay a la altura del suelo.</li>
+              <li><b>El ataque de agua</b> crea 2 burbujas que dispararán a Ott. Estas burbujas permanecen activas durante bastante tiempo, y la única forma de destruirlas antes es creando unas enrredaderas que las exploten./li>
+              <li>El jefe puede hacer uso de su <b>habilidad de planta</b>, gracias al cual empezará a curarse. Si Ott utiliza sus ataques de fuego para cortar las raíces que le curan, empezará la fase de daño.</li>
+              <li><b>La fase de daño</b> será de tiempo limitado. Durante el tiempo que esté activa, Ott puede dañar al jefe golpeándole en la cara.</li>
             </ul>
         </td>
     </tr>
@@ -413,6 +486,9 @@ Cada zona del juego dispondrá de 1 jefe propio, con sus mecánicas únicas y do
 ## **10 - Recursos utilizados**
 
 ### Recursos públicos
+
+Por desgracia, no hemos conseguido encontrar algunas de las referencias de los sonidos utilizados a continuación, pero sí podemos afirmar que son todos sacados de páginas web con licencias de uso libre y ninguno de pago.
+
   - [StringStar fields](https://trixelized.itch.io/starstring-fields) (itch.io), Trixie
   - [Oak Woods](https://brullov.itch.io/oak-woods) (itch.io), brullov
   - [Pixel effects pack](https://codemanu.itch.io/pixelart-effect-pack) (itch.io), CodeManu
