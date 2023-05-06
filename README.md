@@ -595,7 +595,7 @@ Por desgracia, no hemos conseguido encontrar algunas de las referencias de los s
 
 ### Objetivos y preguntas de investigación
 Nuestro objetivo principal es evaluar la curva de aprendizaje de las mecánicas, dinámicas y el transcurso y funcionamiento de los mapas. 
-Las observaciones a tener en cuenta se encuentran en (link archivo).
+Las observaciones a tener en cuenta se encuentran en [PREGUNTAS QA])(https://github.com/UCM-FDI-DISIA/Fae-Studios/blob/main/qa-resources/PREGUNTAS%20QA.pdf).
 
 ### Duración y entorno de realización
 El entorno de realización será dónde vea oportuno el evaluador. El periodo de pruebas durará 20 minutos y, en caso de que el jugador necesite más, se le proporcionará 5 minutos más. Después se realizará un cuestionario, de aproximadamente 5 minutos, para obtener feedback sobre aspectos concretos del juego.
@@ -675,6 +675,12 @@ En esta sala los jugadores hicieron uso de todas las habilidades posibles con Ot
 
 #### Formulario
 Aunque no todos los usuarios pudieron rellenar el formulario, obtuvimos bastante información.
+<img src="./qa-resources/Pregunta1.png">
+<img src="./qa-resources/Pregunta2.png">
+<img src="./qa-resources/Pregunta3.png">
+<img src="./qa-resources/Pregunta4.png">
+<img src="./qa-resources/Pregunta5.png">
+
 
 #### Conclusiones y cambios
 Principalmente se pudo observar la falta de feedback que había para el jugador. Nada indicaba qué objetos eran interactuables o con qué se accedía a ellos. Por tanto, ese fue el primer cambio a tener en cuenta. Para ello implementamos:
