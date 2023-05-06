@@ -66,6 +66,7 @@ void EarthBossManager::destroyEntities() {
 }
 void EarthBossManager::initializeEntities() {
 	sdlutils().soundEffects().at("roar").play(0, ecs::_channel_ALERTS);
+	sdlutils().musics().at("earth_boss_fight").play(1);
 	//CREACION DE LAS 6 ENREDADERAS LATERALES
 	SDL_Rect vine_Rect;
 	vine_Rect.x = roomDimensions.x + roomDimensions.w + offSet;
@@ -257,6 +258,9 @@ void EarthBossManager::resetFight() {
 	attackingHorizontally = false;
 	attackingVertically = false;
 	resetTrigger = false;
+	sdlutils().musics().at("earth_boss_fight").fadeOutMusic(1000);
+	sdlutils().musics().at("earth_level").fadeInMusic(2000, 1);
+
 }
 
 void EarthBossManager::update() {
@@ -376,4 +380,6 @@ void EarthBossManager::die() {
 	mngr_->getCamera()->getComponent<CameraComponent>()->setBounds(bounds);
 	map->setBossCompleted(ecs::Earth);
 	showBar = false;
+	sdlutils().musics().at("earth_boss_fight").haltMusic();
+	sdlutils().musics().at("earth_level").play(1);
 }
