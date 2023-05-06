@@ -143,6 +143,8 @@ void FireBossComponent::resetBoss() {
 	start = false;
 	ent_->getComponent<Health>()->resetHealth();
 	startPosition();
+	sdlutils().musics().at("fire_boss_fight").fadeOutMusic(2000);
+	sdlutils().musics().at("fire_level").fadeInMusic(2000, 1);
 }
 
 
