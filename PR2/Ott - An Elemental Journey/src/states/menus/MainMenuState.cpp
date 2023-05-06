@@ -47,7 +47,12 @@ MainMenuState::MainMenuState() : MenuState() {
     pos = Vector2D(sdlutils().getWindowDimensions().getX() / 2, 4 * sdlutils().getWindowDimensions().getY() / 7);
     buttons.push_back(constructors::button(mngr_, pos, "Cargar", sdlutils().fonts().at("vcr_osd48"), [this]() {
         sdlutils().soundEffects().at("button").play(0, ecs::_channel_UI);
-        fade->getComponent<FadeTransitionComponent>()->setFunction([]() { GameStateMachine::instance()->changeState(new PlayState("../resources/saves/temporalUniqueSave.sv")); sdlutils().musics().at("main_menu_music").fadeOutMusic(100); });
+        std::ifstream file("../resources/saves/temporalUniqueSave.sv");
+        if(!file.fail()) fade->getComponent<FadeTransitionComponent>()->setFunction([]() { GameStateMachine::instance()->changeState(new PlayState("../resources/saves/temporalUniqueSave.sv")); sdlutils().musics().at("main_menu_music").fadeOutMusic(100); });
+        else {
+            fade->getComponent<FadeTransitionComponent>()->setFunction([]() { GameStateMachine::instance()->changeState(new PlayState()); sdlutils().musics().at("main_menu_music").fadeOutMusic(100); });
+            playStateInit = true;
+        }
         fade->getComponent<FadeTransitionComponent>()->revert();
     }));
 
