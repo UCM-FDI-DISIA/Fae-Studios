@@ -5,6 +5,8 @@
 #include "../states/GameStateMachine.h"
 #include "../states/FinalCreditsState.h"
 #include "../states/PlayState.h"
+#include "FinalBossBehaviorComponent.h"
+#include "FramedImage.h"
 
 //FinalBossAnimation::~FinalBossAnimation()
 //{
@@ -85,9 +87,10 @@ void FinalBossAnimation::setState(int newState)
 void FinalBossAnimation::endAnim()
 {
 	if (currentAnimation == DIE_BOSS) {
-		ent_->setAlive(false);
-		static_cast<PlayState*>(stateMachine().getPlayState())->endGame();
 		alive = false;
+		ent_->getComponent<FinalBossBehaviorComponent>()->startFinalCountdown();
+		image->setCol(20); // VALORES NULOS
+		image->setRow(20);
 	}
 	else if (currentAnimation == IDLE_BOSS) setState(IDLE_BOSS2);
 	else if (currentAnimation == DAMAGE_BOSS)setState(STUN_BOSS);

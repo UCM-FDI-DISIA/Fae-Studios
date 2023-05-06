@@ -8,6 +8,8 @@
 #include "BlackHoleAnimationComp.h"
 #include "EnemyContactDamage.h"
 #include "DamageArea.h"
+#include "../states/GameStateMachine.h"
+#include "../states/PlayState.h"
 
 
 
@@ -17,7 +19,7 @@ FinalBossBehaviorComponent::FinalBossBehaviorComponent(MapComponent* map) :Compo
 	lastElem = currentElement;
 	bossTransform = nullptr; bossHealth = nullptr;
 	map_ = map;
-	timeBetweenAttacks = SDL_GetTicks();
+	timeCounter = SDL_GetTicks();
 	stunned = false;
 	isWeakPoints = false;
 	waitingForReset = false;
@@ -45,11 +47,12 @@ void FinalBossBehaviorComponent::initComponent()
 
 void FinalBossBehaviorComponent::update()
 {
+	if (SDL_GetTicks() - lastTime > TIME_DIFF) {
+		timeCounter = SDL_GetTicks() - (lastTime - timeCounter);
+	}
 	if (!bossHealth->isDead())
 	{
-		if (SDL_GetTicks() - lastTime > TIME_DIFF) {
-			timeBetweenAttacks = SDL_GetTicks() - (lastTime - timeBetweenAttacks);
-		}
+		
 		if (player->getComponent<Health>()->isDead()) { waitingForReset = true;  }
 		else
 		{
@@ -73,16 +76,16 @@ void FinalBossBehaviorComponent::update()
 			}
 			else
 			{
-				if (spikes.size() > 0  && SDL_GetTicks() - timeBetweenAttacks < ATTACK_TIME && SDL_GetTicks() - timeCure > CURE_TIME)
+				if (spikes.size() > 0  && SDL_GetTicks() - timeCounter < ATTACK_TIME && SDL_GetTicks() - timeCure > CURE_TIME)
 				{
 					bossHealth->cureHealth(1);
 					timeCure = SDL_GetTicks();
 			
 				}
 				//Temporizador de ataque (ataca cada 5 segundos)
-				else if (SDL_GetTicks() - timeBetweenAttacks > ATTACK_TIME ) {
+				else if (SDL_GetTicks() - timeCounter > ATTACK_TIME ) {
 					// Actualizamos 5 seg más
-					timeBetweenAttacks = SDL_GetTicks();
+					timeCounter = SDL_GetTicks();
 					//Switch de los diferentes ataques del boss
 
 					if (numAttacks < 5) {
@@ -118,9 +121,13 @@ void FinalBossBehaviorComponent::update()
 				}
 			}
 		}
-		lastTime = SDL_GetTicks();
 	}
-		
+	else if (finalCountdown && SDL_GetTicks() - timeCounter > FINAL_COUNTDOWN) {
+		ent_->setAlive(false);
+		static_cast<PlayState*>(stateMachine().getPlayState())->endGame();
+	}
+
+	lastTime = SDL_GetTicks();
 }
 
 void FinalBossBehaviorComponent::reset()
@@ -134,7 +141,7 @@ void FinalBossBehaviorComponent::reset()
 	deleteWeakPoints();
 	deleteSpikes();
 	//timers
-	timeBetweenAttacks = SDL_GetTicks() + ATTACK_TIME;
+	timeCounter = SDL_GetTicks() + ATTACK_TIME;
 
 }
 

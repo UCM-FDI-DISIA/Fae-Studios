@@ -8,6 +8,8 @@ const int ATTACK_TIME = 5000;
 const int STUNNED_TIME = 5000;
 const int CURE_TIME = 3000;
 const int TIME_DIFF = 500;
+const int FINAL_COUNTDOWN = 5000;
+
 class FinalBossBehaviorComponent : public Component
 {
 public:
@@ -24,6 +26,10 @@ public:
 	void deleteSpikes();
 	void deleteSpikeFromVec(Entity* spikes);
 	void deleteWeakPoints();
+	inline void startFinalCountdown() {
+		timeCounter = SDL_GetTicks();
+		finalCountdown = true;
+	}
 private:
 	void spawnBubbles();
 	void spawnFireWall();
@@ -39,7 +45,7 @@ private:
 	FinalBossAnimation* bossAnim;
 	Entity* player;
 
-	int timeBetweenAttacks;
+	int timeCounter;
 	int timeStunned;
 	int timeCure;
 	int currentElement;
@@ -47,6 +53,7 @@ private:
 	int FIST_SIZE = 250;
 	int lastElem;
 	int lastTime;
+	bool finalCountdown = false;
 
 	int numAttacks = 0;
 	bool stunned, isWeakPoints, waitingForReset;
